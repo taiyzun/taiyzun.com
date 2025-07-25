@@ -1,7 +1,17 @@
+:root {
+  --earth-dark: #1a1a2e;
+  --earth-medium: #162447;
+  --earth-light: #1f4068;
+  --blue-accent: #1f75fe;
+  --blue-light: #4da8da;
+  --gold: #ffd700;
+  --silver: #c0c0c0;
+}
+
 body {
   margin: 0;
   padding: 0;
-  background: #000;
+  background: var(--earth-dark);
   font-family: 'Trebuchet MS', sans-serif;
   color: #fff;
   display: flex;
