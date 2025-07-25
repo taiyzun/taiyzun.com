@@ -11,18 +11,20 @@
   <video autoplay muted loop class="background-video">
     <source src="assets/videos/sora.mp4" type="video/mp4" />
   </video>
-  <img src="assets/images/TaiyZun-Sword-logo-2021.png" alt="Taiyzun Logo" class="logo" />
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="gallery.html">Gallery</a>
-    <a href="projects.html">Projects</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-  <div class="tagline">
-    <p><strong>Simplifying Tech, Media & Communication</strong></p>
-    <p><em>Delivering Global Connectivity &amp; Peace of Mind</em></p>
-  </div>
+  <header>
+    <img src="assets/images/TaiyZun-Sword-logo-2021.png" alt="Taiyzun Logo" class="logo" />
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="projects.html">Projects</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="tagline">
+      <p><strong>Simplifying Tech, Media & Communication</strong></p>
+      <p><em>Delivering Global Connectivity &amp; Peace of Mind</em></p>
+    </div>
+  </header>
   <main>
     <h1>Welcome</h1>
     <p>In a world where code meets compassion, Taiyzun weaves technology with humanity.</p>
@@ -36,4 +38,35 @@
     <a href="https://x.com/Taiyzun"><img src="assets/images/icons/x.png" alt="X" /></a>
   </div>
 </body>
+<style>
+.background-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
+  object-fit: cover;
+}
+.logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  height: 80px;
+  z-index: 1;
+}
+.socials {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 15px;
+  z-index: 1;
+}
+.socials img {
+  height: 24px;
+  width: 24px;
+}
+</style>
 </html>
