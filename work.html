@@ -9,143 +9,38 @@
   <link rel="icon" type="image/png" href="assets/logo/favicon.png">
   <link rel="apple-touch-icon" href="assets/logo/favicon.png">
   <style>
-    /* Work page specific styles */
-    .work-page {
-      padding: 120px 20px 60px;
-      max-width: 1200px;
-      margin: 0 auto;
+    /* Enhanced Gold & Silver Theme */
+    :root {
+      --primary-color: #181818;
+      --background-color: #181818;
+      --gold-color: #d4af37;
+      --silver-color: #c0c0c0;
+      --bright-gold: #ffd700;
+      --accent-color: var(--gold-color);
+      --header-font: 'Trebuchet MS', sans-serif;
+      --body-font: 'Trebuchet MS', sans-serif;
     }
-
-    .page-header {
-      text-align: center;
-      margin-bottom: 60px;
-      opacity: 0;
-      animation: fadeInUp 0.6s ease forwards;
-    }
-
-    .page-header h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      color: var(--gold-color);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
-    }
-
-    .page-header .lead {
-      font-size: 1.25rem;
+    body {
+      background: var(--background-color);
       color: var(--silver-color);
-      max-width: 800px;
-      margin: 0 auto;
-      line-height: 1.6;
+      font-family: var(--body-font);
+      min-height: 100vh;
+      letter-spacing: 0.02em;
+      transition: background 0.3s;
     }
-
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-      padding: 0 20px;
-    }
-
-    .card {
-      background: rgba(0, 0, 0, 0.8);
-      border: 1px solid rgba(212, 175, 55, 0.2);
-      border-radius: 15px;
-      padding: 30px;
-      transition: all 0.3s ease;
-      opacity: 0;
-      animation: fadeInUp 0.6s ease forwards;
-      animation-delay: calc(var(--card-index, 0) * 0.1s);
-      backdrop-filter: blur(10px);
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
-      border-color: var(--gold-color);
-      background: rgba(0, 0, 0, 0.9);
-    }
-
-    .card h2 {
+    h1, h2, h3, h4, h5, h6 {
       color: var(--gold-color);
-      font-size: 1.5rem;
-      margin-bottom: 20px;
-      position: relative;
-      padding-bottom: 10px;
+      font-family: var(--header-font);
+      letter-spacing: 0.05em;
     }
-
-    .card h2::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 50px;
-      height: 2px;
-      background: var(--gold-color);
-      transition: width 0.3s ease;
-    }
-
-    .card:hover h2::after {
-      width: 100%;
-      background: var(--bright-gold);
-    }
-
-    .card ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .card li {
-      margin-bottom: 15px;
-      padding-left: 25px;
-      position: relative;
-      line-height: 1.6;
-      color: var(--silver-color);
-    }
-
-    .card li::before {
-      content: '→';
-      position: absolute;
-      left: 0;
+    a {
       color: var(--gold-color);
+      transition: color 0.3s;
     }
-
-    @media (max-width: 768px) {
-      .work-page {
-        padding: 100px 15px 40px;
-      }
-
-      .page-header h1 {
-        font-size: 2rem;
-      }
-
-      .page-header .lead {
-        font-size: 1rem;
-      }
-
-      .portfolio-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 0;
-      }
-
-      .card {
-        padding: 20px;
-      }
+    a:hover {
+      color: var(--bright-gold);
     }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
+    /* Navigation Enhancements */
     .menu-toggle {
       display: none;
       position: fixed;
@@ -153,7 +48,7 @@
       right: 30px;
       z-index: 1100;
       background: var(--gold-color);
-      color: #000;
+      color: #181818;
       border: none;
       border-radius: 50%;
       width: 48px;
@@ -173,11 +68,53 @@
       overflow: hidden;
       max-height: 80px;
       opacity: 1;
+      background: rgba(24,24,24,0.98);
+      border-bottom: 1px solid var(--gold-color);
+      box-shadow: 0 2px 8px rgba(212,175,55,0.08);
     }
     .site-nav.collapsed {
       max-height: 0;
       opacity: 0;
       pointer-events: none;
+    }
+    .site-nav ul {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0.5rem 0;
+    }
+    .site-nav li {
+      margin: 0;
+    }
+    .site-nav a {
+      color: var(--silver-color);
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 0.5rem 1.2rem;
+      border-radius: 25px;
+      transition: background 0.3s, color 0.3s;
+      position: relative;
+    }
+    .site-nav a.active,
+    .site-nav a:hover {
+      color: var(--gold-color);
+      background: rgba(212,175,55,0.08);
+    }
+    .site-nav a.active::after,
+    .site-nav a:hover::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: -4px;
+      width: 60%;
+      height: 2px;
+      background: var(--bright-gold);
+      transform: translateX(-50%);
+      border-radius: 2px;
+      transition: width 0.3s;
     }
     @media (max-width: 900px) {
       .site-nav {
@@ -185,8 +122,7 @@
         top: 0;
         left: 0;
         right: 0;
-        background: rgba(0,0,0,0.97);
-        border-bottom: 1px solid var(--gold-color);
+        background: rgba(24,24,24,0.99);
         max-height: 0;
         opacity: 0;
         pointer-events: none;
@@ -202,16 +138,117 @@
       .site-nav ul {
         flex-direction: column;
         padding: 2rem 0;
+        gap: 1.5rem;
       }
       .site-nav li {
-        margin: 1rem 0;
+        margin: 0.5rem 0;
+      }
+    }
+    /* Card Enhancements */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      padding: 0 20px;
+    }
+    .card {
+      background: linear-gradient(135deg, rgba(24,24,24,0.95) 80%, rgba(212,175,55,0.08) 100%);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 15px;
+      padding: 30px;
+      transition: all 0.3s ease;
+      opacity: 0;
+      animation: fadeInUp 0.6s ease forwards;
+      animation-delay: calc(var(--card-index, 0) * 0.1s);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 24px rgba(212,175,55,0.08);
+    }
+    .card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.18);
+      border-color: var(--gold-color);
+      background: linear-gradient(135deg, rgba(24,24,24,1) 70%, rgba(255,215,0,0.12) 100%);
+    }
+    .card h2 {
+      color: var(--gold-color);
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+      letter-spacing: 0.04em;
+      text-shadow: 0 2px 8px rgba(212,175,55,0.12);
+    }
+    .card h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 2px;
+      background: var(--gold-color);
+      transition: width 0.3s ease;
+    }
+    .card:hover h2::after {
+      width: 100%;
+      background: var(--bright-gold);
+    }
+    .card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .card li {
+      margin-bottom: 15px;
+      padding-left: 25px;
+      position: relative;
+      line-height: 1.6;
+      color: var(--silver-color);
+      font-size: 1.08rem;
+      text-shadow: 0 1px 4px rgba(212,175,55,0.08);
+    }
+    .card li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--gold-color);
+      font-size: 1.1em;
+      font-weight: bold;
+      text-shadow: 0 1px 4px rgba(212,175,55,0.18);
+    }
+    @media (max-width: 768px) {
+      .work-page {
+        padding: 100px 15px 40px;
+      }
+      .page-header h1 {
+        font-size: 2rem;
+      }
+      .page-header .lead {
+        font-size: 1rem;
+      }
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 0;
+      }
+      .card {
+        padding: 20px;
+      }
+    }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
   </style>
 </head>
 <body>
   <button class="menu-toggle" aria-label="Open menu">☰</button>
-  <nav class="site-nav collapsed">
+  <nav class="site-nav collapsed" aria-label="Main navigation">
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
@@ -306,12 +343,22 @@
     menuToggle.addEventListener('click', () => {
       siteNav.classList.toggle('expanded');
       siteNav.classList.toggle('collapsed');
+      menuToggle.setAttribute('aria-expanded', siteNav.classList.contains('expanded'));
     });
     // Close menu when clicking outside (mobile UX)
     document.addEventListener('click', (e) => {
       if (!siteNav.contains(e.target) && !menuToggle.contains(e.target)) {
         siteNav.classList.remove('expanded');
         siteNav.classList.add('collapsed');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+    // Keyboard accessibility: close menu with Esc
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        siteNav.classList.remove('expanded');
+        siteNav.classList.add('collapsed');
+        menuToggle.setAttribute('aria-expanded', 'false');
       }
     });
   </script>

@@ -469,18 +469,7 @@
   </footer>
 
   <script>
-    // Organize images by category
-    const images = {
-      art: [],
-      designs: [],
-      cdDesigns: [],
-      flyers: [],
-      misc: [],
-      psyArt: []
-    };
-
-    // Sort images into categories based on file path
-    const allImages = [
+    // 1) Art images
     const artImages = [
       "assets/Art/arT 00001.jpg",
       "assets/Art/arT 00002.jpg",
@@ -525,41 +514,8 @@
       "assets/Art/cd deSignS rock on ouTlay.jpg",
       "assets/Art/cd deSignS TremourS underground.jpg",
     ];
-
-    // Function to create gallery items
-    function createGalleryItems(images, containerId) {
-      const container = document.querySelector(`#${containerId} .gallery-grid`);
-      if (!container) return;
-      
-      images.forEach((imagePath, index) => {
-        const figure = document.createElement('figure');
-        figure.className = 'gallery-item';
-        
-        const img = document.createElement('img');
-        img.src = imagePath;
-        img.alt = `Artwork ${index + 1}`;
-        img.loading = 'lazy'; // Lazy loading for better performance
-        
-        figure.appendChild(img);
-        container.appendChild(figure);
-      });
-    }
-
-    // Initialize galleries
-    document.addEventListener('DOMContentLoaded', () => {
-      createGalleryItems(artImages, 'art');
-    });
-      "assets/Art/cd deSignS big brain waSh inlay.jpg",
-      "assets/Art/cd deSignS deliver uS from evil back.jpg",
-      "assets/Art/cd deSignS deliver uS from evil cd.jpg",
-      "assets/Art/cd deSignS deliver uS from evil under cd.jpg",
-      "assets/Art/cd deSignS hypnoTic waveformS cd.jpg",
-      "assets/Art/cd deSignS hypnoTic waveformS fronT n back.jpg",
-      "assets/Art/cd deSignS rock on cd compilaTion.jpg",
-      "assets/Art/cd deSignS rock on cover.jpg",
-      "assets/Art/cd deSignS rock on inlay.jpg",
-      "assets/Art/cd deSignS rock on ouTlay.jpg",
-      "assets/Art/cd deSignS TremourS underground.jpg",
+    // 2) Designs images
+    const designsImages = [
       "assets/Art/deSignS 00001.jpg",
       "assets/Art/deSignS 00002.jpg",
       "assets/Art/deSignS 00003.jpg",
@@ -720,20 +676,23 @@
 
     // 2) Add your Logos & Branding file paths here:
     const logoImages = [
-      // e.g. "assets/Logos & Branding/LogoName.png",
+      "assets/logos-branding/logo deSignS 00001.jpg",
+      // ...all other logos images...
     ];
 
     // 3) Add your Portraits file paths here:
     const portraitImages = [
-      // e.g. "assets/Portraits/IMG_0001.jpg",
+      "assets/Portraits/Taiyzun Shahpurwala 00001.jpeg",
+      // ...all other portraits images...
     ];
 
     // 4) Add your Work Portfolio images here (if any):
     const workImages = [
-      // e.g. "assets/Work Portfolio/ProjectShot1.png",
+      "assets/work-portfolio/commErcial elSe 10.jpg",
+      // ...all other work portfolio images...
     ];
 
-    // Turn a filename into a nice title
+    // Helper: Turn a filename into a nice title
     function titleFromPath(path) {
       const name = path.split("/").pop().replace(/\.[^/.]+$/, "");
       return name
@@ -745,15 +704,25 @@
 
     // Populate a section
     function populateGallery(images, sectionId) {
-      const container = document
-        .getElementById(sectionId)
-        .querySelector(".gallery-grid");
-      images.forEach(src => {
+      const container = document.getElementById(sectionId).querySelector(".gallery-grid");
+      if (!container) return;
+      container.innerHTML = "";
+      if (images.length === 0) {
+        const msg = document.createElement("div");
+        msg.className = "no-images";
+        msg.textContent = "No images found.";
+        container.appendChild(msg);
+        return;
+      }
+      images.forEach((src, idx) => {
         const fig = document.createElement("figure");
+        fig.className = "gallery-item";
         const img = document.createElement("img");
         img.src = src;
         img.alt = titleFromPath(src);
         img.loading = "lazy";
+        img.onerror = () => { img.src = "assets/error-placeholder.jpg"; };
+        img.onload = () => { img.classList.add("loaded"); };
         const cap = document.createElement("figcaption");
         cap.textContent = titleFromPath(src);
         fig.append(img, cap);
@@ -762,10 +731,15 @@
     }
 
     // Run for each category
-    populateGallery(artImages,       "art");
-    populateGallery(logoImages,      "logos");
-    populateGallery(portraitImages,  "portraits");
-    populateGallery(workImages,      "work-portfolio");
+    document.addEventListener("DOMContentLoaded", () => {
+      populateGallery(artImages, "art");
+      populateGallery(designsImages, "designs");
+      populateGallery(cdDesignsImages, "cd-designs");
+      populateGallery(flyersImages, "flyers");
+      populateGallery(logoImages, "logos");
+      populateGallery(portraitImages, "portraits");
+      populateGallery(workImages, "work-portfolio");
+    });
   </script>
 </body>
 </html>
