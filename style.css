@@ -37,12 +37,18 @@ h1 {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
   z-index: 2;
+  color: #ffd700; /* Gold */
 }
 p {
   font-size: 1rem;
   max-width: 600px;
   margin: 0 auto 2rem;
   z-index: 2;
+  color: #c0c0c0; /* Silver */
+}
+
+p strong {
+  color: #ffd700; /* Gold for emphasis */
 }
 .socials {
   display: flex;
@@ -58,8 +64,21 @@ p {
 footer {
   margin-top: 2rem;
   font-size: 0.85rem;
-  opacity: 0.6;
   z-index: 2;
+  color: #c0c0c0; /* Silver */
+}
+
+footer strong {
+  color: #ffd700; /* Gold */
+}
+
+footer a {
+  color: #ffd700; /* Gold */
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
 }
 .background-video {
   position: absolute;

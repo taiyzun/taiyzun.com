@@ -1,11 +1,27 @@
 /* Gallery specific styles */
+:root {
+  --gold: #ffd700;
+  --silver: #c0c0c0;
+  --font: 'Trebuchet MS', sans-serif;
+}
+
 body {
   background: #181818;
-  color: #fff;
-  font-family: 'Trebuchet MS', sans-serif;
+  color: var(--silver);
+  font-family: var(--font);
   min-height: 100vh;
   margin: 0;
   overflow: hidden;
+}
+
+/* All text elements default to silver */
+p, span, div {
+  color: var(--silver);
+}
+
+/* Headers and emphasis in gold */
+h1, h2, h3, h4, h5, h6, strong, em, b {
+  color: var(--gold);
 }
 
 .video-bg {

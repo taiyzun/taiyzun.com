@@ -1,40 +1,44 @@
-/* Enhanced Gold & Silver Theme */
+/* Gold & Silver Theme */
 :root {
-  --primary-color: #181818;
   --background-color: #181818;
-  --gold-color: #d4af37;
-  --silver-color: #c0c0c0;
-  --bright-gold: #ffd700;
-  --accent-color: var(--gold-color);
-  --header-font: 'Trebuchet MS', sans-serif;
-  --body-font: 'Trebuchet MS', sans-serif;
+  --gold: #ffd700;
+  --silver: #c0c0c0;
+  --font: 'Trebuchet MS', sans-serif;
 }
 
 body {
   background: var(--background-color);
-  color: var(--silver-color);
-  font-family: var(--body-font);
+  color: var(--silver);
+  font-family: var(--font);
   min-height: 100vh;
   letter-spacing: 0.02em;
-  transition: background 0.3s;
   margin: 0;
   padding: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: var(--gold-color);
-  font-family: var(--header-font);
+  color: var(--gold);
+  font-family: var(--font);
   letter-spacing: 0.05em;
 }
 
 a {
-  color: var(--gold-color);
+  color: var(--gold);
   transition: color 0.3s;
   text-decoration: none;
 }
 
 a:hover {
-  color: var(--bright-gold);
+  opacity: 0.8;
+}
+
+p {
+  color: var(--silver);
+  line-height: 1.6;
+}
+
+strong, em, b {
+  color: var(--gold);
 }
 
 /* Navigation Enhancements */
