@@ -1,55 +1,103 @@
-<!DOCTYPE html>
-<html lang="en" style="scroll-behavior: smooth;">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Official website of Mr. Taiyzun Shabbir Shahpurwala — simplifying Tech, Media, and Communication for Global Impact, Connectivity, and Peace." />
-  <title>Home – Taiyzun Shahpurwala</title>
-  <link rel="stylesheet" href="assets/css/style.css" />
-  <link rel="icon" href="assets/icons/favicon.png" />
-  <style>
-    html { scroll-behavior: smooth; }
-  </style>
-</head>
-<body>
+/Users/tai/Documents/GitHub/taiyzun.com/assets/css/style.css
+/* Global base styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background-color: #000;
+  color: #fff;
+  font-size: 16px;
+  line-height: 1.5;
+}
 
-  <!-- Hero / Intro -->
-  <section class="hero">
-    <video class="background-video" autoplay muted loop playsinline>
-      <source src="assets/video/sora.mp4" type="video/mp4" />
-    </video>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <img src="assets/images/logo.png" alt="Taiyzun Sword Logo" class="logo animated-intro" />
-      <h1>Welcome to Taiyzun’s World</h1>
-      <p><strong>Simplifying Tech, Media &amp; Communication</strong> — Delivering Global Connectivity &amp; Peace of Mind.</p>
-      <a href="about.html" class="scroll-down" aria-label="Scroll to About">&#x21e3;</a>
-    </div>
-  </section>
+/* Navigation */
+.site-nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem;
+  margin: 0;
+}
 
-  <!-- Navigation (appears after scroll) -->
-  <nav class="site-nav">
-    <ul>
-      <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="work.html">Work</a></li>
-      <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  </nav>
+.site-nav a {
+  text-decoration: none;
+  font-weight: 600;
+  color: #00ffff;
+  font-size: 1rem;
+}
 
-  <!-- Footer -->
-  <footer class="site-footer">
-    <p>© 2025 Mr. Taiyzun Shabbir Shahpurwala – All Rights Reserved</p>
-    <p>Follow Mr. Taiyzun's journey of peace, innovation, and transformation.</p>
-    <ul class="social-icons">
-      <li><a href="https://facebook.com/taiyzuns"><img src="assets/icons/facebook.png" alt="Facebook" /></a></li>
-      <li><a href="https://instagram.com/taiyzun"><img src="assets/icons/instagram.png" alt="Instagram" /></a></li>
-      <li><a href="https://linkedin.com/in/taiyzun"><img src="assets/icons/linkedin.png" alt="LinkedIn" /></a></li>
-      <li><a href="https://x.com/Taiyzun"><img src="assets/icons/x.png" alt="X" /></a></li>
-      <li><a href="https://youtube.com/taiyzun"><img src="assets/icons/youtube.png" alt="YouTube" /></a></li>
-    </ul>
-  </footer>
+/* Hero Section */
+.hero {
+  position: relative;
+  height: 90vh;
+  overflow: hidden;
+}
 
-</body>
-</html>
+.hero-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.4);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0 1rem;
+}
+
+.hero-content h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.hero-content p {
+  font-size: 1.125rem;
+  margin-bottom: 1.5rem;
+  color: #ccc;
+}
+
+.logo {
+  max-width: 100px;
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+.scroll-down {
+  font-size: 2rem;
+  color: #00ffff;
+}
+
+/* Footer */
+.site-footer {
+  background: #111;
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 0.875rem;
+}
+
+.site-footer p {
+  margin: 0.25rem 0;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0;
+  margin-top: 0.5rem;
+  list-style: none;
+}
+
+.social-icons img {
+  height: 20px;
+  width: 20px;
+}
