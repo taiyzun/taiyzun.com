@@ -12,8 +12,68 @@
   <link rel="icon" type="image/png" href="assets/logo/favicon.png" />
   <link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png" />
   <link rel="stylesheet" href="css/gallery-styles.css" />
+  <style>
+    /* --- minimalist gold‑dot menu --- */
+    .site-nav {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 1000;
+    }
+    .menu-icon {
+      background: transparent;
+      border: none;
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      cursor: pointer;
+    }
+    .menu-icon span {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #d4af37; /* gold */
+    }
+    .site-nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      right: 0;
+      background: rgba(26,26,46,0.95);
+      border-radius: 6px;
+      min-width: 200px;
+    }
+    .site-nav.open ul {
+      display: flex;
+    }
+    .site-nav ul li a {
+      display: block;
+      padding: 1rem;
+      color: #fff;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
+  <nav class="site-nav">
+    <button class="menu-icon" aria-label="Main menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="work.html">Work</a></li>
+      <li><a href="gallery.html" class="active">Gallery</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
   <video autoplay muted loop playsinline class="background-video">
     <source src="assets/video/sora.mp4" type="video/mp4" />
   </video>
@@ -55,5 +115,16 @@
     Simplifying Tech, Media & Communication — Delivering Global Connectivity & Peace of Mind.<br>
     <p style="color: var(--silver-color);">Gallery is being updated. Please check back soon for the full experience.</p>
   </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuIcon = document.querySelector('.menu-icon');
+      const nav = document.querySelector('.site-nav');
+      if (menuIcon) {
+        menuIcon.addEventListener('click', () => {
+          nav.classList.toggle('open');
+        });
+      }
+    });
+  </script>
 </body>
 </html>
