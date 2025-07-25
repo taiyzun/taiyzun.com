@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Create and insert hamburger menu
+    // Create hamburger menu with three dots
     const hamburger = document.createElement('div');
-    hamburger.className = 'hamburger-menu';
+    hamburger.className = 'hamburger-dots';
     for (let i = 0; i < 3; i++) {
         const dot = document.createElement('div');
         dot.className = 'dot';

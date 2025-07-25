@@ -14,9 +14,24 @@ body {
   overflow: hidden;
 }
 .logo {
-  height: 120px;
+  max-height: 120px;
+  width: auto;
+  max-width: 90vw;
   margin-top: 2rem;
   z-index: 2;
+  transition: transform 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .logo {
+    max-height: 90px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    max-height: 70px;
+  }
 }
 h1 {
   font-size: 2.5rem;
@@ -55,4 +70,75 @@ footer {
   object-fit: cover;
   z-index: 0;
   opacity: 0.3;
+}
+
+/* Three-dot menu styles */
+.hamburger-dots {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  z-index: 1000;
+  padding: 4px;
+}
+
+.hamburger-dots .dot {
+  width: 4px;
+  height: 4px;
+  background-color: #c0c0c0;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.hamburger-dots:hover .dot {
+  background-color: #ffd700;
+}
+
+.nav-menu {
+  position: fixed;
+  top: 0;
+  right: -200px;
+  width: 200px;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.95);
+  padding: 60px 20px 20px;
+  transition: right 0.3s ease;
+  z-index: 999;
+  backdrop-filter: blur(10px);
+}
+
+.nav-menu.active {
+  right: 0;
+}
+
+.nav-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-menu li {
+  margin: 15px 0;
+  text-align: right;
+}
+
+.nav-menu a {
+  color: #c0c0c0;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.nav-menu a:hover {
+  color: #ffd700;
+}
+
+.hamburger-dots.active .dot {
+  background-color: #ffd700;
 }
