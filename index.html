@@ -308,7 +308,13 @@ html {
 
   <!-- navigation -->
   <nav class="site-nav">
-    <ul>
+    <button class="menu-toggle" aria-label="Toggle Menu">
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </button>
+    <div class="nav-overlay"></div>
+    <ul class="nav-menu">
       <li><a href="index.html" class="active">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="work.html">Work</a></li>
@@ -353,5 +359,6 @@ html {
   </script>
 
     <script src="js/parallax.js"></script>
+    <script src="js/nav.js"></script>
   </body>
 </html>
