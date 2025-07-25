@@ -91,13 +91,15 @@ footer a:hover {
   text-decoration: underline;
 }
 .background-video {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  min-width: 100%;
-  min-height: 100%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   z-index: 0;
+  opacity: 0.3;
+  background: var(--earth-dark);
   opacity: 0.3;
 }
 
