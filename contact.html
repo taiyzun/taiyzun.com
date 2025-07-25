@@ -1,1 +1,69 @@
-<!DOCTYPE html><html><head><title>Coming Soon</title></head><body><h1>This page is under construction.</h1></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta name="description" content="Contact Taiyzun Shahpurwala – Send me a message via form or connect on social media." />
+  <title>Contact – Taiyzun Shahpurwala</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="icon" href="assets/icons/favicon.png" />
+</head>
+<body>
+
+  <!-- navigation -->
+  <nav class="site-nav">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="work.html">Work</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main class="page contact-page">
+    <header class="page-header">
+      <h1>Contact Me</h1>
+      <p class="lead">Have a project in mind or just want to say hello? Send me a message below.</p>
+    </header>
+
+    <section class="contact-form-section">
+      <form
+        action="https://formspree.io/f/yourFormID"
+        method="POST"
+        class="contact-form"
+      >
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" required />
+
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="_replyto" required />
+
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" />
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+
+        <!-- hidden fields for Formspree -->
+        <input type="hidden" name="_subject" value="New Contact Form Submission" />
+        <input type="hidden" name="_next" value="thankyou.html" />
+
+        <button type="submit">Send Message</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2025 Taiyzun Shabbir Shahpurwala</p>
+    <ul class="social-icons">
+      <li><a href="https://facebook.com/taiyzuns"><img src="assets/icons/facebook.png" alt="Facebook" /></a></li>
+      <li><a href="https://instagram.com/taiyzun"><img src="assets/icons/instagram.png" alt="Instagram" /></a></li>
+      <li><a href="https://linkedin.com/in/taiyzun"><img src="assets/icons/linkedin.png" alt="LinkedIn" /></a></li>
+      <li><a href="https://x.com/Taiyzun"><img src="assets/icons/x.png" alt="X" /></a></li>
+      <li><a href="https://youtube.com/taiyzun"><img src="assets/icons/youtube.png" alt="YouTube" /></a></li>
+    </ul>
+  </footer>
+
+</body>
+</html>

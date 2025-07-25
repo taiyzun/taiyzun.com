@@ -65,39 +65,234 @@
 
   <!-- inject gallery -->
   <script>
-    // 1) Lists of every file under each folder (auto-generated for you)
+    // 1) Paste your full Art list here (exact filenames in assets/Art):
     const artImages = [
-      "assets/Art/Artwork1.jpg",
-      "assets/Art/Artwork2.jpg",
-      /* …all your Art JPGs/PNGs… */
-    ];
-    const logoImages = [
-      "assets/Logos & Branding/Logo1.png",
-      "assets/Logos & Branding/Logo2.png",
-      /* …all your Logos… */
-    ];
-    const portraitImages = [
-      "assets/Portraits/Portrait1.jpg",
-      "assets/Portraits/Portrait2.jpg",
-      /* …all your Portraits… */
-    ];
-    const workImages = [
-      "assets/Work Portfolio/Project1.png",
-      "assets/Work Portfolio/Project2.jpg",
-      /* …any Work screenshots… */
+      "assets/Art/arT 00001.jpg",
+      "assets/Art/arT 00002.jpg",
+      "assets/Art/arT 00003.jpg",
+      "assets/Art/arT 00004.jpg",
+      "assets/Art/arT 00005.jpg",
+      "assets/Art/arT 00006.jpg",
+      "assets/Art/arT 00007.jpg",
+      "assets/Art/arT 00008.jpg",
+      "assets/Art/arT 00009.jpg",
+      "assets/Art/arT 00010.jpg",
+      "assets/Art/arT 00011.jpg",
+      "assets/Art/arT 00012.jpg",
+      "assets/Art/arT 00013.jpg",
+      "assets/Art/arT 00014.jpg",
+      "assets/Art/arT 00015.jpg",
+      "assets/Art/arT 00016.jpg",
+      "assets/Art/arT 00017.jpg",
+      "assets/Art/arT 00018.jpg",
+      "assets/Art/arT 00019.jpg",
+      "assets/Art/arT 00020.jpg",
+      "assets/Art/arT 00021.jpg",
+      "assets/Art/arT 00022.jpg",
+      "assets/Art/arT 00023.jpg",
+      "assets/Art/arT 00024.jpg",
+      "assets/Art/arT 00025.jpg",
+      "assets/Art/arT 00026.jpg",
+      "assets/Art/arT 00027.jpg",
+      "assets/Art/arT 00028.jpg",
+      "assets/Art/arT 00029.jpg",
+      "assets/Art/arT 00030.jpg",
+      "assets/Art/arT 00031.jpg",
+      "assets/Art/cd deSignS big brain waSh inlay.jpg",
+      "assets/Art/cd deSignS deliver uS from evil back.jpg",
+      "assets/Art/cd deSignS deliver uS from evil cd.jpg",
+      "assets/Art/cd deSignS deliver uS from evil under cd.jpg",
+      "assets/Art/cd deSignS hypnoTic waveformS cd.jpg",
+      "assets/Art/cd deSignS hypnoTic waveformS fronT n back.jpg",
+      "assets/Art/cd deSignS rock on cd compilaTion.jpg",
+      "assets/Art/cd deSignS rock on cover.jpg",
+      "assets/Art/cd deSignS rock on inlay.jpg",
+      "assets/Art/cd deSignS rock on ouTlay.jpg",
+      "assets/Art/cd deSignS TremourS underground.jpg",
+      "assets/Art/deSignS 00001.jpg",
+      "assets/Art/deSignS 00002.jpg",
+      "assets/Art/deSignS 00003.jpg",
+      "assets/Art/deSignS 00004.jpg",
+      "assets/Art/deSignS 00005.jpg",
+      "assets/Art/deSignS 00006.jpg",
+      "assets/Art/deSignS 00007.jpg",
+      "assets/Art/deSignS 00008.jpg",
+      "assets/Art/deSignS 00009.jpg",
+      "assets/Art/deSignS 00010.jpg",
+      "assets/Art/deSignS 00011.jpg",
+      "assets/Art/deSignS 00012.jpg",
+      "assets/Art/deSignS 00013.jpg",
+      "assets/Art/deSignS 00014.jpg",
+      "assets/Art/deSignS 00015.jpg",
+      "assets/Art/deSignS 00016.jpg",
+      "assets/Art/deSignS 00017.jpg",
+      "assets/Art/deSignS 00018.jpg",
+      "assets/Art/deSignS 00019.jpg",
+      "assets/Art/deSignS 00020.jpg",
+      "assets/Art/deSignS 00021.jpg",
+      "assets/Art/deSignS 00022.jpg",
+      "assets/Art/deSignS 00023.jpg",
+      "assets/Art/deSignS 00024.jpg",
+      "assets/Art/deSignS 00025.jpg",
+      "assets/Art/deSignS 00026.jpg",
+      "assets/Art/deSignS 00027.jpg",
+      "assets/Art/flyerS and coverS 00001.jpg",
+      "assets/Art/flyerS and coverS 00002.jpg",
+      "assets/Art/flyerS and coverS 00003.jpg",
+      "assets/Art/flyerS and coverS 00004.jpg",
+      "assets/Art/flyerS and coverS 00005.jpg",
+      "assets/Art/flyerS and coverS 00006.jpg",
+      "assets/Art/flyerS and coverS 00007.jpg",
+      "assets/Art/flyerS and coverS 00008.jpg",
+      "assets/Art/flyerS and coverS 00009.jpg",
+      "assets/Art/flyerS and coverS 00010.jpg",
+      "assets/Art/flyerS and coverS 00011.jpg",
+      "assets/Art/flyerS and coverS 00012.jpg",
+      "assets/Art/flyerS and coverS 00013.jpg",
+      "assets/Art/flyerS and coverS 00014.jpg",
+      "assets/Art/flyerS and coverS 00015.jpg",
+      "assets/Art/flyerS and coverS 00016.jpg",
+      "assets/Art/flyerS and coverS 00017.jpg",
+      "assets/Art/flyerS and coverS 00018.jpg",
+      "assets/Art/flyerS and coverS 00019.jpg",
+      "assets/Art/flyerS and coverS 00020.jpg",
+      "assets/Art/flyerS and coverS 00021.jpg",
+      "assets/Art/flyerS and coverS 00022.jpg",
+      "assets/Art/flyerS and coverS 00023.jpg",
+      "assets/Art/flyerS and coverS 00024.jpg",
+      "assets/Art/flyerS and coverS 00025.jpg",
+      "assets/Art/flyerS and coverS 00026.jpg",
+      "assets/Art/flyerS and coverS 00027.jpg",
+      "assets/Art/flyerS and coverS 00028.jpg",
+      "assets/Art/flyerS and coverS 00029.jpg",
+      "assets/Art/flyerS and coverS 00030.jpg",
+      "assets/Art/flyerS and coverS 00031.jpg",
+      "assets/Art/flyerS and coverS 00032.jpg",
+      "assets/Art/flyerS and coverS 00033.jpg",
+      "assets/Art/flyerS and coverS 00034.jpg",
+      "assets/Art/flyerS and coverS 00035.jpg",
+      "assets/Art/flyerS and coverS 00036.jpg",
+      "assets/Art/flyerS and coverS 00037.jpg",
+      "assets/Art/flyerS and coverS 00038.jpg",
+      "assets/Art/flyerS and coverS 00039.jpg",
+      "assets/Art/flyerS and coverS 00040.jpg",
+      "assets/Art/flyerS and coverS 00041.jpg",
+      "assets/Art/flyerS and coverS 00042.jpg",
+      "assets/Art/flyerS and coverS 00043.jpg",
+      "assets/Art/flyerS and coverS 00044.jpg",
+      "assets/Art/flyerS and coverS 00045.jpg",
+      "assets/Art/flyerS and coverS 00046.jpg",
+      "assets/Art/flyerS and coverS 00047.jpg",
+      "assets/Art/flyerS and coverS 00048.jpg",
+      "assets/Art/flyerS and coverS 00049.jpg",
+      "assets/Art/flyerS and coverS 00050.jpg",
+      "assets/Art/flyerS and coverS 00051.jpg",
+      "assets/Art/flyerS and coverS 00052.jpg",
+      "assets/Art/flyerS and coverS 00053.jpg",
+      "assets/Art/flyerS and coverS 00054.jpg",
+      "assets/Art/flyerS and coverS 00055.jpg",
+      "assets/Art/flyerS and coverS 00056.jpg",
+      "assets/Art/flyerS and coverS 00057.jpg",
+      "assets/Art/miSc chaSe To0.jpg",
+      "assets/Art/miSc chaSe.jpg",
+      "assets/Art/miSc dj jeTo coming Soon.jpg",
+      "assets/Art/miSc everyThing.jpg",
+      "assets/Art/miSc freSh.jpg",
+      "assets/Art/miSc keep walking.jpg",
+      "assets/Art/miSc mango public.jpg",
+      "assets/Art/miSc pink.jpg",
+      "assets/Art/miSc reborn.jpg",
+      "assets/Art/miSc SecreT keyS.jpg",
+      "assets/Art/miSc Shiva Shanker Tone.jpg",
+      "assets/Art/miSc Shiva Shanker.jpg",
+      "assets/Art/miSc Smoke.jpg",
+      "assets/Art/miSc Sp ce.jpg",
+      "assets/Art/miSc T ShirT deSign.jpg",
+      "assets/Art/miSc Taj.jpg",
+      "assets/Art/miSc Tikka.jpg",
+      "assets/Art/orig 00001.jpg",
+      "assets/Art/orig 00002.jpg",
+      "assets/Art/orig 00006.jpg",
+      "assets/Art/orig 00007.jpg",
+      "assets/Art/orig 00008.jpg",
+      "assets/Art/orig 00009.jpg",
+      "assets/Art/orig 00010.jpg",
+      "assets/Art/orig 00011.jpg",
+      "assets/Art/orig 00012.jpg",
+      "assets/Art/orig 00013.jpg",
+      "assets/Art/orig 00014.jpg",
+      "assets/Art/orig 00015.jpg",
+      "assets/Art/pSy arT 8.jpg",
+      "assets/Art/pSy arT 23rd march raZZ.jpg",
+      "assets/Art/pSy arT analog puSSy.jpg",
+      "assets/Art/pSy arT b0rn ulTimaTum.jpg",
+      "assets/Art/pSy arT barred.jpg",
+      "assets/Art/pSy arT brain SpAcE.jpg",
+      "assets/Art/pSy arT buTTer To0.jpg",
+      "assets/Art/pSy arT buTTer.jpg",
+      "assets/Art/pSy arT calling ganeSh.jpg",
+      "assets/Art/pSy arT chriSTmaSS.jpg",
+      "assets/Art/pSy arT deedS.jpg",
+      "assets/Art/pSy arT dynamic mESuremEnTS ii.jpg",
+      "assets/Art/pSy arT dynamic mESuremEnTS.jpg",
+      "assets/Art/pSy arT euphoria.jpg",
+      "assets/Art/pSy arT freeZa ocean.jpg",
+      "assets/Art/pSy arT fridayS.jpg",
+      "assets/Art/pSy arT grand Sp ce.jpg",
+      "assets/Art/pSy arT harveSTer of.jpg",
+      "assets/Art/pSy arT highko.jpg",
+      "assets/Art/pSy arT hmmm.jpg",
+      "assets/Art/pSy arT hmmmap.jpg",
+      "assets/Art/pSy arT idjc flyer.jpg",
+      "assets/Art/pSy arT jam.jpg",
+      "assets/Art/pSy arT kdd map.jpg",
+      "assets/Art/pSy arT mEnog milkShake.jpg",
+      "assets/Art/pSy arT moTherhood.jpg",
+      "assets/Art/pSy arT n um b 0ne.jpg",
+      "assets/Art/pSy arT nemo.jpg",
+      "assets/Art/pSy arT parTymap.jpg",
+      "assets/Art/pSy arT penTaZZ.jpg",
+      "assets/Art/pSy arT penTed.jpg",
+      "assets/Art/pSy arT pSycho karan.jpg",
+      "assets/Art/pSy arT q goSpel.jpg",
+      "assets/Art/pSy arT The gaTeway.jpg",  
+      "assets/Art/pSy arT Trance Tea.jpg",
+      "assets/Art/pSy arT Trip To goa 2.jpg",
+      "assets/Art/pSy arT Trip To goa.jpg",
+      "assets/Art/pSy arT Twice Twice Thrice.jpg",
+      "assets/Art/pSy arT Twice Twice.jpg",
+      "assets/Art/pSy arT vT.jpg",
+      "assets/Art/pSy arT whoSane aSad pune7Th april map.jpg",
+      "assets/Art/pSy arT wide Screen.jpg",
+      "assets/Art/pSy arT XeroX n illuminaTion prinT.jpg"
     ];
 
-    // 2) Helper to turn filenames into nice titles
+    // 2) Add your Logos & Branding file paths here:
+    const logoImages = [
+      // e.g. "assets/Logos & Branding/LogoName.png",
+    ];
+
+    // 3) Add your Portraits file paths here:
+    const portraitImages = [
+      // e.g. "assets/Portraits/IMG_0001.jpg",
+    ];
+
+    // 4) Add your Work Portfolio images here (if any):
+    const workImages = [
+      // e.g. "assets/Work Portfolio/ProjectShot1.png",
+    ];
+
+    // Turn a filename into a nice title
     function titleFromPath(path) {
       const name = path.split("/").pop().replace(/\.[^/.]+$/, "");
       return name
-        .replace(/[_\-]+/g, " ")
+        .replace(/[_\-\s]+/g, " ")
         .split(" ")
-        .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+        .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
         .join(" ");
     }
 
-    // 3) Populate a given section’s .gallery-grid
+    // Populate a section
     function populateGallery(images, sectionId) {
       const container = document
         .getElementById(sectionId)
@@ -115,10 +310,11 @@
       });
     }
 
-    populateGallery(artImages, "art");
-    populateGallery(logoImages, "logos");
-    populateGallery(portraitImages, "portraits");
-    populateGallery(workImages, "work-portfolio");
+    // Run for each category
+    populateGallery(artImages,       "art");
+    populateGallery(logoImages,      "logos");
+    populateGallery(portraitImages,  "portraits");
+    populateGallery(workImages,      "work-portfolio");
   </script>
 </body>
 </html>
