@@ -11,6 +11,13 @@
 }
 
 /* Reset & Base Styles */
+:root {
+  --nav-color: #d4af37; /* Elegant gold */
+  --nav-hover: #c0c0c0; /* Metallic silver */
+  --nav-active: #ffd700; /* Bright gold for active state */
+  --accent-color: #d4af37; /* Updated accent color to gold */
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -18,9 +25,9 @@
 }
 
 body {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  background-color: #000;
-  color: #fff;
+  font-family: 'TrebuchetMS', 'Trebuchet MS', sans-serif;
+  background-color: var(--background-dark);
+  color: var(--text-light);
   font-size: 16px;
   line-height: 1.5;
   overflow-x: hidden;
