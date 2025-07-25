@@ -3,32 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Official page for gallery of Taiyzun Shahpurwala" />
-  <title>Taiyzun – Gallery</title>
+  <meta name="description" content="Official website of Taiyzun Shahpurwala" />
+  <title>Gallery</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <video autoplay muted loop class="background-video">
-    <source src="assets/videos/sora.mp4" type="video/mp4" />
-  </video>
-  <img src="assets/images/TaiyZun-Sword-logo-2021.png" alt="Taiyzun Logo" class="logo" />
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="gallery.html">Gallery</a>
-    <a href="projects.html">Projects</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-  <div class="tagline">
-    <p><strong>Simplifying Tech, Media & Communication</strong></p>
-    <p><em>Delivering Global Connectivity &amp; Peace of Mind</em></p>
-  </div>
-  <main class="gallery">
-    <h1>Art Gallery</h1>
-    <img src="assets/images/gallery/art00001.jpg" alt="Art 1" />
-    <img src="assets/images/gallery/art00002.jpg" alt="Art 2" />
-    <img src="assets/images/gallery/art00003.jpg" alt="Art 3" />
-  </main>
+  <a href="index.html">
+    <img src="assets/images/logo.png" alt="Taiyzun Logo" class="logo" />
+  </a>
+  <header>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="projects.html">Projects</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+<main><h1>Gallery</h1><p>Explore creative works and visuals here.</p></main>
   <div class="socials">
     <a href="https://www.instagram.com/taiyzun"><img src="assets/images/icons/instagram.png" alt="Instagram" /></a>
     <a href="https://www.facebook.com/taiyzun"><img src="assets/images/icons/facebook.png" alt="Facebook" /></a>
@@ -36,5 +28,13 @@
     <a href="https://www.youtube.com/taiyzun"><img src="assets/images/icons/youtube.png" alt="YouTube" /></a>
     <a href="https://x.com/Taiyzun"><img src="assets/images/icons/x.png" alt="X" /></a>
   </div>
+  <script>
+    const logo = document.querySelector('.logo');
+    document.addEventListener('mousemove', (e) => {
+      const x = e.clientX;
+      const y = e.clientY;
+      logo.style.transform = `translate(${x - 100}px, ${y - 100}px)`;
+    });
+  </script>
 </body>
 </html>
