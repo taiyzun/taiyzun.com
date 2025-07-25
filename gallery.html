@@ -15,6 +15,10 @@
   <link rel="icon" type="image/png" href="assets/logo/favicon.png">
   <link rel="apple-touch-icon" href="assets/logo/favicon.png">
   <style>
+    body {
+      font-family: 'Trebuchet MS', sans-serif;
+    }
+    
     /* Gallery sections */
     .gallery-section {
       padding: 4rem 0;
@@ -36,19 +40,42 @@
       opacity: 0;
       transform: translateY(20px);
       animation: fadeInUp 0.6s ease forwards;
+      font-family: 'Trebuchet MS', sans-serif;
     }
 
     /* Gallery grid */
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
       padding: 2rem;
       max-width: 1400px;
       margin: 0 auto;
       opacity: 0;
       transform: translateY(20px);
       animation: fadeInUp 0.6s ease forwards 0.3s;
+    }
+
+    .no-images {
+      text-align: center;
+      color: #666;
+      font-style: italic;
+      grid-column: 1 / -1;
+      padding: 2rem;
+    }
+
+    /* Thumbnail styles */
+    .gallery-item img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 8px;
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+      filter: brightness(1.1);
     }
 
     /* Gallery items */
@@ -244,6 +271,8 @@
       <li><a href="#designs">Designs</a></li>
       <li><a href="#cd-designs">CD Designs</a></li>
       <li><a href="#flyers">Flyers & Covers</a></li>
+      <li><a href="#logos">Logos & Branding</a></li>
+      <li><a href="#portraits">Portraits</a></li>
     </ul>
   </nav>
 
@@ -251,27 +280,51 @@
     <!-- Art Section -->
     <section id="art" class="gallery-section">
       <h2>Art</h2>
-      <div class="gallery-grid" data-category="art"></div>
+      <div class="gallery-grid art-grid" data-category="art"></div>
     </section>
 
     <!-- Designs Section -->
     <section id="designs" class="gallery-section">
       <h2>Designs</h2>
-      <div class="gallery-grid" data-category="designs"></div>
+      <div class="gallery-grid designs-grid" data-category="designs"></div>
     </section>
 
     <!-- CD Designs Section -->
     <section id="cd-designs" class="gallery-section">
       <h2>CD Designs</h2>
-      <div class="gallery-grid" data-category="cd-designs"></div>
+      <div class="gallery-grid cd-designs-grid" data-category="cd-designs"></div>
     </section>
 
     <!-- Flyers & Covers Section -->
     <section id="flyers" class="gallery-section">
       <h2>Flyers & Covers</h2>
-      <div class="gallery-grid" data-category="flyers"></div>
+      <div class="gallery-grid flyers-grid" data-category="flyers"></div>
+    </section>
+
+    <!-- Logos & Branding Section -->
+    <section id="logos" class="gallery-section">
+      <h2>Logos & Branding</h2>
+      <div class="gallery-grid logos-grid" data-category="logos"></div>
+    </section>
+
+    <!-- Portraits Section -->
+    <section id="portraits" class="gallery-section">
+      <h2>Portraits</h2>
+      <div class="gallery-grid portraits-grid" data-category="portraits"></div>
     </section>
   </main>
+
+  <!-- Loading indicator -->
+  <div class="loading-overlay">
+    <div class="loading-spinner"></div>
+    <p>Loading Gallery...</p>
+  </div>
+
+  <!-- Loading indicator -->
+  <div class="loading-overlay">
+    <div class="loading-spinner"></div>
+    <p>Loading Gallery...</p>
+  </div>
 
   <!-- Lightbox for image preview -->
   <div class="lightbox">

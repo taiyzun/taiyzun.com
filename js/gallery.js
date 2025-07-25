@@ -1,6 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize Intersection Observer for lazy loading
-    const imageObserver = new IntersectionObserver((entries, observer) => {
+    const imageObse    /* Create gallery item with lazy loading and loading indicator */
+    function createGalleryItem(imagePath) {
+        const figure = document.createElement('figure');
+        figure.className = 'gallery-item';
+        figure.setAttribute('data-speed', (Math.random() * 0.1).toFixed(2));
+        
+        // Add loading spinner
+        const loader = document.createElement('div');
+        loader.className = 'loading-spinner';
+        figure.appendChild(loader);
+        
+        // Validate image path
+        if (!imagePath || typeof imagePath !== 'string') {
+            console.error('Invalid image path:', imagePath);
+            return null;
+        }
+
+        // Create thumbnail container
+        const thumbContainer = document.createElement('div');
+        thumbContainer.className = 'thumbnail-container';
+        } IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const img = entry.target;
@@ -37,23 +57,80 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Load images for each category
-    const categories = ['art', 'designs', 'cd-designs', 'flyers'];
-    categories.forEach(category => {
+    // Define all image categories and their paths
+    const imageCategories = {
+        'art': {
+            title: 'Art',
+            paths: [
+                // Art images
+                ...Array.from({length: 31}, (_, i) => `assets/Art/arT ${String(i + 1).padStart(5, '0')}.jpg`)
+            ]
+        },
+        'designs': {
+            title: 'Designs',
+            paths: [
+                // Design images
+                ...Array.from({length: 27}, (_, i) => `assets/Art/deSignS ${String(i + 1).padStart(5, '0')}.jpg`)
+            ]
+        },
+        'cd-designs': {
+            title: 'CD Designs',
+            paths: [
+                'assets/Art/cd deSignS big brain waSh inlay.jpg',
+                'assets/Art/cd deSignS deliver uS from evil back.jpg',
+                'assets/Art/cd deSignS deliver uS from evil cd.jpg',
+                'assets/Art/cd deSignS deliver uS from evil under cd.jpg',
+                'assets/Art/cd deSignS hypnoTic waveformS cd.jpg',
+                'assets/Art/cd deSignS hypnoTic waveformS fronT n back.jpg',
+                'assets/Art/cd deSignS rock on cd compilaTion.jpg',
+                'assets/Art/cd deSignS rock on cover.jpg',
+                'assets/Art/cd deSignS rock on inlay.jpg',
+                'assets/Art/cd deSignS rock on ouTlay.jpg',
+                'assets/Art/cd deSignS TremourS underground.jpg'
+            ]
+        },
+        'flyers': {
+            title: 'Flyers & Covers',
+            paths: [
+                // Flyers and covers
+                ...Array.from({length: 8}, (_, i) => `assets/Art/flyerS and coverS ${String(i + 1).padStart(5, '0')}.jpg`)
+            ]
+        },
+        'logos': {
+            title: 'Logos & Branding',
+            paths: [
+                // Add all logo paths
+                'assets/logo/TaiyZun-logo.png',
+                'assets/logo/favicon.png'
+            ]
+        },
+        'portraits': {
+            title: 'Portraits',
+            paths: []  // Will be populated with portrait images
+        }
+    };
+
+    function getImagesForCategory(category) {
+        return imageCategories[category]?.paths || [];
+    }
+
+    // Initialize all gallery sections
+    Object.keys(imageCategories).forEach(category => {
         const grid = document.querySelector(`[data-category="${category}"]`);
         if (!grid) return;
 
-        fetch(`assets/${category}.json`)
-            .then(response => response.json())
-            .then(images => {
-                images.forEach(imagePath => {
-                    const item = createGalleryItem(`assets/Art/${imagePath}`);
-                    grid.appendChild(item);
-                });
-            })
-            .catch(error => {
-                console.error(`Error loading ${category} images:`, error);
-                grid.innerHTML = '<p>Error loading images. Please try again later.</p>';
-            });
+        const images = getImagesForCategory(category);
+        if (images.length === 0) {
+            grid.innerHTML = '<p class="no-images">No images available in this category.</p>';
+            return;
+        }
+
+        images.forEach(imagePath => {
+            const item = createGalleryItem(imagePath);
+            if (item) {
+                grid.appendChild(item);
+            }
+        });
     });
 
     // Add parallax mouse effect with performance optimization

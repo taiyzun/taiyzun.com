@@ -63,26 +63,3 @@
     <priority>0.3</priority>
   </url>
 </urlset>
-    <lastmod>2025-07-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://taiyzun.com/work.html</loc>
-    <lastmod>2025-07-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://taiyzun.com/gallery.html</loc>
-    <lastmod>2025-07-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://taiyzun.com/contact.html</loc>
-    <lastmod>2025-07-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-</urlset>
