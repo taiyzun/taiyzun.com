@@ -72,11 +72,34 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.5s ease;
+      transition: transform 0.5s ease, opacity 0.3s ease;
+      opacity: 0;
+    }
+
+    .gallery-item img.loaded {
+      opacity: 1;
     }
 
     .gallery-item:hover img {
       transform: scale(1.1);
+    }
+
+    .loading-spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+      z-index: 1;
+    }
+
+    @keyframes spin {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
     }
 
     .gallery-item figcaption {
@@ -213,6 +236,47 @@
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
+
+  <!-- gallery navigation -->
+  <nav class="gallery-nav">
+    <ul>
+      <li><a href="#art">Art</a></li>
+      <li><a href="#designs">Designs</a></li>
+      <li><a href="#cd-designs">CD Designs</a></li>
+      <li><a href="#flyers">Flyers & Covers</a></li>
+    </ul>
+  </nav>
+
+  <main class="gallery-container">
+    <!-- Art Section -->
+    <section id="art" class="gallery-section">
+      <h2>Art</h2>
+      <div class="gallery-grid" data-category="art"></div>
+    </section>
+
+    <!-- Designs Section -->
+    <section id="designs" class="gallery-section">
+      <h2>Designs</h2>
+      <div class="gallery-grid" data-category="designs"></div>
+    </section>
+
+    <!-- CD Designs Section -->
+    <section id="cd-designs" class="gallery-section">
+      <h2>CD Designs</h2>
+      <div class="gallery-grid" data-category="cd-designs"></div>
+    </section>
+
+    <!-- Flyers & Covers Section -->
+    <section id="flyers" class="gallery-section">
+      <h2>Flyers & Covers</h2>
+      <div class="gallery-grid" data-category="flyers"></div>
+    </section>
+  </main>
+
+  <!-- Lightbox for image preview -->
+  <div class="lightbox">
+    <img src="" alt="Full size image">
+  </div>
 
   <main class="page gallery-page">
     <header class="page-header">

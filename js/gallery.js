@@ -1,13 +1,77 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Add parallax mouse effect
-    document.addEventListener('mousemove', (e) => {
-        const items = document.querySelectorAll('.gallery-item');
-        items.forEach(item => {
-            const speed = item.getAttribute('data-speed') || 0.05;
-            const x = (window.innerWidth - e.pageX * speed) / 100;
-            const y = (window.innerHeight - e.pageY * speed) / 100;
-            item.style.transform = `translateX(${x}px) translateY(${y}px)`;
+    // Initialize Intersection Observer for lazy loading
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                observer.unobserve(img);
+            }
         });
+    }, {
+        rootMargin: '50px 0px',
+        threshold: 0.1
+    });
+
+    // Initialize lightbox
+    const lightboxElement = document.querySelector('.lightbox');
+    
+    // Close lightbox on click outside
+    lightboxElement.addEventListener('click', (e) => {
+        if (e.target === lightboxElement) {
+            closeLightbox();
+        }
+    });
+
+    // Close lightbox on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightboxElement.classList.contains('active')) {
+            closeLightbox();
+        }
+    });
+
+    // Function to close lightbox
+    function closeLightbox() {
+        lightboxElement.classList.remove('active');
+        history.replaceState(null, null, ' '); // Remove hash from URL
+    }
+
+    // Load images for each category
+    const categories = ['art', 'designs', 'cd-designs', 'flyers'];
+    categories.forEach(category => {
+        const grid = document.querySelector(`[data-category="${category}"]`);
+        if (!grid) return;
+
+        fetch(`assets/${category}.json`)
+            .then(response => response.json())
+            .then(images => {
+                images.forEach(imagePath => {
+                    const item = createGalleryItem(`assets/Art/${imagePath}`);
+                    grid.appendChild(item);
+                });
+            })
+            .catch(error => {
+                console.error(`Error loading ${category} images:`, error);
+                grid.innerHTML = '<p>Error loading images. Please try again later.</p>';
+            });
+    });
+
+    // Add parallax mouse effect with performance optimization
+    let ticking = false;
+    document.addEventListener('mousemove', (e) => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const items = document.querySelectorAll('.gallery-item');
+                items.forEach(item => {
+                    const speed = item.getAttribute('data-speed') || 0.05;
+                    const x = (window.innerWidth - e.pageX * speed) / 100;
+                    const y = (window.innerHeight - e.pageY * speed) / 100;
+                    item.style.transform = `translateX(${x}px) translateY(${y}px)`;
+                });
+                ticking = false;
+            });
+            ticking = true;
+        }
     });
 
     // Add masonry layout
@@ -41,13 +105,46 @@ document.addEventListener('DOMContentLoaded', () => {
         return 'misc';
     }
 
-    // Create gallery item
+    // Create gallery item with lazy loading and loading indicator
     function createGalleryItem(imagePath) {
         const figure = document.createElement('figure');
         figure.className = 'gallery-item';
         figure.setAttribute('data-speed', (Math.random() * 0.1).toFixed(2));
         
+        // Add loading spinner
+        const loader = document.createElement('div');
+        loader.className = 'loading-spinner';
+        figure.appendChild(loader);
+        
         const img = document.createElement('img');
+        img.loading = 'lazy'; // Enable native lazy loading
+        img.decoding = 'async'; // Enable async decoding
+        img.dataset.src = imagePath; // Set data-src for Intersection Observer
+        
+        // Handle image load
+        img.onload = () => {
+            loader.remove(); // Remove spinner
+            img.classList.add('loaded');
+            figure.classList.add('loaded');
+        };
+        
+        // Handle image error
+        img.onerror = () => {
+            loader.remove();
+            img.src = 'assets/icons/image-error.png';
+            img.classList.add('loaded');
+            figure.classList.add('error');
+        };
+
+        // Add click handler for lightbox
+        figure.addEventListener('click', () => {
+            const lightboxImg = lightboxElement.querySelector('img');
+            lightboxImg.src = img.src;
+            lightboxElement.classList.add('active');
+        });
+
+        // Observe image for lazy loading
+        imageObserver.observe(img);
         img.src = imagePath;
         img.loading = 'lazy';
         
