@@ -4,91 +4,65 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <meta name="description" content="Simplifying Tech, Media & Communication — Delivering Global Connectivity & Peace of Mind." />
-  <meta property="og:title" content="Taiyzun - Work" />
+  <meta property="og:title" content="Taiyzun - About" />
   <meta property="og:description" content="Simplifying Tech, Media & Communication — Delivering Global Connectivity & Peace of Mind." />
   <meta property="og:image" content="assets/logo/logo.png" />
   <meta name="theme-color" content="#1a1a2e" />
-  <title>Taiyzun – Work</title>
+  <title>Taiyzun – About</title>
   <link rel="icon" type="image/png" href="assets/logo/favicon.png" />
   <link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png" />
-  <link rel="stylesheet" href="css/work-styles.css" />
-  <style>
-    .site-nav {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      z-index: 1000;
-    }
-    .menu-icon {
-      background: transparent;
-      border: none;
-      padding: 0.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.45rem;
-      cursor: pointer;
-    }
-    .menu-icon span {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: #d4af37;
-    }
-    .site-nav ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: none;
-      flex-direction: column;
-      position: absolute;
-      top: calc(100% + 0.5rem);
-      right: 0;
-      background: rgba(26,26,46,0.95);
-      border-radius: 6px;
-      min-width: 200px;
-    }
-    .site-nav.open ul {
-      display: flex;
-    }
-    .site-nav ul li a {
-      display: block;
-      padding: 1rem;
-      color: #fff;
-      text-decoration: none;
-    }
-  </style>
+  <link rel="stylesheet" href="css/about-styles.css" />
 </head>
 <body>
-  <nav class="site-nav">
-    <button class="menu-icon" aria-label="Main menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="work.html" class="active">Work</a></li>
-      <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  </nav>
-  <video autoplay muted loop playsinline class="background-video">
-    <source src="assets/video/sora.mp4" type="video/mp4" />
-  </video>
+  <header class="page-header">
+    <img src="assets/logo/TaiyZun-logo.png" alt="Taiyzun Logo" class="logo">
+    <h1>About Taiyzun</h1>
+    <p class="tagline">
+      <strong>Simplifying Tech, Media & Communication</strong><br>
+      <strong>Delivering Global Connectivity & Peace of Mind</strong>
+    </p>
+  </header>
 
-  <!-- Existing content of work.html continues here -->
+  <main class="about-content">
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const menuIcon = document.querySelector('.menu-icon');
-      const nav = document.querySelector('.site-nav');
-      if (menuIcon) {
-        menuIcon.addEventListener('click', () => {
-          nav.classList.toggle('open');
-        });
-      }
-    });
-  </script>
+    <section class="intro-message">
+      <p>
+        In a world where code meets compassion, Taiyzun weaves technology with humanity. From digital innovation to global peace initiatives, his journey is a tapestry of tech-driven creativity and soulful connection—each thread a story of simplifying complexity and uniting people across boundaries.
+      </p>
+    </section>
+
+    <section class="timeline">
+      <h2>Journey & Milestones</h2>
+
+      <div class="timeline-item">
+        <h3>Early Beginnings</h3>
+        <p>From a young age, Taiyzun showed an affinity for technology and creativity, blending the two in unique ways.</p>
+      </div>
+
+      <div class="timeline-item">
+        <h3>Professional Growth</h3>
+        <p>Developed expertise in tech, media, and communication, delivering innovative solutions globally.</p>
+      </div>
+
+      <div class="timeline-item">
+        <h3>Global Connectivity</h3>
+        <p>Led initiatives to connect communities worldwide, fostering peace and understanding through technology.</p>
+      </div>
+
+      <div class="timeline-item">
+        <h3>Current Vision</h3>
+        <p>Continuing to simplify complexity and unite people across boundaries with tech-driven creativity.</p>
+      </div>
+    </section>
+
+    <section class="decorative-structure">
+      <div class="circle circle1"></div>
+      <div class="circle circle2"></div>
+      <div class="circle circle3"></div>
+    </section>
+
+  </main>
+
+  <script src="js/about.js"></script>
 </body>
 </html>
