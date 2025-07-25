@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Official website of Taiyzun Shahpurwala" />
-  <title>Index</title>
+  <meta name="description" content="Taiyzun floating logo with inverse motion and random drift." />
+  <title>Taiyzun Logo Float Opposite</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -20,7 +20,10 @@
       <a href="contact.html">Contact</a>
     </nav>
   </header>
-<main><h1>Welcome</h1><p>This is the homepage of Taiyzun Shahpurwala.</p></main>
+  <main>
+    <h1>Welcome</h1>
+    <p>Now featuring a logo that moves in the opposite direction of your mouse, with random floating speed.</p>
+  </main>
   <div class="socials">
     <a href="https://www.instagram.com/taiyzun"><img src="assets/images/icons/instagram.png" alt="Instagram" /></a>
     <a href="https://www.facebook.com/taiyzun"><img src="assets/images/icons/facebook.png" alt="Facebook" /></a>
@@ -28,13 +31,72 @@
     <a href="https://www.youtube.com/taiyzun"><img src="assets/images/icons/youtube.png" alt="YouTube" /></a>
     <a href="https://x.com/Taiyzun"><img src="assets/images/icons/x.png" alt="X" /></a>
   </div>
+
   <script>
     const logo = document.querySelector('.logo');
+    let lastX = 0, lastY = 0;
+
     document.addEventListener('mousemove', (e) => {
-      const x = e.clientX;
-      const y = e.clientY;
-      logo.style.transform = `translate(${x - 100}px, ${y - 100}px)`;
+      const { innerWidth, innerHeight } = window;
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+
+      // Calculate inverted offset
+      const offsetX = ((mouseX - innerWidth / 2) / 10);
+      const offsetY = ((mouseY - innerHeight / 2) / 10);
+
+      // Add randomness to movement
+      const jitterX = (Math.random() - 0.5) * 30;
+      const jitterY = (Math.random() - 0.5) * 30;
+
+      const x = (innerWidth / 2) - offsetX + jitterX - 100;
+      const y = (innerHeight / 2) - offsetY + jitterY - 100;
+
+      logo.style.transform = `translate(${x}px, ${y}px)`;
     });
   </script>
 </body>
+<style>
+.logo {
+  position: absolute;
+  height: 200px;
+  width: 200px;
+  object-fit: contain;
+  aspect-ratio: 1 / 1;
+  z-index: 100;
+  pointer-events: none;
+  filter: drop-shadow(0 0 20px #0ff) drop-shadow(0 0 60px #0ff);
+  transition: transform 0.08s ease-out;
+}
+.socials {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 15px;
+  z-index: 10;
+}
+.socials img {
+  height: 24px;
+  width: 24px;
+}
+nav {
+  margin: 120px auto 40px;
+  text-align: center;
+}
+nav a {
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #00ffff;
+}
+body {
+  background-color: black;
+  color: white;
+  font-family: Arial, sans-serif;
+  padding: 2rem;
+  min-height: 100vh;
+}
+</style>
 </html>
