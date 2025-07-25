@@ -3,56 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>About Taiyzun</title>
-  <link rel="stylesheet" href="/style.css" />
+  <title>About – Taiyzun</title>
 </head>
 <body>
-  <video autoplay muted loop class="background-video">
-    <source src="/videos/background.mp4" type="video/mp4" />
-  </video>
-
-  <header>
-    <img src="/images/logo.png" alt="Taiyzun Logo" class="logo" />
-    <nav>
-      <div class="hamburger-dots" id="hamburger">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-      </div>
-      <div class="nav-menu" id="nav-menu">
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/about" class="active">About</a></li>
-          <li><a href="/projects">Projects</a></li>
-          <li><a href="/blog">Blog</a></li>
-          <li><a href="/contact">Contact</a></li>
-        </ul>
-      </div>
-    </nav>
-  </header>
-
-  <main>
-    <p>In a world where code meets compassion, Taiyzun weaves technology with humanity. From digital innovation to global peace initiatives, his journey is a tapestry of tech-driven creativity and soulful connection—each thread a story of simplifying complexity and uniting people across boundaries.</p>
-  </main>
-
-  <footer>
-    <p>&copy; 2024 Taiyzun. All rights reserved.</p>
-    <p>
-      <strong>Connect:</strong>
-      <a href="https://twitter.com/taiyzun">Twitter</a> |
-      <a href="https://github.com/taiyzun">GitHub</a> |
-      <a href="https://linkedin.com/in/taiyzun">LinkedIn</a>
-    </p>
-  </footer>
-
-  <script>
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('nav-menu');
-
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('active');
-      navMenu.classList.toggle('active');
-    });
-  </script>
 </body>
 </html>
