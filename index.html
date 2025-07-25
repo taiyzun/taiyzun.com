@@ -81,11 +81,30 @@ html {
   font-weight: 600;
   color: #00ffff;
   font-size: 1rem;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 0.5rem 0;
 }
 
 .site-nav a:hover {
   color: #ffffff;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.site-nav a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  background: var(--accent-color);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.site-nav a:hover::after {
+  width: 100%;
 }
 
 /* Hero Section */
@@ -105,10 +124,25 @@ html {
   height: 100%;
   object-fit: cover;
   z-index: 0;
-  filter: brightness(0.35);
+  filter: brightness(0.4);
   transform: translateZ(-1px) scale(2);
   will-change: transform;
   pointer-events: none;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+  z-index: 1;
 }
 
 @keyframes fadeInUp {
@@ -131,17 +165,38 @@ html {
   padding: 0 1rem;
 }
 
+@keyframes logoReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
 .hero-content img.logo {
   max-width: 120px;
   margin-bottom: 1.5rem;
-  animation: fadeInUp 0.6s ease forwards;
+  animation: logoReveal 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.3));
+  transition: transform 0.3s ease;
+}
+
+.hero-content img.logo:hover {
+  transform: scale(1.05);
 }
 
 .hero-content h1 {
-  font-size: 2.5rem;
+  font-size: 3rem;
   margin-bottom: 0.5rem;
   opacity: 0;
   animation: fadeInUp 0.6s ease forwards 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+  font-weight: 800;
 }
 
 .hero-content p {
@@ -150,6 +205,9 @@ html {
   color: #ccc;
   opacity: 0;
   animation: fadeInUp 0.6s ease forwards 0.6s;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
 }
 
 .scroll-down {
@@ -163,14 +221,34 @@ html {
 
 @keyframes bounce {
   0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+    opacity: 1;
   }
   40% {
-    transform: translateY(-10px);
+    transform: translateY(-10px) scale(1.1);
+    opacity: 0.8;
   }
   60% {
-    transform: translateY(-5px);
+    transform: translateY(-5px) scale(1.05);
+    opacity: 0.9;
   }
+}
+
+.scroll-down {
+  font-size: 2rem;
+  color: var(--accent-color);
+  text-decoration: none;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards 0.9s, bounce 2s infinite;
+  display: inline-block;
+  text-shadow: 0 0 15px var(--accent-color);
+  transition: all 0.3s ease;
+}
+
+.scroll-down:hover {
+  color: #ffffff;
+  text-shadow: 0 0 20px var(--accent-color);
+  transform: scale(1.1);
 }
 
 /* Footer */
@@ -245,7 +323,7 @@ html {
         <source src="assets/video/sora.mp4" type="video/mp4">
       </video>
       <div class="hero-content">
-        <img src="assets/logo/logo.png" alt="Taiyzun Logo" class="logo">
+        <img src="assets/logo/TaiyZun-logo.png" alt="Taiyzun Logo" class="logo">
         <h1>Taiyzun Shahpurwala</h1>
         <p>Digital Artist & Technology Innovator</p>
         <a href="#about" class="scroll-down">↓</a>

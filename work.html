@@ -5,8 +5,145 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <meta name="description" content="Portfolio of Digital & Technology, Media & Communication, Social Impact & Peace, and Art & Creative work by Taiyzun Shahpurwala." />
   <title>Work Portfolio – Taiyzun Shahpurwala</title>
-  <link rel="stylesheet" href="assets/css/style.css" />
-  <link rel="icon" href="assets/icons/favicon.png" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="assets/logo/favicon.png">
+  <link rel="apple-touch-icon" href="assets/logo/favicon.png">
+  <style>
+    /* Work page specific styles */
+    .work-page {
+      padding: 120px 20px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 60px;
+      opacity: 0;
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .page-header h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: var(--accent-color);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+    }
+
+    .page-header .lead {
+      font-size: 1.25rem;
+      color: #ccc;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      padding: 0 20px;
+    }
+
+    .card {
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(0, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 30px;
+      transition: all 0.3s ease;
+      opacity: 0;
+      animation: fadeInUp 0.6s ease forwards;
+      animation-delay: calc(var(--card-index, 0) * 0.1s);
+      backdrop-filter: blur(10px);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 255, 255, 0.1);
+      border-color: rgba(0, 255, 255, 0.3);
+    }
+
+    .card h2 {
+      color: var(--accent-color);
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .card h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 2px;
+      background: var(--accent-color);
+      transition: width 0.3s ease;
+    }
+
+    .card:hover h2::after {
+      width: 100%;
+    }
+
+    .card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .card li {
+      margin-bottom: 15px;
+      padding-left: 25px;
+      position: relative;
+      line-height: 1.6;
+      color: #fff;
+    }
+
+    .card li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent-color);
+    }
+
+    @media (max-width: 768px) {
+      .work-page {
+        padding: 100px 15px 40px;
+      }
+
+      .page-header h1 {
+        font-size: 2rem;
+      }
+
+      .page-header .lead {
+        font-size: 1rem;
+      }
+
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 0;
+      }
+
+      .card {
+        padding: 20px;
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -29,7 +166,7 @@
 
     <section class="portfolio-grid">
       <!-- Digital & Technology -->
-      <div class="card">
+      <div class="card" style="--card-index: 0;">
         <h2>Digital &amp; Technology</h2>
         <ul>
           <li>Developed scalable web platforms for The Wadia Group</li>
@@ -40,7 +177,7 @@
       </div>
 
       <!-- Media & Communication -->
-      <div class="card">
+      <div class="card" style="--card-index: 1;">
         <h2>Media &amp; Communication</h2>
         <ul>
           <li>Hosted and produced youth programming on Channel V</li>
@@ -51,7 +188,7 @@
       </div>
 
       <!-- Social Impact & Peace -->
-      <div class="card">
+      <div class="card" style="--card-index: 2;">
         <h2>Social Impact &amp; Peace</h2>
         <ul>
           <li>Director, Office of Dr. Khorakiwala—philanthropic initiatives at Wockhardt</li>
@@ -62,7 +199,7 @@
       </div>
 
       <!-- Art & Creative -->
-      <div class="card">
+      <div class="card" style="--card-index: 3;">
         <h2>Art &amp; Creative</h2>
         <ul>
           <li>Designed logos &amp; branding for startups (Mustang, Propella, Revival…)</li>
@@ -77,13 +214,29 @@
   <footer class="site-footer">
     <p>© 2025 Taiyzun Shabbir Shahpurwala</p>
     <ul class="social-icons">
-      <li><a href="https://facebook.com/taiyzuns"><img src="assets/icons/facebook.png" alt="Facebook"></a></li>
-      <li><a href="https://instagram.com/taiyzun"><img src="assets/icons/instagram.png" alt="Instagram"></a></li>
-      <li><a href="https://linkedin.com/in/taiyzun"><img src="assets/icons/linkedin.png" alt="LinkedIn"></a></li>
-      <li><a href="https://x.com/Taiyzun"><img src="assets/icons/x.png" alt="X"></a></li>
-      <li><a href="https://youtube.com/taiyzun"><img src="assets/icons/youtube.png" alt="YouTube"></a></li>
+      <li><a href="https://facebook.com/taiyzuns" target="_blank"><img src="assets/icons/facebook.png" alt="Facebook"></a></li>
+      <li><a href="https://instagram.com/taiyzun" target="_blank"><img src="assets/icons/instagram.png" alt="Instagram"></a></li>
+      <li><a href="https://linkedin.com/in/taiyzun" target="_blank"><img src="assets/icons/linkedin.png" alt="LinkedIn"></a></li>
+      <li><a href="https://x.com/Taiyzun" target="_blank"><img src="assets/icons/x.png" alt="X"></a></li>
+      <li><a href="https://youtube.com/taiyzun" target="_blank"><img src="assets/icons/youtube.png" alt="YouTube"></a></li>
     </ul>
   </footer>
+
+  <script>
+    // Add scroll reveal animation
+    window.addEventListener('scroll', () => {
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        const cardTop = card.getBoundingClientRect().top;
+        const triggerBottom = window.innerHeight * 0.8;
+        
+        if (cardTop < triggerBottom) {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>
