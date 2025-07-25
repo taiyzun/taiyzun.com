@@ -1,19 +1,37 @@
-/* Gold & Silver Theme */
+/* Earth and Blue Theme */
 :root {
-  --background-color: #181818;
+  --earth-dark: #1a1a2e;
+  --earth-medium: #162447;
+  --earth-light: #1f4068;
+  --blue-accent: #1f75fe;
+  --blue-light: #4da8da;
   --gold: #ffd700;
   --silver: #c0c0c0;
   --font: 'Trebuchet MS', sans-serif;
 }
 
+/* Video Background */
+.background-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  opacity: 0.3;
+}
+
 body {
-  background: var(--background-color);
+  background: var(--earth-dark);
   color: var(--silver);
   font-family: var(--font);
   min-height: 100vh;
   letter-spacing: 0.02em;
   margin: 0;
   padding: 0;
+  position: relative;
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
