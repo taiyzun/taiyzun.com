@@ -260,15 +260,55 @@ button:hover {
 .social-icons {
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  gap: 1.5rem;
   padding: 0;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   list-style: none;
+}
+
+.social-icons a {
+  display: block;
+  padding: 8px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.social-icons a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, rgba(212, 175, 55, 0.2), transparent 70%);
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+  transform: translateY(-3px);
+  background: rgba(212, 175, 55, 0.2);
+}
+
+.social-icons a:hover::before {
+  opacity: 1;
 }
 
 .social-icons img {
   height: 24px;
   width: 24px;
+  position: relative;
+  z-index: 1;
+  filter: invert(1) brightness(1.5) sepia(1) hue-rotate(170deg) saturate(3);
+  transition: all 0.3s ease;
+}
+
+.social-icons a:hover img {
+  filter: invert(1) brightness(2) sepia(1) hue-rotate(170deg) saturate(3);
+  transform: scale(1.1);
 }
 
 /* Responsive Breakpoints */

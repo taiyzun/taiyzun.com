@@ -1,0 +1,29 @@
+# www.robotstxt.org/
+# Optimize crawling for Taiyzun.com
+
+User-agent: *
+Allow: /
+Disallow: /assets/raw/
+Disallow: /temp/
+Disallow: /backup/
+
+# Allow images and essential assets
+Allow: /assets/logo/
+Allow: /assets/icons/
+Allow: /assets/images/
+
+# Sitemap
+Sitemap: https://taiyzun.com/sitemap.xml
+
+# Specific instructions for major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Prevent archive.org from archiving old versions
+User-agent: ia_archiver
+Disallow: /
