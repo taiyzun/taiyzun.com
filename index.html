@@ -1,23 +1,73 @@
-/Users/tai/Documents/GitHub/taiyzun.com/assets/css/style.css
-/* Global base styles */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taiyzun Shahpurwala - Digital Artist & Technology Innovator</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Custom styles for index page */
+    :root {
+      --accent-color: #00ffff;
+      --text-light: #ffffff;
+      --text-dark: #111111;
+      --background-dark: #000000;
+    }
+
+    /* Reset & Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
 body {
-  margin: 0;
-  padding: 0;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  background-color: #000;
-  color: #fff;
+  background-color: var(--background-dark);
+  color: var(--text-light);
   font-size: 16px;
   line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
 }
 
 /* Navigation */
+@media (max-width: 768px) {
+  .site-nav {
+    padding: 0.5rem 0;
+  }
+  
+  .site-nav ul {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .hero-content h1 {
+    font-size: 1.5rem;
+  }
+  
+  .hero-content p {
+    font-size: 1rem;
+  }
+}
+.site-nav {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 1rem 0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 10;
+}
+
 .site-nav ul {
   list-style: none;
   display: flex;
   justify-content: center;
   gap: 2rem;
-  padding: 1rem;
-  margin: 0;
 }
 
 .site-nav a {
@@ -25,24 +75,45 @@ body {
   font-weight: 600;
   color: #00ffff;
   font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.site-nav a:hover {
+  color: #ffffff;
 }
 
 /* Hero Section */
 .hero {
   position: relative;
-  height: 90vh;
+  height: 100vh;
   overflow: hidden;
+  perspective: 1000px;
+  transform-style: preserve-3d;
 }
 
-.hero-bg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(0.4);
+.hero-video {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  filter: brightness(0.35);
+  transform: translateZ(-1px) scale(2);
+  will-change: transform;
+  pointer-events: none;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .hero-content {
@@ -54,50 +125,146 @@ body {
   padding: 0 1rem;
 }
 
+.hero-content img.logo {
+  max-width: 120px;
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.6s ease forwards;
+}
+
 .hero-content h1 {
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin-bottom: 0.5rem;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards 0.3s;
 }
 
 .hero-content p {
-  font-size: 1.125rem;
+  font-size: 1.25rem;
   margin-bottom: 1.5rem;
   color: #ccc;
-}
-
-.logo {
-  max-width: 100px;
-  height: auto;
-  margin-bottom: 1rem;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards 0.6s;
 }
 
 .scroll-down {
   font-size: 2rem;
-  color: #00ffff;
+  color: var(--accent-color);
+  text-decoration: none;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards 0.9s, bounce 2s infinite;
+  display: inline-block;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
 }
 
 /* Footer */
 .site-footer {
-  background: #111;
+  background: var(--text-dark);
   text-align: center;
-  padding: 1rem 0;
+  padding: 2rem 0;
   font-size: 0.875rem;
+  position: relative;
+}
+
+.site-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
 }
 
 .site-footer p {
-  margin: 0.25rem 0;
+  margin: 0.5rem 0;
+  opacity: 0.8;
 }
 
 .social-icons {
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  gap: 1.5rem;
   padding: 0;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   list-style: none;
 }
 
-.social-icons img {
-  height: 20px;
-  width: 20px;
+.social-icons a {
+  opacity: 0.7;
+  transition: all 0.3s ease;
 }
+
+.social-icons a:hover {
+  opacity: 1;
+  transform: translateY(-3px);
+}
+
+.social-icons img {
+  height: 24px;
+  width: 24px;
+  filter: brightness(0.9) sepia(1) hue-rotate(170deg) saturate(3);
+}
+
+/* Add this at the end to ensure proper closing */
+  </style>
+</head>
+<body>
+
+  <!-- navigation -->
+  <nav class="site-nav">
+    <ul>
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="work.html">Work</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <video class="hero-video" autoplay muted loop playsinline>
+        <source src="assets/video/background.mp4" type="video/mp4">
+      </video>
+      <div class="hero-content">
+        <img src="assets/logo.png" alt="Taiyzun Logo" class="logo">
+        <h1>Taiyzun Shahpurwala</h1>
+        <p>Digital Artist & Technology Innovator</p>
+        <a href="#about" class="scroll-down">↓</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2025 Taiyzun Shabbir Shahpurwala</p>
+    <ul class="social-icons">
+      <li><a href="https://facebook.com/taiyzuns" target="_blank"><img src="assets/icons/facebook.png" alt="Facebook"></a></li>
+      <li><a href="https://instagram.com/taiyzun" target="_blank"><img src="assets/icons/instagram.png" alt="Instagram"></a></li>
+      <li><a href="https://linkedin.com/in/taiyzun" target="_blank"><img src="assets/icons/linkedin.png" alt="LinkedIn"></a></li>
+      <li><a href="https://x.com/Taiyzun" target="_blank"><img src="assets/icons/x.png" alt="X"></a></li>
+      <li><a href="https://youtube.com/taiyzun" target="_blank"><img src="assets/icons/youtube.png" alt="YouTube"></a></li>
+    </ul>
+  </footer>
+
+  <script>
+    // Parallax effect
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const hero = document.querySelector('.hero-video');
+      hero.style.transform = `translateZ(-1px) scale(2) translateY(${scrolled * 0.5}px)`;
+    });
+  </script>
+
+</body>
+</html>

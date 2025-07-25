@@ -5,8 +5,118 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <meta name="description" content="Contact Taiyzun Shahpurwala – Send me a message via form or connect on social media." />
   <title>Contact – Taiyzun Shahpurwala</title>
-  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="assets/icons/favicon.png" />
+  <style>
+    .contact-form-section {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .contact-form {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2rem;
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    .contact-form label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--accent-color);
+      font-weight: 500;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1.5rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 5px;
+      color: #fff;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .contact-form button {
+      background: var(--accent-color);
+      color: var(--text-dark);
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .contact-form button:hover {
+      background: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 255, 255, 0.3);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Form validation styles */
+    .contact-form input:invalid,
+    .contact-form textarea:invalid {
+      border-color: #ff4444;
+    }
+
+    .contact-form .form-group {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group .error-message {
+      position: absolute;
+      bottom: -20px;
+      left: 0;
+      color: #ff4444;
+      font-size: 0.875rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .contact-form input:invalid + .error-message,
+    .contact-form textarea:invalid + .error-message {
+      opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+      .contact-form-section {
+        padding: 1rem;
+      }
+      
+      .contact-form {
+        padding: 1.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -29,25 +139,67 @@
 
     <section class="contact-form-section">
       <form
-        action="https://formspree.io/f/yourFormID"
+        action="https://formspree.io/f/xpzvyony"
         method="POST"
         class="contact-form"
+        id="contactForm"
       >
-        <label for="name">Full Name</label>
-        <input type="text" id="name" name="name" required />
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input 
+            type="text" 
+            id="name" 
+            name="name" 
+            required 
+            minlength="2"
+            pattern="[A-Za-z .]+"
+            title="Please enter a valid name"
+          />
+          <span class="error-message">Please enter your full name</span>
+        </div>
 
-        <label for="email">Email Address</label>
-        <input type="email" id="email" name="_replyto" required />
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input 
+            type="email" 
+            id="email" 
+            name="_replyto" 
+            required 
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+            title="Please enter a valid email address"
+          />
+          <span class="error-message">Please enter a valid email address</span>
+        </div>
 
-        <label for="phone">Phone Number</label>
-        <input type="tel" id="phone" name="phone" />
+        <div class="form-group">
+          <label for="phone">Phone Number (Optional)</label>
+          <input 
+            type="tel" 
+            id="phone" 
+            name="phone"
+            pattern="[0-9+ -]{10,}"
+            title="Please enter a valid phone number"
+          />
+          <span class="error-message">Please enter a valid phone number</span>
+        </div>
 
-        <label for="message">Message</label>
-        <textarea id="message" name="message" rows="5" required></textarea>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea 
+            id="message" 
+            name="message" 
+            rows="5" 
+            required
+            minlength="10"
+            title="Please enter your message (minimum 10 characters)"
+          ></textarea>
+          <span class="error-message">Please enter your message (minimum 10 characters)</span>
+        </div>
 
         <!-- hidden fields for Formspree -->
         <input type="hidden" name="_subject" value="New Contact Form Submission" />
         <input type="hidden" name="_next" value="thankyou.html" />
+        <input type="text" name="_gotcha" style="display: none;" />
 
         <button type="submit">Send Message</button>
       </form>
@@ -65,5 +217,61 @@
     </ul>
   </footer>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('contactForm');
+      const inputs = form.querySelectorAll('input, textarea');
+      
+      // Add animation class to form elements
+      inputs.forEach((input, index) => {
+        input.style.animation = `fadeIn 0.5s ease-out ${index * 0.1}s forwards`;
+      });
+      
+      // Real-time validation
+      inputs.forEach(input => {
+        input.addEventListener('input', function() {
+          if (this.checkValidity()) {
+            this.style.borderColor = 'rgba(0, 255, 255, 0.5)';
+          } else {
+            this.style.borderColor = '#ff4444';
+          }
+        });
+      });
+
+      // Form submission handling
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        if (form.checkValidity()) {
+          const button = form.querySelector('button');
+          button.textContent = 'Sending...';
+          button.disabled = true;
+          
+          try {
+            const response = await fetch(form.action, {
+              method: 'POST',
+              body: new FormData(form),
+              headers: {
+                'Accept': 'application/json'
+              }
+            });
+            
+            if (response.ok) {
+              window.location.href = 'thankyou.html';
+            } else {
+              throw new Error('Form submission failed');
+            }
+          } catch (error) {
+            button.textContent = 'Send Message';
+            button.disabled = false;
+            alert('Sorry, there was a problem sending your message. Please try again.');
+          }
+        } else {
+          // Trigger browser's default validation UI
+          form.reportValidity();
+        }
+      });
+    });
+  </script>
 </body>
 </html>
