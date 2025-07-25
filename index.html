@@ -8,8 +8,9 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <video autoplay muted loop class="background-video">
-    <source src="assets/videos/sora.mp4" type="video/mp4" />
+  <video autoplay muted loop class="background-video" playsinline>
+    <source src="assets/videos/sora.mp4" type="video/mp4">
+    Your browser does not support the video tag.
   </video>
   <header>
     <img src="assets/images/TaiyZun-Sword-logo-2021.png" alt="Taiyzun Logo" class="logo" />
@@ -47,13 +48,14 @@
   min-height: 100%;
   z-index: -1;
   object-fit: cover;
+  background-color: black;
 }
 .logo {
   position: absolute;
   top: 20px;
   left: 20px;
   height: 80px;
-  z-index: 1;
+  z-index: 10;
 }
 .socials {
   position: fixed;
@@ -62,7 +64,7 @@
   transform: translateX(-50%);
   display: flex;
   gap: 15px;
-  z-index: 1;
+  z-index: 10;
 }
 .socials img {
   height: 24px;
