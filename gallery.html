@@ -4,16 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <meta name="description" content="Simplifying Tech, Media & Communication — Delivering Global Connectivity & Peace of Mind." />
-  <meta property="og:title" content="Taiyzun - Gallery" />
+  <meta property="og:title" content="Taiyzun - Work" />
   <meta property="og:description" content="Simplifying Tech, Media & Communication — Delivering Global Connectivity & Peace of Mind." />
   <meta property="og:image" content="assets/logo/logo.png" />
   <meta name="theme-color" content="#1a1a2e" />
-  <title>Taiyzun – Gallery</title>
+  <title>Taiyzun – Work</title>
   <link rel="icon" type="image/png" href="assets/logo/favicon.png" />
   <link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png" />
-  <link rel="stylesheet" href="css/gallery-styles.css" />
+  <link rel="stylesheet" href="css/work-styles.css" />
   <style>
-    /* --- minimalist gold‑dot menu --- */
     .site-nav {
       position: fixed;
       top: 1rem;
@@ -33,7 +32,7 @@
       width: 14px;
       height: 14px;
       border-radius: 50%;
-      background: #d4af37; /* gold */
+      background: #d4af37;
     }
     .site-nav ul {
       list-style: none;
@@ -69,8 +68,8 @@
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
-      <li><a href="work.html">Work</a></li>
-      <li><a href="gallery.html" class="active">Gallery</a></li>
+      <li><a href="work.html" class="active">Work</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
@@ -78,43 +77,8 @@
     <source src="assets/video/sora.mp4" type="video/mp4" />
   </video>
 
-  <header class="page-header">
-    <img src="assets/logo/TaiyZun-logo.png" alt="Taiyzun Logo" class="logo">
-    <h1>Gallery</h1>
-    <p class="tagline">
-      <strong>Simplifying Tech, Media & Communication</strong><br>
-      <strong>Delivering Global Connectivity & Peace of Mind</strong>
-    </p>
-  </header>
+  <!-- Existing content of work.html continues here -->
 
-  <main class="gallery-grid">
-    <section class="gallery-section" id="art">
-      <h2>Art Collection</h2>
-      <div class="image-grid">
-        <!-- Art images will be loaded dynamically -->
-      </div>
-    </section>
-
-    <section class="gallery-section" id="designs">
-      <h2>Designs & Branding</h2>
-      <div class="image-grid">
-        <!-- Design images will be loaded dynamically -->
-      </div>
-    </section>
-
-    <section class="gallery-section" id="covers">
-      <h2>CD Covers & Flyers</h2>
-      <div class="image-grid">
-        <!-- Cover images will be loaded dynamically -->
-      </div>
-    </section>
-  </main>
-
-  <script src="js/gallery.js"></script>
-  <div class="maintenance-message">
-    Simplifying Tech, Media & Communication — Delivering Global Connectivity & Peace of Mind.<br>
-    <p style="color: var(--silver-color);">Gallery is being updated. Please check back soon for the full experience.</p>
-  </div>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const menuIcon = document.querySelector('.menu-icon');
