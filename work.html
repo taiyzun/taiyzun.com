@@ -145,12 +145,73 @@
         transform: translateY(0);
       }
     }
+
+    .menu-toggle {
+      display: none;
+      position: fixed;
+      top: 20px;
+      right: 30px;
+      z-index: 1100;
+      background: var(--gold-color);
+      color: #000;
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      font-size: 2rem;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(212,175,55,0.15);
+      transition: background 0.3s;
+    }
+    .menu-toggle:active,
+    .menu-toggle:focus {
+      background: var(--bright-gold);
+      outline: none;
+    }
+    .site-nav {
+      transition: max-height 0.3s, opacity 0.3s;
+      overflow: hidden;
+      max-height: 80px;
+      opacity: 1;
+    }
+    .site-nav.collapsed {
+      max-height: 0;
+      opacity: 0;
+      pointer-events: none;
+    }
+    @media (max-width: 900px) {
+      .site-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0,0,0,0.97);
+        border-bottom: 1px solid var(--gold-color);
+        max-height: 0;
+        opacity: 0;
+        pointer-events: none;
+      }
+      .site-nav.expanded {
+        max-height: 400px;
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .site-nav ul {
+        flex-direction: column;
+        padding: 2rem 0;
+      }
+      .site-nav li {
+        margin: 1rem 0;
+      }
+    }
   </style>
 </head>
 <body>
-
-  <!-- navigation -->
-  <nav class="site-nav">
+  <button class="menu-toggle" aria-label="Open menu">☰</button>
+  <nav class="site-nav collapsed">
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
@@ -237,6 +298,21 @@
           card.style.transform = 'translateY(0)';
         }
       });
+    });
+
+    // Hamburger menu logic
+    const menuToggle = document.querySelector('.menu-toggle');
+    const siteNav = document.querySelector('.site-nav');
+    menuToggle.addEventListener('click', () => {
+      siteNav.classList.toggle('expanded');
+      siteNav.classList.toggle('collapsed');
+    });
+    // Close menu when clicking outside (mobile UX)
+    document.addEventListener('click', (e) => {
+      if (!siteNav.contains(e.target) && !menuToggle.contains(e.target)) {
+        siteNav.classList.remove('expanded');
+        siteNav.classList.add('collapsed');
+      }
     });
   </script>
 

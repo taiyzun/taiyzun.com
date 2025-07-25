@@ -29,6 +29,28 @@
 }
 
 body {
+  background-color: var(--background-color);
+  color: var(--silver-color);
+  font-family: var(--font-family);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--gold-color);
+  font-family: var(--header-font);
+}
+
+a {
+  color: var(--gold-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--bright-gold);
+}
+
+body {
   font-family: 'TrebuchetMS', 'Trebuchet MS', sans-serif;
   background-color: var(--background-dark);
   color: var(--text-light);
@@ -64,12 +86,14 @@ section {
 
 /* Navigation */
 .site-nav {
-  background-color: rgba(0, 0, 0, 0.8);
-  padding: 1rem 0;
   position: fixed;
-  width: 100%;
   top: 0;
-  z-index: 10;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
 }
 
 .site-nav ul {
@@ -80,15 +104,38 @@ section {
 }
 
 .site-nav a {
+  color: var(--silver-color);
   text-decoration: none;
-  font-weight: 600;
-  color: #00ffff;
-  font-size: 1rem;
-  transition: color 0.3s ease;
+  padding: 1rem;
+  display: block;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
 .site-nav a:hover {
-  color: #ffffff;
+  color: var(--gold-color);
+}
+
+.site-nav a.active {
+  color: var(--bright-gold);
+}
+
+.site-nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--gold-color);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.site-nav a:hover::after,
+.site-nav a.active::after {
+  width: 100%;
+  background: var(--bright-gold);
 }
 
 /* Hero Section with Video Background */
