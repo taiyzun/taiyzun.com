@@ -51,9 +51,56 @@
       padding: 2rem;
       max-width: 1400px;
       margin: 0 auto;
+      min-height: 200px;
+      position: relative;
+    }
+
+    .loading-spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      border-top-color: var(--accent-color);
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .gallery-error {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #ff4444;
+      font-size: 1.2em;
+      text-align: center;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 4px;
+    }
+
+    .gallery-item {
       opacity: 0;
       transform: translateY(20px);
-      animation: fadeInUp 0.6s ease forwards 0.3s;
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 4px;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
     }
 
     .no-images {
@@ -280,25 +327,33 @@
     <!-- Art Section -->
     <section id="art" class="gallery-section">
       <h2>Art</h2>
-      <div class="gallery-grid art-grid" data-category="art"></div>
+      <div class="gallery-grid" data-category="art">
+        <div class="loading-spinner"></div>
+      </div>
     </section>
 
     <!-- Designs Section -->
     <section id="designs" class="gallery-section">
       <h2>Designs</h2>
-      <div class="gallery-grid designs-grid" data-category="designs"></div>
+      <div class="gallery-grid" data-category="designs">
+        <div class="loading-spinner"></div>
+      </div>
     </section>
 
     <!-- CD Designs Section -->
     <section id="cd-designs" class="gallery-section">
       <h2>CD Designs</h2>
-      <div class="gallery-grid cd-designs-grid" data-category="cd-designs"></div>
+      <div class="gallery-grid" data-category="cdDesigns">
+        <div class="loading-spinner"></div>
+      </div>
     </section>
 
     <!-- Flyers & Covers Section -->
     <section id="flyers" class="gallery-section">
       <h2>Flyers & Covers</h2>
-      <div class="gallery-grid flyers-grid" data-category="flyers"></div>
+      <div class="gallery-grid" data-category="flyers">
+        <div class="loading-spinner"></div>
+      </div>
     </section>
 
     <!-- Logos & Branding Section -->

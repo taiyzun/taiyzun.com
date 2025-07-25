@@ -1,4 +1,109 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Define gallery sections and their image paths
+    const galleryConfig = {
+        art: {
+            title: 'Art',
+            path: 'assets/Art/',
+            images: [
+                ...Array.from({ length: 31 }, (_, i) => `arT ${String(i + 1).padStart(5, '0')}.jpg`),
+                'miSc SecreT keyS.jpg', 'miSc Shiva Shanker Tone.jpg', 'miSc Shiva Shanker.jpg',
+                'miSc Smoke.jpg', 'miSc Sp ce.jpg', 'miSc T ShirT deSign.jpg', 'miSc Taj.jpg',
+                'miSc Tikka.jpg', 'miSc chaSe To0.jpg', 'miSc chaSe.jpg', 'miSc dj jeTo coming Soon.jpg',
+                'miSc everyThing.jpg', 'miSc freSh.jpg', 'miSc keep walking.jpg', 'miSc mango public.jpg',
+                'miSc pink.jpg', 'miSc reborn.jpg'
+            ]
+        },
+        designs: {
+            title: 'Designs',
+            path: 'assets/Art/',
+            images: [
+                ...Array.from({ length: 27 }, (_, i) => `deSignS ${String(i + 1).padStart(5, '0')}.jpg`)
+            ]
+        },
+        cdDesigns: {
+            title: 'CD Designs',
+            path: 'assets/Art/',
+            images: [
+                'cd deSignS big brain waSh inlay.jpg',
+                'cd deSignS deliver uS from evil back.jpg',
+                'cd deSignS deliver uS from evil cd.jpg',
+                'cd deSignS deliver uS from evil under cd.jpg',
+                'cd deSignS hypnoTic waveformS cd.jpg',
+                'cd deSignS hypnoTic waveformS fronT n back.jpg',
+                'cd deSignS rock on cd compilaTion.jpg',
+                'cd deSignS rock on cover.jpg',
+                'cd deSignS rock on inlay.jpg',
+                'cd deSignS rock on ouTlay.jpg',
+                'cd deSignS TremourS underground.jpg'
+            ]
+        },
+        flyers: {
+            title: 'Flyers & Covers',
+            path: 'assets/Art/',
+            images: [
+                ...Array.from({ length: 57 }, (_, i) => `flyerS and coverS ${String(i + 1).padStart(5, '0')}.jpg`)
+            ]
+        },
+        psychedelicArt: {
+            title: 'Psychedelic Art',
+            path: 'assets/Art/',
+            images: [
+                'pSy arT 23rd march raZZ.jpg', 'pSy arT 8.jpg', 'pSy arT The gaTeway.jpg',
+                'pSy arT Trance Tea.jpg', 'pSy arT Trip To goa 2.jpg', 'pSy arT Trip To goa.jpg',
+                'pSy arT Twice Twice Thrice.jpg', 'pSy arT Twice Twice.jpg', 
+                'pSy arT XeroX n illuminaTion prinT.jpg', 'pSy arT analog puSSy.jpg',
+                'pSy arT b0rn ulTimaTum.jpg', 'pSy arT barred.jpg', 'pSy arT brain SpAcE.jpg',
+                'pSy arT buTTer To0.jpg', 'pSy arT buTTer.jpg', 'pSy arT calling ganeSh.jpg',
+                'pSy arT chriSTmaSS.jpg', 'pSy arT deedS.jpg', 'pSy arT dynamic mESuremEnTS ii.jpg',
+                'pSy arT dynamic mESuremEnTS.jpg', 'pSy arT euphoria.jpg', 'pSy arT freeZa ocean.jpg',
+                'pSy arT fridayS.jpg', 'pSy arT grand Sp ce.jpg', 'pSy arT harveSTer of.jpg',
+                'pSy arT highko.jpg', 'pSy arT hmmm.jpg', 'pSy arT hmmmap.jpg', 'pSy arT idjc flyer.jpg',
+                'pSy arT jam.jpg', 'pSy arT kdd map.jpg', 'pSy arT mEnog milkShake.jpg',
+                'pSy arT moTherhood.jpg', 'pSy arT n um b 0ne.jpg', 'pSy arT nemo.jpg',
+                'pSy arT pSycho karan.jpg', 'pSy arT parTymap.jpg', 'pSy arT penTaZZ.jpg',
+                'pSy arT penTed.jpg', 'pSy arT q goSpel.jpg', 'pSy arT vT.jpg',
+                'pSy arT whoSane aSad pune7Th april map.jpg', 'pSy arT wide Screen.jpg'
+            ]
+        },
+        portraits: {
+            title: 'Portraits',
+            path: 'assets/Portraits/',
+            images: [
+                ...Array.from({ length: 7 }, (_, i) => `Taiyzun Shahpurwala ${String(i + 1).padStart(5, '0')}.jpeg`)
+            ]
+        },
+        logos: {
+            title: 'Logos & Branding',
+            path: 'assets/logos-branding/',
+            images: [
+                ...Array.from({ length: 145 }, (_, i) => 
+                    i + 1 === 6 || i + 1 === 75 || i + 1 === 131 
+                        ? `logo deSignS ${String(i + 1).padStart(5, '0')}.jpeg`
+                        : `logo deSignS ${String(i + 1).padStart(5, '0')}.jpg`
+                )
+            ]
+        },
+        workPortfolio: {
+            title: 'Commercial Work',
+            path: 'assets/work-portfolio/',
+            images: [
+                'commErcial elSe 10.jpg', 'commErcial elSe 2.jpg', 'commErcial elSe 3.jpg',
+                'commErcial elSe 4.jpg', 'commErcial elSe 5.jpg', 'commErcial elSe 6.jpg',
+                'commErcial elSe 7.jpg', 'commErcial elSe 8.jpg', 'commErcial elSe 9.jpg',
+                'commErcial elSe.jpg', 'commErcial evergreen yoga flyer.jpg', 'commErcial ippai.jpg',
+                'commErcial la SenZa Smile wiTh gorilla.jpg', 'commErcial la SenZa SplaTTer fly.jpg',
+                'commErcial la SenZa SqueeZe Teh bunny.jpg', 'commErcial la SenZa XmaS TreaT.jpg',
+                'commErcial la SenZa baby & mE.jpg', 'commErcial la SenZa buZZ bomb.jpg',
+                'commErcial la SenZa chubby penguin.jpg', 'commErcial la SenZa do noT puSh.jpg',
+                'commErcial la SenZa dreamcloud.jpg', 'commErcial la SenZa f0ur elemEnTS.jpg',
+                'commErcial la SenZa faST TurTle.jpg', 'commErcial la SenZa flying lOvE.jpg',
+                'commErcial la SenZa flying mooS.jpg', 'commErcial la SenZa four SeaSonS.jpg',
+                'commErcial la SenZa ginger bread boy.jpg', 'commErcial la SenZa human Touch.jpg',
+                'commErcial la SenZa monkey Shine.jpg', 'commErcial la SenZa waTer life.jpg',
+                'commErcial la SenZa whaky duck.jpg', 'commErcial la SenZa yin yang.jpg'
+            ]
+        }
+    };
     // Initialize Intersection Observer for lazy loading
     const imageObse    /* Create gallery item with lazy loading and loading indicator */
     function createGalleryItem(imagePath) {
@@ -6,12 +111,34 @@ document.addEventListener('DOMContentLoaded', () => {
         figure.className = 'gallery-item';
         figure.setAttribute('data-speed', (Math.random() * 0.1).toFixed(2));
         
-        // Add loading spinner
-        const loader = document.createElement('div');
-        loader.className = 'loading-spinner';
-        figure.appendChild(loader);
+        // Create loading spinner
+        const spinner = document.createElement('div');
+        spinner.className = 'loading-spinner';
+        figure.appendChild(spinner);
         
-        // Validate image path
+        // Create image element
+        const img = document.createElement('img');
+        img.style.opacity = '0';
+        img.style.transition = 'opacity 0.3s ease';
+        
+        // Set up image loading
+        img.onload = () => {
+            spinner.remove();
+            img.style.opacity = '1';
+        };
+        
+        img.onerror = () => {
+            spinner.remove();
+            img.src = 'assets/error-placeholder.jpg';
+            img.alt = 'Image failed to load';
+            img.style.opacity = '1';
+        };
+        
+        // Set image source to trigger loading
+        img.src = imagePath;
+        img.alt = 'Gallery Image';
+        figure.appendChild(img);
+            // Validate image path
         if (!imagePath || typeof imagePath !== 'string') {
             console.error('Invalid image path:', imagePath);
             return null;
@@ -31,6 +158,61 @@ document.addEventListener('DOMContentLoaded', () => {
     }, {
         rootMargin: '50px 0px',
         threshold: 0.1
+    });
+
+    // Handle filter changes
+    if (filter) {
+        filter.addEventListener('change', (e) => {
+            const category = e.target.value;
+            currentCategory = category;
+            
+            // Show loading state
+            gallery.innerHTML = '';
+            const loadingSpinner = document.createElement('div');
+            loadingSpinner.className = 'loading-spinner';
+            gallery.appendChild(loadingSpinner);
+            
+            // Short delay to ensure spinner is visible
+            setTimeout(() => {
+                displayImages(category);
+            }, 100);
+        });
+    }
+
+    function displayImages(category) {
+        gallery.innerHTML = '';
+        
+        let imagesToDisplay = [];
+        if (category === 'all') {
+            // Combine all images from all categories
+            Object.values(galleryConfig).forEach(section => {
+                imagesToDisplay = [...imagesToDisplay, 
+                    ...section.images.map(img => section.path + img)
+                ];
+            });
+        } else {
+            const section = galleryConfig[category];
+            if (section) {
+                imagesToDisplay = section.images.map(img => section.path + img);
+            }
+        }
+
+        if (imagesToDisplay.length === 0) {
+            const errorMsg = document.createElement('div');
+            errorMsg.className = 'gallery-error';
+            errorMsg.textContent = 'No images found for this category';
+            gallery.appendChild(errorMsg);
+            return;
+        }
+
+        // Create and append gallery items
+        imagesToDisplay.forEach(imagePath => {
+            const item = createGalleryItem(imagePath);
+            if (item) {
+                gallery.appendChild(item);
+            }
+        });
+    }
     });
 
     // Initialize lightbox
