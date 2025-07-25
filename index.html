@@ -6,6 +6,10 @@
   <title>Taiyzun Shahpurwala - Digital Artist & Technology Innovator</title>
   <link rel="stylesheet" href="style.css">
   <style>
+    @font-face {
+      font-family: 'TrebuchetMS';
+      src: local('Trebuchet MS');
+    }
     /* Custom styles for index page */
     :root {
       --accent-color: #00ffff;
@@ -22,7 +26,7 @@
     }
 
 body {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'TrebuchetMS', 'Trebuchet MS', sans-serif;
   background-color: var(--background-dark);
   color: var(--text-light);
   font-size: 16px;
@@ -234,11 +238,12 @@ html {
 
   <main>
     <section class="hero">
+      <div class="video-overlay"></div>
       <video class="hero-video" autoplay muted loop playsinline>
-        <source src="assets/video/background.mp4" type="video/mp4">
+        <source src="assets/video/sora.mp4" type="video/mp4">
       </video>
       <div class="hero-content">
-        <img src="assets/logo.png" alt="Taiyzun Logo" class="logo">
+        <img src="assets/logo/logo.png" alt="Taiyzun Logo" class="logo">
         <h1>Taiyzun Shahpurwala</h1>
         <p>Digital Artist & Technology Innovator</p>
         <a href="#about" class="scroll-down">↓</a>
@@ -266,5 +271,6 @@ html {
     });
   </script>
 
-</body>
+    <script src="js/parallax.js"></script>
+  </body>
 </html>
