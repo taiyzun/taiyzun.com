@@ -71,21 +71,12 @@
 .socials img {
   height: 24px;
   width: 24px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 165, 0, 0.6), rgba(255, 140, 0, 0.4), transparent);
-  box-shadow: 
-    0 0 10px rgba(255, 165, 0, 0.8),
-    0 0 20px rgba(255, 140, 0, 0.6),
-    0 0 30px rgba(255, 100, 0, 0.4);
   transition: all 0.3s ease;
-  padding: 4px;
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
 }
 
 .socials img:hover {
-  box-shadow: 
-    0 0 15px rgba(255, 165, 0, 1),
-    0 0 30px rgba(255, 140, 0, 0.8),
-    0 0 45px rgba(255, 100, 0, 0.6);
+  filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.8));
   transform: scale(1.1);
 }
 nav {
