@@ -1,14 +1,12 @@
 .logo {
   position: absolute;
-  top: 0;
-  left: 0;
   height: 200px;
   width: 200px;
   object-fit: contain;
   aspect-ratio: 1 / 1;
   z-index: 100;
   pointer-events: none;
-  filter: drop-shadow(0 0 15px #0ff) drop-shadow(0 0 40px #0ff);
+  filter: drop-shadow(0 0 20px #0ff) drop-shadow(0 0 60px #0ff);
   transition: transform 0.08s ease-out;
 }
 .socials {
