@@ -152,7 +152,7 @@ main, .content {
 
 /* Compact header styling */
 header {
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.3);
   border-radius: 25px;
   padding: 8px 12px;
   margin: 15px 0;
@@ -177,7 +177,7 @@ header {
   }
   
   header {
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.3);
     border-radius: 20px;
     padding: 6px 10px;
     margin: 10px 0;
@@ -211,7 +211,7 @@ header {
   }
   
   header {
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(0, 0, 0, 0.3);
     border-radius: 18px;
     padding: 5px 8px;
     margin: 8px 0;
