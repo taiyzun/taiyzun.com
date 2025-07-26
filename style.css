@@ -1,13 +1,36 @@
 .logo {
-  position: absolute;
-  height: 200px;
-  width: 200px;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  height: 80px;
+  width: 80px;
   object-fit: contain;
   aspect-ratio: 1 / 1;
-  z-index: 100;
-  pointer-events: none;
-  filter: drop-shadow(0 0 20px #0ff) drop-shadow(0 0 60px #0ff);
-  transition: transform 0.08s ease-out;
+  z-index: 1000;
+  pointer-events: auto;
+  transform: none !important;
+  transition: none !important;
+}
+
+/* Responsive logo sizing */
+@media (max-width: 768px) {
+  .logo {
+    height: 60px !important;
+    width: 60px !important;
+    top: 15px !important;
+    left: 15px !important;
+    transform: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    height: 50px !important;
+    width: 50px !important;
+    top: 10px !important;
+    left: 10px !important;
+    transform: none !important;
+  }
 }
 .socials {
   position: fixed;
@@ -23,19 +46,55 @@
   width: 24px;
 }
 nav {
-  margin: 120px auto 40px;
+  margin: 40px auto 40px;
   text-align: center;
+  padding-top: 20px;
 }
 nav a {
   margin: 0 15px;
   text-decoration: none;
   font-weight: bold;
-  color: #00ffff;
+  color: #FFD700; /* Gold */
+  transition: color 0.3s ease;
+}
+nav a:hover {
+  color: #FFA500; /* Darker gold on hover */
 }
 body {
   background-color: black;
-  color: white;
+  color: #C0C0C0; /* Silver */
   font-family: Arial, sans-serif;
   padding: 2rem;
+  padding-left: 120px; /* Make room for logo */
   min-height: 100vh;
+}
+
+/* Responsive body padding */
+@media (max-width: 768px) {
+  body {
+    padding-left: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 1rem;
+    padding-left: 80px;
+  }
+}
+h1 {
+  color: #FFD700; /* Gold for headings */
+}
+
+/* Additional reset to prevent any logo movement */
+.logo {
+  animation: none !important;
+}
+
+.logo:hover {
+  transform: none !important;
+}
+
+* {
+  box-sizing: border-box;
 }
