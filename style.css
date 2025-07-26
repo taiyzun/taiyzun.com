@@ -1,3 +1,8 @@
+/* Global Font Setting */
+* {
+  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+}
+
 /* Background Video Parallax */
 .background-video {
   position: fixed;
@@ -128,7 +133,7 @@ nav a.active:hover::before {
 body {
   background-color: transparent;
   color: #C0C0C0; /* Silver */
-  font-family: Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
   padding: 2rem;
   padding-left: 190px; /* Make room for bigger logo */
   min-height: 100vh;
