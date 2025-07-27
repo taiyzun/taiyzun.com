@@ -78,45 +78,6 @@
           header.classList.remove('menu-open');
         });
       });
-      
-      // Liquid Glass Custom Cursor (Desktop only)
-      if (window.innerWidth > 768) {
-        const cursor = document.createElement('div');
-        cursor.style.cssText = `
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 20px;
-          height: 20px;
-          background: radial-gradient(circle, rgba(255, 215, 0, 0.8) 0%, rgba(255, 215, 0, 0.4) 50%, transparent 70%);
-          border-radius: 50%;
-          pointer-events: none;
-          z-index: 9999;
-          mix-blend-mode: screen;
-          transition: transform 0.1s ease;
-        `;
-        document.body.appendChild(cursor);
-        
-        document.addEventListener('mousemove', (e) => {
-          cursor.style.left = e.clientX - 10 + 'px';
-          cursor.style.top = e.clientY - 10 + 'px';
-        });
-        
-        // Enhanced cursor for interactive elements
-        document.addEventListener('mouseenter', (e) => {
-          if (e.target.matches('a, button, .mobile-menu-btn, nav a')) {
-            cursor.style.transform = 'scale(1.5)';
-            cursor.style.background = 'radial-gradient(circle, rgba(255, 215, 0, 1) 0%, rgba(255, 215, 0, 0.6) 50%, transparent 70%)';
-          }
-        }, true);
-        
-        document.addEventListener('mouseleave', (e) => {
-          if (e.target.matches('a, button, .mobile-menu-btn, nav a')) {
-            cursor.style.transform = 'scale(1)';
-            cursor.style.background = 'radial-gradient(circle, rgba(255, 215, 0, 0.8) 0%, rgba(255, 215, 0, 0.4) 50%, transparent 70%)';
-          }
-        }, true);
-      }
     });
   </script>
 </body>
