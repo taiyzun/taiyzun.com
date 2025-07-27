@@ -116,6 +116,75 @@
     <div class="coming-soon">
       <h2>Coming Soon…</h2>
     </div>
+    
+    <!-- Portrait Gallery -->
+    <div class="portrait-gallery">
+      <h2>Portrait Journey</h2>
+      <p>A visual exploration through the personal odyssey - capturing moments of transformation, reflection, and creative evolution.</p>
+      
+      <div class="gallery-grid">
+        <div class="gallery-item" onclick="openLightbox('assets/Portraits/taiyzun_shahpurwala 00001.jpeg')">
+          <img src="assets/Portraits/taiyzun_shahpurwala 00001.jpeg" alt="Taiyzun Shahpurwala Portrait 1" loading="lazy">
+          <div class="gallery-overlay">
+            <span class="view-icon">🔍</span>
+          </div>
+        </div>
+        
+        <div class="gallery-item" onclick="openLightbox('assets/Portraits/taiyzun_shahpurwala 00002.jpeg')">
+          <img src="assets/Portraits/taiyzun_shahpurwala 00002.jpeg" alt="Taiyzun Shahpurwala Portrait 2" loading="lazy">
+          <div class="gallery-overlay">
+            <span class="view-icon">🔍</span>
+          </div>
+        </div>
+        
+        <div class="gallery-item" onclick="openLightbox('assets/Portraits/taiyzun_shahpurwala 00003.jpeg')">
+          <img src="assets/Portraits/taiyzun_shahpurwala 00003.jpeg" alt="Taiyzun Shahpurwala Portrait 3" loading="lazy">
+          <div class="gallery-overlay">
+            <span class="view-icon">🔍</span>
+          </div>
+        </div>
+        
+        <div class="gallery-item" onclick="openLightbox('assets/Portraits/taiyzun_shahpurwala 00004.jpeg')">
+          <img src="assets/Portraits/taiyzun_shahpurwala 00004.jpeg" alt="Taiyzun Shahpurwala Portrait 4" loading="lazy">
+          <div class="gallery-overlay">
+            <span class="view-icon">🔍</span>
+          </div>
+        </div>
+        
+        <div class="gallery-item" onclick="openLightbox('assets/Portraits/taiyzun_shahpurwala 00005.jpeg')">
+          <img src="assets/Portraits/taiyzun_shahpurwala 00005.jpeg" alt="Taiyzun Shahpurwala Portrait 5" loading="lazy">
+          <div class="gallery-overlay">
+            <span class="view-icon">🔍</span>
+          </div>
+        </div>
+        
+        <div class="gallery-item" onclick="openLightbox('assets/Portraits/taiyzun_shahpurwala 00006.jpeg')">
+          <img src="assets/Portraits/taiyzun_shahpurwala 00006.jpeg" alt="Taiyzun Shahpurwala Portrait 6" loading="lazy">
+          <div class="gallery-overlay">
+            <span class="view-icon">🔍</span>
+          </div>
+        </div>
+        
+        <div class="gallery-item" onclick="openLightbox('assets/Portraits/taiyzun_shahpurwala 00007.jpeg')">
+          <img src="assets/Portraits/taiyzun_shahpurwala 00007.jpeg" alt="Taiyzun Shahpurwala Portrait 7" loading="lazy">
+          <div class="gallery-overlay">
+            <span class="view-icon">🔍</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+      <div class="lightbox-content">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <img id="lightbox-image" src="" alt="Portrait Full View">
+        <div class="lightbox-nav">
+          <button class="lightbox-prev" onclick="prevImage()">&#10094;</button>
+          <button class="lightbox-next" onclick="nextImage()">&#10095;</button>
+        </div>
+      </div>
+    </div>
   </div>
 </main>
 
@@ -132,6 +201,74 @@
   </footer>
 
   <script>
+    // Portrait Gallery Lightbox Functionality
+    const galleryImages = [
+      'assets/Portraits/taiyzun_shahpurwala 00001.jpeg',
+      'assets/Portraits/taiyzun_shahpurwala 00002.jpeg',
+      'assets/Portraits/taiyzun_shahpurwala 00003.jpeg',
+      'assets/Portraits/taiyzun_shahpurwala 00004.jpeg',
+      'assets/Portraits/taiyzun_shahpurwala 00005.jpeg',
+      'assets/Portraits/taiyzun_shahpurwala 00006.jpeg',
+      'assets/Portraits/taiyzun_shahpurwala 00007.jpeg'
+    ];
+    
+    let currentImageIndex = 0;
+    
+    function openLightbox(imageSrc) {
+      currentImageIndex = galleryImages.indexOf(imageSrc);
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImage = document.getElementById('lightbox-image');
+      
+      lightboxImage.src = imageSrc;
+      lightbox.style.display = 'flex';
+      document.body.style.overflow = 'hidden'; // Prevent scrolling
+      
+      // Add fade-in animation
+      setTimeout(() => {
+        lightbox.classList.add('active');
+      }, 10);
+    }
+    
+    function closeLightbox() {
+      const lightbox = document.getElementById('lightbox');
+      lightbox.classList.remove('active');
+      document.body.style.overflow = 'auto'; // Restore scrolling
+      
+      setTimeout(() => {
+        lightbox.style.display = 'none';
+      }, 300);
+    }
+    
+    function nextImage() {
+      currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+      const lightboxImage = document.getElementById('lightbox-image');
+      lightboxImage.src = galleryImages[currentImageIndex];
+    }
+    
+    function prevImage() {
+      currentImageIndex = currentImageIndex === 0 ? galleryImages.length - 1 : currentImageIndex - 1;
+      const lightboxImage = document.getElementById('lightbox-image');
+      lightboxImage.src = galleryImages[currentImageIndex];
+    }
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+      const lightbox = document.getElementById('lightbox');
+      if (lightbox.style.display === 'flex') {
+        switch(e.key) {
+          case 'Escape':
+            closeLightbox();
+            break;
+          case 'ArrowRight':
+            nextImage();
+            break;
+          case 'ArrowLeft':
+            prevImage();
+            break;
+        }
+      }
+    });
+    
     // Mobile menu toggle functionality
     document.addEventListener('DOMContentLoaded', function() {
       const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
