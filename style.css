@@ -14,7 +14,8 @@
   z-index: -1;
   opacity: 1;
   filter: blur(0.5px) saturate(1.2);
-  animation: subtleFloat 20s ease-in-out infinite;
+  animation: enhancedParallax 25s ease-in-out infinite;
+  will-change: transform;
 }
 
 .video-overlay {
@@ -27,13 +28,15 @@
   backdrop-filter: blur(0.5px);
   z-index: -1;
   animation: overlayPulse 15s ease-in-out infinite;
+  will-change: opacity;
 }
 
-@keyframes subtleFloat {
-  0%, 100% { transform: scale(1) translateX(0); }
-  25% { transform: scale(1.02) translateX(2px); }
-  50% { transform: scale(1.01) translateX(-1px); }
-  75% { transform: scale(1.03) translateX(1px); }
+@keyframes enhancedParallax {
+  0%, 100% { transform: scale(1) translateX(0) translateY(0); }
+  20% { transform: scale(1.02) translateX(2px) translateY(-1px); }
+  40% { transform: scale(1.01) translateX(-1px) translateY(1px); }
+  60% { transform: scale(1.03) translateX(1px) translateY(-2px); }
+  80% { transform: scale(1.015) translateX(-2px) translateY(1px); }
 }
 
 @keyframes overlayPulse {
@@ -817,6 +820,7 @@ nav a.active::after {
   .background-video {
     opacity: 1;
     filter: blur(1px) saturate(1.1);
+    animation: enhancedParallax 30s ease-in-out infinite;
   }
   
   main, .content {
@@ -870,6 +874,7 @@ nav a.active::after {
   .background-video {
     opacity: 1;
     filter: blur(1.5px) saturate(1.0);
+    animation: enhancedParallax 35s ease-in-out infinite;
   }
   
   main, .content {
@@ -1264,6 +1269,76 @@ h1 {
     width: 45px;
     bottom: 90px;
     right: 15px;
+  }
+}
+
+/* Background Music Controls */
+.music-control {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: 
+    linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05)),
+    radial-gradient(circle at 30% 30%, rgba(255, 215, 0, 0.2), transparent);
+  backdrop-filter: blur(15px) saturate(1.4);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 15;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.music-control:hover {
+  transform: scale(1.1);
+  background: 
+    linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.08)),
+    radial-gradient(circle at 30% 30%, rgba(255, 215, 0, 0.3), transparent);
+  border-color: rgba(255, 215, 0, 0.5);
+  box-shadow: 
+    0 6px 20px rgba(255, 215, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.music-control svg {
+  width: 24px;
+  height: 24px;
+  fill: rgba(255, 215, 0, 0.9);
+  transition: all 0.3s ease;
+}
+
+.music-control:hover svg {
+  fill: rgba(255, 215, 0, 1);
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
+}
+
+.music-control.playing {
+  animation: musicPulse 2s ease-in-out infinite;
+}
+
+@keyframes musicPulse {
+  0%, 100% { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 0 0 rgba(255, 215, 0, 0.4); }
+  50% { box-shadow: 0 6px 20px rgba(255, 215, 0, 0.3), 0 0 0 10px rgba(255, 215, 0, 0); }
+}
+
+@media (max-width: 768px) {
+  .music-control {
+    top: 15px;
+    right: 15px;
+    width: 45px;
+    height: 45px;
+  }
+  
+  .music-control svg {
+    width: 20px;
+    height: 20px;
   }
 }
 
