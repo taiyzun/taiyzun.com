@@ -434,6 +434,53 @@ p {
   50% { transform: translateY(-2px); }
 }
 
+/* Coming Soon Section Styles */
+.coming-soon {
+  text-align: center;
+  padding: 40px 20px;
+  background: 
+    linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06)),
+    radial-gradient(circle at 30% 40%, rgba(255, 215, 0, 0.1), transparent),
+    radial-gradient(circle at 70% 60%, rgba(255, 165, 0, 0.08), transparent);
+  border-radius: 20px;
+  margin: 20px 0;
+  backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(255, 215, 0, 0.1);
+  animation: comingSoonFloat 8s ease-in-out infinite;
+}
+
+.coming-soon h2 {
+  color: #FFA500;
+  font-size: 2.2em;
+  margin-bottom: 1em;
+  text-shadow: 
+    0 0 15px rgba(255, 165, 0, 0.6),
+    0 0 30px rgba(255, 165, 0, 0.4);
+  background: linear-gradient(135deg, #FFA500, #FFD700, #FFA500);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 200%;
+  animation: titleShimmer 5s ease-in-out infinite;
+}
+
+.coming-soon p {
+  font-size: 1.2em;
+  color: #E8E8E8;
+  line-height: 1.8;
+  margin-bottom: 1.5em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+@keyframes comingSoonFloat {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-5px) scale(1.01); }
+}
+
 /* Liquid Glass Scroll Effects */
 ::-webkit-scrollbar {
   width: 12px;
