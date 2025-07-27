@@ -91,8 +91,8 @@
     left: 10px !important;
   }
 }
-/* Enhanced Liquid Glass Social Media Icons */
-.socials {
+/* Enhanced Footer Social Media Icons */
+.socials, footer.socials {
   position: fixed;
   bottom: 20px;
   left: 50%;
@@ -117,7 +117,7 @@
   overflow: hidden;
 }
 
-.socials::before {
+.socials::before, footer.socials::before {
   content: '';
   position: absolute;
   top: -2px;
@@ -145,7 +145,7 @@
   50% { transform: translateX(-50%) translateY(-5px); }
 }
 
-.socials:hover {
+.socials:hover, footer.socials:hover {
   transform: translateX(-50%) scale(1.05);
   background: 
     linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06)),
@@ -159,7 +159,7 @@
   backdrop-filter: blur(20px) saturate(1.6);
 }
 
-.socials img {
+.socials img, footer.socials img {
   height: 24px;
   width: 24px;
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -170,7 +170,7 @@
   background: rgba(255, 255, 255, 0.1);
 }
 
-.socials img:hover {
+.socials img:hover, footer.socials img:hover {
   filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.9));
   transform: scale(1.2) rotate(5deg);
   background: rgba(255, 215, 0, 0.2);
@@ -283,6 +283,8 @@ body {
   font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
   padding: 2rem;
   padding-left: 190px;
+  padding-top: 120px; /* Space for fixed header */
+  padding-bottom: 100px; /* Space for fixed footer */
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
@@ -351,18 +353,22 @@ main:hover, .content:hover {
   border-color: rgba(255, 215, 0, 0.6);
 }
 
-/* Liquid Glass Header */
+/* Enhanced Header Positioning */
 header {
   background: transparent;
   border-radius: 0;
-  padding: 12px 20px;
-  margin: 15px 0;
+  padding: 20px;
+  margin: 0;
   backdrop-filter: none;
-  display: inline-block;
-  width: auto;
+  display: block;
+  width: 100%;
   border: none;
   box-shadow: none;
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
 }
 
 @keyframes headerFloat {
@@ -371,7 +377,7 @@ header {
 }
 
 header:hover {
-  transform: translateY(-2px);
+  transform: none;
   box-shadow: none;
   border-color: transparent;
 }
@@ -423,30 +429,6 @@ p {
 @keyframes textFloat {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-2px); }
-}
-
-/* Global Liquid Glass Cursor Effects */
-* {
-  cursor: none;
-}
-
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 20px;
-  height: 20px;
-  background: radial-gradient(circle, rgba(255, 215, 0, 0.8) 0%, rgba(255, 215, 0, 0.4) 50%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  mix-blend-mode: screen;
-  transition: transform 0.1s ease;
-}
-
-a, button, .mobile-menu-btn {
-  cursor: pointer;
 }
 
 /* Liquid Glass Scroll Effects */
@@ -666,8 +648,9 @@ h1 {
 }
 
 /* Liquid Glass Mobile Menu */
+/* Mobile Menu Button - Always Visible in Top Right */
 .mobile-menu-btn {
-  display: none;
+  display: block;
   position: fixed;
   top: 20px;
   right: 20px;
