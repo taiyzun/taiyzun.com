@@ -507,7 +507,9 @@ nav a.active::after {
 /* Responsive Liquid Glass Design */
 @media (max-width: 768px) {
   body {
-    padding-left: 150px;
+    padding: 20px;
+    padding-top: 160px; /* Add top padding to avoid logo overlap */
+    padding-left: 20px;
     animation: mobileBodyFloat 20s ease-in-out infinite;
   }
   
@@ -526,7 +528,6 @@ nav a.active::after {
     padding: 20px;
     border-radius: 20px;
     backdrop-filter: blur(25px);
-    margin-top: 140px; /* Add top margin to avoid logo overlap */
   }
   
   header {
@@ -566,8 +567,8 @@ nav a.active::after {
 
 @media (max-width: 480px) {
   body {
-    padding: 1rem;
-    padding-left: 120px;
+    padding: 15px;
+    padding-top: 140px; /* Add top padding to avoid logo overlap */
   }
   
   .background-video {
@@ -580,7 +581,6 @@ nav a.active::after {
     padding: 15px;
     border-radius: 18px;
     backdrop-filter: blur(30px);
-    margin-top: 120px; /* Add top margin to avoid logo overlap */
   }
   
   header {
@@ -632,12 +632,11 @@ h1 {
 
 /* Gold Heading Specific Style */
 .gold-heading {
-  color: #FFD700;
+  color: #FFD700 !important;
   text-shadow: 
     0 0 10px rgba(255, 215, 0, 0.5),
     0 0 20px rgba(255, 215, 0, 0.3),
     0 0 30px rgba(255, 215, 0, 0.2);
-  animation: titleGlow 4s ease-in-out infinite;
   font-size: 2.5em;
   margin-bottom: 0.8em;
   margin-top: 0.5em;
@@ -649,6 +648,8 @@ h1 {
   animation: titleGlow 4s ease-in-out infinite, titleShimmer 6s ease-in-out infinite;
   text-align: center;
   font-weight: bold;
+  display: block;
+  width: 100%;
 }
 
 /* Enhanced Logo Animations */
