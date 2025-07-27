@@ -501,6 +501,19 @@ p {
     inset 0 1px 0 rgba(255, 255, 255, 0.2),
     inset 0 -1px 0 rgba(255, 215, 0, 0.12);
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+}
+
+.journey-content section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 25px;
+  z-index: -1;
 }
 
 .journey-content section:hover {
@@ -513,35 +526,40 @@ p {
 }
 
 .journey-content h2 {
-  color: #FFA500;
+  color: #FFD700;
   font-size: 1.4em;
   margin-bottom: 15px;
   text-shadow: 
-    0 0 8px rgba(255, 165, 0, 0.5),
-    0 0 15px rgba(255, 165, 0, 0.3);
-  background: linear-gradient(135deg, #FFA500, #FFD700);
+    0 0 10px rgba(255, 215, 0, 0.6),
+    0 0 20px rgba(255, 215, 0, 0.4);
+  background: linear-gradient(135deg, #FFD700, #FFA500);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  position: relative;
+  z-index: 1;
 }
 
 .journey-content p {
-  color: #E0E0E0;
+  color: #F5F5F5;
   line-height: 1.7;
   font-size: 1.05em;
   margin-bottom: 12px;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  position: relative;
+  z-index: 1;
 }
 
 .journey-content strong {
   color: #FFD700;
   font-weight: bold;
-  text-shadow: 0 0 5px rgba(255, 215, 0, 0.4);
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
 }
 
 .journey-content em {
-  color: #FFCC99;
+  color: #FFA500;
   font-style: italic;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
 /* Mobile responsiveness for journey content */
@@ -551,13 +569,21 @@ p {
     margin-bottom: 25px;
   }
   
+  .journey-content section::before {
+    border-radius: 25px;
+  }
+  
   .journey-content h2 {
     font-size: 1.3em;
+    position: relative;
+    z-index: 1;
   }
   
   .journey-content p {
     font-size: 1.02em;
     line-height: 1.6;
+    position: relative;
+    z-index: 1;
   }
 }
 
@@ -567,13 +593,21 @@ p {
     margin-bottom: 20px;
   }
   
+  .journey-content section::before {
+    border-radius: 25px;
+  }
+  
   .journey-content h2 {
     font-size: 1.2em;
+    position: relative;
+    z-index: 1;
   }
   
   .journey-content p {
     font-size: 1em;
     line-height: 1.5;
+    position: relative;
+    z-index: 1;
   }
 }
 
