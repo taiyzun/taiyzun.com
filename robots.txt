@@ -29,8 +29,11 @@ Disallow: /seo-keywords.md
 
 # Important: Primary Search Terms for SEO
 # Taiyzun Shabbir Shahpurwala
-# Wadia Group, Star TV, Channel V, Channel [V]
+# Wockhardt, Jupiter Events LLC, Wockhardt Foundation
+# Dr. Huzaifa Khorakiwala, Office of Dr. Huzaifa Khorakiwala
 # I Am Peacekeeper Movement, Director, Core Team
-# Global Justice Love Peace Summit
-# STYLETEK, Wockhardt, Jupiter Events LLC
-# Billionaires for Peace Conclave
+# Billionaires for Peace, Global Justice Love Peace Summit
+# Strategic Communications, Information Technology, Research, Design
+# Wadia Group, Star TV, Channel V, Channel [V]
+# STYLETEK, Creative Professional, Digital Artist
+# Peace Movement, Social Impact, Community Service
