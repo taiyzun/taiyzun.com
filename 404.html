@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page Not Found - Taiyzun Shahpurwala</title>
+  <meta name="description" content="The page you're looking for couldn't be found. Return to Taiyzun Shahpurwala's homepage to explore digital art and creative works." />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="icon" type="image/png" href="assets/images/icons/favicon.png" />
+  <link rel="stylesheet" href="style.css?v=6" />
+  <link rel="canonical" href="https://taiyzun.com/" />
+</head>
+<body>
+  <!-- Background Video -->
+  <video class="background-video" autoplay muted loop playsinline>
+    <source src="assets/video/sora.mp4" type="video/mp4">
+  </video>
+  <div class="video-overlay"></div>
+  
+  <a href="index.html">
+    <img src="assets/images/logo.png" alt="Taiyzun Logo" class="logo" />
+  </a>
+  
+  <!-- Mobile Menu Button - Top Right Corner -->
+  <div class="mobile-menu-btn">
+    <div class="triangle-dots">
+      <div class="dot dot-1"></div>
+      <div class="dot dot-2"></div>
+      <div class="dot dot-3"></div>
+    </div>
+  </div>
+  
+  <!-- Header Navigation -->
+  <header role="banner">
+    <div style="text-align: center;">
+      <nav role="navigation" aria-label="Main Navigation">
+        <a href="index.html">Home</a>
+        <a href="journey.html">Journey</a>
+        <a href="odyssey.html">Odyssey</a>
+        <a href="creations.html">Creations</a>
+        <a href="connect.html">Connect</a>
+      </nav>
+    </div>
+  </header>
+  
+  <main role="main">
+    <h1>404 - Page Not Found</h1>
+    <p>Oops! The page you're looking for seems to have vanished into the digital void. Don't worry though - there's plenty more to explore in Taiyzun's creative universe.</p>
+    <p><a href="index.html" style="color: #FFD700; text-decoration: underline;">Return to Homepage</a> to discover amazing digital art and creative projects.</p>
+  </main>
+  
+  <!-- Footer with Social Media -->
+  <footer class="socials" role="contentinfo" aria-label="Social Media Links">
+    <a href="https://www.instagram.com/taiyzun" target="_blank" rel="noopener noreferrer" aria-label="Follow Taiyzun on Instagram"><img src="assets/images/icons/instagram.png" alt="Instagram" /></a>
+    <a href="https://www.facebook.com/taiyzun" target="_blank" rel="noopener noreferrer" aria-label="Follow Taiyzun on Facebook"><img src="assets/images/icons/facebook.png" alt="Facebook" /></a>
+    <a href="https://www.linkedin.com/in/taiyzun" target="_blank" rel="noopener noreferrer" aria-label="Connect with Taiyzun on LinkedIn"><img src="assets/images/icons/linkedin.png" alt="LinkedIn" /></a>
+    <a href="https://www.youtube.com/taiyzun" target="_blank" rel="noopener noreferrer" aria-label="Subscribe to Taiyzun on YouTube"><img src="assets/images/icons/youtube.png" alt="YouTube" /></a>
+    <a href="https://x.com/Taiyzun" target="_blank" rel="noopener noreferrer" aria-label="Follow Taiyzun on X (Twitter)"><img src="assets/images/icons/x.png" alt="X (Twitter)" /></a>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+      const nav = document.querySelector('nav');
+      
+      mobileMenuBtn.addEventListener('click', function() {
+        nav.classList.toggle('active');
+        document.body.classList.toggle('menu-open');
+      });
+      
+      // Close menu when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!nav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+          nav.classList.remove('active');
+          document.body.classList.remove('menu-open');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
