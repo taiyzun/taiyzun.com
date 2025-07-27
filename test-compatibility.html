@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browser Compatibility Test - TaiYzun</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #333;
+            border-radius: 8px;
+        }
+        .pass { color: #4CAF50; }
+        .fail { color: #f44336; }
+        .test-result {
+            padding: 5px;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>TaiYzun.com Browser Compatibility Test</h1>
+    
+    <div class="test-section">
+        <h2>CSS Features Test</h2>
+        <div id="css-tests"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>JavaScript Features Test</h2>
+        <div id="js-tests"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>HTML5 Features Test</h2>
+        <div id="html5-tests"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Performance Test</h2>
+        <div id="performance-tests"></div>
+    </div>
+
+    <script>
+        // CSS Feature Detection
+        function testCSSFeatures() {
+            const cssTests = document.getElementById('css-tests');
+            const features = [
+                { name: 'CSS Grid', test: () => CSS.supports('display', 'grid') },
+                { name: 'CSS Flexbox', test: () => CSS.supports('display', 'flex') },
+                { name: 'CSS Backdrop Filter', test: () => CSS.supports('backdrop-filter', 'blur(10px)') },
+                { name: 'CSS Transform', test: () => CSS.supports('transform', 'translateX(10px)') },
+                { name: 'CSS Transitions', test: () => CSS.supports('transition', 'all 0.3s') },
+                { name: 'CSS Variables', test: () => CSS.supports('color', 'var(--test)') }
+            ];
+            
+            features.forEach(feature => {
+                const result = feature.test();
+                const div = document.createElement('div');
+                div.className = `test-result ${result ? 'pass' : 'fail'}`;
+                div.textContent = `${feature.name}: ${result ? 'SUPPORTED' : 'NOT SUPPORTED'}`;
+                cssTests.appendChild(div);
+            });
+        }
+        
+        // JavaScript Feature Detection
+        function testJSFeatures() {
+            const jsTests = document.getElementById('js-tests');
+            const features = [
+                { name: 'ES6 Arrow Functions', test: () => { try { eval('() => {}'); return true; } catch(e) { return false; } } },
+                { name: 'ES6 Template Literals', test: () => { try { eval('`test`'); return true; } catch(e) { return false; } } },
+                { name: 'ES6 Const/Let', test: () => { try { eval('const test = 1; let test2 = 2;'); return true; } catch(e) { return false; } } },
+                { name: 'Fetch API', test: () => typeof fetch !== 'undefined' },
+                { name: 'Local Storage', test: () => typeof localStorage !== 'undefined' },
+                { name: 'Session Storage', test: () => typeof sessionStorage !== 'undefined' }
+            ];
+            
+            features.forEach(feature => {
+                const result = feature.test();
+                const div = document.createElement('div');
+                div.className = `test-result ${result ? 'pass' : 'fail'}`;
+                div.textContent = `${feature.name}: ${result ? 'SUPPORTED' : 'NOT SUPPORTED'}`;
+                jsTests.appendChild(div);
+            });
+        }
+        
+        // HTML5 Feature Detection
+        function testHTML5Features() {
+            const html5Tests = document.getElementById('html5-tests');
+            const features = [
+                { name: 'HTML5 Video', test: () => !!document.createElement('video').canPlayType },
+                { name: 'HTML5 Audio', test: () => !!document.createElement('audio').canPlayType },
+                { name: 'HTML5 Canvas', test: () => !!document.createElement('canvas').getContext },
+                { name: 'HTML5 History API', test: () => !!(window.history && history.pushState) },
+                { name: 'HTML5 Geolocation', test: () => !!navigator.geolocation },
+                { name: 'HTML5 Web Workers', test: () => typeof Worker !== 'undefined' }
+            ];
+            
+            features.forEach(feature => {
+                const result = feature.test();
+                const div = document.createElement('div');
+                div.className = `test-result ${result ? 'pass' : 'fail'}`;
+                div.textContent = `${feature.name}: ${result ? 'SUPPORTED' : 'NOT SUPPORTED'}`;
+                html5Tests.appendChild(div);
+            });
+        }
+        
+        // Performance Tests
+        function testPerformance() {
+            const perfTests = document.getElementById('performance-tests');
+            
+            // Test page load performance
+            if (window.performance && window.performance.timing) {
+                const timing = window.performance.timing;
+                const loadTime = timing.loadEventEnd - timing.navigationStart;
+                
+                const div = document.createElement('div');
+                div.className = `test-result ${loadTime < 3000 ? 'pass' : 'fail'}`;
+                div.textContent = `Page Load Time: ${loadTime}ms ${loadTime < 3000 ? '(GOOD)' : '(NEEDS OPTIMIZATION)'}`;
+                perfTests.appendChild(div);
+            }
+            
+            // Test viewport dimensions
+            const viewport = {
+                width: Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0),
+                height: Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+            };
+            
+            const vpDiv = document.createElement('div');
+            vpDiv.className = 'test-result pass';
+            vpDiv.textContent = `Viewport: ${viewport.width}x${viewport.height}`;
+            perfTests.appendChild(vpDiv);
+            
+            // Test device pixel ratio
+            const dpr = window.devicePixelRatio || 1;
+            const dprDiv = document.createElement('div');
+            dprDiv.className = 'test-result pass';
+            dprDiv.textContent = `Device Pixel Ratio: ${dpr}`;
+            perfTests.appendChild(dprDiv);
+        }
+        
+        // User Agent Detection
+        function displayBrowserInfo() {
+            const userAgent = navigator.userAgent;
+            const browser = {
+                chrome: /chrome/i.test(userAgent),
+                safari: /safari/i.test(userAgent) && !/chrome/i.test(userAgent),
+                firefox: /firefox/i.test(userAgent),
+                edge: /edge/i.test(userAgent),
+                ie: /msie|trident/i.test(userAgent)
+            };
+            
+            const browserName = Object.keys(browser).find(key => browser[key]) || 'Unknown';
+            document.body.insertAdjacentHTML('afterbegin', 
+                `<div style="background: #333; padding: 10px; margin-bottom: 20px; border-radius: 5px;">
+                    <strong>Browser:</strong> ${browserName.charAt(0).toUpperCase() + browserName.slice(1)}<br>
+                    <strong>User Agent:</strong> ${userAgent}
+                </div>`
+            );
+        }
+        
+        // Run all tests when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            displayBrowserInfo();
+            testCSSFeatures();
+            testJSFeatures();
+            testHTML5Features();
+            
+            // Run performance test after a small delay
+            setTimeout(testPerformance, 100);
+        });
+    </script>
+</body>
+</html>
