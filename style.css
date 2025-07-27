@@ -3,7 +3,7 @@
   font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
 }
 
-/* Background Video Parallax */
+/* Liquid Glass Background Video Parallax */
 .background-video {
   position: fixed;
   top: 0;
@@ -12,7 +12,9 @@
   height: 100%;
   object-fit: cover;
   z-index: -1;
-  opacity: 1; /* Full brightness */
+  opacity: 1;
+  filter: blur(0.5px) saturate(1.2);
+  animation: subtleFloat 20s ease-in-out infinite;
 }
 
 .video-overlay {
@@ -21,10 +23,25 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.2); /* Much lighter overlay */
+  background: radial-gradient(circle at center, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.3) 100%);
+  backdrop-filter: blur(0.5px);
   z-index: -1;
+  animation: overlayPulse 15s ease-in-out infinite;
 }
 
+@keyframes subtleFloat {
+  0%, 100% { transform: scale(1) translateX(0); }
+  25% { transform: scale(1.02) translateX(2px); }
+  50% { transform: scale(1.01) translateX(-1px); }
+  75% { transform: scale(1.03) translateX(1px); }
+}
+
+@keyframes overlayPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+/* Liquid Glass Logo */
 .logo {
   position: fixed;
   top: 20px;
@@ -35,8 +52,28 @@
   aspect-ratio: 1 / 1;
   z-index: 1000;
   pointer-events: auto;
-  transform: none !important;
-  transition: none !important;
+  border-radius: 25px;
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation: logoFloat 6s ease-in-out infinite;
+}
+
+.logo:hover {
+  transform: scale(1.05) rotate(2deg);
+  box-shadow: 
+    0 12px 40px rgba(255, 215, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 215, 0, 0.6);
+}
+
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(1deg); }
 }
 
 /* Responsive logo sizing */
@@ -46,7 +83,6 @@
     width: 120px !important;
     top: 15px !important;
     left: 15px !important;
-    transform: none !important;
   }
 }
 
@@ -56,9 +92,9 @@
     width: 100px !important;
     top: 10px !important;
     left: 10px !important;
-    transform: none !important;
   }
 }
+/* Liquid Glass Social Media Icons */
 .socials {
   position: fixed;
   bottom: 20px;
@@ -67,138 +103,427 @@
   display: flex;
   gap: 15px;
   z-index: 10;
+  padding: 15px 25px;
+  border-radius: 50px;
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  animation: socialsFloat 8s ease-in-out infinite;
 }
+
+@keyframes socialsFloat {
+  0%, 100% { transform: translateX(-50%) translateY(0px); }
+  50% { transform: translateX(-50%) translateY(-5px); }
+}
+
+.socials:hover {
+  transform: translateX(-50%) scale(1.05);
+  box-shadow: 
+    0 12px 40px rgba(255, 215, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 215, 0, 0.6);
+}
+
 .socials img {
   height: 24px;
   width: 24px;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
+  border-radius: 8px;
+  padding: 2px;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .socials img:hover {
-  filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.8));
-  transform: scale(1.1);
+  filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.9));
+  transform: scale(1.2) rotate(5deg);
+  background: rgba(255, 215, 0, 0.2);
 }
+
+/* Liquid Glass Navigation */
 nav {
   margin: 5px auto 5px;
   text-align: center;
-  padding: 4px 12px;
-  background: rgba(0, 0, 0, 0.9);
-  border-radius: 25px;
-  backdrop-filter: blur(15px);
+  padding: 8px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  backdrop-filter: blur(20px);
   display: inline-block;
-  border: 1px solid #FFD700;
-  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
-  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation: navFloat 10s ease-in-out infinite;
+}
+
+@keyframes navFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-3px); }
 }
 
 nav:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(255, 215, 0, 0.5);
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 
+    0 12px 40px rgba(255, 215, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 215, 0, 0.6);
 }
 
 nav a {
-  margin: 0 2px;
+  margin: 0 4px;
   text-decoration: none;
   font-weight: bold;
   font-size: 13px;
-  color: #A0A0A0; /* Silver/Bronze for unselected */
-  transition: all 0.3s ease;
-  padding: 4px 8px;
-  border-radius: 15px;
+  color: #C0C0C0;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  padding: 8px 15px;
+  border-radius: 25px;
   position: relative;
   overflow: hidden;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid transparent;
 }
 
-nav a:hover {
-  color: #C0C0C0;
-  background: rgba(255, 215, 0, 0.1);
-  transform: scale(1.05);
-}
-
-nav a.active {
-  color: #000;
-  background: linear-gradient(135deg, #FFD700, #FFA500);
-  box-shadow: 0 2px 10px rgba(255, 215, 0, 0.6);
-  transform: scale(1.1);
-}
-
-nav a.active::before {
+nav a::before {
   content: '';
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-  transition: left 0.5s;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.6s ease;
 }
 
-nav a.active:hover::before {
+nav a:hover {
+  color: #FFD700;
+  background: rgba(255, 215, 0, 0.15);
+  border-color: rgba(255, 215, 0, 0.4);
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+nav a:hover::before {
   left: 100%;
 }
+
+nav a.active {
+  color: #000;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.9), rgba(255, 165, 0, 0.9));
+  border-color: rgba(255, 215, 0, 0.8);
+  box-shadow: 
+    0 4px 15px rgba(255, 215, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+  backdrop-filter: blur(15px);
+}
+
+nav a.active::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.2) 50%, transparent 70%);
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+/* Liquid Glass Body and Content */
 body {
   background-color: transparent;
-  color: #C0C0C0; /* Silver */
+  color: #E0E0E0;
   font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
   padding: 2rem;
-  padding-left: 190px; /* Make room for bigger logo */
+  padding-left: 190px;
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
+  animation: bodyFloat 25s ease-in-out infinite;
 }
 
-/* Make content more readable over video */
+@keyframes bodyFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-2px); }
+}
+
+/* Liquid Glass Main Content */
 main, .content {
-  background: rgba(0, 0, 0, 0.7);
-  border-radius: 10px;
-  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 25px;
+  padding: 30px;
   margin: 20px 0;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation: contentFloat 12s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Compact header styling */
+@keyframes contentFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+main::before, .content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  animation: contentShimmer 8s ease-in-out infinite;
+}
+
+@keyframes contentShimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+main:hover, .content:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 
+    0 12px 40px rgba(255, 215, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 215, 0, 0.6);
+}
+
+/* Liquid Glass Header */
 header {
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 25px;
-  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  padding: 12px 20px;
   margin: 15px 0;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(20px);
   display: inline-block;
   width: auto;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation: headerFloat 7s ease-in-out infinite;
 }
 
-/* Responsive body padding */
+@keyframes headerFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+header:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 12px 40px rgba(255, 215, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 215, 0, 0.6);
+}
+
+/* Enhanced Typography with Liquid Glass */
+h1 {
+  color: #FFD700;
+  text-shadow: 
+    0 0 10px rgba(255, 215, 0, 0.5),
+    0 0 20px rgba(255, 215, 0, 0.3);
+  animation: titleGlow 4s ease-in-out infinite;
+  font-size: 2.5em;
+  margin-bottom: 0.5em;
+  background: linear-gradient(135deg, #FFD700, #FFA500, #FFD700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 200%;
+  animation: titleGlow 4s ease-in-out infinite, titleShimmer 6s ease-in-out infinite;
+}
+
+@keyframes titleGlow {
+  0%, 100% { 
+    text-shadow: 
+      0 0 10px rgba(255, 215, 0, 0.5),
+      0 0 20px rgba(255, 215, 0, 0.3);
+  }
+  50% { 
+    text-shadow: 
+      0 0 15px rgba(255, 215, 0, 0.8),
+      0 0 30px rgba(255, 215, 0, 0.5);
+  }
+}
+
+@keyframes titleShimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+p {
+  color: #D0D0D0;
+  line-height: 1.6;
+  font-size: 1.1em;
+  animation: textFloat 6s ease-in-out infinite;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes textFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-2px); }
+}
+
+/* Global Liquid Glass Cursor Effects */
+* {
+  cursor: none;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.8) 0%, rgba(255, 215, 0, 0.4) 50%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: screen;
+  transition: transform 0.1s ease;
+}
+
+a, button, .mobile-menu-btn {
+  cursor: pointer;
+}
+
+/* Liquid Glass Scroll Effects */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  backdrop-filter: blur(20px);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.6), rgba(255, 165, 0, 0.6));
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.8), rgba(255, 165, 0, 0.8));
+}
+
+/* Liquid Glass Selection */
+::selection {
+  background: rgba(255, 215, 0, 0.3);
+  color: #FFD700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+}
+
+::-moz-selection {
+  background: rgba(255, 215, 0, 0.3);
+  color: #FFD700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+}
+
+/* Additional Liquid Glass Micro-interactions */
+main:hover::before, .content:hover::before {
+  animation-duration: 4s;
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #FFD700, transparent);
+  transition: all 0.4s ease;
+  transform: translateX(-50%);
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+nav a.active::after {
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #FFA500, #FFD700, #FFA500);
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+}
+
+/* Enhanced Mobile Liquid Glass */
+@media (max-width: 768px) {
+  body::before {
+    display: none; /* Hide custom cursor on mobile */
+  }
+}
+
+/* Responsive Liquid Glass Design */
 @media (max-width: 768px) {
   body {
     padding-left: 150px;
+    animation: mobileBodyFloat 20s ease-in-out infinite;
+  }
+  
+  @keyframes mobileBodyFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-3px); }
   }
   
   .background-video {
-    opacity: 1; /* Keep full brightness on mobile too */
+    opacity: 1;
+    filter: blur(1px) saturate(1.1);
   }
   
   main, .content {
-    background: rgba(0, 0, 0, 0.8);
-    padding: 15px;
+    background: rgba(255, 255, 255, 0.12);
+    padding: 20px;
+    border-radius: 20px;
+    backdrop-filter: blur(25px);
   }
   
   header {
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 20px;
-    padding: 6px 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 40px;
+    padding: 10px 15px;
     margin: 10px 0;
+    backdrop-filter: blur(25px);
   }
   
   nav {
     margin: 4px auto 4px;
-    padding: 3px 8px;
+    padding: 6px 15px;
+    border-radius: 40px;
   }
   
   nav a {
     margin: 0 3px;
     font-size: 11px;
-    padding: 5px 8px;
+    padding: 6px 10px;
+    border-radius: 20px;
+  }
+  
+  .socials {
+    padding: 12px 20px;
+    border-radius: 40px;
   }
 }
 
@@ -209,31 +534,80 @@ header {
   }
   
   .background-video {
-    opacity: 1; /* Keep full brightness on small screens too */
+    opacity: 1;
+    filter: blur(1.5px) saturate(1.0);
   }
   
   main, .content {
-    background: rgba(0, 0, 0, 0.85);
-    padding: 12px;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 15px;
+    border-radius: 18px;
+    backdrop-filter: blur(30px);
   }
   
   header {
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 18px;
-    padding: 5px 8px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 35px;
+    padding: 8px 12px;
     margin: 8px 0;
   }
   
   nav {
     margin: 3px auto 3px;
-    padding: 3px 6px;
+    padding: 5px 12px;
+    border-radius: 35px;
   }
   
   nav a {
     margin: 0 2px;
     font-size: 10px;
-    padding: 4px 6px;
+    padding: 5px 8px;
+    border-radius: 18px;
   }
+  
+  h1 {
+    font-size: 2em;
+  }
+  
+  .socials {
+    padding: 10px 18px;
+    border-radius: 35px;
+  }
+  
+  .socials img {
+    height: 20px;
+    width: 20px;
+  }
+}
+
+h1 {
+  color: #FFD700; /* Gold for headings */
+}
+
+/* Enhanced Logo Animations */
+.logo {
+  animation: logoFloat 6s ease-in-out infinite, logoGlow 8s ease-in-out infinite;
+}
+
+@keyframes logoGlow {
+  0%, 100% {
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow: 
+      0 12px 40px rgba(255, 215, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+}
+
+.logo:hover {
+  animation-play-state: paused;
+}
+
+* {
+  box-sizing: border-box;
 }
 h1 {
   color: #FFD700; /* Gold for headings */
@@ -248,7 +622,7 @@ h1 {
   transform: none !important;
 }
 
-/* Mobile Menu Styles */
+/* Liquid Glass Mobile Menu */
 .mobile-menu-btn {
   display: none;
   position: fixed;
@@ -256,17 +630,29 @@ h1 {
   right: 20px;
   z-index: 1001;
   cursor: pointer;
-  padding: 10px;
+  padding: 15px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(10px);
-  border: 1px solid #FFD700;
-  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation: menuBtnFloat 5s ease-in-out infinite;
+}
+
+@keyframes menuBtnFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-3px) rotate(2deg); }
 }
 
 .mobile-menu-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+  transform: scale(1.1) translateY(-5px);
+  box-shadow: 
+    0 12px 40px rgba(255, 215, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 215, 0, 0.8);
 }
 
 .triangle-dots {
@@ -281,46 +667,77 @@ h1 {
   height: 8px;
   border-radius: 50%;
   background: linear-gradient(135deg, #FFD700, #FFA500);
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
-  transition: all 0.3s ease;
+  box-shadow: 
+    0 0 15px rgba(255, 215, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation: dotPulse 3s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% { 
+    box-shadow: 
+      0 0 15px rgba(255, 215, 0, 0.8),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+  50% { 
+    box-shadow: 
+      0 0 25px rgba(255, 215, 0, 1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
 }
 
 .dot-1 {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
+  animation-delay: 0s;
 }
 
 .dot-2 {
   bottom: 0;
   left: 0;
+  animation-delay: 0.2s;
 }
 
 .dot-3 {
   bottom: 0;
   right: 0;
+  animation-delay: 0.4s;
 }
 
 /* Animated dots on hover */
 .mobile-menu-btn:hover .dot {
-  transform: scale(1.2);
-  box-shadow: 0 0 15px rgba(255, 215, 0, 1);
+  transform: scale(1.3);
+  box-shadow: 
+    0 0 25px rgba(255, 215, 0, 1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 .mobile-menu-btn:hover .dot-1 {
-  transform: translateX(-50%) scale(1.2);
+  transform: translateX(-50%) scale(1.3);
 }
 
-/* Mobile menu animations */
+/* Liquid Glass Menu Open State */
 .menu-open .triangle-dots {
   transform: rotate(180deg);
 }
 
 .menu-open .dot {
   background: linear-gradient(135deg, #FFA500, #FFD700);
+  animation: menuOpenPulse 1s ease-in-out infinite;
 }
 
-/* Mobile responsive styles */
+@keyframes menuOpenPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+.menu-open .dot-1 {
+  transform: translateX(-50%) scale(1);
+}
+
+/* Mobile responsive styles with Liquid Glass */
 @media (max-width: 768px) {
   .mobile-menu-btn {
     display: block;
@@ -332,10 +749,10 @@ h1 {
     right: 0;
     width: 100%;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.95);
-    backdrop-filter: blur(20px);
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(30px);
     transform: translateX(100%);
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     z-index: 1000;
     display: flex;
     align-items: center;
@@ -343,6 +760,27 @@ h1 {
     border-radius: 0;
     padding: 0;
     margin: 0;
+    border: none;
+    box-shadow: none;
+  }
+  
+  header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(255, 165, 0, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 40% 60%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+    animation: menuBackgroundFloat 15s ease-in-out infinite;
+  }
+  
+  @keyframes menuBackgroundFloat {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
   }
   
   header.menu-open {
@@ -356,30 +794,35 @@ h1 {
     backdrop-filter: none;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 25px;
     padding: 0;
     margin: 0;
+    position: relative;
+    z-index: 10;
   }
   
   nav a {
-    font-size: 24px;
-    padding: 15px 30px;
+    font-size: 22px;
+    padding: 18px 35px;
     text-align: center;
     border-radius: 25px;
-    background: rgba(255, 215, 0, 0.1);
-    border: 2px solid rgba(255, 215, 0, 0.3);
-    backdrop-filter: blur(10px);
-    transform: translateX(50px);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    backdrop-filter: blur(20px);
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transform: translateX(80px) scale(0.8);
     opacity: 0;
-    transition: all 0.4s ease;
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
   
   .menu-open nav a {
-    transform: translateX(0);
+    transform: translateX(0) scale(1);
     opacity: 1;
   }
   
-  /* Staggered animation for nav items */
+  /* Staggered liquid glass animation for nav items */
   .menu-open nav a:nth-child(1) { transition-delay: 0.1s; }
   .menu-open nav a:nth-child(2) { transition-delay: 0.2s; }
   .menu-open nav a:nth-child(3) { transition-delay: 0.3s; }
@@ -388,14 +831,20 @@ h1 {
   
   nav a:hover {
     background: rgba(255, 215, 0, 0.2);
-    border-color: #FFD700;
+    border-color: rgba(255, 215, 0, 0.8);
     transform: translateX(0) scale(1.05);
+    box-shadow: 
+      0 12px 40px rgba(255, 215, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
   }
   
   nav a.active {
-    background: linear-gradient(135deg, #FFD700, #FFA500);
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.9), rgba(255, 165, 0, 0.9));
     color: #000;
-    border-color: #FFD700;
+    border-color: rgba(255, 215, 0, 0.8);
+    box-shadow: 
+      0 12px 40px rgba(255, 215, 0, 0.6),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
   }
   
   /* Hide desktop header styles on mobile */
@@ -408,7 +857,7 @@ h1 {
   .mobile-menu-btn {
     top: 15px;
     right: 15px;
-    padding: 8px;
+    padding: 12px;
   }
   
   .triangle-dots {
@@ -422,8 +871,8 @@ h1 {
   }
   
   nav a {
-    font-size: 20px;
-    padding: 12px 25px;
+    font-size: 18px;
+    padding: 15px 30px;
   }
 }
 
