@@ -50,18 +50,20 @@
   top: 20px;
   left: 20px;
   height: 120px;
-  width: 120px;
+  width: auto;
+  max-width: 80px;
   object-fit: contain;
-  aspect-ratio: 1 / 1;
+  object-position: center;
   z-index: 1000;
   pointer-events: auto;
-  border-radius: 25px;
+  border-radius: 15px;
   backdrop-filter: blur(2px);
   background: rgba(255, 255, 255, 0.03);
   border: none;
   box-shadow: none;
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   animation: logoFloat 6s ease-in-out infinite;
+  padding: 8px;
 }
 
 .logo:hover {
@@ -80,18 +82,22 @@
 @media (max-width: 768px) {
   .logo {
     height: 90px !important;
-    width: 90px !important;
+    width: auto !important;
+    max-width: 60px !important;
     top: 15px !important;
     left: 15px !important;
+    padding: 6px;
   }
 }
 
 @media (max-width: 480px) {
   .logo {
     height: 80px !important;
-    width: 80px !important;
+    width: auto !important;
+    max-width: 50px !important;
     top: 10px !important;
     left: 10px !important;
+    padding: 5px;
   }
 }
 /* Enhanced Footer Social Media Icons */
@@ -1248,20 +1254,20 @@ h1 {
 /* Signature Logo */
 .signature-logo {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 180px;
+  bottom: 10px;
+  right: 15px;
+  width: 160px;
   height: auto;
   opacity: 0.9;
   transition: all 0.3s ease;
-  z-index: 15;
+  z-index: 5;
   filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
   background: 
     linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)),
     radial-gradient(circle at 30% 30%, rgba(0, 0, 0, 0.3), transparent);
   backdrop-filter: blur(10px) saturate(1.2);
   border-radius: 15px;
-  padding: 15px;
+  padding: 12px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 
     0 8px 25px rgba(0, 0, 0, 0.4),
@@ -1283,20 +1289,20 @@ h1 {
 
 @media (max-width: 768px) {
   .signature-logo {
-    width: 140px;
-    bottom: 120px;
-    right: 20px;
-    padding: 12px;
+    width: 120px;
+    bottom: 8px;
+    right: 12px;
+    padding: 10px;
     border-radius: 12px;
   }
 }
 
 @media (max-width: 480px) {
   .signature-logo {
-    width: 120px;
-    bottom: 130px;
-    right: 15px;
-    padding: 10px;
+    width: 100px;
+    bottom: 5px;
+    right: 10px;
+    padding: 8px;
     border-radius: 10px;
   }
 }
