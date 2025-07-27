@@ -388,10 +388,7 @@ header:hover {
 /* Enhanced Typography with Liquid Glass */
 h1 {
   color: #FFD700;
-  text-shadow: 
-    0 0 10px rgba(255, 215, 0, 0.5),
-    0 0 20px rgba(255, 215, 0, 0.3);
-  animation: titleGlow 4s ease-in-out infinite;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
   font-size: 2.5em;
   margin-bottom: 0.5em;
   background: linear-gradient(135deg, #FFD700, #FFA500, #FFD700);
@@ -399,20 +396,7 @@ h1 {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   background-size: 200% 200%;
-  animation: titleGlow 4s ease-in-out infinite, titleShimmer 6s ease-in-out infinite;
-}
-
-@keyframes titleGlow {
-  0%, 100% { 
-    text-shadow: 
-      0 0 10px rgba(255, 215, 0, 0.5),
-      0 0 20px rgba(255, 215, 0, 0.3);
-  }
-  50% { 
-    text-shadow: 
-      0 0 15px rgba(255, 215, 0, 0.8),
-      0 0 30px rgba(255, 215, 0, 0.5);
-  }
+  animation: titleShimmer 6s ease-in-out infinite;
 }
 
 @keyframes titleShimmer {
@@ -457,9 +441,7 @@ p {
   color: #FFA500;
   font-size: 2.2em;
   margin-bottom: 1em;
-  text-shadow: 
-    0 0 15px rgba(255, 165, 0, 0.6),
-    0 0 30px rgba(255, 165, 0, 0.4);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
   background: linear-gradient(135deg, #FFA500, #FFD700, #FFA500);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -529,9 +511,7 @@ p {
   color: #FFD700;
   font-size: 1.4em;
   margin-bottom: 15px;
-  text-shadow: 
-    0 0 10px rgba(255, 215, 0, 0.6),
-    0 0 20px rgba(255, 215, 0, 0.4);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
   background: linear-gradient(135deg, #FFD700, #FFA500);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -553,7 +533,7 @@ p {
 .journey-content strong {
   color: #FFD700;
   font-weight: bold;
-  text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .journey-content em {
@@ -637,13 +617,13 @@ p {
 ::selection {
   background: rgba(255, 215, 0, 0.3);
   color: #FFD700;
-  text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 ::-moz-selection {
   background: rgba(255, 215, 0, 0.3);
   color: #FFD700;
-  text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 /* Additional Liquid Glass Micro-interactions */
@@ -810,10 +790,7 @@ h1 {
 /* Gold Heading Specific Style */
 .gold-heading {
   color: #FFD700 !important;
-  text-shadow: 
-    0 0 10px rgba(255, 215, 0, 0.5),
-    0 0 20px rgba(255, 215, 0, 0.3),
-    0 0 30px rgba(255, 215, 0, 0.2);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
   font-size: 2.5em;
   margin-bottom: 0.8em;
   margin-top: 0.5em;
@@ -822,7 +799,7 @@ h1 {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   background-size: 200% 200%;
-  animation: titleGlow 4s ease-in-out infinite, titleShimmer 6s ease-in-out infinite;
+  animation: titleShimmer 6s ease-in-out infinite;
   text-align: center;
   font-weight: bold;
   display: block;
