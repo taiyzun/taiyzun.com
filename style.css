@@ -189,27 +189,12 @@ nav a {
   border: 1px solid transparent;
 }
 
-nav a::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-  transition: left 0.6s ease;
-}
-
 nav a:hover {
   color: #FFD700;
   background: rgba(255, 215, 0, 0.15);
   border-color: rgba(255, 215, 0, 0.4);
   transform: scale(1.05) translateY(-2px);
   box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
-}
-
-nav a:hover::before {
-  left: 100%;
 }
 
 nav a.active {
@@ -223,21 +208,6 @@ nav a.active {
   backdrop-filter: blur(15px);
 }
 
-nav a.active::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.2) 50%, transparent 70%);
-  animation: shimmer 2s ease-in-out infinite;
-}
-
-@keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
 /* Liquid Glass Body and Content */
 body {
   background-color: transparent;
