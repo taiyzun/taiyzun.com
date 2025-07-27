@@ -133,6 +133,21 @@
   </video>
   <div class="video-overlay"></div>
   
+  <!-- Background Music -->
+  <audio id="background-music" loop preload="auto">
+    <source src="assets/audio/01 pharoelidae enTheognoSiS.mp3" type="audio/mpeg">
+  </audio>
+  
+  <!-- Music Control Button -->
+  <div class="music-control" id="music-toggle" title="Toggle Background Music">
+    <svg id="play-icon" viewBox="0 0 24 24">
+      <path d="M8 5v14l11-7z"/>
+    </svg>
+    <svg id="pause-icon" viewBox="0 0 24 24" style="display: none;">
+      <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+    </svg>
+  </div>
+  
   <a href="index.html">
     <img src="assets/images/logo.png" alt="Taiyzun Logo" class="logo" />
   </a>
@@ -282,6 +297,43 @@
           header.classList.remove('menu-open');
           document.body.classList.remove('menu-open');
         }
+      });
+
+      // Background Music Control
+      const musicToggle = document.getElementById('music-toggle');
+      const backgroundMusic = document.getElementById('background-music');
+      const playIcon = document.getElementById('play-icon');
+      const pauseIcon = document.getElementById('pause-icon');
+      let isPlaying = false;
+
+      // Set volume to a comfortable level
+      backgroundMusic.volume = 0.3;
+
+      musicToggle.addEventListener('click', function() {
+        if (isPlaying) {
+          backgroundMusic.pause();
+          playIcon.style.display = 'block';
+          pauseIcon.style.display = 'none';
+          musicToggle.classList.remove('playing');
+          isPlaying = false;
+        } else {
+          backgroundMusic.play().then(() => {
+            playIcon.style.display = 'none';
+            pauseIcon.style.display = 'block';
+            musicToggle.classList.add('playing');
+            isPlaying = true;
+          }).catch(error => {
+            console.log('Audio playback prevented by browser policy:', error);
+          });
+        }
+      });
+
+      // Handle audio events
+      backgroundMusic.addEventListener('ended', function() {
+        playIcon.style.display = 'block';
+        pauseIcon.style.display = 'none';
+        musicToggle.classList.remove('playing');
+        isPlaying = false;
       });
     });
   </script>

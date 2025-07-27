@@ -81,77 +81,22 @@
   <video class="background-video" autoplay muted loop playsinline>
     <source src="assets/video/sora.mp4" type="video/mp4">
   </video>
-
-  <script>
-    // Mobile menu toggle functionality
-    document.addEventListener('DOMContentLoaded', function() {
-      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-      const nav = document.querySelector('nav');
-      const header = document.querySelector('header');
-      
-      mobileMenuBtn.addEventListener('click', function() {
-        header.classList.toggle('menu-open');
-        document.body.classList.toggle('menu-open');
-      });
-      
-      // Close menu when clicking on a nav link
-      const navLinks = document.querySelectorAll('nav a');
-      navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-          header.classList.remove('menu-open');
-          document.body.classList.remove('menu-open');
-        });
-      });
-      
-      // Close menu when clicking outside
-      document.addEventListener('click', function(e) {
-        if (!header.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-          header.classList.remove('menu-open');
-          document.body.classList.remove('menu-open');
-        }
-      });
-
-      // Contact form handling
-      const form = document.querySelector('form[name="contact"]');
-      const messagesDiv = document.getElementById('form-messages');
-      
-      // Check for success parameter in URL (from Formspree redirect)
-      const urlParams = new URLSearchParams(window.location.search);
-      if (window.location.hash === '#success' || urlParams.get('success') === 'true') {
-        messagesDiv.innerHTML = '<div class="form-status success">Thank you for your message! I will get back to you soon.</div>';
-        // Clear the URL hash
-        if (window.location.hash === '#success') {
-          window.history.replaceState({}, document.title, window.location.pathname);
-        }
-      }
-      
-      if (form) {
-        form.addEventListener('submit', function(e) {
-          // Clear any previous messages
-          messagesDiv.innerHTML = '';
-          
-          // Show loading state
-          const button = form.querySelector('button[type="submit"]');
-          const originalText = button.textContent;
-          button.textContent = 'Sending...';
-          button.disabled = true;
-          
-          // Let Formspree handle the submission naturally
-          // The form will redirect to #success on successful submission
-          
-          // Re-enable button after a short delay (in case redirect doesn't happen)
-          setTimeout(() => {
-            button.textContent = originalText;
-            button.disabled = false;
-          }, 3000);
-          
-          // Allow default form submission to Formspree
-          return true;
-        });
-      }
-    });
-  </script>
   <div class="video-overlay"></div>
+  
+  <!-- Background Music -->
+  <audio id="background-music" loop preload="auto">
+    <source src="assets/audio/01 pharoelidae enTheognoSiS.mp3" type="audio/mpeg">
+  </audio>
+  
+  <!-- Music Control Button -->
+  <div class="music-control" id="music-toggle" title="Toggle Background Music">
+    <svg id="play-icon" viewBox="0 0 24 24">
+      <path d="M8 5v14l11-7z"/>
+    </svg>
+    <svg id="pause-icon" viewBox="0 0 24 24" style="display: none;">
+      <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+    </svg>
+  </div>
   
   <a href="index.html">
     <img src="assets/images/logo.png" alt="Taiyzun Logo" class="logo" />
@@ -239,6 +184,111 @@
     <a href="https://www.youtube.com/taiyzun" target="_blank" rel="noopener noreferrer" aria-label="Subscribe to Taiyzun on YouTube"><img src="assets/images/icons/youtube.png" alt="YouTube" /></a>
     <a href="https://x.com/Taiyzun" target="_blank" rel="noopener noreferrer" aria-label="Follow Taiyzun on X (Twitter)"><img src="assets/images/icons/x.png" alt="X (Twitter)" /></a>
   </footer>
+
+  <script>
+    // Mobile menu toggle functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+      const nav = document.querySelector('nav');
+      const header = document.querySelector('header');
+      
+      mobileMenuBtn.addEventListener('click', function() {
+        header.classList.toggle('menu-open');
+        document.body.classList.toggle('menu-open');
+      });
+      
+      // Close menu when clicking on a nav link
+      const navLinks = document.querySelectorAll('nav a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          header.classList.remove('menu-open');
+          document.body.classList.remove('menu-open');
+        });
+      });
+      
+      // Close menu when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!header.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+          header.classList.remove('menu-open');
+          document.body.classList.remove('menu-open');
+        }
+      });
+
+      // Background Music Control
+      const musicToggle = document.getElementById('music-toggle');
+      const backgroundMusic = document.getElementById('background-music');
+      const playIcon = document.getElementById('play-icon');
+      const pauseIcon = document.getElementById('pause-icon');
+      let isPlaying = false;
+
+      backgroundMusic.volume = 0.3;
+
+      musicToggle.addEventListener('click', function() {
+        if (isPlaying) {
+          backgroundMusic.pause();
+          playIcon.style.display = 'block';
+          pauseIcon.style.display = 'none';
+          musicToggle.classList.remove('playing');
+          isPlaying = false;
+        } else {
+          backgroundMusic.play().then(() => {
+            playIcon.style.display = 'none';
+            pauseIcon.style.display = 'block';
+            musicToggle.classList.add('playing');
+            isPlaying = true;
+          }).catch(error => {
+            console.log('Audio playback prevented:', error);
+          });
+        }
+      });
+
+      backgroundMusic.addEventListener('ended', function() {
+        playIcon.style.display = 'block';
+        pauseIcon.style.display = 'none';
+        musicToggle.classList.remove('playing');
+        isPlaying = false;
+      });
+
+      // Contact form handling
+      const form = document.querySelector('form[name="contact"]');
+      const messagesDiv = document.getElementById('form-messages');
+      
+      // Check for success parameter in URL (from Formspree redirect)
+      const urlParams = new URLSearchParams(window.location.search);
+      if (window.location.hash === '#success' || urlParams.get('success') === 'true') {
+        messagesDiv.innerHTML = '<div class="form-status success">Thank you for your message! I will get back to you soon.</div>';
+        // Clear the URL hash
+        if (window.location.hash === '#success') {
+          window.history.replaceState({}, document.title, window.location.pathname);
+        }
+      }
+      
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          // Clear any previous messages
+          messagesDiv.innerHTML = '';
+          
+          // Show loading state
+          const button = form.querySelector('button[type="submit"]');
+          const originalText = button.textContent;
+          button.textContent = 'Sending...';
+          button.disabled = true;
+          
+          // Let Formspree handle the submission naturally
+          // The form will redirect to #success on successful submission
+          
+          // Re-enable button after a short delay (in case redirect doesn't happen)
+          setTimeout(() => {
+            button.textContent = originalText;
+            button.disabled = false;
+          }, 3000);
+          
+          // Allow default form submission to Formspree
+          return true;
+        });
+      }
+    });
+  </script>
 
 </body>
 </html>

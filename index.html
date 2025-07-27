@@ -140,14 +140,13 @@
   </video>
   <div class="video-overlay"></div>
   
-  <!-- Background Music (Optional - will be hidden if no audio files) -->
-  <audio id="background-music" loop preload="none">
-    <source src="assets/audio/ambient-music.mp3" type="audio/mpeg">
-    <source src="assets/audio/ambient-music.ogg" type="audio/ogg">
+  <!-- Background Music -->
+  <audio id="background-music" loop preload="auto">
+    <source src="assets/audio/01 pharoelidae enTheognoSiS.mp3" type="audio/mpeg">
   </audio>
   
   <!-- Music Control Button -->
-  <div class="music-control" id="music-toggle" title="Toggle Background Music" style="display: none;">
+  <div class="music-control" id="music-toggle" title="Toggle Background Music">
     <svg id="play-icon" viewBox="0 0 24 24">
       <path d="M8 5v14l11-7z"/>
     </svg>
@@ -241,13 +240,8 @@
       const pauseIcon = document.getElementById('pause-icon');
       let isPlaying = false;
 
-      // Check if audio files exist and show control if available
-      backgroundMusic.addEventListener('loadstart', function() {
-        musicToggle.style.display = 'flex';
-      });
-
       // Set volume to a comfortable level
-      backgroundMusic.volume = 0.2;
+      backgroundMusic.volume = 0.3;
 
       musicToggle.addEventListener('click', function() {
         if (isPlaying) {
@@ -264,9 +258,8 @@
             musicToggle.classList.add('playing');
             isPlaying = true;
           }).catch(error => {
-            console.log('Audio playback prevented or file not found:', error);
-            // Hide control if audio can't play
-            musicToggle.style.display = 'none';
+            console.log('Audio playback prevented by browser policy:', error);
+            alert('Click to enable background music. Browser autoplay policy requires user interaction.');
           });
         }
       });
@@ -279,13 +272,14 @@
         isPlaying = false;
       });
 
-      backgroundMusic.addEventListener('error', function() {
-        console.log('Audio file not found - music control hidden');
-        musicToggle.style.display = 'none';
+      backgroundMusic.addEventListener('canplay', function() {
+        console.log('Audio file "01 pharoelidae enTheognoSiS.mp3" loaded successfully');
       });
 
-      // Try to load the audio to check availability
-      backgroundMusic.load();
+      backgroundMusic.addEventListener('error', function(e) {
+        console.log('Audio error:', e);
+        musicToggle.style.display = 'none';
+      });
     });
   </script>
 </body>
