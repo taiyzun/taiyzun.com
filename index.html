@@ -241,8 +241,13 @@
       const pauseIcon = document.getElementById('pause-icon');
       let isPlaying = false;
 
+      // Check if audio files exist and show control if available
+      backgroundMusic.addEventListener('loadstart', function() {
+        musicToggle.style.display = 'flex';
+      });
+
       // Set volume to a comfortable level
-      backgroundMusic.volume = 0.3;
+      backgroundMusic.volume = 0.2;
 
       musicToggle.addEventListener('click', function() {
         if (isPlaying) {
@@ -259,8 +264,9 @@
             musicToggle.classList.add('playing');
             isPlaying = true;
           }).catch(error => {
-            console.log('Audio autoplay prevented:', error);
-            // Keep the play button visible if autoplay fails
+            console.log('Audio playback prevented or file not found:', error);
+            // Hide control if audio can't play
+            musicToggle.style.display = 'none';
           });
         }
       });
@@ -274,9 +280,12 @@
       });
 
       backgroundMusic.addEventListener('error', function() {
-        console.log('Audio file not found - music control will be hidden');
+        console.log('Audio file not found - music control hidden');
         musicToggle.style.display = 'none';
       });
+
+      // Try to load the audio to check availability
+      backgroundMusic.load();
     });
   </script>
 </body>
