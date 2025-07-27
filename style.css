@@ -526,6 +526,7 @@ nav a.active::after {
     padding: 20px;
     border-radius: 20px;
     backdrop-filter: blur(25px);
+    margin-top: 140px; /* Add top margin to avoid logo overlap */
   }
   
   header {
@@ -555,6 +556,12 @@ nav a.active::after {
     bottom: 10px;
     gap: 12px;
   }
+  
+  .gold-heading {
+    font-size: 2.2em;
+    margin-top: 0.4em;
+    margin-bottom: 0.7em;
+  }
 }
 
 @media (max-width: 480px) {
@@ -573,6 +580,7 @@ nav a.active::after {
     padding: 15px;
     border-radius: 18px;
     backdrop-filter: blur(30px);
+    margin-top: 120px; /* Add top margin to avoid logo overlap */
   }
   
   header {
@@ -599,6 +607,12 @@ nav a.active::after {
     font-size: 2em;
   }
   
+  .gold-heading {
+    font-size: 1.8em;
+    margin-top: 0.3em;
+    margin-bottom: 0.6em;
+  }
+  
   .socials {
     padding: 10px 18px;
     border-radius: 35px;
@@ -614,6 +628,27 @@ nav a.active::after {
 
 h1 {
   color: #FFD700; /* Gold for headings */
+}
+
+/* Gold Heading Specific Style */
+.gold-heading {
+  color: #FFD700;
+  text-shadow: 
+    0 0 10px rgba(255, 215, 0, 0.5),
+    0 0 20px rgba(255, 215, 0, 0.3),
+    0 0 30px rgba(255, 215, 0, 0.2);
+  animation: titleGlow 4s ease-in-out infinite;
+  font-size: 2.5em;
+  margin-bottom: 0.8em;
+  margin-top: 0.5em;
+  background: linear-gradient(135deg, #FFD700, #FFA500, #FFD700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 200%;
+  animation: titleGlow 4s ease-in-out infinite, titleShimmer 6s ease-in-out infinite;
+  text-align: center;
+  font-weight: bold;
 }
 
 /* Enhanced Logo Animations */
