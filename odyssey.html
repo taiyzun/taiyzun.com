@@ -68,7 +68,7 @@
   <meta name="theme-color" content="#FFD700" />
   
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=8" />
+  <link rel="stylesheet" href="style.css?v=13" />
   
   <!-- Preload Critical Resources -->
   <link rel="preload" href="assets/video/sora.mp4" as="video" type="video/mp4" />
@@ -188,8 +188,8 @@
   </div>
 </main>
 
-  <!-- Signature Logo -->
-  <img src="assets/images/Taiyzun-logo.png" alt="Taiyzun Signature" class="signature-logo" />
+  <!-- Footer Logo Above Social Media -->
+  <img src="assets/images/Taiyzun-logo.png" alt="Taiyzun Logo" class="footer-logo" />
 
   <!-- Footer with Social Media -->
   <footer class="socials" role="contentinfo" aria-label="Social Media Links">
@@ -201,7 +201,7 @@
   </footer>
 
   <script>
-    // Portrait Gallery Lightbox Functionality
+    // Enhanced Portrait Gallery Lightbox with WOW Effects
     const galleryImages = [
       'assets/Portraits/taiyzun_shahpurwala 00001.jpeg',
       'assets/Portraits/taiyzun_shahpurwala 00002.jpeg',
@@ -213,45 +213,158 @@
     ];
     
     let currentImageIndex = 0;
+    let isTransitioning = false;
     
+    // Enhanced Open Lightbox with Animation
     function openLightbox(imageSrc) {
+      if (isTransitioning) return;
+      
       currentImageIndex = galleryImages.indexOf(imageSrc);
       const lightbox = document.getElementById('lightbox');
       const lightboxImage = document.getElementById('lightbox-image');
+      const lightboxContent = document.querySelector('.lightbox-content');
       
+      // Show loading animation
+      lightboxContent.classList.add('loading');
+      
+      // Set up image
       lightboxImage.src = imageSrc;
-      lightbox.style.display = 'flex';
-      document.body.style.overflow = 'hidden'; // Prevent scrolling
+      lightboxImage.onload = function() {
+        lightboxContent.classList.remove('loading');
+      };
       
-      // Add fade-in animation
+      lightbox.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      
+      // Trigger entrance animation
       setTimeout(() => {
         lightbox.classList.add('active');
       }, 10);
+      
+      // Add parallax mouse effect
+      setupParallaxEffect();
     }
     
+    // Enhanced Close Lightbox
     function closeLightbox() {
+      if (isTransitioning) return;
+      
       const lightbox = document.getElementById('lightbox');
+      const lightboxContent = document.querySelector('.lightbox-content');
+      
+      // Exit animation
+      lightboxContent.style.animation = 'lightboxZoomOut 0.4s cubic-bezier(0.55, 0.085, 0.68, 0.53)';
       lightbox.classList.remove('active');
-      document.body.style.overflow = 'auto'; // Restore scrolling
+      document.body.style.overflow = 'auto';
       
       setTimeout(() => {
         lightbox.style.display = 'none';
-      }, 300);
+        lightboxContent.style.animation = '';
+        removeParallaxEffect();
+      }, 400);
     }
     
+    // Enhanced Image Navigation with Smooth Transitions
     function nextImage() {
-      currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
-      const lightboxImage = document.getElementById('lightbox-image');
-      lightboxImage.src = galleryImages[currentImageIndex];
+      if (isTransitioning) return;
+      changeImage(1);
     }
     
     function prevImage() {
-      currentImageIndex = currentImageIndex === 0 ? galleryImages.length - 1 : currentImageIndex - 1;
-      const lightboxImage = document.getElementById('lightbox-image');
-      lightboxImage.src = galleryImages[currentImageIndex];
+      if (isTransitioning) return;
+      changeImage(-1);
     }
     
-    // Keyboard navigation
+    function changeImage(direction) {
+      isTransitioning = true;
+      const lightboxImage = document.getElementById('lightbox-image');
+      const lightboxContent = document.querySelector('.lightbox-content');
+      
+      // Add transition effect
+      lightboxImage.classList.add('changing');
+      lightboxContent.classList.add('loading');
+      
+      // Calculate new index
+      if (direction === 1) {
+        currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+      } else {
+        currentImageIndex = currentImageIndex === 0 ? galleryImages.length - 1 : currentImageIndex - 1;
+      }
+      
+      // Change image after animation
+      setTimeout(() => {
+        lightboxImage.src = galleryImages[currentImageIndex];
+        lightboxImage.onload = function() {
+          lightboxContent.classList.remove('loading');
+          lightboxImage.classList.remove('changing');
+          isTransitioning = false;
+        };
+      }, 250);
+    }
+    
+    // Parallax Mouse Effect for Lightbox
+    function setupParallaxEffect() {
+      const lightboxContent = document.querySelector('.lightbox-content');
+      
+      function handleMouseMove(e) {
+        const { clientX, clientY } = e;
+        const { innerWidth, innerHeight } = window;
+        
+        const xPercent = (clientX / innerWidth - 0.5) * 2;
+        const yPercent = (clientY / innerHeight - 0.5) * 2;
+        
+        const rotateY = xPercent * 5;
+        const rotateX = -yPercent * 5;
+        
+        lightboxContent.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      }
+      
+      document.addEventListener('mousemove', handleMouseMove);
+      
+      // Store reference for cleanup
+      lightboxContent._parallaxHandler = handleMouseMove;
+    }
+    
+    function removeParallaxEffect() {
+      const lightboxContent = document.querySelector('.lightbox-content');
+      if (lightboxContent._parallaxHandler) {
+        document.removeEventListener('mousemove', lightboxContent._parallaxHandler);
+        lightboxContent.style.transform = '';
+      }
+    }
+    
+    // Touch/Swipe Support for Mobile
+    let touchStartX = 0;
+    let touchStartY = 0;
+    
+    function handleTouchStart(e) {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }
+    
+    function handleTouchEnd(e) {
+      if (!touchStartX || !touchStartY) return;
+      
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchEndY = e.changedTouches[0].clientY;
+      
+      const diffX = touchStartX - touchEndX;
+      const diffY = touchStartY - touchEndY;
+      
+      // Only handle horizontal swipes (ignore vertical)
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+        if (diffX > 0) {
+          nextImage(); // Swipe left = next image
+        } else {
+          prevImage(); // Swipe right = previous image
+        }
+      }
+      
+      touchStartX = 0;
+      touchStartY = 0;
+    }
+    
+    // Enhanced Keyboard Navigation
     document.addEventListener('keydown', function(e) {
       const lightbox = document.getElementById('lightbox');
       if (lightbox.style.display === 'flex') {
@@ -260,14 +373,76 @@
             closeLightbox();
             break;
           case 'ArrowRight':
+          case ' ': // Space bar
+            e.preventDefault();
             nextImage();
             break;
           case 'ArrowLeft':
+            e.preventDefault();
             prevImage();
+            break;
+          case 'Home':
+            e.preventDefault();
+            currentImageIndex = 0;
+            changeImage(0);
+            break;
+          case 'End':
+            e.preventDefault();
+            currentImageIndex = galleryImages.length - 1;
+            changeImage(0);
             break;
         }
       }
     });
+    
+    // Add touch event listeners to lightbox
+    document.addEventListener('DOMContentLoaded', function() {
+      const lightbox = document.getElementById('lightbox');
+      lightbox.addEventListener('touchstart', handleTouchStart, { passive: true });
+      lightbox.addEventListener('touchend', handleTouchEnd, { passive: true });
+      
+      // Prevent click-through on navigation buttons
+      const navButtons = document.querySelectorAll('.lightbox-prev, .lightbox-next');
+      navButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.stopPropagation();
+        });
+      });
+      
+      // Add close button click handler
+      const closeButton = document.querySelector('.lightbox-close');
+      closeButton.addEventListener('click', function(e) {
+        e.stopPropagation();
+        closeLightbox();
+      });
+    });
+    
+    // Add CSS animation keyframes for zoom out effect
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes lightboxZoomOut {
+        0% { opacity: 1; transform: scale(1) rotateX(0deg) rotateY(0deg); }
+        100% { opacity: 0; transform: scale(0.3) rotateX(-15deg) rotateY(-15deg); }
+      }
+    `;
+    document.head.appendChild(style);
+    
+    // Gallery Item Scroll Animation
+    function animateOnScroll() {
+      const galleryItems = document.querySelectorAll('.gallery-item');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.animationPlayState = 'running';
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      galleryItems.forEach(item => {
+        observer.observe(item);
+        item.style.animationPlayState = 'paused';
+      });
+    }
     
     // Mobile menu toggle functionality
     document.addEventListener('DOMContentLoaded', function() {
@@ -296,6 +471,9 @@
           document.body.classList.remove('menu-open');
         }
       });
+      
+      // Initialize scroll animations
+      animateOnScroll();
     });
   </script>
 </body>
