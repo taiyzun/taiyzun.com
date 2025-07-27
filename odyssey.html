@@ -19,11 +19,20 @@
     <img src="assets/images/logo.png" alt="Taiyzun Logo" class="logo" />
   </a>
   <header>
+    <!-- Mobile Menu Button -->
+    <div class="mobile-menu-btn">
+      <div class="triangle-dots">
+        <div class="dot dot-1"></div>
+        <div class="dot dot-2"></div>
+        <div class="dot dot-3"></div>
+      </div>
+    </div>
+    
     <div style="text-align: center;">
       <nav>
         <a href="index.html">Home</a>
-        <a href="odyssey.html" class="active">Odyssey</a>
         <a href="journey.html">Journey</a>
+        <a href="odyssey.html" class="active">Odyssey</a>
         <a href="creations.html">Creations</a>
         <a href="connect.html">Connect</a>
       </nav>
@@ -40,5 +49,26 @@
     <a href="https://www.youtube.com/taiyzun"><img src="assets/images/icons/youtube.png" alt="YouTube" /></a>
     <a href="https://x.com/Taiyzun"><img src="assets/images/icons/x.png" alt="X" /></a>
   </div>
+
+  <script>
+    // Mobile menu toggle functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+      const nav = document.querySelector('nav');
+      const header = document.querySelector('header');
+      
+      mobileMenuBtn.addEventListener('click', function() {
+        header.classList.toggle('menu-open');
+      });
+      
+      // Close menu when clicking on a nav link
+      const navLinks = document.querySelectorAll('nav a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          header.classList.remove('menu-open');
+        });
+      });
+    });
+  </script>
 </body>
 </html>
