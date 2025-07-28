@@ -252,8 +252,8 @@ body {
   margin: 0;
   padding: 0;
   padding-left: 0;
-  padding-top: 60px; /* Reduced space for fixed header */
-  padding-bottom: 120px; /* Reduced space for fixed social media and logo */
+  padding-top: 55px; /* Further reduced from 60px */
+  padding-bottom: 80px; /* Further reduced from 120px */
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
@@ -277,11 +277,11 @@ body .background-video {
 main, .content {
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(8px);
-  border-radius: 20px;
-  padding: 20px; /* Reduced from 40px */
-  margin: 15px auto; /* Reduced from 40px auto */
+  border-radius: 15px; /* Reduced from 20px */
+  padding: 15px; /* Reduced from 20px */
+  margin: 5px auto; /* Reduced from 15px auto */
   max-width: 1200px;
-  width: 90%;
+  width: 95%; /* Increased from 90% to use more space */
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -437,7 +437,7 @@ body .background-video {
 /* All section-specific complex styles removed */
 
 header {
-  padding: 10px 15px;
+  padding: 8px 15px; /* Further reduced from 10px 15px */
   margin: 0;
   display: block;
   width: 100%;
@@ -445,6 +445,7 @@ header {
   top: 0;
   left: 0;
   z-index: 100;
+  min-height: 45px; /* Reduced from 50px */
 }
 
 header:hover {
@@ -705,10 +706,10 @@ main:hover::before, .content:hover::before {
 /* Responsive Liquid Glass Design */
 @media (max-width: 768px) {
   body {
-    padding: 10px; /* Reduced from 20px */
-    padding-top: 70px; /* Reduced from 130px */
-    padding-left: 10px; /* Reduced from 20px */
-    padding-bottom: 120px; /* Reduced from 180px */
+    padding: 5px; /* Further reduced from 10px */
+    padding-top: 55px; /* Further reduced from 70px */
+    padding-left: 5px; /* Further reduced from 10px */
+    padding-bottom: 80px; /* Further reduced from 120px */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -877,13 +878,13 @@ h1 {
 /* Mobile Menu Button - Show only on mobile/tablet */
 .mobile-menu-btn {
   display: none; /* Hidden by default on desktop */
-  position: fixed;
-  top: 15px;
-  left: 50%;
-  transform: translateX(-50%);
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
   z-index: 10005;
   cursor: pointer;
-  padding: 12px;
+  padding: 10px;
   border-radius: 50%;
   background: 
     linear-gradient(135deg, rgba(0, 119, 190, 0.25), rgba(0, 84, 147, 0.15)),
@@ -896,7 +897,6 @@ h1 {
     0 4px 16px rgba(255, 193, 7, 0.15),
     inset 0 2px 0 rgba(255, 255, 255, 0.3),
     inset 0 -2px 0 rgba(0, 119, 190, 0.2);
-  position: relative;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
@@ -1082,8 +1082,9 @@ h1 {
     left: 0;
     width: 100%;
     height: auto;
+    min-height: 45px; /* Reduced from 50px */
     z-index: 1000;
-    padding: 10px 15px;
+    padding: 8px 15px; /* Reduced from 10px 15px */
     background: 
       linear-gradient(135deg, rgba(0, 84, 147, 0.1), rgba(0, 119, 190, 0.05)),
       radial-gradient(circle at 30% 40%, rgba(255, 193, 7, 0.03), transparent);
@@ -1114,17 +1115,17 @@ h1 {
       radial-gradient(circle at 70% 60%, rgba(255, 152, 0, 0.03), transparent);
     backdrop-filter: blur(30px) saturate(1.5);
     border-top: 1px solid rgba(0, 119, 190, 0.2);
-    padding: 20px 0;
+    padding: 10px 0; /* Reduced from 20px 0 */
     animation: slideDown 0.4s ease;
   }
   
   header.menu-open nav a {
-    padding: 15px 30px;
-    margin: 5px 20px;
+    padding: 10px 20px; /* Reduced from 15px 30px */
+    margin: 2px 15px; /* Reduced from 5px 20px */
     text-align: left;
     color: #FFFFFF;
     text-decoration: none;
-    border-radius: 12px;
+    border-radius: 10px; /* Reduced from 12px */
     background: 
       linear-gradient(135deg, rgba(0, 119, 190, 0.1), rgba(0, 84, 147, 0.05)),
       radial-gradient(circle at 30% 30%, rgba(255, 193, 7, 0.08), transparent);
@@ -1147,9 +1148,9 @@ h1 {
 /* Smaller mobile devices */
 @media (max-width: 768px) {
   header.menu-open nav a {
-    margin: 3px 15px;
-    padding: 12px 25px;
-    font-size: 0.95em;
+    margin: 1px 10px; /* Further reduced from 3px 15px */
+    padding: 8px 18px; /* Further reduced from 12px 25px */
+    font-size: 0.9em; /* Reduced from 0.95em */
   }
 }
 
