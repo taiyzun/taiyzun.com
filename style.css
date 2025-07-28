@@ -1,4 +1,4 @@
-/* Taiyzun.com CSS v=26 - CLEAN DESIGN - No Shadows/Glows - 100% Visible Video - Parallax Effect */
+/* Taiyzun.com CSS v=27 - FINAL CLEAN - Logo Bottom Right - No Shadows - High Contrast Headers */
 
 /* Global Font Setting */
 * {
@@ -39,56 +39,54 @@ html {
 
 /* NO PARALLAX ANIMATION - SIMPLIFIED */
 
-/* Liquid Glass Logo */
+/* Logo - Bottom Right Position */
 .logo {
   position: fixed;
-  top: 20px;
-  left: 20px;
-  height: 120px;
+  bottom: 20px;
+  right: 20px;
+  height: 80px;
   width: auto;
-  max-width: 80px;
+  max-width: 60px;
   object-fit: contain;
   object-position: center;
   z-index: 1000;
   pointer-events: auto;
-  border-radius: 15px;
+  border-radius: 12px;
   backdrop-filter: blur(2px);
   background: rgba(255, 255, 255, 0.03);
   border: none;
-  box-shadow: none;
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  padding: 8px;
+  padding: 6px;
 }
 
 .logo:hover {
-  transform: scale(1.05) rotate(2deg);
-  box-shadow: none;
+  transform: scale(1.1);
   border-color: transparent;
   background: rgba(255, 255, 255, 0.05);
 }
 
 /* LOGO SIMPLIFIED - NO ANIMATIONS */
 
-/* Responsive logo sizing */
+/* Responsive logo sizing - Bottom Right */
 @media (max-width: 768px) {
   .logo {
-    height: 90px !important;
+    height: 70px !important;
     width: auto !important;
-    max-width: 60px !important;
-    top: 15px !important;
-    left: 15px !important;
-    padding: 6px;
+    max-width: 50px !important;
+    bottom: 15px !important;
+    right: 15px !important;
+    padding: 5px;
   }
 }
 
 @media (max-width: 480px) {
   .logo {
-    height: 80px !important;
+    height: 60px !important;
     width: auto !important;
-    max-width: 50px !important;
-    top: 10px !important;
-    left: 10px !important;
-    padding: 5px;
+    max-width: 40px !important;
+    bottom: 10px !important;
+    right: 10px !important;
+    padding: 4px;
   }
 }
 /* Enhanced Footer Social Media Icons */
@@ -683,15 +681,15 @@ h1 {
 
 h2, h3 {
   color: #FFFFFF;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.9);
   font-weight: bold;
-  padding: 12px 20px;
-  border-radius: 12px;
+  padding: 12px 18px;
+  border-radius: 8px;
   border: 2px solid #FFD700;
   text-align: center;
   width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto 15px auto;
+  max-width: fit-content;
 }
 
 h2 {
@@ -704,20 +702,13 @@ h3 {
   margin-bottom: 0.6em;
 }
 
-
 p {
   color: #D0D0D0;
   line-height: 1.6;
   font-size: 1.1em;
-  animation: textFloat 6s ease-in-out infinite;
   text-align: center;
   max-width: 100%;
   margin: 0 auto;
-}
-
-@keyframes textFloat {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-2px); }
 }
 
 /* Coming Soon Section Styles - More Transparent and Perfectly Centered */
