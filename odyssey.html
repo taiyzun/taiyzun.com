@@ -68,7 +68,7 @@
   <meta name="theme-color" content="#FFD700" />
   
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=17" />
+  <link rel="stylesheet" href="style.css?v=20" />
   
   <!-- Preload Critical Resources -->
   <link rel="preload" href="assets/video/sora.mp4" as="video" type="video/mp4" />
@@ -443,6 +443,49 @@
         item.style.animationPlayState = 'paused';
       });
     }
+
+    // Enhanced Gallery Parallax Effects
+    function initGalleryParallax() {
+      const galleryItems = document.querySelectorAll('.gallery-item');
+      const galleryGrid = document.querySelector('.gallery-grid');
+
+      // Mouse-based parallax effect
+      galleryGrid.addEventListener('mousemove', (e) => {
+        const rect = galleryGrid.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const mouseX = e.clientX - centerX;
+        const mouseY = e.clientY - centerY;
+
+        galleryItems.forEach((item, index) => {
+          const intensity = 0.02 + (index * 0.005); // Varying intensity for depth
+          const moveX = mouseX * intensity;
+          const moveY = mouseY * intensity;
+          
+          const img = item.querySelector('img');
+          img.style.transform = `translate3d(${moveX}px, ${moveY}px, 0) scale(1.02)`;
+        });
+      });
+
+      // Reset on mouse leave
+      galleryGrid.addEventListener('mouseleave', () => {
+        galleryItems.forEach(item => {
+          const img = item.querySelector('img');
+          img.style.transform = 'translate3d(0, 0, 0) scale(1)';
+        });
+      });
+
+      // Scroll-based parallax
+      window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const rate = scrolled * -0.5;
+        
+        galleryItems.forEach((item, index) => {
+          const offset = index * 50;
+          item.style.transform = `translateY(${rate + offset}px)`;
+        });
+      });
+    }
     
     // Mobile menu toggle functionality
     document.addEventListener('DOMContentLoaded', function() {
@@ -472,8 +515,9 @@
         }
       });
       
-      // Initialize scroll animations
+      // Initialize scroll animations and parallax effects
       animateOnScroll();
+      initGalleryParallax();
     });
   </script>
 </body>
