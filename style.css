@@ -23,6 +23,22 @@ html {
   filter: blur(0px) saturate(1.1);
 }
 
+/* Mobile Safari Video Fix */
+@media (max-width: 768px) {
+  .background-video {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    object-fit: cover !important;
+    z-index: -1 !important;
+    opacity: 1 !important;
+    filter: blur(0px) saturate(1.1) !important;
+    transform: none !important;
+  }
+}
+
 .video-overlay {
   position: fixed;
   top: 0;
@@ -877,7 +893,6 @@ nav a.active::after {
     padding-top: 130px; /* Add top padding to avoid logo overlap */
     padding-left: 20px;
     padding-bottom: 180px; /* Space for fixed social media and logo */
-    animation: mobileBodyFloat 20s ease-in-out infinite;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -920,15 +935,16 @@ nav a.active::after {
     backdrop-filter: blur(30px) saturate(1.5);
   }
   
-  @keyframes mobileBodyFloat {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-3px); }
-  }
-  
   .background-video {
     opacity: 1;
-    filter: blur(1px) saturate(1.1);
-    animation: enhancedParallax 30s ease-in-out infinite;
+    filter: blur(0px) saturate(1.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
   }
   
   main, .content {
@@ -986,9 +1002,15 @@ nav a.active::after {
   }
   
   .background-video {
-    opacity: 0.2;
-    filter: blur(2px) saturate(0.9);
-    animation: enhancedParallax 35s ease-in-out infinite;
+    opacity: 1;
+    filter: blur(0px) saturate(1.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
   }
 
   /* Journey Page Ultra Mobile Layered Transparency */
