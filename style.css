@@ -877,7 +877,8 @@ h1 {
   display: block;
   position: fixed;
   top: 20px;
-  right: 20px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 1001;
   cursor: pointer;
   padding: 18px;
@@ -1000,6 +1001,39 @@ h1 {
 
 .menu-open .dot-1 {
   transform: translateX(-50%) scale(1.2);
+}
+
+/* Desktop Navigation - Override mobile styles */
+@media (min-width: 769px) {
+  .mobile-menu-btn {
+    display: block; /* Keep the triangle dots visible */
+  }
+  
+  header {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    transform: none !important;
+    background: none !important;
+    padding: 20px !important;
+    display: block !important;
+    z-index: 100 !important;
+  }
+  
+  nav {
+    display: inline-block !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  
+  nav a {
+    display: inline-block !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 /* OS 26 Liquid Glass Mobile Menu Navigation */
