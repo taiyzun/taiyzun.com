@@ -252,8 +252,8 @@ body {
   margin: 0;
   padding: 0;
   padding-left: 0;
-  padding-top: 120px; /* Space for fixed header */
-  padding-bottom: 180px; /* Space for fixed social media and logo */
+  padding-top: 60px; /* Reduced space for fixed header */
+  padding-bottom: 120px; /* Reduced space for fixed social media and logo */
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
@@ -278,8 +278,8 @@ main, .content {
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(8px);
   border-radius: 20px;
-  padding: 40px;
-  margin: 40px auto;
+  padding: 20px; /* Reduced from 40px */
+  margin: 15px auto; /* Reduced from 40px auto */
   max-width: 1200px;
   width: 90%;
   text-align: center;
@@ -437,7 +437,7 @@ body .background-video {
 /* All section-specific complex styles removed */
 
 header {
-  padding: 20px;
+  padding: 10px 15px;
   margin: 0;
   display: block;
   width: 100%;
@@ -454,9 +454,9 @@ header:hover {
 /* Clean Typography */
 h1 {
   color: #FFFFFF;
-  font-size: 2.5em;
-  margin-bottom: 0.5em;
-  padding: 15px 25px;
+  font-size: 1.8em; /* Reduced from 2.5em */
+  margin-bottom: 0.3em; /* Reduced from 0.5em */
+  padding: 8px 15px; /* Reduced from 15px 25px */
   text-align: center;
   display: block;
   width: fit-content;
@@ -466,21 +466,21 @@ h1 {
 
 h2, h3 {
   color: #FFFFFF;
-  padding: 12px 18px;
+  padding: 6px 12px; /* Reduced from 12px 18px */
   text-align: center;
   width: fit-content;
-  margin: 0 auto 15px auto;
+  margin: 0 auto 8px auto; /* Reduced from 15px */
   max-width: fit-content;
 }
 
 h2 {
-  font-size: 2em;
-  margin-bottom: 0.8em;
+  font-size: 1.5em; /* Reduced from 2em */
+  margin-bottom: 0.4em; /* Reduced from 0.8em */
 }
 
 h3 {
-  font-size: 1.5em;
-  margin-bottom: 0.6em;
+  font-size: 1.2em; /* Reduced from 1.5em */
+  margin-bottom: 0.3em; /* Reduced from 0.6em */
 }
 
 /* Current Role styling */
@@ -490,19 +490,19 @@ h3 {
 
 p {
   color: #FFFFFF;
-  line-height: 1.6;
-  font-size: 1.1em;
+  line-height: 1.4; /* Reduced from 1.6 */
+  font-size: 1em; /* Reduced from 1.1em */
   text-align: center;
   max-width: 100%;
-  margin: 0 auto;
+  margin: 0 auto 0.5em auto; /* Reduced bottom margin */
 }
 
 /* Clean Coming Soon Section */
 .coming-soon {
   text-align: center;
-  padding: 25px 15px;
+  padding: 15px 10px; /* Reduced from 25px 15px */
   max-width: 400px;
-  margin: 20px auto;
+  margin: 10px auto; /* Reduced from 20px auto */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -705,10 +705,10 @@ main:hover::before, .content:hover::before {
 /* Responsive Liquid Glass Design */
 @media (max-width: 768px) {
   body {
-    padding: 20px;
-    padding-top: 130px; /* Add top padding to avoid logo overlap */
-    padding-left: 20px;
-    padding-bottom: 180px; /* Space for fixed social media and logo */
+    padding: 10px; /* Reduced from 20px */
+    padding-top: 70px; /* Reduced from 130px */
+    padding-left: 10px; /* Reduced from 20px */
+    padding-bottom: 120px; /* Reduced from 180px */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -874,16 +874,16 @@ h1 {
 }
 
 /* OS 26 Liquid Glass Mobile Menu */
-/* Mobile Menu Button - Always Visible in Top Right */
+/* Mobile Menu Button - Show only on mobile/tablet */
 .mobile-menu-btn {
-  display: block;
+  display: none; /* Hidden by default on desktop */
   position: fixed;
-  top: 20px;
+  top: 15px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10005;
   cursor: pointer;
-  padding: 18px;
+  padding: 12px;
   border-radius: 50%;
   background: 
     linear-gradient(135deg, rgba(0, 119, 190, 0.25), rgba(0, 84, 147, 0.15)),
@@ -1043,154 +1043,148 @@ h1 {
   }
 }
 
-/* OS 26 Liquid Glass Mobile Menu Navigation */
-@media (max-width: 768px) {
+/* Desktop Navigation - Above 1024px */
+@media (min-width: 1025px) {
+  /* Hide mobile menu button on desktop */
+  .mobile-menu-btn {
+    display: none;
+  }
+  
+  /* Ensure desktop header navigation is visible */
+  header nav {
+    display: flex !important;
+  }
+  
+  /* Reset any mobile-specific header styles */
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    padding: 10px 15px;
+    background: transparent;
+    z-index: 100;
+  }
+}
+
+/* Tablet and Mobile Navigation */
+@media (max-width: 1024px) {
+  /* Show mobile menu button on tablets and mobile */
   .mobile-menu-btn {
     display: block;
   }
   
+  /* Keep header normal size and position */
   header {
     position: fixed;
     top: 0;
-    right: 0;
+    left: 0;
     width: 100%;
-    height: 100vh;
+    height: auto;
     z-index: 1000;
+    padding: 10px 15px;
+    background: 
+      linear-gradient(135deg, rgba(0, 84, 147, 0.1), rgba(0, 119, 190, 0.05)),
+      radial-gradient(circle at 30% 40%, rgba(255, 193, 7, 0.03), transparent);
+    backdrop-filter: blur(15px) saturate(1.3);
+    transition: all 0.4s ease;
+  }
+  
+  /* Hide desktop navigation */
+  header nav {
+    display: none;
+  }
+  
+  /* Mobile menu open state - show nav under header */
+  header.menu-open {
+    height: auto;
+  }
+  
+  header.menu-open nav {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    margin: 0;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
     background: 
       linear-gradient(135deg, rgba(0, 84, 147, 0.15), rgba(0, 119, 190, 0.08)),
       radial-gradient(circle at 30% 40%, rgba(255, 193, 7, 0.05), transparent),
       radial-gradient(circle at 70% 60%, rgba(255, 152, 0, 0.03), transparent);
     backdrop-filter: blur(30px) saturate(1.5);
-    transform: translateX(100%);
-    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border-top: 1px solid rgba(0, 119, 190, 0.2);
+    padding: 20px 0;
+    animation: slideDown 0.4s ease;
   }
   
-  header.menu-open {
-    transform: translateX(0);
-  }
-  
-  nav {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    padding: 0;
-    margin: 0;
-    position: relative;
-    z-index: 10;
-  }
-  
-  nav a {
-    font-size: 24px;
-    padding: 22px 40px;
-    text-align: center;
-    border-radius: 28px;
-    background: 
-      linear-gradient(135deg, rgba(0, 119, 190, 0.3), rgba(0, 84, 147, 0.2)),
-      radial-gradient(circle at center, rgba(255, 193, 7, 0.08), transparent);
-    border: 2px solid rgba(0, 119, 190, 0.4);
-    backdrop-filter: blur(25px) saturate(1.8);
+  header.menu-open nav a {
+    padding: 15px 30px;
+    margin: 5px 20px;
+    text-align: left;
     color: #FFFFFF;
-    box-shadow:
-      0 12px 40px rgba(0, 84, 147, 0.3),
-      0 6px 20px rgba(255, 193, 7, 0.15),
-      inset 0 2px 0 rgba(255, 255, 255, 0.3),
-      inset 0 -2px 0 rgba(0, 119, 190, 0.2);
-    transform: translateX(100px) scale(0.8);
-    opacity: 0;
-    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    position: relative;
-    overflow: hidden;
-  }
-
-  nav a::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, 
-      transparent, 
-      rgba(255, 193, 7, 0.2), 
-      rgba(255, 152, 0, 0.15), 
-      transparent);
-    transition: left 0.6s ease;
-  }
-
-  nav a:hover::before {
-    left: 100%;
-  }
-  
-  .menu-open nav a {
-    transform: translateX(0) scale(1);
-    opacity: 1;
-  }
-  
-  /* OS 26 Staggered liquid glass animation for nav items */
-  .menu-open nav a:nth-child(1) { transition-delay: 0.1s; }
-  .menu-open nav a:nth-child(2) { transition-delay: 0.2s; }
-  .menu-open nav a:nth-child(3) { transition-delay: 0.3s; }
-  .menu-open nav a:nth-child(4) { transition-delay: 0.4s; }
-  .menu-open nav a:nth-child(5) { transition-delay: 0.5s; }
-  
-  nav a:hover {
+    text-decoration: none;
+    border-radius: 12px;
     background: 
-      linear-gradient(135deg, rgba(0, 119, 190, 0.5), rgba(0, 84, 147, 0.4)),
-      radial-gradient(circle at center, rgba(255, 193, 7, 0.15), transparent);
-    border-color: rgba(255, 193, 7, 0.8);
+      linear-gradient(135deg, rgba(0, 119, 190, 0.1), rgba(0, 84, 147, 0.05)),
+      radial-gradient(circle at 30% 30%, rgba(255, 193, 7, 0.08), transparent);
+    border: 1px solid rgba(0, 119, 190, 0.15);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
+  
+  header.menu-open nav a:hover,
+  header.menu-open nav a.active {
+    background: 
+      linear-gradient(135deg, rgba(0, 119, 190, 0.2), rgba(0, 84, 147, 0.1)),
+      radial-gradient(circle at 30% 30%, rgba(255, 193, 7, 0.15), transparent);
+    border-color: rgba(255, 193, 7, 0.3);
     color: #FFC107;
-    transform: translateX(0) scale(1.08);
-    box-shadow:
-      0 16px 48px rgba(255, 193, 7, 0.4),
-      0 8px 24px rgba(0, 119, 190, 0.3),
-      inset 0 2px 0 rgba(255, 255, 255, 0.4),
-      inset 0 -2px 0 rgba(255, 152, 0, 0.3);
+    transform: translateX(10px);
   }
-  
-  nav a.active {
-    background: 
-      linear-gradient(135deg, rgba(0, 84, 147, 0.8), rgba(0, 119, 190, 0.6)),
-      radial-gradient(circle at center, rgba(255, 193, 7, 0.2), transparent);
-    color: #FFFFFF;
-    border-color: rgba(255, 152, 0, 0.9);
-    box-shadow:
-      0 20px 60px rgba(255, 152, 0, 0.5),
-      0 10px 30px rgba(0, 84, 147, 0.4),
-      inset 0 3px 0 rgba(255, 255, 255, 0.5),
-      inset 0 -3px 0 rgba(255, 193, 7, 0.4);
-  }
-  
-  /* Hide desktop header styles on mobile */
-  body {
-    padding-left: 1rem;
+}
+
+/* Smaller mobile devices */
+@media (max-width: 768px) {
+  header.menu-open nav a {
+    margin: 3px 15px;
+    padding: 12px 25px;
+    font-size: 0.95em;
   }
 }
 
 @media (max-width: 480px) {
   .mobile-menu-btn {
-    top: 15px;
-    right: 15px;
-    padding: 12px;
+    top: 10px; /* Reduced from 15px */
+    padding: 10px; /* Reduced from 12px */
   }
   
   .triangle-dots {
-    width: 25px;
-    height: 22px;
+    width: 22px; /* Reduced from 25px */
+    height: 20px; /* Reduced from 22px */
   }
   
   .dot {
-    width: 6px;
-    height: 6px;
+    width: 5px; /* Reduced from 6px */
+    height: 5px; /* Reduced from 6px */
   }
   
-  nav a {
-    font-size: 18px;
-    padding: 15px 30px;
+  header.menu-open nav a {
+    font-size: 0.85em; /* Reduced from 0.9em */
+    padding: 8px 15px; /* Reduced from 10px 20px */
+    margin: 1px 8px; /* Reduced from 2px 10px */
+  }
+}
+
+/* Animation for sliding down menu */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
