@@ -357,7 +357,7 @@ main::before, .content::before {
 
 /* Clean Hover Effects */
 main:hover, .content:hover {
-  color: #FFD700;
+  color: #FFC107;
 }
 
 /* Clean Contact Form */
@@ -373,7 +373,7 @@ main:hover, .content:hover {
 .contact-form label {
   display: block;
   margin-bottom: 6px;
-  color: #FFD700;
+  color: #FFC107;
   font-size: 14px;
 }
 
@@ -390,7 +390,7 @@ main:hover, .content:hover {
 .contact-form input:focus,
 .contact-form textarea:focus {
   outline: none;
-  color: #FFD700;
+  color: #FFC107;
 }
 
 .contact-form textarea {
@@ -409,7 +409,7 @@ main:hover, .content:hover {
 }
 
 .contact-form button:hover {
-  color: #FFD700;
+  color: #FFC107;
 }
 
 .contact-form button:disabled {
@@ -467,7 +467,7 @@ header {
 }
 
 header:hover {
-  color: #FFD700;
+  color: #FFC107;
 }
 
 /* Clean Typography */
@@ -504,7 +504,7 @@ h3 {
 
 /* Current Role styling */
 .current-role-heading {
-  color: #FFD700 !important;
+  color: #FFC107 !important;
 }
 
 p {
@@ -631,11 +631,11 @@ p {
 }
 
 .journey-content strong {
-  color: #FFD700;
+  color: #FFC107;
 }
 
 .journey-content em {
-  color: #FFA500;
+  color: #FF9800;
   font-style: italic;
 }
 
@@ -1322,7 +1322,7 @@ h1 {
 
 .portrait-gallery h2 {
   text-align: center;
-  color: #FFD700;
+  color: #FFC107;
   font-size: 2.5em;
   margin-bottom: 15px;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
