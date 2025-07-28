@@ -580,13 +580,30 @@
     
     // Mobile menu functionality
     function initMobileMenu() {
+      console.log('Initializing mobile menu...');
       const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
       const nav = document.querySelector('nav');
       const header = document.querySelector('header');
       
-      mobileMenuBtn.addEventListener('click', function() {
+      console.log('Mobile menu elements:', { mobileMenuBtn, nav, header });
+      
+      if (!mobileMenuBtn) {
+        console.error('Mobile menu button not found!');
+        return;
+      }
+      
+      if (!header) {
+        console.error('Header not found!');
+        return;
+      }
+      
+      mobileMenuBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('Mobile menu button clicked!');
         header.classList.toggle('menu-open');
         document.body.classList.toggle('menu-open');
+        console.log('Menu toggled. Header classes:', header.className);
       });
       
       // Close menu when clicking on a nav link

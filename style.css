@@ -881,7 +881,7 @@ h1 {
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 1001;
+  z-index: 10005;
   cursor: pointer;
   padding: 18px;
   border-radius: 50%;
