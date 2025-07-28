@@ -150,6 +150,16 @@
           header.classList.remove('menu-open');
         });
       });
+      
+      // Simple Parallax Effect for Background Video
+      const backgroundVideo = document.querySelector('.background-video');
+      if (backgroundVideo) {
+        window.addEventListener('scroll', () => {
+          const scrolled = window.pageYOffset;
+          const rate = scrolled * -0.5;
+          backgroundVideo.style.transform = `translateY(${rate}px)`;
+        });
+      }
     });
   </script>
 </body>

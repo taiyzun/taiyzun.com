@@ -1,4 +1,4 @@
-/* Taiyzun.com CSS v=25 - Simplified Ocean Blue Theme - High Contrast Headings - No Animations */
+/* Taiyzun.com CSS v=26 - CLEAN DESIGN - No Shadows/Glows - 100% Visible Video - Parallax Effect */
 
 /* Global Font Setting */
 * {
@@ -10,7 +10,7 @@ html {
   background-color: transparent;
 }
 
-/* Fully Visible Background Video */
+/* Fully Visible Background Video with Parallax */
 .background-video {
   position: fixed;
   top: 0;
@@ -22,6 +22,7 @@ html {
   opacity: 1;
   filter: blur(0px) saturate(1.1);
   will-change: transform;
+  transform: translateZ(0);
 }
 
 .video-overlay {
@@ -137,34 +138,27 @@ html {
 
 /* SOCIAL MEDIA SIMPLIFIED - NO ANIMATIONS */
 
+/* CLEAN SOCIAL MEDIA - NO SHADOWS */
+.socials, footer.socials {
+  background: rgba(0, 80, 120, 0.6);
+  border: 1px solid rgba(0, 150, 200, 0.4);
+}
+
 .socials:hover, footer.socials:hover {
-  transform: translateX(-50%) scale(1.05) !important;
-  background: 
-    linear-gradient(135deg, rgba(40, 40, 40, 0.9), rgba(60, 60, 60, 0.95)),
-    radial-gradient(circle at 50% 50%, rgba(120, 120, 120, 0.4), transparent);
-  box-shadow: 
-    0 8px 25px rgba(0, 0, 0, 0.7),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.4);
-  border-color: rgba(120, 120, 120, 0.6);
-  backdrop-filter: blur(30px) saturate(1.4);
+  background: rgba(0, 100, 150, 0.8);
+  border-color: rgba(0, 180, 255, 0.6);
 }
 
 .socials img, footer.socials img {
   height: 22px;
   width: 22px;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6)) brightness(1.2);
-  border-radius: 8px;
+  border-radius: 6px;
   padding: 2px;
-  backdrop-filter: blur(10px);
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .socials img:hover, footer.socials img:hover {
-  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.9)) brightness(1.4);
-  transform: scale(1.15) rotate(3deg);
   background: rgba(255, 255, 255, 0.2);
   border-color: rgba(255, 255, 255, 0.4);
 }
@@ -237,28 +231,18 @@ nav a {
   backdrop-filter: blur(10px);
   background: rgba(0, 64, 128, 0.6);
   border: 1px solid rgba(0, 150, 200, 0.4);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 nav a:hover {
   color: #FFD700;
   background: rgba(0, 100, 180, 0.7);
   border-color: rgba(0, 180, 255, 0.6);
-  transform: scale(1.05) translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 150, 255, 0.4);
-  text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
 }
 
 nav a.active {
   color: #FFFFFF;
-  background: linear-gradient(135deg, rgba(0, 120, 200, 0.9), rgba(0, 80, 160, 0.9));
+  background: rgba(0, 120, 200, 0.8);
   border-color: rgba(0, 150, 255, 0.8);
-  box-shadow: 
-    0 4px 15px rgba(0, 150, 255, 0.6),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  transform: scale(1.1);
-  backdrop-filter: blur(15px);
-  text-shadow: 0 0 8px rgba(0, 150, 255, 0.5);
 }
 
 /* Liquid Glass Body and Content - Perfect Vertical & Horizontal Centering */
@@ -387,12 +371,9 @@ main::before, .content::before {
   display: none;
 }
 
+/* CLEAN HOVER EFFECTS - NO SHADOWS */
 main:hover, .content:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 
-    0 12px 40px rgba(255, 215, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  border-color: rgba(255, 215, 0, 0.6);
+  border-color: rgba(255, 215, 0, 0.8);
 }
 
 /* CLEAN CONTACT FORM - NO SHADOWS */
@@ -692,9 +673,6 @@ h1 {
   padding: 15px 25px;
   border-radius: 15px;
   border: 2px solid #FFD700;
-  text-shadow: 
-    0 0 10px rgba(255, 215, 0, 0.8),
-    2px 2px 4px rgba(0, 0, 0, 1);
   text-align: center;
   display: block;
   width: fit-content;
@@ -710,9 +688,6 @@ h2, h3 {
   padding: 12px 20px;
   border-radius: 12px;
   border: 2px solid #FFD700;
-  text-shadow: 
-    0 0 8px rgba(255, 215, 0, 0.6),
-    2px 2px 4px rgba(0, 0, 0, 1);
   text-align: center;
   width: fit-content;
   margin-left: auto;
