@@ -64,7 +64,10 @@
   
   <!-- Favicon and Icons -->
   <link rel="icon" type="image/png" href="assets/images/icons/favicon.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/favicon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/icons/favicon.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/icons/favicon.png" />
+  <link rel="manifest" href="assets/manifest.json" />
   <meta name="theme-color" content="#FFC107" />
   
   <!-- Stylesheet -->
@@ -141,6 +144,7 @@
       
       mobileMenuBtn.addEventListener('click', function() {
         header.classList.toggle('menu-open');
+        document.body.classList.toggle('menu-open');
       });
       
       // Close menu when clicking on a nav link
@@ -148,7 +152,16 @@
       navLinks.forEach(link => {
         link.addEventListener('click', function() {
           header.classList.remove('menu-open');
+          document.body.classList.remove('menu-open');
         });
+      });
+      
+      // Close menu when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!header.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+          header.classList.remove('menu-open');
+          document.body.classList.remove('menu-open');
+        }
       });
     });
   </script>

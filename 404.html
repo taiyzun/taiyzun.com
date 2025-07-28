@@ -7,6 +7,10 @@
   <meta name="description" content="The page you're looking for couldn't be found. Return to Taiyzun Shahpurwala's homepage to explore digital art and creative works." />
   <meta name="robots" content="noindex, follow" />
   <link rel="icon" type="image/png" href="assets/images/icons/favicon.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/favicon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/icons/favicon.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/icons/favicon.png" />
+  <link rel="manifest" href="assets/manifest.json" />
   <link rel="stylesheet" href="style.css?v=24" />
   <link rel="canonical" href="https://taiyzun.com/" />
   
@@ -69,16 +73,26 @@
     document.addEventListener('DOMContentLoaded', function() {
       const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
       const nav = document.querySelector('nav');
+      const header = document.querySelector('header');
       
       mobileMenuBtn.addEventListener('click', function() {
-        nav.classList.toggle('active');
+        header.classList.toggle('menu-open');
         document.body.classList.toggle('menu-open');
+      });
+      
+      // Close menu when clicking on a nav link
+      const navLinks = document.querySelectorAll('nav a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          header.classList.remove('menu-open');
+          document.body.classList.remove('menu-open');
+        });
       });
       
       // Close menu when clicking outside
       document.addEventListener('click', function(e) {
-        if (!nav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-          nav.classList.remove('active');
+        if (!header.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+          header.classList.remove('menu-open');
           document.body.classList.remove('menu-open');
         }
       });
