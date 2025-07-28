@@ -342,12 +342,15 @@
         const observer = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
-              entry.target.classList.add('animate-in');
+              entry.target.style.opacity = '1';
+              entry.target.style.transform = 'translateY(0)';
+              entry.target.style.animationPlayState = 'running';
             }
           });
         }, options);
         
-        document.querySelectorAll('.gallery-item').forEach(item => {
+        document.querySelectorAll('.gallery-item').forEach((item, index) => {
+          item.style.animationDelay = `${(index + 1) * 0.1}s`;
           observer.observe(item);
         });
       }
