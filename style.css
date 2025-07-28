@@ -340,13 +340,14 @@ h1, h2, h3,
 .portrait-gallery h2,
 .coming-soon h2,
 .contact-form h2 {
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 120, 180, 0.3);
   color: #FFFFFF;
   border: 2px solid #FFD700;
   border-radius: 8px;
   padding: 12px 18px;
   margin: 0 auto 15px auto;
   max-width: fit-content;
+  backdrop-filter: blur(10px) saturate(1.2);
 }
 
 /* CLEAN CONTENT - Simple Ocean Background */
@@ -611,6 +612,21 @@ h2 {
 h3 {
   font-size: 1.5em;
   margin-bottom: 0.6em;
+}
+
+/* Special styling for Current Role headings */
+h2:contains("🌟"), h2:has(strong:contains("Current Role")) {
+  color: #FFD700 !important;
+  background: rgba(255, 215, 0, 0.1) !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8) !important;
+}
+
+.current-role-heading {
+  color: #FFD700 !important;
+  background: rgba(255, 215, 0, 0.15) !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8) !important;
+  border: 2px solid #FFD700 !important;
+  font-weight: bold !important;
 }
 
 p {
@@ -1262,7 +1278,7 @@ h1 {
     right: 0;
     width: 100%;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 120, 180, 0.15);
     backdrop-filter: blur(30px);
     transform: translateX(100%);
     transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -1547,7 +1563,7 @@ h1 {
   aspect-ratio: 4 / 3;
   min-height: 250px;
   transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2));
+  background: linear-gradient(135deg, rgba(0, 120, 180, 0.3), rgba(0, 150, 200, 0.15));
   backdrop-filter: blur(15px) saturate(1.2);
   border: 2px solid rgba(255, 215, 0, 0.3);
   box-shadow: 
@@ -1586,7 +1602,7 @@ h1 {
   transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   display: block;
   transform-origin: center center;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 120, 180, 0.1);
   border-radius: 15px;
 }
 
@@ -1596,7 +1612,7 @@ h1 {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(255, 215, 0, 0.2));
+  background: linear-gradient(135deg, rgba(0, 120, 180, 0.3), rgba(255, 215, 0, 0.2));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1748,7 +1764,7 @@ h1 {
   text-shadow: 0 2px 15px rgba(0, 0, 0, 0.9);
   padding: 10px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 120, 180, 0.3);
   backdrop-filter: blur(10px);
   border: 2px solid rgba(255, 215, 0, 0.3);
   width: 60px;
@@ -1778,7 +1794,7 @@ h1 {
 
 .lightbox-prev,
 .lightbox-next {
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6));
+  background: linear-gradient(135deg, rgba(0, 120, 180, 0.8), rgba(0, 80, 140, 0.6));
   color: #FFD700;
   border: none;
   font-size: 35px;
