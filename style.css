@@ -37,54 +37,61 @@ html {
 
 /* NO PARALLAX ANIMATION - SIMPLIFIED */
 
-/* Logo - Bottom Right Position */
+/* Logo - Top Left Header Position */
+.header-logo {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  z-index: 1001;
+}
+
 .logo {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  height: 80px;
+  height: 60px;
   width: auto;
-  max-width: 60px;
+  max-width: 50px;
   object-fit: contain;
   object-position: center;
-  z-index: 1000;
   pointer-events: auto;
-  border-radius: 12px;
-  backdrop-filter: blur(2px);
-  background: rgba(255, 255, 255, 0.03);
-  border: none;
+  border-radius: 8px;
+  backdrop-filter: blur(10px) saturate(1.2);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.3);
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  padding: 6px;
+  padding: 4px;
 }
 
 .logo:hover {
   transform: scale(1.1);
-  border-color: transparent;
-  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 215, 0, 0.5);
+  background: rgba(255, 255, 255, 0.15);
 }
 
 /* LOGO SIMPLIFIED - NO ANIMATIONS */
 
-/* Responsive logo sizing - Bottom Right */
+/* Responsive logo sizing - Top Left Header */
 @media (max-width: 768px) {
+  .header-logo {
+    top: 8px;
+    left: 15px;
+  }
+  
   .logo {
-    height: 70px !important;
-    width: auto !important;
-    max-width: 50px !important;
-    bottom: 15px !important;
-    right: 15px !important;
-    padding: 5px;
+    height: 50px !important;
+    max-width: 45px !important;
+    padding: 3px;
   }
 }
 
 @media (max-width: 480px) {
+  .header-logo {
+    top: 5px;
+    left: 10px;
+  }
+  
   .logo {
-    height: 60px !important;
-    width: auto !important;
+    height: 45px !important;
     max-width: 40px !important;
-    bottom: 10px !important;
-    right: 10px !important;
-    padding: 4px;
+    padding: 2px;
   }
 }
 /* Enhanced Footer Social Media Icons */
@@ -397,20 +404,21 @@ main:hover, .content:hover {
 .contact-form textarea {
   width: 100%;
   padding: 10px 14px;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 215, 0, 0.4);
   border-radius: 8px;
   color: #FFFFFF;
   font-family: inherit;
   font-size: 14px;
   box-sizing: border-box;
+  backdrop-filter: blur(10px) saturate(1.2);
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
   outline: none;
   border-color: #FFD700;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .contact-form textarea {
@@ -496,21 +504,19 @@ body .background-video {
 /* Layer 2: Main Content Container - Light Transparency */
 .journey-content {
   background: 
-    linear-gradient(135deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.08)),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01)),
-    radial-gradient(circle at 30% 40%, rgba(255, 215, 0, 0.02), transparent),
-    radial-gradient(circle at 70% 60%, rgba(255, 165, 0, 0.015), transparent);
+    linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04)),
+    radial-gradient(circle at 30% 40%, rgba(255, 215, 0, 0.1), transparent),
+    radial-gradient(circle at 70% 60%, rgba(255, 165, 0, 0.08), transparent);
   border-radius: 30px;
   padding: 40px;
   margin: 30px auto;
   max-width: 1300px;
   width: 92%;
-  backdrop-filter: blur(25px) saturate(1.4);
-  border: 1px solid rgba(255, 215, 0, 0.05);
+  backdrop-filter: blur(15px) saturate(1.2);
+  border: 1px solid rgba(255, 215, 0, 0.3);
   box-shadow: 
     0 12px 40px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03),
-    inset 0 -1px 0 rgba(255, 215, 0, 0.02);
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
   transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   animation: contentFloat 15s ease-in-out infinite;
   position: relative;
@@ -550,7 +556,7 @@ header:hover {
 /* Enhanced Typography with High Contrast */
 h1 {
   color: #FFFFFF;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(255, 255, 255, 0.1);
   font-size: 2.5em;
   margin-bottom: 0.5em;
   padding: 15px 25px;
@@ -562,11 +568,13 @@ h1 {
   margin-left: auto;
   margin-right: auto;
   font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px) saturate(1.2);
 }
 
 h2, h3 {
   color: #FFFFFF;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(255, 255, 255, 0.08);
   font-weight: bold;
   padding: 12px 18px;
   border-radius: 8px;
@@ -575,6 +583,8 @@ h2, h3 {
   width: fit-content;
   margin: 0 auto 15px auto;
   max-width: fit-content;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px) saturate(1.2);
 }
 
 h2 {
@@ -588,12 +598,14 @@ h3 {
 }
 
 p {
-  color: #D0D0D0;
+  color: #FFFFFF;
   line-height: 1.6;
   font-size: 1.1em;
   text-align: center;
   max-width: 100%;
   margin: 0 auto;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+  font-weight: 500;
 }
 
 /* Coming Soon Section Styles - More Transparent and Perfectly Centered */
@@ -603,17 +615,15 @@ p {
   max-width: 400px;
   margin: 20px auto;
   background: 
-    linear-gradient(135deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.12)),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.004)),
-    radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.015), transparent),
-    radial-gradient(circle at 80% 70%, rgba(255, 165, 0, 0.01), transparent);
+    linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06)),
+    radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.08), transparent),
+    radial-gradient(circle at 80% 70%, rgba(255, 165, 0, 0.06), transparent);
   border-radius: 20px;
-  backdrop-filter: blur(20px) saturate(1.3);
-  border: 1px solid rgba(255, 215, 0, 0.06);
+  backdrop-filter: blur(15px) saturate(1.2);
+  border: 1px solid rgba(255, 215, 0, 0.4);
   box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.25),
-    inset 0 1px 0 rgba(255, 255, 255, 0.015),
-    inset 0 -1px 0 rgba(255, 215, 0, 0.015);
+    0 8px 32px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
   animation: comingSoonFloat 8s ease-in-out infinite;
   display: flex;
   flex-direction: column;
@@ -622,7 +632,7 @@ p {
 }
 
 .coming-soon h2 {
-  color: #FFA500;
+  color: #FFFFFF;
   font-size: 1.8em;
   margin-bottom: 0.5em;
   background: linear-gradient(135deg, #FFA500, #FFD700, #FFA500);
@@ -630,14 +640,17 @@ p {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   background-size: 200% 200%;
-  
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+  font-weight: bold;
 }
 
 .coming-soon p {
   font-size: 1em;
-  color: #C8C8C8;
+  color: #FFFFFF;
   line-height: 1.6;
   margin-bottom: 1em;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+  font-weight: 500;
 }
 
 @keyframes comingSoonFloat {
@@ -691,43 +704,29 @@ p {
   margin-bottom: 30px;
   padding: 30px;
   background: 
-    linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04)),
-    radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.06), transparent),
-    radial-gradient(circle at 80% 70%, rgba(255, 165, 0, 0.045), transparent);
+    linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05)),
+    radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.08), transparent),
+    radial-gradient(circle at 80% 70%, rgba(255, 165, 0, 0.06), transparent);
   border-radius: 25px;
-  backdrop-filter: blur(15px) saturate(1.3);
-  border: 1px solid rgba(255, 215, 0, 0.1);
+  backdrop-filter: blur(12px) saturate(1.2);
+  border: 1px solid rgba(255, 215, 0, 0.3);
   box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
-    inset 0 -1px 0 rgba(255, 215, 0, 0.06);
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative;
-}
-
-.journey-content section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.35);
-  border-radius: 25px;
-  z-index: -1;
 }
 
 .journey-content section:hover {
   transform: translateY(-3px);
   box-shadow: 
-    0 10px 35px rgba(255, 215, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    inset 0 -1px 0 rgba(255, 215, 0, 0.12);
-  border-color: rgba(255, 215, 0, 0.25);
+    0 10px 35px rgba(255, 215, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 215, 0, 0.5);
 }
 
 .journey-content h2 {
-  color: #FFD700;
+  color: #FFFFFF;
   font-size: 1.4em;
   margin-bottom: 15px;
   background: linear-gradient(135deg, #FFD700, #FFA500);
@@ -737,15 +736,19 @@ p {
   position: relative;
   z-index: 1;
   font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+  font-weight: bold;
 }
 
 .journey-content p {
-  color: #F5F5F5;
+  color: #FFFFFF;
   line-height: 1.7;
   font-size: 1.05em;
   margin-bottom: 12px;
   position: relative;
   z-index: 1;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+  font-weight: 500;
 }
 
 .journey-content strong {
@@ -763,10 +766,6 @@ p {
   .journey-content section {
     padding: 20px;
     margin-bottom: 25px;
-  }
-  
-  .journey-content section::before {
-    border-radius: 25px;
   }
   
   .journey-content h2 {
@@ -787,10 +786,6 @@ p {
   .journey-content section {
     padding: 15px;
     margin-bottom: 20px;
-  }
-  
-  .journey-content section::before {
-    border-radius: 25px;
   }
   
   .journey-content h2 {
@@ -893,9 +888,8 @@ nav a.active::after {
   /* Journey Page Mobile Layered Transparency */
   .journey-content {
     background: 
-      linear-gradient(135deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.1)),
-      linear-gradient(135deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0.0125)),
-      radial-gradient(circle at 30% 40%, rgba(255, 215, 0, 0.025), transparent);
+      linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04)),
+      radial-gradient(circle at 30% 40%, rgba(255, 215, 0, 0.08), transparent);
     padding: 25px;
     margin: 20px auto;
     backdrop-filter: blur(20px) saturate(1.3);
@@ -1108,42 +1102,11 @@ h1 {
   width: 100%;
 }
 
-/* Enhanced Logo Animations */
-.logo {
-  animation: logoFloat 6s ease-in-out infinite, logoGlow 8s ease-in-out infinite;
-}
-
-@keyframes logoGlow {
-  0%, 100% {
-    box-shadow: 
-      0 8px 32px rgba(0, 0, 0, 0.3),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  }
-  50% {
-    box-shadow: 
-      0 12px 40px rgba(255, 215, 0, 0.4),
-      inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  }
-}
-
-.logo:hover {
-  animation-play-state: paused;
-}
-
 * {
   box-sizing: border-box;
 }
 h1 {
   color: #FFD700; /* Gold for headings */
-}
-
-/* Additional reset to prevent any logo movement */
-.logo {
-  animation: none !important;
-}
-
-.logo:hover {
-  transform: none !important;
 }
 
 /* Liquid Glass Mobile Menu */
@@ -1426,13 +1389,12 @@ h1 {
   padding: 8px;
 }
 
-/* Footer Logo - Above Social Media, Below Content */
+/* Footer Logo - Bottom Right Position */
 .footer-logo {
   position: fixed;
-  bottom: 85px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 280px;
+  bottom: 20px;
+  right: 20px;
+  width: 120px;
   height: auto;
   opacity: 0.9;
   transition: all 0.3s ease;
@@ -1452,7 +1414,7 @@ h1 {
 
 .footer-logo:hover {
   opacity: 1;
-  transform: translateX(-50%) scale(1.05);
+  transform: scale(1.05);
   filter: drop-shadow(0 6px 20px rgba(255, 215, 0, 0.5));
   background: transparent;
 }
@@ -1466,8 +1428,9 @@ h1 {
   }
   
   .footer-logo {
-    width: 220px;
-    bottom: 75px;
+    width: 100px;
+    bottom: 15px;
+    right: 15px;
     padding: 6px;
     border-radius: 12px;
   }
@@ -1482,8 +1445,9 @@ h1 {
   }
   
   .footer-logo {
-    width: 180px;
-    bottom: 65px;
+    width: 80px;
+    bottom: 10px;
+    right: 10px;
     padding: 5px;
     border-radius: 10px;
   }
@@ -1693,10 +1657,10 @@ h1 {
   top: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at center, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.98));
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
   justify-content: center;
   align-items: center;
-  backdrop-filter: blur(15px) saturate(1.2);
+  backdrop-filter: blur(20px) saturate(1.4);
   opacity: 0;
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   perspective: 1200px;
