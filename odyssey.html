@@ -127,65 +127,106 @@
       <p>A visual exploration through the personal odyssey - capturing moments of transformation, reflection, and creative evolution.</p>
       
       <div class="gallery-grid">
-        <div class="gallery-item" onclick="openLightbox('assets/Portraits/taiyzun_shahpurwala 00001.jpeg')">
+        <div class="gallery-item" data-index="0">
           <img src="assets/Portraits/taiyzun_shahpurwala 00001.jpeg" alt="Taiyzun Shahpurwala Portrait 1" loading="lazy">
           <div class="gallery-overlay">
-            <span class="view-icon">🔍</span>
+            <span class="view-icon">✨</span>
+            <div class="gallery-info">
+              <h3>Portrait 1</h3>
+              <p>Early Journey</p>
+            </div>
           </div>
         </div>
         
-        <div class="gallery-item" onclick="openLightbox('assets/Portraits/taiyzun_shahpurwala 00002.jpeg')">
+        <div class="gallery-item" data-index="1">
           <img src="assets/Portraits/taiyzun_shahpurwala 00002.jpeg" alt="Taiyzun Shahpurwala Portrait 2" loading="lazy">
           <div class="gallery-overlay">
-            <span class="view-icon">🔍</span>
+            <span class="view-icon">✨</span>
+            <div class="gallery-info">
+              <h3>Portrait 2</h3>
+              <p>Creative Evolution</p>
+            </div>
           </div>
         </div>
         
-        <div class="gallery-item" onclick="openLightbox('assets/Portraits/taiyzun_shahpurwala 00003.jpeg')">
+        <div class="gallery-item" data-index="2">
           <img src="assets/Portraits/taiyzun_shahpurwala 00003.jpeg" alt="Taiyzun Shahpurwala Portrait 3" loading="lazy">
           <div class="gallery-overlay">
-            <span class="view-icon">🔍</span>
+            <span class="view-icon">✨</span>
+            <div class="gallery-info">
+              <h3>Portrait 3</h3>
+              <p>Transformation</p>
+            </div>
           </div>
         </div>
         
-        <div class="gallery-item" onclick="openLightbox('assets/Portraits/taiyzun_shahpurwala 00004.jpeg')">
+        <div class="gallery-item" data-index="3">
           <img src="assets/Portraits/taiyzun_shahpurwala 00004.jpeg" alt="Taiyzun Shahpurwala Portrait 4" loading="lazy">
           <div class="gallery-overlay">
-            <span class="view-icon">🔍</span>
+            <span class="view-icon">✨</span>
+            <div class="gallery-info">
+              <h3>Portrait 4</h3>
+              <p>Self Discovery</p>
+            </div>
           </div>
         </div>
         
-        <div class="gallery-item" onclick="openLightbox('assets/Portraits/taiyzun_shahpurwala 00005.jpeg')">
+        <div class="gallery-item" data-index="4">
           <img src="assets/Portraits/taiyzun_shahpurwala 00005.jpeg" alt="Taiyzun Shahpurwala Portrait 5" loading="lazy">
           <div class="gallery-overlay">
-            <span class="view-icon">🔍</span>
+            <span class="view-icon">✨</span>
+            <div class="gallery-info">
+              <h3>Portrait 5</h3>
+              <p>Reflection</p>
+            </div>
           </div>
         </div>
         
-        <div class="gallery-item" onclick="openLightbox('assets/Portraits/taiyzun_shahpurwala 00006.jpeg')">
+        <div class="gallery-item" data-index="5">
           <img src="assets/Portraits/taiyzun_shahpurwala 00006.jpeg" alt="Taiyzun Shahpurwala Portrait 6" loading="lazy">
           <div class="gallery-overlay">
-            <span class="view-icon">🔍</span>
+            <span class="view-icon">✨</span>
+            <div class="gallery-info">
+              <h3>Portrait 6</h3>
+              <p>Growth</p>
+            </div>
           </div>
         </div>
         
-        <div class="gallery-item" onclick="openLightbox('assets/Portraits/taiyzun_shahpurwala 00007.jpeg')">
+        <div class="gallery-item" data-index="6">
           <img src="assets/Portraits/taiyzun_shahpurwala 00007.jpeg" alt="Taiyzun Shahpurwala Portrait 7" loading="lazy">
           <div class="gallery-overlay">
-            <span class="view-icon">🔍</span>
+            <span class="view-icon">✨</span>
+            <div class="gallery-info">
+              <h3>Portrait 7</h3>
+              <p>Vision</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
     
-    <!-- Lightbox Modal -->
-    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-      <div class="lightbox-content">
-        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
-        <img id="lightbox-image" src="" alt="Portrait Full View">
-        <div class="lightbox-nav">
-          <button class="lightbox-prev" onclick="prevImage()">&#10094;</button>
-          <button class="lightbox-next" onclick="nextImage()">&#10095;</button>
+    <!-- Enhanced Lightbox Modal -->
+    <div id="lightbox" class="lightbox">
+      <div class="lightbox-backdrop"></div>
+      <div class="lightbox-container">
+        <button class="lightbox-close" aria-label="Close gallery">&times;</button>
+        <button class="lightbox-prev" aria-label="Previous image">&#10094;</button>
+        <button class="lightbox-next" aria-label="Next image">&#10095;</button>
+        
+        <div class="lightbox-content">
+          <img id="lightbox-image" src="" alt="Portrait Full View">
+          <div class="lightbox-loader">
+            <div class="loader-spinner"></div>
+          </div>
+        </div>
+        
+        <div class="lightbox-info">
+          <h3 id="lightbox-title">Portrait Title</h3>
+          <p id="lightbox-description">Description</p>
+          <div class="lightbox-counter">
+            <span id="current-index">1</span> / <span id="total-images">7</span>
+          </div>
         </div>
       </div>
     </div>
@@ -205,294 +246,337 @@
   <img src="assets/images/Taiyzun-logo.png" alt="Taiyzun Logo" class="footer-logo" />
 
   <script>
-    // Enhanced Portrait Gallery Lightbox with WOW Effects
-    const galleryImages = [
-      'assets/Portraits/taiyzun_shahpurwala 00001.jpeg',
-      'assets/Portraits/taiyzun_shahpurwala 00002.jpeg',
-      'assets/Portraits/taiyzun_shahpurwala 00003.jpeg',
-      'assets/Portraits/taiyzun_shahpurwala 00004.jpeg',
-      'assets/Portraits/taiyzun_shahpurwala 00005.jpeg',
-      'assets/Portraits/taiyzun_shahpurwala 00006.jpeg',
-      'assets/Portraits/taiyzun_shahpurwala 00007.jpeg'
-    ];
-    
-    let currentImageIndex = 0;
-    let isTransitioning = false;
-    
-    // Enhanced Open Lightbox with Animation
-    function openLightbox(imageSrc) {
-      if (isTransitioning) return;
-      
-      currentImageIndex = galleryImages.indexOf(imageSrc);
-      const lightbox = document.getElementById('lightbox');
-      const lightboxImage = document.getElementById('lightbox-image');
-      const lightboxContent = document.querySelector('.lightbox-content');
-      
-      // Show loading animation
-      lightboxContent.classList.add('loading');
-      
-      // Set up image
-      lightboxImage.src = imageSrc;
-      lightboxImage.onload = function() {
-        lightboxContent.classList.remove('loading');
-      };
-      
-      lightbox.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-      
-      // Trigger entrance animation
-      setTimeout(() => {
-        lightbox.classList.add('active');
-      }, 10);
-      
-      // Add parallax mouse effect
-      setupParallaxEffect();
-    }
-    
-    // Enhanced Close Lightbox
-    function closeLightbox() {
-      if (isTransitioning) return;
-      
-      const lightbox = document.getElementById('lightbox');
-      const lightboxContent = document.querySelector('.lightbox-content');
-      
-      // Exit animation
-      lightboxContent.style.animation = 'lightboxZoomOut 0.4s cubic-bezier(0.55, 0.085, 0.68, 0.53)';
-      lightbox.classList.remove('active');
-      document.body.style.overflow = 'auto';
-      
-      setTimeout(() => {
-        lightbox.style.display = 'none';
-        lightboxContent.style.animation = '';
-        removeParallaxEffect();
-      }, 400);
-    }
-    
-    // Enhanced Image Navigation with Smooth Transitions
-    function nextImage() {
-      if (isTransitioning) return;
-      changeImage(1);
-    }
-    
-    function prevImage() {
-      if (isTransitioning) return;
-      changeImage(-1);
-    }
-    
-    function changeImage(direction) {
-      isTransitioning = true;
-      const lightboxImage = document.getElementById('lightbox-image');
-      const lightboxContent = document.querySelector('.lightbox-content');
-      
-      // Add transition effect
-      lightboxImage.classList.add('changing');
-      lightboxContent.classList.add('loading');
-      
-      // Calculate new index
-      if (direction === 1) {
-        currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
-      } else {
-        currentImageIndex = currentImageIndex === 0 ? galleryImages.length - 1 : currentImageIndex - 1;
+    // Enhanced Portrait Gallery with Full Functionality
+    class PortraitGallery {
+      constructor() {
+        this.images = [
+          {
+            src: 'assets/Portraits/taiyzun_shahpurwala 00001.jpeg',
+            title: 'Portrait 1',
+            description: 'Early Journey'
+          },
+          {
+            src: 'assets/Portraits/taiyzun_shahpurwala 00002.jpeg',
+            title: 'Portrait 2', 
+            description: 'Creative Evolution'
+          },
+          {
+            src: 'assets/Portraits/taiyzun_shahpurwala 00003.jpeg',
+            title: 'Portrait 3',
+            description: 'Transformation'
+          },
+          {
+            src: 'assets/Portraits/taiyzun_shahpurwala 00004.jpeg',
+            title: 'Portrait 4',
+            description: 'Self Discovery'
+          },
+          {
+            src: 'assets/Portraits/taiyzun_shahpurwala 00005.jpeg',
+            title: 'Portrait 5',
+            description: 'Reflection'
+          },
+          {
+            src: 'assets/Portraits/taiyzun_shahpurwala 00006.jpeg',
+            title: 'Portrait 6',
+            description: 'Growth'
+          },
+          {
+            src: 'assets/Portraits/taiyzun_shahpurwala 00007.jpeg',
+            title: 'Portrait 7',
+            description: 'Vision'
+          }
+        ];
+        
+        this.currentIndex = 0;
+        this.isTransitioning = false;
+        this.touchStartX = 0;
+        this.touchStartY = 0;
+        
+        this.init();
       }
       
-      // Change image after animation
-      setTimeout(() => {
-        lightboxImage.src = galleryImages[currentImageIndex];
-        lightboxImage.onload = function() {
-          lightboxContent.classList.remove('loading');
-          lightboxImage.classList.remove('changing');
-          isTransitioning = false;
+      init() {
+        this.bindEvents();
+        this.setupIntersectionObserver();
+        this.preloadImages();
+      }
+      
+      bindEvents() {
+        // Gallery item clicks
+        document.querySelectorAll('.gallery-item').forEach((item, index) => {
+          item.addEventListener('click', () => this.openLightbox(index));
+        });
+        
+        // Lightbox controls
+        document.querySelector('.lightbox-close').addEventListener('click', () => this.closeLightbox());
+        document.querySelector('.lightbox-prev').addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.prevImage();
+        });
+        document.querySelector('.lightbox-next').addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.nextImage();
+        });
+        
+        // Backdrop click to close
+        document.querySelector('.lightbox-backdrop').addEventListener('click', () => this.closeLightbox());
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => this.handleKeyboard(e));
+        
+        // Touch/swipe support
+        const lightbox = document.getElementById('lightbox');
+        lightbox.addEventListener('touchstart', (e) => this.handleTouchStart(e), { passive: true });
+        lightbox.addEventListener('touchend', (e) => this.handleTouchEnd(e), { passive: true });
+        
+        // Mouse wheel navigation
+        lightbox.addEventListener('wheel', (e) => this.handleWheel(e), { passive: false });
+      }
+      
+      setupIntersectionObserver() {
+        const options = {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px'
         };
-      }, 250);
-    }
-    
-    // Parallax Mouse Effect for Lightbox
-    function setupParallaxEffect() {
-      const lightboxContent = document.querySelector('.lightbox-content');
-      
-      function handleMouseMove(e) {
-        const { clientX, clientY } = e;
-        const { innerWidth, innerHeight } = window;
         
-        const xPercent = (clientX / innerWidth - 0.5) * 2;
-        const yPercent = (clientY / innerHeight - 0.5) * 2;
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('animate-in');
+            }
+          });
+        }, options);
         
-        const rotateY = xPercent * 5;
-        const rotateX = -yPercent * 5;
-        
-        lightboxContent.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        document.querySelectorAll('.gallery-item').forEach(item => {
+          observer.observe(item);
+        });
       }
       
-      document.addEventListener('mousemove', handleMouseMove);
-      
-      // Store reference for cleanup
-      lightboxContent._parallaxHandler = handleMouseMove;
-    }
-    
-    function removeParallaxEffect() {
-      const lightboxContent = document.querySelector('.lightbox-content');
-      if (lightboxContent._parallaxHandler) {
-        document.removeEventListener('mousemove', lightboxContent._parallaxHandler);
-        lightboxContent.style.transform = '';
-      }
-    }
-    
-    // Touch/Swipe Support for Mobile
-    let touchStartX = 0;
-    let touchStartY = 0;
-    
-    function handleTouchStart(e) {
-      touchStartX = e.touches[0].clientX;
-      touchStartY = e.touches[0].clientY;
-    }
-    
-    function handleTouchEnd(e) {
-      if (!touchStartX || !touchStartY) return;
-      
-      const touchEndX = e.changedTouches[0].clientX;
-      const touchEndY = e.changedTouches[0].clientY;
-      
-      const diffX = touchStartX - touchEndX;
-      const diffY = touchStartY - touchEndY;
-      
-      // Only handle horizontal swipes (ignore vertical)
-      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
-        if (diffX > 0) {
-          nextImage(); // Swipe left = next image
-        } else {
-          prevImage(); // Swipe right = previous image
-        }
+      preloadImages() {
+        this.images.forEach(imageData => {
+          const img = new Image();
+          img.src = imageData.src;
+        });
       }
       
-      touchStartX = 0;
-      touchStartY = 0;
-    }
-    
-    // Enhanced Keyboard Navigation
-    document.addEventListener('keydown', function(e) {
-      const lightbox = document.getElementById('lightbox');
-      if (lightbox.style.display === 'flex') {
+      openLightbox(index) {
+        if (this.isTransitioning) return;
+        
+        this.currentIndex = index;
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightbox-image');
+        const loader = document.querySelector('.lightbox-loader');
+        
+        // Show lightbox
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        // Show loader
+        loader.classList.add('active');
+        
+        // Load image
+        this.loadImage(this.images[this.currentIndex].src)
+          .then(src => {
+            lightboxImage.src = src;
+            this.updateLightboxInfo();
+            loader.classList.remove('active');
+            
+            // Add entrance animation
+            setTimeout(() => {
+              lightboxImage.classList.add('loaded');
+            }, 50);
+          })
+          .catch(() => {
+            loader.classList.remove('active');
+            console.error('Failed to load image');
+          });
+      }
+      
+      closeLightbox() {
+        if (this.isTransitioning) return;
+        
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightbox-image');
+        
+        this.isTransitioning = true;
+        
+        // Exit animation
+        lightbox.classList.remove('active');
+        lightboxImage.classList.remove('loaded');
+        document.body.style.overflow = 'auto';
+        
+        setTimeout(() => {
+          this.isTransitioning = false;
+        }, 400);
+      }
+      
+      nextImage() {
+        if (this.isTransitioning) return;
+        this.navigateToImage((this.currentIndex + 1) % this.images.length);
+      }
+      
+      prevImage() {
+        if (this.isTransitioning) return;
+        this.navigateToImage(this.currentIndex === 0 ? this.images.length - 1 : this.currentIndex - 1);
+      }
+      
+      navigateToImage(newIndex) {
+        if (this.isTransitioning || newIndex === this.currentIndex) return;
+        
+        this.isTransitioning = true;
+        const lightboxImage = document.getElementById('lightbox-image');
+        const loader = document.querySelector('.lightbox-loader');
+        
+        // Slide out current image
+        lightboxImage.classList.add('transitioning');
+        loader.classList.add('active');
+        
+        setTimeout(() => {
+          this.currentIndex = newIndex;
+          
+          this.loadImage(this.images[this.currentIndex].src)
+            .then(src => {
+              lightboxImage.src = src;
+              this.updateLightboxInfo();
+              loader.classList.remove('active');
+              
+              // Slide in new image
+              setTimeout(() => {
+                lightboxImage.classList.remove('transitioning');
+                this.isTransitioning = false;
+              }, 50);
+            })
+            .catch(() => {
+              loader.classList.remove('active');
+              lightboxImage.classList.remove('transitioning');
+              this.isTransitioning = false;
+            });
+        }, 200);
+      }
+      
+      updateLightboxInfo() {
+        const titleEl = document.getElementById('lightbox-title');
+        const descEl = document.getElementById('lightbox-description');
+        const currentEl = document.getElementById('current-index');
+        const totalEl = document.getElementById('total-images');
+        
+        const imageData = this.images[this.currentIndex];
+        titleEl.textContent = imageData.title;
+        descEl.textContent = imageData.description;
+        currentEl.textContent = this.currentIndex + 1;
+        totalEl.textContent = this.images.length;
+      }
+      
+      loadImage(src) {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.onload = () => resolve(src);
+          img.onerror = reject;
+          img.src = src;
+        });
+      }
+      
+      handleKeyboard(e) {
+        const lightbox = document.getElementById('lightbox');
+        if (!lightbox.classList.contains('active')) return;
+        
         switch(e.key) {
           case 'Escape':
-            closeLightbox();
+            this.closeLightbox();
             break;
           case 'ArrowRight':
-          case ' ': // Space bar
+          case ' ':
             e.preventDefault();
-            nextImage();
+            this.nextImage();
             break;
           case 'ArrowLeft':
             e.preventDefault();
-            prevImage();
+            this.prevImage();
             break;
           case 'Home':
             e.preventDefault();
-            currentImageIndex = 0;
-            changeImage(0);
+            this.navigateToImage(0);
             break;
           case 'End':
             e.preventDefault();
-            currentImageIndex = galleryImages.length - 1;
-            changeImage(0);
+            this.navigateToImage(this.images.length - 1);
             break;
         }
       }
-    });
-    
-    // Add touch event listeners to lightbox
-    document.addEventListener('DOMContentLoaded', function() {
-      const lightbox = document.getElementById('lightbox');
-      lightbox.addEventListener('touchstart', handleTouchStart, { passive: true });
-      lightbox.addEventListener('touchend', handleTouchEnd, { passive: true });
       
-      // Prevent click-through on navigation buttons
-      const navButtons = document.querySelectorAll('.lightbox-prev, .lightbox-next');
-      navButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-          e.stopPropagation();
-        });
-      });
-      
-      // Add close button click handler
-      const closeButton = document.querySelector('.lightbox-close');
-      closeButton.addEventListener('click', function(e) {
-        e.stopPropagation();
-        closeLightbox();
-      });
-    });
-    
-    // Add CSS animation keyframes for zoom out effect
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes lightboxZoomOut {
-        0% { opacity: 1; transform: scale(1) rotateX(0deg) rotateY(0deg); }
-        100% { opacity: 0; transform: scale(0.3) rotateX(-15deg) rotateY(-15deg); }
+      handleTouchStart(e) {
+        this.touchStartX = e.touches[0].clientX;
+        this.touchStartY = e.touches[0].clientY;
       }
-    `;
-    document.head.appendChild(style);
-    
-    // Gallery Item Scroll Animation
-    function animateOnScroll() {
-      const galleryItems = document.querySelectorAll('.gallery-item');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.style.animationPlayState = 'running';
-          }
-        });
-      }, { threshold: 0.1 });
       
-      galleryItems.forEach(item => {
-        observer.observe(item);
-        item.style.animationPlayState = 'paused';
-      });
+      handleTouchEnd(e) {
+        if (!this.touchStartX || !this.touchStartY) return;
+        
+        const touchEndX = e.changedTouches[0].clientX;
+        const touchEndY = e.changedTouches[0].clientY;
+        
+        const diffX = this.touchStartX - touchEndX;
+        const diffY = this.touchStartY - touchEndY;
+        
+        // Only handle horizontal swipes
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+          if (diffX > 0) {
+            this.nextImage();
+          } else {
+            this.prevImage();
+          }
+        }
+        
+        this.touchStartX = 0;
+        this.touchStartY = 0;
+      }
+      
+      handleWheel(e) {
+        const lightbox = document.getElementById('lightbox');
+        if (!lightbox.classList.contains('active')) return;
+        
+        e.preventDefault();
+        
+        if (e.deltaY > 0) {
+          this.nextImage();
+        } else {
+          this.prevImage();
+        }
+      }
     }
-
-    // Enhanced Gallery Parallax Effects
-    function initGalleryParallax() {
-      const galleryItems = document.querySelectorAll('.gallery-item');
+    
+    // Gallery parallax and hover effects
+    function initGalleryEffects() {
       const galleryGrid = document.querySelector('.gallery-grid');
-
-      // Mouse-based parallax effect
+      const galleryItems = document.querySelectorAll('.gallery-item');
+      
+      // Mouse parallax effect
       galleryGrid.addEventListener('mousemove', (e) => {
         const rect = galleryGrid.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
         const mouseX = e.clientX - centerX;
         const mouseY = e.clientY - centerY;
-
+        
         galleryItems.forEach((item, index) => {
-          const intensity = 0.02 + (index * 0.005); // Varying intensity for depth
+          const intensity = 0.01 + (index * 0.002);
           const moveX = mouseX * intensity;
           const moveY = mouseY * intensity;
           
-          const img = item.querySelector('img');
-          img.style.transform = `translate3d(${moveX}px, ${moveY}px, 0) scale(1.02)`;
+          item.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
         });
       });
-
+      
       // Reset on mouse leave
       galleryGrid.addEventListener('mouseleave', () => {
         galleryItems.forEach(item => {
-          const img = item.querySelector('img');
-          img.style.transform = 'translate3d(0, 0, 0) scale(1)';
-        });
-      });
-
-      // Scroll-based parallax
-      window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        const rate = scrolled * -0.5;
-        
-        galleryItems.forEach((item, index) => {
-          const offset = index * 50;
-          item.style.transform = `translateY(${rate + offset}px)`;
+          item.style.transform = 'translate3d(0, 0, 0)';
         });
       });
     }
     
-    // Mobile menu toggle functionality
-    document.addEventListener('DOMContentLoaded', function() {
+    // Mobile menu functionality
+    function initMobileMenu() {
       const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
       const nav = document.querySelector('nav');
       const header = document.querySelector('header');
@@ -518,10 +602,13 @@
           document.body.classList.remove('menu-open');
         }
       });
-      
-      // Initialize scroll animations and parallax effects
-      animateOnScroll();
-      initGalleryParallax();
+    }
+    
+    // Initialize everything when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      new PortraitGallery();
+      initGalleryEffects();
+      initMobileMenu();
     });
   </script>
 </body>
