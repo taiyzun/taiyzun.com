@@ -395,31 +395,22 @@ main:hover, .content:hover {
   border-color: rgba(255, 215, 0, 0.6);
 }
 
-/* Contact Form Styles */
+/* CLEAN CONTACT FORM - NO SHADOWS */
 .contact-form {
-  background: 
-    linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03)),
-    radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.06), transparent),
-    radial-gradient(circle at 80% 70%, rgba(255, 165, 0, 0.04), transparent);
-  border-radius: 20px;
-  padding: 30px;
-  margin: 20px 0;
-  backdrop-filter: blur(12px) saturate(1.2);
-  border: 1px solid rgba(255, 215, 0, 0.2);
-  box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
-    inset 0 -1px 0 rgba(255, 215, 0, 0.1);
+  background: rgba(0, 80, 120, 0.5);
+  border-radius: 12px;
+  padding: 25px;
+  margin: 15px 0;
+  border: 2px solid rgba(255, 215, 0, 0.4);
 }
 
 .contact-form .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .contact-form label {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   color: #FFD700;
   font-weight: bold;
   font-size: 14px;
@@ -428,30 +419,21 @@ main:hover, .content:hover {
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  padding: 12px 16px;
-  background: 
-    linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.3)),
-    rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 215, 0, 0.3);
-  border-radius: 15px;
-  color: #E0E0E0;
+  padding: 10px 14px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  border-radius: 8px;
+  color: #FFFFFF;
   font-family: inherit;
   font-size: 14px;
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
   box-sizing: border-box;
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
   outline: none;
-  border-color: rgba(255, 215, 0, 0.6);
-  background: 
-    linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4)),
-    rgba(255, 255, 255, 0.08);
-  box-shadow: 
-    0 0 20px rgba(255, 215, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-color: #FFD700;
+  background: rgba(0, 0, 0, 0.7);
 }
 
 .contact-form textarea {
