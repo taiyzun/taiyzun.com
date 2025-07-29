@@ -270,7 +270,7 @@ body {
   margin: 0;
   padding: 0;
   padding-left: 0;
-  padding-top: 50px; /* Further reduced from 55px */
+  padding-top: 80px; /* Increased from 50px to prevent menu overlap */
   padding-bottom: 60px; /* Further reduced from 80px */
   min-height: 100vh;
   position: relative;
@@ -336,14 +336,14 @@ h1, h2, h3,
 .coming-soon h2,
 .contact-form h2 {
   color: #FFFFFF;
-  padding: 8px 12px; /* Reduced from 12px 18px */
-  margin: 0 auto 8px auto; /* Reduced from 15px */
+  padding: 4px 6px; /* Reduced from 8px 12px */
+  margin: 0 auto 4px auto; /* Reduced from 8px */
   max-width: fit-content;
   background: 
     linear-gradient(135deg, rgba(0, 119, 190, 0.15), rgba(0, 84, 147, 0.1)),
     radial-gradient(circle at 30% 30%, rgba(255, 193, 7, 0.08), transparent);
   backdrop-filter: blur(15px) saturate(1.3);
-  border-radius: 15px;
+  border-radius: 12px; /* Reduced from 15px */
   border: 1px solid rgba(0, 119, 190, 0.2);
   box-shadow:
     0 4px 16px rgba(0, 84, 147, 0.15),
@@ -552,27 +552,29 @@ body .background-video {
 /* All section-specific complex styles removed */
 
 header {
-  padding: 8px 15px; /* Further reduced from 10px 15px */
+  padding: 6px 12px; /* Further reduced from 8px 15px */
   margin: 0;
   display: block;
   width: 100%;
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 100;
-  min-height: 45px; /* Reduced from 50px */
+  z-index: 1000; /* Increased from 100 to ensure it stays on top */
+  min-height: 40px; /* Reduced from 45px */
+  background: rgba(0, 0, 0, 0.3); /* Added slight background to prevent overlap issues */
+  backdrop-filter: blur(10px);
 }
 
 header:hover {
   color: #FFC107;
 }
 
-/* Clean Typography */
+/* Clean Typography - Reduced Sizes */
 h1 {
   color: #FFFFFF;
-  font-size: 1.8em; /* Reduced from 2.5em */
-  margin-bottom: 0.1em; /* Further reduced from 0.3em */
-  padding: 4px 8px; /* Further reduced from 8px 15px */
+  font-size: 1.4em; /* Reduced from 1.8em */
+  margin-bottom: 0.05em; /* Further reduced from 0.1em */
+  padding: 2px 4px; /* Further reduced from 4px 8px */
   text-align: center;
   display: block;
   width: fit-content;
@@ -582,21 +584,21 @@ h1 {
 
 h2, h3 {
   color: #FFFFFF;
-  padding: 3px 6px; /* Further reduced from 6px 12px */
+  padding: 2px 4px; /* Further reduced from 3px 6px */
   text-align: center;
   width: fit-content;
-  margin: 0 auto 4px auto; /* Further reduced from 8px */
+  margin: 0 auto 2px auto; /* Further reduced from 4px */
   max-width: fit-content;
 }
 
 h2 {
-  font-size: 1.5em; /* Reduced from 2em */
-  margin-bottom: 0.2em; /* Further reduced from 0.4em */
+  font-size: 1.2em; /* Reduced from 1.5em */
+  margin-bottom: 0.1em; /* Further reduced from 0.2em */
 }
 
 h3 {
-  font-size: 1.2em; /* Reduced from 1.5em */
-  margin-bottom: 0.1em; /* Further reduced from 0.3em */
+  font-size: 1.0em; /* Reduced from 1.2em */
+  margin-bottom: 0.05em; /* Further reduced from 0.1em */
 }
 
 /* Current Role styling */
@@ -845,7 +847,7 @@ main:hover::before, .content:hover::before {
 @media (max-width: 768px) {
   body {
     padding: 3px; /* Further reduced from 5px */
-    padding-top: 45px; /* Further reduced from 55px */
+    padding-top: 60px; /* Increased from 45px to prevent menu overlap */
     padding-left: 3px; /* Further reduced from 5px */
     padding-bottom: 60px; /* Further reduced from 80px */
     display: flex;
@@ -904,16 +906,16 @@ main:hover::before, .content:hover::before {
   }
   
   .gold-heading {
-    font-size: 2.2em;
-    margin-top: 0.4em;
-    margin-bottom: 0.7em;
+    font-size: 1.6em; /* Reduced from 2.2em */
+    margin-top: 0.3em; /* Reduced from 0.4em */
+    margin-bottom: 0.5em; /* Reduced from 0.7em */
   }
 }
 
 @media (max-width: 480px) {
   body {
     padding: 8px; /* Reduced from 15px */
-    padding-top: 90px; /* Reduced from 110px */
+    padding-top: 100px; /* Increased from 90px to prevent menu overlap */
     padding-bottom: 140px; /* Reduced from 180px */
     display: flex;
     flex-direction: column;
@@ -968,9 +970,9 @@ main:hover::before, .content:hover::before {
   }
   
   .gold-heading {
-    font-size: 1.8em;
-    margin-top: 0.1em; /* Further reduced from 0.3em */
-    margin-bottom: 0.2em; /* Reduced from 0.6em */
+    font-size: 1.4em; /* Reduced from 1.8em */
+    margin-top: 0.05em; /* Further reduced from 0.1em */
+    margin-bottom: 0.1em; /* Further reduced from 0.2em */
   }
   
   .socials {
@@ -993,9 +995,9 @@ h1 {
 /* Sun Yellow Heading Specific Style */
 .gold-heading {
   color: #FFC107 !important;
-  font-size: 2.5em;
-  margin-bottom: 0.2em; /* Reduced from 0.8em */
-  margin-top: 0.1em; /* Reduced from 0.5em */
+  font-size: 1.8em; /* Reduced from 2.5em */
+  margin-bottom: 0.1em; /* Further reduced from 0.2em */
+  margin-top: 0.05em; /* Further reduced from 0.1em */
   background: linear-gradient(135deg, #FFC107, #FF9800, #FFC107);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1203,9 +1205,10 @@ h1 {
     left: 0;
     width: 100%;
     height: auto;
-    padding: 10px 15px;
-    background: transparent;
-    z-index: 100;
+    padding: 8px 12px; /* Reduced from 10px 15px */
+    background: rgba(0, 0, 0, 0.4); /* Enhanced background to prevent overlap */
+    backdrop-filter: blur(15px);
+    z-index: 1001; /* Higher z-index to ensure it stays on top */
   }
 }
 
