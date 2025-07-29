@@ -827,6 +827,43 @@ body.journey-page main em {
   }
 }
 
+/* Odyssey Page Styles - Fix Header Overlap */
+body.odyssey-page main {
+  margin-top: 40px; /* Extra top margin to prevent header overlap */
+  padding: 30px;
+  max-width: 1200px;
+  width: 90%;
+}
+
+body.odyssey-page main h1 {
+  margin-top: 20px; /* Additional top margin for main heading */
+  position: relative;
+  z-index: 1;
+}
+
+/* Responsive Odyssey Page */
+@media (max-width: 768px) {
+  body.odyssey-page main {
+    margin-top: 30px;
+    padding: 20px;
+  }
+  
+  body.odyssey-page main h1 {
+    margin-top: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  body.odyssey-page main {
+    margin-top: 25px;
+    padding: 15px;
+  }
+  
+  body.odyssey-page main h1 {
+    margin-top: 10px;
+  }
+}
+
 /* OS 26 Liquid Glass Scroll Effects */
 ::-webkit-scrollbar {
   width: 12px;
