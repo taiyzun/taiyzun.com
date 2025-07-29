@@ -38,6 +38,14 @@ html {
     opacity: 1 !important;
     filter: blur(0px) saturate(1.1) !important;
     transform: none !important;
+    display: block !important;
+    visibility: visible !important;
+  }
+  
+  /* Ensure video overlay doesn't interfere */
+  .video-overlay {
+    z-index: -1 !important;
+    opacity: 0 !important;
   }
 }
 
@@ -290,7 +298,7 @@ body {
 body .background-video {
   opacity: 1;
   filter: blur(0px) saturate(1.1) brightness(1.0);
-  z-index: -3;
+  z-index: -1; /* Keep consistent with main video z-index */
 }
 
 /* Single Content Block for All Pages - 50% Transparent Dark Background */
@@ -579,7 +587,7 @@ main:hover, .content:hover {
 body .background-video {
   opacity: 1.0;
   filter: blur(0px) saturate(1.1) brightness(1.0);
-  z-index: -3;
+  z-index: -1; /* Keep consistent with main video z-index */
 }
 
 /* Layer 2: Main Content Container - Light Transparency */
@@ -840,7 +848,7 @@ body.odyssey-page main {
 body.odyssey-page main h1 {
   margin-top: 20px; /* Additional top margin for main heading */
   position: relative;
-  z-index: 1;
+  z-index: 1002; /* Higher than header z-index 1001 */
 }
 
 /* Responsive Odyssey Page */
@@ -877,7 +885,7 @@ body.home-page main {
 body.home-page main h1 {
   margin-top: 20px; /* Additional top margin for main heading */
   position: relative;
-  z-index: 1;
+  z-index: 1002; /* Higher than header z-index 1001 */
 }
 
 /* Creations Page Styles - Fix Header Overlap */
@@ -891,7 +899,7 @@ body.creations-page main {
 body.creations-page main h1 {
   margin-top: 20px; /* Additional top margin for main heading */
   position: relative;
-  z-index: 1;
+  z-index: 1002; /* Higher than header z-index 1001 */
 }
 
 /* Connect Page Styles - Fix Header Overlap */
@@ -905,7 +913,7 @@ body.connect-page main {
 body.connect-page main h1 {
   margin-top: 20px; /* Additional top margin for main heading */
   position: relative;
-  z-index: 1;
+  z-index: 1002; /* Higher than header z-index 1001 */
 }
 
 /* 404 Error Page Styles - Fix Header Overlap */
@@ -919,7 +927,7 @@ body.error-page main {
 body.error-page main h1 {
   margin-top: 20px; /* Additional top margin for main heading */
   position: relative;
-  z-index: 1;
+  z-index: 1002; /* Higher than header z-index 1001 */
 }
 
 /* Responsive Design for All Pages */
