@@ -41,12 +41,6 @@ html {
     display: block !important;
     visibility: visible !important;
   }
-  
-  /* Ensure video overlay doesn't interfere */
-  .video-overlay {
-    z-index: -1 !important;
-    opacity: 0 !important;
-  }
 }
 
 .video-overlay {
@@ -273,8 +267,8 @@ nav a.active {
 
 /* Liquid Glass Body and Content - Perfect Vertical & Horizontal Centering */
 body {
-  background: #000;
-  background-color: #000;
+  background: transparent;
+  background-color: transparent;
   color: #E0E0E0;
   font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   margin: 0;
