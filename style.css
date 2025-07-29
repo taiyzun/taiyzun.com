@@ -99,10 +99,19 @@ html {
     padding: 2px;
   }
 }
+/* Enhanced OS 26 Liquid Glass Socials */
 .socials img, footer.socials img {
   height: 22px;
   width: 22px;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  filter: drop-shadow(0 2px 8px rgba(255, 193, 7, 0.3));
 }
+
+.socials img:hover, footer.socials img:hover {
+  transform: scale(1.2) rotate(5deg);
+  filter: drop-shadow(0 4px 16px rgba(255, 193, 7, 0.6));
+}
+
 .socials, footer.socials {
   position: fixed !important;
   bottom: 15px;
@@ -117,6 +126,15 @@ html {
   padding: 8px 15px;
   margin: 0 !important;
   width: fit-content;
+  background: 
+    linear-gradient(135deg, rgba(0, 119, 190, 0.15), rgba(0, 84, 147, 0.1)),
+    radial-gradient(circle at 30% 30%, rgba(255, 193, 7, 0.08), transparent);
+  backdrop-filter: blur(20px) saturate(1.5) brightness(1.1);
+  border-radius: 25px;
+  border: 1px solid rgba(0, 119, 190, 0.2);
+  box-shadow:
+    0 8px 32px rgba(0, 84, 147, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 /* OS 26 Liquid Glass Navigation */
@@ -252,8 +270,8 @@ body {
   margin: 0;
   padding: 0;
   padding-left: 0;
-  padding-top: 55px; /* Further reduced from 60px */
-  padding-bottom: 80px; /* Further reduced from 120px */
+  padding-top: 50px; /* Further reduced from 55px */
+  padding-bottom: 60px; /* Further reduced from 80px */
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
@@ -312,29 +330,89 @@ main, .content {
   overflow: visible; /* Allow gallery items to show properly */
 }
 
-/* Clean Headers */
+/* Enhanced OS 26 Liquid Glass Headers */
 h1, h2, h3,
 .portrait-gallery h2,
 .coming-soon h2,
 .contact-form h2 {
   color: #FFFFFF;
-  padding: 12px 18px;
-  margin: 0 auto 15px auto;
+  padding: 8px 12px; /* Reduced from 12px 18px */
+  margin: 0 auto 8px auto; /* Reduced from 15px */
   max-width: fit-content;
+  background: 
+    linear-gradient(135deg, rgba(0, 119, 190, 0.15), rgba(0, 84, 147, 0.1)),
+    radial-gradient(circle at 30% 30%, rgba(255, 193, 7, 0.08), transparent);
+  backdrop-filter: blur(15px) saturate(1.3);
+  border-radius: 15px;
+  border: 1px solid rgba(0, 119, 190, 0.2);
+  box-shadow:
+    0 4px 16px rgba(0, 84, 147, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* Clean Content */
+h1:hover, h2:hover, h3:hover,
+.portrait-gallery h2:hover,
+.coming-soon h2:hover,
+.contact-form h2:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 24px rgba(255, 193, 7, 0.2),
+    0 4px 12px rgba(0, 119, 190, 0.2),
+    inset 0 2px 0 rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 193, 7, 0.4);
+}
+
+/* Enhanced OS 26 Liquid Glass Content */
 p, 
 .main-content p,
 .contact-form .form-group {
-  padding: 12px 16px;
-  margin: 12px auto;
+  padding: 8px 12px; /* Reduced from 12px 16px */
+  margin: 8px auto; /* Reduced from 12px auto */
+  background: 
+    linear-gradient(135deg, rgba(0, 119, 190, 0.08), rgba(0, 84, 147, 0.05)),
+    radial-gradient(circle at 40% 40%, rgba(255, 193, 7, 0.04), transparent);
+  backdrop-filter: blur(10px) saturate(1.2);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 119, 190, 0.1);
+  transition: all 0.3s ease;
 }
 
-/* Clean Gallery Items */
+p:hover, 
+.main-content p:hover {
+  background: 
+    linear-gradient(135deg, rgba(0, 119, 190, 0.12), rgba(0, 84, 147, 0.08)),
+    radial-gradient(circle at 40% 40%, rgba(255, 193, 7, 0.06), transparent);
+  border-color: rgba(255, 193, 7, 0.2);
+  transform: translateY(-1px);
+}
+
+/* Enhanced OS 26 Liquid Glass Gallery Items */
 .gallery-item {
-  padding: 10px;
-  margin: 15px;
+  padding: 5px; /* Reduced from 10px */
+  margin: 8px; /* Reduced from 15px */
+  background: 
+    linear-gradient(135deg, rgba(0, 119, 190, 0.1), rgba(0, 84, 147, 0.05)),
+    radial-gradient(circle at 30% 30%, rgba(255, 193, 7, 0.06), transparent);
+  backdrop-filter: blur(15px) saturate(1.4);
+  border-radius: 18px;
+  border: 2px solid rgba(0, 119, 190, 0.2);
+  box-shadow:
+    0 8px 32px rgba(0, 84, 147, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.gallery-item:hover {
+  transform: translateY(-8px) scale(1.02);
+  background: 
+    linear-gradient(135deg, rgba(0, 119, 190, 0.15), rgba(0, 84, 147, 0.08)),
+    radial-gradient(circle at 30% 30%, rgba(255, 193, 7, 0.1), transparent);
+  border-color: rgba(255, 193, 7, 0.4);
+  box-shadow:
+    0 16px 48px rgba(0, 84, 147, 0.25),
+    0 8px 24px rgba(255, 193, 7, 0.15),
+    inset 0 2px 0 rgba(255, 255, 255, 0.2);
 }
 
 /* NO ANIMATIONS - SIMPLIFIED DESIGN */
@@ -351,37 +429,58 @@ main:hover, .content:hover {
   color: #FFC107;
 }
 
-/* Clean Contact Form */
+/* Enhanced OS 26 Liquid Glass Contact Form */
 .contact-form {
-  padding: 25px;
-  margin: 15px 0;
+  padding: 15px; /* Reduced from 25px */
+  margin: 8px 0; /* Reduced from 15px 0 */
+  background: 
+    linear-gradient(135deg, rgba(0, 119, 190, 0.12), rgba(0, 84, 147, 0.08)),
+    radial-gradient(circle at 30% 30%, rgba(255, 193, 7, 0.06), transparent),
+    radial-gradient(circle at 70% 70%, rgba(255, 152, 0, 0.04), transparent);
+  backdrop-filter: blur(20px) saturate(1.6) brightness(1.05);
+  border-radius: 20px;
+  border: 1px solid rgba(0, 119, 190, 0.25);
+  box-shadow:
+    0 12px 40px rgba(0, 84, 147, 0.2),
+    inset 0 2px 0 rgba(255, 255, 255, 0.15);
 }
 
 .contact-form .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 10px; /* Reduced from 15px */
 }
 
 .contact-form label {
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 4px; /* Reduced from 6px */
   color: #FFC107;
   font-size: 14px;
+  text-shadow: 0 0 8px rgba(255, 193, 7, 0.4);
 }
 
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  padding: 10px 14px;
+  padding: 8px 12px; /* Reduced from 10px 14px */
   color: #FFFFFF;
   font-family: inherit;
   font-size: 14px;
   box-sizing: border-box;
+  background: 
+    linear-gradient(135deg, rgba(0, 84, 147, 0.15), rgba(0, 119, 190, 0.1));
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 119, 190, 0.3);
+  border-radius: 10px;
+  transition: all 0.3s ease;
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
   outline: none;
   color: #FFC107;
+  background: 
+    linear-gradient(135deg, rgba(0, 119, 190, 0.2), rgba(0, 84, 147, 0.15));
+  border-color: rgba(255, 193, 7, 0.5);
+  box-shadow: 0 0 20px rgba(255, 193, 7, 0.3);
 }
 
 .contact-form textarea {
@@ -389,18 +488,34 @@ main:hover, .content:hover {
   resize: vertical;
 }
 
+/* Enhanced OS 26 Liquid Glass Contact Form Button */
 .contact-form button {
   color: #000;
   border: none;
-  padding: 15px 35px;
+  padding: 12px 30px; /* Reduced from 15px 35px */
   font-size: 16px;
   cursor: pointer;
   width: 100%;
-  margin-top: 10px;
+  margin-top: 8px; /* Reduced from 10px */
+  background: linear-gradient(135deg, #FFC107, #FF9800);
+  border-radius: 12px;
+  box-shadow:
+    0 6px 20px rgba(255, 193, 7, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  backdrop-filter: blur(10px);
 }
 
 .contact-form button:hover {
   color: #FFC107;
+  background: 
+    linear-gradient(135deg, rgba(0, 119, 190, 0.8), rgba(0, 84, 147, 0.6)),
+    linear-gradient(135deg, #FFC107, #FF9800);
+  transform: translateY(-3px);
+  box-shadow:
+    0 12px 35px rgba(255, 193, 7, 0.4),
+    0 6px 20px rgba(0, 119, 190, 0.2),
+    inset 0 2px 0 rgba(255, 255, 255, 0.4);
 }
 
 .contact-form button:disabled {
@@ -498,16 +613,39 @@ p {
   margin: 0 auto 0.2em auto; /* Further reduced bottom margin from 0.5em */
 }
 
-/* Clean Coming Soon Section */
+/* Enhanced OS 26 Liquid Glass Coming Soon Section */
 .coming-soon {
   text-align: center;
-  padding: 15px 10px; /* Reduced from 25px 15px */
+  padding: 10px 8px; /* Reduced from 15px 10px */
   max-width: 400px;
-  margin: 10px auto; /* Reduced from 20px auto */
+  margin: 5px auto; /* Reduced from 10px auto */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background: 
+    linear-gradient(135deg, rgba(0, 119, 190, 0.12), rgba(0, 84, 147, 0.08)),
+    radial-gradient(circle at 30% 30%, rgba(255, 193, 7, 0.08), transparent),
+    radial-gradient(circle at 70% 70%, rgba(255, 152, 0, 0.05), transparent);
+  backdrop-filter: blur(20px) saturate(1.5) brightness(1.05);
+  border-radius: 20px;
+  border: 1px solid rgba(0, 119, 190, 0.2);
+  box-shadow:
+    0 8px 32px rgba(0, 84, 147, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.coming-soon:hover {
+  transform: translateY(-5px);
+  background: 
+    linear-gradient(135deg, rgba(0, 119, 190, 0.18), rgba(0, 84, 147, 0.12)),
+    radial-gradient(circle at 30% 30%, rgba(255, 193, 7, 0.12), transparent);
+  border-color: rgba(255, 193, 7, 0.4);
+  box-shadow:
+    0 16px 48px rgba(0, 84, 147, 0.25),
+    0 8px 24px rgba(255, 193, 7, 0.15),
+    inset 0 2px 0 rgba(255, 255, 255, 0.3);
 }
 
 .coming-soon h2 {
@@ -706,10 +844,10 @@ main:hover::before, .content:hover::before {
 /* Responsive Liquid Glass Design */
 @media (max-width: 768px) {
   body {
-    padding: 5px; /* Further reduced from 10px */
-    padding-top: 55px; /* Further reduced from 70px */
-    padding-left: 5px; /* Further reduced from 10px */
-    padding-bottom: 80px; /* Further reduced from 120px */
+    padding: 3px; /* Further reduced from 5px */
+    padding-top: 45px; /* Further reduced from 55px */
+    padding-left: 3px; /* Further reduced from 5px */
+    padding-bottom: 60px; /* Further reduced from 80px */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -730,18 +868,19 @@ main:hover::before, .content:hover::before {
   }
   
   main, .content {
-    background: rgba(255, 255, 255, 0.18);
-    padding: 20px;
-    border-radius: 20px;
-    backdrop-filter: blur(25px);
+    background: rgba(0, 0, 0, 0.5); /* Same dark transparency as desktop */
+    backdrop-filter: blur(8px);
+    border-radius: 10px;
+    padding: 8px;
+    margin: 2px auto;
   }
   
   header {
-    background: rgba(255, 255, 255, 0.06);
-    border-radius: 40px;
-    padding: 10px 15px;
-    margin: 10px 0;
-    backdrop-filter: blur(25px);
+    background: transparent; /* Remove whitish background, same as desktop */
+    border-radius: 10px;
+    padding: 8px 15px;
+    margin: 0;
+    backdrop-filter: none; /* Remove excessive blur */
   }
   
   nav {
@@ -773,9 +912,9 @@ main:hover::before, .content:hover::before {
 
 @media (max-width: 480px) {
   body {
-    padding: 15px;
-    padding-top: 110px; /* Add top padding to avoid logo overlap */
-    padding-bottom: 180px; /* Space for fixed social media and logo */
+    padding: 8px; /* Reduced from 15px */
+    padding-top: 90px; /* Reduced from 110px */
+    padding-bottom: 140px; /* Reduced from 180px */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -796,17 +935,19 @@ main:hover::before, .content:hover::before {
   }
   
   main, .content {
-    background: rgba(255, 255, 255, 0.20);
-    padding: 15px;
-    border-radius: 18px;
-    backdrop-filter: blur(30px);
+    background: rgba(0, 0, 0, 0.5); /* Same dark transparency as desktop */
+    backdrop-filter: blur(8px);
+    border-radius: 10px;
+    padding: 8px;
+    margin: 2px auto;
   }
   
   header {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 35px;
+    background: transparent; /* Remove whitish background, same as desktop */
+    border-radius: 10px;
     padding: 8px 12px;
-    margin: 8px 0;
+    margin: 0;
+    backdrop-filter: none; /* Remove excessive blur */
   }
   
   nav {
@@ -1088,7 +1229,7 @@ h1 {
     background: 
       linear-gradient(135deg, rgba(0, 84, 147, 0.1), rgba(0, 119, 190, 0.05)),
       radial-gradient(circle at 30% 40%, rgba(255, 193, 7, 0.03), transparent);
-    backdrop-filter: blur(15px) saturate(1.3);
+    backdrop-filter: blur(8px) saturate(1.1); /* Reduced blur to match desktop */
     transition: all 0.4s ease;
   }
   
@@ -1100,6 +1241,7 @@ h1 {
   /* Mobile menu open state - show nav under header */
   header.menu-open {
     height: auto;
+    background: transparent; /* Keep transparent like desktop */
   }
   
   header.menu-open nav {
@@ -1109,11 +1251,8 @@ h1 {
     top: 100%;
     left: 0;
     width: 100%;
-    background: 
-      linear-gradient(135deg, rgba(0, 84, 147, 0.15), rgba(0, 119, 190, 0.08)),
-      radial-gradient(circle at 30% 40%, rgba(255, 193, 7, 0.05), transparent),
-      radial-gradient(circle at 70% 60%, rgba(255, 152, 0, 0.03), transparent);
-    backdrop-filter: blur(30px) saturate(1.5);
+    background: rgba(0, 0, 0, 0.5); /* Same dark transparency as desktop */
+    backdrop-filter: blur(8px);
     border-top: 1px solid rgba(0, 119, 190, 0.2);
     padding: 10px 0; /* Reduced from 20px 0 */
     animation: slideDown 0.4s ease;
@@ -1126,20 +1265,16 @@ h1 {
     color: #FFFFFF;
     text-decoration: none;
     border-radius: 10px; /* Reduced from 12px */
-    background: 
-      linear-gradient(135deg, rgba(0, 119, 190, 0.1), rgba(0, 84, 147, 0.05)),
-      radial-gradient(circle at 30% 30%, rgba(255, 193, 7, 0.08), transparent);
-    border: 1px solid rgba(0, 119, 190, 0.15);
+    background: rgba(0, 119, 190, 0.2); /* Simplified to match desktop style */
+    border: 1px solid rgba(0, 119, 190, 0.3);
     transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(8px);
   }
   
   header.menu-open nav a:hover,
   header.menu-open nav a.active {
-    background: 
-      linear-gradient(135deg, rgba(0, 119, 190, 0.2), rgba(0, 84, 147, 0.1)),
-      radial-gradient(circle at 30% 30%, rgba(255, 193, 7, 0.15), transparent);
-    border-color: rgba(255, 193, 7, 0.3);
+    background: rgba(0, 119, 190, 0.4); /* Simplified hover state */
+    border-color: rgba(255, 193, 7, 0.5);
     color: #FFC107;
     transform: translateX(10px);
   }
@@ -1189,7 +1324,7 @@ h1 {
   }
 }
 
-/* Signature Logo - Centered Below Social Media */
+/* Enhanced OS 26 Liquid Glass Signature Logo */
 .signature-logo {
   position: fixed;
   bottom: 80px;
@@ -1198,12 +1333,32 @@ h1 {
   width: 160px;
   height: auto;
   opacity: 0.9;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   z-index: 5;
   filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
-  background: transparent;
-  border-radius: 15px;
+  background: 
+    linear-gradient(135deg, rgba(0, 119, 190, 0.08), rgba(0, 84, 147, 0.05)),
+    radial-gradient(circle at 30% 30%, rgba(255, 193, 7, 0.04), transparent);
+  backdrop-filter: blur(15px) saturate(1.2);
+  border-radius: 20px;
   padding: 8px;
+  border: 1px solid rgba(0, 119, 190, 0.1);
+  box-shadow:
+    0 8px 32px rgba(0, 84, 147, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.signature-logo:hover {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-5px) scale(1.05);
+  background: 
+    linear-gradient(135deg, rgba(0, 119, 190, 0.12), rgba(0, 84, 147, 0.08)),
+    radial-gradient(circle at 30% 30%, rgba(255, 193, 7, 0.08), transparent);
+  border-color: rgba(255, 193, 7, 0.3);
+  box-shadow:
+    0 16px 48px rgba(0, 84, 147, 0.2),
+    0 8px 24px rgba(255, 193, 7, 0.1),
+    inset 0 2px 0 rgba(255, 255, 255, 0.2);
 }
 
 /* Footer Logo - Bottom Right Position */
