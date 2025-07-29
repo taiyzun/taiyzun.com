@@ -330,20 +330,18 @@ main, .content {
   overflow: visible; /* Allow gallery items to show properly */
 }
 
-/* Enhanced OS 26 Liquid Glass Headers */
-h1, h2, h3,
-.portrait-gallery h2,
-.coming-soon h2,
-.contact-form h2 {
+/* Enhanced OS 26 Liquid Glass Headers - Differentiated Styles */
+/* Main Page Headers (h1, page titles) */
+h1 {
   color: #FFFFFF;
-  padding: 4px 6px; /* Reduced from 8px 12px */
-  margin: 0 auto 4px auto; /* Reduced from 8px */
+  padding: 4px 6px;
+  margin: 0 auto 4px auto;
   max-width: fit-content;
   background: 
     linear-gradient(135deg, rgba(0, 119, 190, 0.15), rgba(0, 84, 147, 0.1)),
     radial-gradient(circle at 30% 30%, rgba(255, 193, 7, 0.08), transparent);
   backdrop-filter: blur(15px) saturate(1.3);
-  border-radius: 12px; /* Reduced from 15px */
+  border-radius: 12px;
   border: 1px solid rgba(0, 119, 190, 0.2);
   box-shadow:
     0 4px 16px rgba(0, 84, 147, 0.15),
@@ -351,16 +349,51 @@ h1, h2, h3,
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-h1:hover, h2:hover, h3:hover,
-.portrait-gallery h2:hover,
-.coming-soon h2:hover,
-.contact-form h2:hover {
+/* Section Headers - Minimal styling, just 2 points bigger than text */
+h2, h3,
+.section-heading,
+.current-role-heading,
+.portrait-gallery h2,
+.coming-soon h2,
+.contact-form h2 {
+  color: #FFFFFF;
+  padding: 2px 3px; /* Much smaller padding for section headings */
+  margin: 0 auto 2px auto;
+  max-width: fit-content;
+  font-size: 1.2em; /* Exactly 2 points bigger than 1em text */
+  background: 
+    linear-gradient(135deg, rgba(0, 119, 190, 0.08), rgba(0, 84, 147, 0.05));
+  backdrop-filter: blur(8px) saturate(1.1);
+  border-radius: 8px;
+  border: 1px solid rgba(0, 119, 190, 0.1);
+  box-shadow:
+    0 2px 8px rgba(0, 84, 147, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Hover Effects - Differentiated for Page vs Section Headers */
+h1:hover {
   transform: translateY(-2px);
   box-shadow:
     0 8px 24px rgba(255, 193, 7, 0.2),
     0 4px 12px rgba(0, 119, 190, 0.2),
     inset 0 2px 0 rgba(255, 255, 255, 0.3);
   border-color: rgba(255, 193, 7, 0.4);
+}
+
+h2:hover, h3:hover,
+.section-heading:hover,
+.current-role-heading:hover,
+.portrait-gallery h2:hover,
+.coming-soon h2:hover,
+.contact-form h2:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 4px 12px rgba(255, 193, 7, 0.15),
+    0 2px 6px rgba(0, 119, 190, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 193, 7, 0.3);
 }
 
 /* Enhanced OS 26 Liquid Glass Content */
@@ -569,12 +602,13 @@ header:hover {
   color: #FFC107;
 }
 
-/* Clean Typography - Reduced Sizes */
+/* Clean Typography - Differentiated Page vs Section Headings */
+/* Main Page Headings (keep larger) */
 h1 {
   color: #FFFFFF;
-  font-size: 1.4em; /* Reduced from 1.8em */
-  margin-bottom: 0.05em; /* Further reduced from 0.1em */
-  padding: 2px 4px; /* Further reduced from 4px 8px */
+  font-size: 1.4em; /* Keep current size for page titles */
+  margin-bottom: 0.05em;
+  padding: 2px 4px;
   text-align: center;
   display: block;
   width: fit-content;
@@ -582,28 +616,22 @@ h1 {
   margin-right: auto;
 }
 
-h2, h3 {
+/* Section Headings - Only 2 points bigger than text (1em + 0.2em = 1.2em) */
+h2, h3, .section-heading, .current-role-heading {
   color: #FFFFFF;
-  padding: 2px 4px; /* Further reduced from 3px 6px */
+  padding: 2px 4px;
   text-align: center;
   width: fit-content;
-  margin: 0 auto 2px auto; /* Further reduced from 4px */
+  margin: 0 auto 2px auto;
   max-width: fit-content;
+  font-size: 1.2em; /* Only 2 points bigger than 1em text */
+  margin-bottom: 0.05em;
 }
 
-h2 {
-  font-size: 1.2em; /* Reduced from 1.5em */
-  margin-bottom: 0.1em; /* Further reduced from 0.2em */
-}
-
-h3 {
-  font-size: 1.0em; /* Reduced from 1.2em */
-  margin-bottom: 0.05em; /* Further reduced from 0.1em */
-}
-
-/* Current Role styling */
+/* Specific styling for Current Role and similar section headings */
 .current-role-heading {
   color: #FFC107 !important;
+  font-size: 1.2em !important; /* Exactly 2 points bigger than text */
 }
 
 p {
@@ -652,8 +680,8 @@ p {
 
 .coming-soon h2 {
   color: #FFFFFF;
-  font-size: 1.8em;
-  margin-bottom: 0.5em;
+  font-size: 1.2em; /* Changed from 1.8em to follow section heading principle */
+  margin-bottom: 0.3em; /* Reduced from 0.5em */
 }
 
 .coming-soon p {
@@ -672,8 +700,8 @@ p {
   }
   
   .coming-soon h2 {
-    font-size: 1.6em;
-    margin-bottom: 0.4em;
+    font-size: 1.2em; /* Keep consistent with section heading principle */
+    margin-bottom: 0.2em; /* Reduced from 0.4em */
   }
   
   .coming-soon p {
@@ -690,8 +718,8 @@ p {
   }
   
   .coming-soon h2 {
-    font-size: 1.4em;
-    margin-bottom: 0.3em;
+    font-size: 1.2em; /* Keep consistent with section heading principle */
+    margin-bottom: 0.2em; /* Reduced from 0.3em */
   }
   
   .coming-soon p {
@@ -711,14 +739,14 @@ body.journey-page main {
 
 body.journey-page main h2 {
   color: #FFFFFF;
-  font-size: 1.4em;
-  margin-bottom: 8px; /* Reduced from 30px */
-  padding: 12px; /* Reduced from 30px */
+  font-size: 1.2em; /* Changed from 1.4em to match section heading principle */
+  margin-bottom: 6px; /* Further reduced from 8px */
+  padding: 8px; /* Further reduced from 12px */
   background: 
     linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05)),
     radial-gradient(circle at 20% 30%, rgba(255, 193, 7, 0.08), transparent),
     radial-gradient(circle at 80% 70%, rgba(255, 152, 0, 0.06), transparent);
-  border-radius: 25px;
+  border-radius: 20px; /* Reduced from 25px */
   backdrop-filter: blur(12px) saturate(1.2);
   border: 1px solid rgba(255, 193, 7, 0.3);
   box-shadow:
@@ -767,7 +795,7 @@ body.journey-page main em {
   }
   
   body.journey-page main h2 {
-    font-size: 1.3em;
+    font-size: 1.2em; /* Keep consistent with section heading principle */
     position: relative;
     z-index: 1;
   }
@@ -786,7 +814,7 @@ body.journey-page main em {
   }
   
   body.journey-page main h2 {
-    font-size: 1.2em;
+    font-size: 1.2em; /* Keep consistent with section heading principle */
     position: relative;
     z-index: 1;
   }
@@ -965,8 +993,14 @@ main:hover::before, .content:hover::before {
     border-radius: 18px;
   }
   
+  /* Page titles can stay larger on mobile */
   h1 {
-    font-size: 2em;
+    font-size: 1.6em; /* Reduced from 2em but still larger than sections */
+  }
+  
+  /* Section headings stay consistent - only 2 points bigger than text */
+  h2, h3, .section-heading, .current-role-heading {
+    font-size: 1.2em; /* Consistent with desktop - exactly 2 points bigger */
   }
   
   .gold-heading {
