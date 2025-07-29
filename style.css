@@ -6,8 +6,8 @@
 }
 
 html {
-  background: none;
-  background-color: transparent;
+  background: #000;
+  background-color: #000;
 }
 
 /* Full Page Background Video - Always Visible */
@@ -17,6 +17,7 @@ html {
   left: 0;
   width: 100vw;
   height: 100vh;
+  min-height: 100vh;
   object-fit: cover;
   z-index: -1;
   opacity: 1;
@@ -31,6 +32,7 @@ html {
     left: 0 !important;
     width: 100vw !important;
     height: 100vh !important;
+    min-height: 100vh !important;
     object-fit: cover !important;
     z-index: -1 !important;
     opacity: 1 !important;
@@ -263,8 +265,8 @@ nav a.active {
 
 /* Liquid Glass Body and Content - Perfect Vertical & Horizontal Centering */
 body {
-  background: none;
-  background-color: transparent;
+  background: #000;
+  background-color: #000;
   color: #E0E0E0;
   font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   margin: 0;
@@ -1183,10 +1185,9 @@ h1 {
 /* Mobile Menu Button - Show only on mobile/tablet */
 .mobile-menu-btn {
   display: none; /* Hidden by default on desktop */
-  position: absolute;
-  top: 50%;
+  position: fixed;
+  top: 60px; /* Position below the header instead of inside it */
   right: 20px;
-  transform: translateY(-50%);
   z-index: 10005;
   cursor: pointer;
   padding: 10px;
@@ -1379,6 +1380,7 @@ h1 {
   /* Show mobile menu button on tablets and mobile */
   .mobile-menu-btn {
     display: block;
+    top: 55px; /* Position below header on tablets */
   }
   
   /* Keep header normal size and position */
@@ -1447,6 +1449,10 @@ h1 {
 
 /* Smaller mobile devices */
 @media (max-width: 768px) {
+  .mobile-menu-btn {
+    top: 52px; /* Position below header on smaller devices */
+  }
+
   header.menu-open nav a {
     margin: 1px 10px; /* Further reduced from 3px 15px */
     padding: 8px 18px; /* Further reduced from 12px 25px */
@@ -1456,7 +1462,7 @@ h1 {
 
 @media (max-width: 480px) {
   .mobile-menu-btn {
-    top: 10px; /* Reduced from 15px */
+    top: 50px; /* Position below smaller mobile header */
     padding: 10px; /* Reduced from 12px */
   }
   
