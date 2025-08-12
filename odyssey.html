@@ -245,7 +245,97 @@
   <img src="assets/images/Taiyzun-logo.png" alt="Taiyzun Logo" class="footer-logo" />
 
   <script src="assets/js/diagnostics.js"></script>
+  <script src="assets/js/gallery.js"></script>
   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Gallery parallax and hover effects
+      function initGalleryEffects() {
+        const galleryGrid = document.querySelector('.gallery-grid');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        
+        if (!galleryGrid) return;
+        
+        // Mouse parallax effect
+        galleryGrid.addEventListener('mousemove', (e) => {
+          const rect = galleryGrid.getBoundingClientRect();
+          const centerX = rect.left + rect.width / 2;
+          const centerY = rect.top + rect.height / 2;
+          const mouseX = e.clientX - centerX;
+          const mouseY = e.clientY - centerY;
+          
+          galleryItems.forEach((item, index) => {
+            const intensity = 0.01 + (index * 0.002);
+            const moveX = mouseX * intensity;
+            const moveY = mouseY * intensity;
+            
+            item.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+          });
+        });
+        
+        // Reset on mouse leave
+        galleryGrid.addEventListener('mouseleave', () => {
+          galleryItems.forEach(item => {
+            item.style.transform = 'translate3d(0, 0, 0)';
+          });
+        });
+      }
+      
+      // Mobile menu functionality
+      function initMobileMenu() {
+        console.log('DOM loaded, initializing mobile menu...');
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const nav = document.querySelector('nav');
+        const header = document.querySelector('header');
+        
+        console.log('Mobile menu elements:', { mobileMenuBtn, nav, header });
+        
+        if (!mobileMenuBtn) {
+          console.error('Mobile menu button not found!');
+          return;
+        }
+        
+        if (!header) {
+          console.error('Header not found!');
+          return;
+        }
+        
+        mobileMenuBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('Mobile menu button clicked!');
+          header.classList.toggle('menu-open');
+          document.body.classList.toggle('menu-open');
+          console.log('Menu toggled. Header classes:', header.className);
+        });
+        
+        // Close menu when clicking on a nav link
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+          link.addEventListener('click', function() {
+            header.classList.remove('menu-open');
+            document.body.classList.remove('menu-open');
+          });
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+          if (!header.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+            header.classList.remove('menu-open');
+            document.body.classList.remove('menu-open');
+          }
+        });
+      }
+      
+      // Initialize everything after a short delay to ensure gallery.js has loaded
+      setTimeout(() => {
+        initGalleryEffects();
+        initMobileMenu();
+        console.log('Gallery effects and mobile menu initialized');
+      }, 100);
+    });
+  </script>
+</body>
+</html>
     document.addEventListener('DOMContentLoaded', function() {
       // Enhanced Portrait Gallery with Full Functionality
       class PortraitGallery {

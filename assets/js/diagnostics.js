@@ -29,25 +29,41 @@
     // Check gallery functionality
     var galleryGrid = document.querySelector('.gallery-grid');
     var galleryItems = document.querySelectorAll('.gallery-item');
-    var lightbox = document.querySelector('#lightbox');
+    var lightbox = document.querySelector('#lightbox') || document.querySelector('#universal-lightbox');
     log('Gallery elements', {
       grid: !!galleryGrid, 
       items: galleryItems.length, 
-      lightbox: !!lightbox
+      lightbox: !!lightbox,
+      universalGallery: typeof window.galleryInstance !== 'undefined'
     });
 
     if(galleryItems.length > 0){
-      // Test first gallery item click
-      var firstItem = galleryItems[0];
-      if(firstItem){
-        firstItem.addEventListener('click', function(){
-          setTimeout(function(){
-            var lightboxActive = lightbox && lightbox.classList.contains('active');
-            log('Gallery item clicked, lightbox active=', lightboxActive);
-          }, 100);
-        });
-      }
+      // Test first gallery item click after a delay to ensure gallery.js loads
+      setTimeout(function(){
+        var firstItem = galleryItems[0];
+        if(firstItem){
+          firstItem.addEventListener('click', function(){
+            setTimeout(function(){
+              var lightboxActive = lightbox && (lightbox.classList.contains('active') || lightbox.style.display === 'flex');
+              log('Gallery item clicked, lightbox active=', lightboxActive);
+              if(window.galleryInstance){
+                log('Universal gallery instance found and active');
+              }
+            }, 100);
+          });
+          log('Gallery click handler attached to first item');
+        }
+      }, 500);
     }
+
+    // Check for Universal Gallery class
+    setTimeout(function(){
+      if(typeof UniversalGallery !== 'undefined'){
+        log('UniversalGallery class is available');
+      } else {
+        warn('UniversalGallery class not found - gallery.js may not have loaded');
+      }
+    }, 1000);
 
     // External icons/images
     document.querySelectorAll('img').forEach(function(img){
