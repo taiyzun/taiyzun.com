@@ -1192,14 +1192,14 @@ h1 {
   right: 20px;
   z-index: 10005;
   cursor: pointer;
-  padding: 10px;
+  padding: 12px; /* Increased for better touch target */
   border-radius: 50%;
   background: 
-    linear-gradient(135deg, rgba(0, 119, 190, 0.25), rgba(0, 84, 147, 0.15)),
-    radial-gradient(circle at 30% 30%, rgba(255, 193, 7, 0.12), transparent),
-    radial-gradient(circle at 70% 70%, rgba(255, 152, 0, 0.08), transparent);
+    linear-gradient(135deg, rgba(0, 119, 190, 0.4), rgba(0, 84, 147, 0.3)),
+    radial-gradient(circle at 30% 30%, rgba(255, 193, 7, 0.15), transparent),
+    radial-gradient(circle at 70% 70%, rgba(255, 152, 0, 0.1), transparent);
   backdrop-filter: blur(20px) saturate(1.8) brightness(1.1);
-  border: 1px solid rgba(0, 119, 190, 0.3);
+  border: 2px solid rgba(0, 119, 190, 0.5); /* More visible border */
   box-shadow:
     0 8px 32px rgba(0, 84, 147, 0.25),
     0 4px 16px rgba(255, 193, 7, 0.15),
@@ -1315,8 +1315,9 @@ h1 {
 
 /* Desktop Navigation - Override mobile styles */
 @media (min-width: 769px) {
+  /* Hide mobile menu button on larger screens */
   .mobile-menu-btn {
-    display: block; /* Keep the triangle dots visible */
+    display: none !important;
   }
   
   header {
@@ -1381,7 +1382,7 @@ h1 {
 @media (max-width: 1024px) {
   /* Show mobile menu button on tablets and mobile */
   .mobile-menu-btn {
-    display: block;
+    display: block !important;
     top: 55px; /* Position below header on tablets */
   }
   
@@ -1404,7 +1405,7 @@ h1 {
   
   /* Hide desktop navigation */
   header nav {
-    display: none;
+    display: none !important;
   }
   
   /* Mobile menu open state - show nav under header */
@@ -1414,7 +1415,7 @@ h1 {
   }
   
   header.menu-open nav {
-    display: flex;
+    display: flex !important; /* Override the display: none */
     flex-direction: column;
     position: absolute;
     top: 100%;
@@ -1425,6 +1426,7 @@ h1 {
     border-top: 1px solid rgba(0, 119, 190, 0.2);
     padding: 10px 0; /* Reduced from 20px 0 */
     animation: slideDown 0.4s ease;
+    z-index: 1002; /* Higher than header to ensure visibility */
   }
   
   header.menu-open nav a {
