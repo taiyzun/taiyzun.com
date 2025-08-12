@@ -244,387 +244,388 @@
   <!-- Bottom Right Logo -->
   <img src="assets/images/Taiyzun-logo.png" alt="Taiyzun Logo" class="footer-logo" />
 
+  <script src="assets/js/diagnostics.js"></script>
   <script>
-    // Enhanced Portrait Gallery with Full Functionality
-    class PortraitGallery {
-      constructor() {
-        this.images = [
-          {
-            src: 'assets/Portraits/taiyzun_shahpurwala 00001.jpeg',
-            title: 'Portrait 1',
-            description: 'Early Journey'
-          },
-          {
-            src: 'assets/Portraits/taiyzun_shahpurwala 00002.jpeg',
-            title: 'Portrait 2', 
-            description: 'Creative Evolution'
-          },
-          {
-            src: 'assets/Portraits/taiyzun_shahpurwala 00003.jpeg',
-            title: 'Portrait 3',
-            description: 'Transformation'
-          },
-          {
-            src: 'assets/Portraits/taiyzun_shahpurwala 00004.jpeg',
-            title: 'Portrait 4',
-            description: 'Self Discovery'
-          },
-          {
-            src: 'assets/Portraits/taiyzun_shahpurwala 00005.jpeg',
-            title: 'Portrait 5',
-            description: 'Reflection'
-          },
-          {
-            src: 'assets/Portraits/taiyzun_shahpurwala 00006.jpeg',
-            title: 'Portrait 6',
-            description: 'Growth'
-          },
-          {
-            src: 'assets/Portraits/taiyzun_shahpurwala 00007.jpeg',
-            title: 'Portrait 7',
-            description: 'Vision'
-          }
-        ];
-        
-        this.currentIndex = 0;
-        this.isTransitioning = false;
-        this.touchStartX = 0;
-        this.touchStartY = 0;
-        
-        this.init();
-      }
-      
-      init() {
-        this.bindEvents();
-        this.setupIntersectionObserver();
-        this.preloadImages();
-      }
-      
-      bindEvents() {
-        // Gallery item clicks
-        document.querySelectorAll('.gallery-item').forEach((item, index) => {
-          item.addEventListener('click', () => this.openLightbox(index));
-        });
-        
-        // Lightbox controls
-        document.querySelector('.lightbox-close').addEventListener('click', () => this.closeLightbox());
-        document.querySelector('.lightbox-prev').addEventListener('click', (e) => {
-          e.stopPropagation();
-          this.prevImage();
-        });
-        document.querySelector('.lightbox-next').addEventListener('click', (e) => {
-          e.stopPropagation();
-          this.nextImage();
-        });
-        
-        // Backdrop click to close
-        document.querySelector('.lightbox-backdrop').addEventListener('click', () => this.closeLightbox());
-        
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => this.handleKeyboard(e));
-        
-        // Touch/swipe support
-        const lightbox = document.getElementById('lightbox');
-        lightbox.addEventListener('touchstart', (e) => this.handleTouchStart(e), { passive: true });
-        lightbox.addEventListener('touchend', (e) => this.handleTouchEnd(e), { passive: true });
-        
-        // Mouse wheel navigation
-        lightbox.addEventListener('wheel', (e) => this.handleWheel(e), { passive: false });
-      }
-      
-      setupIntersectionObserver() {
-        const options = {
-          threshold: 0.1,
-          rootMargin: '0px 0px -50px 0px'
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.style.opacity = '1';
-              entry.target.style.transform = 'translateY(0)';
-              entry.target.style.animationPlayState = 'running';
+    document.addEventListener('DOMContentLoaded', function() {
+      // Enhanced Portrait Gallery with Full Functionality
+      class PortraitGallery {
+        constructor() {
+          this.images = [
+            {
+              src: 'assets/Portraits/taiyzun_shahpurwala 00001.jpeg',
+              title: 'Portrait 1',
+              description: 'Early Journey'
+            },
+            {
+              src: 'assets/Portraits/taiyzun_shahpurwala 00002.jpeg',
+              title: 'Portrait 2', 
+              description: 'Creative Evolution'
+            },
+            {
+              src: 'assets/Portraits/taiyzun_shahpurwala 00003.jpeg',
+              title: 'Portrait 3',
+              description: 'Transformation'
+            },
+            {
+              src: 'assets/Portraits/taiyzun_shahpurwala 00004.jpeg',
+              title: 'Portrait 4',
+              description: 'Self Discovery'
+            },
+            {
+              src: 'assets/Portraits/taiyzun_shahpurwala 00005.jpeg',
+              title: 'Portrait 5',
+              description: 'Reflection'
+            },
+            {
+              src: 'assets/Portraits/taiyzun_shahpurwala 00006.jpeg',
+              title: 'Portrait 6',
+              description: 'Growth'
+            },
+            {
+              src: 'assets/Portraits/taiyzun_shahpurwala 00007.jpeg',
+              title: 'Portrait 7',
+              description: 'Vision'
             }
-          });
-        }, options);
-        
-        document.querySelectorAll('.gallery-item').forEach((item, index) => {
-          item.style.animationDelay = `${(index + 1) * 0.1}s`;
-          observer.observe(item);
-        });
-      }
-      
-      preloadImages() {
-        this.images.forEach(imageData => {
-          const img = new Image();
-          img.src = imageData.src;
-        });
-      }
-      
-      openLightbox(index) {
-        if (this.isTransitioning) return;
-        
-        this.currentIndex = index;
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImage = document.getElementById('lightbox-image');
-        const loader = document.querySelector('.lightbox-loader');
-        
-        // Show lightbox
-        lightbox.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        
-        // Show loader
-        loader.classList.add('active');
-        
-        // Load image
-        this.loadImage(this.images[this.currentIndex].src)
-          .then(src => {
-            lightboxImage.src = src;
-            this.updateLightboxInfo();
-            loader.classList.remove('active');
-            
-            // Add entrance animation
-            setTimeout(() => {
-              lightboxImage.classList.add('loaded');
-            }, 50);
-          })
-          .catch(() => {
-            loader.classList.remove('active');
-            console.error('Failed to load image');
-          });
-      }
-      
-      closeLightbox() {
-        if (this.isTransitioning) return;
-        
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImage = document.getElementById('lightbox-image');
-        
-        this.isTransitioning = true;
-        
-        // Exit animation
-        lightbox.classList.remove('active');
-        lightboxImage.classList.remove('loaded');
-        document.body.style.overflow = 'auto';
-        
-        setTimeout(() => {
-          this.isTransitioning = false;
-        }, 400);
-      }
-      
-      nextImage() {
-        if (this.isTransitioning) return;
-        this.navigateToImage((this.currentIndex + 1) % this.images.length);
-      }
-      
-      prevImage() {
-        if (this.isTransitioning) return;
-        this.navigateToImage(this.currentIndex === 0 ? this.images.length - 1 : this.currentIndex - 1);
-      }
-      
-      navigateToImage(newIndex) {
-        if (this.isTransitioning || newIndex === this.currentIndex) return;
-        
-        this.isTransitioning = true;
-        const lightboxImage = document.getElementById('lightbox-image');
-        const loader = document.querySelector('.lightbox-loader');
-        
-        // Slide out current image
-        lightboxImage.classList.add('transitioning');
-        loader.classList.add('active');
-        
-        setTimeout(() => {
-          this.currentIndex = newIndex;
+          ];
           
+          this.currentIndex = 0;
+          this.isTransitioning = false;
+          this.touchStartX = 0;
+          this.touchStartY = 0;
+          
+          this.init();
+        }
+        
+        init() {
+          this.bindEvents();
+          this.setupIntersectionObserver();
+          this.preloadImages();
+        }
+        
+        bindEvents() {
+          // Gallery item clicks
+          document.querySelectorAll('.gallery-item').forEach((item, index) => {
+            item.addEventListener('click', () => this.openLightbox(index));
+          });
+          
+          // Lightbox controls
+          document.querySelector('.lightbox-close').addEventListener('click', () => this.closeLightbox());
+          document.querySelector('.lightbox-prev').addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.prevImage();
+          });
+          document.querySelector('.lightbox-next').addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.nextImage();
+          });
+          
+          // Backdrop click to close
+          document.querySelector('.lightbox-backdrop').addEventListener('click', () => this.closeLightbox());
+          
+          // Keyboard navigation
+          document.addEventListener('keydown', (e) => this.handleKeyboard(e));
+          
+          // Touch/swipe support
+          const lightbox = document.getElementById('lightbox');
+          lightbox.addEventListener('touchstart', (e) => this.handleTouchStart(e), { passive: true });
+          lightbox.addEventListener('touchend', (e) => this.handleTouchEnd(e), { passive: true });
+          
+          // Mouse wheel navigation
+          lightbox.addEventListener('wheel', (e) => this.handleWheel(e), { passive: false });
+        }
+        
+        setupIntersectionObserver() {
+          const options = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+          };
+          
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                entry.target.style.animationPlayState = 'running';
+              }
+            });
+          }, options);
+          
+          document.querySelectorAll('.gallery-item').forEach((item, index) => {
+            item.style.animationDelay = `${(index + 1) * 0.1}s`;
+            observer.observe(item);
+          });
+        }
+        
+        preloadImages() {
+          this.images.forEach(imageData => {
+            const img = new Image();
+            img.src = imageData.src;
+          });
+        }
+        
+        openLightbox(index) {
+          if (this.isTransitioning) return;
+          
+          this.currentIndex = index;
+          const lightbox = document.getElementById('lightbox');
+          const lightboxImage = document.getElementById('lightbox-image');
+          const loader = document.querySelector('.lightbox-loader');
+          
+          // Show lightbox
+          lightbox.classList.add('active');
+          document.body.style.overflow = 'hidden';
+          
+          // Show loader
+          loader.classList.add('active');
+          
+          // Load image
           this.loadImage(this.images[this.currentIndex].src)
             .then(src => {
               lightboxImage.src = src;
               this.updateLightboxInfo();
               loader.classList.remove('active');
               
-              // Slide in new image
+              // Add entrance animation
               setTimeout(() => {
-                lightboxImage.classList.remove('transitioning');
-                this.isTransitioning = false;
+                lightboxImage.classList.add('loaded');
               }, 50);
             })
             .catch(() => {
               loader.classList.remove('active');
-              lightboxImage.classList.remove('transitioning');
-              this.isTransitioning = false;
+              console.error('Failed to load image');
             });
-        }, 200);
-      }
-      
-      updateLightboxInfo() {
-        const titleEl = document.getElementById('lightbox-title');
-        const descEl = document.getElementById('lightbox-description');
-        const currentEl = document.getElementById('current-index');
-        const totalEl = document.getElementById('total-images');
-        
-        const imageData = this.images[this.currentIndex];
-        titleEl.textContent = imageData.title;
-        descEl.textContent = imageData.description;
-        currentEl.textContent = this.currentIndex + 1;
-        totalEl.textContent = this.images.length;
-      }
-      
-      loadImage(src) {
-        return new Promise((resolve, reject) => {
-          const img = new Image();
-          img.onload = () => resolve(src);
-          img.onerror = reject;
-          img.src = src;
-        });
-      }
-      
-      handleKeyboard(e) {
-        const lightbox = document.getElementById('lightbox');
-        if (!lightbox.classList.contains('active')) return;
-        
-        switch(e.key) {
-          case 'Escape':
-            this.closeLightbox();
-            break;
-          case 'ArrowRight':
-          case ' ':
-            e.preventDefault();
-            this.nextImage();
-            break;
-          case 'ArrowLeft':
-            e.preventDefault();
-            this.prevImage();
-            break;
-          case 'Home':
-            e.preventDefault();
-            this.navigateToImage(0);
-            break;
-          case 'End':
-            e.preventDefault();
-            this.navigateToImage(this.images.length - 1);
-            break;
         }
-      }
-      
-      handleTouchStart(e) {
-        this.touchStartX = e.touches[0].clientX;
-        this.touchStartY = e.touches[0].clientY;
-      }
-      
-      handleTouchEnd(e) {
-        if (!this.touchStartX || !this.touchStartY) return;
         
-        const touchEndX = e.changedTouches[0].clientX;
-        const touchEndY = e.changedTouches[0].clientY;
+        closeLightbox() {
+          if (this.isTransitioning) return;
+          
+          const lightbox = document.getElementById('lightbox');
+          const lightboxImage = document.getElementById('lightbox-image');
+          
+          this.isTransitioning = true;
+          
+          // Exit animation
+          lightbox.classList.remove('active');
+          lightboxImage.classList.remove('loaded');
+          document.body.style.overflow = 'auto';
+          
+          setTimeout(() => {
+            this.isTransitioning = false;
+          }, 400);
+        }
         
-        const diffX = this.touchStartX - touchEndX;
-        const diffY = this.touchStartY - touchEndY;
+        nextImage() {
+          if (this.isTransitioning) return;
+          this.navigateToImage((this.currentIndex + 1) % this.images.length);
+        }
         
-        // Only handle horizontal swipes
-        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
-          if (diffX > 0) {
+        prevImage() {
+          if (this.isTransitioning) return;
+          this.navigateToImage(this.currentIndex === 0 ? this.images.length - 1 : this.currentIndex - 1);
+        }
+        
+        navigateToImage(newIndex) {
+          if (this.isTransitioning || newIndex === this.currentIndex) return;
+          
+          this.isTransitioning = true;
+          const lightboxImage = document.getElementById('lightbox-image');
+          const loader = document.querySelector('.lightbox-loader');
+          
+          // Slide out current image
+          lightboxImage.classList.add('transitioning');
+          loader.classList.add('active');
+          
+          setTimeout(() => {
+            this.currentIndex = newIndex;
+            
+            this.loadImage(this.images[this.currentIndex].src)
+              .then(src => {
+                lightboxImage.src = src;
+                this.updateLightboxInfo();
+                loader.classList.remove('active');
+                
+                // Slide in new image
+                setTimeout(() => {
+                  lightboxImage.classList.remove('transitioning');
+                  this.isTransitioning = false;
+                }, 50);
+              })
+              .catch(() => {
+                loader.classList.remove('active');
+                lightboxImage.classList.remove('transitioning');
+                this.isTransitioning = false;
+              });
+          }, 200);
+        }
+        
+        updateLightboxInfo() {
+          const titleEl = document.getElementById('lightbox-title');
+          const descEl = document.getElementById('lightbox-description');
+          const currentEl = document.getElementById('current-index');
+          const totalEl = document.getElementById('total-images');
+          
+          const imageData = this.images[this.currentIndex];
+          titleEl.textContent = imageData.title;
+          descEl.textContent = imageData.description;
+          currentEl.textContent = this.currentIndex + 1;
+          totalEl.textContent = this.images.length;
+        }
+        
+        loadImage(src) {
+          return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = () => resolve(src);
+            img.onerror = reject;
+            img.src = src;
+          });
+        }
+        
+        handleKeyboard(e) {
+          const lightbox = document.getElementById('lightbox');
+          if (!lightbox.classList.contains('active')) return;
+          
+          switch(e.key) {
+            case 'Escape':
+              this.closeLightbox();
+              break;
+            case 'ArrowRight':
+            case ' ':
+              e.preventDefault();
+              this.nextImage();
+              break;
+            case 'ArrowLeft':
+              e.preventDefault();
+              this.prevImage();
+              break;
+            case 'Home':
+              e.preventDefault();
+              this.navigateToImage(0);
+              break;
+            case 'End':
+              e.preventDefault();
+              this.navigateToImage(this.images.length - 1);
+              break;
+          }
+        }
+        
+        handleTouchStart(e) {
+          this.touchStartX = e.touches[0].clientX;
+          this.touchStartY = e.touches[0].clientY;
+        }
+        
+        handleTouchEnd(e) {
+          if (!this.touchStartX || !this.touchStartY) return;
+          
+          const touchEndX = e.changedTouches[0].clientX;
+          const touchEndY = e.changedTouches[0].clientY;
+          
+          const diffX = this.touchStartX - touchEndX;
+          const diffY = this.touchStartY - touchEndY;
+          
+          // Only handle horizontal swipes
+          if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+            if (diffX > 0) {
+              this.nextImage();
+            } else {
+              this.prevImage();
+            }
+          }
+          
+          this.touchStartX = 0;
+          this.touchStartY = 0;
+        }
+        
+        handleWheel(e) {
+          const lightbox = document.getElementById('lightbox');
+          if (!lightbox.classList.contains('active')) return;
+          
+          e.preventDefault();
+          
+          if (e.deltaY > 0) {
             this.nextImage();
           } else {
             this.prevImage();
           }
         }
-        
-        this.touchStartX = 0;
-        this.touchStartY = 0;
       }
       
-      handleWheel(e) {
-        const lightbox = document.getElementById('lightbox');
-        if (!lightbox.classList.contains('active')) return;
+      // Gallery parallax and hover effects
+      function initGalleryEffects() {
+        const galleryGrid = document.querySelector('.gallery-grid');
+        const galleryItems = document.querySelectorAll('.gallery-item');
         
-        e.preventDefault();
-        
-        if (e.deltaY > 0) {
-          this.nextImage();
-        } else {
-          this.prevImage();
-        }
-      }
-    }
-    
-    // Gallery parallax and hover effects
-    function initGalleryEffects() {
-      const galleryGrid = document.querySelector('.gallery-grid');
-      const galleryItems = document.querySelectorAll('.gallery-item');
-      
-      // Mouse parallax effect
-      galleryGrid.addEventListener('mousemove', (e) => {
-        const rect = galleryGrid.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const mouseX = e.clientX - centerX;
-        const mouseY = e.clientY - centerY;
-        
-        galleryItems.forEach((item, index) => {
-          const intensity = 0.01 + (index * 0.002);
-          const moveX = mouseX * intensity;
-          const moveY = mouseY * intensity;
+        // Mouse parallax effect
+        galleryGrid.addEventListener('mousemove', (e) => {
+          const rect = galleryGrid.getBoundingClientRect();
+          const centerX = rect.left + rect.width / 2;
+          const centerY = rect.top + rect.height / 2;
+          const mouseX = e.clientX - centerX;
+          const mouseY = e.clientY - centerY;
           
-          item.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+          galleryItems.forEach((item, index) => {
+            const intensity = 0.01 + (index * 0.002);
+            const moveX = mouseX * intensity;
+            const moveY = mouseY * intensity;
+            
+            item.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+          });
         });
-      });
-      
-      // Reset on mouse leave
-      galleryGrid.addEventListener('mouseleave', () => {
-        galleryItems.forEach(item => {
-          item.style.transform = 'translate3d(0, 0, 0)';
+        
+        // Reset on mouse leave
+        galleryGrid.addEventListener('mouseleave', () => {
+          galleryItems.forEach(item => {
+            item.style.transform = 'translate3d(0, 0, 0)';
+          });
         });
-      });
-    }
-    
-    // Mobile menu functionality
-    function initMobileMenu() {
-      console.log('Initializing mobile menu...');
-      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-      const nav = document.querySelector('nav');
-      const header = document.querySelector('header');
-      
-      console.log('Mobile menu elements:', { mobileMenuBtn, nav, header });
-      
-      if (!mobileMenuBtn) {
-        console.error('Mobile menu button not found!');
-        return;
       }
       
-      if (!header) {
-        console.error('Header not found!');
-        return;
-      }
-      
-      mobileMenuBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        console.log('Mobile menu button clicked!');
-        header.classList.toggle('menu-open');
-        document.body.classList.toggle('menu-open');
-        console.log('Menu toggled. Header classes:', header.className);
-      });
-      
-      // Close menu when clicking on a nav link
-      const navLinks = document.querySelectorAll('nav a');
-      navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-          header.classList.remove('menu-open');
-          document.body.classList.remove('menu-open');
-        });
-      });
-      
-      // Close menu when clicking outside
-      document.addEventListener('click', function(e) {
-        if (!header.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-          header.classList.remove('menu-open');
-          document.body.classList.remove('menu-open');
+      // Mobile menu functionality
+      function initMobileMenu() {
+        console.log('Initializing mobile menu...');
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const nav = document.querySelector('nav');
+        const header = document.querySelector('header');
+        
+        console.log('Mobile menu elements:', { mobileMenuBtn, nav, header });
+        
+        if (!mobileMenuBtn) {
+          console.error('Mobile menu button not found!');
+          return;
         }
-      });
-    }
-    
-    // Initialize everything when DOM is loaded
-    document.addEventListener('DOMContentLoaded', function() {
+        
+        if (!header) {
+          console.error('Header not found!');
+          return;
+        }
+        
+        mobileMenuBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('Mobile menu button clicked!');
+          header.classList.toggle('menu-open');
+          document.body.classList.toggle('menu-open');
+          console.log('Menu toggled. Header classes:', header.className);
+        });
+        
+        // Close menu when clicking on a nav link
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+          link.addEventListener('click', function() {
+            header.classList.remove('menu-open');
+            document.body.classList.remove('menu-open');
+          });
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+          if (!header.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+            header.classList.remove('menu-open');
+            document.body.classList.remove('menu-open');
+          }
+        });
+      }
+      
+      // Initialize everything when DOM is loaded
       new PortraitGallery();
       initGalleryEffects();
       initMobileMenu();
