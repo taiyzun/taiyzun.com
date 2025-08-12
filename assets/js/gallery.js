@@ -102,11 +102,13 @@ class UniversalGallery {
     // Navigation buttons
     lightbox.querySelector('.lightbox-prev').addEventListener('click', (e) => {
       e.stopPropagation();
+      console.log('[Gallery] Previous button clicked');
       this.prevImage();
     });
     
     lightbox.querySelector('.lightbox-next').addEventListener('click', (e) => {
       e.stopPropagation();
+      console.log('[Gallery] Next button clicked');
       this.nextImage();
     });
     
@@ -223,18 +225,22 @@ class UniversalGallery {
   
   nextImage() {
     if (this.isTransitioning) return;
+    console.log('[Gallery] Next image called, current index:', this.currentIndex);
     const nextIndex = (this.currentIndex + 1) % this.images.length;
     this.navigateToImage(nextIndex);
   }
   
   prevImage() {
     if (this.isTransitioning) return;
+    console.log('[Gallery] Previous image called, current index:', this.currentIndex);
     const prevIndex = this.currentIndex === 0 ? this.images.length - 1 : this.currentIndex - 1;
     this.navigateToImage(prevIndex);
   }
   
   navigateToImage(newIndex) {
     if (this.isTransitioning || newIndex === this.currentIndex) return;
+    
+    console.log('[Gallery] Navigating from index', this.currentIndex, 'to index', newIndex);
     
     this.isTransitioning = true;
     
@@ -278,6 +284,7 @@ class UniversalGallery {
     if (titleEl) titleEl.textContent = imageData.title;
     if (descEl) descEl.textContent = imageData.description;
     if (currentEl) currentEl.textContent = this.currentIndex + 1;
+    if (totalEl) totalEl.textContent = this.images.length;
     if (totalEl) totalEl.textContent = this.images.length;
   }
   
