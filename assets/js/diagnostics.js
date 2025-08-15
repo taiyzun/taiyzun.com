@@ -72,4 +72,34 @@
       }
     });
   });
+
+  // Temporary runtime gallery self-test (automated)
+  setTimeout(function(){
+    try {
+      if(window.galleryInstance) {
+        console.log('[site-diagnostics] Running automated gallery self-test');
+        // Open first image
+        var items = document.querySelectorAll('.gallery-item');
+        if(items && items.length){
+          items[0].click();
+          setTimeout(function(){
+            var nextBtn = document.querySelector('#universal-lightbox .lightbox-next');
+            var prevBtn = document.querySelector('#universal-lightbox .lightbox-prev');
+            console.log('[site-diagnostics] nextBtn present=', !!nextBtn, 'prevBtn present=', !!prevBtn);
+            if(nextBtn){ nextBtn.click(); console.log('[site-diagnostics] clicked nextBtn'); }
+            setTimeout(function(){
+              if(prevBtn){ prevBtn.click(); console.log('[site-diagnostics] clicked prevBtn'); }
+              setTimeout(function(){
+                var lb = document.getElementById('universal-lightbox');
+                if(lb){ lb.classList.remove('active'); lb.style.display = 'none'; document.body.style.overflow = 'auto'; }
+                console.log('[site-diagnostics] gallery self-test complete');
+              }, 300);
+            }, 400);
+          }, 300);
+        }
+      } else {
+        console.log('[site-diagnostics] galleryInstance not found; skipping automated test');
+      }
+    } catch(e){ console.error('[site-diagnostics] automated test error', e); }
+  }, 1500);
 })();
