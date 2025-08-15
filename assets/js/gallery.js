@@ -127,10 +127,8 @@ class UniversalGallery {
     
     lightbox.addEventListener('touchend', (e) => {
       if (!this.isOpen) return;
-      
       const touchEndX = e.changedTouches[0].clientX;
       const diff = touchStartX - touchEndX;
-      
       if (Math.abs(diff) > 50) {
         if (diff > 0) {
           this.nextImage();
@@ -139,6 +137,8 @@ class UniversalGallery {
         }
       }
     }, { passive: true });
+
+    console.log('[Gallery] Bound lightbox events.');
   }
   
   setupIntersectionObserver() {
