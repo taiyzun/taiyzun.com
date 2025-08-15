@@ -5,6 +5,7 @@ class UniversalGallery {
     this.currentIndex = 0;
     this.isOpen = false;
     this.isTransitioning = false;
+  this.pendingIndex = null; // allow queuing a navigation while loading
     
     this.init();
   }
@@ -241,10 +242,17 @@ class UniversalGallery {
   }
   
   navigateToImage(newIndex) {
-    if (this.isTransitioning || newIndex === this.currentIndex) return;
-    
+    if (newIndex === this.currentIndex) return;
+
+    // If we're mid-transition/loading, queue the navigation
+    if (this.isTransitioning) {
+      this.pendingIndex = newIndex;
+      console.log('[Gallery] Navigation queued to index', newIndex, 'while transitioning');
+      return;
+    }
+
     console.log('[Gallery] Navigating from index', this.currentIndex, 'to index', newIndex);
-    
+
     this.isTransitioning = true;
     
     const lightboxImage = document.getElementById('universal-lightbox-image');
@@ -266,12 +274,24 @@ class UniversalGallery {
           loader.classList.remove('active');
           lightboxImage.style.opacity = '1';
           this.isTransitioning = false;
+          // If a navigation was queued while loading, perform it now
+          if (this.pendingIndex !== null && this.pendingIndex !== this.currentIndex) {
+            const p = this.pendingIndex;
+            this.pendingIndex = null;
+            // Small timeout to allow DOM update
+            setTimeout(() => this.navigateToImage(p), 50);
+          }
         })
         .catch((error) => {
           console.error('[Gallery] Failed to load image:', error);
           loader.classList.remove('active');
           lightboxImage.style.opacity = '1';
           this.isTransitioning = false;
+          if (this.pendingIndex !== null && this.pendingIndex !== this.currentIndex) {
+            const p = this.pendingIndex;
+            this.pendingIndex = null;
+            setTimeout(() => this.navigateToImage(p), 50);
+          }
         });
     }, 200);
   }
