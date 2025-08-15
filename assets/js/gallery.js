@@ -47,8 +47,9 @@ class UniversalGallery {
           description: descEl ? descEl.textContent : ''
         });
         
-        // Add click handler
+        // Add click handler with debug log
         item.addEventListener('click', (e) => {
+          console.log('[Gallery] Gallery item clicked', index);
           e.preventDefault();
           this.openLightbox(index);
         });
@@ -57,6 +58,7 @@ class UniversalGallery {
         item.style.cursor = 'pointer';
       }
     });
+    console.log('[Gallery] Found ' + document.querySelectorAll('.gallery-item').length + ' gallery items.');
   }
   
   createLightbox() {
@@ -350,9 +352,12 @@ class UniversalGallery {
 
 // Auto-initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
-  // Only initialize if gallery items exist
-  if (document.querySelectorAll('.gallery-item').length > 0) {
-    console.log('[Gallery] Initializing Universal Gallery');
+  var items = document.querySelectorAll('.gallery-item');
+  if (items.length > 0) {
+    console.log('[Gallery] Found ' + items.length + ' gallery items. Initializing Universal Gallery.');
     window.galleryInstance = new UniversalGallery();
+    console.log('[Gallery] Universal Gallery instance created:', window.galleryInstance);
+  } else {
+    console.log('[Gallery] No gallery items found.');
   }
 });

@@ -1237,7 +1237,7 @@ h1 {
     linear-gradient(135deg, rgba(0, 119, 190, 0.4), rgba(0, 84, 147, 0.3)),
     radial-gradient(circle at 30% 30%, rgba(255, 193, 7, 0.2), transparent);
   box-shadow:
-    0 12px 40px rgba(0, 84, 147, 0.4),
+    0 12px 40px rgba(255, 193, 7, 0.4),
     0 6px 20px rgba(255, 193, 7, 0.25),
     inset 0 2px 0 rgba(255, 255, 255, 0.4),
     inset 0 -2px 0 rgba(255, 152, 0, 0.3);
@@ -1810,14 +1810,11 @@ h1 {
 }
 
 .lightbox-content img {
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 90vw;
+  max-height: 80vh;
+  object-fit: contain;
   width: auto;
   height: auto;
-  object-fit: contain;
-  opacity: 0;
-  transform: scale(0.9);
-  transition: all 0.4s ease;
 }
 
 .lightbox-content img.loaded {
