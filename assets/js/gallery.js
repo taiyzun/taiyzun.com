@@ -47,11 +47,18 @@ class UniversalGallery {
           description: descEl ? descEl.textContent : ''
         });
         
-        // Add click handler with debug log
+        // Add click handler with debug log - prevent double-click requirement
         item.addEventListener('click', (e) => {
           console.log('[Gallery] Gallery item clicked', index);
           e.preventDefault();
+          e.stopPropagation();
           this.openLightbox(index);
+        });
+        
+        // Also prevent any potential double-click handlers
+        item.addEventListener('dblclick', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
         });
         
         // Add visual feedback
