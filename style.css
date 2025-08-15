@@ -1810,11 +1810,11 @@ h1 {
 }
 
 .lightbox-content img {
-  max-width: 90vw;
-  max-height: 80vh;
-  object-fit: contain;
-  width: auto;
-  height: auto;
+  max-width: 90vw !important;
+  max-height: 80vh !important;
+  object-fit: contain !important;
+  width: auto !important;
+  height: auto !important;
 }
 
 .lightbox-content img.loaded {
