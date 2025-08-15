@@ -72,17 +72,17 @@ class UniversalGallery {
           <button class="lightbox-next" aria-label="Next image">&#10095;</button>
           
           <div class="lightbox-content">
-            <img id="lightbox-image" src="" alt="">
+            <img id="universal-lightbox-image" src="" alt="">
             <div class="lightbox-loader">
               <div class="loader-spinner"></div>
             </div>
           </div>
           
           <div class="lightbox-info">
-            <h3 id="lightbox-title">Title</h3>
-            <p id="lightbox-description">Description</p>
+            <h3 id="universal-lightbox-title">Title</h3>
+            <p id="universal-lightbox-description">Description</p>
             <div class="lightbox-counter">
-              <span id="current-index">1</span> / <span id="total-images">${this.images.length}</span>
+              <span id="universal-current-index">1</span> / <span id="universal-total-images">${this.images.length}</span>
             </div>
           </div>
         </div>
@@ -162,15 +162,16 @@ class UniversalGallery {
   }
   
   openLightbox(index) {
-    if (this.isTransitioning || index < 0 || index >= this.images.length) return;
+    if (this.isOpen || this.isTransitioning) return;
     
-    console.log('[Gallery] Opening lightbox for image', index);
+    console.log('[Gallery] Opening lightbox at index:', index);
     
     this.currentIndex = index;
     this.isOpen = true;
+    this.isTransitioning = true;
     
     const lightbox = document.getElementById('universal-lightbox');
-    const lightboxImage = lightbox.querySelector('#lightbox-image');
+    const lightboxImage = lightbox.querySelector('#universal-lightbox-image');
     const loader = lightbox.querySelector('.lightbox-loader');
     
     // Show lightbox
@@ -196,10 +197,12 @@ class UniversalGallery {
         // Hide loader and show image
         loader.classList.remove('active');
         lightboxImage.style.opacity = '1';
+        this.isTransitioning = false;
       })
       .catch((error) => {
         console.error('[Gallery] Failed to load image:', error);
         loader.classList.remove('active');
+        this.isTransitioning = false;
       });
   }
   
@@ -244,7 +247,7 @@ class UniversalGallery {
     
     this.isTransitioning = true;
     
-    const lightboxImage = document.getElementById('lightbox-image');
+    const lightboxImage = document.getElementById('universal-lightbox-image');
     const loader = document.querySelector('.lightbox-loader');
     
     // Fade out current image
@@ -274,10 +277,10 @@ class UniversalGallery {
   }
   
   updateLightboxInfo() {
-    const titleEl = document.getElementById('lightbox-title');
-    const descEl = document.getElementById('lightbox-description');
-    const currentEl = document.getElementById('current-index');
-    const totalEl = document.getElementById('total-images');
+    const titleEl = document.getElementById('universal-lightbox-title');
+    const descEl = document.getElementById('universal-lightbox-description');
+    const currentEl = document.getElementById('universal-current-index');
+    const totalEl = document.getElementById('universal-total-images');
     
     const imageData = this.images[this.currentIndex];
     
