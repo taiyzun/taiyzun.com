@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>500 - Internal Server Error | Taiyzun Shahpurwala</title>
+    <meta name="robots" content="noindex,nofollow">
+    <link rel="stylesheet" href="style.css?v=25">
+    <style>
+        .error-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+        }
+        
+        .error-code {
+            font-size: 8em;
+            font-weight: bold;
+            color: #FF9800;
+            margin: 0;
+            line-height: 1;
+            text-shadow: 0 0 20px rgba(255, 152, 0, 0.5);
+        }
+        
+        .error-message {
+            font-size: 1.5em;
+            margin: 20px 0;
+            color: #fff;
+        }
+        
+        .error-details {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .back-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: #FF9800;
+            color: #000;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .back-button:hover {
+            background: #FFA726;
+            transform: scale(1.05);
+        }
+        
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 6em;
+            }
+            
+            .error-message {
+                font-size: 1.2em;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .error-code {
+                font-size: 4em;
+            }
+            
+            .error-message {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <h1 class="error-code">500</h1>
+        <h2 class="error-message">Internal Server Error</h2>
+        <div class="error-details">
+            <p>We apologize, but something went wrong on our server. Our team has been notified and is working to fix the issue.</p>
+            <p>Please try again later or return to the homepage.</p>
+        </div>
+        <a href="/" class="back-button">Return to Homepage</a>
+    </div>
+    
+    <script>
+        // Error reporting
+        window.addEventListener('load', function() {
+            const errorData = {
+                timestamp: new Date().toISOString(),
+                url: window.location.href,
+                userAgent: navigator.userAgent,
+                referrer: document.referrer,
+                errorCode: 500
+            };
+            
+            // Send error data to analytics
+            if (navigator.sendBeacon) {
+                navigator.sendBeacon('/analytics/error', JSON.stringify(errorData));
+            } else {
+                fetch('/analytics/error', {
+                    method: 'POST',
+                    body: JSON.stringify(errorData),
+                    keepalive: true
+                });
+            }
+        });
+    </script>
+</body>
+</html>

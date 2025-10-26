@@ -10,6 +10,31 @@
   "scope": "/",
   "lang": "en",
   "dir": "ltr",
+  "display_override": ["window-controls-overlay", "standalone"],
+  "handle_links": "preferred",
+  "launch_handler": {
+    "client_mode": ["navigate-existing", "auto"]
+  },
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "shortcuts": [
+    {
+      "name": "View Creations",
+      "url": "/creations.html",
+      "description": "Browse creative portfolio and digital art"
+    },
+    {
+      "name": "Professional Journey",
+      "url": "/journey.html",
+      "description": "Explore professional experience and achievements"
+    },
+    {
+      "name": "Connect",
+      "url": "/connect.html",
+      "description": "Get in touch and connect on social media"
+    }
+  ],
   "icons": [
     {
       "src": "assets/images/icons/favicon-16x16.png",
