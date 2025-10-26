@@ -23,8 +23,6 @@ Allow: /assets/Portraits/
 
 # Disallow crawling of technical assets that don't need indexing
 Disallow: /assets/video/
-Disallow: /*.css$
-Disallow: /*.js$
 Disallow: /seo-keywords.md
 
 # Important: Primary Search Terms for SEO
