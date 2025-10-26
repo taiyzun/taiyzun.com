@@ -2,20 +2,22 @@
 document.addEventListener('DOMContentLoaded', function() {
   const galleryItems = document.querySelectorAll('.gallery-item img');
   
-  // Create srcset for gallery images
   galleryItems.forEach(img => {
-    const originalSrc = img.src;
-    const extension = originalSrc.split('.').pop();
-    const basePath = originalSrc.substring(0, originalSrc.lastIndexOf('.'));
+    // Only build a responsive srcset when explicitly opted in via data attribute.
+    if (img.dataset.responsive === 'true') {
+      const originalSrc = img.src;
+      const extension = originalSrc.split('.').pop();
+      const basePath = originalSrc.substring(0, originalSrc.lastIndexOf('.'));
+      
+      img.srcset = `
+        ${basePath}-sm.${extension} 300w,
+        ${basePath}-md.${extension} 600w,
+        ${basePath}-lg.${extension} 900w,
+        ${originalSrc} 1200w
+      `;
+      img.sizes = "(max-width: 480px) 300px, (max-width: 768px) 600px, (max-width: 1200px) 900px, 1200px";
+    }
     
-    // Generate srcset
-    img.srcset = `
-      ${basePath}-sm.${extension} 300w,
-      ${basePath}-md.${extension} 600w,
-      ${basePath}-lg.${extension} 900w,
-      ${originalSrc} 1200w
-    `;
-    img.sizes = "(max-width: 480px) 300px, (max-width: 768px) 600px, (max-width: 1200px) 900px, 1200px";
     img.loading = "lazy";
     img.decoding = "async";
   });
