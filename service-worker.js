@@ -27,7 +27,31 @@ const ASSETS_TO_CACHE = [
   '/assets/Portraits/taiyzun_shahpurwala%2000009.jpeg',
   '/assets/Portraits/taiyzun_shahpurwala%2000010.jpeg',
   '/assets/Portraits/taiyzun_shahpurwala%2000011.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000012.jpeg'
+  '/assets/Portraits/taiyzun_shahpurwala%2000012.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000013.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000014.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000015.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000016.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000017.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000018.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000019.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000020.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000021.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000022.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000023.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000024.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000025.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000026.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000027.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000028.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000029.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000030.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000031.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000032.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000033.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000034.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000035.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000036.jpeg'
 ];
 
 // Install Service Worker
