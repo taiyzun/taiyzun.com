@@ -15,7 +15,19 @@ const ASSETS_TO_CACHE = [
   '/assets/manifest.json',
   '/assets/images/logo.png',
   '/assets/images/Taiyzun-logo.png',
-  '/assets/video/sora.mp4'
+  '/assets/video/sora.mp4',
+  '/assets/Portraits/taiyzun_shahpurwala%2000001.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000002.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000003.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000004.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000005.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000006.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000007.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000008.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000009.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000010.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000011.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000012.jpeg'
 ];
 
 // Install Service Worker
