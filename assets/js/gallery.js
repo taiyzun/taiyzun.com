@@ -5,13 +5,11 @@ class UniversalGallery {
     this.currentIndex = 0;
     this.isOpen = false;
     this.isTransitioning = false;
-  this.pendingIndex = null; // allow queuing a navigation while loading
-    
+    this.pendingIndex = null;
     this.init();
   }
   
   init() {
-    // Wait for DOM to be fully loaded
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => this.setup());
     } else {
@@ -21,13 +19,10 @@ class UniversalGallery {
   
   setup() {
     console.log('[Gallery] Setting up gallery...');
-    
-    // Detect gallery type and setup accordingly
     this.setupGalleryImages();
     this.createLightbox();
     this.bindEvents();
     this.setupIntersectionObserver();
-    
     console.log('[Gallery] Gallery setup complete with', this.images.length, 'images');
   }
   
@@ -47,29 +42,19 @@ class UniversalGallery {
           description: descEl ? descEl.textContent : ''
         });
         
-        // Add click handler with debug log - prevent double-click requirement
         item.addEventListener('click', (e) => {
-          console.log('[Gallery] Gallery item clicked', index);
           e.preventDefault();
           e.stopPropagation();
+          console.log('[Gallery] Gallery item clicked', index);
           this.openLightbox(index);
         });
         
-        // Also prevent any potential double-click handlers
-        item.addEventListener('dblclick', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-        });
-        
-        // Add visual feedback
         item.style.cursor = 'pointer';
       }
     });
-    console.log('[Gallery] Found ' + document.querySelectorAll('.gallery-item').length + ' gallery items.');
   }
   
   createLightbox() {
-    // Remove existing lightbox if any
     const existing = document.getElementById('universal-lightbox');
     if (existing) existing.remove();
     
@@ -89,10 +74,10 @@ class UniversalGallery {
           </div>
           
           <div class="lightbox-info">
-            <h3 id="universal-lightbox-title">Title</h3>
-            <p id="universal-lightbox-description">Description</p>
+            <h3 id="universal-lightbox-title"></h3>
+            <p id="universal-lightbox-description"></p>
             <div class="lightbox-counter">
-              <span id="universal-current-index">1</span> / <span id="universal-total-images">${this.images.length}</span>
+              <span id="universal-current-index">1</span> / <span id="universal-total-images">1</span>
             </div>
           </div>
         </div>
@@ -106,48 +91,62 @@ class UniversalGallery {
     const lightbox = document.getElementById('universal-lightbox');
     if (!lightbox) return;
     
-    // Close button
-    lightbox.querySelector('.lightbox-close').addEventListener('click', () => this.closeLightbox());
+    const closeBtn = lightbox.querySelector('.lightbox-close');
+    const prevBtn = lightbox.querySelector('.lightbox-prev');
+    const nextBtn = lightbox.querySelector('.lightbox-next');
+    const backdrop = lightbox.querySelector('.lightbox-backdrop');
     
-    // Navigation buttons
-    lightbox.querySelector('.lightbox-prev').addEventListener('click', (e) => {
+    closeBtn.addEventListener('click', () => this.closeLightbox());
+    
+    prevBtn.addEventListener('click', (e) => {
+      e.preventDefault();
       e.stopPropagation();
-      console.log('[Gallery] Previous button clicked');
-      this.prevImage();
+      if (!this.isTransitioning) {
+        this.prevImage();
+      }
     });
     
-    lightbox.querySelector('.lightbox-next').addEventListener('click', (e) => {
+    nextBtn.addEventListener('click', (e) => {
+      e.preventDefault();
       e.stopPropagation();
-      console.log('[Gallery] Next button clicked');
-      this.nextImage();
+      if (!this.isTransitioning) {
+        this.nextImage();
+      }
     });
     
-    // Backdrop click to close
-    lightbox.querySelector('.lightbox-backdrop').addEventListener('click', () => this.closeLightbox());
+    backdrop.addEventListener('click', () => this.closeLightbox());
     
-    // Keyboard navigation
     document.addEventListener('keydown', (e) => this.handleKeyboard(e));
     
-    // Touch support
     let touchStartX = 0;
+    let touchStartY = 0;
+    let touchStartTime = 0;
+    
     lightbox.addEventListener('touchstart', (e) => {
       touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      touchStartTime = Date.now();
     }, { passive: true });
     
     lightbox.addEventListener('touchend', (e) => {
       if (!this.isOpen) return;
+      
       const touchEndX = e.changedTouches[0].clientX;
-      const diff = touchStartX - touchEndX;
-      if (Math.abs(diff) > 50) {
-        if (diff > 0) {
+      const touchEndY = e.changedTouches[0].clientY;
+      const touchEndTime = Date.now();
+      
+      const diffX = touchStartX - touchEndX;
+      const diffY = Math.abs(touchStartY - touchEndY);
+      const timeDiff = touchEndTime - touchStartTime;
+      
+      if (Math.abs(diffX) > 30 && diffY < 100 && timeDiff < 300) {
+        if (diffX > 0 && !this.isTransitioning) {
           this.nextImage();
-        } else {
+        } else if (diffX < 0 && !this.isTransitioning) {
           this.prevImage();
         }
       }
     }, { passive: true });
-
-    console.log('[Gallery] Bound lightbox events.');
   }
   
   setupIntersectionObserver() {
@@ -184,27 +183,22 @@ class UniversalGallery {
     const lightboxImage = lightbox.querySelector('#universal-lightbox-image');
     const loader = lightbox.querySelector('.lightbox-loader');
     
-    // Show lightbox
     lightbox.style.display = 'flex';
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       lightbox.classList.add('active');
-    }, 10);
+    });
     
-    // Prevent body scroll
     document.body.style.overflow = 'hidden';
     
-    // Show loader
     loader.classList.add('active');
     lightboxImage.style.opacity = '0';
     
-    // Load image
     this.loadImage(this.images[this.currentIndex].src)
       .then(() => {
         lightboxImage.src = this.images[this.currentIndex].src;
         lightboxImage.alt = this.images[this.currentIndex].alt;
         this.updateLightboxInfo();
         
-        // Hide loader and show image
         loader.classList.remove('active');
         lightboxImage.style.opacity = '1';
         this.isTransitioning = false;
@@ -225,84 +219,67 @@ class UniversalGallery {
     this.isOpen = false;
     
     const lightbox = document.getElementById('universal-lightbox');
-    
-    // Hide lightbox
     lightbox.classList.remove('active');
     
     setTimeout(() => {
       lightbox.style.display = 'none';
       document.body.style.overflow = 'auto';
       this.isTransitioning = false;
-    }, 400);
+    }, 300);
   }
   
   nextImage() {
     if (this.isTransitioning) return;
-    console.log('[Gallery] Next image called, current index:', this.currentIndex);
     const nextIndex = (this.currentIndex + 1) % this.images.length;
     this.navigateToImage(nextIndex);
   }
   
   prevImage() {
     if (this.isTransitioning) return;
-    console.log('[Gallery] Previous image called, current index:', this.currentIndex);
     const prevIndex = this.currentIndex === 0 ? this.images.length - 1 : this.currentIndex - 1;
     this.navigateToImage(prevIndex);
   }
   
   navigateToImage(newIndex) {
-    if (newIndex === this.currentIndex) return;
-
-    // If we're mid-transition/loading, queue the navigation
+    if (newIndex === this.currentIndex || !this.images[newIndex]) return;
+    
     if (this.isTransitioning) {
       this.pendingIndex = newIndex;
-      console.log('[Gallery] Navigation queued to index', newIndex, 'while transitioning');
       return;
     }
-
-    console.log('[Gallery] Navigating from index', this.currentIndex, 'to index', newIndex);
-
+    
     this.isTransitioning = true;
     
     const lightboxImage = document.getElementById('universal-lightbox-image');
     const loader = document.querySelector('.lightbox-loader');
     
-    // Fade out current image
     lightboxImage.style.opacity = '0';
     loader.classList.add('active');
     
-    setTimeout(() => {
-      this.currentIndex = newIndex;
-      
-      this.loadImage(this.images[this.currentIndex].src)
-        .then(() => {
-          lightboxImage.src = this.images[this.currentIndex].src;
-          lightboxImage.alt = this.images[this.currentIndex].alt;
-          this.updateLightboxInfo();
+    this.loadImage(this.images[newIndex].src)
+      .then(() => {
+        this.currentIndex = newIndex;
+        lightboxImage.src = this.images[newIndex].src;
+        lightboxImage.alt = this.images[newIndex].alt;
+        this.updateLightboxInfo();
+        
+        requestAnimationFrame(() => {
+          loader.classList.remove('active');
+          lightboxImage.style.opacity = '1';
+          this.isTransitioning = false;
           
-          loader.classList.remove('active');
-          lightboxImage.style.opacity = '1';
-          this.isTransitioning = false;
-          // If a navigation was queued while loading, perform it now
           if (this.pendingIndex !== null && this.pendingIndex !== this.currentIndex) {
-            const p = this.pendingIndex;
+            const nextIndex = this.pendingIndex;
             this.pendingIndex = null;
-            // Small timeout to allow DOM update
-            setTimeout(() => this.navigateToImage(p), 50);
-          }
-        })
-        .catch((error) => {
-          console.error('[Gallery] Failed to load image:', error);
-          loader.classList.remove('active');
-          lightboxImage.style.opacity = '1';
-          this.isTransitioning = false;
-          if (this.pendingIndex !== null && this.pendingIndex !== this.currentIndex) {
-            const p = this.pendingIndex;
-            this.pendingIndex = null;
-            setTimeout(() => this.navigateToImage(p), 50);
+            setTimeout(() => this.navigateToImage(nextIndex), 50);
           }
         });
-    }, 200);
+      })
+      .catch((error) => {
+        console.error('[Gallery] Failed to load image:', error);
+        loader.classList.remove('active');
+        this.isTransitioning = false;
+      });
   }
   
   updateLightboxInfo() {
@@ -311,13 +288,14 @@ class UniversalGallery {
     const currentEl = document.getElementById('universal-current-index');
     const totalEl = document.getElementById('universal-total-images');
     
+    if (!titleEl || !descEl || !currentEl || !totalEl) return;
+    
     const imageData = this.images[this.currentIndex];
     
-    if (titleEl) titleEl.textContent = imageData.title;
-    if (descEl) descEl.textContent = imageData.description;
-    if (currentEl) currentEl.textContent = this.currentIndex + 1;
-    if (totalEl) totalEl.textContent = this.images.length;
-    if (totalEl) totalEl.textContent = this.images.length;
+    titleEl.textContent = imageData.title;
+    descEl.textContent = imageData.description;
+    currentEl.textContent = this.currentIndex + 1;
+    totalEl.textContent = this.images.length;
   }
   
   loadImage(src) {
@@ -339,27 +317,35 @@ class UniversalGallery {
       case 'ArrowRight':
       case ' ':
         e.preventDefault();
-        this.nextImage();
+        if (!this.isTransitioning) {
+          this.nextImage();
+        }
         break;
       case 'ArrowLeft':
         e.preventDefault();
-        this.prevImage();
+        if (!this.isTransitioning) {
+          this.prevImage();
+        }
         break;
       case 'Home':
         e.preventDefault();
-        this.navigateToImage(0);
+        if (!this.isTransitioning) {
+          this.navigateToImage(0);
+        }
         break;
       case 'End':
         e.preventDefault();
-        this.navigateToImage(this.images.length - 1);
+        if (!this.isTransitioning) {
+          this.navigateToImage(this.images.length - 1);
+        }
         break;
     }
   }
 }
 
-// Auto-initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
-  var items = document.querySelectorAll('.gallery-item');
+// Initialize with a delay to ensure DOM is fully loaded
+setTimeout(() => {
+  const items = document.querySelectorAll('.gallery-item');
   if (items.length > 0) {
     console.log('[Gallery] Found ' + items.length + ' gallery items. Initializing Universal Gallery.');
     window.galleryInstance = new UniversalGallery();
@@ -367,4 +353,4 @@ document.addEventListener('DOMContentLoaded', function() {
   } else {
     console.log('[Gallery] No gallery items found.');
   }
-});
+}, 100);
