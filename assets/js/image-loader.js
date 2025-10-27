@@ -1,22 +1,17 @@
 // Gallery image loader
 document.addEventListener('DOMContentLoaded', function() {
   const galleryItems = document.querySelectorAll('.gallery-item img');
-  
+
   galleryItems.forEach(img => {
-      const originalSrc = img.src;
-    
-    // Set loading and decoding attributes for better performance
-    img.loading = "lazy";
-    img.decoding = "async";
-    
-    // Add error handling
+    const originalSrc = img.currentSrc || img.src;
+
+    img.loading = 'lazy';
+    img.decoding = 'async';
+
     img.onerror = function() {
-      console.error(`Failed to load image: ${originalSrc}`);
-      img.style.display = 'none';
+      console.error(`[ImageLoader] Failed to load image: ${originalSrc}`);
+      img.classList.add('image-load-error');
     };
-    
-    img.loading = "lazy";
-    img.decoding = "async";
   });
 });
 

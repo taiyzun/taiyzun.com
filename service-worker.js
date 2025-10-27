@@ -1,5 +1,5 @@
 // Service Worker for taiyzun.com
-const CACHE_NAME = 'taiyzun-cache-v1';
+const CACHE_NAME = 'taiyzun-cache-v2';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -48,6 +48,10 @@ const ASSETS_TO_CACHE = [
   '/assets/Portraits/taiyzun_shahpurwala%2000030.jpeg',
   '/assets/Portraits/taiyzun_shahpurwala%2000031.jpeg',
   '/assets/Portraits/taiyzun_shahpurwala%2000032.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000033.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000034.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000035.jpeg',
+  '/assets/Portraits/taiyzun_shahpurwala%2000036.jpeg',
   '/assets/Portraits/taiyzun_shahpurwala%2000033.jpeg',
   '/assets/Portraits/taiyzun_shahpurwala%2000034.jpeg',
   '/assets/Portraits/taiyzun_shahpurwala%2000035.jpeg',
