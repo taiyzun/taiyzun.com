@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
@@ -23,6 +24,150 @@
     <lastmod>2025-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000001.jpeg</image:loc>
+      <image:caption>Portrait 1 — Early Journey</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000002.jpeg</image:loc>
+      <image:caption>Portrait 2 — Creative Evolution</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000003.jpeg</image:loc>
+      <image:caption>Portrait 3 — Transformation</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000004.jpeg</image:loc>
+      <image:caption>Portrait 4 — Self Discovery</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000005.jpeg</image:loc>
+      <image:caption>Portrait 5 — Reflection</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000006.jpeg</image:loc>
+      <image:caption>Portrait 6 — Growth</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000007.jpeg</image:loc>
+      <image:caption>Portrait 7 — Creative Journey</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000008.jpeg</image:loc>
+      <image:caption>Portrait 8 — Artistic Vision</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000009.jpeg</image:loc>
+      <image:caption>Portrait 9 — Professional Journey</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000010.jpeg</image:loc>
+      <image:caption>Portrait 10 — Urban Explorer</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000011.jpeg</image:loc>
+      <image:caption>Portrait 11 — Architectural Perspective</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000012.jpeg</image:loc>
+      <image:caption>Portrait 12 — Dubai Landmarks</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000013.jpeg</image:loc>
+      <image:caption>Portrait 13 — Digital Creation</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000014.jpeg</image:loc>
+      <image:caption>Portrait 14 — Professional Life</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000015.jpeg</image:loc>
+      <image:caption>Portrait 15 — Creative Space</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000016.jpeg</image:loc>
+      <image:caption>Portrait 16 — Creative Awakening</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000017.jpeg</image:loc>
+      <image:caption>Portrait 17 — Dubai Life</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000018.jpeg</image:loc>
+      <image:caption>Portrait 18 — Creative Process</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000019.jpeg</image:loc>
+      <image:caption>Portrait 19 — Sunlit Perspectives</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000020.jpeg</image:loc>
+      <image:caption>Portrait 20 — Desert Glow</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000021.jpeg</image:loc>
+      <image:caption>Portrait 21 — City Lights</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000022.jpeg</image:loc>
+      <image:caption>Portrait 22 — Creative Retreat</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000023.jpeg</image:loc>
+      <image:caption>Portrait 23 — Evening Reflections</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000024.jpeg</image:loc>
+      <image:caption>Portrait 24 — Skyline Stories</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000025.jpeg</image:loc>
+      <image:caption>Portrait 25 — Studio Focus</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000026.jpeg</image:loc>
+      <image:caption>Portrait 26 — Urban Nightfall</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000027.jpeg</image:loc>
+      <image:caption>Portrait 27 — Creative Momentum</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000028.jpeg</image:loc>
+      <image:caption>Portrait 28 — Vibrant Dusk</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000029.jpeg</image:loc>
+      <image:caption>Portrait 29 — Harbor Reflections</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000030.jpeg</image:loc>
+      <image:caption>Portrait 30 — Golden Hour</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000031.jpeg</image:loc>
+      <image:caption>Portrait 31 — Creative Horizons</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000032.jpeg</image:loc>
+      <image:caption>Portrait 32 — Urban Energy</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000033.jpeg</image:loc>
+      <image:caption>Portrait 33 — Night Studio</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000034.jpeg</image:loc>
+      <image:caption>Portrait 34 — Calm Waters</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000035.jpeg</image:loc>
+      <image:caption>Portrait 35 — City Skyline</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://taiyzun.com/assets/Portraits/taiyzun_shahpurwala%2000036.jpeg</image:loc>
+      <image:caption>Portrait 36 — City Night</image:caption>
+    </image:image>
   </url>
   
   <url>

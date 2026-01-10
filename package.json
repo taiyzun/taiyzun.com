@@ -1,0 +1,11 @@
+{
+  "name": "taiyzun-site",
+  "version": "1.0.0",
+  "description": "Static site for taiyzun.com — helper scripts",
+  "scripts": {
+    "optimize-images": "node scripts/optimize-images.js"
+  },
+  "dependencies": {
+    "sharp": "^0.32.0"
+  }
+}
