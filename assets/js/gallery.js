@@ -1,4 +1,5 @@
 /* Enhanced Gallery System - Bulletproof Implementation */
+const GALLERY_DEBUG = false;
 class UniversalGallery {
   constructor() {
     this.images = [];
@@ -6,6 +7,7 @@ class UniversalGallery {
     this.isOpen = false;
     this.isTransitioning = false;
     this.pendingIndex = null;
+    this.lastFocused = null;
     this.init();
   }
   
@@ -35,6 +37,9 @@ class UniversalGallery {
       const descEl = item.querySelector('.gallery-info p');
       
       if (img) {
+        // Encourage modern lazy-loading for thumbnails
+        img.loading = 'lazy';
+
         this.images.push({
           src: img.src,
           alt: img.alt || `Image ${index + 1}`,
@@ -45,7 +50,7 @@ class UniversalGallery {
         item.addEventListener('click', (e) => {
           e.preventDefault();
           e.stopPropagation();
-          console.log('[Gallery] Gallery item clicked', index);
+          if (GALLERY_DEBUG) console.log('[Gallery] Gallery item clicked', index);
           this.openLightbox(index);
         });
         
@@ -80,6 +85,7 @@ class UniversalGallery {
               <span id="universal-current-index">1</span> / <span id="universal-total-images">1</span>
             </div>
           </div>
+          <div id="universal-lightbox-status" aria-live="polite" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </div>
         </div>
       </div>
     `;
@@ -95,6 +101,11 @@ class UniversalGallery {
     const prevBtn = lightbox.querySelector('.lightbox-prev');
     const nextBtn = lightbox.querySelector('.lightbox-next');
     const backdrop = lightbox.querySelector('.lightbox-backdrop');
+    
+    // Expose for focus management
+    this.closeBtn = closeBtn;
+    this.prevBtn = prevBtn;
+    this.nextBtn = nextBtn;
     
     closeBtn.addEventListener('click', () => this.closeLightbox());
     
@@ -173,8 +184,11 @@ class UniversalGallery {
   openLightbox(index) {
     if (this.isOpen || this.isTransitioning) return;
     
-    console.log('[Gallery] Opening lightbox at index:', index);
+    if (GALLERY_DEBUG) console.log('[Gallery] Opening lightbox at index:', index);
     
+    // Remember where focus was so we can restore on close
+    this.lastFocused = document.activeElement;
+
     this.currentIndex = index;
     this.isOpen = true;
     this.isTransitioning = true;
@@ -202,6 +216,8 @@ class UniversalGallery {
         loader.classList.remove('active');
         lightboxImage.style.opacity = '1';
         this.isTransitioning = false;
+        // Focus the close button for accessibility
+        if (this.closeBtn) this.closeBtn.focus();
       })
       .catch((error) => {
         console.error('[Gallery] Failed to load image:', error);
@@ -213,7 +229,7 @@ class UniversalGallery {
   closeLightbox() {
     if (!this.isOpen || this.isTransitioning) return;
     
-    console.log('[Gallery] Closing lightbox');
+    if (GALLERY_DEBUG) console.log('[Gallery] Closing lightbox');
     
     this.isTransitioning = true;
     this.isOpen = false;
@@ -225,6 +241,10 @@ class UniversalGallery {
       lightbox.style.display = 'none';
       document.body.style.overflow = 'auto';
       this.isTransitioning = false;
+      // Restore focus to previously focused element
+      if (this.lastFocused && typeof this.lastFocused.focus === 'function') {
+        this.lastFocused.focus();
+      }
     }, 300);
   }
   
@@ -296,6 +316,11 @@ class UniversalGallery {
     descEl.textContent = imageData.description;
     currentEl.textContent = this.currentIndex + 1;
     totalEl.textContent = this.images.length;
+
+    const status = document.getElementById('universal-lightbox-status');
+    if (status) {
+      status.textContent = `${imageData.title}. Image ${this.currentIndex + 1} of ${this.images.length}. ${imageData.description}`;
+    }
   }
   
   loadImage(src) {
@@ -339,6 +364,16 @@ class UniversalGallery {
           this.navigateToImage(this.images.length - 1);
         }
         break;
+      case 'Tab':
+        // Trap focus within lightbox interactive elements
+        e.preventDefault();
+        const focusable = [this.closeBtn, this.prevBtn, this.nextBtn].filter(Boolean);
+        const currentIndex = focusable.indexOf(document.activeElement);
+        let nextIndex = e.shiftKey ? currentIndex - 1 : currentIndex + 1;
+        if (nextIndex < 0) nextIndex = focusable.length - 1;
+        if (nextIndex >= focusable.length) nextIndex = 0;
+        focusable[nextIndex].focus();
+        break;
     }
   }
 }
@@ -347,10 +382,10 @@ class UniversalGallery {
 setTimeout(() => {
   const items = document.querySelectorAll('.gallery-item');
   if (items.length > 0) {
-    console.log('[Gallery] Found ' + items.length + ' gallery items. Initializing Universal Gallery.');
+    if (GALLERY_DEBUG) console.log('[Gallery] Found ' + items.length + ' gallery items. Initializing Universal Gallery.');
     window.galleryInstance = new UniversalGallery();
-    console.log('[Gallery] Universal Gallery instance created:', window.galleryInstance);
+    if (GALLERY_DEBUG) console.log('[Gallery] Universal Gallery instance created:', window.galleryInstance);
   } else {
-    console.log('[Gallery] No gallery items found.');
+    if (GALLERY_DEBUG) console.log('[Gallery] No gallery items found.');
   }
 }, 100);

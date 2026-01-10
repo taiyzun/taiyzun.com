@@ -246,12 +246,12 @@
   <script src="assets/js/gallery.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      console.log('DOM loaded, initializing mobile menu...');
+      if (window.DEBUG) console.log('DOM loaded, initializing mobile menu...');
       const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
       const nav = document.querySelector('nav');
       const header = document.querySelector('header');
       
-      console.log('Mobile menu elements:', { mobileMenuBtn, nav, header });
+      if (window.DEBUG) console.log('Mobile menu elements:', { mobileMenuBtn, nav, header });
       
       if (!mobileMenuBtn) {
         console.error('Mobile menu button not found!');

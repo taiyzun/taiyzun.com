@@ -1,5 +1,6 @@
 // Service Worker for taiyzun.com
-const CACHE_NAME = 'taiyzun-cache-v2';
+const CACHE_NAME = 'taiyzun-core-v3';
+const RUNTIME_IMAGE_CACHE = 'taiyzun-images-v1';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -15,47 +16,7 @@ const ASSETS_TO_CACHE = [
   '/assets/manifest.json',
   '/assets/images/logo.png',
   '/assets/images/Taiyzun-logo.png',
-  '/assets/video/sora.mp4',
-  '/assets/Portraits/taiyzun_shahpurwala%2000001.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000002.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000003.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000004.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000005.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000006.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000007.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000008.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000009.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000010.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000011.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000012.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000013.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000014.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000015.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000016.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000017.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000018.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000019.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000020.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000021.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000022.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000023.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000024.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000025.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000026.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000027.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000028.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000029.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000030.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000031.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000032.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000033.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000034.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000035.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000036.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000033.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000034.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000035.jpeg',
-  '/assets/Portraits/taiyzun_shahpurwala%2000036.jpeg'
+  '/assets/video/sora.mp4'
 ];
 
 // Install Service Worker
@@ -87,34 +48,63 @@ self.addEventListener('activate', event => {
 
 // Fetch Event Strategy
 self.addEventListener('fetch', event => {
+  const request = event.request;
+
+  // Handle image requests with a cache-first strategy
+  if (request.destination === 'image' || request.url.includes('/assets/Portraits/')) {
+    event.respondWith(
+      caches.open(RUNTIME_IMAGE_CACHE).then(cache =>
+        cache.match(request).then(cachedResponse => {
+          if (cachedResponse) {
+            return cachedResponse;
+          }
+          return fetch(request).then(networkResponse => {
+            if (networkResponse && networkResponse.status === 200) {
+              cache.put(request, networkResponse.clone());
+              trimCache(RUNTIME_IMAGE_CACHE, 60);
+            }
+            return networkResponse;
+          }).catch(() => {
+            // Fallback to a small cached image (logo)
+            return caches.match('/assets/images/logo.png');
+          });
+        })
+      )
+    );
+    return;
+  }
+
+  // Default: try cache first, then network and cache the response
   event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // Return cached version if available
-        if (response) {
-          return response;
+    caches.match(request).then(response => {
+      if (response) {
+        return response;
+      }
+
+      return fetch(request.clone()).then(networkResponse => {
+        if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+          return networkResponse;
         }
 
-        // Clone the request because it can only be used once
-        const fetchRequest = event.request.clone();
+        const responseToCache = networkResponse.clone();
+        caches.open(CACHE_NAME)
+          .then(cache => {
+            cache.put(request, responseToCache);
+          });
 
-        // Make network request and cache the response
-        return fetch(fetchRequest).then(response => {
-          // Check if response is valid
-          if (!response || response.status !== 200 || response.type !== 'basic') {
-            return response;
-          }
-
-          // Clone the response because it can only be used once
-          const responseToCache = response.clone();
-
-          caches.open(CACHE_NAME)
-            .then(cache => {
-              cache.put(event.request, responseToCache);
-            });
-
-          return response;
-        });
-      })
+        return networkResponse;
+      }).catch(() => caches.match('/index.html'));
+    })
   );
 });
+
+// Helper: trim cache to max items
+function trimCache(cacheName, maxItems) {
+  caches.open(cacheName).then(cache => {
+    cache.keys().then(keys => {
+      if (keys.length > maxItems) {
+        cache.delete(keys[0]).then(() => trimCache(cacheName, maxItems));
+      }
+    });
+  });
+} 
