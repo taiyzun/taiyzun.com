@@ -1,0 +1,34 @@
+name: Lighthouse Audit
+
+on:
+  push:
+    branches: [ main, master ]
+  schedule:
+    - cron: '0 2 * * 1' # Weekly on Monday at 02:00 UTC
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Run Lighthouse (mobile)
+        run: |
+          mkdir -p reports
+          npx -y lighthouse "https://taiyzun.com/odyssey.html" \
+            --output json \
+            --output-path ./reports/lighthouse-odyssey.json \
+            --preset=mobile \
+            --emulated-form-factor=mobile \
+            --chrome-flags="--no-sandbox --headless"
+
+      - name: Upload Lighthouse report
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report
+          path: reports/
+
+      - name: Print summary
+        run: |
+          echo "Lighthouse JSON uploaded as artifact 'lighthouse-report' (reports/)" 
