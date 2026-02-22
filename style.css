@@ -1,8 +1,7 @@
 /* Taiyzun.com CSS v=25 - JOURNEY SIMPLIFIED - Single Container - No Section Layers */
 
-/* Adobe Fonts Import - DINPro and Philosopher */
-@import url('https://fonts.adobe.com/fonts/dinpro');
-@import url('https://fonts.adobe.com/fonts/philosopher');
+/* Google Fonts Import - Philosopher (Adobe DINPro requires Adobe Fonts Kit ID) */
+@import url('https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 /* Global Font Setting */
 * {
