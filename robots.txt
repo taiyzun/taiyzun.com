@@ -1,11 +1,32 @@
 User-agent: *
 Allow: /
 
-# Sitemap location
+# Perfect for Google and other major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+Request-rate: 1/1s
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+Request-rate: 1/1s
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
+
+User-agent: DuckDuckBot
+Allow: /
+
+# Sitemaps location
 Sitemap: https://taiyzun.com/sitemap.xml
+Sitemap: https://taiyzun.com/sitemap-pages.xml
+Sitemap: https://taiyzun.com/sitemap-images.xml
 
 # Preferred crawl rate
 Crawl-delay: 1
+Request-rate: 100/hour
 
 # Allow crawling of important content
 Allow: /index.html
@@ -13,6 +34,8 @@ Allow: /journey.html
 Allow: /odyssey.html
 Allow: /creations.html
 Allow: /connect.html
+Allow: /404.html
+Allow: /500.html
 
 # Allow crawling of important assets
 Allow: /assets/images/
@@ -20,14 +43,40 @@ Allow: /assets/Art/
 Allow: /assets/Logos/
 Allow: /assets/Portfolio/
 Allow: /assets/Portraits/
+Allow: /assets/css/
+Allow: /assets/js/
+Allow: /assets/manifest.json
+Allow: /style.css
 
-# Disallow crawling of technical assets that don't need indexing
+# Disallow crawling of technical assets
 Disallow: /assets/video/
 Disallow: /seo-keywords.md
+Disallow: /VALIDATION-COMPLETE.md
+Disallow: *.backup
+Disallow: /node_modules/
+Disallow: /.git/
 
-# Important: Primary Search Terms for SEO
+# Allow partial URLs
+Allow: ?v=
+Allow: ?ref=
+
+# Block specific bad bots (optional)
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# Primary SEO Keywords
 # Taiyzun Shabbir Shahpurwala
-# Wockhardt, Jupiter Events LLC, Wockhardt Foundation
+# Director - Wockhardt, Jupiter Events LLC, Wockhardt Foundation
+# I Am Peacekeeper Movement
+# Strategic Communications & IT Consultant
+# Billionaires for Peace
+# Global Justice Love Peace Summit
 # Dr. Huzaifa Khorakiwala, Office of Dr. Huzaifa Khorakiwala
 # I Am Peacekeeper Movement, Director, Core Team
 # Billionaires for Peace, Global Justice Love Peace Summit

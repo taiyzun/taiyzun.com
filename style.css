@@ -5,7 +5,7 @@
 
 /* Global Font Setting */
 * {
-  font-family: "DINPro", "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+  font-family: "Philosopher", "DINPro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", sans-serif;
 }
 
 html {
@@ -76,6 +76,12 @@ html {
   object-position: center;
   pointer-events: auto;
   z-index: 1000;
+  filter: drop-shadow(0 0 8px rgba(255, 193, 7, 0.3));
+  transition: filter 0.3s ease;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 16px rgba(255, 193, 7, 0.6));
 }
 
 /* LOGO SIMPLIFIED - NO ANIMATIONS */
@@ -273,7 +279,7 @@ body {
   background: transparent;
   background-color: transparent;
   color: #E0E0E0;
-  font-family: "DINPro", "Philosopher", "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  font-family: "Philosopher", "DINPro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   margin: 0;
   padding: 0;
   padding-left: 0;
@@ -363,7 +369,7 @@ h2, h3,
 .portrait-gallery h2,
 .coming-soon h2,
 .contact-form h2 {
-  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+  font-family: "Philosopher", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", sans-serif;
   color: #FFFFFF;
   padding: 2px 3px; /* Much smaller padding for section headings */
   margin: 0 auto 2px auto;
@@ -408,7 +414,7 @@ h2:hover, h3:hover,
 p,
 .main-content p,
 .contact-form .form-group {
-  font-family: "DINPro", "Philosopher", "Trebuchet MS", sans-serif;
+  font-family: "Philosopher", "DINPro", sans-serif;
   padding: 8px 12px; /* Reduced from 12px 16px */
   margin: 8px auto; /* Reduced from 12px auto */
   background: 
@@ -2049,4 +2055,197 @@ h1 {
     max-width: 110px !important;
     padding: 2px;
   }
+}
+
+/* ==================================== */
+/* MODERN UI/UX ENHANCEMENTS */
+/* ==================================== */
+
+/* Smooth scrolling for better UX */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Enhanced link styles */
+a {
+  color: #FFC107;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #FFC107, #FF9800);
+  transition: width 0.3s ease;
+}
+
+a:hover::after {
+  width: 100%;
+}
+
+a:focus {
+  outline: 2px solid #FFC107;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Enhanced form inputs */
+input[type="text"],
+input[type="email"],
+input[type="phone"],
+textarea {
+  background: rgba(0, 119, 190, 0.05);
+  border: 2px solid rgba(0, 119, 190, 0.2);
+  color: #E0E0E0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-family: "Philosopher", sans-serif;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="phone"]:focus,
+textarea:focus {
+  background: rgba(0, 119, 190, 0.1);
+  border-color: #FFC107;
+  box-shadow: 
+    0 0 20px rgba(255, 193, 7, 0.2),
+    inset 0 0 10px rgba(255, 193, 7, 0.05);
+  outline: none;
+  transform: translateY(-2px);
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="phone"]::placeholder,
+textarea::placeholder {
+  color: rgba(224, 224, 224, 0.5);
+}
+
+/* Enhanced button hover state */
+button:focus {
+  outline: 2px solid rgba(255, 193, 7, 0.5);
+  outline-offset: 3px;
+}
+
+/* Improved headlines with subtle animations */
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+/* Smooth transition for all interactive elements */
+*:not(video) {
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+/* Image hover effects */
+img {
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+img:hover {
+  filter: brightness(1.1) saturate(1.2);
+  transform: scale(1.02);
+}
+
+/* Gallery image enhancements */
+.gallery-item img {
+  border-radius: 14px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.gallery-item img:hover {
+  box-shadow: 0 8px 30px rgba(255, 193, 7, 0.3);
+}
+
+/* Smooth text selection */
+::selection {
+  background: rgba(255, 193, 7, 0.3);
+  color: #E0E0E0;
+}
+
+::-moz-selection {
+  background: rgba(255, 193, 7, 0.3);
+  color: #E0E0E0;
+}
+
+/* Enhanced scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 119, 190, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #FFC107, #FF9800);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #FFD54F, #FFB74D);
+}
+
+/* Improved focus-visible for better accessibility */
+*:focus-visible {
+  outline: 2px dashed #FFC107;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Subtle glow effect on interactive elements */
+button,
+a,
+input[type="text"],
+input[type="email"],
+textarea {
+  --glow-color: rgba(255, 193, 7, 0);
+  box-shadow: 0 0 20px var(--glow-color);
+}
+
+button:hover,
+a:hover,
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+  --glow-color: rgba(255, 193, 7, 0.2);
+}
+
+/* Improved loading state */
+.loading {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+/* Enhanced text contrast */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Improved spacing for better readability */
+p {
+  line-height: 1.6;
+  margin: 12px auto;
+}
+
+h1 {
+  line-height: 1.2;
+  margin: 20px auto 10px auto;
+}
+
+h2, h3 {
+  line-height: 1.3;
+  margin: 15px auto 8px auto;
 }

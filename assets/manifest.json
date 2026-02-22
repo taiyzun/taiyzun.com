@@ -1,17 +1,18 @@
 {
-  "name": "Taiyzun Shahpurwala - Creative Professional",
+  "name": "Taiyzun Shahpurwala - Creative Professional, Director, Peace Movement Advocate",
   "short_name": "Taiyzun",
-  "description": "Official website of Taiyzun Shahpurwala - Digital artist and creative professional",
+  "description": "Director at Office of Dr. Huzaifa Khorakiwala, Wockhardt, Jupiter Events LLC. I Am Peacekeeper Movement core team member. Strategic Communications, IT, Research & Design expertise.",
   "start_url": "/",
   "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "fullscreen", "minimal-ui"],
   "background_color": "#000000",
   "theme_color": "#FF9800",
   "orientation": "portrait-primary",
   "scope": "/",
   "lang": "en",
   "dir": "ltr",
-  "display_override": ["window-controls-overlay", "standalone"],
   "handle_links": "preferred",
+  "categories": ["business", "productivity", "social", "art", "design", "portfolio"],
   "launch_handler": {
     "client_mode": ["navigate-existing", "auto"]
   },
@@ -21,62 +22,67 @@
   "shortcuts": [
     {
       "name": "View Creations",
+      "short_name": "Creations",
       "url": "/creations.html",
       "description": "Browse creative portfolio and digital art"
     },
     {
       "name": "Professional Journey",
+      "short_name": "Journey",
       "url": "/journey.html",
       "description": "Explore professional experience and achievements"
     },
     {
-      "name": "Connect",
+      "name": "Connect & Network",
+      "short_name": "Connect",
       "url": "/connect.html",
-      "description": "Get in touch and connect on social media"
+      "description": "Get in touch on social media"
     }
   ],
   "icons": [
     {
-      "src": "assets/images/icons/favicon-16x16.png",
+      "src": "/assets/icons/favicon-16x16.png",
       "sizes": "16x16",
       "type": "image/png"
     },
     {
-      "src": "assets/images/icons/favicon-32x32.png",
+      "src": "/assets/icons/favicon-32x32.png",
       "sizes": "32x32",
       "type": "image/png"
     },
     {
-      "src": "assets/images/icons/apple-touch-icon.png",
+      "src": "/assets/icons/apple-touch-icon.png",
       "sizes": "180x180",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "assets/images/icons/android-chrome-192x192.png",
+      "src": "/assets/icons/android-chrome-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "assets/images/icons/android-chrome-512x512.png",
+      "src": "/assets/icons/android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     }
   ],
-  "categories": ["art", "design", "portfolio", "creative"],
   "screenshots": [
     {
-      "src": "assets/images/screenshot-desktop.jpg",
+      "src": "/assets/images/screenshot-desktop.jpg",
       "sizes": "1280x720",
       "type": "image/jpeg",
       "form_factor": "wide"
     },
     {
-      "src": "assets/images/screenshot-mobile.jpg",
+      "src": "/assets/images/screenshot-mobile.jpg",
       "sizes": "375x667",
       "type": "image/jpeg",
       "form_factor": "narrow"
     }
-  ]
+  ],
+  "prefer_related_applications": false,
+  "related_applications": []
 }
