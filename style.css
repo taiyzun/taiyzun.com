@@ -1,8 +1,12 @@
 /* Taiyzun.com CSS v=25 - JOURNEY SIMPLIFIED - Single Container - No Section Layers */
 
+/* Adobe Fonts Import - DINPro and Philosopher */
+@import url('https://fonts.adobe.com/fonts/dinpro');
+@import url('https://fonts.adobe.com/fonts/philosopher');
+
 /* Global Font Setting */
 * {
-  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+  font-family: "DINPro", "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
 }
 
 html {
@@ -270,7 +274,7 @@ body {
   background: transparent;
   background-color: transparent;
   color: #E0E0E0;
-  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  font-family: "DINPro", "Philosopher", "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   margin: 0;
   padding: 0;
   padding-left: 0;
@@ -360,6 +364,7 @@ h2, h3,
 .portrait-gallery h2,
 .coming-soon h2,
 .contact-form h2 {
+  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
   color: #FFFFFF;
   padding: 2px 3px; /* Much smaller padding for section headings */
   margin: 0 auto 2px auto;
@@ -401,9 +406,10 @@ h2:hover, h3:hover,
 }
 
 /* Enhanced OS 26 Liquid Glass Content */
-p, 
+p,
 .main-content p,
 .contact-form .form-group {
+  font-family: "DINPro", "Philosopher", "Trebuchet MS", sans-serif;
   padding: 8px 12px; /* Reduced from 12px 16px */
   margin: 8px auto; /* Reduced from 12px auto */
   background: 
