@@ -5,7 +5,7 @@
   "scripts": {
     "optimize-images": "node scripts/optimize-images.js"
   },
-  "dependencies": {
+  "devDependencies": {
     "sharp": "^0.34.5"
   }
 }
