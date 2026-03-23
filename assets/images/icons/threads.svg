@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Black circle background -->
+  <circle cx="256" cy="256" r="250" fill="#000000"/>
+  <!-- @ symbol in white -->
+  <text x="256" y="370" font-size="320" font-weight="bold" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif">@</text>
+</svg>
