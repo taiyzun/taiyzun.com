@@ -1,116 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>500 - Internal Server Error | Taiyzun Shahpurwala</title>
-    <meta name="robots" content="noindex,nofollow">
-    
-    <!-- Open Graph / Facebook (Cross-platform preview support) -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://taiyzun.com/500.html" />
-    <meta property="og:title" content="500 - Internal Server Error" />
-    <meta property="og:description" content="We're experiencing a temporary server error. Please try again later or return to the homepage." />
-    <meta property="og:image" content="https://taiyzun.com/assets/images/SuiT-SunSeT.png" />
-    <meta property="og:image:secure_url" content="https://taiyzun.com/assets/images/SuiT-SunSeT.png" />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="1786" />
-    <meta property="og:image:height" content="1786" />
-    
-    <!-- Twitter / X (Device-specific support) -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:image" content="https://taiyzun.com/assets/images/SuiT-SunSeT.png" />
-    
-    <!-- Android, iOS, and device-specific preview support -->
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <link rel="stylesheet" href="style.css?v=25">
-    <style>
-        .error-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
-            text-align: center;
-            background: rgba(0, 0, 0, 0.8);
-            color: #fff;
-        }
-        
-        .error-code {
-            font-size: 8em;
-            font-weight: bold;
-            color: #FF9800;
-            margin: 0;
-            line-height: 1;
-            text-shadow: 0 0 20px rgba(255, 152, 0, 0.5);
-        }
-        
-        .error-message {
-            font-size: 1.5em;
-            margin: 20px 0;
-            color: #fff;
-        }
-        
-        .error-details {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-        }
-        
-        .back-button {
-            display: inline-block;
-            padding: 15px 30px;
-            background: #FF9800;
-            color: #000;
-            text-decoration: none;
-            border-radius: 25px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            margin-top: 20px;
-        }
-        
-        .back-button:hover {
-            background: #FFA726;
-            transform: scale(1.05);
-        }
-        
-        @media (max-width: 768px) {
-            .error-code {
-                font-size: 6em;
-            }
-            
-            .error-message {
-                font-size: 1.2em;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .error-code {
-                font-size: 4em;
-            }
-            
-            .error-message {
-                font-size: 1em;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()">
+<meta name="robots" content="noindex, nofollow">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0a0a0f">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="/assets/manifest.json">
+<title>Server Error — Taiyzun Shahpurwala</title>
+<meta name="description" content="A temporary server error occurred. Please try again shortly.">
+<link rel="dns-prefetch" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #0a0a0f; --gold: #c9a84c; --gold-light: #e4cb78;
+    --text-primary: #f0ece4; --text-secondary: rgba(240,236,228,0.65);
+    --serif: 'Cormorant Garamond', Georgia, serif; --sans: 'Outfit', sans-serif;
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--sans); background: var(--bg-primary); color: var(--text-primary); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; -webkit-font-smoothing: antialiased; }
+  .skip-link { position: absolute; top: -44px; left: 1rem; padding: 0.6rem 1.2rem; background: var(--gold); color: #0a0a0f; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 0 0 4px 4px; transition: top 0.2s ease; z-index: 9999; }
+  .skip-link:focus { top: 0; }
+  main { text-align: center; padding: 2rem; max-width: 600px; }
+  .error-num { font-family: var(--serif); font-size: clamp(6rem, 20vw, 12rem); font-weight: 300; line-height: 1; background: linear-gradient(135deg, var(--gold-light), var(--gold), #d4a843); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .error-title { font-family: var(--serif); font-size: clamp(1.4rem, 4vw, 2.2rem); font-weight: 300; font-style: italic; margin: 0.5rem 0 1.5rem; color: var(--text-primary); }
+  .error-msg { font-size: 0.95rem; color: var(--text-secondary); font-weight: 300; line-height: 1.75; margin-bottom: 2.5rem; }
+  .home-btn { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.9rem 2.2rem; border: 1px solid var(--gold); color: var(--gold); font-family: var(--sans); font-size: 0.78rem; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; transition: all 0.4s ease; position: relative; overflow: hidden; }
+  .home-btn::before { content: ''; position: absolute; inset: 0; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; z-index: -1; }
+  .home-btn:hover { color: #0a0a0f; }
+  .home-btn:hover::before { transform: scaleX(1); }
+  .home-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+</style>
 </head>
 <body>
-    <div class="error-container">
-        <h1 class="error-code">500</h1>
-        <h2 class="error-message">Internal Server Error</h2>
-        <div class="error-details">
-            <p>We apologize, but something went wrong on our server. Our team has been notified and is working to fix the issue.</p>
-            <p>Please try again later or return to the homepage.</p>
-        </div>
-        <a href="/" class="back-button">Return to Homepage</a>
-    </div>
-    
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<main id="main-content">
+  <p class="error-num">500</p>
+  <h1 class="error-title">Internal Server Error</h1>
+  <p class="error-msg">Something went wrong on our end — it's not you, it's us.<br>Please try again in a moment.</p>
+  <a href="index.html" class="home-btn">Return to Homepage <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+</main>
 </body>
 </html>

@@ -18,7 +18,7 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
-        console.log('[ServiceWorker] Pre-caching assets');
+        // Pre-caching core assets
         return cache.addAll(ASSETS_TO_CACHE);
       })
       .then(() => self.skipWaiting())
@@ -32,7 +32,7 @@ self.addEventListener('activate', event => {
       return Promise.all(
         cacheNames.map(cacheName => {
           if (cacheName !== CACHE_NAME && cacheName !== RUNTIME_IMAGE_CACHE) {
-            console.log('[ServiceWorker] Removing old cache:', cacheName);
+            // Removing old cache
             return caches.delete(cacheName);
           }
         })

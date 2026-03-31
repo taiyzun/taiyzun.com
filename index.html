@@ -172,8 +172,8 @@
   .highlight-card:hover { background: rgba(201,168,76,0.06); transform: translateX(8px); box-shadow: -4px 0 25px rgba(201,168,76,0.12); border-left-color: var(--gold); }
   .highlight-card:hover::before { height: 100%; }
   .highlight-card:hover::after { opacity: 1; }
-  .highlight-card h4 { font-family: var(--serif); font-size: 1.2rem; font-weight: 400; margin-bottom: 0.35rem; transition: color 0.3s ease; position: relative; z-index: 1; }
-  .highlight-card:hover h4 { color: var(--gold-light); }
+  .highlight-card h3 { font-family: var(--serif); font-size: 1.2rem; font-weight: 400; margin-bottom: 0.35rem; transition: color 0.3s ease; position: relative; z-index: 1; }
+  .highlight-card:hover h3 { color: var(--gold-light); }
   .highlight-card p { font-size: 0.85rem; color: var(--text-secondary); font-weight: 300; position: relative; z-index: 1; }
   .bio-section { padding: 6rem 3rem; max-width: 900px; margin: 0 auto; }
   .bio-blockquote { margin: 0; padding: 2.5rem 0 2.5rem 2.5rem; border-left: 2px solid var(--gold); font-family: var(--serif); font-size: 1.5rem; font-weight: 300; font-style: italic; color: var(--text-primary); line-height: 1.7; position: relative; }
@@ -187,7 +187,7 @@
   .value-item:hover::before { opacity: 1; }
   .value-icon { font-size: 1.8rem; margin-bottom: 1rem; display: block; color: var(--gold); transition: all 0.5s ease; }
   .value-item:hover .value-icon { transform: scale(1.3) rotate(10deg); text-shadow: 0 0 20px var(--gold-glow); }
-  .value-item h4 { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; margin-bottom: 0.5rem; position: relative; }
+  .value-item h3 { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; margin-bottom: 0.5rem; position: relative; }
   .value-item p { font-size: 0.82rem; color: var(--text-muted); font-weight: 300; line-height: 1.6; position: relative; }
   .divider { width: 120px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); margin: 0 auto; position: relative; }
   .divider::after { content: '◈'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); color: var(--gold); font-size: 0.7rem; background: var(--bg-primary); padding: 0 0.8rem; }
@@ -252,7 +252,7 @@
   }
 </style>
 </head>
-<body>
+<body>  <style>.skip-link{position:absolute;top:-44px;left:1rem;padding:0.6rem 1.2rem;background:var(--gold);color:#0a0a0f;font-size:0.8rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;border-radius:0 0 4px 4px;transition:top 0.2s ease;z-index:9999;}.skip-link:focus{top:0;}</style>  <a href="#main-content" class="skip-link">Skip to main content</a>
 <div class="cursor-glow" id="cursorGlow"></div>
 <nav id="mainNav">
   <a href="index.html" class="logo">Taiyzun</a>
@@ -267,9 +267,9 @@
     <li><a href="connect.html">Connect</a></li>
   </ul>
 </nav>
-<section class="hero">
+<section class="hero" id="main-content">
   <div class="hero-video">
-    <video autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/images/hero-poster.jpg">
+    <video autoplay muted loop playsinline webkit-playsinline preload="none" aria-label="Background video" poster="assets/images/hero-poster.jpg">
       <source src="assets/video/sora.mp4" type="video/mp4">
     </video>
   </div>
@@ -297,11 +297,11 @@
       <p>Each step of my <strong>journey</strong> has significantly shaped my personal and professional growth, continuously <strong>inspiring</strong> me towards purposeful action and <strong>visionary leadership</strong>, guided by the timeless principles of <strong>truth</strong>, <strong>sincerity</strong> and <strong>integrity</strong>.</p>
     </div>
     <div class="about-highlights stagger-children reveal-right">
-      <div class="highlight-card"><h4>I Am Peacekeeper Movement</h4><p>Core Team Member driving global peace initiatives and strategic communications</p></div>
-      <div class="highlight-card"><h4>Billionaires for Peace</h4><p>Coordinating the 2026 Mumbai Conclave — bringing together global leaders for impact</p></div>
-      <div class="highlight-card"><h4>EIRENE Awards</h4><p>Managed communications and logistics for a summit with 10 Nobel Peace Prize Laureates</p></div>
-      <div class="highlight-card"><h4>Channel [V] &amp; Wizcraft</h4><p>From VJ to entertainment specialist — storytelling across TV, radio, and live events</p></div>
-      <div class="highlight-card"><h4>STYLETEK &amp; Gabbana Fashions</h4><p>Textile manufacturing, bespoke design, ERP/SAP integration, and global trade networks</p></div>
+      <div class="highlight-card"><h3>I Am Peacekeeper Movement</h3><p>Core Team Member driving global peace initiatives and strategic communications</p></div>
+      <div class="highlight-card"><h3>Billionaires for Peace</h3><p>Coordinating the 2026 Mumbai Conclave — bringing together global leaders for impact</p></div>
+      <div class="highlight-card"><h3>EIRENE Awards</h3><p>Managed communications and logistics for a summit with 10 Nobel Peace Prize Laureates</p></div>
+      <div class="highlight-card"><h3>Channel [V] &amp; Wizcraft</h3><p>From VJ to entertainment specialist — storytelling across TV, radio, and live events</p></div>
+      <div class="highlight-card"><h3>STYLETEK &amp; Gabbana Fashions</h3><p>Textile manufacturing, bespoke design, ERP/SAP integration, and global trade networks</p></div>
     </div>
   </div>
 </section>
@@ -316,10 +316,10 @@
     <h2 class="section-title">Guided by Purpose</h2>
   </div>
   <div class="values-row stagger-children reveal">
-    <div class="value-item"><span class="value-icon">◈</span><h4>Truth</h4><p>Unwavering commitment to authenticity in every endeavour</p></div>
-    <div class="value-item"><span class="value-icon">◇</span><h4>Sincerity</h4><p>Genuine purpose behind every partnership and initiative</p></div>
-    <div class="value-item"><span class="value-icon">▹</span><h4>Integrity</h4><p>Steadfast principles guiding professional and personal growth</p></div>
-    <div class="value-item"><span class="value-icon">✦</span><h4>Vision</h4><p>Purposeful action towards global harmony and creative impact</p></div>
+    <div class="value-item"><span class="value-icon">◈</span><h3>Truth</h3><p>Unwavering commitment to authenticity in every endeavour</p></div>
+    <div class="value-item"><span class="value-icon">◇</span><h3>Sincerity</h3><p>Genuine purpose behind every partnership and initiative</p></div>
+    <div class="value-item"><span class="value-icon">▹</span><h3>Integrity</h3><p>Steadfast principles guiding professional and personal growth</p></div>
+    <div class="value-item"><span class="value-icon">✦</span><h3>Vision</h3><p>Purposeful action towards global harmony and creative impact</p></div>
   </div>
 </section>
 <footer>
