@@ -73,7 +73,7 @@ else
 fi
 
 # Check portrait gallery images
-portrait_count=$(ls -1 assets/Portraits/*.jpg 2>/dev/null | wc -l)
+portrait_count=$(find assets/Portraits -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.jpeg" \) | wc -l | tr -d ' ')
 echo "✅ Portrait gallery - $portrait_count images"
 
 # Check art gallery images
@@ -266,7 +266,7 @@ echo ""
 echo "📋 Validation Summary:"
 echo "====================="
 echo "✅ All critical files present and functional"
-echo "✅ CSS cache busting implemented (version 8)"
+echo "✅ CSS cache busting implemented"
 echo "✅ Comprehensive SEO optimization in place"
 echo "✅ Modern browser features properly implemented"
 echo "✅ Performance optimized"
