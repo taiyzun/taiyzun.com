@@ -454,15 +454,3 @@ document.addEventListener('DOMContentLoaded', () => {
     window.galleryInstance = new UniversalGallery();
   }
 });
-
-// Initialize with a delay to ensure DOM is fully loaded
-setTimeout(() => {
-  const items = document.querySelectorAll('.gallery-item');
-  if (items.length > 0) {
-    if (GALLERY_DEBUG) console.log('[Gallery] Found ' + items.length + ' gallery items. Initializing Universal Gallery.');
-    window.galleryInstance = new UniversalGallery();
-    if (GALLERY_DEBUG) console.log('[Gallery] Universal Gallery instance created:', window.galleryInstance);
-  } else {
-    if (GALLERY_DEBUG) console.log('[Gallery] No gallery items found.');
-  }
-}, 100);

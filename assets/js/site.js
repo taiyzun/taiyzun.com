@@ -97,6 +97,38 @@
     });
   }
 
+  function initWowSurfaces() {
+    const targets = document.querySelectorAll('main, nav, .socials, .gallery-item, .contact-form, .coming-soon');
+
+    targets.forEach((target) => {
+      target.classList.add('wow-surface');
+
+      if (reducedMotionQuery.matches || window.matchMedia('(pointer: coarse)').matches) {
+        return;
+      }
+
+      target.addEventListener('pointermove', (event) => {
+        const rect = target.getBoundingClientRect();
+        const offsetX = (event.clientX - rect.left) / rect.width;
+        const offsetY = (event.clientY - rect.top) / rect.height;
+        const rotateY = (offsetX - 0.5) * 10;
+        const rotateX = (0.5 - offsetY) * 10;
+
+        target.style.setProperty('--rotate-x', `${rotateX.toFixed(2)}deg`);
+        target.style.setProperty('--rotate-y', `${rotateY.toFixed(2)}deg`);
+        target.style.setProperty('--glow-x', `${(offsetX * 100).toFixed(2)}%`);
+        target.style.setProperty('--glow-y', `${(offsetY * 100).toFixed(2)}%`);
+      });
+
+      target.addEventListener('pointerleave', () => {
+        target.style.setProperty('--rotate-x', '0deg');
+        target.style.setProperty('--rotate-y', '0deg');
+        target.style.setProperty('--glow-x', '50%');
+        target.style.setProperty('--glow-y', '50%');
+      });
+    });
+  }
+
   function registerServiceWorker() {
     if (!('serviceWorker' in navigator) || window.location.protocol !== 'https:') {
       return;
@@ -108,9 +140,11 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
+    document.documentElement.classList.add('js-enhanced');
     initMobileMenu();
     initBackgroundVideo();
     initGalleryEffects();
+    initWowSurfaces();
   });
 
   registerServiceWorker();
