@@ -2395,6 +2395,7 @@ nav a {
   --wow-cyan: rgba(74, 217, 255, 0.22);
   --wow-gold: rgba(255, 198, 74, 0.24);
   --wow-indigo: rgba(77, 116, 255, 0.18);
+  --wow-mouse-glow: rgba(255, 193, 7, 0.34);
 }
 
 body::before,
@@ -2472,8 +2473,8 @@ body::after {
   border-radius: inherit;
   pointer-events: none;
   background:
-    radial-gradient(circle at var(--glow-x) var(--glow-y), rgba(255, 255, 255, 0.22), transparent 28%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 40%, rgba(74, 217, 255, 0.08));
+    radial-gradient(circle at var(--glow-x) var(--glow-y), var(--wow-mouse-glow), transparent 30%),
+    linear-gradient(135deg, rgba(255, 214, 120, 0.14), transparent 40%, rgba(255, 152, 0, 0.1));
   opacity: 0;
   transition: opacity 220ms ease;
 }
