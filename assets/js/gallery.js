@@ -26,6 +26,7 @@ class UniversalGallery {
   async setup() {
     await this.setupGalleryImages();
     this.createLightbox();
+    this.buildThumbStrip();
     this.bindEvents();
     this.setupIntersectionObserver();
   }
@@ -142,6 +143,7 @@ class UniversalGallery {
             <div class="lightbox-counter">
               <span id="universal-current-index">1</span> / <span id="universal-total-images">1</span>
             </div>
+            <div id="universal-lightbox-thumbs" class="lightbox-thumbs" aria-label="Gallery thumbnails"></div>
           </div>
           <div id="universal-lightbox-status" aria-live="polite" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </div>
         </div>
@@ -149,6 +151,27 @@ class UniversalGallery {
     `;
     
     document.body.insertAdjacentHTML('beforeend', lightboxHTML);
+  }
+
+  buildThumbStrip() {
+    const strip = document.getElementById('universal-lightbox-thumbs');
+    if (!strip) return;
+
+    strip.innerHTML = '';
+    this.images.forEach((image, index) => {
+      const thumb = document.createElement('button');
+      thumb.type = 'button';
+      thumb.className = 'lightbox-thumb';
+      thumb.setAttribute('aria-label', `Open image ${index + 1}`);
+      thumb.dataset.index = String(index);
+      thumb.innerHTML = `<img src="${image.src}" alt="${image.alt}">`;
+      thumb.addEventListener('click', () => {
+        if (!this.isTransitioning) {
+          this.navigateToImage(index);
+        }
+      });
+      strip.appendChild(thumb);
+    });
   }
   
   bindEvents() {
@@ -387,6 +410,24 @@ class UniversalGallery {
     if (status) {
       status.textContent = `${imageData.title}. Image ${this.currentIndex + 1} of ${this.images.length}. ${imageData.description}`;
     }
+
+    this.updateThumbStrip();
+  }
+
+  updateThumbStrip() {
+    const thumbs = document.querySelectorAll('.lightbox-thumb');
+    if (!thumbs.length) return;
+    thumbs.forEach((thumb) => {
+      const idx = Number(thumb.dataset.index);
+      thumb.classList.remove('is-left', 'is-center', 'is-right');
+      if (idx === this.currentIndex) {
+        thumb.classList.add('is-center');
+      } else if (idx === (this.currentIndex - 1 + this.images.length) % this.images.length) {
+        thumb.classList.add('is-left');
+      } else if (idx === (this.currentIndex + 1) % this.images.length) {
+        thumb.classList.add('is-right');
+      }
+    });
   }
   
   loadImage(src) {
