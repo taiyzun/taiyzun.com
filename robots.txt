@@ -21,8 +21,6 @@ Allow: /
 
 # Sitemaps location
 Sitemap: https://taiyzun.com/sitemap.xml
-Sitemap: https://taiyzun.com/sitemap-pages.xml
-Sitemap: https://taiyzun.com/sitemap-images.xml
 
 # Preferred crawl rate
 Crawl-delay: 1
@@ -60,7 +58,7 @@ Disallow: /.git/
 Allow: ?v=
 Allow: ?ref=
 
-# Block specific bad bots (optional)
+# Block specific bad bots
 User-agent: AhrefsBot
 Disallow: /
 
@@ -69,18 +67,3 @@ Disallow: /
 
 User-agent: DotBot
 Disallow: /
-
-# Primary SEO Keywords
-# Taiyzun Shabbir Shahpurwala
-# Director - Wockhardt, Jupiter Events LLC, Wockhardt Foundation
-# I Am Peacekeeper Movement
-# Strategic Communications & IT Consultant
-# Billionaires for Peace
-# Global Justice Love Peace Summit
-# Dr. Huzaifa Khorakiwala, Office of Dr. Huzaifa Khorakiwala
-# I Am Peacekeeper Movement, Director, Core Team
-# Billionaires for Peace, Global Justice Love Peace Summit
-# Strategic Communications, Information Technology, Research, Design
-# Wadia Group, Star TV, Channel V, Channel [V]
-# STYLETEK, Creative Professional, Digital Artist
-# Peace Movement, Social Impact, Community Service

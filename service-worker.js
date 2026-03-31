@@ -1,5 +1,5 @@
 // Service Worker for taiyzun.com
-const CACHE_NAME = 'taiyzun-core-v5';
+const CACHE_NAME = 'taiyzun-core-v6';
 const RUNTIME_IMAGE_CACHE = 'taiyzun-images-v1';
 const ASSETS_TO_CACHE = [
   '/',
@@ -9,14 +9,8 @@ const ASSETS_TO_CACHE = [
   '/journey.html',
   '/connect.html',
   '/style.css',
-  '/assets/css/gallery.css',
-  '/assets/js/gallery.js',
-  '/assets/js/diagnostics.js',
-  '/assets/js/image-loader.js',
   '/assets/manifest.json',
-  '/assets/images/logo.png',
-  '/assets/images/Taiyzun-logo.png',
-  '/assets/video/sora.mp4'
+  '/assets/images/logo.png'
 ];
 
 // Install Service Worker
@@ -55,8 +49,12 @@ self.addEventListener('fetch', event => {
     return;
   }
 
+  // Skip cross-origin requests
+  if (!request.url.startsWith(self.location.origin)) {
+    return;
+  }
+
   // Navigation requests should be network-first to avoid Safari redirect issues
-  // when a cached redirected response is returned by the service worker.
   if (request.mode === 'navigate') {
     event.respondWith(handleNavigationRequest(request));
     return;
@@ -77,7 +75,6 @@ self.addEventListener('fetch', event => {
             }
             return networkResponse;
           }).catch(() => {
-            // Fallback to a small cached image (logo)
             return caches.match('/assets/images/logo.png');
           });
         })
@@ -120,7 +117,6 @@ async function handleNavigationRequest(request) {
 
   const cachedPage = await caches.match('/index.html');
   if (cachedPage) {
-    // Return a fresh Response object to avoid handing Safari a cached redirected response.
     const body = await cachedPage.clone().text();
     return new Response(body, {
       status: 200,
@@ -147,4 +143,4 @@ function trimCache(cacheName, maxItems) {
       }
     });
   });
-} 
+}

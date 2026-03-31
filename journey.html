@@ -50,7 +50,7 @@
   :root {
     --bg-primary: #0a0a0f; --bg-secondary: #111118; --bg-card: rgba(255,255,255,0.03);
     --gold: #c9a84c; --gold-light: #e4cb78; --gold-glow: rgba(201,168,76,0.4); --gold-dim: rgba(201,168,76,0.1);
-    --text-primary: #f0ece4; --text-secondary: rgba(240,236,228,0.65); --text-muted: rgba(240,236,228,0.35);
+    --text-primary: #f0ece4; --text-secondary: rgba(240,236,228,0.65); --text-muted: rgba(240,236,228,0.55);
     --glass: rgba(255,255,255,0.04); --glass-border: rgba(255,255,255,0.08);
     --serif: 'Cormorant Garamond', Georgia, serif; --sans: 'Outfit', sans-serif;
   }
@@ -119,19 +119,39 @@
   .footer-copy { font-size: 0.72rem; color: var(--text-muted); font-weight: 300; }
   @keyframes fadeInUp { from { opacity: 0; transform: translateY(35px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+  .nav-links a:focus-visible, .social-link:focus-visible, .logo:focus-visible {
+    outline: 2px solid var(--gold); outline-offset: 4px; border-radius: 2px;
+  }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .hamburger span { display: block; width: 24px; height: 1.5px; background: var(--text-secondary); transition: all 0.3s ease; }
+  .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
   @media (max-width: 768px) {
-    nav { padding: 1rem 1.5rem; } .nav-links { gap: 1.2rem; } .nav-links a { font-size: 0.72rem; }
+    nav { padding: 1rem 1.5rem; }
+    .hamburger { display: flex; }
+    .nav-links { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10,10,15,0.97); flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; z-index: 999; }
+    .nav-links.open { display: flex; }
+    .nav-links a { font-size: 1.1rem; }
     .timeline-section { padding: 3rem 1.2rem 5rem; } .timeline-item { padding: 1.2rem 1.5rem 1.2rem 1.8rem; }
     .info-grid { grid-template-columns: 1fr; } .cursor-glow { display: none; }
   }
-  @media (max-width: 480px) { .logo { font-size: 1.2rem; } .nav-links { gap: 0.7rem; } .nav-links a { font-size: 0.62rem; } }
+  @media (max-width: 480px) { .logo { font-size: 1.2rem; } }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    html { scroll-behavior: auto; }
+    .page-hero-video video { display: none; }
+  }
 </style>
 </head>
 <body>
 <div class="cursor-glow" id="cursorGlow"></div>
 <nav id="mainNav">
   <a href="index.html" class="logo">Taiyzun</a>
-  <ul class="nav-links">
+  <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
     <li><a href="index.html">Home</a></li>
     <li><a href="journey.html" class="active">Journey</a></li>
     <li><a href="odyssey.html">Odyssey</a></li>
@@ -140,7 +160,7 @@
   </ul>
 </nav>
 <div class="page-hero">
-  <div class="page-hero-video"><video autoplay muted loop playsinline webkit-playsinline preload="auto"><source src="assets/video/sora.mp4" type="video/mp4"></video></div>
+  <div class="page-hero-video"><video autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/images/hero-poster.jpg"><source src="assets/video/sora.mp4" type="video/mp4"></video></div>
   <div class="page-hero-overlay"></div>
   <div class="page-hero-content">
     <h1><em>Journey</em></h1>
@@ -280,6 +300,18 @@
     card.addEventListener('mouseleave', () => card.style.transform = '');
   });
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('/service-worker.js');
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    hamburger.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navLinks.classList.remove('open'); hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false'); document.body.style.overflow = '';
+  }));
 </script>
 </body>
 </html>

@@ -111,7 +111,7 @@
   :root {
     --bg-primary: #0a0a0f; --bg-secondary: #111118; --bg-card: rgba(255,255,255,0.03);
     --gold: #c9a84c; --gold-light: #e4cb78; --gold-glow: rgba(201,168,76,0.4); --gold-dim: rgba(201,168,76,0.1);
-    --text-primary: #f0ece4; --text-secondary: rgba(240,236,228,0.65); --text-muted: rgba(240,236,228,0.35);
+    --text-primary: #f0ece4; --text-secondary: rgba(240,236,228,0.65); --text-muted: rgba(240,236,228,0.55);
     --glass: rgba(255,255,255,0.04); --glass-border: rgba(255,255,255,0.08);
     --serif: 'Cormorant Garamond', Georgia, serif; --sans: 'Outfit', sans-serif;
   }
@@ -222,16 +222,33 @@
   .stagger-children.visible > *:nth-child(5) { transition-delay: 0.33s; opacity: 1; transform: none; }
   .stagger-children.visible > *:nth-child(6) { transition-delay: 0.4s; opacity: 1; transform: none; }
   .stagger-children.visible > *:nth-child(7) { transition-delay: 0.47s; opacity: 1; transform: none; }
+  .nav-links a:focus-visible, .social-link:focus-visible, .logo:focus-visible, .hero-cta:focus-visible {
+    outline: 2px solid var(--gold); outline-offset: 4px; border-radius: 2px;
+  }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .hamburger span { display: block; width: 24px; height: 1.5px; background: var(--text-secondary); transition: all 0.3s ease; }
+  .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
   @media (max-width: 768px) {
-    nav { padding: 1rem 1.5rem; } .nav-links { gap: 1.2rem; } .nav-links a { font-size: 0.72rem; }
+    nav { padding: 1rem 1.5rem; }
+    .hamburger { display: flex; }
+    .nav-links { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10,10,15,0.97); flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; z-index: 999; }
+    .nav-links.open { display: flex; }
+    .nav-links a { font-size: 1.1rem; }
     section { padding: 5rem 1.5rem; } .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
     .about-highlights { padding-top: 0; } .values-row { grid-template-columns: repeat(2,1fr); gap: 1rem; }
     .bio-section { padding: 4rem 1.5rem; } .bio-blockquote { font-size: 1.15rem; padding-left: 1.5rem; }
     .cursor-glow { display: none; }
   }
   @media (max-width: 480px) {
-    .logo { font-size: 1.2rem; } .nav-links { gap: 0.7rem; } .nav-links a { font-size: 0.62rem; }
+    .logo { font-size: 1.2rem; }
     .values-row { grid-template-columns: 1fr; } .hero-cta-group { flex-direction: column; align-items: center; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    html { scroll-behavior: auto; }
+    .hero-video video { display: none; }
   }
 </style>
 </head>
@@ -239,7 +256,10 @@
 <div class="cursor-glow" id="cursorGlow"></div>
 <nav id="mainNav">
   <a href="index.html" class="logo">Taiyzun</a>
-  <ul class="nav-links">
+  <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
     <li><a href="index.html" class="active">Home</a></li>
     <li><a href="journey.html">Journey</a></li>
     <li><a href="odyssey.html">Odyssey</a></li>
@@ -249,7 +269,7 @@
 </nav>
 <section class="hero">
   <div class="hero-video">
-    <video autoplay muted loop playsinline webkit-playsinline preload="auto">
+    <video autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/images/hero-poster.jpg">
       <source src="assets/video/sora.mp4" type="video/mp4">
     </video>
   </div>
@@ -332,6 +352,18 @@
   document.querySelectorAll('.highlight-card').forEach(card => { card.addEventListener('mousemove', (e) => { const r = card.getBoundingClientRect(); card.style.transform = 'translateX(' + ((e.clientX - r.left - r.width/2) * 0.06 + 8) + 'px) translateY(' + ((e.clientY - r.top - r.height/2) * 0.04) + 'px)'; }); card.addEventListener('mouseleave', () => card.style.transform = ''); });
   document.querySelectorAll('.value-item').forEach(item => { item.addEventListener('mousemove', (e) => { const r = item.getBoundingClientRect(); const x = (e.clientX - r.left) / r.width - 0.5; const y = (e.clientY - r.top) / r.height - 0.5; item.style.transform = 'translateY(-8px) perspective(600px) rotateX(' + (-y*8) + 'deg) rotateY(' + (x*8) + 'deg)'; }); item.addEventListener('mouseleave', () => item.style.transform = ''); });
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('/service-worker.js');
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    hamburger.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navLinks.classList.remove('open'); hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false'); document.body.style.overflow = '';
+  }));
 </script>
 </body>
 </html>
