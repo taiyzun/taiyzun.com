@@ -1,5 +1,11 @@
 // Performance monitoring and analytics
 (() => {
+  const analyticsEndpoint = document.documentElement.dataset.analyticsEndpoint;
+
+  if (!analyticsEndpoint) {
+    return;
+  }
+
   // Capture Web Vitals
   function sendToAnalytics(metric) {
     const body = JSON.stringify({
@@ -11,9 +17,9 @@
     
     // Use Navigator.sendBeacon() for better reliability
     if (navigator.sendBeacon) {
-      navigator.sendBeacon('/analytics', body);
+      navigator.sendBeacon(analyticsEndpoint, body);
     } else {
-      fetch('/analytics', {
+      fetch(analyticsEndpoint, {
         body,
         method: 'POST',
         keepalive: true

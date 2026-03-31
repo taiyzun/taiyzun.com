@@ -15,23 +15,25 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// Add intersection observer for lazy loading
-const imageObserver = new IntersectionObserver((entries, observer) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const img = entry.target;
-      if (img.dataset.src) {
-        img.src = img.dataset.src;
-        img.removeAttribute('data-src');
+// Add intersection observer for lazy loading when the browser supports it.
+if ('IntersectionObserver' in window) {
+  const imageObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        if (img.dataset.src) {
+          img.src = img.dataset.src;
+          img.removeAttribute('data-src');
+        }
+        observer.unobserve(img);
       }
-      observer.unobserve(img);
-    }
+    });
+  }, {
+    rootMargin: '50px 0px',
+    threshold: 0.1
   });
-}, {
-  rootMargin: '50px 0px',
-  threshold: 0.1
-});
 
-document.querySelectorAll('img[data-src]').forEach(img => {
-  imageObserver.observe(img);
-});
+  document.querySelectorAll('img[data-src]').forEach(img => {
+    imageObserver.observe(img);
+  });
+}

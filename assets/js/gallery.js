@@ -24,12 +24,10 @@ class UniversalGallery {
   }
   
   async setup() {
-    console.log('[Gallery] Setting up gallery...');
     await this.setupGalleryImages();
     this.createLightbox();
     this.bindEvents();
     this.setupIntersectionObserver();
-    console.log('[Gallery] Gallery setup complete with', this.images.length, 'images');
   }
   
   async setupGalleryImages() {
@@ -221,6 +219,14 @@ class UniversalGallery {
   }
   
   setupIntersectionObserver() {
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('.gallery-item').forEach((item) => {
+        item.style.opacity = '1';
+        item.style.transform = 'translateY(0)';
+      });
+      return;
+    }
+
     const options = {
       threshold: 0.1,
       rootMargin: '0px 0px -50px 0px'
@@ -442,6 +448,12 @@ class UniversalGallery {
     }
   }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (document.querySelector('.gallery-item')) {
+    window.galleryInstance = new UniversalGallery();
+  }
+});
 
 // Initialize with a delay to ensure DOM is fully loaded
 setTimeout(() => {

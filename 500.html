@@ -24,7 +24,7 @@
     
     <!-- Android, iOS, and device-specific preview support -->
     <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />\n
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <link rel="stylesheet" href="style.css?v=25">
     <style>
         .error-container {
@@ -112,28 +112,5 @@
         <a href="/" class="back-button">Return to Homepage</a>
     </div>
     
-    <script>
-        // Error reporting
-        window.addEventListener('load', function() {
-            const errorData = {
-                timestamp: new Date().toISOString(),
-                url: window.location.href,
-                userAgent: navigator.userAgent,
-                referrer: document.referrer,
-                errorCode: 500
-            };
-            
-            // Send error data to analytics
-            if (navigator.sendBeacon) {
-                navigator.sendBeacon('/analytics/error', JSON.stringify(errorData));
-            } else {
-                fetch('/analytics/error', {
-                    method: 'POST',
-                    body: JSON.stringify(errorData),
-                    keepalive: true
-                });
-            }
-        });
-    </script>
 </body>
 </html>

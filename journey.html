@@ -275,52 +275,6 @@
   <!-- Bottom Right Logo -->
   <img src="assets/images/Taiyzun-logo.png" alt="Taiyzun Logo" class="footer-logo" />
 
-  <script src="assets/js/diagnostics.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      if (window.DEBUG) console.log('DOM loaded, initializing mobile menu...');
-      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-      const nav = document.querySelector('nav');
-      const header = document.querySelector('header');
-      
-      if (window.DEBUG) console.log('Mobile menu elements:', { mobileMenuBtn, nav, header });
-      
-      if (!mobileMenuBtn) {
-        console.error('Mobile menu button not found!');
-        return;
-      }
-      
-      if (!header) {
-        console.error('Header not found!');
-        return;
-      }
-      
-      mobileMenuBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        if (window.DEBUG) console.log('Mobile menu button clicked!');
-        header.classList.toggle('menu-open');
-        document.body.classList.toggle('menu-open');
-        if (window.DEBUG) console.log('Menu toggled. Header classes:', header.className);
-      });
-      
-      // Close menu when clicking on a nav link
-      const navLinks = document.querySelectorAll('nav a');
-      navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-          header.classList.remove('menu-open');
-          document.body.classList.remove('menu-open');
-        });
-      });
-      
-      // Close menu when clicking outside
-      document.addEventListener('click', function(e) {
-        if (!header.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-          header.classList.remove('menu-open');
-          document.body.classList.remove('menu-open');
-        }
-      });
-    });
-  </script>
+  <script src="assets/js/site.js" defer></script>
 </body>
 </html>

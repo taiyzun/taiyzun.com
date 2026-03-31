@@ -1,5 +1,5 @@
 // Service Worker for taiyzun.com
-const CACHE_NAME = 'taiyzun-core-v3';
+const CACHE_NAME = 'taiyzun-core-v4';
 const RUNTIME_IMAGE_CACHE = 'taiyzun-images-v1';
 const ASSETS_TO_CACHE = [
   '/',
@@ -36,19 +36,23 @@ self.addEventListener('activate', event => {
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_NAME) {
+          if (cacheName !== CACHE_NAME && cacheName !== RUNTIME_IMAGE_CACHE) {
             console.log('[ServiceWorker] Removing old cache:', cacheName);
             return caches.delete(cacheName);
           }
         })
       );
-    })
+    }).then(() => self.clients.claim())
   );
 });
 
 // Fetch Event Strategy
 self.addEventListener('fetch', event => {
   const request = event.request;
+
+  if (request.method !== 'GET') {
+    return;
+  }
 
   // Handle image requests with a cache-first strategy
   if (request.destination === 'image' || request.url.includes('/assets/Portraits/')) {
@@ -93,7 +97,13 @@ self.addEventListener('fetch', event => {
           });
 
         return networkResponse;
-      }).catch(() => caches.match('/index.html'));
+      }).catch(() => {
+        if (request.mode === 'navigate') {
+          return caches.match('/index.html');
+        }
+
+        return Response.error();
+      });
     })
   );
 });
