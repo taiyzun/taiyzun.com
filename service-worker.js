@@ -1,5 +1,5 @@
 // Service Worker for taiyzun.com
-const CACHE_NAME = 'taiyzun-core-v4';
+const CACHE_NAME = 'taiyzun-core-v5';
 const RUNTIME_IMAGE_CACHE = 'taiyzun-images-v1';
 const ASSETS_TO_CACHE = [
   '/',
@@ -27,6 +27,7 @@ self.addEventListener('install', event => {
         console.log('[ServiceWorker] Pre-caching assets');
         return cache.addAll(ASSETS_TO_CACHE);
       })
+      .then(() => self.skipWaiting())
   );
 });
 
@@ -51,6 +52,13 @@ self.addEventListener('fetch', event => {
   const request = event.request;
 
   if (request.method !== 'GET') {
+    return;
+  }
+
+  // Navigation requests should be network-first to avoid Safari redirect issues
+  // when a cached redirected response is returned by the service worker.
+  if (request.mode === 'navigate') {
+    event.respondWith(handleNavigationRequest(request));
     return;
   }
 
@@ -81,7 +89,7 @@ self.addEventListener('fetch', event => {
   // Default: try cache first, then network and cache the response
   event.respondWith(
     caches.match(request).then(response => {
-      if (response) {
+      if (response && !response.redirected) {
         return response;
       }
 
@@ -97,16 +105,38 @@ self.addEventListener('fetch', event => {
           });
 
         return networkResponse;
-      }).catch(() => {
-        if (request.mode === 'navigate') {
-          return caches.match('/index.html');
-        }
-
-        return Response.error();
-      });
+      }).catch(() => Response.error());
     })
   );
 });
+
+async function handleNavigationRequest(request) {
+  try {
+    const networkResponse = await fetch(request);
+    if (networkResponse && !networkResponse.redirected) {
+      return networkResponse;
+    }
+  } catch (_) {}
+
+  const cachedPage = await caches.match('/index.html');
+  if (cachedPage) {
+    // Return a fresh Response object to avoid handing Safari a cached redirected response.
+    const body = await cachedPage.clone().text();
+    return new Response(body, {
+      status: 200,
+      headers: {
+        'Content-Type': 'text/html; charset=utf-8'
+      }
+    });
+  }
+
+  return new Response('Page unavailable offline', {
+    status: 503,
+    headers: {
+      'Content-Type': 'text/plain; charset=utf-8'
+    }
+  });
+}
 
 // Helper: trim cache to max items
 function trimCache(cacheName, maxItems) {
