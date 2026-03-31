@@ -79,7 +79,7 @@
   .nav-links a.active::after { width: 100%; }
   .page-hero { position: relative; min-height: 50vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
   .page-hero-video { position: absolute; inset: 0; z-index: 0; }
-  .page-hero-video video { width: 100%; height: 100%; object-fit: cover; }
+  .page-hero-video video, .page-hero-video canvas { width: 100%; height: 100%; object-fit: cover; display: block; }
   .page-hero-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(10,10,15,0.5) 0%, rgba(10,10,15,0.4) 50%, rgba(10,10,15,1) 100%); }
   .page-hero-content { position: relative; z-index: 2; text-align: center; padding: 6rem 2rem 3rem; max-width: 750px; }
   .page-hero-content h1 { font-family: var(--serif); font-size: clamp(2.5rem,5vw,4rem); font-weight: 300; margin-bottom: 1rem; opacity: 0; animation: fadeInUp 1s cubic-bezier(0.16,1,0.3,1) 0.3s forwards; }
@@ -154,7 +154,7 @@
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
     html { scroll-behavior: auto; }
-    .page-hero-video video { display: none; }
+    .page-hero-video video, .page-hero-video canvas { display: none; }
   }
 </style>
 </head>
@@ -174,7 +174,7 @@
   </ul>
 </nav>
 <div class="page-hero">
-  <div class="page-hero-video"><video autoplay muted loop playsinline webkit-playsinline preload="none" aria-label="Background video" poster="assets/images/hero-poster.jpg"><source src="assets/video/sora.mp4" type="video/mp4"></video></div>
+  <div class="page-hero-video"><canvas id="heroBg" aria-hidden="true"></canvas></div>
   <div class="page-hero-overlay"></div>
   <div class="page-hero-content">
     <h1><em>Connect</em></h1>
@@ -274,6 +274,65 @@
   });
 
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('/service-worker.js');
+
+  // ── Hero Canvas: Neural Network ──
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) (function(){
+    const cv = document.getElementById('heroBg');
+    if (!cv) return;
+    const cx = cv.getContext('2d');
+    let W, H, t = 0, nodes, pulses = [];
+    function resize(){
+      W=cv.width=cv.offsetWidth||cv.parentElement.offsetWidth;
+      H=cv.height=cv.offsetHeight||cv.parentElement.offsetHeight;
+      nodes=Array.from({length:45},()=>({
+        x:Math.random()*W, y:Math.random()*H,
+        vx:(Math.random()-0.5)*0.35, vy:(Math.random()-0.5)*0.35,
+        r:1.5+Math.random()*2.5, phase:Math.random()*Math.PI*2
+      }));
+    }
+    function draw(){
+      cx.clearRect(0,0,W,H);
+      t+=0.012;
+      nodes.forEach(n=>{
+        n.x+=n.vx; n.y+=n.vy;
+        if(n.x<0||n.x>W)n.vx*=-1;
+        if(n.y<0||n.y>H)n.vy*=-1;
+      });
+      const DIST=Math.min(W,H)*0.22;
+      for(let i=0;i<nodes.length;i++){
+        for(let j=i+1;j<nodes.length;j++){
+          const dx=nodes[i].x-nodes[j].x, dy=nodes[i].y-nodes[j].y;
+          const d=Math.sqrt(dx*dx+dy*dy);
+          if(d<DIST){
+            const op=(1-d/DIST)*0.18;
+            cx.beginPath(); cx.moveTo(nodes[i].x,nodes[i].y); cx.lineTo(nodes[j].x,nodes[j].y);
+            cx.strokeStyle=`rgba(201,168,76,${op})`; cx.lineWidth=0.8; cx.stroke();
+            if(Math.random()<0.0009) pulses.push({fi:i,ti:j,p:0,sp:0.008+Math.random()*0.01});
+          }
+        }
+      }
+      pulses=pulses.filter(q=>q.p<=1);
+      pulses.forEach(q=>{
+        const n1=nodes[q.fi], n2=nodes[q.ti];
+        if(!n1||!n2){q.p=2;return;}
+        const px=n1.x+(n2.x-n1.x)*q.p, py=n1.y+(n2.y-n1.y)*q.p;
+        const gr=cx.createRadialGradient(px,py,0,px,py,10);
+        gr.addColorStop(0,'rgba(201,168,76,0.8)'); gr.addColorStop(1,'transparent');
+        cx.fillStyle=gr; cx.beginPath(); cx.arc(px,py,3,0,Math.PI*2); cx.fill();
+        q.p+=q.sp;
+      });
+      nodes.forEach(n=>{
+        const op=0.45+0.3*Math.sin(n.phase+t);
+        const gr=cx.createRadialGradient(n.x,n.y,0,n.x,n.y,n.r*3);
+        gr.addColorStop(0,`rgba(201,168,76,${op})`); gr.addColorStop(1,'transparent');
+        cx.fillStyle=gr; cx.beginPath(); cx.arc(n.x,n.y,n.r,0,Math.PI*2); cx.fill();
+      });
+      requestAnimationFrame(draw);
+    }
+    resize();
+    new ResizeObserver(resize).observe(cv);
+    requestAnimationFrame(draw);
+  })();
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.getElementById('navLinks');
   hamburger.addEventListener('click', () => {

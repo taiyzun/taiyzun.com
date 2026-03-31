@@ -75,7 +75,7 @@
   .nav-links a.active::after { width: 100%; }
   .page-hero { position: relative; min-height: 50vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
   .page-hero-video { position: absolute; inset: 0; z-index: 0; }
-  .page-hero-video video { width: 100%; height: 100%; object-fit: cover; }
+  .page-hero-video video, .page-hero-video canvas { width: 100%; height: 100%; object-fit: cover; display: block; }
   .page-hero-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(10,10,15,0.5) 0%, rgba(10,10,15,0.4) 50%, rgba(10,10,15,1) 100%); }
   .page-hero-content { position: relative; z-index: 2; text-align: center; padding: 6rem 2rem 3rem; }
   .page-hero-content h1 { font-family: var(--serif); font-size: clamp(2.5rem,5vw,4rem); font-weight: 300; margin-bottom: 0.5rem; opacity: 0; animation: fadeInUp 1s cubic-bezier(0.16,1,0.3,1) 0.3s forwards; }
@@ -146,7 +146,7 @@
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
     html { scroll-behavior: auto; }
-    .page-hero-video video { display: none; }
+    .page-hero-video video, .page-hero-video canvas { display: none; }
   }
 </style>
 </head>
@@ -166,7 +166,7 @@
   </ul>
 </nav>
 <div class="page-hero">
-  <div class="page-hero-video"><video autoplay muted loop playsinline webkit-playsinline preload="none" aria-label="Background video" poster="assets/images/hero-poster.jpg"><source src="assets/video/sora.mp4" type="video/mp4"></video></div>
+  <div class="page-hero-video"><canvas id="heroBg" aria-hidden="true"></canvas></div>
   <div class="page-hero-overlay"></div>
   <div class="page-hero-content">
     <h1><em>Journey</em></h1>
@@ -318,6 +318,52 @@
     navLinks.classList.remove('open'); hamburger.classList.remove('open');
     hamburger.setAttribute('aria-expanded', 'false'); document.body.style.overflow = '';
   }));
+  // ── Hero Canvas: Aurora Borealis ──
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) (function(){
+    const cv = document.getElementById('heroBg');
+    if (!cv) return;
+    const cx = cv.getContext('2d');
+    let W, H, t = 0;
+    const bands = [
+      {h:0.42,amp:0.11,f:0.7,sp:0.25,r:[0,230,120],op:0.2,w:0.28},
+      {h:0.52,amp:0.09,f:1.1,sp:0.4, r:[40,180,255],op:0.17,w:0.22},
+      {h:0.35,amp:0.07,f:0.5,sp:0.18,r:[160,60,255],op:0.13,w:0.18},
+      {h:0.58,amp:0.12,f:1.4,sp:0.55,r:[0,255,180],op:0.15,w:0.2},
+      {h:0.45,amp:0.06,f:2.0,sp:0.8, r:[120,255,240],op:0.1,w:0.15}
+    ];
+    const pts = Array.from({length:80},()=>({x:Math.random(),y:1,sp:0.0002+Math.random()*0.0004,op:Math.random()*0.4+0.1}));
+    function resize(){ W=cv.width=cv.offsetWidth||cv.parentElement.offsetWidth; H=cv.height=cv.offsetHeight||cv.parentElement.offsetHeight; }
+    function draw(){
+      cx.clearRect(0,0,W,H);
+      bands.forEach(b=>{
+        cx.beginPath();
+        for(let xi=0;xi<=W;xi+=4){
+          const wx=xi/W;
+          const yw=Math.sin(wx*Math.PI*2*b.f+t*b.sp)*H*b.amp+Math.sin(wx*Math.PI*3.7*b.f+t*b.sp*0.6)*H*b.amp*0.35;
+          const y=H*b.h+yw;
+          xi===0?cx.moveTo(xi,y):cx.lineTo(xi,y);
+        }
+        cx.lineTo(W,0); cx.lineTo(0,0); cx.closePath();
+        const bandH=H*b.w, cy=H*b.h;
+        const gr=cx.createLinearGradient(0,cy-bandH,0,cy+bandH*0.5);
+        const [r,g,bl]=b.r;
+        gr.addColorStop(0,`rgba(${r},${g},${bl},0)`);
+        gr.addColorStop(0.3,`rgba(${r},${g},${bl},${b.op})`);
+        gr.addColorStop(0.6,`rgba(${r},${g},${bl},${b.op*0.4})`);
+        gr.addColorStop(1,`rgba(${r},${g},${bl},0)`);
+        cx.fillStyle=gr; cx.fill();
+      });
+      pts.forEach(p=>{
+        cx.beginPath(); cx.arc(p.x*W,p.y*H,1.2,0,Math.PI*2);
+        cx.fillStyle=`rgba(180,255,220,${p.op})`; cx.fill();
+        p.y-=p.sp; if(p.y<0){p.y=1;p.x=Math.random();}
+      });
+      t+=0.008; requestAnimationFrame(draw);
+    }
+    resize();
+    new ResizeObserver(resize).observe(cv);
+    requestAnimationFrame(draw);
+  })();
 </script>
 </body>
 </html>
