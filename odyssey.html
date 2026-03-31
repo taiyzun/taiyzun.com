@@ -45,26 +45,29 @@
 <link rel="dns-prefetch" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg-primary: #0a0a0f; --bg-card: rgba(255,255,255,0.03);
     --gold: #c9a84c; --gold-light: #e4cb78; --gold-glow: rgba(201,168,76,0.4); --gold-dim: rgba(201,168,76,0.1);
     --text-primary: #f0ece4; --text-secondary: rgba(240,236,228,0.65); --text-muted: rgba(240,236,228,0.55);
     --glass: rgba(255,255,255,0.04); --glass-border: rgba(255,255,255,0.08);
-    --serif: 'Cormorant Garamond', Georgia, serif; --sans: 'Outfit', sans-serif;
+    --serif: 'Cormorant Garamond', Georgia, serif; --display: 'Cinzel', 'Cormorant Garamond', serif; --body: 'Philosopher', Georgia, serif;
   }
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { font-family: var(--sans); background: var(--bg-primary); color: var(--text-primary); line-height: 1.7; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+  body { font-family: var(--body); background: var(--bg-primary); color: var(--text-primary); line-height: 1.85; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
   .cursor-glow { position: fixed; width: 350px; height: 350px; border-radius: 50%; pointer-events: none; z-index: 9999; background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%); transform: translate(-50%,-50%); transition: opacity 0.4s ease; opacity: 0; }
   .cursor-glow.active { opacity: 1; }
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 1.2rem 3rem; display: flex; justify-content: space-between; align-items: center; background: rgba(10,10,15,0.2); backdrop-filter: blur(20px) saturate(1.5); -webkit-backdrop-filter: blur(20px) saturate(1.5); border-bottom: 1px solid transparent; transition: all 0.5s cubic-bezier(0.16,1,0.3,1); }
   nav.scrolled { padding: 0.8rem 3rem; background: rgba(10,10,15,0.88); border-bottom-color: var(--glass-border); box-shadow: 0 4px 30px rgba(0,0,0,0.3); }
-  .logo { font-family: var(--serif); font-size: 1.6rem; font-weight: 300; letter-spacing: 0.15em; color: var(--gold); text-decoration: none; text-transform: uppercase; transition: all 0.4s ease; }
-  .logo:hover { text-shadow: 0 0 20px var(--gold-glow); }
+  .logo { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; transition: all 0.4s ease; }
+  .logo-img { height: 36px; width: auto; filter: drop-shadow(0 0 6px rgba(201,168,76,0.4)); transition: all 0.45s ease; }
+  .logo-text { font-family: var(--display); font-size: 1.25rem; font-weight: 500; letter-spacing: 0.22em; color: var(--gold); text-transform: uppercase; transition: all 0.45s ease; }
+  .logo:hover .logo-img { filter: drop-shadow(0 0 18px rgba(201,168,76,0.8)); transform: scale(1.06) rotate(-2deg); }
+  .logo:hover .logo-text { letter-spacing: 0.28em; text-shadow: 0 0 20px rgba(201,168,76,0.7); color: var(--gold-light); }
   .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-  .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; font-weight: 300; letter-spacing: 0.12em; text-transform: uppercase; transition: all 0.3s ease; position: relative; }
+  .nav-links a { font-family: var(--display); color: var(--text-secondary); text-decoration: none; font-size: 0.72rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; transition: all 0.3s ease; position: relative; }
   .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 50%; width: 0; height: 1px; background: var(--gold); transition: all 0.4s cubic-bezier(0.16,1,0.3,1); transform: translateX(-50%); }
   .nav-links a:hover { color: var(--gold-light); }
   .nav-links a:hover::after { width: 100%; }
@@ -81,8 +84,8 @@
   .page-hero-content .coming-soon { display: inline-block; margin-top: 1.5rem; padding: 0.5rem 1.5rem; border: 1px solid var(--gold-dim); color: var(--gold); font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0; animation: fadeInUp 1s cubic-bezier(0.16,1,0.3,1) 0.7s forwards; }
   .gallery-section { max-width: 1200px; margin: 0 auto; padding: 2rem 2rem 6rem; }
   .gallery-label { text-align: center; margin-bottom: 3rem; }
-  .gallery-label .section-label { font-size: 0.68rem; font-weight: 400; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
-  .gallery-label h2 { font-family: var(--serif); font-size: 2rem; font-weight: 300; }
+  .gallery-label .section-label { font-family: var(--display); font-size: 0.62rem; font-weight: 500; letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+  .gallery-label h2 { font-family: var(--display); font-size: 1.8rem; font-weight: 500; letter-spacing: 0.08em; }
   .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem; }
   .gallery-item { position: relative; overflow: hidden; aspect-ratio: 3/4; background: var(--bg-card); border: 1px solid var(--glass-border); cursor: pointer; transition: all 0.5s cubic-bezier(0.16,1,0.3,1); }
   .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.16,1,0.3,1), filter 0.5s ease; filter: brightness(0.85) saturate(0.9); }
@@ -90,22 +93,69 @@
   .gallery-item:hover { box-shadow: 0 12px 40px rgba(201,168,76,0.15); border-color: var(--gold-dim); }
   .gallery-item .overlay { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(10,10,15,0.85) 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem; opacity: 0; transition: opacity 0.4s ease; }
   .gallery-item:hover .overlay { opacity: 1; }
-  .overlay h4 { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; color: var(--gold-light); margin-bottom: 0.2rem; }
+  .overlay h4 { font-family: var(--display); font-size: 1rem; font-weight: 500; letter-spacing: 0.08em; color: var(--gold-light); margin-bottom: 0.2rem; }
   .overlay p { font-size: 0.78rem; color: var(--text-secondary); font-weight: 300; }
   .overlay .sparkle { position: absolute; top: 1rem; right: 1rem; color: var(--gold); font-size: 1.2rem; animation: sparkleRotate 3s linear infinite; }
-  .lightbox { position: fixed; inset: 0; z-index: 2000; background: rgba(5,5,10,0.95); backdrop-filter: blur(30px); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
-  .lightbox.open { opacity: 1; pointer-events: all; }
-  .lightbox img { max-width: 85vw; max-height: 85vh; object-fit: contain; border: 1px solid var(--glass-border); transform: scale(0.9); transition: transform 0.5s cubic-bezier(0.16,1,0.3,1); }
-  .lightbox.open img { transform: scale(1); }
-  .lightbox-close { position: absolute; top: 2rem; right: 2rem; background: none; border: 1px solid var(--glass-border); color: var(--text-secondary); width: 48px; height: 48px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; }
-  .lightbox-close:hover { color: var(--gold); border-color: var(--gold); }
-  .lightbox-caption { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); text-align: center; }
-  .lightbox-caption h4 { font-family: var(--serif); font-size: 1.3rem; color: var(--gold-light); }
-  .lightbox-caption p { font-size: 0.85rem; color: var(--text-secondary); }
-  .lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); background: none; border: 1px solid var(--glass-border); color: var(--text-secondary); width: 48px; height: 48px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; }
-  .lightbox-nav:hover { color: var(--gold); border-color: var(--gold); }
-  .lightbox-prev { left: 2rem; }
-  .lightbox-next { right: 2rem; }
+  /* Gallery click pulse */
+  @keyframes galleryPulse { 0%,100%{transform:scale(1);} 45%{transform:scale(0.94);box-shadow:0 0 0 3px var(--gold),0 0 35px rgba(201,168,76,0.45);} }
+  .gallery-item.pulse { animation: galleryPulse 0.38s cubic-bezier(0.16,1,0.3,1); }
+  /* Lightbox */
+  .lightbox { position:fixed; inset:0; z-index:2000; background:rgba(3,3,8,0.97); backdrop-filter:blur(40px); -webkit-backdrop-filter:blur(40px); display:flex; flex-direction:column; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.4s cubic-bezier(0.16,1,0.3,1); }
+  .lightbox::before { content:''; position:absolute; inset:0; background:linear-gradient(rgba(201,168,76,0.016) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.016) 1px,transparent 1px); background-size:55px 55px; pointer-events:none; opacity:0.6; animation:lbGrid 30s linear infinite; }
+  @keyframes lbGrid { 0%{background-position:0 0;} 100%{background-position:55px 55px;} }
+  .lightbox.open { opacity:1; pointer-events:all; }
+  /* Top bar */
+  .lb-topbar { position:absolute; top:0; left:0; right:0; padding:1.4rem 2rem; display:flex; justify-content:space-between; align-items:center; background:linear-gradient(180deg,rgba(3,3,8,0.92) 0%,transparent 100%); z-index:10; }
+  .lb-counter { display:flex; align-items:baseline; gap:0.35rem; }
+  .lb-counter-current { color:var(--gold); font-family:var(--serif); font-size:1.9rem; font-weight:300; line-height:1; transition:all 0.3s ease; }
+  .lb-counter-sep { color:rgba(201,168,76,0.3); font-size:0.8rem; letter-spacing:0.08em; }
+  .lb-counter-total { color:var(--text-muted); font-size:0.78rem; letter-spacing:0.18em; }
+  .lb-meta { font-size:0.68rem; letter-spacing:0.38em; text-transform:uppercase; color:var(--text-muted); opacity:0.7; }
+  .lb-close { background:transparent; border:1px solid rgba(201,168,76,0.25); color:var(--text-secondary); width:44px; height:44px; border-radius:50%; cursor:pointer; font-size:1rem; transition:all 0.3s ease; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
+  .lb-close::before { content:''; position:absolute; inset:0; border-radius:50%; background:var(--gold); transform:scale(0); transition:transform 0.3s ease; z-index:0; }
+  .lb-close:hover { color:var(--bg-primary); border-color:var(--gold); box-shadow:0 0 28px rgba(201,168,76,0.5); }
+  .lb-close:hover::before { transform:scale(1); }
+  .lb-close span { position:relative; z-index:1; }
+  /* Main image area */
+  .lb-main { position:relative; width:100%; flex:1; display:flex; align-items:center; justify-content:center; padding:5rem 5.5rem 1rem; }
+  .lb-img-wrap { position:relative; display:inline-flex; align-items:center; justify-content:center; }
+  /* Animated corner brackets */
+  .lb-img-wrap::before,.lb-img-wrap::after,.lb-corner-bl,.lb-corner-br { content:''; position:absolute; width:18px; height:18px; border-color:var(--gold); border-style:solid; transition:all 0.55s cubic-bezier(0.16,1,0.3,1); opacity:0; }
+  .lightbox.open .lb-img-wrap::before,.lightbox.open .lb-img-wrap::after,.lightbox.open .lb-corner-bl,.lightbox.open .lb-corner-br { width:28px; height:28px; opacity:0.7; }
+  .lb-img-wrap::before { top:-10px; left:-10px; border-width:2px 0 0 2px; }
+  .lb-img-wrap::after { top:-10px; right:-10px; border-width:2px 2px 0 0; }
+  .lb-corner-bl { bottom:-10px; left:-10px; border-width:0 0 2px 2px; }
+  .lb-corner-br { bottom:-10px; right:-10px; border-width:0 2px 2px 0; }
+  #lbImg { max-width:80vw; max-height:60vh; object-fit:contain; border:1px solid rgba(201,168,76,0.1); box-shadow:0 0 80px rgba(201,168,76,0.06),0 30px 60px rgba(0,0,0,0.5); border-radius:2px; cursor:zoom-in; display:block; }
+  #lbImg.zoomed { cursor:zoom-out; transform:scale(1.95) !important; transition:transform 0.45s cubic-bezier(0.16,1,0.3,1) !important; }
+  /* Nav arrows */
+  .lb-nav { position:absolute; top:50%; transform:translateY(-50%); background:rgba(3,3,8,0.65); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid rgba(201,168,76,0.18); color:var(--text-secondary); width:54px; height:54px; border-radius:50%; cursor:pointer; font-size:1.6rem; line-height:1; transition:all 0.3s cubic-bezier(0.16,1,0.3,1); display:flex; align-items:center; justify-content:center; z-index:10; }
+  .lb-nav:hover { color:var(--gold-light); border-color:var(--gold); box-shadow:0 0 40px rgba(201,168,76,0.35); background:rgba(201,168,76,0.07); transform:translateY(-50%) scale(1.06); }
+  .lb-nav:active { transform:translateY(-50%) scale(0.96); }
+  .lb-prev { left:1.5rem; }
+  .lb-next { right:1.5rem; }
+  /* Caption */
+  .lb-caption { text-align:center; padding:0.6rem 1rem 0; opacity:0; transform:translateY(8px); transition:all 0.4s ease 0.15s; flex-shrink:0; }
+  .lightbox.open .lb-caption { opacity:1; transform:none; }
+  .lb-caption h4 { font-family:var(--serif); font-size:1.15rem; font-weight:300; color:var(--gold-light); margin-bottom:0.15rem; }
+  .lb-caption p { font-size:0.77rem; color:var(--text-secondary); letter-spacing:0.1em; text-transform:uppercase; }
+  /* Filmstrip */
+  .lb-filmstrip-wrap { width:100%; flex-shrink:0; padding:0.9rem 0 0.6rem; }
+  .lb-filmstrip { display:flex; gap:5px; align-items:center; justify-content:center; max-width:92vw; margin:0 auto; overflow-x:auto; padding:4px 10px; scrollbar-width:none; -ms-overflow-style:none; }
+  .lb-filmstrip::-webkit-scrollbar { display:none; }
+  .lb-thumb { width:42px; height:56px; object-fit:cover; cursor:pointer; border:1px solid rgba(201,168,76,0.07); border-radius:2px; opacity:0.32; flex-shrink:0; transition:all 0.25s ease; filter:brightness(0.65) saturate(0.7); }
+  .lb-thumb:hover:not(.active) { opacity:0.62; filter:brightness(0.9) saturate(1); border-color:rgba(201,168,76,0.3); }
+  .lb-thumb.active { opacity:1; border-color:var(--gold); filter:brightness(1) saturate(1.1); box-shadow:0 0 14px rgba(201,168,76,0.45); transform:scaleY(1.07); }
+  /* Progress bar */
+  .lb-progress { position:absolute; bottom:0; left:0; right:0; height:2px; background:rgba(201,168,76,0.07); }
+  .lb-progress-bar { height:100%; background:linear-gradient(90deg,var(--gold),var(--gold-light)); transition:width 0.5s cubic-bezier(0.16,1,0.3,1); box-shadow:0 0 12px rgba(201,168,76,0.65); width:0%; }
+  /* Image animations */
+  @keyframes lbEnter { from{opacity:0;transform:scale(0.92) translateY(14px);} to{opacity:1;transform:scale(1) translateY(0);} }
+  @keyframes lbNext { from{opacity:0;transform:translateX(55px) scale(0.96);} to{opacity:1;transform:translateX(0) scale(1);} }
+  @keyframes lbPrevKf { from{opacity:0;transform:translateX(-55px) scale(0.96);} to{opacity:1;transform:translateX(0) scale(1);} }
+  .lb-anim-enter { animation:lbEnter 0.5s cubic-bezier(0.16,1,0.3,1) forwards; }
+  .lb-anim-next { animation:lbNext 0.38s cubic-bezier(0.16,1,0.3,1) forwards; }
+  .lb-anim-prev { animation:lbPrevKf 0.38s cubic-bezier(0.16,1,0.3,1) forwards; }
   footer { padding: 5rem 3rem 3rem; border-top: 1px solid var(--glass-border); text-align: center; position: relative; }
   footer::before { content: ''; position: absolute; top: -1px; left: 50%; transform: translateX(-50%); width: 200px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
   .social-links { display: flex; justify-content: center; gap: 1.2rem; margin-bottom: 3rem; flex-wrap: wrap; }
@@ -114,7 +164,10 @@
   .social-link:hover { color: var(--bg-primary); border-color: var(--gold); transform: translateY(-4px) scale(1.1); box-shadow: 0 8px 25px rgba(201,168,76,0.25); }
   .social-link:hover::before { transform: scale(1); }
   .social-link svg { width: 18px; height: 18px; position: relative; z-index: 1; }
-  .footer-logo { font-family: var(--serif); font-size: 1.2rem; font-weight: 300; letter-spacing: 0.2em; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.8rem; }
+  .footer-brand { display: flex; flex-direction: column; align-items: center; gap: 0.7rem; margin-bottom: 1.2rem; }
+  .footer-logo-img { height: 52px; width: auto; filter: drop-shadow(0 0 12px rgba(201,168,76,0.28)) grayscale(0.2); opacity: 0.82; transition: all 0.45s ease; }
+  .footer-logo-img:hover { filter: drop-shadow(0 0 22px rgba(201,168,76,0.6)); opacity: 1; transform: scale(1.04); }
+  .footer-logo-text { font-family: var(--display); font-size: 1rem; font-weight: 500; letter-spacing: 0.32em; color: var(--text-muted); text-transform: uppercase; }
   .footer-copy { font-size: 0.72rem; color: var(--text-muted); font-weight: 300; }
   .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
   .reveal.visible { opacity: 1; transform: none; }
@@ -134,10 +187,14 @@
     .hamburger { display: flex; }
     .nav-links { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10,10,15,0.97); flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; z-index: 999; }
     .nav-links.open { display: flex; }
-    .nav-links a { font-size: 1.8rem; font-weight: 400; letter-spacing: 0.1em; color: var(--text-primary); }
+    .nav-links a { font-family: var(--display); font-size: 1.6rem; font-weight: 500; letter-spacing: 0.15em; color: var(--text-primary); }
     .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.8rem; }
     .gallery-section { padding: 2rem 1rem 5rem; } .cursor-glow { display: none; }
-    .lightbox-prev { left: 0.8rem; } .lightbox-next { right: 0.8rem; }
+    .lb-prev { left: 0.4rem; } .lb-next { right: 0.4rem; }
+    .lb-nav { width: 44px; height: 44px; font-size: 1.25rem; }
+    .lb-main { padding: 5rem 3.5rem 1rem; } #lbImg { max-width: 90vw; max-height: 52vh; }
+    .lb-filmstrip-wrap { display: none; }
+    .lb-meta { display: none; }
   }
   @media (max-width: 480px) { .logo { font-size: 1.2rem; } .gallery-grid { grid-template-columns: repeat(2,1fr); } }
   @media (prefers-reduced-motion: reduce) {
@@ -150,7 +207,7 @@
 <body>  <style>.skip-link{position:absolute;top:-44px;left:1rem;padding:0.6rem 1.2rem;background:var(--gold);color:#0a0a0f;font-size:0.8rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;border-radius:0 0 4px 4px;transition:top 0.2s ease;z-index:9999;}.skip-link:focus{top:0;}</style>  <a href="#main-content" class="skip-link">Skip to main content</a>
 <div class="cursor-glow" id="cursorGlow"></div>
 <nav id="mainNav">
-  <a href="index.html" class="logo">Taiyzun</a>
+  <a href="index.html" class="logo" aria-label="Taiyzun — Home"><img src="assets/images/Taiyzun-logo.png" alt="" class="logo-img" width="36" height="36"><span class="logo-text">Taiyzun</span></a>
   <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
@@ -179,12 +236,28 @@
   </div>
   <div class="gallery-grid" id="galleryGrid"></div>
 </div>
-<div class="lightbox" id="lightbox">
-  <button class="lightbox-close" id="lbClose">✕</button>
-  <button class="lightbox-nav lightbox-prev" id="lbPrev">‹</button>
-  <button class="lightbox-nav lightbox-next" id="lbNext">›</button>
-  <img id="lbImg" src="" alt="">
-  <div class="lightbox-caption"><h4 id="lbTitle"></h4><p id="lbSub"></p></div>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <div class="lb-topbar">
+    <div class="lb-counter">
+      <span class="lb-counter-current" id="lbCurrent">1</span>
+      <span class="lb-counter-sep">&nbsp;/&nbsp;</span>
+      <span class="lb-counter-total" id="lbTotal">36</span>
+    </div>
+    <div class="lb-meta" id="lbMeta"></div>
+    <button class="lb-close" id="lbClose" aria-label="Close image viewer"><span>✕</span></button>
+  </div>
+  <div class="lb-main">
+    <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous image">&#8249;</button>
+    <div class="lb-img-wrap" id="lbImgWrap">
+      <div class="lb-corner-bl"></div>
+      <div class="lb-corner-br"></div>
+      <img id="lbImg" src="" alt="" draggable="false">
+    </div>
+    <button class="lb-nav lb-next" id="lbNext" aria-label="Next image">&#8250;</button>
+  </div>
+  <div class="lb-caption"><h4 id="lbTitle"></h4><p id="lbSub"></p></div>
+  <div class="lb-filmstrip-wrap"><div class="lb-filmstrip" id="lbFilmstrip"></div></div>
+  <div class="lb-progress"><div class="lb-progress-bar" id="lbProgressBar"></div></div>
 </div>
 <footer>
   <div class="social-links">
@@ -194,7 +267,7 @@
     <a href="https://www.youtube.com/taiyzun" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.35 29 29 0 00-.46-5.33z"/><polygon points="9.75,15.02 15.5,11.75 9.75,8.48" fill="#0a0a0f"/></svg></a>
     <a href="https://x.com/Taiyzun" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
   </div>
-  <p class="footer-logo">Taiyzun</p>
+  <div class="footer-brand"><img src="assets/images/Taiyzun-logo.png" alt="Taiyzun" class="footer-logo-img" width="52" height="52"><p class="footer-logo-text">Taiyzun</p></div>
   <p class="footer-copy">&copy; 2026 Taiyzun Shabbir Shahpurwala. All rights reserved.</p>
 </footer>
 <script>
@@ -206,34 +279,182 @@
     {title:'Portrait 25',sub:'Studio Focus'},{title:'Portrait 26',sub:'Urban Nightfall'},{title:'Portrait 27',sub:'Creative Momentum'},{title:'Portrait 28',sub:'Vibrant Dusk'},{title:'Portrait 29',sub:'Harbor Reflections'},{title:'Portrait 30',sub:'Golden Hour'},
     {title:'Portrait 31',sub:'Creative Horizons'},{title:'Portrait 32',sub:'Urban Energy'},{title:'Portrait 33',sub:'Night Studio'},{title:'Portrait 34',sub:'Calm Waters'},{title:'Portrait 35',sub:'City Skyline'},{title:'Portrait 36',sub:'New Beginnings'}
   ];
+
+  /* ── Gallery grid ── */
   const grid = document.getElementById('galleryGrid');
   portraits.forEach((p, i) => {
     const num = String(i+1).padStart(5,'0');
     const el = document.createElement('div');
     el.className = 'gallery-item reveal';
     el.setAttribute('data-index', i);
-    el.innerHTML = '<img src="assets/Portraits/taiyzun_shahpurwala ' + num + '.jpeg" alt="' + p.title + '" loading="lazy"><div class="overlay"><span class="sparkle">✨</span><h4>' + p.title + '</h4><p>' + p.sub + '</p></div>';
+    el.innerHTML = '<img src="assets/Portraits/taiyzun_shahpurwala ' + num + '.jpeg" alt="' + p.title + '" loading="lazy"><div class="overlay"><span class="sparkle">✦</span><h4>' + p.title + '</h4><p>' + p.sub + '</p></div>';
     grid.appendChild(el);
   });
-  const lb = document.getElementById('lightbox'), lbImg = document.getElementById('lbImg'), lbTitle = document.getElementById('lbTitle'), lbSub = document.getElementById('lbSub');
-  let currentIdx = 0;
-  function openLB(i) { currentIdx = i; const num = String(i+1).padStart(5,'0'); lbImg.src = 'assets/Portraits/taiyzun_shahpurwala ' + num + '.jpeg'; lbTitle.textContent = portraits[i].title; lbSub.textContent = portraits[i].sub; lb.classList.add('open'); document.body.style.overflow = 'hidden'; }
-  function closeLB() { lb.classList.remove('open'); document.body.style.overflow = ''; }
-  document.querySelectorAll('.gallery-item').forEach(item => item.addEventListener('click', () => openLB(parseInt(item.dataset.index))));
-  document.getElementById('lbClose').addEventListener('click', closeLB);
-  document.getElementById('lbPrev').addEventListener('click', () => openLB((currentIdx - 1 + portraits.length) % portraits.length));
-  document.getElementById('lbNext').addEventListener('click', () => openLB((currentIdx + 1) % portraits.length));
+
+  /* ── Lightbox elements ── */
+  const lb            = document.getElementById('lightbox');
+  const lbImg         = document.getElementById('lbImg');
+  const lbTitle       = document.getElementById('lbTitle');
+  const lbSub         = document.getElementById('lbSub');
+  const lbCurrent     = document.getElementById('lbCurrent');
+  const lbTotal       = document.getElementById('lbTotal');
+  const lbMeta        = document.getElementById('lbMeta');
+  const lbProgressBar = document.getElementById('lbProgressBar');
+  const lbFilmstrip   = document.getElementById('lbFilmstrip');
+  const lbPrevBtn     = document.getElementById('lbPrev');
+  const lbNextBtn     = document.getElementById('lbNext');
+  const lbClose       = document.getElementById('lbClose');
+
+  let currentIdx = 0, isTransitioning = false, isZoomed = false;
+  let touchStartX = 0, touchStartY = 0;
+
+  lbTotal.textContent = portraits.length;
+
+  /* ── Build filmstrip ── */
+  portraits.forEach((p, i) => {
+    const num = String(i+1).padStart(5,'0');
+    const thumb = document.createElement('img');
+    thumb.className = 'lb-thumb';
+    thumb.src = 'assets/Portraits/taiyzun_shahpurwala ' + num + '.jpeg';
+    thumb.alt = p.title;
+    thumb.loading = 'lazy';
+    thumb.addEventListener('click', () => { if (i !== currentIdx) navigate(i, i > currentIdx ? 'next' : 'prev'); });
+    lbFilmstrip.appendChild(thumb);
+  });
+
+  function updateFilmstrip() {
+    const thumbs = lbFilmstrip.querySelectorAll('.lb-thumb');
+    thumbs.forEach((t, i) => t.classList.toggle('active', i === currentIdx));
+    const active = thumbs[currentIdx];
+    if (active) active.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+  }
+
+  function updateProgress() {
+    lbProgressBar.style.width = ((currentIdx + 1) / portraits.length * 100) + '%';
+  }
+
+  function animateImg(direction) {
+    lbImg.classList.remove('lb-anim-enter','lb-anim-next','lb-anim-prev');
+    void lbImg.offsetWidth;
+    if (direction === 'open') lbImg.classList.add('lb-anim-enter');
+    else if (direction === 'next') lbImg.classList.add('lb-anim-next');
+    else lbImg.classList.add('lb-anim-prev');
+  }
+
+  function loadImage(i, direction) {
+    if (isTransitioning) return;
+    isTransitioning = true;
+    isZoomed = false;
+    lbImg.classList.remove('zoomed');
+    currentIdx = i;
+    const num = String(i+1).padStart(5,'0');
+    lbImg.src = 'assets/Portraits/taiyzun_shahpurwala ' + num + '.jpeg';
+    lbImg.alt = portraits[i].title;
+    lbTitle.textContent = portraits[i].title;
+    lbSub.textContent = portraits[i].sub;
+    lbCurrent.textContent = i + 1;
+    lbMeta.textContent = portraits[i].sub;
+    updateProgress();
+    updateFilmstrip();
+    animateImg(direction);
+    setTimeout(() => { isTransitioning = false; }, 420);
+  }
+
+  function openLB(i) {
+    if (lb.classList.contains('open')) return;
+    loadImage(i, 'open');
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLB() {
+    if (isZoomed) { isZoomed = false; lbImg.classList.remove('zoomed'); return; }
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function navigate(i, direction) { loadImage(i, direction); }
+  function prevImage() { navigate((currentIdx - 1 + portraits.length) % portraits.length, 'prev'); }
+  function nextImage() { navigate((currentIdx + 1) % portraits.length, 'next'); }
+
+  /* ── Gallery click with pulse animation ── */
+  document.querySelectorAll('.gallery-item').forEach(item => {
+    item.addEventListener('click', () => {
+      item.classList.add('pulse');
+      item.addEventListener('animationend', () => item.classList.remove('pulse'), {once: true});
+      openLB(parseInt(item.dataset.index));
+    });
+  });
+
+  /* ── Controls ── */
+  lbClose.addEventListener('click', closeLB);
+  lbPrevBtn.addEventListener('click', prevImage);
+  lbNextBtn.addEventListener('click', nextImage);
   lb.addEventListener('click', (e) => { if (e.target === lb) closeLB(); });
-  document.addEventListener('keydown', (e) => { if (!lb.classList.contains('open')) return; if (e.key === 'Escape') closeLB(); if (e.key === 'ArrowLeft') openLB((currentIdx - 1 + portraits.length) % portraits.length); if (e.key === 'ArrowRight') openLB((currentIdx + 1) % portraits.length); });
+
+  /* ── Zoom on image click ── */
+  lbImg.addEventListener('click', (e) => {
+    e.stopPropagation();
+    isZoomed = !isZoomed;
+    lbImg.classList.toggle('zoomed', isZoomed);
+  });
+
+  /* ── Keyboard ── */
+  document.addEventListener('keydown', (e) => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') { e.preventDefault(); closeLB(); }
+    if (e.key === 'ArrowLeft'  && !isZoomed) { e.preventDefault(); prevImage(); }
+    if (e.key === 'ArrowRight' && !isZoomed) { e.preventDefault(); nextImage(); }
+    if (e.key === ' '          && !isZoomed) { e.preventDefault(); nextImage(); }
+  });
+
+  /* ── Touch swipe ── */
+  lb.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, {passive: true});
+  lb.addEventListener('touchend', (e) => {
+    if (isZoomed) return;
+    const dx = touchStartX - e.changedTouches[0].clientX;
+    const dy = touchStartY - e.changedTouches[0].clientY;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 45) {
+      if (dx > 0) nextImage(); else prevImage();
+    }
+  });
+
+  /* ── Preload adjacent images ── */
+  lbImg.addEventListener('load', () => {
+    const preload = (idx) => {
+      const img = new Image();
+      img.src = 'assets/Portraits/taiyzun_shahpurwala ' + String(idx+1).padStart(5,'0') + '.jpeg';
+    };
+    preload((currentIdx + 1) % portraits.length);
+    preload((currentIdx - 1 + portraits.length) % portraits.length);
+  });
+
+  /* ── Nav scroll ── */
   const nav = document.getElementById('mainNav');
   window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
-  const obs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+
+  /* ── Reveal on scroll ── */
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, {threshold: 0.05, rootMargin: '0px 0px -20px 0px'});
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  /* ── Cursor glow ── */
   const glow = document.getElementById('cursorGlow');
   let glowOn = false;
-  document.addEventListener('mousemove', (e) => { if (!glowOn) { glow.classList.add('active'); glowOn = true; } requestAnimationFrame(() => { glow.style.left = e.clientX + 'px'; glow.style.top = e.clientY + 'px'; }); });
+  document.addEventListener('mousemove', (e) => {
+    if (!glowOn) { glow.classList.add('active'); glowOn = true; }
+    requestAnimationFrame(() => { glow.style.left = e.clientX + 'px'; glow.style.top = e.clientY + 'px'; });
+  });
   document.addEventListener('mouseleave', () => { glow.classList.remove('active'); glowOn = false; });
+
+  /* ── Service worker ── */
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('/service-worker.js');
+
+  /* ── Mobile nav ── */
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.getElementById('navLinks');
   hamburger.addEventListener('click', () => {
