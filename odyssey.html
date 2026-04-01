@@ -214,6 +214,20 @@
     html { scroll-behavior: auto; }
     .page-hero-video video, .page-hero-video canvas { display: none; }
   }
+  /* ── Easter Eggs ── */
+  .easter-egg { position: absolute; pointer-events: none; z-index: 0; opacity: 0; transition: opacity 1.2s ease; }
+  .easter-egg.visible { opacity: 1; }
+  .ee-sword { width: 80px; filter: drop-shadow(0 0 15px rgba(201,168,76,0.3)) brightness(0.7) sepia(0.3); }
+  .ee-mandala { width: 120px; filter: drop-shadow(0 0 20px rgba(201,168,76,0.2)) brightness(0.5) saturate(0.4); animation: eeRotate 45s linear infinite; }
+  @keyframes eeRotate { to { transform: rotate(360deg); } }
+  .noise-overlay { position: absolute; inset: 0; opacity: 0.015; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size: 180px; pointer-events: none; z-index: 0; }
+  .float-particle { position: absolute; width: 3px; height: 3px; background: rgba(201,168,76,0.3); border-radius: 50%; pointer-events: none; z-index: 0; animation: floatUp var(--dur, 12s) linear infinite; opacity: 0; }
+  @keyframes floatUp { 0% { opacity: 0; transform: translateY(0) scale(0); } 10% { opacity: 1; } 90% { opacity: 0.6; } 100% { opacity: 0; transform: translateY(-100vh) scale(1.5); } }
+  .reveal-left { opacity: 0; transform: translateX(-50px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+  .reveal-right { opacity: 0; transform: translateX(50px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+  .reveal-scale { opacity: 0; transform: scale(0.85); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+  .reveal-left.visible, .reveal-right.visible, .reveal-scale.visible { opacity: 1; transform: none; }
+  .parallax-el { will-change: transform; }
 </style>
 </head>
 <body>  <style>.skip-link{position:absolute;top:-44px;left:1rem;padding:0.6rem 1.2rem;background:var(--gold);color:#0a0a0f;font-size:0.8rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;border-radius:0 0 4px 4px;transition:top 0.2s ease;z-index:9999;}.skip-link:focus{top:0;}</style>  <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -234,13 +248,15 @@
 <div class="page-hero">
   <div class="page-hero-video"><canvas id="heroBg" aria-hidden="true"></canvas></div>
   <div class="page-hero-overlay"></div>
+  <img src="assets/images/TaiyZun-Sword-logo-small.png" alt="" class="easter-egg ee-sword" style="top:20%;right:4%;opacity:0.07;" aria-hidden="true">
   <div class="page-hero-content">
     <h1>Odyssey: From <em>Taiyzun</em> to TezZ to Tai</h1>
     <p class="intro">Embark on a profound journey through early life experiences, artistic explorations, and creative transformation. Witness the evolution from Taiyzun to TezZ to Tai, beautifully illustrated through captivating portraits and intimate personal narratives that unveil a story of continual growth, self-discovery, and creative awakening.</p>
     <span class="coming-soon">Coming Soon…</span>
   </div>
 </div>
-<div class="gallery-section" id="main-content">
+<div class="gallery-section" id="main-content" style="position:relative;">
+  <img src="assets/images/TimEsuiTs.png" alt="" class="easter-egg ee-mandala parallax-el" style="top:-30px;right:-20px;width:100px;opacity:0.05;" aria-hidden="true" data-speed="0.25">
   <div class="gallery-label reveal">
     <p class="section-label">Portrait Journey</p>
     <h2>A visual exploration through the personal odyssey</h2>
@@ -272,6 +288,7 @@
   <div class="lb-progress"><div class="lb-progress-bar" id="lbProgressBar"></div></div>
 </div>
 <footer>
+  <img src="assets/images/TaiyZun-Sword-logo-small.png" alt="" class="easter-egg ee-sword parallax-el" style="top:-30px;left:5%;opacity:0.04;transform:scaleX(-1);" aria-hidden="true" data-speed="-0.2">
   <div class="social-links">
     <a href="https://www.instagram.com/taiyzun" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg></a>
     <a href="https://www.facebook.com/taiyzun" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
@@ -491,6 +508,39 @@
     document.addEventListener('touchstart',e=>{const t=e.touches[0];spawnRipple(t.clientX,t.clientY,false);pressTimer=setTimeout(()=>{spawnRipple(t.clientX,t.clientY,true);pressTimer=null;},500);},{passive:true});
     document.addEventListener('touchend',()=>{if(pressTimer){clearTimeout(pressTimer);pressTimer=null;}},{passive:true});
     document.addEventListener('touchmove',()=>{if(pressTimer){clearTimeout(pressTimer);pressTimer=null;}},{passive:true});
+  })();
+  // ── Parallax on scroll ──
+  const parallaxEls = document.querySelectorAll('.parallax-el');
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(() => {
+      const st = window.scrollY;
+      parallaxEls.forEach(el => {
+        const speed = parseFloat(el.dataset.speed || 0.15);
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight + 200 && rect.bottom > -200) {
+          el.style.transform = `translateY(${st * speed}px)`;
+        }
+      });
+      ticking = false;
+    }); ticking = true; }
+  }, { passive: true });
+  // ── Enhanced reveal observer ──
+  const revealAllObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealAllObs.unobserve(e.target); } });
+  }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal-left, .reveal-right, .reveal-scale, .easter-egg').forEach(el => revealAllObs.observe(el));
+  // ── Floating particles ──
+  (function(){
+    document.querySelectorAll('section, .gallery-section, .page-hero, footer').forEach(sec => {
+      for (let i = 0; i < 4; i++) {
+        const p = document.createElement('div');
+        p.className = 'float-particle';
+        p.style.cssText = `left:${Math.random()*90+5}%;bottom:${Math.random()*20}%;--dur:${8+Math.random()*10}s;animation-delay:${Math.random()*8}s;width:${2+Math.random()*3}px;height:${2+Math.random()*3}px;`;
+        if (!sec.style.position) sec.style.position = 'relative';
+        sec.appendChild(p);
+      }
+    });
   })();
   // ── Hero Canvas: Deep Ocean ──
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) (function(){
