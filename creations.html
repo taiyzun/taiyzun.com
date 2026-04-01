@@ -543,6 +543,40 @@
     document.addEventListener('touchmove',()=>{if(pressTimer){clearTimeout(pressTimer);pressTimer=null;}},{passive:true});
   })();
 
+  // ── Parallax on scroll ──
+  const parallaxEls = document.querySelectorAll('.parallax-el');
+  let ticking2 = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking2) { requestAnimationFrame(() => {
+      const st = window.scrollY;
+      parallaxEls.forEach(el => {
+        const speed = parseFloat(el.dataset.speed || 0.15);
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight + 200 && rect.bottom > -200) {
+          el.style.transform = `translateY(${st * speed}px)`;
+        }
+      });
+      ticking2 = false;
+    }); ticking2 = true; }
+  }, { passive: true });
+  // ── Enhanced reveal observer ──
+  const revealAllObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealAllObs.unobserve(e.target); } });
+  }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal-left, .reveal-right, .reveal-scale, .easter-egg').forEach(el => revealAllObs.observe(el));
+  // ── Floating particles ──
+  (function(){
+    document.querySelectorAll('.gallery-section, .page-hero, footer').forEach(sec => {
+      for (let i = 0; i < 4; i++) {
+        const p = document.createElement('div');
+        p.className = 'float-particle';
+        p.style.cssText = `left:${Math.random()*90+5}%;bottom:${Math.random()*20}%;--dur:${8+Math.random()*10}s;animation-delay:${Math.random()*8}s;width:${2+Math.random()*3}px;height:${2+Math.random()*3}px;`;
+        if (!sec.style.position) sec.style.position = 'relative';
+        sec.appendChild(p);
+      }
+    });
+  })();
+
   init();
 
   // ── Hero Canvas: Plasma ──
