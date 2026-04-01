@@ -103,7 +103,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-<link rel="preload" href="assets/video/sora.mp4" as="video" type="video/mp4">
 <link rel="prefetch" href="/journey.html">
 <link rel="prefetch" href="/creations.html">
 <link rel="prefetch" href="/connect.html">
@@ -216,10 +215,11 @@
   @keyframes lineGrow { from { width: 0; } to { width: 30px; } }
   .reveal { opacity: 0; transform: translateY(50px); transition: opacity 1s cubic-bezier(0.16,1,0.3,1), transform 1s cubic-bezier(0.16,1,0.3,1); }
   .reveal.visible { opacity: 1; transform: none; }
-  .reveal-left { opacity: 0; transform: translateX(-60px); transition: opacity 1s cubic-bezier(0.16,1,0.3,1), transform 1s cubic-bezier(0.16,1,0.3,1); }
-  .reveal-left.visible { opacity: 1; transform: none; }
-  .reveal-right { opacity: 0; transform: translateX(60px); transition: opacity 1s cubic-bezier(0.16,1,0.3,1), transform 1s cubic-bezier(0.16,1,0.3,1); }
-  .reveal-right.visible { opacity: 1; transform: none; }
+  .reveal-left { opacity: 0; transform: translateX(-50px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+  .reveal-right { opacity: 0; transform: translateX(50px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+  .reveal-scale { opacity: 0; transform: scale(0.85); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+  .reveal-left.visible, .reveal-right.visible, .reveal-scale.visible { opacity: 1; transform: none; }
+  .parallax-el { transition: transform 0.1s linear; will-change: transform; }
   .stagger-children > * { opacity: 0; transform: translateY(30px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
   .stagger-children.visible > *:nth-child(1) { transition-delay: 0.05s; opacity: 1; transform: none; }
   .stagger-children.visible > *:nth-child(2) { transition-delay: 0.12s; opacity: 1; transform: none; }
@@ -285,6 +285,18 @@
   .footer-brand { position:relative; }
   .footer-brand::before { content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:120px; height:120px; background:radial-gradient(circle,rgba(201,168,76,0.08) 0%,transparent 70%); border-radius:50%; pointer-events:none; }
   @media (max-width: 768px) { .hero-logo { width: 72px; } .cursor-ring { display:none; } }
+  /* ── Easter Eggs ── */
+  .easter-egg { position: absolute; pointer-events: none; z-index: 0; opacity: 0; transition: opacity 1.2s ease; }
+  .easter-egg.visible { opacity: 1; }
+  .ee-sword { width: 80px; filter: drop-shadow(0 0 15px rgba(201,168,76,0.3)) brightness(0.7) sepia(0.3); }
+  .ee-mandala { width: 120px; filter: drop-shadow(0 0 20px rgba(201,168,76,0.2)) brightness(0.5) saturate(0.4); animation: eeRotate 45s linear infinite; }
+  @keyframes eeRotate { to { transform: rotate(360deg); } }
+  /* ── Layered BG sections ── */
+  .section-bg { position: relative; overflow: hidden; }
+  .section-bg::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 20% 80%, rgba(201,168,76,0.03) 0%, transparent 60%); pointer-events: none; z-index: 0; }
+  .noise-overlay { position: absolute; inset: 0; opacity: 0.015; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size: 180px; pointer-events: none; z-index: 0; }
+  .float-particle { position: absolute; width: 3px; height: 3px; background: rgba(201,168,76,0.3); border-radius: 50%; pointer-events: none; z-index: 0; animation: floatUp var(--dur, 12s) linear infinite; opacity: 0; }
+  @keyframes floatUp { 0% { opacity: 0; transform: translateY(0) scale(0); } 10% { opacity: 1; } 90% { opacity: 0.6; } 100% { opacity: 0; transform: translateY(-100vh) scale(1.5); } }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
     html { scroll-behavior: auto; }
@@ -315,6 +327,7 @@
   <div class="hero-overlay"></div>
   <div class="hero-grain"></div>
   <div class="hero-scan"></div>
+  <img src="assets/images/TaiyZun-Sword-logo-small.png" alt="" class="easter-egg ee-sword" style="top:15%;right:5%;opacity:0.08;" aria-hidden="true">
   <div class="particles" id="particles"></div>
   <div class="hero-content">
     <img src="assets/images/Taiyzun-logo.png" alt="Taiyzun" class="hero-logo">
@@ -328,7 +341,7 @@
   </div>
   <div class="scroll-indicator"><span>Scroll</span><div class="scroll-line"></div></div>
 </section>
-<section>
+<section class="section-bg">
   <div class="about-grid">
     <div class="about-text reveal-left">
       <p class="section-label">About</p>
@@ -337,21 +350,24 @@
       <p>My professional journey has offered me enriching opportunities with remarkable individuals and teams across diverse organisations. My entrepreneurial spirit was notably fostered at 🏭 <span class="gold"><em>STYLETEK</em></span>, where my <strong>Father's</strong> steadfast principles guided my modernisation efforts in the 👔 <strong>garments and textile business</strong>, enhancing efficiency and sustainability. At 🎨 <span class="gold"><em>Gabbana Fashions</em></span>, deepened my appreciation for craftsmanship and attention to detail. My experience at 🏢 <span class="gold"><em>The Wadia Group</em></span> provided valuable exposure to 💡 <strong>digital innovation</strong>, through directing 🖥️ <strong>website development</strong> and streamlining 📊 <strong>organisational processes</strong>. As a 📺 <strong>Video Jockey (VJ)</strong> on 📺 <span class="gold"><em>Channel [V]</em></span>, I honed in on my storytelling skills, engaging audiences on TV and 🎭 <strong>live events</strong>, while my role at 🎪 <span class="gold"><em>Wizcraft</em></span> allowed me to develop my organisational abilities through managing prominent 🎬 <strong>entertainment productions</strong>.</p>
       <p>Each step of my <strong>journey</strong> has significantly shaped my personal and professional growth, continuously <strong>inspiring</strong> me towards purposeful action and <strong>visionary leadership</strong>, guided by the timeless principles of <strong>truth</strong>, <strong>sincerity</strong> and <strong>integrity</strong>.</p>
     </div>
-    <div class="about-highlights stagger-children reveal-right">
+    <div class="about-highlights stagger-children reveal-right" style="position:relative;">
       <div class="highlight-card"><h3>I Am Peacekeeper Movement</h3><p>Core Team Member driving global peace initiatives and strategic communications</p></div>
       <div class="highlight-card"><h3>Billionaires for Peace</h3><p>Coordinating the 2026 Mumbai Conclave — bringing together global leaders for impact</p></div>
       <div class="highlight-card"><h3>EIRENE Awards</h3><p>Managed communications and logistics for a summit with 10 Nobel Peace Prize Laureates</p></div>
       <div class="highlight-card"><h3>Channel [V] &amp; Wizcraft</h3><p>From VJ to entertainment specialist — storytelling across TV, radio, and live events</p></div>
       <div class="highlight-card"><h3>STYLETEK &amp; Gabbana Fashions</h3><p>Textile manufacturing, bespoke design, ERP/SAP integration, and global trade networks</p></div>
+      <img src="assets/images/TimEsuiTs.png" alt="" class="easter-egg ee-mandala parallax-el" style="bottom:-40px;left:-30px;opacity:0.06;" aria-hidden="true" data-speed="0.3">
+      <div class="noise-overlay" aria-hidden="true"></div>
     </div>
   </div>
 </section>
 <div class="divider"></div>
-<div class="bio-section reveal">
+<div class="bio-section reveal" style="position:relative;">
+  <img src="assets/images/TaiyZun-Sword-logo-small.png" alt="" class="easter-egg ee-sword parallax-el" style="top:20px;left:8%;opacity:0.05;transform:scaleX(-1);" aria-hidden="true" data-speed="-0.2">
   <blockquote class="bio-blockquote">Each step of my journey has significantly shaped my personal and professional growth, continuously inspiring me towards purposeful action and visionary leadership, guided by the timeless principles of truth, sincerity and integrity.</blockquote>
 </div>
 <div class="divider"></div>
-<section>
+<section class="section-bg">
   <div class="reveal" style="text-align:center;">
     <p class="section-label" style="justify-content:center;">Principles</p>
     <h2 class="section-title">Guided by Purpose</h2>
@@ -363,7 +379,8 @@
     <div class="value-item"><span class="value-icon">✦</span><h3>Vision</h3><p>Purposeful action towards global harmony and creative impact</p></div>
   </div>
 </section>
-<footer>
+<footer style="position:relative;">
+  <img src="assets/images/TimEsuiTs.png" alt="" class="easter-egg ee-mandala" style="top:-60px;right:-20px;width:100px;opacity:0.04;" aria-hidden="true">
   <div class="social-links stagger-children reveal">
     <a href="https://www.instagram.com/taiyzun" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg></a>
     <a href="https://www.facebook.com/taiyzun" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
@@ -469,6 +486,43 @@
     }, { passive: true });
     document.addEventListener('touchend', () => { if (pressTimer) { clearTimeout(pressTimer); pressTimer = null; } }, { passive: true });
     document.addEventListener('touchmove', () => { if (pressTimer) { clearTimeout(pressTimer); pressTimer = null; } }, { passive: true });
+  })();
+
+  // ── Parallax on scroll ──
+  const parallaxEls = document.querySelectorAll('.parallax-el');
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(() => {
+      const st = window.scrollY;
+      parallaxEls.forEach(el => {
+        const speed = parseFloat(el.dataset.speed || 0.15);
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight + 200 && rect.bottom > -200) {
+          el.style.transform = `translateY(${st * speed}px)`;
+        }
+      });
+      ticking = false;
+    }); ticking = true; }
+  }, { passive: true });
+
+  // ── Enhanced reveal observer ──
+  const revealAllObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealAllObs.unobserve(e.target); } });
+  }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal-left, .reveal-right, .reveal-scale, .easter-egg').forEach(el => revealAllObs.observe(el));
+
+  // ── Floating particles ──
+  (function(){
+    const sections = document.querySelectorAll('.section-bg, section, .about-section, .bio-section');
+    sections.forEach(sec => {
+      for (let i = 0; i < 5; i++) {
+        const p = document.createElement('div');
+        p.className = 'float-particle';
+        p.style.cssText = `left:${Math.random()*90+5}%;bottom:${Math.random()*20}%;--dur:${8+Math.random()*10}s;animation-delay:${Math.random()*8}s;width:${2+Math.random()*3}px;height:${2+Math.random()*3}px;`;
+        sec.style.position = sec.style.position || 'relative';
+        sec.appendChild(p);
+      }
+    });
   })();
 
   // ── Hero Canvas: Cosmos ──
