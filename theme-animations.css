@@ -1,0 +1,425 @@
+/**
+ * THEME ANIMATIONS CSS
+ * Dynamic theme variables, animations, and transition effects
+ * This file should be included AFTER style.css
+ */
+
+/* ============================================
+   ROOT THEME CSS VARIABLES
+   ============================================ */
+
+:root {
+  /* Theme colors (dynamically set by theme-engine.js) */
+  --theme-bg: #0b0f0d;
+  --theme-bg-secondary: #121a16;
+  --theme-text: #f0ece4;
+  --theme-text-secondary: rgba(240, 236, 228, 0.65);
+
+  /* Accent colors */
+  --theme-accent-primary: #c9a84c;
+  --theme-accent-secondary: #e4cb78;
+  --theme-accent-tertiary: #FF9800;
+  --theme-gold: #c9a84c;
+
+  /* Gradients */
+  --theme-gradient-1: linear-gradient(135deg, #c9a84c, #e4cb78);
+  --theme-gradient-2: linear-gradient(90deg, #c9a84c, #FF9800);
+
+  /* Animation config */
+  --theme-transition-duration: 800ms;
+  --theme-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+  --glassmorphism-blur: 10px;
+  --glow-strength: 1;
+  --accent-saturation: 100%;
+}
+
+/* ============================================
+   THEME TRANSITIONS
+   ============================================ */
+
+body.theme-transitioning {
+  transition: all var(--theme-transition-duration) var(--theme-transition-timing);
+}
+
+html {
+  background: var(--theme-bg);
+  transition: background var(--theme-transition-duration) var(--theme-transition-timing);
+}
+
+/* ============================================
+   ANIMATION KEYFRAMES
+   ============================================ */
+
+/* HOME PAGE - Kaleidoscopic */
+@keyframes kaleidoscope-entrance {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-180deg);
+    clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.5) rotate(-90deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+}
+
+@keyframes prismatic-shift {
+  0% { filter: hue-rotate(0deg) saturate(var(--accent-saturation)); }
+  25% { filter: hue-rotate(90deg) saturate(var(--accent-saturation)); }
+  50% { filter: hue-rotate(180deg) saturate(var(--accent-saturation)); }
+  75% { filter: hue-rotate(270deg) saturate(var(--accent-saturation)); }
+  100% { filter: hue-rotate(360deg) saturate(var(--accent-saturation)); }
+}
+
+@keyframes morphing-shapes {
+  0% { border-radius: 0%; }
+  25% { border-radius: 50% 0% 50% 0%; }
+  50% { border-radius: 50% 50% 0% 0%; }
+  75% { border-radius: 0% 50% 0% 50%; }
+  100% { border-radius: 0%; }
+}
+
+/* JOURNEY PAGE - Timeline */
+@keyframes timeline-reveal {
+  0% {
+    opacity: 0;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 0;
+    transform: translateY(0);
+  }
+}
+
+@keyframes milestone-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0) translateY(30px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes flowing-path {
+  0% {
+    opacity: 0;
+    stroke-dashoffset: 100%;
+  }
+  100% {
+    opacity: 1;
+    stroke-dashoffset: 0%;
+  }
+}
+
+/* CREATIONS PAGE - Drift & Rotate */
+@keyframes drift-rotate-entrance {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) translateX(-30px) rotate(-45deg) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) translateX(0) rotate(0) scale(1);
+  }
+}
+
+@keyframes drift {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-20px) translateX(15px) rotate(5deg);
+  }
+  50% {
+    transform: translateY(-10px) translateX(-10px) rotate(-3deg);
+  }
+  75% {
+    transform: translateY(-25px) translateX(5px) rotate(2deg);
+  }
+}
+
+@keyframes float-rotate {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(10deg) scale(1.05);
+  }
+}
+
+/* ODYSSEY PAGE - Poetic Reveal */
+@keyframes unfold-reveal {
+  0% {
+    opacity: 0;
+    max-height: 0;
+    transform: scaleY(0) translateY(20px);
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+    max-height: 100%;
+    transform: scaleY(1) translateY(0);
+  }
+}
+
+@keyframes text-reveal {
+  0% {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+  }
+  100% {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes slide-in-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* CONNECT PAGE - Network */
+@keyframes network-activate {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes connection-line-draw {
+  0% {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    opacity: 0;
+  }
+  100% {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes node-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px var(--theme-accent-primary));
+  }
+}
+
+/* ============================================
+   SHARED ANIMATIONS
+   ============================================ */
+
+/* Pulse glow effect */
+@keyframes pulse-glow {
+  0%, 100% {
+    filter: glow(0px) brightness(1);
+    box-shadow: 0 0 10px var(--theme-accent-primary);
+  }
+  50% {
+    filter: glow(10px) brightness(1.1);
+    box-shadow: 0 0 30px var(--theme-accent-primary);
+  }
+}
+
+/* Shimmer effect */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+/* Fade in */
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Stagger animation helper */
+@keyframes stagger-in {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   ANIMATION UTILITY CLASSES
+   ============================================ */
+
+.animate-on-scroll {
+  animation: fade-in-up 0.8s var(--theme-transition-timing) forwards;
+  opacity: 0;
+}
+
+.animate-kaleidoscope {
+  animation: kaleidoscope-entrance 1.2s ease-out forwards;
+}
+
+.animate-timeline {
+  animation: timeline-reveal 1.5s ease-out forwards;
+}
+
+.animate-drift-rotate {
+  animation: drift 6s ease-in-out infinite;
+}
+
+.animate-unfold {
+  animation: unfold-reveal 2s ease-out forwards;
+}
+
+.animate-network {
+  animation: network-activate 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+/* Stagger delays for list items */
+.stagger-item:nth-child(1) { animation-delay: 0.1s; }
+.stagger-item:nth-child(2) { animation-delay: 0.2s; }
+.stagger-item:nth-child(3) { animation-delay: 0.3s; }
+.stagger-item:nth-child(4) { animation-delay: 0.4s; }
+.stagger-item:nth-child(5) { animation-delay: 0.5s; }
+.stagger-item:nth-child(n+6) { animation-delay: calc(0.1s * (n - 5)); }
+
+/* ============================================
+   RESPONSIVE ANIMATIONS
+   ============================================ */
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  :root {
+    --theme-transition-duration: 100ms;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  :root {
+    --glow-strength: 0.7;
+    --glassmorphism-blur: 8px;
+  }
+
+  /* Faster animations on mobile */
+  .animate-kaleidoscope {
+    animation-duration: 0.8s;
+  }
+
+  .animate-timeline {
+    animation-duration: 1s;
+  }
+
+  .animate-unfold {
+    animation-duration: 1.2s;
+  }
+}
+
+/* ============================================
+   ADVANCED EFFECTS
+   ============================================ */
+
+/* Glow effect for accent elements */
+.accent-glow {
+  color: var(--theme-accent-primary);
+  text-shadow: 0 0 10px var(--theme-accent-primary);
+  filter: brightness(1.2);
+}
+
+.accent-glow-strong {
+  color: var(--theme-accent-primary);
+  text-shadow:
+    0 0 10px var(--theme-accent-primary),
+    0 0 20px var(--theme-accent-primary),
+    0 0 30px var(--theme-accent-primary);
+  filter: brightness(1.3);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: var(--theme-gradient-1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glassmorphism element */
+.glass-element {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(var(--glassmorphism-blur)) saturate(1.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+}
+
+/* ============================================
+   TRANSITION TIMING PRESETS
+   ============================================ */
+
+:root {
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-sharp: cubic-bezier(0.4, 0.6, 0.6, 0.4);
+  --ease-slow: cubic-bezier(0.2, 0, 0.8, 0.6);
+}
