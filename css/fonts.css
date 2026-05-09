@@ -1,0 +1,202 @@
+/* Font Hierarchy Implementation */
+/* Priority: Philosopher → DINPro → Optima → Trebuchet MS */
+
+:root {
+  /* Font Families (Priority Order) */
+  --font-display: 'DINPro', 'Philosopher', 'Optima', 'Trebuchet MS', sans-serif;
+  --font-body: 'Philosopher', 'DINPro', 'Optima', 'Trebuchet MS', sans-serif;
+  --font-mono: 'Courier New', monospace;
+
+  /* Font Sizes (Golden Ratio Scale) */
+  --fs-sm: 12px;
+  --fs-md: 14px;
+  --fs-base: 16px;
+  --fs-lg: 20px;
+  --fs-xl: 26px;
+  --fs-2xl: 42px;
+  --fs-3xl: 68px;
+
+  /* Font Weights */
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* Line Heights */
+  --lh-tight: 1.2;
+  --lh-normal: 1.5;
+  --lh-relaxed: 1.85;
+
+  /* Letter Spacing */
+  --ls-tight: -0.02em;
+  --ls-normal: 0.02em;
+  --ls-wide: 0.08em;
+  --ls-wider: 0.12em;
+  --ls-widest: 0.18em;
+}
+
+/* Typography Defaults */
+html {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  line-height: var(--lh-relaxed);
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-relaxed);
+  letter-spacing: var(--ls-normal);
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  letter-spacing: var(--ls-widest);
+  margin: 2rem 0 1rem 0;
+}
+
+h2 {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-wider);
+  margin: 1.5rem 0 0.8rem 0;
+}
+
+h3 {
+  font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-wide);
+}
+
+h4 {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semibold);
+}
+
+h5 {
+  font-size: var(--fs-base);
+  font-weight: var(--fw-semibold);
+}
+
+h6 {
+  font-size: var(--fs-md);
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+}
+
+/* Paragraph */
+p {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  margin: 0 0 1.5rem 0;
+}
+
+/* Small */
+small {
+  font-size: var(--fs-sm);
+  letter-spacing: var(--ls-wide);
+}
+
+/* Strong/Bold */
+strong, b {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+}
+
+/* Emphasis */
+em, i {
+  font-style: italic;
+  font-weight: var(--fw-light);
+}
+
+/* Links */
+a {
+  font-family: inherit;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Navigation */
+nav, nav a {
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+}
+
+/* Buttons */
+button, .btn, input[type="button"], input[type="submit"] {
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+/* Forms */
+label {
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+}
+
+input, textarea, select {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  line-height: var(--lh-normal);
+}
+
+/* Code */
+code, pre {
+  font-family: var(--font-mono);
+  font-size: clamp(0.875rem, 1vw, 1rem);
+  line-height: var(--lh-normal);
+}
+
+/* Lists */
+ul, ol {
+  margin: 1.5rem 0;
+  padding-left: 2rem;
+}
+
+li {
+  margin: 0.5rem 0;
+}
+
+/* Blockquote */
+blockquote {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  font-style: italic;
+  margin: 2rem 0;
+  padding-left: 2rem;
+  border-left: 4px solid var(--gold);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
+  h2 { font-size: clamp(1.3rem, 3vw, 1.8rem); }
+  h3 { font-size: clamp(1rem, 2vw, 1.3rem); }
+
+  body {
+    font-size: clamp(0.9rem, 1.2vw, 1rem);
+  }
+
+  nav, nav a {
+    font-size: clamp(0.75rem, 1.5vw, 1rem);
+  }
+}
