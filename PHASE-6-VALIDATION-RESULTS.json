@@ -1,0 +1,827 @@
+{
+  "timestamp": "2026-05-09T16:00:54.360Z",
+  "pages": [
+    {
+      "page": "Home",
+      "file": "index.html",
+      "tests": [
+        {
+          "category": "HTML Structure",
+          "results": [
+            {
+              "test": "checkDoctype",
+              "status": "PASS"
+            },
+            {
+              "test": "checkMetaTags",
+              "status": "PASS"
+            },
+            {
+              "test": "checkLanguageAttr",
+              "status": "PASS"
+            },
+            {
+              "test": "checkTitle",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Accessibility",
+          "results": [
+            {
+              "test": "checkHeadings",
+              "status": "PASS"
+            },
+            {
+              "test": "checkImageAlt",
+              "status": "PASS"
+            },
+            {
+              "test": "checkFormLabels",
+              "status": "PASS"
+            },
+            {
+              "test": "checkColors",
+              "status": "PASS"
+            },
+            {
+              "test": "checkContrast",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Responsive Design",
+          "results": [
+            {
+              "test": "checkViewportMeta",
+              "status": "PASS"
+            },
+            {
+              "test": "checkMediaQueries",
+              "status": "PASS"
+            },
+            {
+              "test": "checkResponsiveImages",
+              "status": "PASS"
+            },
+            {
+              "test": "checkCSSVars",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Fonts & Typography",
+          "results": [
+            {
+              "test": "checkFontLoading",
+              "status": "PASS"
+            },
+            {
+              "test": "checkFontHierarchy",
+              "status": "PASS"
+            },
+            {
+              "test": "checkLetterSpacing",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Performance",
+          "results": [
+            {
+              "test": "checkLazyLoading",
+              "status": "PASS"
+            },
+            {
+              "test": "checkCSSMinified",
+              "status": "PASS"
+            },
+            {
+              "test": "checkScriptDefer",
+              "status": "PASS"
+            },
+            {
+              "test": "checkPreload",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Modern Features",
+          "results": [
+            {
+              "test": "checkPictureElements",
+              "status": "PASS"
+            },
+            {
+              "test": "checkWebPSupport",
+              "status": "PASS"
+            },
+            {
+              "test": "checkAVIFSupport",
+              "status": "PASS"
+            },
+            {
+              "test": "checkCSS3Features",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Security",
+          "results": [
+            {
+              "test": "checkCSP",
+              "status": "PASS"
+            },
+            {
+              "test": "checkHTMLEscaping",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Forms",
+          "results": [
+            {
+              "test": "checkFormValidation",
+              "status": "PASS"
+            },
+            {
+              "test": "checkFormSubmission",
+              "status": "PASS"
+            }
+          ]
+        }
+      ],
+      "stats": {
+        "passed": 28,
+        "warning": 0,
+        "failed": 0
+      }
+    },
+    {
+      "page": "Journey",
+      "file": "journey.html",
+      "tests": [
+        {
+          "category": "HTML Structure",
+          "results": [
+            {
+              "test": "checkDoctype",
+              "status": "PASS"
+            },
+            {
+              "test": "checkMetaTags",
+              "status": "PASS"
+            },
+            {
+              "test": "checkLanguageAttr",
+              "status": "PASS"
+            },
+            {
+              "test": "checkTitle",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Accessibility",
+          "results": [
+            {
+              "test": "checkHeadings",
+              "status": "PASS"
+            },
+            {
+              "test": "checkImageAlt",
+              "status": "PASS"
+            },
+            {
+              "test": "checkFormLabels",
+              "status": "PASS"
+            },
+            {
+              "test": "checkColors",
+              "status": "PASS"
+            },
+            {
+              "test": "checkContrast",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Responsive Design",
+          "results": [
+            {
+              "test": "checkViewportMeta",
+              "status": "PASS"
+            },
+            {
+              "test": "checkMediaQueries",
+              "status": "PASS"
+            },
+            {
+              "test": "checkResponsiveImages",
+              "status": "PASS"
+            },
+            {
+              "test": "checkCSSVars",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Fonts & Typography",
+          "results": [
+            {
+              "test": "checkFontLoading",
+              "status": "PASS"
+            },
+            {
+              "test": "checkFontHierarchy",
+              "status": "PASS"
+            },
+            {
+              "test": "checkLetterSpacing",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Performance",
+          "results": [
+            {
+              "test": "checkLazyLoading",
+              "status": "PASS"
+            },
+            {
+              "test": "checkCSSMinified",
+              "status": "PASS"
+            },
+            {
+              "test": "checkScriptDefer",
+              "status": "PASS"
+            },
+            {
+              "test": "checkPreload",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Modern Features",
+          "results": [
+            {
+              "test": "checkPictureElements",
+              "status": "PASS"
+            },
+            {
+              "test": "checkWebPSupport",
+              "status": "PASS"
+            },
+            {
+              "test": "checkAVIFSupport",
+              "status": "PASS"
+            },
+            {
+              "test": "checkCSS3Features",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Security",
+          "results": [
+            {
+              "test": "checkCSP",
+              "status": "PASS"
+            },
+            {
+              "test": "checkHTMLEscaping",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Forms",
+          "results": [
+            {
+              "test": "checkFormValidation",
+              "status": "PASS"
+            },
+            {
+              "test": "checkFormSubmission",
+              "status": "PASS"
+            }
+          ]
+        }
+      ],
+      "stats": {
+        "passed": 28,
+        "warning": 0,
+        "failed": 0
+      }
+    },
+    {
+      "page": "Creations",
+      "file": "creations.html",
+      "tests": [
+        {
+          "category": "HTML Structure",
+          "results": [
+            {
+              "test": "checkDoctype",
+              "status": "PASS"
+            },
+            {
+              "test": "checkMetaTags",
+              "status": "PASS"
+            },
+            {
+              "test": "checkLanguageAttr",
+              "status": "PASS"
+            },
+            {
+              "test": "checkTitle",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Accessibility",
+          "results": [
+            {
+              "test": "checkHeadings",
+              "status": "PASS"
+            },
+            {
+              "test": "checkImageAlt",
+              "status": "PASS"
+            },
+            {
+              "test": "checkFormLabels",
+              "status": "PASS"
+            },
+            {
+              "test": "checkColors",
+              "status": "PASS"
+            },
+            {
+              "test": "checkContrast",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Responsive Design",
+          "results": [
+            {
+              "test": "checkViewportMeta",
+              "status": "PASS"
+            },
+            {
+              "test": "checkMediaQueries",
+              "status": "PASS"
+            },
+            {
+              "test": "checkResponsiveImages",
+              "status": "PASS"
+            },
+            {
+              "test": "checkCSSVars",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Fonts & Typography",
+          "results": [
+            {
+              "test": "checkFontLoading",
+              "status": "PASS"
+            },
+            {
+              "test": "checkFontHierarchy",
+              "status": "PASS"
+            },
+            {
+              "test": "checkLetterSpacing",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Performance",
+          "results": [
+            {
+              "test": "checkLazyLoading",
+              "status": "PASS"
+            },
+            {
+              "test": "checkCSSMinified",
+              "status": "PASS"
+            },
+            {
+              "test": "checkScriptDefer",
+              "status": "PASS"
+            },
+            {
+              "test": "checkPreload",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Modern Features",
+          "results": [
+            {
+              "test": "checkPictureElements",
+              "status": "PASS"
+            },
+            {
+              "test": "checkWebPSupport",
+              "status": "PASS"
+            },
+            {
+              "test": "checkAVIFSupport",
+              "status": "PASS"
+            },
+            {
+              "test": "checkCSS3Features",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Security",
+          "results": [
+            {
+              "test": "checkCSP",
+              "status": "PASS"
+            },
+            {
+              "test": "checkHTMLEscaping",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Forms",
+          "results": [
+            {
+              "test": "checkFormValidation",
+              "status": "PASS"
+            },
+            {
+              "test": "checkFormSubmission",
+              "status": "PASS"
+            }
+          ]
+        }
+      ],
+      "stats": {
+        "passed": 28,
+        "warning": 0,
+        "failed": 0
+      }
+    },
+    {
+      "page": "Odyssey",
+      "file": "odyssey.html",
+      "tests": [
+        {
+          "category": "HTML Structure",
+          "results": [
+            {
+              "test": "checkDoctype",
+              "status": "PASS"
+            },
+            {
+              "test": "checkMetaTags",
+              "status": "PASS"
+            },
+            {
+              "test": "checkLanguageAttr",
+              "status": "PASS"
+            },
+            {
+              "test": "checkTitle",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Accessibility",
+          "results": [
+            {
+              "test": "checkHeadings",
+              "status": "PASS"
+            },
+            {
+              "test": "checkImageAlt",
+              "status": "PASS"
+            },
+            {
+              "test": "checkFormLabels",
+              "status": "PASS"
+            },
+            {
+              "test": "checkColors",
+              "status": "PASS"
+            },
+            {
+              "test": "checkContrast",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Responsive Design",
+          "results": [
+            {
+              "test": "checkViewportMeta",
+              "status": "PASS"
+            },
+            {
+              "test": "checkMediaQueries",
+              "status": "PASS"
+            },
+            {
+              "test": "checkResponsiveImages",
+              "status": "PASS"
+            },
+            {
+              "test": "checkCSSVars",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Fonts & Typography",
+          "results": [
+            {
+              "test": "checkFontLoading",
+              "status": "PASS"
+            },
+            {
+              "test": "checkFontHierarchy",
+              "status": "PASS"
+            },
+            {
+              "test": "checkLetterSpacing",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Performance",
+          "results": [
+            {
+              "test": "checkLazyLoading",
+              "status": "PASS"
+            },
+            {
+              "test": "checkCSSMinified",
+              "status": "PASS"
+            },
+            {
+              "test": "checkScriptDefer",
+              "status": "PASS"
+            },
+            {
+              "test": "checkPreload",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Modern Features",
+          "results": [
+            {
+              "test": "checkPictureElements",
+              "status": "PASS"
+            },
+            {
+              "test": "checkWebPSupport",
+              "status": "PASS"
+            },
+            {
+              "test": "checkAVIFSupport",
+              "status": "PASS"
+            },
+            {
+              "test": "checkCSS3Features",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Security",
+          "results": [
+            {
+              "test": "checkCSP",
+              "status": "PASS"
+            },
+            {
+              "test": "checkHTMLEscaping",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Forms",
+          "results": [
+            {
+              "test": "checkFormValidation",
+              "status": "PASS"
+            },
+            {
+              "test": "checkFormSubmission",
+              "status": "PASS"
+            }
+          ]
+        }
+      ],
+      "stats": {
+        "passed": 28,
+        "warning": 0,
+        "failed": 0
+      }
+    },
+    {
+      "page": "Connect",
+      "file": "connect.html",
+      "tests": [
+        {
+          "category": "HTML Structure",
+          "results": [
+            {
+              "test": "checkDoctype",
+              "status": "PASS"
+            },
+            {
+              "test": "checkMetaTags",
+              "status": "PASS"
+            },
+            {
+              "test": "checkLanguageAttr",
+              "status": "PASS"
+            },
+            {
+              "test": "checkTitle",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Accessibility",
+          "results": [
+            {
+              "test": "checkHeadings",
+              "status": "PASS"
+            },
+            {
+              "test": "checkImageAlt",
+              "status": "PASS"
+            },
+            {
+              "test": "checkFormLabels",
+              "status": "PASS"
+            },
+            {
+              "test": "checkColors",
+              "status": "PASS"
+            },
+            {
+              "test": "checkContrast",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Responsive Design",
+          "results": [
+            {
+              "test": "checkViewportMeta",
+              "status": "PASS"
+            },
+            {
+              "test": "checkMediaQueries",
+              "status": "PASS"
+            },
+            {
+              "test": "checkResponsiveImages",
+              "status": "PASS"
+            },
+            {
+              "test": "checkCSSVars",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Fonts & Typography",
+          "results": [
+            {
+              "test": "checkFontLoading",
+              "status": "PASS"
+            },
+            {
+              "test": "checkFontHierarchy",
+              "status": "PASS"
+            },
+            {
+              "test": "checkLetterSpacing",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Performance",
+          "results": [
+            {
+              "test": "checkLazyLoading",
+              "status": "PASS"
+            },
+            {
+              "test": "checkCSSMinified",
+              "status": "PASS"
+            },
+            {
+              "test": "checkScriptDefer",
+              "status": "PASS"
+            },
+            {
+              "test": "checkPreload",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Modern Features",
+          "results": [
+            {
+              "test": "checkPictureElements",
+              "status": "PASS"
+            },
+            {
+              "test": "checkWebPSupport",
+              "status": "PASS"
+            },
+            {
+              "test": "checkAVIFSupport",
+              "status": "PASS"
+            },
+            {
+              "test": "checkCSS3Features",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Security",
+          "results": [
+            {
+              "test": "checkCSP",
+              "status": "PASS"
+            },
+            {
+              "test": "checkHTMLEscaping",
+              "status": "PASS"
+            }
+          ]
+        },
+        {
+          "category": "Forms",
+          "results": [
+            {
+              "test": "checkFormValidation",
+              "status": "PASS"
+            },
+            {
+              "test": "checkFormSubmission",
+              "status": "PASS"
+            }
+          ]
+        }
+      ],
+      "stats": {
+        "passed": 28,
+        "warning": 0,
+        "failed": 0
+      }
+    }
+  ],
+  "summary": {
+    "totalTests": 140,
+    "passed": 140,
+    "warnings": 0,
+    "failed": 0,
+    "warning": null
+  }
+}
