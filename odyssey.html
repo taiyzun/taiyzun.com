@@ -240,6 +240,9 @@
 <!-- Theme Configuration & Engine -->
 <script src="/js/themes-config.js"></script>
 <script src="/js/theme-engine.js"></script>
+<!-- Animation Controller & WebGL Manager -->
+<script src="/js/animation-controller.js"></script>
+<script src="/js/webgl-manager.js"></script>
 </head>
 <body>  <style>.skip-link{position:absolute;top:-44px;left:1rem;padding:0.6rem 1.2rem;background:var(--gold);color:#0a0a0f;font-size:0.8rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;border-radius:0 0 4px 4px;transition:top 0.2s ease;z-index:9999;}.skip-link:focus{top:0;}</style>  <a href="#main-content" class="skip-link">Skip to main content</a>
 <div class="cursor-glow" id="cursorGlow"></div>
@@ -258,6 +261,7 @@
 </nav>
 <div class="page-hero">
   <div class="page-hero-video"><canvas id="heroBg" aria-hidden="true"></canvas></div>
+  <div data-webgl="odyssey-narrative" style="position: absolute; inset: 0; z-index: 2; pointer-events: none;"></div>
   <div class="page-hero-overlay"></div>
   <img src="assets/easter-eggs/sword.png" alt="" class="easter-egg parallax-el" style="top:18%;right:3%;width:55px;opacity:0.06;filter:drop-shadow(0 0 10px rgba(201,168,76,0.2)) brightness(0.7);" aria-hidden="true" data-speed="0.15">
   <div class="page-hero-content">
