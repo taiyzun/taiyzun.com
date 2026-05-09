@@ -257,7 +257,7 @@ nav {
   left: 0;
   right: 0;
   z-index: 1000;
-  padding: var(--sp-lg) var(--sp-2xl);
+  padding: 12px var(--sp-2xl);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -267,40 +267,48 @@ nav {
   border-bottom: 1px solid transparent;
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: none;
+  height: 60px;
 }
 
 nav.scrolled {
-  padding: var(--sp-md) var(--sp-2xl);
+  padding: 10px var(--sp-2xl);
   background: rgba(255, 255, 255, 0.95);
   border-bottom-color: rgba(212, 175, 55, 0.2);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+  height: 56px;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  gap: var(--sp-md);
+  gap: var(--sp-sm);
   text-decoration: none;
   transition: all 0.4s ease;
   position: relative;
   z-index: 1;
+  height: 36px;
+  overflow: visible;
 }
 
 .logo-img {
-  height: 36px;
+  height: 32px;
   width: auto;
+  display: block;
   filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.3));
   transition: all 0.45s ease;
+  flex-shrink: 0;
 }
 
 .logo-text {
   font-family: var(--display);
-  font-size: 1.25rem;
+  font-size: 0.95rem;
   font-weight: 500;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.18em;
   color: var(--gold-primary);
   text-transform: uppercase;
   transition: all 0.45s ease;
+  white-space: nowrap;
+  line-height: 1;
 }
 
 .logo:hover .logo-img {
@@ -317,7 +325,7 @@ nav.scrolled {
 /* Navigation Links */
 .nav-links {
   display: flex;
-  gap: var(--sp-2xl);
+  gap: 28px;
   list-style: none;
 }
 
@@ -325,12 +333,14 @@ nav.scrolled {
   font-family: var(--display);
   color: var(--text-medium);
   text-decoration: none;
-  font-size: 0.72rem;
+  font-size: 0.65rem;
   font-weight: 400;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   transition: all 0.3s ease;
   position: relative;
+  white-space: nowrap;
+  padding: 6px 0;
 }
 
 .nav-links a::after {
@@ -372,7 +382,7 @@ nav.scrolled {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding-top: 80px;
+  padding-top: 60px;
   background: linear-gradient(
     180deg,
     var(--white-primary) 0%,
@@ -581,15 +591,59 @@ section {
 
 @media (max-width: 768px) {
   nav {
-    padding: var(--sp-md) var(--sp-lg);
+    padding: 10px var(--sp-lg);
+    height: 56px;
+  }
+
+  nav.scrolled {
+    padding: 8px var(--sp-lg);
+    height: 52px;
+  }
+
+  .logo {
+    gap: var(--sp-xs);
+  }
+
+  .logo-img {
+    height: 28px;
+  }
+
+  .logo-text {
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
   }
 
   .nav-links {
-    gap: var(--sp-xl);
+    position: fixed;
+    top: 56px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    gap: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    z-index: 999;
+  }
+
+  .nav-links.active {
+    max-height: 500px;
+  }
+
+  .nav-links li {
+    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+  }
+
+  .nav-links a {
+    display: block;
+    padding: var(--sp-lg) var(--sp-lg);
+    font-size: 0.7rem;
   }
 
   .hero {
-    padding-top: 60px;
+    padding-top: 56px;
   }
 
   .hero-title {
@@ -1030,11 +1084,22 @@ footer {
 
 .footer-logo {
   font-family: var(--display);
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 500;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
   color: var(--gold-primary);
   text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-md);
+  overflow: visible;
+}
+
+.footer-logo-img {
+  height: 40px;
+  width: auto;
+  display: block;
+  flex-shrink: 0;
 }
 
 .footer-tagline {
@@ -1115,7 +1180,7 @@ footer {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding-top: 100px;
+  padding-top: 80px;
   padding-bottom: var(--sp-3xl);
   background: linear-gradient(180deg, var(--white-primary) 0%, var(--white-secondary) 100%);
 }
