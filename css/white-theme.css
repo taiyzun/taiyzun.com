@@ -727,14 +727,43 @@ section {
    ============================================ */
 
 .reveal {
-  opacity: 0;
-  transform: translateY(50px);
+  opacity: 1;
+  transform: translateY(0);
   transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .reveal.visible {
   opacity: 1;
   transform: none;
+}
+
+/* Ensure all text and content is visible */
+p, h1, h2, h3, h4, h5, h6 {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+}
+
+.about-text p, .about-text h2 {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Ensure images display properly */
+img {
+  opacity: 1;
+  visibility: visible;
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Logo specific fixes */
+.logo-img, .footer-logo-img {
+  opacity: 1 !important;
+  visibility: visible !important;
+  max-width: 100% !important;
+  height: auto !important;
 }
 
 .parallax-el {
