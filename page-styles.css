@@ -403,6 +403,14 @@ body.connect-page {
    ────────────────────────────────────────────────────────────────────────── */
 
 @media (max-width: 768px) {
+  /* Remove will-change on mobile to save memory */
+  .animate-on-scroll,
+  .timeline-category::before,
+  .gallery-item,
+  .hero-title em {
+    will-change: auto;
+  }
+
   .journey-page .timeline-category {
     margin-left: 0;
     padding-left: 1.5rem;
@@ -410,6 +418,11 @@ body.connect-page {
 
   .creations-page .gallery-label h2 {
     font-size: 1.4rem;
+  }
+
+  .creations-page .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
   .odyssey-page .page-hero h1,
@@ -421,6 +434,58 @@ body.connect-page {
 
   .connect-page .contact-form {
     padding: 1.5rem;
+  }
+
+  /* Reduce animation complexity on mobile */
+  .home-page .value-item::before {
+    opacity: 0 !important;
+  }
+
+  .journey-page .timeline-item {
+    box-shadow: none;
+  }
+
+  .creations-page .gallery-item:hover {
+    transform: scale(1.02);
+  }
+
+  .journey-page .timeline-item:hover {
+    background: rgba(123, 92, 255, 0.05);
+  }
+}
+
+@media (max-width: 480px) {
+  .home-page .about-highlights {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .home-page .highlight-item {
+    padding: 1rem;
+  }
+
+  .creations-page .cat-filters {
+    gap: 0.5rem;
+  }
+
+  .creations-page .cat-filters button {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+  }
+
+  .odyssey-page .narrative-section {
+    padding: 1.5rem 1rem;
+    margin: 1rem 0;
+  }
+
+  .connect-page .connect-label h2 {
+    font-size: 1.5rem;
+  }
+
+  .connect-page .form-group input,
+  .connect-page .form-group textarea {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
   }
 }
 
