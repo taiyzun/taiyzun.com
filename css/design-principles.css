@@ -1,0 +1,653 @@
+/* ==========================================
+   Design Principles Implementation
+   Rule of Thirds, Golden Ratio, Sacred Geometry
+   ========================================== */
+
+/* ==========================================
+   1. RULE OF THIRDS / 9-BLOCK PRINCIPLE
+   ========================================== */
+
+/* Grid Helper Classes */
+.third-left {
+  margin-left: 0;
+  width: 33.33%;
+}
+
+.third-center {
+  margin-left: 33.33%;
+  width: 33.33%;
+}
+
+.third-right {
+  margin-left: 66.66%;
+  width: 33.33%;
+}
+
+.third-top {
+  margin-top: 0;
+  height: 33.33%;
+}
+
+.third-middle {
+  margin-top: 33.33%;
+  height: 33.33%;
+}
+
+.third-bottom {
+  margin-top: 66.66%;
+  height: 33.33%;
+}
+
+/* Power Zones (Intersection Points) */
+.power-zone {
+  position: absolute;
+  top: 33.33%;
+  left: 33.33%;
+  width: auto;
+  height: auto;
+}
+
+.power-zone-top-left {
+  position: absolute;
+  top: 33.33%;
+  left: 33.33%;
+}
+
+.power-zone-top-right {
+  position: absolute;
+  top: 33.33%;
+  right: 33.33%;
+}
+
+.power-zone-bottom-left {
+  position: absolute;
+  bottom: 33.33%;
+  left: 33.33%;
+}
+
+.power-zone-bottom-right {
+  position: absolute;
+  bottom: 33.33%;
+  right: 33.33%;
+}
+
+/* ==========================================
+   2. GOLDEN RATIO (Φ ≈ 1.618)
+   ========================================== */
+
+/* Golden Rectangle - 1.618:1 aspect ratio */
+.golden-rectangle {
+  width: 100%;
+  aspect-ratio: 1.618 / 1;
+  background: linear-gradient(135deg, var(--silver-light), var(--white));
+  position: relative;
+}
+
+/* Inverse Golden Rectangle - 0.618:1 aspect ratio */
+.golden-rectangle-inverse {
+  width: 100%;
+  aspect-ratio: 0.618 / 1;
+  background: linear-gradient(135deg, var(--white), var(--silver-light));
+}
+
+/* Golden Split - 38.2% / 61.8% layout */
+.golden-split {
+  display: grid;
+  grid-template-columns: 0.382fr 0.618fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.golden-split-reverse {
+  display: grid;
+  grid-template-columns: 0.618fr 0.382fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+/* ==========================================
+   3. SACRED GEOMETRY
+   ========================================== */
+
+/* Sacred Circle - Unity, Infinity */
+.sacred-circle {
+  border-radius: 50%;
+  aspect-ratio: 1;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(201, 168, 76, 0.2),
+    rgba(201, 168, 76, 0.05)
+  );
+  position: relative;
+}
+
+/* Circle Orbit Animation */
+.circle-orbit {
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  border: 2px solid rgba(201, 168, 76, 0.3);
+  position: relative;
+  animation: rotate 20s linear infinite;
+  animation-play-state: running;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .circle-orbit {
+    animation: none;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive Circle Orbit */
+.circle-orbit-responsive {
+  width: clamp(200px, 40vw, 400px);
+  height: clamp(200px, 40vw, 400px);
+  border-radius: 50%;
+  border: 2px solid rgba(201, 168, 76, 0.3);
+  animation: rotate 20s linear infinite;
+}
+
+/* Sacred Triangle - Harmony, Balance, Power */
+.sacred-triangle {
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 60px solid var(--gold);
+  position: relative;
+}
+
+.sacred-triangle-up {
+  border-bottom: 60px solid var(--gold);
+}
+
+.sacred-triangle-down {
+  border-top: 60px solid var(--gold);
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 0;
+}
+
+.sacred-triangle-left {
+  border-right: 60px solid var(--gold);
+  border-top: 30px solid transparent;
+  border-bottom: 30px solid transparent;
+  border-left: 0;
+}
+
+.sacred-triangle-right {
+  border-left: 60px solid var(--gold);
+  border-top: 30px solid transparent;
+  border-bottom: 30px solid transparent;
+  border-right: 0;
+}
+
+/* Trinity Elements - 3-column sacred layout */
+.trinity-elements {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+/* Flower of Life - Creation, Wholeness */
+.flower-of-life {
+  background-image:
+    radial-gradient(
+      circle,
+      transparent 48%,
+      var(--gold) 49%,
+      var(--gold) 51%,
+      transparent 52%
+    ),
+    radial-gradient(
+      circle,
+      transparent 48%,
+      var(--gold) 49%,
+      var(--gold) 51%,
+      transparent 52%
+    ),
+    radial-gradient(
+      circle,
+      transparent 48%,
+      var(--gold) 49%,
+      var(--gold) 51%,
+      transparent 52%
+    );
+  background-size: 60px 60px;
+  background-position: 0 0, 30px 30px, 60px 0;
+  opacity: 0.1;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Metatron's Cube - Divine Geometry */
+.metatron-cube {
+  background-image:
+    linear-gradient(
+      0deg,
+      transparent 24%,
+      var(--gold-dim) 25%,
+      var(--gold-dim) 26%,
+      transparent 27%,
+      transparent 74%,
+      var(--gold-dim) 75%,
+      var(--gold-dim) 76%,
+      transparent 77%,
+      transparent
+    ),
+    linear-gradient(
+      90deg,
+      transparent 24%,
+      var(--gold-dim) 25%,
+      var(--gold-dim) 26%,
+      transparent 27%,
+      transparent 74%,
+      var(--gold-dim) 75%,
+      var(--gold-dim) 76%,
+      transparent 77%,
+      transparent
+    );
+  background-size: 50px 50px;
+  opacity: 0.05;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Mandala Pattern - Spiritual Center */
+.mandala-overlay {
+  background-image:
+    radial-gradient(
+      circle at center,
+      transparent 10%,
+      var(--gold) 10%,
+      var(--gold) 12%,
+      transparent 12%
+    ),
+    radial-gradient(
+      circle at center,
+      transparent 20%,
+      var(--gold) 20%,
+      var(--gold) 22%,
+      transparent 22%
+    ),
+    radial-gradient(
+      circle at center,
+      transparent 30%,
+      var(--gold) 30%,
+      var(--gold) 32%,
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at center,
+      transparent 40%,
+      var(--gold) 40%,
+      var(--gold) 42%,
+      transparent 42%
+    );
+  opacity: 0.15;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ==========================================
+   4. BALANCE & SYMMETRY
+   ========================================== */
+
+/* Symmetrical Layout - Formal, Classical */
+.symmetrical-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.symmetrical-layout .left-content {
+  text-align: right;
+}
+
+.symmetrical-layout .right-content {
+  text-align: left;
+}
+
+/* Asymmetrical Layout - Dynamic, Engaging (Golden Ratio Split) */
+.asymmetrical-layout {
+  display: grid;
+  grid-template-columns: 1.618fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.asymmetrical-layout .dominant {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  color: var(--gold);
+  line-height: 1.2;
+}
+
+.asymmetrical-layout .secondary {
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  color: var(--text-secondary);
+}
+
+/* Visual Weight Distribution */
+.visual-weight .large-element {
+  width: 60%;
+  opacity: 0.5;
+  color: var(--silver);
+}
+
+.visual-weight .small-element {
+  width: 20%;
+  opacity: 1;
+  color: var(--gold);
+  font-weight: bold;
+}
+
+/* ==========================================
+   5. FIBONACCI SPACING SCALE
+   ========================================== */
+
+.sp-xs {
+  padding: 4px;
+}
+
+.sp-sm {
+  padding: 8px;
+}
+
+.sp-md {
+  padding: 13px;
+}
+
+.sp-lg {
+  padding: 21px;
+}
+
+.sp-xl {
+  padding: 34px;
+}
+
+.sp-2xl {
+  padding: 55px;
+}
+
+.sp-3xl {
+  padding: 89px;
+}
+
+/* Margin utilities */
+.m-xs {
+  margin: 4px;
+}
+
+.m-sm {
+  margin: 8px;
+}
+
+.m-md {
+  margin: 13px;
+}
+
+.m-lg {
+  margin: 21px;
+}
+
+.m-xl {
+  margin: 34px;
+}
+
+.m-2xl {
+  margin: 55px;
+}
+
+.m-3xl {
+  margin: 89px;
+}
+
+/* Gap utilities for Grid/Flex */
+.gap-xs {
+  gap: 4px;
+}
+
+.gap-sm {
+  gap: 8px;
+}
+
+.gap-md {
+  gap: 13px;
+}
+
+.gap-lg {
+  gap: 21px;
+}
+
+.gap-xl {
+  gap: 34px;
+}
+
+.gap-2xl {
+  gap: 55px;
+}
+
+.gap-3xl {
+  gap: 89px;
+}
+
+/* ==========================================
+   6. GESTALT PRINCIPLES
+   ========================================== */
+
+/* Proximity - Related elements grouped together */
+.proximity-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.proximity-group > * + * {
+  margin-top: 0;
+  border-top: 1px solid rgba(201, 168, 76, 0.1);
+  padding-top: 8px;
+}
+
+/* Similarity - Same styling = same category */
+.similar-group {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.similar-group > * {
+  font-family: var(--font-display);
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* Closure - Visual containment and completion */
+.closure-frame {
+  border: 2px solid var(--gold);
+  border-radius: 8px;
+  padding: 2rem;
+  position: relative;
+}
+
+.closure-frame::before,
+.closure-frame::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--gold);
+}
+
+.closure-frame::before {
+  top: -8px;
+  left: -8px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.closure-frame::after {
+  bottom: -8px;
+  right: -8px;
+  border-left: none;
+  border-top: none;
+}
+
+/* Continuation - Visual paths guide eye movement */
+.continuation-path {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.continuation-path::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    var(--gold),
+    var(--gold-dim)
+  );
+}
+
+/* Figure-Ground Contrast */
+.figure-ground {
+  position: relative;
+  background-color: var(--white);
+}
+
+.figure-ground .figure {
+  position: relative;
+  z-index: 2;
+  color: var(--gold);
+  font-weight: bold;
+}
+
+.figure-ground .ground {
+  position: absolute;
+  inset: 0;
+  background-color: var(--silver-light);
+  z-index: 1;
+}
+
+/* ==========================================
+   7. RESPONSIVE ADJUSTMENTS
+   ========================================== */
+
+@media (max-width: 768px) {
+  .golden-split,
+  .golden-split-reverse,
+  .symmetrical-layout,
+  .asymmetrical-layout {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .trinity-elements {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .circle-orbit-responsive {
+    width: 250px;
+    height: 250px;
+  }
+
+  .asymmetrical-layout .dominant {
+    font-size: clamp(2rem, 4vw, 3rem);
+  }
+
+  .asymmetrical-layout .secondary {
+    font-size: clamp(0.875rem, 1.5vw, 1.25rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .circle-orbit-responsive {
+    width: 180px;
+    height: 180px;
+    border-width: 1px;
+  }
+
+  .asymmetrical-layout .dominant {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .sp-3xl {
+    padding: 55px;
+  }
+
+  .m-3xl {
+    margin: 55px;
+  }
+}
+
+/* ==========================================
+   8. ACCESSIBILITY & REDUCED MOTION
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .circle-orbit,
+  .circle-orbit-responsive {
+    animation: none;
+  }
+
+  .mandala-overlay {
+    animation: none;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .golden-rectangle {
+    background: linear-gradient(135deg, var(--charcoal), var(--black));
+  }
+
+  .golden-rectangle-inverse {
+    background: linear-gradient(135deg, var(--black), var(--charcoal));
+  }
+
+  .closure-frame {
+    border-color: var(--gold-light);
+  }
+
+  .continuation-path::before {
+    background: linear-gradient(to bottom, var(--gold-light), var(--gold));
+  }
+}
+
+/* ==========================================
+   9. PRINT STYLES
+   ========================================== */
+
+@media print {
+  .circle-orbit,
+  .circle-orbit-responsive,
+  .flower-of-life,
+  .metatron-cube,
+  .mandala-overlay {
+    display: none;
+  }
+
+  .sacred-circle,
+  .sacred-triangle {
+    color: var(--black);
+  }
+}
