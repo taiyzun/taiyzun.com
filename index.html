@@ -103,8 +103,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<!-- Performance: Preload critical CSS -->
+<link rel="preload" href="/style.css" as="style">
+<link rel="preload" href="/theme-animations.css" as="style">
+<link rel="preload" href="/page-styles.css" as="style">
+<!-- Performance: Prefetch other pages -->
 <link rel="prefetch" href="/journey.html">
 <link rel="prefetch" href="/creations.html">
+<link rel="prefetch" href="/odyssey.html">
 <link rel="prefetch" href="/connect.html">
 <style>
   :root {
