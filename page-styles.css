@@ -1,0 +1,430 @@
+/**
+ * PAGE-SPECIFIC BESPOKE DESIGNS
+ * Unique visual styles and animations for each page
+ * Each page has distinct color themes, animations, and artistic elements
+ */
+
+/* ──────────────────────────────────────────────────────────────────────────
+   HOME PAGE - Kaleidoscopic Identity Showcase
+   ────────────────────────────────────────────────────────────────────────── */
+
+body.home-page {
+  --theme-primary: var(--theme-accent-primary);
+  --theme-secondary: var(--theme-accent-secondary);
+}
+
+.home-page .hero-title em {
+  background: linear-gradient(135deg, var(--theme-accent-primary), var(--theme-accent-secondary), var(--theme-accent-tertiary), var(--theme-accent-primary));
+  background-size: 300% auto;
+  animation: chromatic-shift 6s linear infinite;
+}
+
+.home-page .hero-eyebrow .dot {
+  animation: dotPulse 2.5s ease-in-out infinite, colorShift 6s ease-in-out infinite;
+}
+
+.home-page .value-item {
+  border-color: var(--glass-border);
+  position: relative;
+  overflow: hidden;
+}
+
+.home-page .value-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 30%, var(--theme-accent-primary), transparent) 50%;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.home-page .value-item:hover::before {
+  opacity: 0.15;
+}
+
+.home-page .value-item .value-icon {
+  color: var(--theme-accent-primary);
+  text-shadow: 0 0 10px var(--theme-accent-primary);
+}
+
+/* Kaleidoscope entrance animation for home */
+.home-page .hero-content > * {
+  animation: kaleidoscope-fade-in 0.8s cubic-bezier(0.16,1,0.3,1) backwards;
+}
+
+.home-page .hero-logo {
+  animation-delay: 0.1s;
+}
+
+.home-page .hero-eyebrow {
+  animation-delay: 0.3s;
+}
+
+.home-page .hero-title {
+  animation-delay: 0.5s;
+}
+
+.home-page .hero-subtitle {
+  animation-delay: 0.7s;
+}
+
+.home-page .hero-cta-group {
+  animation-delay: 0.9s;
+}
+
+@keyframes chromatic-shift {
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+}
+
+@keyframes colorShift {
+  0% { color: var(--theme-accent-primary); }
+  33% { color: var(--theme-accent-secondary); }
+  66% { color: var(--theme-accent-tertiary); }
+  100% { color: var(--theme-accent-primary); }
+}
+
+@keyframes kaleidoscope-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.85) rotateZ(-5deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotateZ(0);
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   JOURNEY PAGE - Timeline & Growth Flow
+   ────────────────────────────────────────────────────────────────────────── */
+
+body.journey-page {
+  background: linear-gradient(170deg, var(--theme-bg) 0%, rgba(123, 92, 255, 0.02) 25%, rgba(31, 184, 212, 0.02) 50%, var(--theme-bg) 100%);
+}
+
+.journey-page .page-hero h1 {
+  font-size: clamp(2.2rem, 5vw, 4.5rem);
+  background: linear-gradient(135deg, var(--theme-accent-primary), var(--theme-accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 4s ease-in-out infinite;
+}
+
+.journey-page .timeline-category {
+  border-left: 2px solid var(--theme-accent-primary);
+  padding-left: 2rem;
+  position: relative;
+  margin-left: 1rem;
+}
+
+.journey-page .timeline-category::before {
+  content: '';
+  position: absolute;
+  left: -7px;
+  top: 1.5rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--theme-accent-primary);
+  box-shadow: 0 0 15px var(--theme-accent-primary);
+  animation: milestone-pulse 2s ease-in-out infinite;
+}
+
+.journey-page .timeline-item {
+  border-left: 2px solid var(--theme-accent-secondary);
+  background: rgba(123, 92, 255, 0.03);
+  transition: all 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+
+.journey-page .timeline-item:hover {
+  background: rgba(123, 92, 255, 0.08);
+  border-left-color: var(--theme-accent-primary);
+  box-shadow: -8px 0 30px rgba(123, 92, 255, 0.15);
+}
+
+.journey-page .category-header h2 {
+  color: var(--theme-accent-primary);
+  font-size: 1.4rem;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+}
+
+@keyframes milestone-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 15px var(--theme-accent-primary);
+  }
+  50% {
+    transform: scale(1.5);
+    box-shadow: 0 0 25px var(--theme-accent-primary);
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   CREATIONS PAGE - Artistic & Experimental
+   ────────────────────────────────────────────────────────────────────────── */
+
+body.creations-page {
+  background: linear-gradient(170deg, var(--theme-bg) 0%, rgba(255, 107, 90, 0.02) 25%, rgba(255, 165, 0, 0.02) 50%, var(--theme-bg) 100%);
+}
+
+.creations-page .page-hero h1 {
+  font-size: clamp(2.2rem, 5vw, 4.5rem);
+  background: linear-gradient(45deg, var(--theme-accent-primary), var(--theme-accent-secondary), var(--theme-accent-tertiary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% auto;
+  animation: gradient-flow 6s linear infinite;
+}
+
+.creations-page .gallery-label h2 {
+  color: var(--theme-accent-primary);
+  font-size: 1.6rem;
+  margin-top: 1rem;
+}
+
+.creations-page .cat-filters {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.creations-page .cat-filters button {
+  padding: 0.6rem 1.4rem;
+  border: 1px solid var(--theme-accent-primary);
+  border-radius: 20px;
+  background: transparent;
+  color: var(--theme-accent-primary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+
+.creations-page .cat-filters button:hover,
+.creations-page .cat-filters button.active {
+  background: var(--theme-accent-primary);
+  color: var(--theme-bg);
+  box-shadow: 0 0 20px var(--theme-accent-primary);
+  transform: translateY(-2px);
+}
+
+@keyframes gradient-flow {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   ODYSSEY PAGE - Poetic Narrative Unfolding
+   ────────────────────────────────────────────────────────────────────────── */
+
+body.odyssey-page {
+  background: linear-gradient(170deg, var(--theme-bg) 0%, rgba(212, 165, 116, 0.02) 25%, rgba(169, 107, 74, 0.02) 50%, var(--theme-bg) 100%);
+}
+
+.odyssey-page .page-hero h1 {
+  font-size: clamp(2.2rem, 5vw, 4.5rem);
+  background: linear-gradient(135deg, var(--theme-accent-primary), var(--theme-accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: warm-glow-shift 5s ease-in-out infinite;
+}
+
+.odyssey-page .page-hero .intro {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  line-height: 1.8;
+  max-width: 700px;
+  margin: 1.5rem auto;
+}
+
+.odyssey-page .coming-soon {
+  display: inline-block;
+  padding: 0.8rem 1.6rem;
+  border: 1px solid var(--theme-accent-primary);
+  border-radius: 30px;
+  color: var(--theme-accent-primary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 1rem;
+  animation: subtle-pulse 2s ease-in-out infinite;
+}
+
+.odyssey-page .gallery-label h2 {
+  color: var(--theme-accent-primary);
+  font-style: italic;
+  font-size: 1.6rem;
+}
+
+@keyframes warm-glow-shift {
+  0%, 100% { filter: drop-shadow(0 0 10px var(--theme-accent-primary)); }
+  50% { filter: drop-shadow(0 0 20px var(--theme-accent-secondary)); }
+}
+
+@keyframes subtle-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px var(--theme-accent-primary);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--theme-accent-primary);
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   CONNECT PAGE - Network & Community
+   ────────────────────────────────────────────────────────────────────────── */
+
+body.connect-page {
+  background: linear-gradient(170deg, var(--theme-bg) 0%, rgba(212, 165, 116, 0.02) 25%, rgba(61, 213, 243, 0.02) 50%, var(--theme-bg) 100%);
+}
+
+.connect-page .page-hero h1 {
+  font-size: clamp(2.2rem, 5vw, 4.5rem);
+  background: linear-gradient(135deg, var(--theme-accent-primary), var(--theme-accent-secondary), var(--theme-accent-tertiary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% auto;
+  animation: connection-glow 5s ease-in-out infinite;
+}
+
+.connect-page .page-hero .intro {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  line-height: 1.8;
+  max-width: 650px;
+  margin: 1.5rem auto;
+}
+
+.connect-page .connect-label h2 {
+  color: var(--theme-accent-primary);
+  font-size: 2rem;
+}
+
+.connect-page .contact-form {
+  max-width: 600px;
+  margin: 3rem auto;
+  padding: 2.5rem;
+  background: rgba(212, 165, 116, 0.05);
+  border: 1px solid var(--theme-accent-primary);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(212, 165, 116, 0.1);
+}
+
+.connect-page .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.connect-page .form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.connect-page .form-group input,
+.connect-page .form-group textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--theme-accent-primary);
+  border-radius: 6px;
+  background: rgba(240, 236, 228, 0.02);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.connect-page .form-group input:focus,
+.connect-page .form-group textarea:focus {
+  outline: none;
+  border-color: var(--theme-accent-secondary);
+  background: rgba(240, 236, 228, 0.05);
+  box-shadow: 0 0 12px var(--theme-accent-primary);
+}
+
+.connect-page .form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.connect-page .required {
+  color: var(--theme-accent-primary);
+}
+
+@keyframes connection-glow {
+  0%, 100% {
+    background-position: 0% center;
+    filter: drop-shadow(0 0 10px var(--theme-accent-primary));
+  }
+  50% {
+    background-position: 100% center;
+    filter: drop-shadow(0 0 20px var(--theme-accent-secondary));
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   RESPONSIVE DESIGN - Mobile Optimizations
+   ────────────────────────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .journey-page .timeline-category {
+    margin-left: 0;
+    padding-left: 1.5rem;
+  }
+
+  .creations-page .gallery-label h2 {
+    font-size: 1.4rem;
+  }
+
+  .odyssey-page .page-hero h1,
+  .connect-page .page-hero h1,
+  .creations-page .page-hero h1,
+  .journey-page .page-hero h1 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+  }
+
+  .connect-page .contact-form {
+    padding: 1.5rem;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   ACCESSIBILITY - Reduced Motion Preferences
+   ────────────────────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .home-page .hero-title em,
+  .home-page .hero-eyebrow .dot,
+  .journey-page .page-hero h1,
+  .journey-page .timeline-category::before,
+  .creations-page .page-hero h1,
+  .odyssey-page .page-hero h1,
+  .odyssey-page .coming-soon,
+  .connect-page .page-hero h1 {
+    animation: none !important;
+  }
+
+  .journey-page .timeline-category {
+    border-left-color: var(--theme-accent-primary);
+  }
+
+  .journey-page .timeline-category::before {
+    opacity: 0.7;
+  }
+}
