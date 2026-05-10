@@ -25,6 +25,60 @@
 }
 
 /* ──────────────────────────────────────────────────────────────────────────
+   COMPREHENSIVE BORDER PADDING SYSTEM
+   Ensures proper spacing for all bordered elements across all pages
+   ────────────────────────────────────────────────────────────────────────── */
+
+*[style*="border"]:not(input):not(textarea),
+.bordered, .card, .panel, .box,
+.glass-effect, .glass-card,
+.modal, .popup, .dialog,
+.section-bordered, .content-box {
+  padding: 1.5rem !important;
+  box-sizing: border-box;
+}
+
+/* Border-specific padding */
+*[style*="border-left"]:not(input):not(textarea),
+.border-left, .left-bordered {
+  padding-left: 2rem !important;
+}
+
+*[style*="border-top"]:not(input):not(textarea),
+.border-top, .top-bordered {
+  padding-top: 1.5rem !important;
+}
+
+*[style*="border-right"]:not(input):not(textarea),
+.border-right, .right-bordered {
+  padding-right: 1.5rem !important;
+}
+
+*[style*="border-bottom"]:not(input):not(textarea),
+.border-bottom, .bottom-bordered {
+  padding-bottom: 1.5rem !important;
+}
+
+/* Padding utility classes */
+.border-sm { padding: 0.75rem !important; }
+.border-md { padding: 1.25rem !important; }
+.border-lg { padding: 1.5rem !important; }
+.border-xl { padding: 2rem !important; }
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  *[style*="border"]:not(input):not(textarea),
+  .bordered, .card, .panel, .box {
+    padding: 1rem !important;
+  }
+
+  *[style*="border-left"]:not(input):not(textarea),
+  .border-left {
+    padding-left: 1.5rem !important;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
    HOME PAGE - Kaleidoscopic Identity Showcase
    ────────────────────────────────────────────────────────────────────────── */
 

@@ -72,6 +72,54 @@
 }
 
 /* ==========================================
+   COMPREHENSIVE BORDER PADDING SYSTEM
+   Standard padding for all bordered elements
+   ========================================== */
+
+[style*="border"]:not(input):not(textarea),
+.bordered, .card, .panel, .box,
+.glass-effect, .glass-card {
+  padding: 1.5rem !important;
+  box-sizing: border-box;
+}
+
+*[style*="border-left"]:not(input):not(textarea),
+.border-left {
+  padding-left: 2rem !important;
+}
+
+*[style*="border-top"]:not(input):not(textarea),
+.border-top {
+  padding-top: 1.5rem !important;
+}
+
+*[style*="border-right"]:not(input):not(textarea),
+.border-right {
+  padding-right: 1.5rem !important;
+}
+
+*[style*="border-bottom"]:not(input):not(textarea),
+.border-bottom {
+  padding-bottom: 1.5rem !important;
+}
+
+/* Padding tiers */
+.border-sm { padding: 0.75rem !important; }
+.border-md { padding: 1.25rem !important; }
+.border-lg { padding: 1.5rem !important; }
+.border-xl { padding: 2rem !important; }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  [style*="border"]:not(input):not(textarea) {
+    padding: 1rem !important;
+  }
+  *[style*="border-left"]:not(input):not(textarea) {
+    padding-left: 1.5rem !important;
+  }
+}
+
+/* ==========================================
    2. GOLDEN RATIO (Φ ≈ 1.618)
    ========================================== */
 
@@ -81,6 +129,7 @@
   aspect-ratio: 1.618 / 1;
   background: linear-gradient(135deg, var(--silver-light), var(--white));
   position: relative;
+  padding: 1.5rem;
 }
 
 /* Inverse Golden Rectangle - 0.618:1 aspect ratio */
