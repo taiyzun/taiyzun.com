@@ -40,8 +40,8 @@
   body { font-family: var(--sans); background: var(--bg-primary); color: var(--text-primary); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; -webkit-font-smoothing: antialiased; }
   .skip-link { position: absolute; top: -44px; left: 1rem; padding: 0.6rem 1.2rem; background: var(--gold); color: #0a0a0f; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 0 0 4px 4px; transition: top 0.2s ease; z-index: 9999; }
   .skip-link:focus { top: 0; }
-  .bg-video { position: fixed; inset: 0; z-index: 0; }
-  .bg-video video { width: 100%; height: 100%; object-fit: cover; }
+  .bg-video { position: fixed; inset: 0; z-index: 0; overflow: hidden; }
+  .bg-video video { width: 100%; height: 100%; object-fit: cover; display: block; }
   .bg-overlay { position: fixed; inset: 0; z-index: 1; background: rgba(10,10,15,0.85); }
   main { position: relative; z-index: 2; text-align: center; padding: 2rem; max-width: 600px; }
   .error-num { font-family: var(--serif); font-size: clamp(6rem, 20vw, 12rem); font-weight: 300; line-height: 1; background: linear-gradient(135deg, var(--gold-light), var(--gold), #d4a843); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
@@ -78,7 +78,7 @@
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
-<div class="bg-video"><video autoplay muted loop playsinline preload="none" aria-label="Background video"><source src="assets/video/sora.mp4" type="video/mp4"></video></div>
+<div class="bg-video"><video id="bgVideo" autoplay muted loop playsinline preload="metadata" disablePictureInPicture aria-label="Background video"><source src="assets/video/sora.mp4" type="video/mp4"></video></div>
 <div class="bg-overlay"></div>
 <nav>
   <a href="index.html" class="logo">Taiyzun</a>
@@ -112,6 +112,20 @@
     navLinks.classList.remove('open'); hamburger.classList.remove('open');
     hamburger.setAttribute('aria-expanded', 'false'); document.body.style.overflow = '';
   }));
+  // Ensure seamless video looping
+  const bgVideo = document.getElementById('bgVideo');
+  if (bgVideo) {
+    bgVideo.addEventListener('ended', () => {
+      bgVideo.currentTime = 0;
+      bgVideo.play();
+    }, false);
+    // Fallback for browsers with different loop behavior
+    bgVideo.addEventListener('pause', () => {
+      if (!bgVideo.ended) return;
+      bgVideo.currentTime = 0;
+      bgVideo.play();
+    }, false);
+  }
 </script>
 </body>
 </html>
