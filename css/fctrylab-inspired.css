@@ -5,30 +5,32 @@
  */
 
 :root {
-  --fx-ink: #0b0f0d;
-  --fx-metal: #121714;
-  --fx-sand: #f4f1e9;
-  --fx-panel: rgba(255, 255, 255, 0.84);
-  --fx-line: rgba(11, 15, 13, 0.14);
-  --fx-accent: #c9a84c;
-  --fx-accent-soft: rgba(201, 168, 76, 0.18);
+  --fx-ink: var(--text-dark);
+  --fx-metal: #3c3427;
+  --fx-sand: #f7f3eb;
+  --fx-panel: linear-gradient(165deg, rgba(255, 255, 255, 0.86), rgba(248, 247, 245, 0.74));
+  --fx-line: rgba(212, 175, 55, 0.14);
+  --fx-line-strong: rgba(212, 175, 55, 0.28);
+  --fx-accent: var(--gold-primary);
+  --fx-accent-soft: rgba(212, 175, 55, 0.18);
+  --fx-shadow-soft: 0 12px 34px rgba(90, 67, 24, 0.08);
 }
 
 body {
   background:
-    radial-gradient(900px 480px at 14% -8%, rgba(201, 168, 76, 0.1), transparent 62%),
-    radial-gradient(680px 380px at 88% -20%, rgba(23, 28, 25, 0.08), transparent 64%),
+    radial-gradient(900px 480px at 14% -8%, rgba(212, 175, 55, 0.1), transparent 62%),
+    radial-gradient(680px 380px at 88% -20%, rgba(192, 192, 192, 0.12), transparent 64%),
     var(--fx-sand);
 }
 
 nav {
   border-bottom: 1px solid var(--fx-line);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--fx-shadow-soft);
 }
 
 nav.scrolled {
-  border-bottom-color: rgba(201, 168, 76, 0.34);
-  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.08);
+  border-bottom-color: var(--fx-line-strong);
+  box-shadow: 0 14px 38px rgba(90, 67, 24, 0.1);
 }
 
 .nav-links a {
@@ -45,7 +47,7 @@ nav.scrolled {
 .hero-subtitle,
 .page-hero p {
   max-width: 740px;
-  color: rgba(11, 15, 13, 0.78);
+  color: rgba(60, 52, 39, 0.82);
 }
 
 .hero-cta,
@@ -78,7 +80,7 @@ button:hover,
 .info-card {
   background: var(--fx-panel);
   border: 1px solid var(--fx-line);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--fx-shadow-soft);
 }
 
 .timeline-category,
@@ -121,7 +123,7 @@ button::before {
 
 .lb-topbar,
 .lb-filmstrip-wrap {
-  border-color: rgba(201, 168, 76, 0.24);
+  border-color: rgba(212, 175, 55, 0.24);
 }
 
 .lb-thumb.active {
@@ -131,12 +133,12 @@ button::before {
 
 .gallery-meta,
 .coming-soon {
-  border-color: rgba(11, 15, 13, 0.16);
+  border-color: rgba(212, 175, 55, 0.2);
   color: var(--fx-metal);
 }
 
 .overlay {
-  background: linear-gradient(145deg, rgba(201, 168, 76, 0.14), rgba(10, 14, 12, 0.14));
+  background: linear-gradient(145deg, rgba(212, 175, 55, 0.16), rgba(192, 192, 192, 0.14));
 }
 
 .footer-copy {

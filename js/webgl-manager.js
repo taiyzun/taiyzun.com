@@ -78,7 +78,7 @@ class WebGLManager {
 
   /**
    * HOME PAGE - Animated Particle System
-   * Creates prismatic particle animation reflecting multifaceted identity
+   * Creates a restrained gold-and-silver particle field aligned to the site palette
    */
   initHomeParticles() {
     const container = document.querySelector('[data-webgl="home-particles"]');
@@ -114,19 +114,23 @@ class WebGLManager {
     const particleCount = this.performanceMode === 'high' ? 150 :
                          this.performanceMode === 'medium' ? 80 : 40;
 
+    const palette = [
+      { rgb: '212, 175, 55', glow: 0.54, line: 0.2 },
+      { rgb: '228, 200, 86', glow: 0.44, line: 0.16 },
+      { rgb: '192, 192, 192', glow: 0.34, line: 0.12 }
+    ];
+
     const particles = Array.from({ length: particleCount }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
       vx: (Math.random() - 0.5) * 2,
       vy: (Math.random() - 0.5) * 2,
       size: Math.random() * 3 + 1,
-      hue: Math.random() * 360
+      palette: palette[Math.floor(Math.random() * palette.length)]
     }));
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       particles.forEach((p, i) => {
         // Update position
@@ -140,7 +144,7 @@ class WebGLManager {
         if (p.y > canvas.height) p.y = 0;
 
         // Draw particle
-        ctx.fillStyle = `hsla(${p.hue}, 100%, 60%, 0.7)`;
+        ctx.fillStyle = `rgba(${p.palette.rgb}, ${p.palette.glow})`;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
@@ -153,7 +157,7 @@ class WebGLManager {
           const distance = Math.sqrt(dx * dx + dy * dy);
 
           if (distance < 150) {
-            ctx.strokeStyle = `hsla(${p.hue}, 100%, 60%, ${0.3 * (1 - distance / 150)})`;
+            ctx.strokeStyle = `rgba(${p.palette.rgb}, ${p.palette.line * (1 - distance / 150)})`;
             ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);

@@ -5,37 +5,26 @@
 
 body.odyssey-page,
 body.creations-page {
-  --white-primary: #f6f1e6;
-  --white-secondary: #efe8da;
-  --white-tertiary: #e5dccb;
-  --text-dark: #151917;
-  --text-medium: #4b544f;
-  --text-light: #6b736d;
-  --gold-primary: #c9a84c;
-  --gold-secondary: #ddbf6d;
-  --silver-primary: #bfc8c4;
-  --accent-gold: rgba(201, 168, 76, 0.18);
-  --accent-silver: rgba(191, 200, 196, 0.12);
-  --vaulk-panel: rgba(255, 255, 255, 0.74);
-  --vaulk-border: rgba(21, 25, 23, 0.12);
-  --vaulk-border-strong: rgba(201, 168, 76, 0.44);
+  --vaulk-panel: linear-gradient(165deg, rgba(255, 255, 255, 0.8), rgba(248, 247, 245, 0.72));
+  --vaulk-border: rgba(212, 175, 55, 0.14);
+  --vaulk-border-strong: rgba(212, 175, 55, 0.34);
   background:
-    radial-gradient(920px 500px at 8% -15%, rgba(201, 168, 76, 0.16), transparent 60%),
-    radial-gradient(760px 420px at 88% -8%, rgba(191, 200, 196, 0.16), transparent 62%),
-    linear-gradient(165deg, #f8f4ea 0%, #efe7d9 48%, #f7f2e8 100%);
+    radial-gradient(920px 500px at 8% -15%, rgba(212, 175, 55, 0.16), transparent 60%),
+    radial-gradient(760px 420px at 88% -8%, rgba(192, 192, 192, 0.18), transparent 62%),
+    linear-gradient(165deg, var(--white-primary) 0%, var(--white-secondary) 48%, var(--white-primary) 100%);
   color: var(--text-dark);
 }
 
 body.odyssey-page .cursor-glow,
 body.creations-page .cursor-glow {
-  background: radial-gradient(circle, rgba(201, 168, 76, 0.15) 0%, rgba(191, 200, 196, 0.08) 42%, transparent 72%);
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, rgba(192, 192, 192, 0.1) 42%, transparent 72%);
 }
 
 body.odyssey-page nav,
 body.creations-page nav {
   background: rgba(255, 255, 255, 0.78);
   border-bottom: 1px solid var(--vaulk-border);
-  box-shadow: 0 10px 28px rgba(17, 21, 19, 0.08);
+  box-shadow: 0 12px 30px rgba(90, 67, 24, 0.08);
 }
 
 body.odyssey-page nav.scrolled,
@@ -46,7 +35,7 @@ body.creations-page nav.scrolled {
 
 body.odyssey-page .logo-text,
 body.creations-page .logo-text {
-  color: var(--text-dark);
+  color: var(--gold-primary);
 }
 
 body.odyssey-page .nav-links a,
@@ -69,14 +58,14 @@ body.creations-page .page-hero {
   min-height: 62vh;
   border-top: 1px solid var(--vaulk-border);
   border-bottom: 1px solid var(--vaulk-border);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.54) 0%, rgba(235, 228, 214, 0.88) 100%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.56) 0%, rgba(248, 247, 245, 0.9) 100%);
 }
 
 body.odyssey-page .page-hero::before,
 body.creations-page .page-hero::before {
   background:
-    radial-gradient(circle at 22% 26%, rgba(201, 168, 76, 0.2) 0%, transparent 46%),
-    radial-gradient(circle at 78% 72%, rgba(191, 200, 196, 0.15) 0%, transparent 52%);
+    radial-gradient(circle at 22% 26%, rgba(212, 175, 55, 0.2) 0%, transparent 46%),
+    radial-gradient(circle at 78% 72%, rgba(192, 192, 192, 0.16) 0%, transparent 52%);
 }
 
 body.odyssey-page .page-hero-content,
@@ -115,9 +104,9 @@ body.creations-page .gallery-label {
   position: relative;
   background: var(--vaulk-panel);
   border: 1px solid var(--vaulk-border);
-  border-radius: 2px;
+  border-radius: 22px;
   padding: 1.25rem 1.35rem;
-  box-shadow: 0 18px 36px rgba(17, 21, 19, 0.08);
+  box-shadow: 0 18px 36px rgba(90, 67, 24, 0.08);
   backdrop-filter: blur(16px);
 }
 
@@ -140,23 +129,23 @@ body.creations-page .art-grid {
 
 body.odyssey-page .gallery-item,
 body.creations-page .art-item {
-  border-radius: 2px;
+  border-radius: 20px;
   border: 1px solid var(--vaulk-border);
-  box-shadow: 0 18px 30px rgba(17, 21, 19, 0.08);
-  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 18px 30px rgba(90, 67, 24, 0.08);
+  background: var(--vaulk-panel);
   backdrop-filter: blur(14px);
 }
 
 body.odyssey-page .gallery-item:hover,
 body.creations-page .art-item:hover {
   border-color: var(--vaulk-border-strong);
-  box-shadow: 0 22px 38px rgba(17, 21, 19, 0.12);
+  box-shadow: 0 22px 38px rgba(90, 67, 24, 0.12);
   transform: translateY(-7px) scale(1.012);
 }
 
 body.odyssey-page .overlay,
 body.creations-page .overlay {
-  background: linear-gradient(150deg, rgba(201, 168, 76, 0.18), rgba(191, 200, 196, 0.14));
+  background: linear-gradient(150deg, rgba(212, 175, 55, 0.18), rgba(192, 192, 192, 0.16));
 }
 
 body.odyssey-page .overlay h4,
@@ -172,17 +161,17 @@ body.creations-page .overlay p {
 }
 
 body.creations-page .cat-filters {
-  background: rgba(255, 255, 255, 0.6);
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.78), rgba(248, 247, 245, 0.68));
   border: 1px solid var(--vaulk-border);
-  border-radius: 2px;
+  border-radius: 18px;
   padding: 0.8rem 1rem;
 }
 
 body.creations-page .cat-tab {
-  border-radius: 0;
+  border-radius: 999px;
   border: 1px solid var(--vaulk-border);
   color: var(--text-medium);
-  background: rgba(255, 255, 255, 0.58);
+  background: rgba(255, 255, 255, 0.7);
   font-family: var(--display);
   letter-spacing: 0.1em;
 }
@@ -194,28 +183,28 @@ body.creations-page .cat-tab:hover {
 
 body.creations-page .cat-tab.active {
   border-color: var(--vaulk-border-strong);
-  background: var(--gold-primary);
-  color: #ffffff;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.94), rgba(192, 192, 192, 0.88));
+  color: var(--text-dark);
 }
 
 body.odyssey-page .lightbox,
 body.creations-page .lightbox {
-  background: rgba(10, 14, 13, 0.96);
+  background: rgba(29, 24, 18, 0.96);
 }
 
 body.odyssey-page .lb-topbar,
 body.creations-page .lb-topbar,
 body.odyssey-page .lb-filmstrip-wrap,
 body.creations-page .lb-filmstrip-wrap {
-  border-color: rgba(201, 168, 76, 0.24);
-  background: rgba(14, 18, 17, 0.84);
+  border-color: rgba(212, 175, 55, 0.24);
+  background: rgba(43, 35, 27, 0.84);
 }
 
 body.odyssey-page .lb-close,
 body.creations-page .lb-close,
 body.odyssey-page .lb-nav,
 body.creations-page .lb-nav {
-  border-radius: 0;
+  border-radius: 999px;
   border-color: rgba(201, 168, 76, 0.42);
   color: #ffffff;
 }
@@ -236,8 +225,8 @@ body.creations-page .lb-thumb.active {
 
 body.odyssey-page .coming-soon,
 body.creations-page .coming-soon {
-  border-radius: 2px;
-  background: rgba(255, 255, 255, 0.58);
+  border-radius: 18px;
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.78), rgba(248, 247, 245, 0.68));
   border-color: var(--vaulk-border);
   color: var(--text-dark);
   font-family: var(--display);
