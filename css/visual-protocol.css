@@ -414,3 +414,112 @@ body.creations-page .lb-filmstrip-wrap {
     padding-block: 0.45rem;
   }
 }
+
+@media (hover: hover) and (pointer: fine) {
+  .pointer-reactive {
+    --pointer-x: 50%;
+    --pointer-y: 50%;
+    --tilt-x: 0deg;
+    --tilt-y: 0deg;
+    position: relative;
+    transform-style: preserve-3d;
+    transition:
+      transform 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 0.35s ease,
+      box-shadow 0.35s ease,
+      filter 0.35s ease;
+  }
+
+  .pointer-reactive::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    z-index: 2;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    background:
+      radial-gradient(circle at var(--pointer-x) var(--pointer-y), rgba(255, 255, 255, 0.46), transparent 0 28%),
+      linear-gradient(135deg, rgba(212, 175, 55, 0.18), transparent 42%, rgba(192, 192, 192, 0.13));
+    mix-blend-mode: screen;
+    transition: opacity 0.35s ease;
+  }
+
+  .pointer-reactive.is-pointer-active::after {
+    opacity: 1;
+  }
+
+  .pointer-reactive > img,
+  .pointer-reactive picture,
+  .pointer-reactive .art-overlay,
+  .pointer-reactive .overlay,
+  .pointer-reactive > * {
+    transform-style: preserve-3d;
+  }
+
+  body.creations-page .art-item.pointer-reactive.is-pointer-active,
+  body.odyssey-page .gallery-item.pointer-reactive.is-pointer-active {
+    border-color: rgba(212, 175, 55, 0.48);
+    box-shadow:
+      0 28px 58px rgba(90, 67, 24, 0.18),
+      0 0 0 1px rgba(255, 255, 255, 0.46) inset;
+    transform:
+      translateY(-10px)
+      scale(1.018)
+      perspective(900px)
+      rotateX(var(--tilt-x))
+      rotateY(var(--tilt-y));
+  }
+
+  body.creations-page .art-item.pointer-reactive.is-pointer-active img,
+  body.odyssey-page .gallery-item.pointer-reactive.is-pointer-active img {
+    filter: brightness(1.08) contrast(1.08) saturate(1.08);
+    transform: translateZ(18px) scale(1.06);
+  }
+
+  .highlight-card.pointer-reactive.is-pointer-active,
+  .value-item.pointer-reactive.is-pointer-active,
+  .timeline-category.pointer-reactive.is-pointer-active,
+  .info-card.pointer-reactive.is-pointer-active,
+  .social-card.pointer-reactive.is-pointer-active,
+  .gallery-label.pointer-reactive.is-pointer-active,
+  .connect-label.pointer-reactive.is-pointer-active,
+  .contact-form.pointer-reactive.is-pointer-active {
+    box-shadow:
+      0 24px 54px rgba(90, 67, 24, 0.14),
+      0 0 0 1px rgba(212, 175, 55, 0.24) inset;
+    transform:
+      translateY(-6px)
+      perspective(900px)
+      rotateX(var(--tilt-x))
+      rotateY(var(--tilt-y));
+  }
+
+  .cat-tab.pointer-reactive.is-pointer-active,
+  .submit-btn.pointer-reactive.is-pointer-active,
+  .social-link.pointer-reactive.is-pointer-active {
+    box-shadow:
+      0 14px 34px rgba(90, 67, 24, 0.16),
+      0 0 0 1px rgba(212, 175, 55, 0.28) inset;
+    transform:
+      translateY(-3px)
+      perspective(700px)
+      rotateX(var(--tilt-x))
+      rotateY(var(--tilt-y));
+  }
+
+  body.creations-page .cat-tab.pointer-reactive.is-pointer-active {
+    background:
+      radial-gradient(circle at var(--pointer-x) var(--pointer-y), rgba(255, 255, 255, 0.9), transparent 0 42%),
+      rgba(255, 255, 255, 0.74);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pointer-reactive,
+  .pointer-reactive::after,
+  .pointer-reactive > img {
+    transition: none !important;
+    transform: none !important;
+  }
+}

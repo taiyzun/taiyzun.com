@@ -309,6 +309,15 @@
   let currentPageAssets = [];
   let frameHandle = 0;
   let resizeHandle = 0;
+  let pointerObserver = null;
+  const supportsFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+  const pointerState = {
+    targetX: 0,
+    targetY: 0,
+    x: 0,
+    y: 0,
+    active: false
+  };
 
   legacyDecoratives.forEach((node) => {
     const wrapper = node.closest("picture");
@@ -654,6 +663,9 @@
     const introRamp = prefersReducedMotion.matches ? 0 : metrics.introRamp;
     const rotationDrift = prefersReducedMotion.matches ? 0 : metrics.rotAmp * motionVariant.rotDir;
     const rotationScroll = prefersReducedMotion.matches ? 0 : (0.004 + rng() * 0.01) * motionVariant.rotDir;
+    const pointerDepth = (isHero ? 14 + rng() * 18 : 8 + rng() * 16) * motionVariant.dirX;
+    const pointerLift = (isHero ? 10 + rng() * 16 : 7 + rng() * 13) * motionVariant.dirY;
+    const pointerRotate = (0.45 + rng() * 1.25) * motionVariant.rotDir;
     const opacity = isHero ? 0.14 + rng() * 0.06 : 0.09 + rng() * 0.05;
     const image = document.createElement("img");
 
@@ -689,6 +701,9 @@
     image.dataset.baseRotation = "0";
     image.dataset.rotationDrift = rotationDrift.toFixed(5);
     image.dataset.rotationScroll = rotationScroll.toFixed(5);
+    image.dataset.pointerDepth = pointerDepth.toFixed(5);
+    image.dataset.pointerLift = pointerLift.toFixed(5);
+    image.dataset.pointerRotate = pointerRotate.toFixed(5);
     image.dataset.motionPattern = motionVariant.pattern;
     image.dataset.motionKey = motionVariant.key;
     image.dataset.motionDelay = introDelay.toFixed(5);
@@ -708,6 +723,16 @@
   function render(force = false) {
     const scrollY = window.scrollY;
     const time = performance.now() * 0.001;
+    const pointerEnabled = !prefersReducedMotion.matches && supportsFinePointer.matches;
+
+    if (pointerEnabled) {
+      const easing = pointerState.active ? 0.1 : 0.055;
+      pointerState.x += (pointerState.targetX - pointerState.x) * easing;
+      pointerState.y += (pointerState.targetY - pointerState.y) * easing;
+    } else {
+      pointerState.x = 0;
+      pointerState.y = 0;
+    }
 
     items.forEach((image) => {
       const baseX = Number(image.dataset.baseX || 0);
@@ -724,6 +749,9 @@
       const baseRotation = Number(image.dataset.baseRotation || 0);
       const rotationDrift = Number(image.dataset.rotationDrift || 0);
       const rotationScroll = Number(image.dataset.rotationScroll || 0);
+      const pointerDepth = Number(image.dataset.pointerDepth || 0);
+      const pointerLift = Number(image.dataset.pointerLift || 0);
+      const pointerRotate = Number(image.dataset.pointerRotate || 0);
       const liveTime = Math.max(0, time - motionDelay);
       const ramp = prefersReducedMotion.matches ? 0 : clamp(liveTime / Math.max(motionRamp, 0.001), 0, 1);
       let driftX = 0;
@@ -763,13 +791,19 @@
       driftY *= ramp;
       const shiftX = prefersReducedMotion.matches ? 0 : scrollY * scrollXFactor * ramp;
       const shiftY = prefersReducedMotion.matches ? 0 : scrollY * scrollYFactor * ramp;
-      const rotation = prefersReducedMotion.matches ? baseRotation : baseRotation + scrollY * rotationScroll * ramp + rotationWave * ramp;
+      const pointerX = pointerEnabled ? pointerState.x * pointerDepth * ramp : 0;
+      const pointerY = pointerEnabled ? pointerState.y * pointerLift * ramp : 0;
+      const pointerTurn = pointerEnabled ? pointerState.x * pointerRotate * ramp : 0;
+      const pointerScale = pointerEnabled ? 1 + Math.min(0.025, Math.hypot(pointerState.x, pointerState.y) * 0.012 * ramp) : 1;
+      const rotation = prefersReducedMotion.matches
+        ? baseRotation
+        : baseRotation + scrollY * rotationScroll * ramp + rotationWave * ramp + pointerTurn;
 
       if (force) {
         image.style.opacity = image.style.getPropertyValue("--decor-opacity");
       }
 
-      image.style.transform = `translate3d(${baseX + shiftX + driftX}px, ${baseY + shiftY + driftY}px, 0) rotate(${rotation}deg)`;
+      image.style.transform = `translate3d(${baseX + shiftX + driftX + pointerX}px, ${baseY + shiftY + driftY + pointerY}px, 0) rotate(${rotation}deg) scale(${pointerScale})`;
     });
   }
 
@@ -835,6 +869,85 @@
     }, 140);
   }
 
+  function updatePointer(event) {
+    if (prefersReducedMotion.matches || !supportsFinePointer.matches) {
+      return;
+    }
+
+    pointerState.targetX = clamp((event.clientX / Math.max(window.innerWidth, 1) - 0.5) * 2, -1, 1);
+    pointerState.targetY = clamp((event.clientY / Math.max(window.innerHeight, 1) - 0.5) * 2, -1, 1);
+    pointerState.active = true;
+    scheduleRender();
+  }
+
+  function softenPointer() {
+    pointerState.targetX = 0;
+    pointerState.targetY = 0;
+    pointerState.active = false;
+    scheduleRender();
+  }
+
+  function initPointerReactiveSurfaces() {
+    if (prefersReducedMotion.matches || !supportsFinePointer.matches) {
+      return;
+    }
+
+    const selectors = [
+      ".art-item",
+      ".gallery-item",
+      ".highlight-card",
+      ".value-item",
+      ".timeline-category",
+      ".info-card",
+      ".social-card",
+      ".gallery-label",
+      ".connect-label",
+      ".contact-form",
+      ".cat-tab",
+      ".submit-btn",
+      ".social-link"
+    ].join(",");
+
+    document.querySelectorAll(selectors).forEach((node, index) => {
+      if (node.dataset.pointerReactiveReady === "true") {
+        return;
+      }
+
+      node.dataset.pointerReactiveReady = "true";
+      node.classList.add("pointer-reactive");
+      node.style.setProperty("--reactive-delay", `${(index % 7) * 24}ms`);
+
+      node.addEventListener("pointermove", (event) => {
+        const rect = node.getBoundingClientRect();
+        const x = clamp((event.clientX - rect.left) / Math.max(rect.width, 1), 0, 1);
+        const y = clamp((event.clientY - rect.top) / Math.max(rect.height, 1), 0, 1);
+        const tiltX = (0.5 - y) * 7;
+        const tiltY = (x - 0.5) * 8;
+
+        node.classList.add("is-pointer-active");
+        node.style.setProperty("--pointer-x", `${(x * 100).toFixed(2)}%`);
+        node.style.setProperty("--pointer-y", `${(y * 100).toFixed(2)}%`);
+        node.style.setProperty("--tilt-x", `${tiltX.toFixed(3)}deg`);
+        node.style.setProperty("--tilt-y", `${tiltY.toFixed(3)}deg`);
+      }, { passive: true });
+
+      node.addEventListener("pointerleave", () => {
+        node.classList.remove("is-pointer-active");
+        node.style.setProperty("--tilt-x", "0deg");
+        node.style.setProperty("--tilt-y", "0deg");
+      });
+    });
+
+    if (!pointerObserver) {
+      pointerObserver = new MutationObserver((records) => {
+        if (records.some((record) => record.addedNodes.length > 0)) {
+          window.requestAnimationFrame(initPointerReactiveSurfaces);
+        }
+      });
+      pointerObserver.observe(body, { childList: true, subtree: true });
+    }
+  }
+
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
       stopLoop();
@@ -847,6 +960,7 @@
   if (typeof prefersReducedMotion.addEventListener === "function") {
     prefersReducedMotion.addEventListener("change", () => {
       layout();
+      initPointerReactiveSurfaces();
       if (prefersReducedMotion.matches) {
         stopLoop();
         render(true);
@@ -857,13 +971,19 @@
   }
 
   window.addEventListener("scroll", scheduleRender, { passive: true });
+  window.addEventListener("pointermove", updatePointer, { passive: true });
+  window.addEventListener("pointerleave", softenPointer);
+  window.addEventListener("blur", softenPointer);
   window.addEventListener("resize", scheduleLayout);
   window.addEventListener("load", () => {
     layout();
+    initPointerReactiveSurfaces();
     startLoop();
     window.setTimeout(layout, 900);
+    window.setTimeout(initPointerReactiveSurfaces, 1000);
   }, { once: true });
 
   layout();
+  initPointerReactiveSurfaces();
   startLoop();
 })();
