@@ -1,10 +1,15 @@
 {
-  "name": "Taiyzun Shahpurwala - Creative Professional, Director, Peace Movement Advocate",
+  "name": "Taiyzun Shahpurwala - Director, Office Dr. HHK | M&M | I&T",
   "short_name": "Taiyzun",
-  "description": "Director at Office of Dr. Huzaifa Khorakiwala, Wockhardt, Jupiter Events LLC. I Am Peacekeeper Movement core team member. Strategic Communications, IT, Research & Design expertise.",
+  "description": "Director, Office of Dr. Huzaifa Khorakiwala | Wockhardt | I Am Peacekeeper Movement | Wockhardt Foundation | Global Justice, Love & Peace Summit | Billionaires for Peace",
   "start_url": "/",
   "display": "standalone",
-  "display_override": ["window-controls-overlay", "standalone", "fullscreen", "minimal-ui"],
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "fullscreen",
+    "minimal-ui"
+  ],
   "background_color": "#0a0a0f",
   "theme_color": "#0a0a0f",
   "orientation": "portrait-primary",
@@ -12,9 +17,19 @@
   "lang": "en",
   "dir": "ltr",
   "handle_links": "preferred",
-  "categories": ["business", "productivity", "social", "art", "design", "portfolio"],
+  "categories": [
+    "business",
+    "productivity",
+    "social",
+    "art",
+    "design",
+    "portfolio"
+  ],
   "launch_handler": {
-    "client_mode": ["navigate-existing", "auto"]
+    "client_mode": [
+      "navigate-existing",
+      "auto"
+    ]
   },
   "edge_side_panel": {
     "preferred_width": 400
