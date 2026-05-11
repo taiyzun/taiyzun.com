@@ -24,7 +24,6 @@
     "assets/decorative/@TimEsuiTs [8192x8192].png",
     "assets/decorative/@eArTh ~ round [9685x9685].png",
     "assets/decorative/@tZ ~ ganesh ~ 2019 [1786x1786].png",
-    "assets/decorative/S u i T SunSeT [1786x1786].png",
     "assets/decorative/Tai [4034x4733].png",
     "assets/decorative/TainfiniTy copy [8192x8192].png",
     "assets/decorative/TaiyZun @mE 2021 b [6000x6000].png",
@@ -38,11 +37,8 @@
     "assets/decorative/TaiyZun ~ sword ~ full ~ logO ~ 2021 [2420x1452].png",
     "assets/decorative/TaiyZun ~ sword ~ logO ~ 2021 [2420x1452].png",
     "assets/decorative/TaiyZun ~ sword ~ logO ~ full ~ 2021 [2420x1613].png",
-    "assets/decorative/TaiyZun ~ sword ~ only ~ logO ~ 2021 [1613x2420].png",
     "assets/decorative/ae0ne ~ small [3000x2250].png",
-    "assets/decorative/diya [324x358].png",
     "assets/decorative/e@rth [1786x1786].png",
-    "assets/decorative/ganesh@ [1100x1100].png",
     "assets/decorative/namEsis [512x512].png",
     "assets/decorative/s-T-i-n- [500x786].png",
     "assets/decorative/suiTs [2786x2786].png",
@@ -290,10 +286,13 @@
   function maxItemsForViewport() {
     if (window.innerWidth >= 1280) {
       if (pageKey === "home-page") {
-        return 11;
+        return 10;
       }
       if (pageKey === "connect-page") {
-        return 12;
+        return 10;
+      }
+      if (pageKey === "creations-page") {
+        return 9;
       }
       return 10;
     }
