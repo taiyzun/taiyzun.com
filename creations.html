@@ -17,20 +17,20 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
 <link rel="manifest" href="/assets/manifest.json">
 <link rel="canonical" href="https://taiyzun.com/creations.html">
-<title>Creative Portfolio & Digital Art - Taiyzun Shahpurwala | Visual Storytelling</title>
+<title>Creative Portfolio &amp; Digital Art - Taiyzun Shahpurwala | Visual Storytelling</title>
 <meta name="description" content="Immerse yourself in Taiyzun's creative universe — digital artwork, expressive visual storytelling and strategic brand designs. A carefully curated gallery showcasing psychedelic art, event graphics, album artwork, and vibrant creative compositions.">
 <meta name="keywords" content="Taiyzun creations, digital art, creative portfolio, visual storytelling, psychedelic art, graphic design, album artwork, brand design, creative expression, Tai SpacE mAn">
 <meta name="author" content="Taiyzun Shabbir Shahpurwala">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://taiyzun.com/creations.html">
-<meta property="og:title" content="Creative Portfolio & Digital Art - Taiyzun Shahpurwala">
+<meta property="og:title" content="Creative Portfolio &amp; Digital Art - Taiyzun Shahpurwala">
 <meta property="og:description" content="Digital artwork, expressive visual storytelling and strategic brand designs from Taiyzun Shahpurwala.">
 <meta property="og:image" content="https://taiyzun.com/assets/images/TimEsuiTs.png">
 <meta property="og:site_name" content="Taiyzun Shabbir Shahpurwala">
 <meta property="twitter:card" content="summary_large_image">
 <meta property="twitter:url" content="https://taiyzun.com/creations.html">
-<meta property="twitter:title" content="Creative Portfolio & Digital Art - Taiyzun Shahpurwala">
+<meta property="twitter:title" content="Creative Portfolio &amp; Digital Art - Taiyzun Shahpurwala">
 <meta property="twitter:image" content="https://taiyzun.com/assets/images/TimEsuiTs.png">
 <meta property="twitter:creator" content="@Taiyzun">
 <script type="application/ld+json">
@@ -45,7 +45,7 @@
 <link rel="dns-prefetch" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/fonts.min.css?v=2">
   <link rel="stylesheet" href="/css/design-principles.min.css">
   <link rel="stylesheet" href="/css/white-theme.min.css?v=3">
@@ -53,8 +53,10 @@
   <link rel="stylesheet" href="/css/gallery-visual-fix.css?v=1">
   <link rel="stylesheet" href="/css/fctrylab-inspired.css?v=1">
   <link rel="stylesheet" href="/css/vaulk-gallery-inspired.css?v=2">
+  <link rel="stylesheet" href="/css/ambient-video.css?v=1">
 </head>
-<body class="creations-page">  <style>.skip-link{position:absolute;top:-44px;left:1rem;padding:0.6rem 1.2rem;background:var(--gold);color:#0a0a0f;font-size:0.8rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;border-radius:0 0 4px 4px;transition:top 0.2s ease;z-index:9999;}.skip-link:focus{top:0;}</style>  <a href="#main-content" class="skip-link">Skip to main content</a>
+<body class="creations-page">
+<a href="#main-content" class="skip-link">Skip to main content</a>
 <div class="cursor-glow" id="cursorGlow"></div>
 <nav id="mainNav">
   <a href="index.html" class="logo" aria-label="Taiyzun — Home"><picture>
@@ -74,11 +76,15 @@
   </ul>
 </nav>
 <div class="page-hero">
-  <div class="page-hero-video" style="display: none;"><canvas id="heroBg" aria-hidden="true"></canvas></div>
+  <div class="page-hero-video" aria-hidden="true">
+    <video class="ambient-video-media" autoplay muted loop playsinline webkit-playsinline preload="metadata" disablepictureinpicture>
+      <source src="/assets/video/sora.mp4" type="video/mp4">
+    </video>
+  </div>
   <div data-webgl="creations-gallery" style="display: none; position: absolute; inset: 0; z-index: 2; pointer-events: none;"></div>
   <div class="page-hero-overlay"></div>
   <div class="page-hero-content">
-    <h1><em>Creative</em> Portfolio & Digital Art</h1>
+    <h1><em>Creative</em> Portfolio &amp; Digital Art</h1>
     <p class="intro">Immerse yourself in my creative universe, a carefully curated gallery featuring my digital artwork, expressive visual storytelling and strategic brand designs. Explore captivating event graphics and vibrant creations, each crafted with artistic vision and technical mastery. Through these pieces, I invite you into a realm where creativity transcends traditional boundaries, illuminating paths towards meaningful social impact and global harmony.</p>
   </div>
   <picture><source srcset="assets/decorative/@TimEsuiTs [8192x8192].png" type="image/png"><img src="assets/decorative/@TimEsuiTs [8192x8192].png" alt="" class="hero-decorative-png parallax-el" style="top:15%;left:5%;width:180px;opacity:0.12;" aria-hidden="true" data-speed="0.15" loading="lazy"></picture>
@@ -437,48 +443,7 @@
 
   init();
 
-  // ── Hero Canvas: Plasma ──
-  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) (function(){
-    const cv = document.getElementById('heroBg');
-    if (!cv) return;
-    const cx = cv.getContext('2d');
-    let W, H, t = 0;
-    const orbs = [
-      {x:0.3,y:0.4,r:0.6,sp:0.3,phase:0,hue:280},
-      {x:0.7,y:0.6,r:0.5,sp:0.4,phase:2.1,hue:320},
-      {x:0.5,y:0.2,r:0.7,sp:0.25,phase:4.2,hue:200},
-      {x:0.2,y:0.7,r:0.45,sp:0.5,phase:1.5,hue:45},
-      {x:0.8,y:0.3,r:0.55,sp:0.35,phase:3.0,hue:180},
-      {x:0.55,y:0.55,r:0.4,sp:0.6,phase:0.8,hue:350}
-    ];
-    const sparks = Array.from({length:40},()=>({x:Math.random(),y:Math.random(),sp:0.0002+Math.random()*0.0003,phase:Math.random()*Math.PI*2,op:Math.random()*0.5+0.2}));
-    function resize(){ W=cv.width=cv.offsetWidth||cv.parentElement.offsetWidth; H=cv.height=cv.offsetHeight||cv.parentElement.offsetHeight; }
-    function draw(){
-      cx.clearRect(0,0,W,H);
-      cx.fillStyle='rgba(8,4,18,1)'; cx.fillRect(0,0,W,H);
-      orbs.forEach(o=>{
-        const ox=(o.x+Math.sin(t*o.sp+o.phase)*0.35)*W;
-        const oy=(o.y+Math.cos(t*o.sp*0.7+o.phase)*0.3)*H;
-        const r=o.r*Math.max(W,H)*(0.75+0.25*Math.sin(t*o.sp*1.3+o.phase));
-        const hue=(o.hue+t*25)%360;
-        const gr=cx.createRadialGradient(ox,oy,0,ox,oy,r);
-        gr.addColorStop(0,`hsla(${hue},90%,58%,0.22)`);
-        gr.addColorStop(0.4,`hsla(${(hue+50)%360},80%,42%,0.12)`);
-        gr.addColorStop(1,'transparent');
-        cx.fillStyle=gr; cx.fillRect(0,0,W,H);
-      });
-      sparks.forEach(p=>{
-        const op=p.op*(0.5+0.5*Math.sin(t*3+p.phase));
-        cx.beginPath(); cx.arc(p.x*W,p.y*H,1.5,0,Math.PI*2);
-        cx.fillStyle=`rgba(201,168,76,${op})`; cx.fill();
-        p.x+=p.sp; if(p.x>1){p.x=0;p.y=Math.random();}
-      });
-      t+=0.007; requestAnimationFrame(draw);
-    }
-    resize();
-    new ResizeObserver(resize).observe(cv);
-    requestAnimationFrame(draw);
-  })();
 </script>
+<script src="/js/ambient-video.js?v=1"></script>
 </body>
 </html>

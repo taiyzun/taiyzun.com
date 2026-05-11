@@ -1,0 +1,261 @@
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  --ambient-panel-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.76) 0%, rgba(255, 255, 255, 0.4) 100%);
+  --ambient-panel-border: rgba(255, 255, 255, 0.44);
+  --ambient-panel-shadow: 0 24px 60px rgba(11, 15, 13, 0.12);
+}
+
+.skip-link {
+  position: absolute;
+  top: -44px;
+  left: 1rem;
+  padding: 0.6rem 1.2rem;
+  background: var(--gold-primary, #d4af37);
+  color: #0a0a0f;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 0 0 4px 4px;
+  transition: top 0.2s ease;
+  z-index: 9999;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+.hero,
+.page-hero {
+  isolation: isolate;
+}
+
+.hero-video,
+.page-hero-video {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(201, 168, 76, 0.2) 0%, transparent 42%),
+    radial-gradient(circle at 82% 74%, rgba(32, 42, 38, 0.12) 0%, transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(12, 17, 15, 0.12) 100%);
+}
+
+.hero-video::before,
+.page-hero-video::before,
+.hero-video::after,
+.page-hero-video::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.hero-video::before,
+.page-hero-video::before {
+  background:
+    radial-gradient(circle at 24% 18%, rgba(255, 255, 255, 0.28) 0%, transparent 20%),
+    radial-gradient(circle at 76% 80%, rgba(201, 168, 76, 0.14) 0%, transparent 24%);
+  opacity: 0.9;
+}
+
+.hero-video::after,
+.page-hero-video::after {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.12) 34%, rgba(10, 14, 12, 0.2) 100%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0%, transparent 30%, transparent 70%, rgba(255, 255, 255, 0.06) 100%);
+}
+
+.ambient-video-media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  opacity: 0;
+  filter: var(--ambient-video-filter, saturate(0.72) contrast(1.06) brightness(0.82));
+  transform: scale(1.08);
+  animation: ambientVideoDrift 26s ease-in-out infinite alternate;
+  transition: opacity 0.8s ease;
+}
+
+html.ambient-video-ready .ambient-video-media {
+  opacity: var(--ambient-video-opacity, 0.17);
+}
+
+html.ambient-video-disabled .hero-video,
+html.ambient-video-disabled .page-hero-video,
+html.ambient-video-blocked .hero-video,
+html.ambient-video-blocked .page-hero-video {
+  display: none;
+}
+
+.hero-content,
+.page-hero-content {
+  display: grid;
+  gap: clamp(0.85rem, 1.8vw, 1.2rem);
+  max-width: min(980px, calc(100% - 2rem));
+  padding: clamp(1.4rem, 3vw, 2.6rem);
+  border-radius: clamp(22px, 3vw, 36px);
+  border: 1px solid var(--ambient-panel-border);
+  background: var(--ambient-panel-bg);
+  box-shadow: var(--ambient-panel-shadow);
+  backdrop-filter: blur(18px) saturate(1.08);
+  -webkit-backdrop-filter: blur(18px) saturate(1.08);
+}
+
+.hero-title,
+.page-hero h1 {
+  text-wrap: balance;
+}
+
+.hero-subtitle,
+.page-hero p {
+  text-wrap: pretty;
+}
+
+.hero-subtitle,
+.page-hero-content .intro,
+.page-hero p {
+  margin-inline: auto;
+}
+
+.home-page .hero-content::before,
+.journey-page .page-hero-content::before,
+.odyssey-page .page-hero-content::before,
+.creations-page .page-hero-content::before,
+.connect-page .page-hero-content::before {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: center;
+  margin-bottom: 0.35rem;
+  padding: 0.45rem 0.92rem;
+  border-radius: 999px;
+  border: 1px solid rgba(11, 15, 13, 0.12);
+  background: rgba(255, 255, 255, 0.68);
+  box-shadow: 0 14px 30px rgba(11, 15, 13, 0.08);
+}
+
+.home-page .hero-content::before {
+  content: "Taiyzun / Home";
+}
+
+.journey-page .page-hero-content::before {
+  content: "Taiyzun / Journey";
+}
+
+.odyssey-page .page-hero-content::before {
+  content: "Taiyzun / Odyssey";
+}
+
+.creations-page .page-hero-content::before {
+  content: "Taiyzun / Creations";
+}
+
+.connect-page .page-hero-content::before {
+  content: "Taiyzun / Connect";
+}
+
+.home-page {
+  --ambient-video-opacity: 0.18;
+  --ambient-video-opacity-mobile: 0.13;
+  --ambient-video-filter: saturate(0.7) contrast(1.04) brightness(0.84);
+}
+
+.journey-page {
+  --ambient-video-opacity: 0.16;
+  --ambient-video-opacity-mobile: 0.12;
+}
+
+.connect-page {
+  --ambient-video-opacity: 0.14;
+  --ambient-video-opacity-mobile: 0.11;
+}
+
+.odyssey-page,
+.creations-page {
+  --ambient-video-opacity: 0.22;
+  --ambient-video-opacity-mobile: 0.16;
+  --ambient-video-filter: saturate(0.78) contrast(1.05) brightness(0.72);
+  --ambient-panel-bg: linear-gradient(180deg, rgba(12, 17, 16, 0.78) 0%, rgba(12, 17, 16, 0.48) 100%);
+  --ambient-panel-border: rgba(238, 242, 240, 0.14);
+  --ambient-panel-shadow: 0 30px 72px rgba(0, 0, 0, 0.42);
+}
+
+body.odyssey-page .page-hero-video,
+body.creations-page .page-hero-video {
+  background:
+    radial-gradient(circle at 18% 24%, rgba(244, 104, 43, 0.22) 0%, transparent 42%),
+    radial-gradient(circle at 82% 76%, rgba(151, 162, 158, 0.16) 0%, transparent 34%),
+    linear-gradient(180deg, rgba(8, 12, 11, 0.18) 0%, rgba(5, 8, 7, 0.32) 100%);
+}
+
+body.odyssey-page .page-hero-video::after,
+body.creations-page .page-hero-video::after {
+  background:
+    linear-gradient(180deg, rgba(8, 12, 11, 0.2) 0%, rgba(8, 12, 11, 0.06) 30%, rgba(4, 6, 6, 0.48) 100%),
+    linear-gradient(90deg, rgba(244, 104, 43, 0.06) 0%, transparent 28%, transparent 72%, rgba(255, 255, 255, 0.04) 100%);
+}
+
+body.odyssey-page .page-hero-content::before,
+body.creations-page .page-hero-content::before {
+  border-color: rgba(238, 242, 240, 0.14);
+  background: rgba(10, 14, 13, 0.58);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.32);
+}
+
+body.odyssey-page .page-hero p,
+body.creations-page .page-hero p {
+  color: rgba(238, 242, 240, 0.8);
+}
+
+body.connect-page .page-hero-content,
+body.journey-page .page-hero-content {
+  max-width: min(920px, calc(100% - 2rem));
+}
+
+@keyframes ambientVideoDrift {
+  0% {
+    transform: scale(1.08) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: scale(1.12) translate3d(-1.5%, -1%, 0);
+  }
+
+  100% {
+    transform: scale(1.09) translate3d(1.5%, 1.5%, 0);
+  }
+}
+
+@media (max-width: 768px) {
+  html.ambient-video-ready .ambient-video-media {
+    opacity: var(--ambient-video-opacity-mobile, 0.12);
+  }
+
+  .hero-content,
+  .page-hero-content {
+    max-width: calc(100% - 1.5rem);
+    padding: 1.2rem 1rem 1.35rem;
+    border-radius: 24px;
+  }
+
+  .hero-video::after,
+  .page-hero-video::after {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.52) 0%, rgba(255, 255, 255, 0.1) 28%, rgba(10, 14, 12, 0.22) 100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-video-media {
+    animation: none;
+    transform: none;
+  }
+}
