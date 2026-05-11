@@ -16,7 +16,7 @@ jobs:
       - name: Run Lighthouse (mobile)
         run: |
           mkdir -p reports
-          npx -y lighthouse "https://taiyzun.com/odyssey.html" \
+          npx -y lighthouse "https://taiyzun.com/odyssey" \
             --output json \
             --output-path ./reports/lighthouse-odyssey.json \
             --form-factor=mobile \

@@ -457,7 +457,7 @@
     const isFooter = section.matches("footer");
 
     if (isHero) {
-      return tier === "desktop" ? 5 : tier === "tablet" ? 4 : 3;
+      return tier === "desktop" ? 5 : tier === "tablet" ? 4 : 1;
     }
 
     if (isGallery) {
@@ -507,7 +507,7 @@
     if (window.innerWidth >= 768) {
       return 8;
     }
-    return 6;
+    return 4;
   }
 
   function sizeForAsset(assetPath, rng, isHero) {
