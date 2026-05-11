@@ -1,5 +1,5 @@
 // Service Worker for taiyzun.com
-const CACHE_NAME = 'taiyzun-core-v9';
+const CACHE_NAME = 'taiyzun-core-v10';
 const RUNTIME_IMAGE_CACHE = 'taiyzun-images-v2';
 const ASSETS_TO_CACHE = [
   '/',
@@ -57,6 +57,12 @@ self.addEventListener('fetch', event => {
 
   // Skip cross-origin requests
   if (!request.url.startsWith(self.location.origin)) {
+    return;
+  }
+
+  // Gallery categories change frequently; always fetch the current manifest.
+  if (new URL(request.url).pathname === '/assets/space-gallery-manifest.json') {
+    event.respondWith(fetch(request, { cache: 'no-store' }));
     return;
   }
 

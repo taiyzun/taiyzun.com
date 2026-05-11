@@ -172,8 +172,9 @@
 </footer>
 <script>
   /* ── Config ── */
+  const GALLERY_MANIFEST_VERSION = '20260512-memes-button-v1';
   const MANIFEST_URLS = [
-    '/assets/space-gallery-manifest.json',
+    `/assets/space-gallery-manifest.json?v=${GALLERY_MANIFEST_VERSION}`,
     'https://pub-3c9f0c0ce1654d10a3df41d9987255b7.r2.dev/space-gallery/manifest.json'
   ];
   const PAGE_SIZE = 60;
@@ -272,7 +273,10 @@
   function buildFilters(cats, counts = {}) {
     const c = document.getElementById('catFilters');
     c.innerHTML = '';
-    cats.forEach(cat => {
+    const orderedCats = [...new Set(cats.filter(cat => cat && cat !== 'all'))];
+    if (counts.mEmEs && !orderedCats.includes('mEmEs')) orderedCats.push('mEmEs');
+    orderedCats.push('all');
+    orderedCats.forEach(cat => {
       const btn = document.createElement('button');
       btn.className = 'cat-tab' + (cat === 'all' ? ' active' : '');
       btn.dataset.cat = cat;
