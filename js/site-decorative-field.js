@@ -289,6 +289,12 @@
 
   function maxItemsForViewport() {
     if (window.innerWidth >= 1280) {
+      if (pageKey === "home-page") {
+        return 11;
+      }
+      if (pageKey === "connect-page") {
+        return 12;
+      }
       return 10;
     }
     if (window.innerWidth >= 768) {
