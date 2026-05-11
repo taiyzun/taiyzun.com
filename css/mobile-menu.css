@@ -1,0 +1,405 @@
+/* Responsive animated mobile menu for Taiyzun.com */
+:root {
+  --mobile-nav-gold: #c9a84c;
+  --mobile-nav-ink: #15120b;
+  --mobile-nav-paper: rgba(255, 252, 245, 0.9);
+}
+
+@media (min-width: 901px) {
+  .hamburger {
+    display: none !important;
+  }
+
+  .nav-links {
+    transform: none !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    visibility: visible !important;
+  }
+}
+
+@media (max-width: 900px) {
+  html.tai-mobile-menu-open,
+  body.tai-mobile-menu-open {
+    overflow: hidden !important;
+    overscroll-behavior: none;
+  }
+
+  #mainNav {
+    position: fixed !important;
+    top: max(10px, env(safe-area-inset-top)) !important;
+    left: max(10px, env(safe-area-inset-left)) !important;
+    right: max(10px, env(safe-area-inset-right)) !important;
+    height: 58px !important;
+    min-height: 58px !important;
+    padding: 8px 10px 8px 14px !important;
+    border: 1px solid rgba(201, 168, 76, 0.28) !important;
+    border-radius: 24px !important;
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.86), rgba(248, 244, 231, 0.62)),
+      radial-gradient(circle at 10% 0%, rgba(201, 168, 76, 0.28), transparent 42%) !important;
+    box-shadow: 0 18px 52px rgba(45, 35, 12, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.76) !important;
+    backdrop-filter: blur(22px) saturate(1.45) !important;
+    -webkit-backdrop-filter: blur(22px) saturate(1.45) !important;
+    z-index: 10040 !important;
+    overflow: visible !important;
+  }
+
+  #mainNav::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(120deg, rgba(201, 168, 76, 0.62), rgba(255, 255, 255, 0.2), rgba(192, 192, 192, 0.42));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  #mainNav .logo {
+    max-width: calc(100vw - 96px);
+    z-index: 10045;
+  }
+
+  #mainNav .logo-text {
+    max-width: 44vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .hamburger {
+    display: inline-grid !important;
+    place-items: center !important;
+    position: relative !important;
+    width: 48px !important;
+    height: 42px !important;
+    min-width: 48px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 1px solid rgba(201, 168, 76, 0.38) !important;
+    border-radius: 999px !important;
+    background:
+      radial-gradient(circle at 68% 28%, rgba(255, 255, 255, 0.9), transparent 18px),
+      linear-gradient(145deg, rgba(255, 250, 235, 0.92), rgba(226, 207, 143, 0.28)) !important;
+    box-shadow: 0 10px 28px rgba(201, 168, 76, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.75) !important;
+    cursor: pointer !important;
+    z-index: 10060 !important;
+    isolation: isolate;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 240ms ease, border-color 240ms ease !important;
+  }
+
+  .hamburger::before,
+  .hamburger::after {
+    content: "";
+    position: absolute;
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  .hamburger::before {
+    inset: -5px;
+    border: 1px solid rgba(201, 168, 76, 0.16);
+    transform: scale(0.86);
+    opacity: 0;
+    transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1), opacity 420ms ease;
+  }
+
+  .hamburger::after {
+    inset: 9px;
+    background: radial-gradient(circle, rgba(201, 168, 76, 0.18), transparent 68%);
+    filter: blur(8px);
+    opacity: 0;
+    transition: opacity 260ms ease;
+    z-index: -1;
+  }
+
+  .hamburger span {
+    position: absolute !important;
+    left: 13px !important;
+    width: 22px !important;
+    height: 2px !important;
+    background: var(--mobile-nav-ink) !important;
+    border-radius: 999px !important;
+    transform-origin: center !important;
+    transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1), opacity 240ms ease, width 240ms ease, background 240ms ease !important;
+  }
+
+  .hamburger span:nth-child(1) { transform: translateY(-7px); }
+  .hamburger span:nth-child(2) { transform: translateY(0); width: 16px !important; }
+  .hamburger span:nth-child(3) { transform: translateY(7px); width: 20px !important; }
+
+  .hamburger:hover,
+  .hamburger:focus-visible,
+  .hamburger.open,
+  .hamburger.active {
+    transform: translateY(-1px) scale(1.02) !important;
+    border-color: rgba(201, 168, 76, 0.66) !important;
+    box-shadow: 0 16px 38px rgba(201, 168, 76, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+    outline: none;
+  }
+
+  .hamburger.open::before,
+  .hamburger.active::before {
+    transform: scale(1.08);
+    opacity: 1;
+    animation: menuAura 1.8s ease-in-out infinite;
+  }
+
+  .hamburger.open::after,
+  .hamburger.active::after {
+    opacity: 1;
+  }
+
+  .hamburger.open span:nth-child(1),
+  .hamburger.active span:nth-child(1) {
+    transform: translateY(0) rotate(45deg) !important;
+    width: 22px !important;
+  }
+
+  .hamburger.open span:nth-child(2),
+  .hamburger.active span:nth-child(2) {
+    opacity: 0 !important;
+    transform: translateX(10px) scaleX(0.2) !important;
+  }
+
+  .hamburger.open span:nth-child(3),
+  .hamburger.active span:nth-child(3) {
+    transform: translateY(0) rotate(-45deg) !important;
+    width: 22px !important;
+  }
+
+  .nav-links {
+    display: flex !important;
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: calc(92px + env(safe-area-inset-top)) 22px calc(28px + env(safe-area-inset-bottom)) !important;
+    list-style: none !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    background:
+      radial-gradient(circle at 18% 14%, rgba(201, 168, 76, 0.26), transparent 30%),
+      radial-gradient(circle at 88% 75%, rgba(112, 145, 157, 0.16), transparent 35%),
+      linear-gradient(140deg, rgba(255, 255, 255, 0.94), rgba(245, 239, 219, 0.9)) !important;
+    backdrop-filter: blur(30px) saturate(1.28) !important;
+    -webkit-backdrop-filter: blur(30px) saturate(1.28) !important;
+    z-index: 10030 !important;
+    overflow: hidden auto !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: translateY(-16px) scale(0.985) !important;
+    clip-path: circle(0 at calc(100% - 42px) 38px);
+    transition:
+      clip-path 620ms cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 320ms ease,
+      visibility 0s linear 620ms,
+      transform 520ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  .nav-links::before,
+  .nav-links::after {
+    content: "";
+    position: fixed;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 420ms ease 120ms, transform 720ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .nav-links::before {
+    width: 58vmin;
+    height: 58vmin;
+    right: -18vmin;
+    top: -14vmin;
+    border-radius: 50%;
+    border: 1px solid rgba(201, 168, 76, 0.24);
+    box-shadow: inset 0 0 70px rgba(201, 168, 76, 0.1), 0 0 70px rgba(201, 168, 76, 0.1);
+    transform: rotate(-16deg) scale(0.8);
+  }
+
+  .nav-links::after {
+    content: "Taiyzun";
+    left: 24px;
+    bottom: max(16px, env(safe-area-inset-bottom));
+    font-family: var(--display, 'Philosopher', serif);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: rgba(64, 52, 26, 0.38);
+    transform: translateY(12px);
+  }
+
+  .nav-links.open,
+  .nav-links.active,
+  body.tai-mobile-menu-open .nav-links {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: translateY(0) scale(1) !important;
+    clip-path: circle(145% at calc(100% - 42px) 38px);
+    transition:
+      clip-path 720ms cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 260ms ease,
+      visibility 0s,
+      transform 620ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  .nav-links.open::before,
+  .nav-links.open::after,
+  .nav-links.active::before,
+  .nav-links.active::after,
+  body.tai-mobile-menu-open .nav-links::before,
+  body.tai-mobile-menu-open .nav-links::after {
+    opacity: 1;
+    transform: none;
+  }
+
+  .nav-links li {
+    border: 0 !important;
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+    transition: transform 460ms cubic-bezier(0.16, 1, 0.3, 1), opacity 360ms ease;
+  }
+
+  .nav-links.open li,
+  .nav-links.active li,
+  body.tai-mobile-menu-open .nav-links li {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .nav-links.open li:nth-child(1), .nav-links.active li:nth-child(1), body.tai-mobile-menu-open .nav-links li:nth-child(1) { transition-delay: 80ms; }
+  .nav-links.open li:nth-child(2), .nav-links.active li:nth-child(2), body.tai-mobile-menu-open .nav-links li:nth-child(2) { transition-delay: 140ms; }
+  .nav-links.open li:nth-child(3), .nav-links.active li:nth-child(3), body.tai-mobile-menu-open .nav-links li:nth-child(3) { transition-delay: 200ms; }
+  .nav-links.open li:nth-child(4), .nav-links.active li:nth-child(4), body.tai-mobile-menu-open .nav-links li:nth-child(4) { transition-delay: 260ms; }
+  .nav-links.open li:nth-child(5), .nav-links.active li:nth-child(5), body.tai-mobile-menu-open .nav-links li:nth-child(5) { transition-delay: 320ms; }
+
+  .nav-links a {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    min-height: 62px;
+    padding: 16px 18px !important;
+    margin: 0 !important;
+    border: 1px solid rgba(201, 168, 76, 0.18) !important;
+    border-radius: 22px !important;
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 248, 224, 0.42)),
+      radial-gradient(circle at 0 50%, rgba(201, 168, 76, 0.12), transparent 46%) !important;
+    box-shadow: 0 12px 28px rgba(46, 36, 12, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.82) !important;
+    color: var(--mobile-nav-ink) !important;
+    font-family: var(--display, 'Philosopher', serif) !important;
+    font-size: clamp(1.42rem, 8vw, 2.62rem) !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.035em !important;
+    line-height: 1 !important;
+    text-transform: none !important;
+    text-decoration: none !important;
+    white-space: normal !important;
+    overflow: hidden;
+    position: relative !important;
+  }
+
+  .nav-links a::before {
+    content: "0" counter(tai-menu);
+    counter-increment: tai-menu;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(201, 168, 76, 0.72);
+    margin-right: 14px;
+    order: -1;
+  }
+
+  .nav-links {
+    counter-reset: tai-menu;
+  }
+
+  .nav-links a::after {
+    content: "" !important;
+    position: static !important;
+    width: 10px !important;
+    height: 10px !important;
+    min-width: 10px;
+    border-radius: 50% !important;
+    background: var(--mobile-nav-gold) !important;
+    transform: none !important;
+    opacity: 0.38;
+    box-shadow: 0 0 0 6px rgba(201, 168, 76, 0.08), 0 0 24px rgba(201, 168, 76, 0.28);
+    transition: opacity 220ms ease, transform 220ms ease !important;
+  }
+
+  .nav-links a:hover,
+  .nav-links a:focus-visible,
+  .nav-links a.active {
+    color: #7b5d12 !important;
+    border-color: rgba(201, 168, 76, 0.48) !important;
+    transform: translateX(3px) !important;
+    outline: none;
+  }
+
+  .nav-links a:hover::after,
+  .nav-links a:focus-visible::after,
+  .nav-links a.active::after {
+    opacity: 1;
+    transform: scale(1.28) !important;
+  }
+
+  .tai-menu-ripple {
+    position: fixed;
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    transform: translate(-50%, -50%) scale(0);
+    background: radial-gradient(circle, rgba(201, 168, 76, 0.32), transparent 70%);
+    pointer-events: none;
+    z-index: 10070;
+    animation: taiMenuRipple 620ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+}
+
+@media (max-width: 390px) {
+  #mainNav .logo-text {
+    max-width: 36vw;
+    font-size: 0.72rem;
+  }
+
+  .nav-links a {
+    min-height: 56px;
+    padding: 14px 15px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hamburger,
+  .hamburger span,
+  .nav-links,
+  .nav-links li,
+  .nav-links::before,
+  .nav-links::after,
+  .tai-menu-ripple {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes menuAura {
+  0%, 100% { box-shadow: 0 0 0 rgba(201, 168, 76, 0); }
+  50% { box-shadow: 0 0 22px rgba(201, 168, 76, 0.26); }
+}
+
+@keyframes taiMenuRipple {
+  to {
+    transform: translate(-50%, -50%) scale(18);
+    opacity: 0;
+  }
+}
