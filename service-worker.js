@@ -1,6 +1,6 @@
 // Service Worker for taiyzun.com
-const CACHE_NAME = 'taiyzun-core-v6';
-const RUNTIME_IMAGE_CACHE = 'taiyzun-images-v1';
+const CACHE_NAME = 'taiyzun-core-v7';
+const RUNTIME_IMAGE_CACHE = 'taiyzun-images-v2';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -10,7 +10,10 @@ const ASSETS_TO_CACHE = [
   '/connect.html',
   '/style.css',
   '/assets/manifest.json',
-  '/assets/images/logo.png'
+  '/assets/images/logo.png',
+  '/assets/images/TaiyZunS-TruTh-arTed-og.jpg',
+  '/assets/icons/favicon-32x32.png',
+  '/favicon.ico'
 ];
 
 // Install Service Worker

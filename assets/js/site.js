@@ -101,7 +101,7 @@
     if (reducedMotionQuery.matches) {
       video.pause();
       video.removeAttribute('autoplay');
-      video.setAttribute('poster', 'assets/images/TimEsuiTs.png');
+      video.setAttribute('poster', 'assets/images/TaiyZunS-TruTh-arTed.jpg');
     }
   }
 
