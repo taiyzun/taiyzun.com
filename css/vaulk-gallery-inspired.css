@@ -52,7 +52,7 @@ body.creations-page .logo-text {
 body.odyssey-page .nav-links a,
 body.creations-page .nav-links a {
   color: var(--text-medium);
-  font-family: "Chivo Mono", var(--display), monospace;
+  font-family: var(--display);
   font-weight: 500;
   letter-spacing: 0.16em;
 }
@@ -88,7 +88,7 @@ body.creations-page .page-hero-content {
 
 body.odyssey-page .page-hero h1,
 body.creations-page .page-hero h1 {
-  font-family: "Space Grotesk", var(--display), sans-serif;
+  font-family: var(--display);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -97,7 +97,7 @@ body.creations-page .page-hero h1 {
 
 body.odyssey-page .page-hero p,
 body.creations-page .page-hero p {
-  font-family: "Space Grotesk", var(--body), sans-serif;
+  font-family: var(--body);
   color: var(--text-medium);
   max-width: 760px;
 }
@@ -106,7 +106,7 @@ body.odyssey-page .section-label,
 body.creations-page .section-label,
 body.odyssey-page .gallery-meta,
 body.creations-page .gallery-meta {
-  font-family: "Chivo Mono", monospace;
+  font-family: var(--display);
   letter-spacing: 0.15em;
   text-transform: uppercase;
 }
@@ -159,7 +159,7 @@ body.creations-page .overlay {
 
 body.odyssey-page .overlay h4,
 body.creations-page .overlay h4 {
-  font-family: "Space Grotesk", var(--display), sans-serif;
+  font-family: var(--display);
   color: #f7faf8;
   letter-spacing: 0.06em;
 }
@@ -181,7 +181,7 @@ body.creations-page .cat-tab {
   border: 1px solid var(--vaulk-border);
   color: var(--text-dark);
   background: rgba(255, 255, 255, 0.04);
-  font-family: "Chivo Mono", monospace;
+  font-family: var(--display);
   letter-spacing: 0.1em;
 }
 
@@ -238,7 +238,7 @@ body.creations-page .coming-soon {
   background: rgba(255, 255, 255, 0.05);
   border-color: var(--vaulk-border);
   color: #f2f6f4;
-  font-family: "Chivo Mono", monospace;
+  font-family: var(--display);
 }
 
 body.odyssey-page .easter-egg,

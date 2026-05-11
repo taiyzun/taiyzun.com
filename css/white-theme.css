@@ -22,9 +22,9 @@
   --accent-silver: rgba(192, 192, 192, 0.1);
 
   /* Typography 📝 */
-  --serif: 'Cormorant Garamond', Georgia, serif;
-  --display: 'Cinzel', 'Cormorant Garamond', serif;
-  --body: 'Philosopher', Georgia, serif;
+  --serif: 'Optima', 'Philosopher', Georgia, serif;
+  --display: 'Philosopher', 'DINPro', 'Optima', 'Trebuchet MS', sans-serif;
+  --body: 'Philosopher', 'DINPro', 'Optima', 'Trebuchet MS', sans-serif;
 
   /* Sacred Geometry Sizing (Fibonacci) */
   --sp-xs: 4px;

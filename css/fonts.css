@@ -3,7 +3,7 @@
 
 :root {
   /* Font Families (Priority Order) */
-  --font-display: 'DINPro', 'Philosopher', 'Optima', 'Trebuchet MS', sans-serif;
+  --font-display: 'Philosopher', 'DINPro', 'Optima', 'Trebuchet MS', sans-serif;
   --font-body: 'Philosopher', 'DINPro', 'Optima', 'Trebuchet MS', sans-serif;
   --font-mono: 'Courier New', monospace;
 
@@ -108,7 +108,7 @@ small {
 
 /* Strong/Bold */
 strong, b {
-  font-family: var(--font-display);
+  font-family: inherit;
   font-weight: var(--fw-bold);
 }
 
