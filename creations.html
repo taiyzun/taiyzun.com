@@ -57,7 +57,7 @@
   <link rel="stylesheet" href="/css/padding-fix.css?v=1">
   <link rel="stylesheet" href="/css/gallery-visual-fix.css?v=1">
   <link rel="stylesheet" href="/css/fctrylab-inspired.css?v=3">
-  <link rel="stylesheet" href="/css/vaulk-gallery-inspired.css?v=5">
+  <link rel="stylesheet" href="/css/vaulk-gallery-inspired.css?v=6">
   <link rel="stylesheet" href="/css/ambient-video.css?v=4">
   <link rel="stylesheet" href="/css/site-decorative-field.css?v=3">
   <link rel="stylesheet" href="/css/mily-inspired-system.css?v=2">
@@ -123,6 +123,7 @@
     </div>
     <button class="lb-nav lb-next" id="lbNext" aria-label="Next image">›</button>
   </div>
+  <div class="lb-caption"><h4 id="lbTitle"></h4><p id="lbSub"></p></div>
   <div class="lb-filmstrip-wrap"><div class="lb-filmstrip" id="lbFilmstrip"></div></div>
   <div class="lb-progress"><div class="lb-progress-bar" id="lbProgressBar"></div></div>
 </div>
@@ -175,6 +176,21 @@
       .replace(/'/g, '&#39;');
   }
 
+  function titleFromImagePath(path) {
+    const raw = String(path || '').split('/').pop() || '';
+    const withoutQuery = raw.split('?')[0].split('#')[0];
+    const withoutExt = withoutQuery.replace(/\.(?:jpe?g|png|webp|avif)$/i, '');
+    try {
+      return decodeURIComponent(withoutExt).replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim();
+    } catch (error) {
+      return withoutExt.replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim();
+    }
+  }
+
+  function titleForItem(item) {
+    return String(item.name || item.title || titleFromImagePath(item.full || item.thumb) || 'Untitled').replace(/_/g, ' ');
+  }
+
   /* ── Observers ── */
   const imgObs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting && e.target.dataset.src) { e.target.src = e.target.dataset.src; imgObs.unobserve(e.target); } });
@@ -205,7 +221,7 @@
       if (!cats.length) throw new Error('empty');
       cats.forEach(cat => {
         (manifest[cat] || []).forEach(item => {
-          allItems.push({ full: item.full, thumb: item.thumb, cat, title: (item.name || '').replace(/_/g, ' '), sub: cat });
+          allItems.push({ full: item.full, thumb: item.thumb, cat, title: titleForItem(item), sub: cat });
           countByCat[cat] = (countByCat[cat] || 0) + 1;
         });
       });
@@ -295,6 +311,8 @@
   const lbCounter  = document.getElementById('lbCounter');
   const lbTotal    = document.getElementById('lbTotal');
   const lbCat      = document.getElementById('lbCat');
+  const lbTitle    = document.getElementById('lbTitle');
+  const lbSub      = document.getElementById('lbSub');
   const lbPrevBtn  = document.getElementById('lbPrev');
   const lbNextBtn  = document.getElementById('lbNext');
   const lbCloseBtn = document.getElementById('lbClose');
@@ -321,6 +339,8 @@
     const item = filteredItems[i];
     lbCounter.textContent = String(i + 1).padStart(2, '0');
     lbCat.textContent = item.cat || '';
+    lbTitle.textContent = item.title || '';
+    lbSub.textContent = item.sub || '';
     lbProgressBar.style.width = ((i + 1) / filteredItems.length * 100) + '%';
     updateFilmstrip(i);
     lbImg.className = '';

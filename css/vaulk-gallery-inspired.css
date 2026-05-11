@@ -275,6 +275,37 @@ body.creations-page .lb-thumb.active {
   box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.22);
 }
 
+body.odyssey-page .lb-caption,
+body.creations-page .lb-caption {
+  width: min(920px, calc(100vw - 2rem));
+  margin: 0 auto;
+  padding: 0.85rem 1rem 1rem;
+  text-align: center;
+  color: #ffffff;
+}
+
+body.odyssey-page .lb-caption h4,
+body.creations-page .lb-caption h4 {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(1rem, 2vw, 1.35rem);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+  color: #ffffff;
+}
+
+body.odyssey-page .lb-caption p,
+body.creations-page .lb-caption p {
+  margin: 0.35rem 0 0;
+  font-family: var(--body);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  line-height: 1.45;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.68);
+}
+
 body.odyssey-page .coming-soon,
 body.creations-page .coming-soon {
   border-radius: 18px;
