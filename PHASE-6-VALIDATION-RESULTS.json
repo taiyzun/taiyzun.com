@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-09T16:31:25.937Z",
+  "timestamp": "2026-05-11T19:48:25.356Z",
   "pages": [
     {
       "page": "Home",
@@ -47,7 +47,7 @@
             },
             {
               "test": "checkContrast",
-              "status": "PASS"
+              "status": "WARN"
             }
           ]
         },
@@ -60,7 +60,7 @@
             },
             {
               "test": "checkMediaQueries",
-              "status": "PASS"
+              "status": "WARN"
             },
             {
               "test": "checkResponsiveImages",
@@ -85,7 +85,7 @@
             },
             {
               "test": "checkLetterSpacing",
-              "status": "PASS"
+              "status": "WARN"
             }
           ]
         },
@@ -98,7 +98,7 @@
             },
             {
               "test": "checkCSSMinified",
-              "status": "PASS"
+              "status": "WARN"
             },
             {
               "test": "checkScriptDefer",
@@ -159,8 +159,8 @@
         }
       ],
       "stats": {
-        "passed": 28,
-        "warning": 0,
+        "passed": 24,
+        "warning": 4,
         "failed": 0
       }
     },
@@ -206,11 +206,11 @@
             },
             {
               "test": "checkColors",
-              "status": "PASS"
+              "status": "WARN"
             },
             {
               "test": "checkContrast",
-              "status": "PASS"
+              "status": "WARN"
             }
           ]
         },
@@ -223,7 +223,7 @@
             },
             {
               "test": "checkMediaQueries",
-              "status": "PASS"
+              "status": "WARN"
             },
             {
               "test": "checkResponsiveImages",
@@ -248,7 +248,7 @@
             },
             {
               "test": "checkLetterSpacing",
-              "status": "PASS"
+              "status": "WARN"
             }
           ]
         },
@@ -261,11 +261,11 @@
             },
             {
               "test": "checkCSSMinified",
-              "status": "PASS"
+              "status": "WARN"
             },
             {
               "test": "checkScriptDefer",
-              "status": "PASS"
+              "status": "WARN"
             },
             {
               "test": "checkPreload",
@@ -322,8 +322,8 @@
         }
       ],
       "stats": {
-        "passed": 28,
-        "warning": 0,
+        "passed": 22,
+        "warning": 6,
         "failed": 0
       }
     },
@@ -369,7 +369,7 @@
             },
             {
               "test": "checkColors",
-              "status": "PASS"
+              "status": "WARN"
             },
             {
               "test": "checkContrast",
@@ -386,7 +386,7 @@
             },
             {
               "test": "checkMediaQueries",
-              "status": "PASS"
+              "status": "WARN"
             },
             {
               "test": "checkResponsiveImages",
@@ -411,7 +411,7 @@
             },
             {
               "test": "checkLetterSpacing",
-              "status": "PASS"
+              "status": "WARN"
             }
           ]
         },
@@ -424,11 +424,11 @@
             },
             {
               "test": "checkCSSMinified",
-              "status": "PASS"
+              "status": "WARN"
             },
             {
               "test": "checkScriptDefer",
-              "status": "PASS"
+              "status": "WARN"
             },
             {
               "test": "checkPreload",
@@ -485,8 +485,8 @@
         }
       ],
       "stats": {
-        "passed": 28,
-        "warning": 0,
+        "passed": 23,
+        "warning": 5,
         "failed": 0
       }
     },
@@ -532,7 +532,7 @@
             },
             {
               "test": "checkColors",
-              "status": "PASS"
+              "status": "WARN"
             },
             {
               "test": "checkContrast",
@@ -549,7 +549,7 @@
             },
             {
               "test": "checkMediaQueries",
-              "status": "PASS"
+              "status": "WARN"
             },
             {
               "test": "checkResponsiveImages",
@@ -574,7 +574,7 @@
             },
             {
               "test": "checkLetterSpacing",
-              "status": "PASS"
+              "status": "WARN"
             }
           ]
         },
@@ -587,11 +587,11 @@
             },
             {
               "test": "checkCSSMinified",
-              "status": "PASS"
+              "status": "WARN"
             },
             {
               "test": "checkScriptDefer",
-              "status": "PASS"
+              "status": "WARN"
             },
             {
               "test": "checkPreload",
@@ -648,8 +648,8 @@
         }
       ],
       "stats": {
-        "passed": 28,
-        "warning": 0,
+        "passed": 23,
+        "warning": 5,
         "failed": 0
       }
     },
@@ -695,7 +695,7 @@
             },
             {
               "test": "checkColors",
-              "status": "PASS"
+              "status": "WARN"
             },
             {
               "test": "checkContrast",
@@ -712,7 +712,7 @@
             },
             {
               "test": "checkMediaQueries",
-              "status": "PASS"
+              "status": "WARN"
             },
             {
               "test": "checkResponsiveImages",
@@ -737,7 +737,7 @@
             },
             {
               "test": "checkLetterSpacing",
-              "status": "PASS"
+              "status": "WARN"
             }
           ]
         },
@@ -750,7 +750,7 @@
             },
             {
               "test": "checkCSSMinified",
-              "status": "PASS"
+              "status": "WARN"
             },
             {
               "test": "checkScriptDefer",
@@ -811,17 +811,16 @@
         }
       ],
       "stats": {
-        "passed": 28,
-        "warning": 0,
+        "passed": 24,
+        "warning": 4,
         "failed": 0
       }
     }
   ],
   "summary": {
     "totalTests": 140,
-    "passed": 140,
-    "warnings": 0,
-    "failed": 0,
-    "warning": null
+    "passed": 116,
+    "warnings": 24,
+    "failed": 0
   }
 }

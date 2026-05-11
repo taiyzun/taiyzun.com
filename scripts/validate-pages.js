@@ -178,7 +178,7 @@ for (const page of pages) {
     const warning = pageResults.stats.warning;
     const failed = pageResults.stats.failed;
     results.summary.passed += passed;
-    results.summary.warning += warning;
+    results.summary.warnings += warning;
     results.summary.failed += failed;
     results.summary.totalTests += passed + warning + failed;
     
@@ -192,7 +192,7 @@ for (const page of pages) {
 console.log('\n📊 VALIDATION SUMMARY\n');
 console.log(`Total Tests Run: ${results.summary.totalTests}`);
 console.log(`✅ Passed: ${results.summary.passed}`);
-console.log(`⚠️  Warnings: ${results.summary.warning}`);
+console.log(`⚠️  Warnings: ${results.summary.warnings}`);
 console.log(`❌ Failed: ${results.summary.failed}`);
 
 const passRate = results.summary.totalTests > 0 
@@ -219,7 +219,7 @@ fs.writeFileSync(reportPath, JSON.stringify(results, null, 2));
 console.log(`\n✅ Detailed results saved to: PHASE-6-VALIDATION-RESULTS.json\n`);
 
 // Final status
-const allPass = results.summary.failed === 0 && results.summary.warning < results.summary.totalTests * 0.1;
+const allPass = results.summary.failed === 0 && results.summary.warnings < results.summary.totalTests * 0.1;
 if (allPass) {
   console.log('✨ All critical tests PASSED! Ready for browser testing.\n');
   process.exit(0);

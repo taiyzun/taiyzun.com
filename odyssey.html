@@ -81,7 +81,7 @@
   <link rel="stylesheet" href="/css/padding-fix.css?v=1">
   <link rel="stylesheet" href="/css/gallery-visual-fix.css?v=1">
   <link rel="stylesheet" href="/css/fctrylab-inspired.css?v=3">
-  <link rel="stylesheet" href="/css/vaulk-gallery-inspired.css?v=6">
+  <link rel="stylesheet" href="/css/vaulk-gallery-inspired.css?v=7">
   <link rel="stylesheet" href="/css/ambient-video.css?v=4">
   <link rel="stylesheet" href="/css/site-decorative-field.css?v=3">
   <link rel="stylesheet" href="/css/mily-inspired-system.css?v=2">
@@ -149,7 +149,7 @@
     </div>
     <button class="lb-nav lb-next" id="lbNext" aria-label="Next image">&#8250;</button>
   </div>
-  <div class="lb-caption"><h4 id="lbTitle"></h4><p id="lbSub"></p></div>
+  <div class="lb-caption"><h3 id="lbTitle"></h3><p id="lbSub"></p></div>
   <div class="lb-filmstrip-wrap"><div class="lb-filmstrip" id="lbFilmstrip"></div></div>
   <div class="lb-progress"><div class="lb-progress-bar" id="lbProgressBar"></div></div>
 </div>
@@ -217,7 +217,7 @@
     const el = document.createElement('div');
     el.className = 'gallery-item reveal';
     el.setAttribute('data-index', i);
-    el.innerHTML = '<picture><source srcset="assets/Portraits/optimized/taiyzun_shahpurwala-' + num + '-w400.avif 400w, assets/Portraits/optimized/taiyzun_shahpurwala-' + num + '-w800.avif 800w, assets/Portraits/optimized/taiyzun_shahpurwala-' + num + '-w1200.avif 1200w" sizes="(max-width: 640px) calc((100vw - 72px) / 2), (max-width: 960px) calc((100vw - 104px) / 3), 240px" type="image/avif"><source srcset="assets/Portraits/optimized/taiyzun_shahpurwala-' + num + '-w400.webp 400w, assets/Portraits/optimized/taiyzun_shahpurwala-' + num + '-w800.webp 800w, assets/Portraits/optimized/taiyzun_shahpurwala-' + num + '-w1200.webp 1200w" sizes="(max-width: 640px) calc((100vw - 72px) / 2), (max-width: 960px) calc((100vw - 104px) / 3), 240px" type="image/webp"><img src="assets/Portraits/taiyzun_shahpurwala ' + num + '.jpeg" alt="' + p.title + '" loading="lazy" decoding="async" width="400" height="400"></picture><div class="overlay"><span class="sparkle">✦</span><h4>' + p.title + '</h4><p>' + p.sub + '</p></div>';
+    el.innerHTML = '<picture><source srcset="assets/Portraits/optimized/taiyzun_shahpurwala-' + num + '-w400.avif 400w, assets/Portraits/optimized/taiyzun_shahpurwala-' + num + '-w800.avif 800w, assets/Portraits/optimized/taiyzun_shahpurwala-' + num + '-w1200.avif 1200w" sizes="(max-width: 640px) calc((100vw - 72px) / 2), (max-width: 960px) calc((100vw - 104px) / 3), 240px" type="image/avif"><source srcset="assets/Portraits/optimized/taiyzun_shahpurwala-' + num + '-w400.webp 400w, assets/Portraits/optimized/taiyzun_shahpurwala-' + num + '-w800.webp 800w, assets/Portraits/optimized/taiyzun_shahpurwala-' + num + '-w1200.webp 1200w" sizes="(max-width: 640px) calc((100vw - 72px) / 2), (max-width: 960px) calc((100vw - 104px) / 3), 240px" type="image/webp"><img src="assets/Portraits/taiyzun_shahpurwala ' + num + '.jpeg" alt="' + p.title + '" loading="lazy" decoding="async" width="400" height="400"></picture><div class="overlay"><span class="sparkle">✦</span><h3>' + p.title + '</h3><p>' + p.sub + '</p></div>';
     grid.appendChild(el);
   });
 

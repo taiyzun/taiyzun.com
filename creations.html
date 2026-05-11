@@ -81,7 +81,7 @@
   <link rel="stylesheet" href="/css/padding-fix.css?v=1">
   <link rel="stylesheet" href="/css/gallery-visual-fix.css?v=1">
   <link rel="stylesheet" href="/css/fctrylab-inspired.css?v=3">
-  <link rel="stylesheet" href="/css/vaulk-gallery-inspired.css?v=6">
+  <link rel="stylesheet" href="/css/vaulk-gallery-inspired.css?v=7">
   <link rel="stylesheet" href="/css/ambient-video.css?v=4">
   <link rel="stylesheet" href="/css/site-decorative-field.css?v=3">
   <link rel="stylesheet" href="/css/mily-inspired-system.css?v=2">
@@ -148,7 +148,7 @@
     </div>
     <button class="lb-nav lb-next" id="lbNext" aria-label="Next image">›</button>
   </div>
-  <div class="lb-caption"><h4 id="lbTitle"></h4><p id="lbSub"></p></div>
+  <div class="lb-caption"><h3 id="lbTitle"></h3><p id="lbSub"></p></div>
   <div class="lb-filmstrip-wrap"><div class="lb-filmstrip" id="lbFilmstrip"></div></div>
   <div class="lb-progress"><div class="lb-progress-bar" id="lbProgressBar"></div></div>
 </div>
@@ -314,7 +314,7 @@
       el.dataset.index = i;
       const t = escapeHTML(item.title);
       const s = escapeHTML(item.sub);
-      el.innerHTML = `<img data-src="${item.thumb}" src="" alt="${t}"><div class="overlay"><span class="sparkle">✦</span><h4>${t}</h4><p>${s}</p></div>`;
+      el.innerHTML = `<img data-src="${item.thumb}" src="" alt="${t}"><div class="overlay"><span class="sparkle">✦</span><h3>${t}</h3><p>${s}</p></div>`;
       el.addEventListener('click', () => openLB(i));
       grid.appendChild(el);
       imgObs.observe(el.querySelector('img'));

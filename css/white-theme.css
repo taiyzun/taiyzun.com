@@ -2216,7 +2216,7 @@ a:hover::after {
   50% { opacity: 1; transform: scale(1.1); }
 }
 
-.overlay h4 {
+.overlay h3 {
   font-family: var(--display);
   font-size: 0.85rem;
   color: var(--text-dark);
