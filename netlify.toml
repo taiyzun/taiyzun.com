@@ -56,6 +56,12 @@
     Cache-Control = "public, max-age=31536000, immutable"
 
 [[redirects]]
+  from = "https://www.taiyzun.com/*"
+  to = "https://taiyzun.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
