@@ -334,3 +334,83 @@ body.creations-page .lb-img-wrap img,
   margin-bottom: var(--sp-sm, 0.5rem);
   font-weight: 700;
 }
+
+/* Keep tall gallery images clear of the lightbox chrome on desktop and mobile. */
+body.odyssey-page .lightbox,
+body.creations-page .lightbox {
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
+}
+
+body.odyssey-page .lb-topbar,
+body.creations-page .lb-topbar,
+body.odyssey-page .lb-caption,
+body.creations-page .lb-caption,
+body.odyssey-page .lb-filmstrip-wrap,
+body.creations-page .lb-filmstrip-wrap {
+  flex: 0 0 auto;
+}
+
+body.odyssey-page .lb-main,
+body.creations-page .lb-main {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  padding: clamp(0.75rem, 1.4vw, 1.25rem) clamp(3.75rem, 7vw, 7rem);
+  overflow: hidden;
+}
+
+body.odyssey-page .lb-img-wrap,
+body.creations-page .lb-img-wrap {
+  width: min(100%, 1180px);
+  height: 100%;
+  max-width: min(92vw, 1180px);
+  max-height: 100%;
+  aspect-ratio: auto;
+  padding: 0;
+}
+
+body.odyssey-page .lb-img-wrap img,
+body.creations-page .lb-img-wrap img {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0;
+  min-height: 0;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+}
+
+body.odyssey-page .lb-caption,
+body.creations-page .lb-caption {
+  max-height: clamp(4.4rem, 12vh, 7.5rem);
+  overflow: hidden;
+}
+
+body.odyssey-page .lb-filmstrip-wrap,
+body.creations-page .lb-filmstrip-wrap {
+  max-height: clamp(76px, 12vh, 118px);
+}
+
+@media (max-width: 768px) {
+  body.odyssey-page .lb-main,
+  body.creations-page .lb-main {
+    padding: 0.55rem clamp(2.6rem, 12vw, 3.25rem);
+  }
+
+  body.odyssey-page .lb-caption,
+  body.creations-page .lb-caption {
+    width: min(100%, calc(100vw - 1rem));
+    max-height: 5.2rem;
+    padding: 0.55rem 0.75rem 0.65rem;
+  }
+
+  body.odyssey-page .lb-filmstrip-wrap,
+  body.creations-page .lb-filmstrip-wrap {
+    max-height: 82px;
+    padding-block: 0.45rem;
+  }
+}
