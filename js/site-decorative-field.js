@@ -57,6 +57,205 @@
     "assets/easter-eggs/tainfinity.png"
   ];
 
+  const optimizedDecorativeAssets = {
+      "assets/decorative/8 ~ ball ~ c ~ liberTy [2000x3000].png": {
+          "small": "assets/decorative/optimized/decor-01-6064707a18-384.webp",
+          "large": "assets/decorative/optimized/decor-01-6064707a18.webp"
+      },
+      "assets/decorative/@TZ 4233 001 [786x786].png": {
+          "small": "assets/decorative/optimized/decor-02-1e4b1392b1-384.webp",
+          "large": "assets/decorative/optimized/decor-02-1e4b1392b1.webp"
+      },
+      "assets/decorative/@TZ 4233 TSb [786x786].png": {
+          "small": "assets/decorative/optimized/decor-03-10841040b6-384.webp",
+          "large": "assets/decorative/optimized/decor-03-10841040b6.webp"
+      },
+      "assets/decorative/@TZ 4233 [786x786].png": {
+          "small": "assets/decorative/optimized/decor-04-abc334266c-384.webp",
+          "large": "assets/decorative/optimized/decor-04-abc334266c.webp"
+      },
+      "assets/decorative/@TZ breaThain 0002 7o6 [928x3303].png": {
+          "small": "assets/decorative/optimized/decor-05-c2da58b2fd-384.webp",
+          "large": "assets/decorative/optimized/decor-05-c2da58b2fd.webp"
+      },
+      "assets/decorative/@TZ breaThain 0004 STing [1666x2258].png": {
+          "small": "assets/decorative/optimized/decor-06-28c436cfc5-384.webp",
+          "large": "assets/decorative/optimized/decor-06-28c436cfc5.webp"
+      },
+      "assets/decorative/@TZ breaThain 0005 layer 20 [2720x1869].png": {
+          "small": "assets/decorative/optimized/decor-07-875a39f87e-384.webp",
+          "large": "assets/decorative/optimized/decor-07-875a39f87e.webp"
+      },
+      "assets/decorative/@TZ breaThain 0007 layer 12 [3713x3838].png": {
+          "small": "assets/decorative/optimized/decor-08-e38790efe1-384.webp",
+          "large": "assets/decorative/optimized/decor-08-e38790efe1.webp"
+      },
+      "assets/decorative/@TZ breaThain 0008 layer 22 [1983x1589].png": {
+          "small": "assets/decorative/optimized/decor-09-aabafc3ad6-384.webp",
+          "large": "assets/decorative/optimized/decor-09-aabafc3ad6.webp"
+      },
+      "assets/decorative/@TZ breaThain 0009 layer 21 [3322x2728].png": {
+          "small": "assets/decorative/optimized/decor-10-1af9d19f49-384.webp",
+          "large": "assets/decorative/optimized/decor-10-1af9d19f49.webp"
+      },
+      "assets/decorative/@TZ breaThain 0011 infiniTe hEarTS [8183x1527].png": {
+          "small": "assets/decorative/optimized/decor-11-003dbf7e69-384.webp",
+          "large": "assets/decorative/optimized/decor-11-003dbf7e69.webp"
+      },
+      "assets/decorative/@TZ breaThain 0012 namESiS [1765x1515].png": {
+          "small": "assets/decorative/optimized/decor-12-f1ef6d07f1-384.webp",
+          "large": "assets/decorative/optimized/decor-12-f1ef6d07f1.webp"
+      },
+      "assets/decorative/@TZ breaThain 0013 Smile iTS mE Sword [1945x2374].png": {
+          "small": "assets/decorative/optimized/decor-13-2a4b750a8f-384.webp",
+          "large": "assets/decorative/optimized/decor-13-2a4b750a8f.webp"
+      },
+      "assets/decorative/@TZ yod@002 [786x786].png": {
+          "small": "assets/decorative/optimized/decor-14-d8bf4299fe-384.webp",
+          "large": "assets/decorative/optimized/decor-14-d8bf4299fe.webp"
+      },
+      "assets/decorative/@TaiyZun ~ Logo ~ 00123 ~ 786 [786x786].png": {
+          "small": "assets/decorative/optimized/decor-15-01151cb738-384.webp",
+          "large": "assets/decorative/optimized/decor-15-01151cb738.webp"
+      },
+      "assets/decorative/@TimEsuiTs [8192x8192].png": {
+          "small": "assets/decorative/optimized/decor-16-6807d17293-384.webp",
+          "large": "assets/decorative/optimized/decor-16-6807d17293.webp"
+      },
+      "assets/decorative/@eArTh ~ round [9685x9685].png": {
+          "small": "assets/decorative/optimized/decor-17-2cd6df39a1-384.webp",
+          "large": "assets/decorative/optimized/decor-17-2cd6df39a1.webp"
+      },
+      "assets/decorative/@tZ ~ ganesh ~ 2019 [1786x1786].png": {
+          "small": "assets/decorative/optimized/decor-18-040c814e89-384.webp",
+          "large": "assets/decorative/optimized/decor-18-040c814e89.webp"
+      },
+      "assets/decorative/Tai [4034x4733].png": {
+          "small": "assets/decorative/optimized/decor-19-0c8700e627-384.webp",
+          "large": "assets/decorative/optimized/decor-19-0c8700e627.webp"
+      },
+      "assets/decorative/TainfiniTy copy [8192x8192].png": {
+          "small": "assets/decorative/optimized/decor-20-9f288534be-384.webp",
+          "large": "assets/decorative/optimized/decor-20-9f288534be.webp"
+      },
+      "assets/decorative/TaiyZun @mE 2021 b [6000x6000].png": {
+          "small": "assets/decorative/optimized/decor-21-ffedf25a3b-384.webp",
+          "large": "assets/decorative/optimized/decor-21-ffedf25a3b.webp"
+      },
+      "assets/decorative/TaiyZun @mE 2021 g [2420x2420].png": {
+          "small": "assets/decorative/optimized/decor-22-55bbdfde65-384.webp",
+          "large": "assets/decorative/optimized/decor-22-55bbdfde65.webp"
+      },
+      "assets/decorative/TaiyZun @mE 2021 h [2420x2420].png": {
+          "small": "assets/decorative/optimized/decor-23-80d41399a1-384.webp",
+          "large": "assets/decorative/optimized/decor-23-80d41399a1.webp"
+      },
+      "assets/decorative/TaiyZun @mE 2021 q [1420x1420].png": {
+          "small": "assets/decorative/optimized/decor-24-9b29cd9f26-384.webp",
+          "large": "assets/decorative/optimized/decor-24-9b29cd9f26.webp"
+      },
+      "assets/decorative/TaiyZun @mE 2021 u [1420x1420].png": {
+          "small": "assets/decorative/optimized/decor-25-5bc8d42695-384.webp",
+          "large": "assets/decorative/optimized/decor-25-5bc8d42695.webp"
+      },
+      "assets/decorative/TaiyZun logo Sa [1080x1080].png": {
+          "small": "assets/decorative/optimized/decor-26-8b2d2d5932-384.webp",
+          "large": "assets/decorative/optimized/decor-26-8b2d2d5932.webp"
+      },
+      "assets/decorative/TaiyZun ~ logO ~ only ~ 2021 [900x1800].png": {
+          "small": "assets/decorative/optimized/decor-27-3357d45ec6-384.webp",
+          "large": "assets/decorative/optimized/decor-27-3357d45ec6.webp"
+      },
+      "assets/decorative/TaiyZun ~ logO ~ only ~ new ~ 2021 [600x900].png": {
+          "small": "assets/decorative/optimized/decor-28-684378f719-384.webp",
+          "large": "assets/decorative/optimized/decor-28-684378f719.webp"
+      },
+      "assets/decorative/TaiyZun ~ sword ~ full ~ logO ~ 2021 [2420x1452].png": {
+          "small": "assets/decorative/optimized/decor-29-a08899d7c9-384.webp",
+          "large": "assets/decorative/optimized/decor-29-a08899d7c9.webp"
+      },
+      "assets/decorative/TaiyZun ~ sword ~ logO ~ 2021 [2420x1452].png": {
+          "small": "assets/decorative/optimized/decor-30-501b7ecb96-384.webp",
+          "large": "assets/decorative/optimized/decor-30-501b7ecb96.webp"
+      },
+      "assets/decorative/TaiyZun ~ sword ~ logO ~ full ~ 2021 [2420x1613].png": {
+          "small": "assets/decorative/optimized/decor-31-c58de465b8-384.webp",
+          "large": "assets/decorative/optimized/decor-31-c58de465b8.webp"
+      },
+      "assets/decorative/ae0ne ~ small [3000x2250].png": {
+          "small": "assets/decorative/optimized/decor-32-87d403a230-384.webp",
+          "large": "assets/decorative/optimized/decor-32-87d403a230.webp"
+      },
+      "assets/decorative/e@rth [1786x1786].png": {
+          "small": "assets/decorative/optimized/decor-33-ca240ea221-384.webp",
+          "large": "assets/decorative/optimized/decor-33-ca240ea221.webp"
+      },
+      "assets/decorative/namEsis [512x512].png": {
+          "small": "assets/decorative/optimized/decor-34-6fc12fdb8c-384.webp",
+          "large": "assets/decorative/optimized/decor-34-6fc12fdb8c.webp"
+      },
+      "assets/decorative/s-T-i-n- [500x786].png": {
+          "small": "assets/decorative/optimized/decor-35-6202c3a156-384.webp",
+          "large": "assets/decorative/optimized/decor-35-6202c3a156.webp"
+      },
+      "assets/decorative/suiTs [2786x2786].png": {
+          "small": "assets/decorative/optimized/decor-36-598e9f2098-384.webp",
+          "large": "assets/decorative/optimized/decor-36-598e9f2098.webp"
+      },
+      "assets/easter-eggs/at-slogo.png": {
+          "small": "assets/decorative/optimized/decor-37-11f1e47b15-384.webp",
+          "large": "assets/decorative/optimized/decor-37-11f1e47b15.webp"
+      },
+      "assets/easter-eggs/diya.png": {
+          "small": "assets/decorative/optimized/decor-38-0700e4820b-384.webp",
+          "large": "assets/decorative/optimized/decor-38-0700e4820b.webp"
+      },
+      "assets/easter-eggs/earth-mandala.png": {
+          "small": "assets/decorative/optimized/decor-39-cc91bc241e-384.webp",
+          "large": "assets/decorative/optimized/decor-39-cc91bc241e.webp"
+      },
+      "assets/easter-eggs/epoch.png": {
+          "small": "assets/decorative/optimized/decor-40-580000a6de-384.webp",
+          "large": "assets/decorative/optimized/decor-40-580000a6de.webp"
+      },
+      "assets/easter-eggs/ganesh.png": {
+          "small": "assets/decorative/optimized/decor-41-cfc044c50c-384.webp",
+          "large": "assets/decorative/optimized/decor-41-cfc044c50c.webp"
+      },
+      "assets/easter-eggs/hearts-line.png": {
+          "small": "assets/decorative/optimized/decor-42-c3cdf9ce50-384.webp",
+          "large": "assets/decorative/optimized/decor-42-c3cdf9ce50.webp"
+      },
+      "assets/easter-eggs/infinite-hearts.png": {
+          "small": "assets/decorative/optimized/decor-43-6337a4ecb2-384.webp",
+          "large": "assets/decorative/optimized/decor-43-6337a4ecb2.webp"
+      },
+      "assets/easter-eggs/logo-white.png": {
+          "small": "assets/decorative/optimized/decor-44-80b2d62546-384.webp",
+          "large": "assets/decorative/optimized/decor-44-80b2d62546.webp"
+      },
+      "assets/easter-eggs/signature.png": {
+          "small": "assets/decorative/optimized/decor-45-dbdcffeb8e-384.webp",
+          "large": "assets/decorative/optimized/decor-45-dbdcffeb8e.webp"
+      },
+      "assets/easter-eggs/star-polygon.png": {
+          "small": "assets/decorative/optimized/decor-46-171f84453f-384.webp",
+          "large": "assets/decorative/optimized/decor-46-171f84453f.webp"
+      },
+      "assets/easter-eggs/stingray.png": {
+          "small": "assets/decorative/optimized/decor-47-45ddd777ac-384.webp",
+          "large": "assets/decorative/optimized/decor-47-45ddd777ac.webp"
+      },
+      "assets/easter-eggs/sword.png": {
+          "small": "assets/decorative/optimized/decor-48-bb8cc65c4a-384.webp",
+          "large": "assets/decorative/optimized/decor-48-bb8cc65c4a.webp"
+      },
+      "assets/easter-eggs/tainfinity.png": {
+          "small": "assets/decorative/optimized/decor-49-eabf0a16e7-384.webp",
+          "large": "assets/decorative/optimized/decor-49-eabf0a16e7.webp"
+      }
+  };
+
   const pageKeys = ["home-page", "journey-page", "odyssey-page", "creations-page", "connect-page"];
   const pageKey = pageKeys.find((key) => body.classList.contains(key)) || "home-page";
   const targetSections = Array.from(
@@ -71,7 +270,7 @@
 
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const pageLoadNonce = `${pageKey}:${Date.now().toString(36)}:${Math.random().toString(36).slice(2, 10)}`;
-  const deckStorageKey = "taiyzunDecorativeDeckV6";
+  const deckStorageKey = "taiyzunDecorativeDeckV7";
   const anchorPresets = [
     { x: [2, 10], y: [4, 16] },
     { x: [86, 96], y: [4, 16] },
@@ -221,6 +420,15 @@
 
   function distanceBetween(left, top, right, bottom) {
     return Math.hypot(left - right, top - bottom);
+  }
+
+  function optimizedAssetSet(assetPath) {
+    return optimizedDecorativeAssets[assetPath] || null;
+  }
+
+  function optimizedAssetPath(assetPath) {
+    const optimized = optimizedAssetSet(assetPath);
+    return optimized ? optimized.large : assetPath;
   }
 
   function parseAspectRatio(assetPath) {
@@ -450,7 +658,20 @@
     const image = document.createElement("img");
 
     image.className = `site-decorative-png${isHero ? " is-hero-decor" : ""}`;
-    image.src = assetPath;
+    const optimizedAsset = optimizedAssetSet(assetPath);
+    image.src = optimizedAssetPath(assetPath);
+    if (optimizedAsset) {
+      image.srcset = `${optimizedAsset.small} 384w, ${optimizedAsset.large} 640w`;
+      image.sizes = `${width}px`;
+    }
+    image.dataset.originalSrc = assetPath;
+    image.onerror = () => {
+      if (image.src.endsWith(assetPath)) {
+        return;
+      }
+      image.onerror = null;
+      image.src = assetPath;
+    };
     image.alt = "";
     image.decoding = "async";
     image.loading = isHero ? "eager" : "lazy";

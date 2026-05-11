@@ -16,10 +16,24 @@
   }
 
   const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const compactViewportQuery = window.matchMedia("(max-width: 767px)");
   const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
 
   function ambientVideoDisabled() {
-    return motionQuery.matches || Boolean(connection && connection.saveData);
+    return compactViewportQuery.matches || motionQuery.matches || Boolean(connection && connection.saveData);
+  }
+
+  function ensureVideoSource(video) {
+    const sources = Array.from(video.querySelectorAll("source[data-src]"));
+
+    sources.forEach((source) => {
+      source.src = source.dataset.src;
+      source.removeAttribute("data-src");
+    });
+
+    if (sources.length) {
+      video.load();
+    }
   }
 
   function syncVideo(video) {
@@ -31,6 +45,8 @@
       video.pause();
       return;
     }
+
+    ensureVideoSource(video);
 
     const playAttempt = video.play();
     if (playAttempt && typeof playAttempt.catch === "function") {
@@ -77,6 +93,12 @@
     motionQuery.addEventListener("change", applyAmbientPreference);
   } else if (typeof motionQuery.addListener === "function") {
     motionQuery.addListener(applyAmbientPreference);
+  }
+
+  if (typeof compactViewportQuery.addEventListener === "function") {
+    compactViewportQuery.addEventListener("change", applyAmbientPreference);
+  } else if (typeof compactViewportQuery.addListener === "function") {
+    compactViewportQuery.addListener(applyAmbientPreference);
   }
 
   if (connection && typeof connection.addEventListener === "function") {
