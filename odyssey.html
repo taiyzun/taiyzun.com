@@ -97,7 +97,6 @@
   </div>
 </div>
 <div class="gallery-section" id="main-content" style="position:relative;">
-  <picture><source srcset="assets/easter-eggs/epoch.avif" type="image/avif"><source srcset="assets/easter-eggs/epoch.webp" type="image/webp"><img src="assets/easter-eggs/epoch.png" alt="" class="easter-egg ee-mandala parallax-el" style="top:-20px;right:-15px;width:80px;opacity:0.05;filter:brightness(0.5) saturate(0.5);" aria-hidden="true" data-speed="0.2" loading="lazy"></picture>
   <div class="gallery-label reveal animate-on-scroll">
     <p class="section-label">Portrait Journey</p>
     <h2>A visual exploration through the personal odyssey</h2>
@@ -130,7 +129,6 @@
   <div class="lb-progress"><div class="lb-progress-bar" id="lbProgressBar"></div></div>
 </div>
 <footer>
-  <picture><source srcset="assets/easter-eggs/stingray.avif" type="image/avif"><source srcset="assets/easter-eggs/stingray.webp" type="image/webp"><img src="assets/easter-eggs/stingray.png" alt="" class="easter-egg parallax-el" style="top:-25px;left:5%;width:70px;opacity:0.04;filter:brightness(0.4) sepia(0.4);" aria-hidden="true" data-speed="-0.15" loading="lazy"></picture>
   <div class="social-links">
     <a href="https://www.instagram.com/taiyzun" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg></a>
     <a href="https://www.facebook.com/taiyzun" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
@@ -398,27 +396,11 @@
     document.addEventListener('touchend',()=>{if(pressTimer){clearTimeout(pressTimer);pressTimer=null;}},{passive:true});
     document.addEventListener('touchmove',()=>{if(pressTimer){clearTimeout(pressTimer);pressTimer=null;}},{passive:true});
   })();
-  // ── Parallax on scroll ──
-  const parallaxEls = document.querySelectorAll('.parallax-el');
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (!ticking) { requestAnimationFrame(() => {
-      const st = window.scrollY;
-      parallaxEls.forEach(el => {
-        const speed = parseFloat(el.dataset.speed || 0.15);
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight + 200 && rect.bottom > -200) {
-          el.style.transform = `translateY(${st * speed}px)`;
-        }
-      });
-      ticking = false;
-    }); ticking = true; }
-  }, { passive: true });
   // ── Enhanced reveal observer ──
   const revealAllObs = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealAllObs.unobserve(e.target); } });
   }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
-  document.querySelectorAll('.reveal-left, .reveal-right, .reveal-scale, .easter-egg').forEach(el => revealAllObs.observe(el));
+  document.querySelectorAll('.reveal-left, .reveal-right, .reveal-scale').forEach(el => revealAllObs.observe(el));
   // ── Floating particles ──
   (function(){
     document.querySelectorAll('section, .gallery-section, .page-hero, footer').forEach(sec => {
@@ -433,6 +415,6 @@
   })();
 </script>
 <script src="/js/ambient-video.js?v=2"></script>
-<script src="/js/site-decorative-field.js?v=4"></script>
+<script src="/js/site-decorative-field.js?v=5"></script>
 </body>
 </html>

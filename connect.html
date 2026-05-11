@@ -96,7 +96,6 @@
   </div>
 </div>
 <div class="connect-section" id="main-content" style="position:relative;">
-  <picture><source srcset="assets/easter-eggs/ganesh.avif" type="image/avif"><source srcset="assets/easter-eggs/ganesh.webp" type="image/webp"><img src="assets/easter-eggs/ganesh.png" alt="" class="easter-egg parallax-el" style="top:50px;left:-20px;width:80px;opacity:0.05;filter:brightness(0.5) sepia(0.3);" aria-hidden="true" data-speed="0.25" loading="lazy"></picture>
 <div class="connect-label reveal animate-on-scroll">
     <p class="section-label">Reach Out</p>
     <h2>Get In Touch</h2>
@@ -147,7 +146,6 @@
   </div>
 </div>
 <footer style="position:relative;">
-  <picture><source srcset="assets/easter-eggs/logo-white.avif" type="image/avif"><source srcset="assets/easter-eggs/logo-white.webp" type="image/webp"><img src="assets/easter-eggs/logo-white.png" alt="" class="easter-egg parallax-el" style="top:-20px;right:5%;width:80px;opacity:0.03;filter:brightness(0.4) sepia(0.5);" aria-hidden="true" data-speed="-0.15" loading="lazy"></picture>
 <div class="footer-brand"><picture>
         <source srcset="assets/images/Taiyzun-logo-52w.avif" type="image/avif">
         <source srcset="assets/images/Taiyzun-logo-52w.webp" type="image/webp">
@@ -166,28 +164,11 @@
   document.addEventListener('mouseleave', () => { glow.classList.remove('active'); glowOn = false; });
 
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('/service-worker.js');
-
-  // ── Parallax on scroll ──
-  const parallaxEls = document.querySelectorAll('.parallax-el');
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (!ticking) { requestAnimationFrame(() => {
-      const st = window.scrollY;
-      parallaxEls.forEach(el => {
-        const speed = parseFloat(el.dataset.speed || 0.15);
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight + 200 && rect.bottom > -200) {
-          el.style.transform = `translateY(${st * speed}px)`;
-        }
-      });
-      ticking = false;
-    }); ticking = true; }
-  }, { passive: true });
   // ── Enhanced reveal observer ──
   const revealAllObs = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealAllObs.unobserve(e.target); } });
   }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
-  document.querySelectorAll('.reveal-left, .reveal-right, .reveal-scale, .easter-egg').forEach(el => revealAllObs.observe(el));
+  document.querySelectorAll('.reveal-left, .reveal-right, .reveal-scale').forEach(el => revealAllObs.observe(el));
   // ── Floating particles ──
   (function(){
     document.querySelectorAll('section, .connect-section, .page-hero, footer').forEach(sec => {
@@ -227,6 +208,6 @@
 </script>
 <script defer src="/js/zepto-mail-integration.js?v=3"></script>
 <script src="/js/ambient-video.js?v=2"></script>
-<script src="/js/site-decorative-field.js?v=4"></script>
+<script src="/js/site-decorative-field.js?v=5"></script>
 </body>
 </html>

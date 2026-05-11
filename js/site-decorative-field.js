@@ -45,7 +45,20 @@
     "assets/decorative/ganesh@ [1100x1100].png",
     "assets/decorative/namEsis [512x512].png",
     "assets/decorative/s-T-i-n- [500x786].png",
-    "assets/decorative/suiTs [2786x2786].png"
+    "assets/decorative/suiTs [2786x2786].png",
+    "assets/easter-eggs/at-slogo.png",
+    "assets/easter-eggs/diya.png",
+    "assets/easter-eggs/earth-mandala.png",
+    "assets/easter-eggs/epoch.png",
+    "assets/easter-eggs/ganesh.png",
+    "assets/easter-eggs/hearts-line.png",
+    "assets/easter-eggs/infinite-hearts.png",
+    "assets/easter-eggs/logo-white.png",
+    "assets/easter-eggs/signature.png",
+    "assets/easter-eggs/star-polygon.png",
+    "assets/easter-eggs/stingray.png",
+    "assets/easter-eggs/sword.png",
+    "assets/easter-eggs/tainfinity.png"
   ];
 
   const pageKeys = ["home-page", "journey-page", "odyssey-page", "creations-page", "connect-page"];
@@ -62,7 +75,7 @@
 
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const pageLoadNonce = `${pageKey}:${Date.now().toString(36)}:${Math.random().toString(36).slice(2, 10)}`;
-  const deckStorageKey = "taiyzunDecorativeDeckV5";
+  const deckStorageKey = "taiyzunDecorativeDeckV6";
   const anchorPresets = [
     { x: [2, 10], y: [4, 16] },
     { x: [86, 96], y: [4, 16] },
@@ -94,7 +107,7 @@
     { key: "glide-fall", pattern: "glide", dirX: -1, dirY: 1, rotDir: -1 }
   ];
   const legacyDecoratives = document.querySelectorAll(
-    ".hero-decorative-png, .decor-top-left, .decor-top-right, .decor-bottom-left, .decor-center-right"
+    ".hero-decorative-png, .decor-top-left, .decor-top-right, .decor-bottom-left, .decor-center-right, .easter-egg, .parallax-el"
   );
   const items = [];
   const field = document.createElement("div");
@@ -240,15 +253,15 @@
     const isFooter = section.matches("footer");
 
     if (isHero) {
-      return tier === "desktop" ? 4 : tier === "tablet" ? 3 : 2;
+      return tier === "desktop" ? 5 : tier === "tablet" ? 4 : 3;
     }
 
     if (isGallery) {
-      return tier === "desktop" ? 3 : tier === "tablet" ? 2 : 1;
+      return tier === "desktop" ? 4 : tier === "tablet" ? 3 : 2;
     }
 
     if (isCompact) {
-      return tier === "desktop" ? 2 : 1;
+      return tier === "desktop" ? 3 : tier === "tablet" ? 2 : 1;
     }
 
     if (isFooter) {
@@ -276,12 +289,12 @@
 
   function maxItemsForViewport() {
     if (window.innerWidth >= 1280) {
-      return 8;
+      return 10;
     }
     if (window.innerWidth >= 768) {
-      return 7;
+      return 8;
     }
-    return 5;
+    return 6;
   }
 
   function sizeForAsset(assetPath, rng, isHero) {

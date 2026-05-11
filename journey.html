@@ -92,7 +92,6 @@
     <h1><em>Journey</em></h1>
     <p>A professional timeline of growth, creativity, and purpose</p>
   </div>
-  <picture><source srcset="assets/easter-eggs/tainfinity.avif" type="image/avif"><source srcset="assets/easter-eggs/tainfinity.webp" type="image/webp"><img src="assets/easter-eggs/tainfinity.png" alt="" class="easter-egg parallax-el" style="bottom:8%;left:2%;width:80px;opacity:0.05;filter:brightness(0.6) saturate(0.4);" aria-hidden="true" data-speed="0.2" loading="lazy"></picture>
 </div>
 <div class="timeline-section" id="main-content">
 <div class="timeline-category animate-on-scroll">
@@ -111,7 +110,6 @@
       <div class="desc">Strategic Communication, Research &amp; Design.</div>
     </div>
   </div>
-  <picture><source srcset="assets/easter-eggs/star-polygon.avif" type="image/avif"><source srcset="assets/easter-eggs/star-polygon.webp" type="image/webp"><img src="assets/easter-eggs/star-polygon.png" alt="" class="easter-egg parallax-el decor-top-right" aria-hidden="true" data-speed="0.25" loading="lazy"></picture>
 <div class="timeline-category animate-on-scroll">
     <div class="category-header"><span class="icon">🚀</span><h2>Founding Partner</h2></div>
     <div class="timeline-item">
@@ -131,7 +129,6 @@
       <div class="desc"><strong>Master of Ceremonies</strong> at <span class="gold"><em>FASHIONABLYIN</em></span>, <strong>London Fashion Week</strong>, <strong>London</strong>; <strong>Event Specialist</strong> at <span class="gold"><em>BBC Studios</em></span>, <strong>Cheltenham</strong>; <strong>Team Specialist</strong> at <span class="gold"><em>Severn Care Limited</em></span>, <strong>Cheltenham</strong>.</div>
     </div>
   </div>
-  <picture><source srcset="assets/easter-eggs/ganesh.avif" type="image/avif"><source srcset="assets/easter-eggs/ganesh.webp" type="image/webp"><img src="assets/easter-eggs/ganesh.png" alt="" class="easter-egg parallax-el" style="top:30%;right:2%;width:70px;opacity:0.05;filter:brightness(0.5) sepia(0.3);" aria-hidden="true" data-speed="0.2" loading="lazy"></picture>
 <div class="timeline-category animate-on-scroll">
     <div class="category-header"><span class="icon">🎯</span><h2>Entrepreneurial &amp; Media Ventures, 1992-2018</h2></div>
     <div class="timeline-item">
@@ -181,7 +178,6 @@
     </div>
   </div>
   <div class="divider" style="margin-bottom:4rem;"></div>
-  <picture><source srcset="assets/easter-eggs/diya.avif" type="image/avif"><source srcset="assets/easter-eggs/diya.webp" type="image/webp"><img src="assets/easter-eggs/diya.png" alt="" class="easter-egg parallax-el decor-bottom-left" aria-hidden="true" data-speed="-0.1" loading="lazy"></picture>
 <div class="timeline-category animate-on-scroll">
     <div class="category-header"><span class="icon">🎓</span><h2>Education</h2></div>
     <div class="info-grid">
@@ -195,7 +191,6 @@
     <div class="category-header"><span class="icon">🎨</span><h2>Creative Pursuits</h2></div>
     <div class="timeline-item"><div class="desc">🌌 <strong>Creative identity as Tai Sp@cE mAn since 2018</strong>, specialising in digital symphonies and poetic narratives.</div></div>
   </div>
-  <picture><source srcset="assets/easter-eggs/epoch.avif" type="image/avif"><source srcset="assets/easter-eggs/epoch.webp" type="image/webp"><img src="assets/easter-eggs/epoch.png" alt="" class="easter-egg parallax-el decor-center-right" aria-hidden="true" data-speed="0.18" loading="lazy"></picture>
 <div class="timeline-category animate-on-scroll">
     <div class="category-header"><span class="icon">🌱</span><h2>Core Values</h2></div>
     <div class="timeline-item"><div class="desc">🌿 <strong>Truth</strong>, <strong>Sincerity</strong>, <strong>Integrity</strong>, <strong>Curiosity</strong>, <strong>Creativity</strong>, <strong>Visionary Leadership</strong>, <strong>Family Legacy</strong> and impactful <strong>Community Service</strong>.</div></div>
@@ -207,8 +202,6 @@
   </div>
 </div>
 <footer>
-  <picture><source srcset="assets/easter-eggs/hearts-line.avif" type="image/avif"><source srcset="assets/easter-eggs/hearts-line.webp" type="image/webp"><img src="assets/easter-eggs/hearts-line.png" alt="" class="easter-egg parallax-el" style="top:-12px;left:50%;transform:translateX(-50%);width:220px;opacity:0.06;filter:brightness(0.4) sepia(0.6);" aria-hidden="true" data-speed="-0.1" loading="lazy"></picture>
-<img src="assets/easter-eggs/signature.png" alt="" class="easter-egg" style="bottom:50px;left:5%;width:100px;opacity:0.03;filter:brightness(0.4) sepia(1) hue-rotate(15deg);" aria-hidden="true" loading="lazy">
 <div class="social-links">
     <a href="https://www.instagram.com/taiyzun" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg></a>
     <a href="https://www.facebook.com/taiyzun" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
@@ -262,27 +255,11 @@
     document.addEventListener('touchend',()=>{if(pressTimer){clearTimeout(pressTimer);pressTimer=null;}},{passive:true});
     document.addEventListener('touchmove',()=>{if(pressTimer){clearTimeout(pressTimer);pressTimer=null;}},{passive:true});
   })();
-  // ── Parallax on scroll ──
-  const parallaxEls = document.querySelectorAll('.parallax-el');
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (!ticking) { requestAnimationFrame(() => {
-      const st = window.scrollY;
-      parallaxEls.forEach(el => {
-        const speed = parseFloat(el.dataset.speed || 0.15);
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight + 200 && rect.bottom > -200) {
-          el.style.transform = `translateY(${st * speed}px)`;
-        }
-      });
-      ticking = false;
-    }); ticking = true; }
-  }, { passive: true });
   // ── Enhanced reveal observer ──
   const revealAllObs = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealAllObs.unobserve(e.target); } });
   }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
-  document.querySelectorAll('.reveal-left, .reveal-right, .reveal-scale, .easter-egg').forEach(el => revealAllObs.observe(el));
+  document.querySelectorAll('.reveal-left, .reveal-right, .reveal-scale').forEach(el => revealAllObs.observe(el));
   // ── Floating particles ──
   (function(){
     document.querySelectorAll('section, .page-hero, footer').forEach(sec => {
@@ -297,6 +274,6 @@
   })();
 </script>
 <script src="/js/ambient-video.js?v=2"></script>
-<script src="/js/site-decorative-field.js?v=4"></script>
+<script src="/js/site-decorative-field.js?v=5"></script>
 </body>
 </html>
