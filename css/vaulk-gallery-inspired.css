@@ -143,6 +143,58 @@ body.creations-page .art-item:hover {
   transform: translateY(-7px) scale(1.012);
 }
 
+@media (min-width: 1024px) {
+  body.odyssey-page .gallery-item {
+    aspect-ratio: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(0.7rem, 1vw, 0.95rem);
+  }
+
+  body.odyssey-page .gallery-item picture {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  body.odyssey-page .gallery-item img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: clamp(320px, 34vw, 520px);
+    object-fit: contain;
+    object-position: center center;
+    border-radius: 16px;
+  }
+
+  body.odyssey-page .gallery-item:hover img {
+    transform: scale(1.015);
+    filter: brightness(1.05) contrast(1.08) saturate(1.04);
+  }
+
+  body.odyssey-page .lb-main {
+    padding-inline: clamp(4.5rem, 7vw, 7.5rem);
+  }
+
+  body.odyssey-page .lb-img-wrap {
+    width: min(84vw, 1180px);
+    height: min(76vh, 920px);
+    max-width: none;
+    max-height: none;
+    padding: clamp(0.65rem, 1vw, 0.95rem);
+  }
+
+  body.odyssey-page .lb-img-wrap img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+}
+
 body.odyssey-page .overlay,
 body.creations-page .overlay {
   background: linear-gradient(150deg, rgba(212, 175, 55, 0.18), rgba(192, 192, 192, 0.16));
