@@ -1,59 +1,59 @@
 /*
- * Vaulk-inspired visual treatment for gallery pages only.
- * Scope: .odyssey-page and .creations-page
+ * Vaulk-inspired structural treatment for the gallery pages,
+ * aligned to the main site palette instead of a separate dark/orange branch.
  */
 
 body.odyssey-page,
 body.creations-page {
-  --white-primary: #0b0f0e;
-  --white-secondary: #111615;
-  --white-tertiary: #171d1b;
-  --text-dark: #eef2f0;
-  --text-medium: #b7c1bd;
-  --text-light: #8e9894;
-  --gold-primary: #f4682b;
-  --gold-secondary: #ff8756;
-  --silver-primary: #d5dcd9;
-  --accent-gold: rgba(244, 104, 43, 0.22);
-  --accent-silver: rgba(218, 226, 222, 0.12);
-  --vaulk-panel: rgba(16, 22, 20, 0.72);
-  --vaulk-border: rgba(238, 242, 240, 0.16);
-  --vaulk-border-strong: rgba(244, 104, 43, 0.58);
+  --white-primary: #f6f1e6;
+  --white-secondary: #efe8da;
+  --white-tertiary: #e5dccb;
+  --text-dark: #151917;
+  --text-medium: #4b544f;
+  --text-light: #6b736d;
+  --gold-primary: #c9a84c;
+  --gold-secondary: #ddbf6d;
+  --silver-primary: #bfc8c4;
+  --accent-gold: rgba(201, 168, 76, 0.18);
+  --accent-silver: rgba(191, 200, 196, 0.12);
+  --vaulk-panel: rgba(255, 255, 255, 0.74);
+  --vaulk-border: rgba(21, 25, 23, 0.12);
+  --vaulk-border-strong: rgba(201, 168, 76, 0.44);
   background:
-    radial-gradient(920px 500px at 8% -15%, rgba(244, 104, 43, 0.2), transparent 60%),
-    radial-gradient(760px 420px at 88% -8%, rgba(146, 159, 154, 0.18), transparent 62%),
-    linear-gradient(165deg, #090c0b 0%, #0d1211 48%, #090c0b 100%);
+    radial-gradient(920px 500px at 8% -15%, rgba(201, 168, 76, 0.16), transparent 60%),
+    radial-gradient(760px 420px at 88% -8%, rgba(191, 200, 196, 0.16), transparent 62%),
+    linear-gradient(165deg, #f8f4ea 0%, #efe7d9 48%, #f7f2e8 100%);
   color: var(--text-dark);
 }
 
 body.odyssey-page .cursor-glow,
 body.creations-page .cursor-glow {
-  background: radial-gradient(circle, rgba(244, 104, 43, 0.16) 0%, rgba(216, 224, 220, 0.06) 42%, transparent 72%);
+  background: radial-gradient(circle, rgba(201, 168, 76, 0.15) 0%, rgba(191, 200, 196, 0.08) 42%, transparent 72%);
 }
 
 body.odyssey-page nav,
 body.creations-page nav {
-  background: rgba(10, 14, 13, 0.78);
+  background: rgba(255, 255, 255, 0.78);
   border-bottom: 1px solid var(--vaulk-border);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 10px 28px rgba(17, 21, 19, 0.08);
 }
 
 body.odyssey-page nav.scrolled,
 body.creations-page nav.scrolled {
-  background: rgba(10, 14, 13, 0.92);
+  background: rgba(255, 255, 255, 0.92);
   border-bottom-color: var(--vaulk-border-strong);
 }
 
 body.odyssey-page .logo-text,
 body.creations-page .logo-text {
-  color: #f3f6f5;
+  color: var(--text-dark);
 }
 
 body.odyssey-page .nav-links a,
 body.creations-page .nav-links a {
   color: var(--text-medium);
   font-family: var(--display);
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.16em;
 }
 
@@ -69,15 +69,14 @@ body.creations-page .page-hero {
   min-height: 62vh;
   border-top: 1px solid var(--vaulk-border);
   border-bottom: 1px solid var(--vaulk-border);
-  background:
-    linear-gradient(180deg, rgba(9, 13, 12, 0.62) 0%, rgba(15, 21, 19, 0.88) 100%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.54) 0%, rgba(235, 228, 214, 0.88) 100%);
 }
 
 body.odyssey-page .page-hero::before,
 body.creations-page .page-hero::before {
   background:
-    radial-gradient(circle at 22% 26%, rgba(244, 104, 43, 0.2) 0%, transparent 46%),
-    radial-gradient(circle at 78% 72%, rgba(151, 162, 158, 0.16) 0%, transparent 52%);
+    radial-gradient(circle at 22% 26%, rgba(201, 168, 76, 0.2) 0%, transparent 46%),
+    radial-gradient(circle at 78% 72%, rgba(191, 200, 196, 0.15) 0%, transparent 52%);
 }
 
 body.odyssey-page .page-hero-content,
@@ -91,7 +90,7 @@ body.creations-page .page-hero h1 {
   font-family: var(--display);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.055em;
   text-wrap: balance;
 }
 
@@ -117,7 +116,9 @@ body.creations-page .gallery-label {
   background: var(--vaulk-panel);
   border: 1px solid var(--vaulk-border);
   border-radius: 2px;
-  padding: 1.2rem 1.3rem;
+  padding: 1.25rem 1.35rem;
+  box-shadow: 0 18px 36px rgba(17, 21, 19, 0.08);
+  backdrop-filter: blur(16px);
 }
 
 body.odyssey-page .gallery-label::before,
@@ -134,43 +135,44 @@ body.creations-page .gallery-label::before {
 
 body.odyssey-page .gallery-grid,
 body.creations-page .art-grid {
-  gap: 18px;
+  gap: 20px;
 }
 
 body.odyssey-page .gallery-item,
 body.creations-page .art-item {
   border-radius: 2px;
   border: 1px solid var(--vaulk-border);
-  box-shadow: 0 16px 26px rgba(0, 0, 0, 0.28);
-  background: rgba(20, 27, 25, 0.66);
+  box-shadow: 0 18px 30px rgba(17, 21, 19, 0.08);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(14px);
 }
 
 body.odyssey-page .gallery-item:hover,
 body.creations-page .art-item:hover {
   border-color: var(--vaulk-border-strong);
-  box-shadow: 0 20px 34px rgba(0, 0, 0, 0.38);
+  box-shadow: 0 22px 38px rgba(17, 21, 19, 0.12);
   transform: translateY(-7px) scale(1.012);
 }
 
 body.odyssey-page .overlay,
 body.creations-page .overlay {
-  background: linear-gradient(150deg, rgba(12, 16, 15, 0.22), rgba(244, 104, 43, 0.28));
+  background: linear-gradient(150deg, rgba(201, 168, 76, 0.18), rgba(191, 200, 196, 0.14));
 }
 
 body.odyssey-page .overlay h4,
 body.creations-page .overlay h4 {
   font-family: var(--display);
-  color: #f7faf8;
+  color: var(--text-dark);
   letter-spacing: 0.06em;
 }
 
 body.odyssey-page .overlay p,
 body.creations-page .overlay p {
-  color: #d8dfdc;
+  color: var(--text-medium);
 }
 
 body.creations-page .cat-filters {
-  background: rgba(13, 18, 17, 0.66);
+  background: rgba(255, 255, 255, 0.6);
   border: 1px solid var(--vaulk-border);
   border-radius: 2px;
   padding: 0.8rem 1rem;
@@ -179,15 +181,15 @@ body.creations-page .cat-filters {
 body.creations-page .cat-tab {
   border-radius: 0;
   border: 1px solid var(--vaulk-border);
-  color: var(--text-dark);
-  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-medium);
+  background: rgba(255, 255, 255, 0.58);
   font-family: var(--display);
   letter-spacing: 0.1em;
 }
 
 body.creations-page .cat-tab:hover {
   border-color: var(--vaulk-border-strong);
-  color: #ffffff;
+  color: var(--text-dark);
 }
 
 body.creations-page .cat-tab.active {
@@ -198,15 +200,15 @@ body.creations-page .cat-tab.active {
 
 body.odyssey-page .lightbox,
 body.creations-page .lightbox {
-  background: rgba(7, 10, 9, 0.96);
+  background: rgba(10, 14, 13, 0.96);
 }
 
 body.odyssey-page .lb-topbar,
 body.creations-page .lb-topbar,
 body.odyssey-page .lb-filmstrip-wrap,
 body.creations-page .lb-filmstrip-wrap {
-  border-color: rgba(244, 104, 43, 0.24);
-  background: rgba(10, 14, 13, 0.82);
+  border-color: rgba(201, 168, 76, 0.24);
+  background: rgba(14, 18, 17, 0.84);
 }
 
 body.odyssey-page .lb-close,
@@ -214,8 +216,8 @@ body.creations-page .lb-close,
 body.odyssey-page .lb-nav,
 body.creations-page .lb-nav {
   border-radius: 0;
-  border-color: rgba(244, 104, 43, 0.45);
-  color: #fff;
+  border-color: rgba(201, 168, 76, 0.42);
+  color: #ffffff;
 }
 
 body.odyssey-page .lb-close:hover,
@@ -223,37 +225,32 @@ body.creations-page .lb-close:hover,
 body.odyssey-page .lb-nav:hover,
 body.creations-page .lb-nav:hover {
   background: var(--gold-primary);
-  color: #fff;
+  color: #0b0f0d;
 }
 
 body.odyssey-page .lb-thumb.active,
 body.creations-page .lb-thumb.active {
   border-color: var(--vaulk-border-strong);
-  box-shadow: 0 0 0 2px rgba(244, 104, 43, 0.2);
+  box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.22);
 }
 
 body.odyssey-page .coming-soon,
 body.creations-page .coming-soon {
   border-radius: 2px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.58);
   border-color: var(--vaulk-border);
-  color: #f2f6f4;
+  color: var(--text-dark);
   font-family: var(--display);
-}
-
-body.odyssey-page .easter-egg,
-body.creations-page .easter-egg {
-  opacity: 0.032 !important;
 }
 
 @media (max-width: 768px) {
   body.odyssey-page .page-hero h1,
   body.creations-page .page-hero h1 {
-    letter-spacing: 0.045em;
+    letter-spacing: 0.042em;
   }
 
   body.odyssey-page .gallery-label,
   body.creations-page .gallery-label {
-    padding: 1rem 0.9rem;
+    padding: 1rem 0.95rem;
   }
 }

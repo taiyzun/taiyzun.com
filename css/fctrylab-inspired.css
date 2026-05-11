@@ -103,30 +103,6 @@ button:hover,
   background: linear-gradient(90deg, var(--fx-accent), transparent);
 }
 
-.home-page .hero-content::before,
-.journey-page .page-hero-content::before,
-.odyssey-page .page-hero-content::before,
-.creations-page .page-hero-content::before,
-.connect-page .page-hero-content::before {
-  display: inline-block;
-  margin-bottom: 0.9rem;
-  padding: 0.36rem 0.72rem;
-  border: 1px solid var(--fx-line);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.72);
-  color: var(--fx-metal);
-  font-family: var(--display);
-  font-size: 0.64rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-.home-page .hero-content::before { content: "FCTRY Mode / Home"; }
-.journey-page .page-hero-content::before { content: "FCTRY Mode / Journey"; }
-.odyssey-page .page-hero-content::before { content: "FCTRY Mode / Odyssey"; }
-.creations-page .page-hero-content::before { content: "FCTRY Mode / Creations"; }
-.connect-page .page-hero-content::before { content: "FCTRY Mode / Connect"; }
-
 .cat-tab.active,
 .hero-cta,
 .submit-btn,
@@ -173,12 +149,4 @@ button::before {
     letter-spacing: 0.02em;
   }
 
-  .home-page .hero-content::before,
-  .journey-page .page-hero-content::before,
-  .odyssey-page .page-hero-content::before,
-  .creations-page .page-hero-content::before,
-  .connect-page .page-hero-content::before {
-    font-size: 0.58rem;
-    letter-spacing: 0.15em;
-  }
 }

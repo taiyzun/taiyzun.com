@@ -1,0 +1,100 @@
+#siteDecorativeField {
+  position: absolute;
+  inset: 0 0 auto 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+main,
+section,
+.hero,
+.page-hero,
+.bio-section,
+.timeline-section,
+.gallery-section,
+.connect-section,
+.social-section,
+.divider,
+footer {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-decorative-png,
+.site-decorative-png {
+  display: block;
+  max-width: none;
+  width: var(--decor-width, 160px);
+  height: auto;
+  object-fit: contain;
+  image-rendering: auto;
+  backface-visibility: hidden;
+  transform-origin: center center;
+  will-change: transform, opacity;
+  pointer-events: none;
+  filter: drop-shadow(0 14px 32px rgba(201, 168, 76, 0.14)) saturate(1.03);
+}
+
+.hero-decorative-png {
+  position: absolute;
+  z-index: 3;
+  opacity: 0.16;
+}
+
+.site-decorative-png {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  opacity: var(--decor-opacity, 0.13);
+  mix-blend-mode: normal;
+  animation: siteDecorativeFloat var(--decor-float-duration, 15s) ease-in-out infinite;
+  animation-delay: var(--decor-delay, 0s);
+}
+
+body.odyssey-page .site-decorative-png,
+body.creations-page .site-decorative-png {
+  opacity: var(--decor-opacity, 0.12);
+}
+
+body.odyssey-page .hero-decorative-png,
+body.creations-page .hero-decorative-png {
+  opacity: 0.14;
+}
+
+@keyframes siteDecorativeFloat {
+  0%,
+  100% {
+    margin-top: 0;
+    filter: drop-shadow(0 14px 32px rgba(201, 168, 76, 0.14)) saturate(1.03);
+  }
+
+  50% {
+    margin-top: -10px;
+    filter: drop-shadow(0 22px 40px rgba(191, 200, 196, 0.18)) saturate(1.06);
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero-decorative-png,
+  .site-decorative-png {
+    filter: drop-shadow(0 10px 24px rgba(201, 168, 76, 0.12)) saturate(1.02);
+  }
+}
+
+@media (max-width: 767px) {
+  .site-decorative-png {
+    opacity: calc(var(--decor-opacity, 0.13) * 0.78);
+  }
+
+  .hero-decorative-png {
+    opacity: 0.11;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-decorative-png {
+    animation: none;
+  }
+}
