@@ -1196,138 +1196,56 @@ h1 {
 
 /* OS 26 Liquid Glass Mobile Menu */
 /* Mobile Menu Button - Show only on mobile/tablet */
-.mobile-menu-btn {
+.hamburger {
   display: none; /* Hidden by default on desktop */
   position: fixed;
   top: 60px; /* Position below the header instead of inside it */
   right: 20px;
   z-index: 10005;
   cursor: pointer;
-  padding: 12px; /* Increased for better touch target */
-  border-radius: 50%;
-  background: 
-    linear-gradient(135deg, rgba(0, 119, 190, 0.4), rgba(0, 84, 147, 0.3)),
-    radial-gradient(circle at 30% 30%, rgba(255, 193, 7, 0.15), transparent),
-    radial-gradient(circle at 70% 70%, rgba(255, 152, 0, 0.1), transparent);
-  backdrop-filter: blur(20px) saturate(1.8) brightness(1.1);
-  border: 2px solid rgba(0, 119, 190, 0.5); /* More visible border */
-  box-shadow:
-    0 8px 32px rgba(0, 84, 147, 0.25),
-    0 4px 16px rgba(255, 193, 7, 0.15),
-    inset 0 2px 0 rgba(255, 255, 255, 0.3),
-    inset 0 -2px 0 rgba(0, 119, 190, 0.2);
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  padding: 8px;
+  border: none;
+  background: transparent;
+  width: 40px;
+  height: 40px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s ease;
 }
 
-.mobile-menu-btn::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: 
-    conic-gradient(from 0deg, 
-      rgba(255, 193, 7, 0.1), 
-      rgba(0, 119, 190, 0.1), 
-      rgba(255, 152, 0, 0.1), 
-      rgba(0, 84, 147, 0.1));
-  animation: liquidSpin 6s linear infinite;
+.hamburger span {
+  display: block;
+  width: 28px;
+  height: 2px;
+  background: rgba(255, 193, 7, 0.8);
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+.hamburger:hover span {
+  background: rgba(255, 193, 7, 1);
+  box-shadow: 0 0 8px rgba(255, 193, 7, 0.5);
+}
+
+.hamburger.open span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger.open span:nth-child(2) {
   opacity: 0;
-  transition: opacity 0.3s ease;
 }
 
-.mobile-menu-btn:hover::before {
-  opacity: 1;
+.hamburger.open span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
 }
 
-.mobile-menu-btn:hover {
-  transform: scale(1.1);
-  background: 
-    linear-gradient(135deg, rgba(0, 119, 190, 0.4), rgba(0, 84, 147, 0.3)),
-    radial-gradient(circle at 30% 30%, rgba(255, 193, 7, 0.2), transparent);
-  box-shadow:
-    0 12px 40px rgba(255, 193, 7, 0.4),
-    0 6px 20px rgba(255, 193, 7, 0.25),
-    inset 0 2px 0 rgba(255, 255, 255, 0.4),
-    inset 0 -2px 0 rgba(255, 152, 0, 0.3);
-  border-color: rgba(255, 193, 7, 0.6);
-}
-
-@keyframes liquidSpin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.triangle-dots {
-  position: relative;
-  width: 32px;
-  height: 28px;
-}
-
-.dot {
-  position: absolute;
-  width: 9px;
-  height: 9px;
-  background: linear-gradient(135deg, #FFC107, #FF9800);
-  border-radius: 50%;
-  box-shadow:
-    0 2px 8px rgba(255, 193, 7, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.dot-1 {
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.dot-2 {
-  bottom: 0;
-  left: 0;
-}
-
-.dot-3 {
-  bottom: 0;
-  right: 0;
-}
-
-/* Animated dots on hover */
-.mobile-menu-btn:hover .dot {
-  transform: scale(1.4);
-  background: linear-gradient(135deg, #FFD54F, #FFC107);
-  box-shadow:
-    0 4px 16px rgba(255, 193, 7, 0.6),
-    0 2px 8px rgba(255, 152, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.5);
-}
-
-.mobile-menu-btn:hover .dot-1 {
-  transform: translateX(-50%) scale(1.4);
-}
-
-/* OS 26 Liquid Glass Menu Open State */
-.menu-open .triangle-dots {
-  transform: rotate(180deg);
-}
-
-.menu-open .dot {
-  background: linear-gradient(135deg, #FF9800, #FFC107);
-  box-shadow:
-    0 3px 12px rgba(255, 152, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
-}
-
-.menu-open .dot-1 {
-  transform: translateX(-50%) scale(1.2);
-}
 
 /* Desktop Navigation - Override mobile styles */
 @media (min-width: 769px) {
   /* Hide mobile menu button on larger screens */
-  .mobile-menu-btn {
+  .hamburger {
     display: none !important;
   }
   
@@ -1366,7 +1284,7 @@ h1 {
 /* Desktop Navigation - Above 1024px */
 @media (min-width: 1025px) {
   /* Hide mobile menu button on desktop */
-  .mobile-menu-btn {
+  .hamburger {
     display: none;
   }
   
@@ -1392,70 +1310,71 @@ h1 {
 /* Tablet and Mobile Navigation */
 @media (max-width: 1024px) {
   /* Show mobile menu button on tablets and mobile */
-  .mobile-menu-btn {
-    display: block !important;
-    top: 55px; /* Position below header on tablets */
+  .hamburger {
+    display: flex !important;
+    top: 55px;
   }
-  
-  /* Keep header normal size and position */
-  header {
+
+  /* Mobile nav structure */
+  #mainNav {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: auto;
-    min-height: 45px; /* Reduced from 50px */
+    min-height: 45px;
     z-index: 1000;
-    padding: 8px 15px; /* Reduced from 10px 15px */
-    background: 
+    padding: 8px 15px;
+    background:
       linear-gradient(135deg, rgba(0, 84, 147, 0.1), rgba(0, 119, 190, 0.05)),
       radial-gradient(circle at 30% 40%, rgba(255, 193, 7, 0.03), transparent);
-    backdrop-filter: blur(8px) saturate(1.1); /* Reduced blur to match desktop */
+    backdrop-filter: blur(8px) saturate(1.1);
     transition: all 0.4s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
-  
-  /* Hide desktop navigation */
-  header nav {
+
+  /* Hide desktop navigation links by default */
+  .nav-links {
     display: none !important;
   }
-  
-  /* Mobile menu open state - show nav under header */
-  header.menu-open {
-    height: auto;
-    background: transparent; /* Keep transparent like desktop */
-  }
-  
-  header.menu-open nav {
-    display: flex !important; /* Override the display: none */
+
+  /* Mobile menu open state - show nav links */
+  .nav-links.open {
+    display: flex !important;
     flex-direction: column;
     position: absolute;
     top: 100%;
     left: 0;
     width: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Same dark transparency as desktop */
+    background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(8px);
     border-top: 1px solid rgba(0, 119, 190, 0.2);
-    padding: 10px 0; /* Reduced from 20px 0 */
+    padding: 10px 0;
     animation: slideDown 0.4s ease;
-    z-index: 1002; /* Higher than header to ensure visibility */
+    z-index: 1002;
+    list-style: none;
+    margin: 0;
   }
-  
-  header.menu-open nav a {
-    padding: 10px 20px; /* Reduced from 15px 30px */
-    margin: 2px 15px; /* Reduced from 5px 20px */
+
+  .nav-links.open a {
+    padding: 10px 20px;
+    margin: 2px 15px;
     text-align: left;
     color: #FFFFFF;
     text-decoration: none;
-    border-radius: 10px; /* Reduced from 12px */
-    background: rgba(0, 119, 190, 0.2); /* Simplified to match desktop style */
+    border-radius: 10px;
+    background: rgba(0, 119, 190, 0.2);
     border: 1px solid rgba(0, 119, 190, 0.3);
     transition: all 0.3s ease;
     backdrop-filter: blur(8px);
+    display: block;
   }
-  
-  header.menu-open nav a:hover,
-  header.menu-open nav a.active {
-    background: rgba(0, 119, 190, 0.4); /* Simplified hover state */
+
+  .nav-links.open a:hover,
+  .nav-links.open a.active {
+    background: rgba(0, 119, 190, 0.4);
     border-color: rgba(255, 193, 7, 0.5);
     color: #FFC107;
     transform: translateX(10px);
@@ -1464,37 +1383,27 @@ h1 {
 
 /* Smaller mobile devices */
 @media (max-width: 768px) {
-  .mobile-menu-btn {
-    top: 52px; /* Position below header on smaller devices */
+  .hamburger {
+    top: 52px;
   }
 
-  header.menu-open nav a {
-    margin: 1px 10px; /* Further reduced from 3px 15px */
-    padding: 8px 18px; /* Further reduced from 12px 25px */
-    font-size: 0.9em; /* Reduced from 0.95em */
+  .nav-links.open a {
+    margin: 1px 10px;
+    padding: 8px 18px;
+    font-size: 0.9em;
   }
 }
 
 @media (max-width: 480px) {
-  .mobile-menu-btn {
-    top: 50px; /* Position below smaller mobile header */
-    padding: 10px; /* Reduced from 12px */
+  .hamburger {
+    top: 50px;
+    padding: 8px;
   }
-  
-  .triangle-dots {
-    width: 22px; /* Reduced from 25px */
-    height: 20px; /* Reduced from 22px */
-  }
-  
-  .dot {
-    width: 5px; /* Reduced from 6px */
-    height: 5px; /* Reduced from 6px */
-  }
-  
-  header.menu-open nav a {
-    font-size: 0.85em; /* Reduced from 0.9em */
-    padding: 8px 15px; /* Reduced from 10px 20px */
-    margin: 1px 8px; /* Reduced from 2px 10px */
+
+  .nav-links.open a {
+    font-size: 0.85em;
+    padding: 8px 15px;
+    margin: 1px 8px;
   }
 }
 
