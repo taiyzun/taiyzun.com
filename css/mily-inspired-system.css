@@ -30,6 +30,7 @@
   --text-dark: var(--mily-ink);
   --text-medium: var(--mily-copy);
   --text-light: var(--mily-muted);
+  --serif: 'Philosopher', 'DINPro', 'Optima', 'Trebuchet MS', Georgia, serif;
 }
 
 body {
