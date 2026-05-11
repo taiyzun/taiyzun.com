@@ -338,9 +338,19 @@ body.creations-page .lb-img-wrap img,
 /* Keep tall gallery images clear of the lightbox chrome on desktop and mobile. */
 body.odyssey-page .lightbox,
 body.creations-page .lightbox {
+  position: fixed !important;
+  inset: 0 !important;
   height: 100dvh;
   max-height: 100dvh;
   overflow: hidden;
+  z-index: 2147483000 !important;
+  isolation: isolate;
+  transform: translateZ(0);
+}
+
+body.odyssey-page:has(.lightbox.open) nav,
+body.creations-page:has(.lightbox.open) nav {
+  pointer-events: none;
 }
 
 body.odyssey-page .lb-topbar,
