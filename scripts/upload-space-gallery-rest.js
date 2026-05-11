@@ -17,12 +17,20 @@ const BUCKET = 'taiyzun-gallery';
 const PUBLIC_URL = 'https://pub-3c9f0c0ce1654d10a3df41d9987255b7.r2.dev';
 const PREFIX = process.env.SPACE_GALLERY_PREFIX || 'space-gallery';
 const MANIFEST_KEY = process.env.SPACE_GALLERY_MANIFEST_KEY || `${PREFIX}/manifest.json`;
+const LOCAL_MANIFEST_PATH = process.env.SPACE_GALLERY_LOCAL_MANIFEST_PATH || path.join(process.cwd(), 'assets', 'space-gallery-manifest.json');
 const IMG_EXTS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.heic', '.avif', '.tiff', '.bmp', '.gif']);
 const FULL_MAX = 1920;
 const THUMB_MAX = 480;
 const CONCURRENCY = 4;
 const MAX_RETRIES = 4;
 const LIMIT = Number(process.env.SPACE_GALLERY_LIMIT || '0');
+const CATEGORY_FILTER = new Set(
+  (process.env.SPACE_GALLERY_CATEGORY_FILTER || '')
+    .split(',')
+    .map(value => value.trim())
+    .filter(Boolean)
+);
+const MERGE_EXISTING_MANIFEST = /^(1|true|yes)$/i.test(process.env.SPACE_GALLERY_MERGE_EXISTING_MANIFEST || '');
 const PLACEHOLDER_FULL_SIZE = 1600;
 const PLACEHOLDER_THUMB_SIZE = 480;
 
@@ -90,7 +98,6 @@ async function walk(dir, base = dir) {
 
   for (const entry of entries) {
     if (entry.name.startsWith('.')) continue;
-    if (entry.isDirectory() && entry.name.startsWith('_')) continue;
 
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) {
@@ -103,6 +110,20 @@ async function walk(dir, base = dir) {
   }
 
   return files.sort((a, b) => a.rel.localeCompare(b.rel, undefined, { numeric: true, sensitivity: 'base' }));
+}
+
+async function fetchJson(url) {
+  const res = await fetch(url, { headers: { 'Cache-Control': 'no-cache' } });
+  if (!res.ok) {
+    throw new Error(`GET ${url} failed with ${res.status}`);
+  }
+  return res.json();
+}
+
+function writeLocalManifest(manifestJson) {
+  const outputDir = path.dirname(LOCAL_MANIFEST_PATH);
+  fs.mkdirSync(outputDir, { recursive: true });
+  fs.writeFileSync(LOCAL_MANIFEST_PATH, manifestJson);
 }
 
 async function request(method, key, body, contentType, cacheControl) {
@@ -214,9 +235,13 @@ async function main() {
   console.log(`Source: ${sourceRoot}`);
   console.log(`Bucket: ${BUCKET}`);
   console.log(`Manifest: ${PUBLIC_URL}/${MANIFEST_KEY}`);
+  console.log(`Local manifest: ${LOCAL_MANIFEST_PATH}`);
 
   const discoveredFiles = await walk(sourceRoot);
-  const files = LIMIT > 0 ? discoveredFiles.slice(0, LIMIT) : discoveredFiles;
+  const categoryFilteredFiles = CATEGORY_FILTER.size
+    ? discoveredFiles.filter(file => CATEGORY_FILTER.has(categoryFromRel(file.rel)))
+    : discoveredFiles;
+  const files = LIMIT > 0 ? categoryFilteredFiles.slice(0, LIMIT) : categoryFilteredFiles;
   console.log(`Found ${files.length} images`);
 
   if (!files.length) {
@@ -240,11 +265,23 @@ async function main() {
     manifest[category].sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' }));
   }
 
+  let mergedManifest = manifest;
+
+  if (MERGE_EXISTING_MANIFEST) {
+    const existingManifest = await fetchJson(`${PUBLIC_URL}/${MANIFEST_KEY}`);
+    const processedCategories = new Set(Object.keys(manifest));
+    mergedManifest = { ...existingManifest };
+    for (const category of processedCategories) {
+      mergedManifest[category] = manifest[category];
+    }
+  }
+
   const orderedManifest = Object.fromEntries(
-    Object.entries(manifest).sort((a, b) => a[0].localeCompare(b[0], undefined, { sensitivity: 'base' }))
+    Object.entries(mergedManifest).sort((a, b) => a[0].localeCompare(b[0], undefined, { sensitivity: 'base' }))
   );
 
   const manifestJson = JSON.stringify(orderedManifest, null, 2);
+  writeLocalManifest(manifestJson);
   await uploadWithRetry(
     MANIFEST_KEY,
     Buffer.from(manifestJson),

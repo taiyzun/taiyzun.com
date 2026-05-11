@@ -149,7 +149,10 @@
 </footer>
 <script>
   /* ── Config ── */
-  const MANIFEST_URL = 'https://pub-3c9f0c0ce1654d10a3df41d9987255b7.r2.dev/space-gallery/manifest.json';
+  const MANIFEST_URLS = [
+    '/assets/space-gallery-manifest.json',
+    'https://pub-3c9f0c0ce1654d10a3df41d9987255b7.r2.dev/space-gallery/manifest.json'
+  ];
   const PAGE_SIZE = 60;
   const FALLBACK = [
     {full:'assets/Art/art_00001.jpg',thumb:'assets/Art/art_00001.jpg',cat:'Gallery',title:'0001 ~ Sp@cE Dragon Rides the Earth',sub:'Cosmic Fire Beyond the Gates'},
@@ -194,9 +197,14 @@
     showLoading();
     const countByCat = {};
     try {
-      const res = await fetch(MANIFEST_URL, { cache: 'no-store' });
-      if (!res.ok) throw new Error('fetch failed');
-      const manifest = await res.json();
+      let manifest = null;
+      for (const url of MANIFEST_URLS) {
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) continue;
+        manifest = await res.json();
+        break;
+      }
+      if (!manifest) throw new Error('fetch failed');
       const cats = Object.keys(manifest);
       if (!cats.length) throw new Error('empty');
       cats.forEach(cat => {
