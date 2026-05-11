@@ -1,0 +1,320 @@
+/*
+ * Connect page refinement layer.
+ * Keeps the page in the same warm luxury system as the rest of the site
+ * while correcting the social card/icon layout.
+ */
+
+body.connect-page {
+  --connect-shell-max: 1180px;
+  --connect-card-radius: 30px;
+  --connect-soft-line: rgba(181, 142, 58, 0.18);
+  --connect-soft-shadow: 0 26px 70px rgba(73, 57, 27, 0.12);
+  --connect-panel-bg: linear-gradient(165deg, rgba(255, 251, 244, 0.9), rgba(248, 243, 233, 0.78));
+  --connect-metal: linear-gradient(135deg, rgba(204, 167, 87, 0.2), rgba(255, 255, 255, 0.8));
+}
+
+body.connect-page .page-hero {
+  min-height: 60vh;
+  padding-bottom: var(--sp-2xl);
+}
+
+body.connect-page .page-hero-content {
+  max-width: min(960px, calc(100% - 2rem));
+  padding: clamp(2rem, 4vw, 3.25rem);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: var(--connect-card-radius);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.68), rgba(255, 250, 242, 0.54)),
+    radial-gradient(circle at top, rgba(214, 176, 83, 0.14), transparent 58%);
+  box-shadow: var(--connect-soft-shadow);
+  backdrop-filter: blur(14px) saturate(1.06);
+  -webkit-backdrop-filter: blur(14px) saturate(1.06);
+}
+
+body.connect-page .page-hero-content .intro {
+  max-width: 42rem;
+  font-size: clamp(1rem, 2vw, 1.14rem);
+  line-height: 1.95;
+  color: rgba(78, 68, 56, 0.9);
+}
+
+body.connect-page .connect-section,
+body.connect-page .social-section {
+  max-width: var(--connect-shell-max);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body.connect-page .connect-label,
+body.connect-page .social-section .section-label {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body.connect-page .connect-label {
+  margin-bottom: var(--sp-xl);
+}
+
+body.connect-page .contact-form {
+  max-width: 860px;
+  margin: 0 auto;
+  padding-top: clamp(1.75rem, 3vw, 2.4rem);
+  padding-bottom: clamp(1.75rem, 3vw, 2.4rem);
+  border-radius: var(--connect-card-radius);
+  background: var(--connect-panel-bg);
+  border: 1px solid var(--connect-soft-line);
+  box-shadow: var(--connect-soft-shadow);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+body.connect-page .contact-form::before {
+  content: "";
+  display: block;
+  width: 74px;
+  height: 2px;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(90deg, rgba(201, 168, 76, 0.92), rgba(201, 168, 76, 0));
+}
+
+body.connect-page .form-group {
+  display: grid;
+  gap: 0.45rem;
+}
+
+body.connect-page .contact-form label {
+  font-family: var(--display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(96, 77, 47, 0.82);
+}
+
+body.connect-page .contact-form .required {
+  color: rgba(181, 116, 58, 0.9);
+}
+
+body.connect-page .contact-form input,
+body.connect-page .contact-form textarea {
+  margin-bottom: 0;
+  padding: 0.92rem 1rem;
+  border-radius: 16px;
+  border-color: rgba(181, 142, 58, 0.2);
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+body.connect-page .contact-form textarea {
+  min-height: 190px;
+  resize: vertical;
+}
+
+body.connect-page .contact-form input:focus,
+body.connect-page .contact-form textarea:focus {
+  border-color: rgba(191, 148, 51, 0.48);
+  box-shadow:
+    0 0 0 4px rgba(212, 175, 55, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.86);
+}
+
+body.connect-page .hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+body.connect-page .submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  min-width: 13rem;
+  margin-top: 1.25rem;
+  border-radius: 999px;
+  padding: 0.95rem 1.8rem;
+  background: linear-gradient(135deg, rgba(194, 156, 74, 0.94), rgba(152, 116, 43, 0.94));
+  border-color: rgba(150, 112, 40, 0.9);
+  color: #f9f4ea;
+  box-shadow: 0 18px 40px rgba(160, 122, 49, 0.18);
+}
+
+body.connect-page .submit-btn::before {
+  display: none;
+}
+
+body.connect-page .submit-btn:hover {
+  color: #fffaf0;
+  background: linear-gradient(135deg, rgba(205, 166, 83, 1), rgba(160, 119, 45, 1));
+  box-shadow: 0 24px 46px rgba(160, 122, 49, 0.24);
+}
+
+body.connect-page .submit-btn svg {
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 auto;
+}
+
+body.connect-page #form-status {
+  display: none;
+  margin-top: 1rem;
+  padding: 0.95rem 1rem;
+  border-radius: 16px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+body.connect-page #form-status.success {
+  display: block;
+  background: rgba(102, 146, 94, 0.12);
+  border: 1px solid rgba(102, 146, 94, 0.22);
+  color: #466645;
+}
+
+body.connect-page #form-status.error {
+  display: block;
+  background: rgba(164, 89, 73, 0.1);
+  border: 1px solid rgba(164, 89, 73, 0.22);
+  color: #8f4b3f;
+}
+
+body.connect-page .social-section {
+  padding-top: var(--sp-lg);
+  padding-bottom: var(--sp-2xl);
+}
+
+body.connect-page .social-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: clamp(0.9rem, 2vw, 1.25rem);
+  max-width: var(--connect-shell-max);
+  margin: 1.35rem auto 0;
+}
+
+body.connect-page .social-card {
+  display: flex;
+  align-items: center;
+  gap: 0.95rem;
+  min-height: 88px;
+  padding: 1.05rem 1.15rem;
+  border-radius: 24px;
+  background: var(--connect-panel-bg);
+  border: 1px solid rgba(184, 148, 70, 0.16);
+  box-shadow: 0 18px 38px rgba(85, 66, 32, 0.08);
+  color: var(--text-dark);
+  text-decoration: none;
+  overflow: hidden;
+}
+
+body.connect-page .social-card::after {
+  display: none;
+}
+
+body.connect-page .social-card svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  min-width: 1.5rem;
+  min-height: 1.5rem;
+  flex: 0 0 1.5rem;
+  color: rgba(181, 142, 58, 0.92);
+}
+
+body.connect-page .social-card span {
+  display: block;
+  font-family: var(--display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: rgba(64, 54, 44, 0.92);
+}
+
+body.connect-page .social-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(191, 148, 51, 0.38);
+  box-shadow: 0 22px 44px rgba(87, 68, 34, 0.14);
+  background:
+    linear-gradient(165deg, rgba(255, 252, 246, 0.98), rgba(249, 243, 231, 0.92)),
+    radial-gradient(circle at top left, rgba(214, 176, 83, 0.1), transparent 58%);
+}
+
+body.connect-page .social-card:hover span,
+body.connect-page .social-card:hover svg {
+  color: rgba(157, 117, 41, 0.98);
+}
+
+body.connect-page footer {
+  text-align: center;
+}
+
+body.connect-page .footer-brand {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+}
+
+body.connect-page .footer-logo-img {
+  height: 46px;
+  width: auto;
+}
+
+body.connect-page .footer-logo-text {
+  margin: 0;
+  font-family: var(--display);
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-primary);
+}
+
+body.connect-page .footer-copy {
+  margin-top: 1rem;
+  color: rgba(83, 71, 57, 0.8);
+}
+
+@media (max-width: 900px) {
+  body.connect-page .social-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  body.connect-page .page-hero {
+    min-height: auto;
+    padding-bottom: var(--sp-xl);
+  }
+
+  body.connect-page .page-hero-content {
+    max-width: calc(100% - 1rem);
+    border-radius: 24px;
+  }
+
+  body.connect-page .contact-form {
+    border-radius: 24px;
+  }
+
+  body.connect-page .submit-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  body.connect-page .social-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body.connect-page .social-card {
+    min-height: 76px;
+  }
+
+  body.connect-page .social-card span {
+    font-size: 0.74rem;
+    letter-spacing: 0.11em;
+  }
+}
