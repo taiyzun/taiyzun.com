@@ -9,9 +9,9 @@ body.creations-page {
   --vaulk-border: rgba(212, 175, 55, 0.14);
   --vaulk-border-strong: rgba(212, 175, 55, 0.34);
   background:
-    radial-gradient(920px 500px at 8% -15%, rgba(212, 175, 55, 0.16), transparent 60%),
-    radial-gradient(760px 420px at 88% -8%, rgba(192, 192, 192, 0.18), transparent 62%),
-    linear-gradient(165deg, var(--white-primary) 0%, var(--white-secondary) 48%, var(--white-primary) 100%);
+    radial-gradient(920px 500px at 8% -15%, rgba(212, 175, 55, 0.14), transparent 60%),
+    radial-gradient(760px 420px at 88% -8%, rgba(192, 192, 192, 0.14), transparent 62%),
+    linear-gradient(165deg, rgba(255, 255, 255, 0.24) 0%, rgba(248, 247, 245, 0.14) 48%, rgba(255, 255, 255, 0.22) 100%);
   color: var(--text-dark);
 }
 
@@ -58,7 +58,7 @@ body.creations-page .page-hero {
   min-height: 62vh;
   border-top: 1px solid var(--vaulk-border);
   border-bottom: 1px solid var(--vaulk-border);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.56) 0%, rgba(248, 247, 245, 0.9) 100%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.24) 0%, rgba(248, 247, 245, 0.14) 100%);
 }
 
 body.odyssey-page .page-hero::before,

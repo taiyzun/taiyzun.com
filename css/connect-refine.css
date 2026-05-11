@@ -16,6 +16,7 @@ body.connect-page {
 body.connect-page .page-hero {
   min-height: 60vh;
   padding-bottom: var(--sp-2xl);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(248, 247, 245, 0.1) 100%);
 }
 
 body.connect-page .page-hero-content {

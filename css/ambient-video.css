@@ -32,6 +32,7 @@ html {
 .hero,
 .page-hero {
   isolation: isolate;
+  background: transparent;
 }
 
 .hero-video,
@@ -45,6 +46,13 @@ html {
     radial-gradient(circle at 18% 22%, rgba(212, 175, 55, 0.18) 0%, transparent 42%),
     radial-gradient(circle at 82% 74%, rgba(192, 192, 192, 0.14) 0%, transparent 34%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(241, 239, 232, 0.16) 100%);
+}
+
+.site-ambient-video.hero-video,
+.site-ambient-video.page-hero-video {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
 }
 
 .hero-video::before,
@@ -78,14 +86,14 @@ html {
   object-fit: cover;
   object-position: center center;
   opacity: 0;
-  filter: var(--ambient-video-filter, saturate(0.72) contrast(1.06) brightness(0.82));
+  filter: var(--ambient-video-filter, saturate(0.48) contrast(1.02) brightness(1.08));
   transform: scale(1.08);
   animation: ambientVideoDrift 26s ease-in-out infinite alternate;
   transition: opacity 0.8s ease;
 }
 
 html.ambient-video-ready .ambient-video-media {
-  opacity: var(--ambient-video-opacity, 0.17);
+  opacity: var(--ambient-video-opacity, 0.24);
 }
 
 html.ambient-video-disabled .hero-video,
@@ -163,26 +171,26 @@ html.ambient-video-blocked .page-hero-video {
 }
 
 .home-page {
-  --ambient-video-opacity: 0.18;
-  --ambient-video-opacity-mobile: 0.13;
-  --ambient-video-filter: saturate(0.7) contrast(1.04) brightness(0.84);
+  --ambient-video-opacity: 0.28;
+  --ambient-video-opacity-mobile: 0.2;
+  --ambient-video-filter: saturate(0.44) contrast(1.02) brightness(1.12);
 }
 
 .journey-page {
-  --ambient-video-opacity: 0.16;
-  --ambient-video-opacity-mobile: 0.12;
+  --ambient-video-opacity: 0.24;
+  --ambient-video-opacity-mobile: 0.18;
 }
 
 .connect-page {
-  --ambient-video-opacity: 0.14;
-  --ambient-video-opacity-mobile: 0.11;
+  --ambient-video-opacity: 0.22;
+  --ambient-video-opacity-mobile: 0.17;
 }
 
 .odyssey-page,
 .creations-page {
-  --ambient-video-opacity: 0.17;
-  --ambient-video-opacity-mobile: 0.12;
-  --ambient-video-filter: saturate(0.72) contrast(1.03) brightness(0.84);
+  --ambient-video-opacity: 0.25;
+  --ambient-video-opacity-mobile: 0.18;
+  --ambient-video-filter: saturate(0.46) contrast(1.01) brightness(1.1);
   --ambient-panel-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.46) 100%);
   --ambient-panel-border: rgba(255, 255, 255, 0.44);
   --ambient-panel-shadow: 0 24px 60px rgba(11, 15, 13, 0.14);
@@ -220,6 +228,18 @@ body.journey-page .page-hero-content {
   max-width: min(920px, calc(100% - 2rem));
 }
 
+nav,
+.hero,
+.page-hero,
+section,
+.connect-section,
+.social-section,
+.divider,
+footer {
+  position: relative;
+  z-index: 1;
+}
+
 @keyframes ambientVideoDrift {
   0% {
     transform: scale(1.08) translate3d(0, 0, 0);
@@ -236,7 +256,7 @@ body.journey-page .page-hero-content {
 
 @media (max-width: 768px) {
   html.ambient-video-ready .ambient-video-media {
-    opacity: var(--ambient-video-opacity-mobile, 0.12);
+    opacity: var(--ambient-video-opacity-mobile, 0.18);
   }
 
   .hero-content,

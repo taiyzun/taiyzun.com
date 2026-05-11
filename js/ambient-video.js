@@ -1,6 +1,15 @@
 (() => {
   const root = document.documentElement;
-  const videos = Array.from(document.querySelectorAll(".ambient-video-media"));
+  const shells = Array.from(document.querySelectorAll(".hero-video, .page-hero-video"));
+  const primaryShell = shells[0];
+
+  if (primaryShell) {
+    primaryShell.classList.add("site-ambient-video");
+    document.body.insertBefore(primaryShell, document.body.firstChild);
+    shells.slice(1).forEach((shell) => shell.remove());
+  }
+
+  const videos = Array.from(document.querySelectorAll(".site-ambient-video .ambient-video-media, .ambient-video-media"));
 
   if (!videos.length) {
     return;
@@ -8,32 +17,15 @@
 
   const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
   const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-  const heroObserver = "IntersectionObserver" in window
-    ? new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            entry.target.dataset.ambientVisible = entry.isIntersecting ? "true" : "false";
-            const video = entry.target.querySelector(".ambient-video-media");
-            if (video) {
-              syncVideo(video);
-            }
-          });
-        },
-        { threshold: 0.18 }
-      )
-    : null;
 
   function ambientVideoDisabled() {
     return motionQuery.matches || Boolean(connection && connection.saveData);
   }
 
   function syncVideo(video) {
-    const scene = video.closest(".hero, .page-hero");
-    const sceneVisible = !scene || scene.dataset.ambientVisible !== "false";
     const disabled =
       root.classList.contains("ambient-video-disabled") ||
-      document.hidden ||
-      !sceneVisible;
+      document.hidden;
 
     if (disabled) {
       video.pause();
@@ -61,21 +53,12 @@
   }
 
   videos.forEach((video) => {
-    const scene = video.closest(".hero, .page-hero");
-
     video.muted = true;
     video.defaultMuted = true;
     video.playsInline = true;
     video.setAttribute("muted", "");
     video.setAttribute("playsinline", "");
     video.setAttribute("webkit-playsinline", "");
-
-    if (scene) {
-      scene.dataset.ambientVisible = "true";
-      if (heroObserver) {
-        heroObserver.observe(scene);
-      }
-    }
 
     video.addEventListener(
       "canplay",

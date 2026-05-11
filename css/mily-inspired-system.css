@@ -35,9 +35,9 @@
 
 body {
   background:
-    radial-gradient(960px 540px at 10% 12%, rgba(178, 141, 88, 0.12), transparent 62%),
-    radial-gradient(860px 500px at 88% 8%, rgba(217, 208, 197, 0.24), transparent 66%),
-    linear-gradient(180deg, #f7f3ed 0%, #efe8de 48%, #f6f1ea 100%);
+    radial-gradient(960px 540px at 10% 12%, rgba(178, 141, 88, 0.1), transparent 62%),
+    radial-gradient(860px 500px at 88% 8%, rgba(217, 208, 197, 0.16), transparent 66%),
+    linear-gradient(180deg, rgba(247, 243, 237, 0.38) 0%, rgba(239, 232, 222, 0.2) 48%, rgba(246, 241, 234, 0.32) 100%);
 }
 
 nav {
