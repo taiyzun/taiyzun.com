@@ -1,5 +1,4 @@
 [build]
-  command = "npm run optimize-images"
   publish = "."
 
 [[headers]]
@@ -69,4 +68,3 @@
 
 [context.production]
   environment = { NODE_ENV = "production" }
-
