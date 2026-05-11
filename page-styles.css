@@ -477,6 +477,7 @@ body.connect-page {
   .creations-page .gallery-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+    padding: 0 1.5rem;
   }
 
   .odyssey-page .page-hero h1,
@@ -525,6 +526,11 @@ body.connect-page {
   .creations-page .cat-filters button {
     padding: 0.5rem 1rem;
     font-size: 0.75rem;
+  }
+
+  .creations-page .gallery-grid {
+    padding: 0 1rem;
+    gap: 1rem;
   }
 
   .odyssey-page .narrative-section {
@@ -581,6 +587,10 @@ body.connect-page {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
   margin-top: 2rem;
+  padding: 0 2rem;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .creations-page .gallery-item {
