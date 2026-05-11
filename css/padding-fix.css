@@ -1,0 +1,82 @@
+/*
+ * Global side-gutter hotfix.
+ * Ensures key full-width containers always have horizontal breathing room.
+ */
+
+:root {
+  --page-gutter-desktop: 2rem;
+  --page-gutter-tablet: 1.5rem;
+  --page-gutter-mobile: 1rem;
+  --page-gutter-small: 0.75rem;
+}
+
+.gallery-section,
+.timeline-section,
+.connect-section,
+.social-section,
+.gallery-label,
+.connect-label,
+.cat-filters,
+.art-grid,
+.gallery-grid,
+.contact-form,
+.social-grid,
+.divider {
+  padding-left: max(var(--page-gutter-desktop), env(safe-area-inset-left, 0px)) !important;
+  padding-right: max(var(--page-gutter-desktop), env(safe-area-inset-right, 0px)) !important;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1024px) {
+  .gallery-section,
+  .timeline-section,
+  .connect-section,
+  .social-section,
+  .gallery-label,
+  .connect-label,
+  .cat-filters,
+  .art-grid,
+  .gallery-grid,
+  .contact-form,
+  .social-grid,
+  .divider {
+    padding-left: max(var(--page-gutter-tablet), env(safe-area-inset-left, 0px)) !important;
+    padding-right: max(var(--page-gutter-tablet), env(safe-area-inset-right, 0px)) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery-section,
+  .timeline-section,
+  .connect-section,
+  .social-section,
+  .gallery-label,
+  .connect-label,
+  .cat-filters,
+  .art-grid,
+  .gallery-grid,
+  .contact-form,
+  .social-grid,
+  .divider {
+    padding-left: max(var(--page-gutter-mobile), env(safe-area-inset-left, 0px)) !important;
+    padding-right: max(var(--page-gutter-mobile), env(safe-area-inset-right, 0px)) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-section,
+  .timeline-section,
+  .connect-section,
+  .social-section,
+  .gallery-label,
+  .connect-label,
+  .cat-filters,
+  .art-grid,
+  .gallery-grid,
+  .contact-form,
+  .social-grid,
+  .divider {
+    padding-left: max(var(--page-gutter-small), env(safe-area-inset-left, 0px)) !important;
+    padding-right: max(var(--page-gutter-small), env(safe-area-inset-right, 0px)) !important;
+  }
+}
