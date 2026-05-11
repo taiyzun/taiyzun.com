@@ -19,8 +19,7 @@ jobs:
           npx -y lighthouse "https://taiyzun.com/odyssey.html" \
             --output json \
             --output-path ./reports/lighthouse-odyssey.json \
-            --preset=mobile \
-            --emulated-form-factor=mobile \
+            --form-factor=mobile \
             --chrome-flags="--no-sandbox --headless"
 
       - name: Upload Lighthouse report
