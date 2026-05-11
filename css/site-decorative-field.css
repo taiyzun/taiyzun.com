@@ -4,6 +4,7 @@
   overflow: hidden;
   pointer-events: none;
   z-index: 0;
+  isolation: isolate;
 }
 
 main,
@@ -33,7 +34,8 @@ footer {
   transform-origin: center center;
   will-change: transform, opacity;
   pointer-events: none;
-  filter: drop-shadow(0 14px 32px rgba(201, 168, 76, 0.14)) saturate(1.03);
+  user-select: none;
+  filter: drop-shadow(0 14px 34px rgba(201, 168, 76, 0.14)) saturate(1.03);
 }
 
 .hero-decorative-png {
@@ -49,31 +51,21 @@ footer {
   z-index: 0;
   opacity: var(--decor-opacity, 0.13);
   mix-blend-mode: normal;
-  animation: siteDecorativeFloat var(--decor-float-duration, 15s) ease-in-out infinite;
-  animation-delay: var(--decor-delay, 0s);
+  transition: opacity 0.35s ease, filter 0.35s ease;
+}
+
+.site-decorative-png.is-hero-decor {
+  filter: drop-shadow(0 18px 40px rgba(201, 168, 76, 0.16)) saturate(1.05);
 }
 
 body.odyssey-page .site-decorative-png,
 body.creations-page .site-decorative-png {
-  opacity: var(--decor-opacity, 0.12);
+  opacity: var(--decor-opacity, 0.115);
 }
 
-body.odyssey-page .hero-decorative-png,
-body.creations-page .hero-decorative-png {
-  opacity: 0.14;
-}
-
-@keyframes siteDecorativeFloat {
-  0%,
-  100% {
-    margin-top: 0;
-    filter: drop-shadow(0 14px 32px rgba(201, 168, 76, 0.14)) saturate(1.03);
-  }
-
-  50% {
-    margin-top: -10px;
-    filter: drop-shadow(0 22px 40px rgba(191, 200, 196, 0.18)) saturate(1.06);
-  }
+body.odyssey-page .site-decorative-png.is-hero-decor,
+body.creations-page .site-decorative-png.is-hero-decor {
+  opacity: var(--decor-opacity, 0.13);
 }
 
 @media (max-width: 1024px) {
@@ -85,7 +77,11 @@ body.creations-page .hero-decorative-png {
 
 @media (max-width: 767px) {
   .site-decorative-png {
-    opacity: calc(var(--decor-opacity, 0.13) * 0.78);
+    opacity: calc(var(--decor-opacity, 0.13) * 0.8);
+  }
+
+  .site-decorative-png.is-hero-decor {
+    opacity: calc(var(--decor-opacity, 0.15) * 0.84);
   }
 
   .hero-decorative-png {
@@ -95,6 +91,6 @@ body.creations-page .hero-decorative-png {
 
 @media (prefers-reduced-motion: reduce) {
   .site-decorative-png {
-    animation: none;
+    transition: none;
   }
 }
