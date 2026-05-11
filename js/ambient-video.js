@@ -16,11 +16,10 @@
   }
 
   const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const compactViewportQuery = window.matchMedia("(max-width: 767px)");
   const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
 
   function ambientVideoDisabled() {
-    return compactViewportQuery.matches || motionQuery.matches || Boolean(connection && connection.saveData);
+    return motionQuery.matches || Boolean(connection && connection.saveData);
   }
 
   function ensureVideoSource(video) {
@@ -93,12 +92,6 @@
     motionQuery.addEventListener("change", applyAmbientPreference);
   } else if (typeof motionQuery.addListener === "function") {
     motionQuery.addListener(applyAmbientPreference);
-  }
-
-  if (typeof compactViewportQuery.addEventListener === "function") {
-    compactViewportQuery.addEventListener("change", applyAmbientPreference);
-  } else if (typeof compactViewportQuery.addListener === "function") {
-    compactViewportQuery.addListener(applyAmbientPreference);
   }
 
   if (connection && typeof connection.addEventListener === "function") {

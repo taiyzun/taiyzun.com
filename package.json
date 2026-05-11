@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Static site for taiyzun.com — helper scripts",
   "scripts": {
-    "optimize-images": "node scripts/optimize-images.js"
+    "optimize-images": "node scripts/optimize-images.js",
+    "privacy-review": "node scripts/generate-private-image-review.js"
   },
   "dependencies": {
     "gsap": "^3.12.2",

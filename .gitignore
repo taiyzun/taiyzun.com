@@ -4,3 +4,6 @@ gallery/
 
 # Local Netlify folder
 .netlify
+
+# Local generated privacy review outputs
+privacy-review/

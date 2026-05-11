@@ -1,0 +1,336 @@
+/*
+ * Taiyzun visual protocol layer.
+ * Applies the shared composition, spacing, typography and sacred-geometry language
+ * across the site without changing the content hierarchy.
+ */
+
+:root {
+  --tai-phi: 1.618;
+  --tai-gutter: clamp(1rem, 3.6vw, 4.5rem);
+  --tai-section-gap: clamp(3.75rem, 8vw, 8rem);
+  --tai-panel-radius: clamp(24px, 3vw, 42px);
+  --tai-orbit: rgba(178, 141, 88, 0.16);
+  --tai-orbit-quiet: rgba(217, 208, 197, 0.18);
+  --tai-ink-soft: rgba(31, 27, 23, 0.74);
+  --tai-square-safe: min(82vw, 720px);
+  --display: 'Philosopher', 'DINPro', 'Optima', Georgia, serif;
+  --body: 'Philosopher', 'DINPro', 'Optima', 'Trebuchet MS', sans-serif;
+}
+
+html {
+  background: #f4efe7;
+}
+
+body {
+  font-family: var(--body);
+  color: var(--text-dark, #1f1b17);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 33.333% 33.333%, rgba(178, 141, 88, 0.08) 0 1px, transparent 2px),
+    radial-gradient(circle at 66.666% 33.333%, rgba(178, 141, 88, 0.07) 0 1px, transparent 2px),
+    radial-gradient(circle at 33.333% 66.666%, rgba(178, 141, 88, 0.06) 0 1px, transparent 2px),
+    radial-gradient(circle at 66.666% 66.666%, rgba(178, 141, 88, 0.07) 0 1px, transparent 2px),
+    linear-gradient(90deg, transparent calc(33.333% - 0.5px), rgba(178, 141, 88, 0.035) 33.333%, transparent calc(33.333% + 0.5px)),
+    linear-gradient(90deg, transparent calc(66.666% - 0.5px), rgba(178, 141, 88, 0.032) 66.666%, transparent calc(66.666% + 0.5px)),
+    linear-gradient(0deg, transparent calc(33.333% - 0.5px), rgba(178, 141, 88, 0.03) 33.333%, transparent calc(33.333% + 0.5px)),
+    linear-gradient(0deg, transparent calc(66.666% - 0.5px), rgba(178, 141, 88, 0.026) 66.666%, transparent calc(66.666% + 0.5px));
+  opacity: 0.58;
+}
+
+.hero,
+.page-hero,
+.gallery-section,
+.timeline-section,
+.bio-section,
+.connect-section,
+.social-section,
+footer {
+  padding-left: max(var(--tai-gutter), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--tai-gutter), env(safe-area-inset-right, 0px));
+}
+
+.hero,
+.page-hero {
+  min-height: clamp(620px, 88vh, 980px);
+  display: grid;
+  align-items: center;
+  grid-template-columns: minmax(0, 0.382fr) minmax(0, 0.618fr);
+  column-gap: clamp(1rem, 4vw, 5rem);
+}
+
+.hero-content,
+.page-hero-content {
+  grid-column: 2;
+  width: min(100%, 980px);
+  transform: translateY(clamp(-1rem, -1.5vw, 0rem));
+}
+
+.home-page .hero-content {
+  grid-column: 1 / span 2;
+  width: min(100%, 1080px);
+  margin-left: clamp(0rem, 5vw, 8rem);
+}
+
+.hero-content,
+.page-hero-content,
+.gallery-label,
+.connect-label,
+.contact-form,
+.social-card,
+.info-card,
+.timeline-category,
+.bio-section,
+.highlight-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-content::after,
+.page-hero-content::after,
+.gallery-label::after,
+.connect-label::after,
+.contact-form::after,
+.info-card::after,
+.timeline-category::after,
+.bio-section::after {
+  content: "";
+  position: absolute;
+  width: clamp(150px, 24vw, 360px);
+  aspect-ratio: 1;
+  right: max(-12%, -88px);
+  bottom: max(-18%, -120px);
+  border-radius: 50%;
+  border: 1px solid var(--tai-orbit);
+  background:
+    radial-gradient(circle at 50% 50%, transparent 0 27%, var(--tai-orbit-quiet) 27.4% 28%, transparent 28.4% 100%),
+    radial-gradient(circle at 38.2% 50%, transparent 0 22%, rgba(178, 141, 88, 0.08) 22.4% 23%, transparent 23.4% 100%),
+    radial-gradient(circle at 61.8% 50%, transparent 0 22%, rgba(178, 141, 88, 0.08) 22.4% 23%, transparent 23.4% 100%);
+  opacity: 0.62;
+  pointer-events: none;
+  transform: rotate(-18deg);
+}
+
+.hero-title,
+.page-hero h1,
+.gallery-label h2,
+.connect-label h2,
+.section-title,
+.category-header h2 {
+  font-family: var(--display);
+  max-width: 13ch;
+  text-wrap: balance;
+}
+
+.hero-subtitle,
+.page-hero .intro,
+.page-hero p,
+.gallery-label p,
+.connect-label p,
+.timeline-item p,
+.bio-section p,
+.contact-form p {
+  font-family: var(--body);
+  color: var(--tai-ink-soft);
+  text-wrap: pretty;
+}
+
+.hero-logo,
+.footer-logo-img,
+.logo-img,
+img[src*="TaiyZunS-TruTh-arTed"] {
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;
+}
+
+.hero-logo,
+.profile-safe-square,
+.social-preview-safe {
+  width: min(var(--tai-square-safe), 100%);
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;
+}
+
+.gallery-section,
+.timeline-section,
+.connect-section,
+.social-section {
+  margin-block: var(--tai-section-gap);
+}
+
+.gallery-section > *,
+.connect-section > *,
+.social-section > *,
+.timeline-section > *,
+.bio-section > * {
+  max-width: min(1180px, 100%);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.gallery-label,
+.connect-label {
+  display: grid;
+  gap: 0.5rem;
+  margin-bottom: clamp(1.4rem, 2.8vw, 2.8rem);
+}
+
+.gallery-label h2,
+.connect-label h2 {
+  margin-left: clamp(0rem, 5vw, 6rem);
+}
+
+.art-grid,
+.gallery-grid,
+.social-grid {
+  align-items: start;
+}
+
+.art-item:nth-child(6n + 2),
+.gallery-item:nth-child(6n + 2) {
+  transform-origin: 33% 38%;
+}
+
+.art-item:nth-child(6n + 4),
+.gallery-item:nth-child(6n + 4) {
+  transform-origin: 66% 62%;
+}
+
+body.creations-page .art-item img,
+body.odyssey-page .gallery-item img {
+  object-position: 50% 46%;
+}
+
+body.odyssey-page .lb-img-wrap,
+body.creations-page .lb-img-wrap {
+  aspect-ratio: 1.618 / 1;
+  display: grid;
+  place-items: center;
+}
+
+body.odyssey-page .lb-img-wrap img,
+body.creations-page .lb-img-wrap img,
+#universal-lightbox-image {
+  width: auto !important;
+  height: auto !important;
+  max-width: 100% !important;
+  max-height: min(78vh, 920px) !important;
+  object-fit: contain !important;
+  object-position: center !important;
+}
+
+.social-card svg,
+.social-link svg {
+  width: clamp(20px, 2.2vw, 28px);
+  height: clamp(20px, 2.2vw, 28px);
+  flex: 0 0 auto;
+}
+
+.contact-form svg,
+.submit-btn svg {
+  width: 1.1em;
+  height: 1.1em;
+}
+
+.site-decorative-png {
+  transform-box: fill-box;
+}
+
+@media (min-width: 1180px) {
+  .hero-content,
+  .page-hero-content {
+    margin-top: clamp(1rem, 4vh, 4rem);
+  }
+
+  .gallery-section,
+  .connect-section,
+  .social-section {
+    display: grid;
+    grid-template-columns: minmax(0, 0.382fr) minmax(0, 0.618fr);
+    column-gap: clamp(2rem, 5vw, 6rem);
+    align-items: start;
+  }
+
+  .gallery-section > .gallery-label,
+  .connect-section > .connect-label,
+  .social-section > .section-label {
+    grid-column: 1;
+    position: sticky;
+    top: 7.25rem;
+  }
+
+  .gallery-section > .gallery-meta,
+  .gallery-section > .cat-filters,
+  .gallery-section > .art-grid,
+  .gallery-section > .gallery-grid,
+  .connect-section > .contact-form,
+  .social-section > .social-grid {
+    grid-column: 2;
+  }
+}
+
+@media (max-width: 900px) {
+  body::before {
+    opacity: 0.34;
+  }
+
+  .hero,
+  .page-hero {
+    min-height: clamp(560px, 86svh, 760px);
+    grid-template-columns: 1fr;
+    padding-top: clamp(6rem, 18vw, 8rem);
+    padding-bottom: clamp(3.5rem, 12vw, 5rem);
+  }
+
+  .hero-content,
+  .page-hero-content,
+  .home-page .hero-content {
+    grid-column: 1;
+    margin-left: auto;
+    margin-right: auto;
+    transform: none;
+  }
+
+  .gallery-label h2,
+  .connect-label h2 {
+    margin-left: 0;
+  }
+
+  body.odyssey-page .lb-img-wrap,
+  body.creations-page .lb-img-wrap {
+    aspect-ratio: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-content,
+  .page-hero-content,
+  .gallery-label,
+  .connect-label,
+  .contact-form,
+  .social-card,
+  .info-card,
+  .timeline-category,
+  .bio-section,
+  .highlight-card {
+    scroll-behavior: auto;
+  }
+}
+
+.info-card h3 {
+  font-family: var(--display);
+  font-size: 1.1rem;
+  color: var(--text-dark, #1f1b17);
+  margin-bottom: var(--sp-sm, 0.5rem);
+  font-weight: 700;
+}
