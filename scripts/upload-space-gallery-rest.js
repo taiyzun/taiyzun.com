@@ -23,6 +23,8 @@ const THUMB_MAX = 480;
 const CONCURRENCY = 4;
 const MAX_RETRIES = 4;
 const LIMIT = Number(process.env.SPACE_GALLERY_LIMIT || '0');
+const PLACEHOLDER_FULL_SIZE = 1600;
+const PLACEHOLDER_THUMB_SIZE = 480;
 
 const token = process.env.CLOUDFLARE_API_TOKEN || process.env.CF_API_TOKEN;
 const sourceRoot = process.argv[2];
@@ -156,12 +158,42 @@ async function renderVariants(filePath) {
   return { full, thumb };
 }
 
+async function renderPlaceholder() {
+  const full = await sharp({
+    create: {
+      width: PLACEHOLDER_FULL_SIZE,
+      height: PLACEHOLDER_FULL_SIZE,
+      channels: 3,
+      background: { r: 248, g: 246, b: 241 },
+    },
+  })
+    .webp({ quality: 82, effort: 4 })
+    .toBuffer();
+
+  const thumb = await sharp({
+    create: {
+      width: PLACEHOLDER_THUMB_SIZE,
+      height: PLACEHOLDER_THUMB_SIZE,
+      channels: 3,
+      background: { r: 248, g: 246, b: 241 },
+    },
+  })
+    .webp({ quality: 72, effort: 3 })
+    .toBuffer();
+
+  return { full, thumb };
+}
+
 async function processFile(file, index, total, manifest) {
   const { category, title, fullKey, thumbKey } = buildKeys(file.rel);
   const label = `[${String(index).padStart(String(total).length, '0')}/${total}]`;
 
   try {
-    const { full, thumb } = await renderVariants(file.full);
+    const size = fs.statSync(file.full).size;
+    const emptySource = size === 0;
+    const { full, thumb } = emptySource
+      ? await renderPlaceholder()
+      : await renderVariants(file.full);
     await uploadWithRetry(fullKey, full, 'image/webp', 'public, max-age=31536000, immutable');
     await uploadWithRetry(thumbKey, thumb, 'image/webp', 'public, max-age=31536000, immutable');
 
@@ -172,7 +204,7 @@ async function processFile(file, index, total, manifest) {
       name: title,
     });
 
-    process.stdout.write(`${label} uploaded ${title}\n`);
+    process.stdout.write(`${label} ${emptySource ? 'placeholder' : 'uploaded'} ${title}\n`);
   } catch (error) {
     process.stdout.write(`${label} failed ${title}: ${error.message}\n`);
   }
