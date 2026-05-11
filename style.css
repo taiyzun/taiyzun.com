@@ -1248,36 +1248,59 @@ h1 {
   .hamburger {
     display: none !important;
   }
-  
-  header {
+
+  /* Desktop nav structure */
+  #mainNav {
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
     width: 100% !important;
     height: auto !important;
-    transform: none !important;
-    background: none !important;
-    padding: 20px !important;
-    display: block !important;
-    z-index: 100 !important;
+    padding: 8px 15px !important;
+    background: rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(8px) !important;
+    z-index: 1000 !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
   }
-  
-  nav {
-    display: inline-block !important;
-    transform: none !important;
+
+  /* Desktop nav links always visible */
+  .nav-links {
+    display: flex !important;
+    flex-direction: row !important;
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
     opacity: 1 !important;
     visibility: visible !important;
-    flex-direction: row !important;
-    gap: 0 !important;
   }
-  
-  nav a {
+
+  .nav-links a {
     display: inline-block !important;
     opacity: 1 !important;
     transform: none !important;
     font-size: 14px !important;
     padding: 10px 18px !important;
     margin: 0 6px !important;
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active {
+    background: rgba(0, 119, 190, 0.3) !important;
+    color: #FFC107 !important;
+  }
+
+  .logo {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    color: #FFC107 !important;
+    text-decoration: none !important;
   }
 }
 
@@ -1287,23 +1310,60 @@ h1 {
   .hamburger {
     display: none;
   }
-  
-  /* Ensure desktop header navigation is visible */
-  header nav {
-    display: flex !important;
-  }
-  
-  /* Reset any mobile-specific header styles */
-  header {
+
+  /* Ensure desktop navigation is visible */
+  #mainNav {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: auto;
-    padding: 8px 12px; /* Reduced from 10px 15px */
-    background: rgba(0, 0, 0, 0.4); /* Enhanced background to prevent overlap */
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(15px);
-    z-index: 1001; /* Higher z-index to ensure it stays on top */
+    z-index: 1001;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Show desktop navigation links */
+  .nav-links {
+    display: flex !important;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 0;
+  }
+
+  .nav-links li {
+    display: inline-block;
+  }
+
+  .nav-links a {
+    display: inline-block;
+    padding: 10px 18px;
+    margin: 0 6px;
+    color: #FFFFFF;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active {
+    background: rgba(0, 119, 190, 0.3);
+    color: #FFC107;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #FFC107;
+    text-decoration: none;
+    font-weight: 600;
   }
 }
 
