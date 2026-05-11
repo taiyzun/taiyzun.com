@@ -25,6 +25,76 @@
 }
 
 /* ──────────────────────────────────────────────────────────────────────────
+   GLOBAL PADDING SYSTEM - All Pages & Content
+   Ensures breathing room for ALL content from viewport edges
+   ────────────────────────────────────────────────────────────────────────── */
+
+/* Main content sections - add horizontal padding */
+section, main, article, .section-bg, .section, .container, .wrapper {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  box-sizing: border-box;
+}
+
+/* Hero sections and full-width overlays - maintain full width but add inner padding */
+.hero, .page-hero, .hero-content {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  box-sizing: border-box;
+}
+
+/* Navigation and header elements */
+nav, .nav-container, header, .header-nav {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  box-sizing: border-box;
+}
+
+/* Grid and flex containers */
+.about-grid, .grid, .flex-container, .card-grid, .highlight-grid,
+.gallery-grid, .content-grid, .layout-grid {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  box-sizing: border-box;
+}
+
+/* Responsive padding - Tablet */
+@media (max-width: 1024px) {
+  section, main, article, .section-bg, .section, .container, .wrapper,
+  .hero, .page-hero, .hero-content,
+  nav, .nav-container, header, .header-nav,
+  .about-grid, .grid, .flex-container, .card-grid, .highlight-grid,
+  .gallery-grid, .content-grid, .layout-grid {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+/* Responsive padding - Tablet Portrait */
+@media (max-width: 768px) {
+  section, main, article, .section-bg, .section, .container, .wrapper,
+  .hero, .page-hero, .hero-content,
+  nav, .nav-container, header, .header-nav,
+  .about-grid, .grid, .flex-container, .card-grid, .highlight-grid,
+  .gallery-grid, .content-grid, .layout-grid {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Responsive padding - Mobile */
+@media (max-width: 480px) {
+  section, main, article, .section-bg, .section, .container, .wrapper,
+  .hero, .page-hero, .hero-content,
+  nav, .nav-container, header, .header-nav,
+  .about-grid, .grid, .flex-container, .card-grid, .highlight-grid,
+  .gallery-grid, .content-grid, .layout-grid {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
    COMPREHENSIVE BORDER PADDING SYSTEM
    Ensures proper spacing for all bordered elements across all pages
    ────────────────────────────────────────────────────────────────────────── */
