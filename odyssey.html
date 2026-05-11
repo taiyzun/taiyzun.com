@@ -50,6 +50,7 @@
   <link rel="stylesheet" href="/css/design-principles.min.css">
   <link rel="stylesheet" href="/css/white-theme.min.css?v=2">
   <link rel="stylesheet" href="/css/padding-fix.css?v=1">
+  <link rel="stylesheet" href="/css/gallery-visual-fix.css?v=1">
 </head>
 <body class="odyssey-page">  <style>.skip-link{position:absolute;top:-44px;left:1rem;padding:0.6rem 1.2rem;background:var(--gold);color:#0a0a0f;font-size:0.8rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;border-radius:0 0 4px 4px;transition:top 0.2s ease;z-index:9999;}.skip-link:focus{top:0;}</style>  <a href="#main-content" class="skip-link">Skip to main content</a>
 <div class="cursor-glow" id="cursorGlow"></div>
@@ -74,21 +75,22 @@
   <div class="page-hero-video" style="display: none;"><canvas id="heroBg" aria-hidden="true"></canvas></div>
   <div data-webgl="odyssey-narrative" style="display: none; position: absolute; inset: 0; z-index: 2; pointer-events: none;"></div>
   <div class="page-hero-overlay"></div>
-  <picture><source srcset="assets/decorative/@TZ breaThain 0005 layer 20 [2720x1869].png" type="image/png"><img src="assets/decorative/@TZ breaThain 0005 layer 20 [2720x1869].png" alt="" class="hero-decorative-png parallax-el" style="top:12%;right:2%;width:200px;opacity:0.13;" aria-hidden="true" data-speed="0.18" loading="lazy"></picture></picture>
-  <picture><source srcset="assets/decorative/@TZ breaThain 0009 layer 21 [3322x2728].png" type="image/png"><img src="assets/decorative/@TZ breaThain 0009 layer 21 [3322x2728].png" alt="" class="hero-decorative-png parallax-el" style="bottom:8%;left:4%;width:180px;opacity:0.12;" aria-hidden="true" data-speed="0.15" loading="lazy"></picture></picture>
+  <picture><source srcset="assets/decorative/@TZ breaThain 0005 layer 20 [2720x1869].png" type="image/png"><img src="assets/decorative/@TZ breaThain 0005 layer 20 [2720x1869].png" alt="" class="hero-decorative-png parallax-el" style="top:12%;right:2%;width:200px;opacity:0.13;" aria-hidden="true" data-speed="0.18" loading="lazy"></picture>
+  <picture><source srcset="assets/decorative/@TZ breaThain 0009 layer 21 [3322x2728].png" type="image/png"><img src="assets/decorative/@TZ breaThain 0009 layer 21 [3322x2728].png" alt="" class="hero-decorative-png parallax-el" style="bottom:8%;left:4%;width:180px;opacity:0.12;" aria-hidden="true" data-speed="0.15" loading="lazy"></picture>
   <div class="page-hero-content">
     <h1>Odyssey: From <em>Taiyzun</em> to Sp@cE to Tai</h1>
     <p class="intro">Embark on a profound journey through early life experiences, artistic explorations, and creative transformation. Witness the evolution from Taiyzun to Sp@cE to Tai, beautifully illustrated through captivating portraits and intimate personal narratives that unveil a story of continual growth, self-discovery, and creative awakening.</p>
-    <span class="coming-soon">Coming Soon…</span>
+    <span class="coming-soon">Portrait Gallery Live</span>
   </div>
 </div>
 <div class="gallery-section" id="main-content" style="position:relative;">
-  <picture><source srcset="assets/easter-eggs/epoch.avif" type="image/avif"><source srcset="assets/easter-eggs/epoch.webp" type="image/webp"><img src="assets/easter-eggs/epoch.png" alt="" class="easter-egg ee-mandala parallax-el" style="top:-20px;right:-15px;width:80px;opacity:0.05;filter:brightness(0.5) saturate(0.5);" aria-hidden="true" data-speed="0.2" loading="lazy" loading="lazy" loading="lazy" loading="lazy" loading="lazy" loading="lazy" loading="lazy" loading="lazy" loading="lazy" loading="lazy" loading="lazy"></picture></picture></picture></picture></picture></picture></picture></picture></picture></picture></picture>
+  <picture><source srcset="assets/easter-eggs/epoch.avif" type="image/avif"><source srcset="assets/easter-eggs/epoch.webp" type="image/webp"><img src="assets/easter-eggs/epoch.png" alt="" class="easter-egg ee-mandala parallax-el" style="top:-20px;right:-15px;width:80px;opacity:0.05;filter:brightness(0.5) saturate(0.5);" aria-hidden="true" data-speed="0.2" loading="lazy"></picture>
   <div class="gallery-label reveal animate-on-scroll">
     <p class="section-label">Portrait Journey</p>
     <h2>A visual exploration through the personal odyssey</h2>
     <p style="color:var(--text-secondary);font-weight:300;font-size:0.95rem;margin-top:0.5rem;">Capturing moments of transformation, reflection, and creative evolution.</p>
   </div>
+  <p class="gallery-meta reveal animate-on-scroll"><span id="portraitCount">36</span> portraits</p>
   <div class="gallery-grid" id="galleryGrid"></div>
 </div>
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
@@ -115,7 +117,7 @@
   <div class="lb-progress"><div class="lb-progress-bar" id="lbProgressBar"></div></div>
 </div>
 <footer>
-  <picture><source srcset="assets/easter-eggs/stingray.avif" type="image/avif"><source srcset="assets/easter-eggs/stingray.webp" type="image/webp"><img src="assets/easter-eggs/stingray.png" alt="" class="easter-egg parallax-el" style="top:-25px;left:5%;width:70px;opacity:0.04;filter:brightness(0.4) sepia(0.4);" aria-hidden="true" data-speed="-0.15" loading="lazy" loading="lazy" loading="lazy" loading="lazy" loading="lazy" loading="lazy" loading="lazy" loading="lazy" loading="lazy" loading="lazy" loading="lazy"></picture></picture></picture></picture></picture></picture></picture></picture></picture></picture></picture>
+  <picture><source srcset="assets/easter-eggs/stingray.avif" type="image/avif"><source srcset="assets/easter-eggs/stingray.webp" type="image/webp"><img src="assets/easter-eggs/stingray.png" alt="" class="easter-egg parallax-el" style="top:-25px;left:5%;width:70px;opacity:0.04;filter:brightness(0.4) sepia(0.4);" aria-hidden="true" data-speed="-0.15" loading="lazy"></picture>
   <div class="social-links">
     <a href="https://www.instagram.com/taiyzun" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg></a>
     <a href="https://www.facebook.com/taiyzun" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
@@ -201,6 +203,8 @@
   let touchStartX = 0, touchStartY = 0;
 
   lbTotal.textContent = portraits.length;
+  const portraitCount = document.getElementById('portraitCount');
+  if (portraitCount) portraitCount.textContent = portraits.length;
 
   /* ── Build filmstrip ── */
   portraits.forEach((p, i) => {
@@ -240,7 +244,10 @@
     lbImg.classList.remove('zoomed');
     currentIdx = i;
     const num = String(i+1).padStart(5,'0');
-    lbImg.src = 'assets/Portraits/optimized/taiyzun_shahpurwala-' + num + '-w1200.webp';
+    const webpSrc = 'assets/Portraits/optimized/taiyzun_shahpurwala-' + num + '-w1200.webp';
+    const jpegSrc = 'assets/Portraits/taiyzun_shahpurwala ' + num + '.jpeg';
+    lbImg.onerror = () => { lbImg.onerror = null; lbImg.src = jpegSrc; };
+    lbImg.src = webpSrc;
     lbImg.alt = portraits[i].title;
     lbTitle.textContent = portraits[i].title;
     lbSub.textContent = portraits[i].sub;
