@@ -76,8 +76,11 @@ footer {
 
 .home-page .hero-content {
   grid-column: 1 / span 2;
-  width: min(100%, 1080px);
-  margin-left: clamp(0rem, 5vw, 8rem);
+  width: min(1080px, calc(100vw - (2 * var(--tai-gutter))));
+  max-width: calc(100vw - (2 * var(--tai-gutter)));
+  margin-left: clamp(0rem, 4vw, 5rem);
+  margin-right: auto;
+  box-sizing: border-box;
 }
 
 body.home-page {
@@ -93,6 +96,42 @@ body.home-page .hero {
 
 body.home-page .hero-content {
   transform: translateY(clamp(-0.5rem, -1vh, 0rem));
+  gap: clamp(0.55rem, 1.2vw, 0.9rem);
+  padding: clamp(1rem, 2.2vw, 2.1rem);
+}
+
+body.home-page .hero-logo {
+  width: clamp(96px, 14vw, 170px);
+  margin-bottom: clamp(0.2rem, 0.8vw, 0.55rem);
+}
+
+body.home-page .hero-eyebrow {
+  margin-bottom: clamp(0.35rem, 0.8vw, 0.7rem);
+}
+
+body.home-page .hero-title,
+body.home-page .hero-subtitle,
+body.home-page .hero-cta-group {
+  max-width: 100%;
+}
+
+body.home-page .hero-title {
+  font-size: clamp(2.4rem, 6.4vw, 5.2rem);
+  line-height: 0.98;
+  margin-bottom: clamp(0.6rem, 1.3vw, 1rem);
+  overflow-wrap: normal;
+}
+
+body.home-page .hero-subtitle {
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: clamp(0.85rem, 1.8vw, 1.35rem);
+  line-height: 1.58;
+}
+
+body.home-page .hero-cta-group {
+  margin-top: clamp(0.65rem, 1.4vw, 1.1rem);
+  gap: clamp(0.7rem, 1.5vw, 1.1rem);
 }
 
 body.home-page .section-bg {
@@ -421,6 +460,31 @@ body.creations-page .lb-img-wrap img,
 
   body.home-page .hero {
     min-height: clamp(520px, 78svh, 680px);
+  }
+
+  body.home-page .hero-content {
+    gap: 0.5rem;
+    padding: clamp(0.9rem, 4vw, 1.25rem);
+  }
+
+  body.home-page .hero-logo {
+    width: clamp(78px, 21vw, 108px);
+  }
+
+  body.home-page .hero-title {
+    font-size: clamp(2.15rem, 12vw, 3.55rem);
+    line-height: 1;
+    margin-bottom: 0.55rem;
+  }
+
+  body.home-page .hero-subtitle {
+    font-size: clamp(0.92rem, 3.8vw, 1rem);
+    line-height: 1.48;
+    margin-bottom: 0.65rem;
+  }
+
+  body.home-page .hero-cta-group {
+    margin-top: 0.45rem;
   }
 
   body.home-page .section-bg {

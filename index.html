@@ -156,7 +156,7 @@
   <link rel="stylesheet" href="/css/ambient-video.css?v=4">
   <link rel="stylesheet" href="/css/site-decorative-field.css?v=3">
   <link rel="stylesheet" href="/css/mily-inspired-system.css?v=2">
-  <link rel="stylesheet" href="/css/visual-protocol.min.css?v=7">
+  <link rel="stylesheet" href="/css/visual-protocol.min.css?v=9">
   <link rel="stylesheet" href="/css/mobile-menu.css?v=1">
 <!-- Performance: Preload critical CSS -->
 <link rel="preload" href="/css/white-theme.min.css?v=3" as="style">
@@ -290,7 +290,17 @@
   function spawnParticle() { const p = document.createElement('div'); p.className = 'particle'; p.style.left = Math.random() * 100 + '%'; p.style.animationDuration = (10 + Math.random() * 15) + 's'; p.style.animationDelay = Math.random() * 3 + 's'; const s = 1 + Math.random() * 2.5; p.style.width = s + 'px'; p.style.height = s + 'px'; pc.appendChild(p); setTimeout(() => { p.remove(); spawnParticle(); }, (parseFloat(p.style.animationDuration) + parseFloat(p.style.animationDelay)) * 1000); }
   for (let i = 0; i < 18; i++) setTimeout(() => spawnParticle(), i * 300);
   const hc = document.querySelector('.hero-content'), si = document.querySelector('.scroll-indicator');
-  window.addEventListener('scroll', () => { const s = window.scrollY; if (s < window.innerHeight) { hc.style.transform = 'translateY(' + (s * 0.35) + 'px)'; hc.style.opacity = Math.max(0, 1 - s / (window.innerHeight * 0.65)); si.style.opacity = Math.max(0, 1 - s / (window.innerHeight * 0.65) - 0.3); } });
+  window.addEventListener('scroll', () => {
+    const s = window.scrollY;
+    const fadeDistance = window.innerHeight * 1.15;
+    if (s < fadeDistance) {
+      hc.style.transform = 'translateY(' + (s * 0.16) + 'px)';
+      hc.style.opacity = Math.max(0.18, 1 - s / fadeDistance);
+      si.style.opacity = Math.max(0, 1 - s / (window.innerHeight * 0.95) - 0.25);
+    } else {
+      hc.style.opacity = 0.18;
+    }
+  });
   document.querySelectorAll('.highlight-card').forEach(card => { card.addEventListener('mousemove', (e) => { const r = card.getBoundingClientRect(); card.style.transform = 'translateX(' + ((e.clientX - r.left - r.width/2) * 0.06 + 8) + 'px) translateY(' + ((e.clientY - r.top - r.height/2) * 0.04) + 'px)'; }); card.addEventListener('mouseleave', () => card.style.transform = ''); });
   document.querySelectorAll('.value-item').forEach(item => { item.addEventListener('mousemove', (e) => { const r = item.getBoundingClientRect(); const x = (e.clientX - r.left) / r.width - 0.5; const y = (e.clientY - r.top) / r.height - 0.5; item.style.transform = 'translateY(-8px) perspective(600px) rotateX(' + (-y*8) + 'deg) rotateY(' + (x*8) + 'deg)'; }); item.addEventListener('mouseleave', () => item.style.transform = ''); });
 
