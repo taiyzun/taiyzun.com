@@ -80,6 +80,74 @@ footer {
   margin-left: clamp(0rem, 5vw, 8rem);
 }
 
+body.home-page {
+  --tai-home-section-pad: clamp(2.2rem, 4.5vw, 4.8rem);
+  --tai-home-section-gap: clamp(1.4rem, 3vw, 3.6rem);
+}
+
+body.home-page .hero {
+  min-height: clamp(560px, 74vh, 820px);
+  padding-top: clamp(4.5rem, 8vh, 6.5rem);
+  padding-bottom: clamp(2.5rem, 5vh, 4.5rem);
+}
+
+body.home-page .hero-content {
+  transform: translateY(clamp(-0.5rem, -1vh, 0rem));
+}
+
+body.home-page .section-bg {
+  padding-top: var(--tai-home-section-pad);
+  padding-bottom: var(--tai-home-section-pad);
+}
+
+body.home-page .divider {
+  margin-block: 0;
+}
+
+body.home-page .about-grid {
+  gap: clamp(1.6rem, 3.2vw, 3.4rem);
+  margin-top: 0;
+  padding: clamp(1.35rem, 2.7vw, 2.6rem);
+}
+
+body.home-page .about-text p {
+  margin-bottom: clamp(0.9rem, 1.8vw, 1.4rem);
+}
+
+body.home-page .about-highlights {
+  gap: clamp(0.85rem, 1.7vw, 1.4rem);
+  margin-top: clamp(0.9rem, 1.8vw, 1.5rem);
+}
+
+body.home-page .highlight-card {
+  padding: clamp(1rem, 1.9vw, 1.55rem);
+}
+
+body.home-page .bio-section {
+  margin-top: var(--tai-home-section-gap);
+  margin-bottom: var(--tai-home-section-gap);
+  padding: clamp(1.5rem, 3vw, 2.8rem);
+}
+
+body.home-page .bio-blockquote {
+  font-size: clamp(1.04rem, 1.5vw, 1.22rem);
+  line-height: 1.65;
+}
+
+body.home-page .values-row {
+  gap: clamp(1rem, 2.2vw, 2rem);
+  margin-top: clamp(1.1rem, 2vw, 1.8rem);
+}
+
+body.home-page .value-item {
+  padding: clamp(1rem, 2vw, 1.6rem);
+}
+
+body.home-page footer {
+  padding-top: clamp(2rem, 4vw, 3.5rem);
+  padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}
+
 .hero-content,
 .page-hero-content,
 .gallery-label,
@@ -349,6 +417,20 @@ body.creations-page .lb-img-wrap img,
   body.odyssey-page .lb-img-wrap,
   body.creations-page .lb-img-wrap {
     aspect-ratio: auto;
+  }
+
+  body.home-page .hero {
+    min-height: clamp(520px, 78svh, 680px);
+  }
+
+  body.home-page .section-bg {
+    padding-top: clamp(1.8rem, 8vw, 3.2rem);
+    padding-bottom: clamp(1.8rem, 8vw, 3.2rem);
+  }
+
+  body.home-page .about-grid {
+    gap: 1.4rem;
+    padding: clamp(1rem, 5vw, 1.6rem);
   }
 }
 
