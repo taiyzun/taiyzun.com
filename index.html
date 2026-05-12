@@ -167,14 +167,14 @@
 <link rel="prefetch" href="/connect.html">
 <!-- Theme System & Animations -->
 <!-- Animation Libraries -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <!-- 3D/Canvas Libraries -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/8.0.0/pixi.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/8.0.0/pixi.min.js"></script>
 <!-- Theme Configuration & Engine -->
 <script defer src="/js/themes-config.min.js"></script>
-<script src="/js/theme-engine.min.js"></script>
+<script defer src="/js/theme-engine.min.js"></script>
 <!-- Animation Controller & WebGL Manager -->
 <script defer src="/js/animation-controller.min.js"></script>
 <script defer src="/js/webgl-manager.js?v=2"></script>
@@ -214,7 +214,11 @@
   <div class="hero-scan"></div>
 <div class="particles" id="particles"></div>
   <div class="hero-content">
-    <img src="assets/images/Taiyzun-logo.png" alt="Taiyzun" class="hero-logo">
+    <picture>
+      <source srcset="assets/images/Taiyzun-logo-200w.avif" type="image/avif">
+      <source srcset="assets/images/Taiyzun-logo-200w.webp" type="image/webp">
+      <img src="assets/images/Taiyzun-logo-200w.webp" alt="Taiyzun" class="hero-logo" width="200" height="200" fetchpriority="high" decoding="async">
+    </picture>
     <p class="hero-eyebrow">Director <span class="dot"></span> Strategist <span class="dot"></span> Peacekeeper</p>
     <h1 class="hero-title">Welcome to<br><em>Taiyzun's</em> Universe</h1>
     <p class="hero-subtitle">Serving as Director at the Office of Dr. Huzaifa Khorakiwala, dedicated Core Team Member of the I Am Peacekeeper Movement, and architect of meaningful global initiatives.</p>
