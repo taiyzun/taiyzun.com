@@ -103,6 +103,61 @@
 
   doc.querySelectorAll(keywordSelectors).forEach(decorateKeyText);
 
+
+
+  const blockThemeSelector = [
+    '.hero-content', '.page-hero-content', '.about-grid', '.highlight-card', '.value-item',
+    '.bio-section', '.timeline-category', '.gallery-label', '.connect-label',
+    '.contact-form', '.social-card', '.info-card'
+  ].join(',');
+
+  const themeRules = [
+    { theme: 'peace', pattern: /peace|peacekeeper|harmony|love|global|movement|billionaires/i },
+    { theme: 'ceremony', pattern: /award|nobel|summit|conclave|laureate|felicitat|honou?r|justice/i },
+    { theme: 'technology', pattern: /technology|information|digital|website|erp|sap|process|research|data|systems/i },
+    { theme: 'art', pattern: /art|creative|portfolio|visual|design|storytelling|fashion|craft|gallery/i },
+    { theme: 'values', pattern: /truth|sincerity|integrity|vision|purpose|authentic|principle/i },
+    { theme: 'journey', pattern: /journey|role|career|education|exploration|founding|entrepreneur|media|current|recent/i },
+    { theme: 'connect', pattern: /connect|contact|social|instagram|facebook|linkedin|youtube|threads|message|email/i },
+    { theme: 'origin', pattern: /born|early|life|family|father|bombay|mumbai|india/i }
+  ];
+
+  function themeForText(text) {
+    const clean = String(text || '').replace(/\s+/g, ' ').trim();
+    const found = themeRules.find((rule) => rule.pattern.test(clean));
+    return found ? found.theme : 'orbit';
+  }
+
+  function applyBlockThemes() {
+    doc.querySelectorAll(blockThemeSelector).forEach((node, index) => {
+      if (node.dataset.harmonicThemeReady !== 'true') {
+        const theme = themeForText(node.textContent);
+        node.dataset.harmonicThemeReady = 'true';
+        node.dataset.harmonicTheme = theme;
+        node.classList.add('harmonic-themed-block', `harmonic-theme-${theme}`);
+        node.style.setProperty('--block-seed', String(index % 12));
+        node.style.setProperty('--block-delay', `${(index % 8) * -0.37}s`);
+      }
+
+      if (!node.querySelector(':scope > .harmonic-block-motif')) {
+        node.insertBefore(make('harmonic-block-motif'), node.firstChild);
+      }
+    });
+  }
+
+  applyBlockThemes();
+  window.setTimeout(applyBlockThemes, 900);
+  window.setTimeout(applyBlockThemes, 2400);
+
+  if ('MutationObserver' in window) {
+    const themeObserver = new MutationObserver((records) => {
+      if (records.some((record) => record.addedNodes.length || record.removedNodes.length)) {
+        window.requestAnimationFrame(applyBlockThemes);
+      }
+    });
+    themeObserver.observe(body, { childList: true, subtree: true });
+  }
+
   const interactiveSelector = [
     '.hero-content', '.page-hero-content', '.gallery-label', '.connect-label', '.contact-form',
     '.highlight-card', '.value-item', '.timeline-category', '.social-card', '.cat-tab',

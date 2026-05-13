@@ -531,3 +531,122 @@ body.harmonic-ready .harmonic-keyword {
   animation: harmonicTextSheen 6.8s ease-in-out infinite, harmonicWordLift 5.8s ease-in-out infinite;
   animation-delay: var(--keyword-delay, 0s), calc(var(--keyword-delay, 0s) * 0.7);
 }
+
+@keyframes harmonicMotifOrbit {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); opacity: 0.34; }
+  45% { transform: translate3d(10px, -8px, 0) rotate(12deg) scale(1.035); opacity: 0.52; }
+  70% { transform: translate3d(-7px, 5px, 0) rotate(-8deg) scale(0.985); opacity: 0.4; }
+}
+
+@keyframes harmonicMotifTrace {
+  0%, 100% { background-position: 0% 50%; opacity: 0.24; }
+  50% { background-position: 100% 50%; opacity: 0.5; }
+}
+
+body.harmonic-ready .harmonic-themed-block {
+  position: relative;
+  isolation: isolate;
+  --motif-a: rgba(202, 168, 84, 0.18);
+  --motif-b: rgba(255, 255, 255, 0.34);
+  --motif-c: rgba(84, 64, 31, 0.12);
+}
+
+body.harmonic-ready .harmonic-themed-block > :not(.harmonic-block-motif) {
+  position: relative;
+  z-index: 1;
+}
+
+body.harmonic-ready .harmonic-block-motif {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0.72;
+  overflow: hidden;
+  mix-blend-mode: multiply;
+}
+
+body.harmonic-ready .harmonic-block-motif::before,
+body.harmonic-ready .harmonic-block-motif::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  animation: harmonicMotifOrbit calc(13s + (var(--block-seed, 0) * 0.7s)) ease-in-out infinite;
+  animation-delay: var(--block-delay, 0s);
+}
+
+body.harmonic-ready .harmonic-block-motif::before {
+  width: clamp(140px, 22vw, 360px);
+  aspect-ratio: 1;
+  right: clamp(-120px, -7vw, -32px);
+  bottom: clamp(-130px, -8vw, -40px);
+  border-radius: 50%;
+  border: 1px solid var(--motif-a);
+  background:
+    radial-gradient(circle, transparent 0 33%, var(--motif-a) 33.6% 34.4%, transparent 35% 100%),
+    radial-gradient(circle at 38.2% 50%, transparent 0 22%, var(--motif-b) 22.4% 23%, transparent 23.6% 100%),
+    radial-gradient(circle at 61.8% 50%, transparent 0 22%, var(--motif-b) 22.4% 23%, transparent 23.6% 100%);
+}
+
+body.harmonic-ready .harmonic-block-motif::after {
+  width: clamp(180px, 32vw, 520px);
+  height: clamp(80px, 14vw, 190px);
+  left: clamp(-130px, -8vw, -40px);
+  top: clamp(18px, 12%, 80px);
+  background:
+    linear-gradient(90deg, transparent, var(--motif-a), transparent),
+    repeating-linear-gradient(90deg, transparent 0 18px, var(--motif-c) 19px 20px, transparent 21px 42px);
+  background-size: 220% 100%, auto;
+  animation-name: harmonicMotifTrace;
+}
+
+body.harmonic-ready .harmonic-theme-peace { --motif-a: rgba(139, 161, 103, 0.24); --motif-b: rgba(202, 168, 84, 0.2); --motif-c: rgba(85, 125, 85, 0.12); }
+body.harmonic-ready .harmonic-theme-ceremony { --motif-a: rgba(202, 168, 84, 0.28); --motif-b: rgba(255, 234, 178, 0.26); --motif-c: rgba(110, 82, 26, 0.14); }
+body.harmonic-ready .harmonic-theme-technology { --motif-a: rgba(95, 138, 156, 0.22); --motif-b: rgba(202, 168, 84, 0.16); --motif-c: rgba(45, 95, 112, 0.14); }
+body.harmonic-ready .harmonic-theme-art { --motif-a: rgba(189, 126, 92, 0.22); --motif-b: rgba(202, 168, 84, 0.2); --motif-c: rgba(146, 80, 64, 0.12); }
+body.harmonic-ready .harmonic-theme-values { --motif-a: rgba(157, 127, 63, 0.26); --motif-b: rgba(255, 255, 255, 0.38); --motif-c: rgba(86, 66, 31, 0.14); }
+body.harmonic-ready .harmonic-theme-journey { --motif-a: rgba(136, 116, 91, 0.24); --motif-b: rgba(202, 168, 84, 0.18); --motif-c: rgba(98, 75, 54, 0.14); }
+body.harmonic-ready .harmonic-theme-connect { --motif-a: rgba(96, 132, 142, 0.2); --motif-b: rgba(202, 168, 84, 0.18); --motif-c: rgba(66, 92, 102, 0.13); }
+body.harmonic-ready .harmonic-theme-origin { --motif-a: rgba(178, 126, 80, 0.2); --motif-b: rgba(202, 168, 84, 0.16); --motif-c: rgba(120, 74, 42, 0.12); }
+
+body.harmonic-ready .harmonic-theme-technology .harmonic-block-motif::before {
+  border-radius: 20%;
+  background:
+    linear-gradient(90deg, transparent 49%, var(--motif-a) 50%, transparent 51%),
+    linear-gradient(0deg, transparent 49%, var(--motif-c) 50%, transparent 51%),
+    radial-gradient(circle at 33% 33%, var(--motif-b) 0 5px, transparent 6px),
+    radial-gradient(circle at 67% 67%, var(--motif-a) 0 4px, transparent 5px);
+}
+
+body.harmonic-ready .harmonic-theme-art .harmonic-block-motif::before {
+  border-radius: 42% 58% 61% 39%;
+  background: conic-gradient(from 144deg, transparent, var(--motif-a), var(--motif-b), transparent 72%);
+}
+
+body.harmonic-ready .harmonic-theme-journey .harmonic-block-motif::after,
+body.harmonic-ready .harmonic-theme-origin .harmonic-block-motif::after {
+  width: 2px;
+  height: 82%;
+  left: clamp(22px, 6vw, 72px);
+  top: 9%;
+  background: linear-gradient(180deg, transparent, var(--motif-a), transparent);
+}
+
+body.harmonic-ready .harmonic-theme-connect .harmonic-block-motif::before {
+  background:
+    radial-gradient(circle at 28% 36%, var(--motif-a) 0 6px, transparent 7px),
+    radial-gradient(circle at 62% 62%, var(--motif-b) 0 7px, transparent 8px),
+    linear-gradient(35deg, transparent 47%, var(--motif-c) 48% 50%, transparent 51%);
+}
+
+@media (max-width: 700px) {
+  body.harmonic-ready .harmonic-block-motif { opacity: 0.42; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.harmonic-ready .harmonic-block-motif::before,
+  body.harmonic-ready .harmonic-block-motif::after {
+    animation: none !important;
+  }
+}
