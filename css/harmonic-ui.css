@@ -446,3 +446,88 @@ body.harmonic-ready.home-page .scroll-indicator {
     display: none;
   }
 }
+
+/* Decorative PNGs are positioned and animated by site-decorative-field.js. */
+body.harmonic-ready .site-decorative-png {
+  animation: none !important;
+}
+
+body.harmonic-ready.home-page .scroll-indicator {
+  display: none !important;
+}
+
+@keyframes harmonicTextSheen {
+  0% { background-position: 0% 50%; filter: drop-shadow(0 0 0 rgba(202, 168, 84, 0)); }
+  45% { background-position: 100% 50%; filter: drop-shadow(0 10px 24px rgba(202, 168, 84, 0.16)); }
+  100% { background-position: 0% 50%; filter: drop-shadow(0 0 0 rgba(202, 168, 84, 0)); }
+}
+
+@keyframes harmonicWordLift {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -0.06em, 0); }
+}
+
+body.harmonic-ready .hero-title em,
+body.harmonic-ready .page-hero h1 em,
+body.harmonic-ready .section-title,
+body.harmonic-ready .gallery-label h2,
+body.harmonic-ready .connect-label h2,
+body.harmonic-ready .category-header h2,
+body.harmonic-ready .highlight-card h3,
+body.harmonic-ready .value-item h3,
+body.harmonic-ready .gold,
+body.harmonic-ready strong {
+  background-image: linear-gradient(115deg, #211a13 0%, #b88d3f 26%, #d8c49a 44%, #6f5527 62%, #201a14 100%);
+  background-size: 230% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: harmonicTextSheen 7.8s ease-in-out infinite;
+}
+
+body.harmonic-ready .hero-title em,
+body.harmonic-ready .page-hero h1 em,
+body.harmonic-ready .gold,
+body.harmonic-ready strong {
+  display: inline-block;
+  animation: harmonicTextSheen 7.8s ease-in-out infinite, harmonicWordLift 6.4s ease-in-out infinite;
+}
+
+body.harmonic-ready .highlight-card:nth-child(2n) h3,
+body.harmonic-ready .value-item:nth-child(2n) h3,
+body.harmonic-ready .timeline-category:nth-child(2n) .category-header h2 {
+  animation-delay: -2.1s;
+}
+
+body.harmonic-ready .highlight-card:nth-child(3n) h3,
+body.harmonic-ready .value-item:nth-child(3n) h3,
+body.harmonic-ready .timeline-category:nth-child(3n) .category-header h2 {
+  animation-delay: -4.2s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.harmonic-ready .hero-title em,
+  body.harmonic-ready .page-hero h1 em,
+  body.harmonic-ready .section-title,
+  body.harmonic-ready .gallery-label h2,
+  body.harmonic-ready .connect-label h2,
+  body.harmonic-ready .category-header h2,
+  body.harmonic-ready .highlight-card h3,
+  body.harmonic-ready .value-item h3,
+  body.harmonic-ready .gold,
+  body.harmonic-ready strong {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+body.harmonic-ready .harmonic-keyword {
+  display: inline-block;
+  background-image: linear-gradient(112deg, #2a2118 0%, #a77934 30%, #d7bd82 48%, #7b5a26 66%, #2a2118 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: harmonicTextSheen 6.8s ease-in-out infinite, harmonicWordLift 5.8s ease-in-out infinite;
+  animation-delay: var(--keyword-delay, 0s), calc(var(--keyword-delay, 0s) * 0.7);
+}

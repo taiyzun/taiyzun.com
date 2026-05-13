@@ -270,25 +270,16 @@
 
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const pageLoadNonce = `${pageKey}:${Date.now().toString(36)}:${Math.random().toString(36).slice(2, 10)}`;
-  const deckStorageKey = "taiyzunDecorativeDeckV7";
-  const anchorPresets = [
-    { x: [2, 10], y: [4, 16] },
-    { x: [86, 96], y: [4, 16] },
-    { x: [4, 12], y: [24, 38] },
-    { x: [88, 96], y: [24, 38] },
-    { x: [7, 16], y: [44, 58] },
-    { x: [84, 94], y: [44, 58] },
-    { x: [2, 12], y: [66, 82] },
-    { x: [86, 96], y: [66, 82] },
-    { x: [16, 28], y: [8, 22] },
-    { x: [72, 84], y: [8, 22] },
-    { x: [16, 30], y: [58, 76] },
-    { x: [70, 84], y: [58, 76] },
-    { x: [32, 42], y: [10, 22] },
-    { x: [58, 68], y: [10, 22] },
-    { x: [30, 42], y: [64, 82] },
-    { x: [58, 70], y: [64, 82] }
+  const deckStorageKey = "taiyzunDecorativeDeckV8";
+  const horizontalLanes = [
+    { name: "far-left", min: 2, max: 12 },
+    { name: "left", min: 13, max: 27 },
+    { name: "centre-left", min: 29, max: 43 },
+    { name: "centre-right", min: 57, max: 71 },
+    { name: "right", min: 73, max: 87 },
+    { name: "far-right", min: 88, max: 98 }
   ];
+  const laneOrder = [0, 5, 2, 4, 1, 3, 5, 0, 4, 2, 3, 1];
   const motionVariants = [
     { key: "drift-nw", pattern: "drift", dirX: -1, dirY: -1, rotDir: 1 },
     { key: "drift-ne", pattern: "drift", dirX: 1, dirY: -1, rotDir: -1 },
@@ -501,22 +492,25 @@
   }
 
   function maxItemsForViewport() {
+    const pageMultiplier = Math.max(1, Math.ceil(Math.max(document.body.scrollHeight, window.innerHeight) / Math.max(window.innerHeight, 1)));
+
     if (window.innerWidth >= 1280) {
-      if (pageKey === "home-page") {
-        return 10;
-      }
-      if (pageKey === "connect-page") {
-        return 10;
-      }
-      if (pageKey === "creations-page") {
-        return 9;
-      }
-      return 10;
+      return Math.min(decorativeAssets.length, pageKey === "home-page" ? 24 : 22 + pageMultiplier * 2);
     }
     if (window.innerWidth >= 768) {
-      return 8;
+      return Math.min(18, 10 + pageMultiplier * 2);
     }
-    return 4;
+    return Math.min(9, 5 + pageMultiplier);
+  }
+
+  function familyForAsset(assetPath) {
+    const name = assetPath.toLowerCase();
+    if (name.includes("sword") || name.includes("logo")) return "mark";
+    if (name.includes("earth") || name.includes("ganesh") || name.includes("diya") || name.includes("mandala")) return "spirit";
+    if (name.includes("heart") || name.includes("infinity") || name.includes("suits")) return "symbol";
+    if (name.includes("breathe") || name.includes("sting") || name.includes("ray")) return "organic";
+    if (name.includes("@tz") || name.includes("taiyzun")) return "identity";
+    return "ornament";
   }
 
   function sizeForAsset(assetPath, rng, isHero) {
@@ -609,52 +603,72 @@
   }
 
   function buildSectionSlots() {
-    const sections = targetSections
-      .map((section, sectionIndex) => ({
-        section,
-        sectionIndex,
-        count: countForSection(section),
-        priority: priorityForSection(section)
-      }))
-      .sort((left, right) => right.priority - left.priority || left.sectionIndex - right.sectionIndex);
-
-    const maxRounds = Math.max(...sections.map((entry) => entry.count));
-    const slots = [];
     const maxItems = maxItemsForViewport();
+    const pageHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight, window.innerHeight);
+    const headerSafe = Math.min(pageHeight * 0.06, window.innerHeight * 0.18);
+    const bottomSafe = Math.min(180, window.innerHeight * 0.12);
+    const usableTop = Math.max(84, headerSafe);
+    const usableHeight = Math.max(window.innerHeight * 0.9, pageHeight - usableTop - bottomSafe);
+    const bandCount = Math.max(6, Math.min(maxItems, Math.ceil(pageHeight / Math.max(360, window.innerHeight * 0.42))));
+    const slots = [];
 
-    for (let round = 0; round < maxRounds; round += 1) {
-      for (const entry of sections) {
-        if (slots.length >= maxItems) {
-          return slots;
-        }
-        if (round < entry.count) {
-          slots.push({ section: entry.section, sectionIndex: entry.sectionIndex, slot: round });
-        }
-      }
+    for (let index = 0; index < maxItems; index += 1) {
+      const band = index % bandCount;
+      const round = Math.floor(index / bandCount);
+      const bandTop = usableTop + (usableHeight / bandCount) * band;
+      const bandBottom = usableTop + (usableHeight / bandCount) * (band + 1);
+      const lane = horizontalLanes[laneOrder[(index + round * 3) % laneOrder.length]];
+      const verticalBias = round % 2 === 0 ? 0.32 : 0.68;
+      slots.push({
+        section: targetSections[Math.min(targetSections.length - 1, index % targetSections.length)] || body,
+        sectionIndex: index % Math.max(targetSections.length, 1),
+        slot: index,
+        lane,
+        bandTop,
+        bandBottom,
+        verticalBias
+      });
     }
 
     return slots;
   }
 
   function createPlacement(slotInfo, assetPath, assetIndex, priorPlacements) {
-    const { section, sectionIndex, slot } = slotInfo;
+    const { section, sectionIndex, slot, lane, bandTop, bandBottom, verticalBias } = slotInfo;
     const seed = hashString(`${pageLoadNonce}:${sectionIndex}:${slot}:${assetPath}`);
     const rng = createRng(seed);
-    const isHero = section.matches(".hero, .page-hero");
-    const sectionRect = section.getBoundingClientRect();
-    const documentTop = window.scrollY + sectionRect.top;
-    const sectionHeight = Math.max(section.offsetHeight, isHero ? 420 : 320);
+    const isHero = section.matches && section.matches(".hero, .page-hero");
     const width = sizeForAsset(assetPath, rng, isHero);
-    const sectionAnchors = shuffle(anchorPresets, createRng(hashString(`${pageLoadNonce}:anchor:${sectionIndex}`)));
-    const preset = sectionAnchors[(slot + assetIndex) % sectionAnchors.length];
-    const leftPercent = preset.x[0] + rng() * (preset.x[1] - preset.x[0]);
-    const topPercent = preset.y[0] + rng() * (preset.y[1] - preset.y[0]);
-    const baseX = clamp((window.innerWidth - width) * (leftPercent / 100), -width * 0.24, window.innerWidth - width * 0.58);
-    const baseY = documentTop + sectionHeight * (topPercent / 100) - width * 0.15;
+    const laneInfo = lane || horizontalLanes[slot % horizontalLanes.length];
+    let leftPercent = laneInfo.min + rng() * (laneInfo.max - laneInfo.min);
+    let topPercent = verticalBias + (rng() - 0.5) * 0.42;
+    const bandStart = Number.isFinite(bandTop) ? bandTop : window.scrollY;
+    const bandEnd = Number.isFinite(bandBottom) ? bandBottom : bandStart + window.innerHeight;
+    const bandHeight = Math.max(220, bandEnd - bandStart);
+    let baseX = clamp((window.innerWidth - width) * (leftPercent / 100), -width * 0.18, window.innerWidth - width * 0.82);
+    let baseY = bandStart + bandHeight * clamp(topPercent, 0.16, 0.84) - width * 0.35;
+
+    for (let attempt = 0; attempt < 18; attempt += 1) {
+      const tooClose = priorPlacements.some((entry) => {
+        const thresholdX = Math.max(170, (width + entry.width) * 0.72);
+        const thresholdY = Math.max(220, (width + entry.width) * 0.82);
+        const sameFamily = entry.family === familyForAsset(assetPath);
+        return Math.abs(baseX - entry.baseX) < thresholdX && Math.abs(baseY - entry.baseY) < thresholdY * (sameFamily ? 1.45 : 1);
+      });
+
+      if (!tooClose) break;
+
+      const alternateLane = horizontalLanes[(slot + attempt * 2 + 1) % horizontalLanes.length];
+      leftPercent = alternateLane.min + rng() * (alternateLane.max - alternateLane.min);
+      topPercent = ((attempt % 5) + 0.5) / 5 + (rng() - 0.5) * 0.16;
+      baseX = clamp((window.innerWidth - width) * (leftPercent / 100), -width * 0.18, window.innerWidth - width * 0.82);
+      baseY = bandStart + bandHeight * clamp(topPercent, 0.12, 0.88) - width * 0.35;
+    }
     const motionVariant = pickMotionVariant(baseX, baseY, width, priorPlacements, rng);
     const metrics = motionMetrics(motionVariant.pattern, isHero, rng);
-    const scrollXFactor = (0.045 + rng() * 0.08) * motionVariant.dirX;
-    const scrollYFactor = (0.08 + rng() * 0.14) * motionVariant.dirY;
+    const scrollXFactor = (0.035 + rng() * 0.095) * motionVariant.dirX;
+    const scrollYFactor = (0.115 + rng() * 0.22) * motionVariant.dirY;
+    const scrollSpeedFactor = (0.028 + rng() * 0.055) * (rng() > 0.5 ? 1 : -1);
     const driftAmpX = prefersReducedMotion.matches ? 0 : metrics.ampX;
     const driftAmpY = prefersReducedMotion.matches ? 0 : metrics.ampY;
     const driftSpeed = metrics.speed;
@@ -694,6 +708,7 @@
     image.dataset.baseY = baseY.toFixed(2);
     image.dataset.scrollXFactor = scrollXFactor.toFixed(5);
     image.dataset.scrollYFactor = scrollYFactor.toFixed(5);
+    image.dataset.scrollSpeedFactor = scrollSpeedFactor.toFixed(5);
     image.dataset.driftAmpX = driftAmpX.toFixed(3);
     image.dataset.driftAmpY = driftAmpY.toFixed(3);
     image.dataset.driftSpeed = driftSpeed.toFixed(5);
@@ -722,6 +737,11 @@
 
   function render(force = false) {
     const scrollY = window.scrollY;
+    const lastScrollY = Number(field.dataset.lastScrollY || scrollY);
+    const instantVelocity = clamp(scrollY - lastScrollY, -90, 90);
+    const storedVelocity = Number(field.dataset.scrollVelocity || 0);
+    field.dataset.scrollVelocity = (storedVelocity * 0.78 + instantVelocity * 0.22).toFixed(4);
+    field.dataset.lastScrollY = String(scrollY);
     const time = performance.now() * 0.001;
     const pointerEnabled = !prefersReducedMotion.matches && supportsFinePointer.matches;
 
@@ -739,6 +759,7 @@
       const baseY = Number(image.dataset.baseY || 0);
       const scrollXFactor = Number(image.dataset.scrollXFactor || 0);
       const scrollYFactor = Number(image.dataset.scrollYFactor || 0);
+      const scrollSpeedFactor = Number(image.dataset.scrollSpeedFactor || 0);
       const driftAmpX = Number(image.dataset.driftAmpX || 0);
       const driftAmpY = Number(image.dataset.driftAmpY || 0);
       const driftSpeed = Number(image.dataset.driftSpeed || 0);
@@ -790,7 +811,8 @@
       driftX *= ramp;
       driftY *= ramp;
       const shiftX = prefersReducedMotion.matches ? 0 : scrollY * scrollXFactor * ramp;
-      const shiftY = prefersReducedMotion.matches ? 0 : scrollY * scrollYFactor * ramp;
+      const scrollVelocity = Number(field.dataset.scrollVelocity || 0);
+      const shiftY = prefersReducedMotion.matches ? 0 : (scrollY * scrollYFactor + scrollVelocity * scrollSpeedFactor) * ramp;
       const pointerX = pointerEnabled ? pointerState.x * pointerDepth * ramp : 0;
       const pointerY = pointerEnabled ? pointerState.y * pointerLift * ramp : 0;
       const pointerTurn = pointerEnabled ? pointerState.x * pointerRotate * ramp : 0;
@@ -814,6 +836,8 @@
 
     field.innerHTML = "";
     items.length = 0;
+    field.dataset.lastScrollY = String(window.scrollY);
+    field.dataset.scrollVelocity = "0";
     field.style.height = `${Math.max(document.body.scrollHeight, document.documentElement.scrollHeight)}px`;
 
     slots.forEach((slotInfo, index) => {
@@ -822,7 +846,8 @@
         baseX: Number(image.dataset.baseX || 0),
         baseY: Number(image.dataset.baseY || 0),
         width: Number((image.style.getPropertyValue("--decor-width") || "0").replace("px", "")) || 0,
-        motionKey: image.dataset.motionKey || ""
+        motionKey: image.dataset.motionKey || "",
+        family: familyForAsset(image.dataset.originalSrc || "")
       });
       items.push(image);
       field.appendChild(image);

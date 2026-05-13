@@ -51,6 +51,58 @@
     }
   });
 
+
+
+  const keywordSelectors = [
+    '.page-hero h1', '.gallery-label h2', '.connect-label h2', '.section-title',
+    '.category-header h2', '.highlight-card h3', '.value-item h3', '.hero-cta',
+    '.cat-tab', '.submit-btn'
+  ].join(',');
+
+  const keywordPattern = /([A-Za-z][A-Za-z'@&-]{5,}|Taiyzun|Sp@cE|HHK|M&M|I&T)/g;
+
+  function decorateKeyText(node) {
+    if (!node || node.dataset.harmonicKeywords === 'true') return;
+    node.dataset.harmonicKeywords = 'true';
+
+    const walker = doc.createTreeWalker(node, NodeFilter.SHOW_TEXT, {
+      acceptNode(textNode) {
+        if (!textNode.nodeValue || !keywordPattern.test(textNode.nodeValue)) {
+          keywordPattern.lastIndex = 0;
+          return NodeFilter.FILTER_REJECT;
+        }
+        keywordPattern.lastIndex = 0;
+        if (textNode.parentElement && textNode.parentElement.closest('.harmonic-keyword')) {
+          return NodeFilter.FILTER_REJECT;
+        }
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+
+    const textNodes = [];
+    while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+    textNodes.forEach((textNode) => {
+      const fragment = doc.createDocumentFragment();
+      const source = textNode.nodeValue;
+      let lastIndex = 0;
+      source.replace(keywordPattern, (match, _word, offset) => {
+        if (offset > lastIndex) fragment.appendChild(doc.createTextNode(source.slice(lastIndex, offset)));
+        const span = doc.createElement('span');
+        span.className = 'harmonic-keyword';
+        span.textContent = match;
+        span.style.setProperty('--keyword-delay', `${((offset + match.length) % 9) * -0.42}s`);
+        fragment.appendChild(span);
+        lastIndex = offset + match.length;
+        return match;
+      });
+      if (lastIndex < source.length) fragment.appendChild(doc.createTextNode(source.slice(lastIndex)));
+      textNode.parentNode.replaceChild(fragment, textNode);
+    });
+  }
+
+  doc.querySelectorAll(keywordSelectors).forEach(decorateKeyText);
+
   const interactiveSelector = [
     '.hero-content', '.page-hero-content', '.gallery-label', '.connect-label', '.contact-form',
     '.highlight-card', '.value-item', '.timeline-category', '.social-card', '.cat-tab',
