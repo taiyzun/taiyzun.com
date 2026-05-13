@@ -101,7 +101,11 @@
     });
   }
 
-  doc.querySelectorAll(keywordSelectors).forEach(decorateKeyText);
+  function applyKeywordDecorations() {
+    doc.querySelectorAll(keywordSelectors).forEach(decorateKeyText);
+  }
+
+  applyKeywordDecorations();
 
 
 
@@ -146,13 +150,22 @@
   }
 
   applyBlockThemes();
-  window.setTimeout(applyBlockThemes, 900);
-  window.setTimeout(applyBlockThemes, 2400);
+  window.setTimeout(() => {
+    applyKeywordDecorations();
+    applyBlockThemes();
+  }, 900);
+  window.setTimeout(() => {
+    applyKeywordDecorations();
+    applyBlockThemes();
+  }, 2400);
 
   if ('MutationObserver' in window) {
     const themeObserver = new MutationObserver((records) => {
       if (records.some((record) => record.addedNodes.length || record.removedNodes.length)) {
-        window.requestAnimationFrame(applyBlockThemes);
+        window.requestAnimationFrame(() => {
+          applyKeywordDecorations();
+          applyBlockThemes();
+        });
       }
     });
     themeObserver.observe(body, { childList: true, subtree: true });
