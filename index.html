@@ -157,7 +157,7 @@
   <link rel="stylesheet" href="/css/site-decorative-field.css?v=3">
   <link rel="stylesheet" href="/css/mily-inspired-system.css?v=2">
   <link rel="stylesheet" href="/css/visual-protocol.min.css?v=9">
-  <link rel="stylesheet" href="/css/harmonic-ui.min.css?v=3">
+  <link rel="stylesheet" href="/css/harmonic-ui.min.css?v=4">
   <link rel="stylesheet" href="/css/mobile-menu.css?v=1">
 <!-- Performance: Preload critical CSS -->
 <link rel="preload" href="/css/white-theme.min.css?v=3" as="style">
@@ -224,7 +224,6 @@
       <a href="/connect" class="hero-cta hero-cta-secondary">Connect <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
     </div>
   </div>
-  <div class="scroll-indicator"><span>Scroll</span><div class="scroll-line"></div></div>
 </section>
 <section class="section-bg">
   <div class="about-grid">
@@ -297,7 +296,7 @@
     if (s < fadeDistance) {
       hc.style.transform = 'translateY(' + (s * 0.16) + 'px)';
       hc.style.opacity = Math.max(0.18, 1 - s / fadeDistance);
-      si.style.opacity = Math.max(0, 1 - s / (window.innerHeight * 0.95) - 0.25);
+      if (si) si.style.opacity = Math.max(0, 1 - s / (window.innerHeight * 0.95) - 0.25);
     } else {
       hc.style.opacity = 0.18;
     }

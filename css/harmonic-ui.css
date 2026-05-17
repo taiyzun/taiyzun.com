@@ -132,8 +132,8 @@ body.harmonic-ready .value-item,
 body.harmonic-ready .cat-filters {
   border-color: rgba(202, 168, 84, 0.22);
   box-shadow: var(--harmonic-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.42);
-  backdrop-filter: blur(20px) saturate(1.1);
-  -webkit-backdrop-filter: blur(20px) saturate(1.1);
+  backdrop-filter: saturate(1.08);
+  -webkit-backdrop-filter: saturate(1.08);
 }
 
 body.harmonic-ready .hero-content,
@@ -185,6 +185,21 @@ body.harmonic-ready .social-card > * {
   z-index: 1;
 }
 
+body.harmonic-ready .hero-content,
+body.harmonic-ready .page-hero-content,
+body.harmonic-ready .gallery-label,
+body.harmonic-ready .connect-label,
+body.harmonic-ready .contact-form,
+body.harmonic-ready .info-card,
+body.harmonic-ready .social-card,
+body.harmonic-ready .timeline-category,
+body.harmonic-ready .bio-section,
+body.harmonic-ready .highlight-card,
+body.harmonic-ready .value-item {
+  overflow: visible;
+  contain: none;
+}
+
 .harmonic-hovering {
   --harmonic-spot-opacity: 1;
 }
@@ -196,8 +211,9 @@ body.harmonic-ready .connect-label h2,
 body.harmonic-ready .section-title,
 body.harmonic-ready .category-header h2 {
   letter-spacing: clamp(-0.045em, -0.4vw, -0.012em);
-  line-height: 0.96;
+  line-height: 1.08;
   text-shadow: 0 18px 42px rgba(72, 55, 31, 0.12);
+  overflow: visible;
 }
 
 body.harmonic-ready .hero-subtitle,
@@ -254,15 +270,15 @@ body.harmonic-ready .social-link:hover::after {
 .harmonic-reveal {
   opacity: 0;
   transform: translate3d(0, 24px, 0) scale(0.985);
-  filter: blur(8px);
-  transition: opacity var(--harmonic-slow), transform var(--harmonic-slow), filter var(--harmonic-slow);
+  filter: none;
+  transition: opacity var(--harmonic-slow), transform var(--harmonic-slow);
 }
 
 .harmonic-reveal.is-harmonic-visible,
 .harmonic-reveal[data-harmonic-immediate="true"] {
   opacity: 1;
   transform: translate3d(0, 0, 0) scale(1);
-  filter: blur(0);
+  filter: none;
 }
 
 @supports (animation-timeline: view()) {
@@ -273,13 +289,13 @@ body.harmonic-ready .social-link:hover::after {
   }
 
   .harmonic-reveal.is-harmonic-visible {
-    transition: opacity var(--harmonic-slow), transform var(--harmonic-slow), filter var(--harmonic-slow);
+    transition: opacity var(--harmonic-slow), transform var(--harmonic-slow);
   }
 }
 
 @keyframes harmonicViewRise {
-  0% { opacity: 0; transform: translate3d(0, 28px, 0) scale(0.985); filter: blur(8px); }
-  100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); filter: blur(0); }
+  0% { opacity: 0; transform: translate3d(0, 28px, 0) scale(0.985); filter: none; }
+  100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); filter: none; }
 }
 
 @keyframes harmonicFloat {
@@ -456,15 +472,23 @@ body.harmonic-ready.home-page .scroll-indicator {
   display: none !important;
 }
 
+body.harmonic-ready.home-page .scroll-indicator,
+body.harmonic-ready.home-page .scroll-line {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
 @keyframes harmonicTextSheen {
-  0% { background-position: 0% 50%; filter: drop-shadow(0 0 0 rgba(202, 168, 84, 0)); }
-  45% { background-position: 100% 50%; filter: drop-shadow(0 10px 24px rgba(202, 168, 84, 0.16)); }
-  100% { background-position: 0% 50%; filter: drop-shadow(0 0 0 rgba(202, 168, 84, 0)); }
+  0% { background-position: 0% 50%; filter: none; }
+  45% { background-position: 100% 50%; filter: none; }
+  100% { background-position: 0% 50%; filter: none; }
 }
 
 @keyframes harmonicWordLift {
   0%, 100% { transform: translate3d(0, 0, 0); }
-  50% { transform: translate3d(0, -0.06em, 0); }
+  50% { transform: translate3d(0, 0, 0); }
 }
 
 body.harmonic-ready .hero-title em,
@@ -523,6 +547,10 @@ body.harmonic-ready .timeline-category:nth-child(3n) .category-header h2 {
 
 body.harmonic-ready .harmonic-keyword {
   display: inline-block;
+  line-height: 1.18;
+  padding-block: 0.08em;
+  margin-block: -0.08em;
+  vertical-align: baseline;
   background-image: linear-gradient(112deg, #2a2118 0%, #a77934 30%, #d7bd82 48%, #7b5a26 66%, #2a2118 100%);
   background-size: 220% 100%;
   -webkit-background-clip: text;
