@@ -365,7 +365,7 @@ h1 {
 /* Section Headers - Minimal styling, just 2 points bigger than text */
 h2, h3,
 .section-heading,
-.current-role-heading,
+.current-specialty-heading,
 .portrait-gallery h2,
 .coming-soon h2,
 .contact-form h2 {
@@ -398,7 +398,7 @@ h1:hover {
 
 h2:hover, h3:hover,
 .section-heading:hover,
-.current-role-heading:hover,
+.current-specialty-heading:hover,
 .portrait-gallery h2:hover,
 .coming-soon h2:hover,
 .contact-form h2:hover {
@@ -632,7 +632,7 @@ h1 {
 }
 
 /* Section Headings - Only 2 points bigger than text (1em + 0.2em = 1.2em) */
-h2, h3, .section-heading, .current-role-heading {
+h2, h3, .section-heading, .current-specialty-heading {
   color: #FFFFFF;
   padding: 2px 4px;
   text-align: center;
@@ -643,8 +643,8 @@ h2, h3, .section-heading, .current-role-heading {
   margin-bottom: 0.05em;
 }
 
-/* Specific styling for Current Role and similar section headings */
-.current-role-heading {
+/* Specific styling for current specialty and similar section headings */
+.current-specialty-heading {
   color: #FFC107 !important;
   font-size: 1.2em !important; /* Exactly 2 points bigger than text */
 }
@@ -1142,7 +1142,7 @@ main:hover::before, .content:hover::before {
   }
   
   /* Section headings stay consistent - only 2 points bigger than text */
-  h2, h3, .section-heading, .current-role-heading {
+  h2, h3, .section-heading, .current-specialty-heading {
     font-size: 1.2em; /* Consistent with desktop - exactly 2 points bigger */
   }
   

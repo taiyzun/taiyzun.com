@@ -2028,7 +2028,7 @@
                 "height": 55
               },
               "snippet": "<h1>",
-              "nodeLabel": "Creative Portfolio & Digital Art"
+              "nodeLabel": "Information & Technology Portfolio"
             },
             "score": 0.000512,
             "subItems": {
@@ -2066,7 +2066,7 @@
                 "height": 55
               },
               "snippet": "<h1>",
-              "nodeLabel": "Creative Portfolio & Digital Art"
+              "nodeLabel": "Information & Technology Portfolio"
             },
             "score": 0.000265,
             "subItems": {
@@ -3041,7 +3041,7 @@
                 "height": 19
               },
               "snippet": "<p class=\"section-label\">",
-              "nodeLabel": "CREATIVE GALLERY",
+              "nodeLabel": "PORTFOLIO ARCHIVE",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.1 (foreground color: #d4af37, background color: #ffffff, font size: 7.8pt (10.4px), font weight: normal). Expected contrast ratio of 4.5:1"
             },
             "subItems": {
@@ -5009,7 +5009,7 @@
                     "height": 55
                   },
                   "snippet": "<h1>",
-                  "nodeLabel": "Creative Portfolio & Digital Art"
+                  "nodeLabel": "Information & Technology Portfolio"
                 },
                 "score": 0.000512,
                 "subItems": {
@@ -5047,7 +5047,7 @@
                     "height": 55
                   },
                   "snippet": "<h1>",
-                  "nodeLabel": "Creative Portfolio & Digital Art"
+                  "nodeLabel": "Information & Technology Portfolio"
                 },
                 "score": 0.000265,
                 "subItems": {

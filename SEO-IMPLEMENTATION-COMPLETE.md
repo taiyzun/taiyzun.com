@@ -46,14 +46,14 @@ Comprehensive SEO, performance, and backend optimizations have been implemented 
 - All favicon variations linked
 
 #### journey.html
-- Open Graph tags for professional journey showcase
+- Open Graph tags for selected work archive
 - Twitter Card setup
 - Canonical URL: https://taiyzun.com/journey.html
 - Schema markup for WebPage
 - Enhanced robots meta tags
 
 #### creations.html
-- Open Graph for creative portfolio
+- Open Graph for Information & Technology portfolio
 - Twitter Card metadata
 - Canonical URL: https://taiyzun.com/creations.html
 - Schema markup for CreativeWork
@@ -80,8 +80,8 @@ Comprehensive SEO, performance, and backend optimizations have been implemented 
 
 **Person Schema** (index.html):
 - Name: Taiyzun Shabbir Shahpurwala
-- Job Title: Director
-- Organizations: Wockhardt, Jupiter Events LLC, I Am Peacekeeper Movement, Wockhardt Foundation
+- Job Title: Information & Technology Specialist
+- Past organizations/collaborations: Wockhardt, Jupiter Events LLC, I Am Peacekeeper Movement, Wockhardt Foundation
 - Skills & expertise documented
 - Social media profiles linked
 - Alumni organizations listed
@@ -150,15 +150,15 @@ Comprehensive SEO, performance, and backend optimizations have been implemented 
 
 ## 6. MANIFEST.JSON ENHANCEMENTS ✅
 ### PWA Configuration:
-- **App Name:** Taiyzun Shahpurwala - Creative Professional, Director, Peace Movement Advocate
+- **App Name:** Taiyzun Shahpurwala - Information & Technology Portfolio
 - **Short Name:** Taiyzun
 - **Display:** Standalone mode with fallbacks
 - **Theme Color:** #FF9800
 - **Background Color:** #000000
 
 ### App Shortcuts:
-1. **View Creations** → /creations.html
-2. **Professional Journey** → /journey.html
+1. **View Portfolio** → /creations.html
+2. **Selected Work** → /journey.html
 3. **Connect & Network** → /connect.html
 
 ### App Icons:
@@ -241,9 +241,9 @@ og:locale: en_US
 ### Site Architecture:
 ```
 /                          (Home - Hub)
-├── /journey.html          (Professional)
+├── /journey.html          (Selected Work)
 ├── /odyssey.html          (Portrait Gallery)
-├── /creations.html        (Creative Portfolio)
+├── /creations.html        (Information & Technology Portfolio)
 └── /connect.html          (Networking)
 ```
 
@@ -279,26 +279,27 @@ og:locale: en_US
 ## 11. KEYWORDS & SEO FOCUS ✅
 ### Primary Keywords:
 - Taiyzun Shabbir Shahpurwala
-- Director - Wockhardt, Jupiter Events LLC
-- I Am Peacekeeper Movement
-- Strategic Communications &IT
-- Billionaires for Peace
-- Global Justice Love Peace Summit
-- Dr. Huzaifa Khorakiwala
-- Wockhardt Foundation
+- Information & Technology
+- Strategic Structured Delivery
+- Micro & Macro Matters
+- Information Architecture
+- Workflow Design
+- Data Hygiene
+- Communication Matrices
+- Past collaboration Office of Dr. Huzaifa Khorakiwala
+- Past Wockhardt Foundation work
 - Wadia Group
 - Star TV, Channel V alumni
-- Creative Director
-- Peace Movement Leadership
+- Systems Coordination
+- Operational Documentation
 
 ### Long-Tail Keywords:
-- Director at Office of Dr. Huzaifa Khorakiwala
-- Core team member I Am Peacekeeper Movement
-- Strategic communications specialist
-- Digital art and creative design portfolio
-- Peace movement advocate
-- Global justice initiatives
-- Corporate communications consultant
+- Information & Technology specialist for strategic structured delivery
+- Information architecture and workflow design portfolio
+- Data hygiene and operational documentation
+- Communication matrices and stakeholder coordination
+- Past peace initiative communications and logistics
+- Structured delivery across micro and macro matters
 
 ---
 

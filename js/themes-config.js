@@ -6,8 +6,8 @@
 
 const THEMES_CONFIG = {
   home: {
-    name: "Home - Multifaceted Identity",
-    keywords: ["multifaceted", "identity", "director", "creator", "peacekeeper"],
+    name: "Home - Information & Technology Portfolio",
+    keywords: ["information", "technology", "structured delivery", "micro macro", "systems"],
     colors: {
       // Base: Refined blues and teals (sophisticated, calm, thoughtful)
       base: {
@@ -37,8 +37,8 @@ const THEMES_CONFIG = {
   },
 
   journey: {
-    name: "Journey - Timeline & Growth",
-    keywords: ["timeline", "growth", "evolution", "expertise", "career"],
+    name: "Work - Selected Systems Archive",
+    keywords: ["selected work", "information architecture", "data hygiene", "workflow mapping", "delivery"],
     colors: {
       // Base: Deep jewel tones (sophisticated, professional, flowing)
       base: {
@@ -68,10 +68,10 @@ const THEMES_CONFIG = {
   },
 
   creations: {
-    name: "Creations - Artistic & Experimental",
-    keywords: ["art", "creative", "experimental", "design", "playful"],
+    name: "Portfolio - Structured Delivery Archive",
+    keywords: ["portfolio", "communication assets", "workflow maps", "operational documentation", "systems coordination"],
     colors: {
-      // Base: Warm neutrals (sophisticated, accessible, artistic)
+      // Base: Warm neutrals (sophisticated, accessible, structured)
       base: {
         background: "#120f0a", // Warm dark brown-black
         secondary: "#1a1410", // Slightly lighter warm brown
@@ -87,7 +87,7 @@ const THEMES_CONFIG = {
       },
       // Experimental gradients
       gradients: {
-        artistic: "linear-gradient(45deg, #ff6b5a, #ffa500, #ffdb58, #ff1493)",
+        structured: "linear-gradient(45deg, #ff6b5a, #ffa500, #ffdb58, #ff1493)",
         warm: "linear-gradient(135deg, #ff6b5a, #ffa500)"
       }
     },
@@ -100,7 +100,7 @@ const THEMES_CONFIG = {
 
   odyssey: {
     name: "Odyssey - Poetic Narrative",
-    keywords: ["narrative", "story", "transformation", "journey", "peacekeeper"],
+    keywords: ["narrative", "story", "transformation", "personal archive", "workflow logic"],
     colors: {
       // Base: Warm jewel tones (luxurious, poetic, intimate)
       base: {

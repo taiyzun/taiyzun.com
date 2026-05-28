@@ -1,7 +1,7 @@
 {
-  "name": "Taiyzun Shahpurwala - Director, Office Dr. HHK | M&M | I&T",
+  "name": "Taiyzun Shahpurwala - Information & Technology Portfolio",
   "short_name": "Taiyzun",
-  "description": "Director, Office of Dr. Huzaifa Khorakiwala | Micro & Macro, Information & Technology | Wockhardt | I Am Peacekeeper Movement | Wockhardt Foundation | Global Justice, Love & Peace Summit | Billionaires for Peace",
+  "description": "Information & Technology specialist for information architecture, data hygiene, workflow design, communication matrices and structured delivery.",
   "start_url": "/",
   "display": "standalone",
   "display_override": [
@@ -21,7 +21,6 @@
     "business",
     "productivity",
     "social",
-    "art",
     "design",
     "portfolio"
   ],
@@ -36,16 +35,16 @@
   },
   "shortcuts": [
     {
-      "name": "View Creations",
-      "short_name": "Creations",
+      "name": "View Portfolio",
+      "short_name": "Portfolio",
       "url": "/creations.html",
-      "description": "Browse creative portfolio and digital art"
+      "description": "Browse information architecture, workflow maps and structured delivery records"
     },
     {
-      "name": "Professional Journey",
-      "short_name": "Journey",
+      "name": "Selected Work",
+      "short_name": "Work",
       "url": "/journey.html",
-      "description": "Explore professional experience and achievements"
+      "description": "Explore selected work across information systems, communication matrices and operations"
     },
     {
       "name": "Connect & Network",

@@ -407,8 +407,8 @@ h3 {
   margin-bottom: 0.6em;
 }
 
-/* Current Role styling */
-.current-role-heading {
+/* Current specialty styling */
+.current-specialty-heading {
   color: #FFD700 !important;
 }
 

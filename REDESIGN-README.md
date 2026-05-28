@@ -191,7 +191,7 @@ For detailed information:
 Visit the redesigned pages:
 - 🏠 [Home](https://taiyzun.com/) - Kaleidoscopic showcase
 - 📈 [Journey](https://taiyzun.com/journey.html) - Career timeline
-- 🎨 [Creations](https://taiyzun.com/creations.html) - Creative portfolio
+- 🎨 [Creations](https://taiyzun.com/creations.html) - Information & Technology portfolio
 - 📖 [Odyssey](https://taiyzun.com/odyssey.html) - Personal story
 - 🔗 [Connect](https://taiyzun.com/connect.html) - Get in touch
 

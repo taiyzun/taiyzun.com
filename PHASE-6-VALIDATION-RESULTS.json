@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-11T19:48:25.356Z",
+  "timestamp": "2026-05-28T16:50:23.968Z",
   "pages": [
     {
       "page": "Home",
@@ -265,7 +265,7 @@
             },
             {
               "test": "checkScriptDefer",
-              "status": "WARN"
+              "status": "PASS"
             },
             {
               "test": "checkPreload",
@@ -322,8 +322,8 @@
         }
       ],
       "stats": {
-        "passed": 22,
-        "warning": 6,
+        "passed": 23,
+        "warning": 5,
         "failed": 0
       }
     },
@@ -428,7 +428,7 @@
             },
             {
               "test": "checkScriptDefer",
-              "status": "WARN"
+              "status": "PASS"
             },
             {
               "test": "checkPreload",
@@ -485,8 +485,8 @@
         }
       ],
       "stats": {
-        "passed": 23,
-        "warning": 5,
+        "passed": 24,
+        "warning": 4,
         "failed": 0
       }
     },
@@ -591,7 +591,7 @@
             },
             {
               "test": "checkScriptDefer",
-              "status": "WARN"
+              "status": "PASS"
             },
             {
               "test": "checkPreload",
@@ -648,8 +648,8 @@
         }
       ],
       "stats": {
-        "passed": 23,
-        "warning": 5,
+        "passed": 24,
+        "warning": 4,
         "failed": 0
       }
     },
@@ -819,8 +819,8 @@
   ],
   "summary": {
     "totalTests": 140,
-    "passed": 116,
-    "warnings": 24,
+    "passed": 119,
+    "warnings": 21,
     "failed": 0
   }
 }
