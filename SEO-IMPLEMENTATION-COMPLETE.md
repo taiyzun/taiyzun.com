@@ -81,19 +81,19 @@ Comprehensive SEO, performance, and backend optimizations have been implemented 
 **Person Schema** (index.html):
 - Name: Taiyzun Shabbir Shahpurwala
 - Job Title: Information & Technology Specialist
-- Past organizations/collaborations: Wockhardt, Jupiter Events LLC, I Am Peacekeeper Movement, Wockhardt Foundation
+- Current public positioning: Information & Technology, Strategic Structured Delivery, Micro & Macro Matters
 - Skills & expertise documented
 - Social media profiles linked
 - Alumni organizations listed
-- Member organizations linked
+- Structured delivery and systems expertise linked
 
 **WebPage Schema** (journey.html, odyssey.html):
 - Proper page type identification
 - Homepage linking
 
-**CreativeWork Schema** (creations.html):
-- Portfolio content identification
-- Creative classification
+**CollectionPage Schema** (creations.html):
+- Portfolio archive identification
+- Information & Technology classification
 
 **ContactPage Schema** (connect.html):
 - Form identification
@@ -286,8 +286,6 @@ og:locale: en_US
 - Workflow Design
 - Data Hygiene
 - Communication Matrices
-- Past collaboration Office of Dr. Huzaifa Khorakiwala
-- Past Wockhardt Foundation work
 - Wadia Group
 - Star TV, Channel V alumni
 - Systems Coordination

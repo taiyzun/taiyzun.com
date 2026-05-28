@@ -116,10 +116,9 @@
   ].join(',');
 
   const themeRules = [
-    { theme: 'peace', pattern: /peace|peacekeeper|harmony|love|global|movement|billionaires/i },
-    { theme: 'ceremony', pattern: /award|nobel|summit|conclave|laureate|felicitat|honou?r|justice/i },
-    { theme: 'technology', pattern: /technology|information|digital|website|erp|sap|process|research|data|systems/i },
-    { theme: 'art', pattern: /art|creative|portfolio|visual|design|storytelling|fashion|craft|gallery/i },
+    { theme: 'technology', pattern: /technology|information|architecture|workflow|data|systems|delivery|documentation|process|research/i },
+    { theme: 'ceremony', pattern: /convening|summit|event|stakeholder|coordination|logistics|public initiative/i },
+    { theme: 'art', pattern: /portfolio|visual|design|brand|gallery|archive|fashion|craft/i },
     { theme: 'values', pattern: /truth|sincerity|integrity|vision|purpose|authentic|principle/i },
     { theme: 'journey', pattern: /journey|role|career|education|exploration|founding|entrepreneur|media|current|recent/i },
     { theme: 'connect', pattern: /connect|contact|social|instagram|facebook|linkedin|youtube|threads|message|email/i },

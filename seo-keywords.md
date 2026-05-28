@@ -19,17 +19,15 @@
 - Structured Delivery
 - Systems Coordination
 - Communication Architecture
+- STYLETEK
+- Research Operations
+- Portfolio Systems
+- Executive Operations
+- Event Systems
 - Wadia Group
 - Star TV
 - Channel V
 - Channel [V]
-- Past I Am Peacekeeper Movement collaboration
-- Past Global Justice Love Peace Summit work
-- STYLETEK
-- Past collaboration Office of Dr. Huzaifa Khorakiwala
-- Past Wockhardt Foundation work
-- Jupiter Events LLC past collaboration
-- Past Billionaires for Peace coordination
 
 ## Alternative Name Variations
 - Taiyzun
@@ -45,7 +43,7 @@
 - Data Hygiene and Operational Documentation
 - Communication Matrices and Stakeholder Coordination
 - Structured Operations and Systems Coordination
-- Past peace initiative communications and logistics
+- Research Operations and Portfolio Systems
 
 ## Professional Expertise
 - Information & Technology
@@ -65,14 +63,17 @@
 - Communication Architecture
 - Brand Strategy
 - Event Management
-- Past Peace Initiative Communications
-- Past Global Justice Event Coordination
+- Research Operations
+- Portfolio Systems
+- Executive Operations
+- Event Systems
 
 ## Industry Associations
 - Media & Entertainment Industry
-- Peace & Social Justice Movements
-- Event Management Industry
-- Past Healthcare and Foundation Collaboration (Wockhardt Foundation)
+- Event Systems & Production Operations
+- Information Services
+- Communication Operations
+- Research and Documentation Systems
 - Television Broadcasting (Star TV, Channel V)
 
 ## Location & Regional Keywords

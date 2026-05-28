@@ -49,7 +49,7 @@ From Phase 6 Step 4 automated validation:
 - [ ] Escape key doesn't conflict with native browser behavior
 
 **Screen Reader Tests:**
-- [ ] Page title announced: "Taiyzun | Director, Creator, Peacekeeper"
+- [ ] Page title announced: "Taiyzun Shabbir Shahpurwala - Information & Technology Portfolio | Strategic Structured Delivery"
 - [ ] Main heading (H1) identified: "Taiyzun Shabbir Shahpurwala"
 - [ ] Navigation landmarks announced: "navigation"
 - [ ] Interactive elements have descriptive text (not just "Click here")
@@ -404,4 +404,3 @@ From Phase 6 Step 4 automated validation:
 
 **Status:** Ready for Manual Testing
 **Last Updated:** May 9, 2026
-
