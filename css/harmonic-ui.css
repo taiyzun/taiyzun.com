@@ -619,6 +619,18 @@ body.harmonic-ready.home-page .scroll-line {
   pointer-events: none !important;
 }
 
+body.harmonic-ready.home-page .hero-content {
+  overflow: hidden !important;
+}
+
+body.harmonic-ready.home-page .hero-content > .harmonic-block-motif,
+body.harmonic-ready.home-page .hero-content::after {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
 @keyframes harmonicTextSheen {
   0% { background-position: 0% 50%; filter: none; }
   45% { background-position: 100% 50%; filter: none; }

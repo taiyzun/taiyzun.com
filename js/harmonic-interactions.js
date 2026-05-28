@@ -142,7 +142,8 @@
         node.style.setProperty('--block-delay', `${(index % 8) * -0.37}s`);
       }
 
-      if (!node.querySelector(':scope > .harmonic-block-motif')) {
+      const skipMotif = node.classList.contains('hero-content') && body.classList.contains('home-page');
+      if (!skipMotif && !node.querySelector(':scope > .harmonic-block-motif')) {
         node.insertBefore(make('harmonic-block-motif'), node.firstChild);
       }
     });
