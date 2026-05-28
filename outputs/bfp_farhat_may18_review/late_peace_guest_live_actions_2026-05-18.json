@@ -1,0 +1,387 @@
+[
+  {
+    "row": "207",
+    "name": "Naman Modi",
+    "action": "held_duplicate_farhat_conflicting_seats",
+    "seat": "24 - Humility"
+  },
+  {
+    "row": "208",
+    "name": "Piyush Sakharkar",
+    "action": "held_duplicate_farhat_conflicting_seats",
+    "seat": "24 - Patience"
+  },
+  {
+    "row": "209",
+    "name": "Sanjeev Khatri",
+    "action": "held_duplicate_farhat_conflicting_seats",
+    "seat": "24 - IAPM"
+  },
+  {
+    "row": "416",
+    "name": "Bineet Agarwal",
+    "action": "error_created_not_unique",
+    "phone": "+910000100416",
+    "found": [
+      {
+        "href": "https://bfp26.i-am-peacekeeper.com/admin/guests/usr_2fb4db04e399485a9aa0",
+        "id": "usr_2fb4db04e399485a9aa0",
+        "text": "Bineet Agarwal"
+      },
+      {
+        "href": "https://bfp26.i-am-peacekeeper.com/admin/guests/usr_psrob2qkx4o615sagco257sy",
+        "id": "usr_psrob2qkx4o615sagco257sy",
+        "text": "Bineet Agarwal"
+      }
+    ]
+  },
+  {
+    "row": "417",
+    "name": "Hussain Mansuri ACCOMPANY",
+    "action": "updated_existing_lpg",
+    "id": "usr_f200179e258c4493aed9",
+    "before": {
+      "award_category": "",
+      "champion_category": "",
+      "country": "",
+      "designation": "",
+      "email": "",
+      "honorific": "",
+      "id": "usr_f200179e258c4493aed9",
+      "name": "Hussain Mansuri ACCOMPANY",
+      "organization": "",
+      "phone": "",
+      "seat_no": "51",
+      "sequence_in_status": "397",
+      "status_code": "vip_partner",
+      "status_label": "VIP I Am Peacekeeper Partner",
+      "url": "https://bfp26.i-am-peacekeeper.com/admin/guests/usr_f200179e258c4493aed9"
+    },
+    "changed": {
+      "sequence_in_status": "417",
+      "seat_no": "53 - Truth",
+      "champion_category": "Late Peace Guest"
+    },
+    "saved": true,
+    "after": {
+      "award_category": "",
+      "champion_category": "",
+      "country": "",
+      "designation": "",
+      "email": "",
+      "honorific": "",
+      "id": "usr_f200179e258c4493aed9",
+      "name": "Hussain Mansuri ACCOMPANY",
+      "organization": "",
+      "phone": "",
+      "seat_no": "51",
+      "sequence_in_status": "397",
+      "status_code": "vip_partner",
+      "status_label": "VIP I Am Peacekeeper Partner",
+      "url": "https://bfp26.i-am-peacekeeper.com/admin/guests/usr_f200179e258c4493aed9"
+    },
+    "failures": [
+      {
+        "field": "sequence_in_status",
+        "expected": "417",
+        "actual": "397"
+      },
+      {
+        "field": "seat_no",
+        "expected": "53 - Truth",
+        "actual": "51"
+      },
+      {
+        "field": "champion_category",
+        "expected": "Late Peace Guest",
+        "actual": ""
+      }
+    ]
+  },
+  {
+    "row": "418",
+    "name": "Naman Modi",
+    "action": "held_duplicate_farhat_conflicting_seats",
+    "seat": "53 - Gratitude"
+  },
+  {
+    "row": "419",
+    "name": "Piyush Sakharkar",
+    "action": "held_duplicate_farhat_conflicting_seats",
+    "seat": "53 - Forgiveness"
+  },
+  {
+    "row": "420",
+    "name": "Sanjeev Khatri",
+    "action": "held_duplicate_farhat_conflicting_seats",
+    "seat": "53 - Love"
+  },
+  {
+    "row": "421",
+    "name": "Vijay Sharma",
+    "action": "updated_existing_lpg",
+    "id": "usr_9fe58779c5bf4f52bc28",
+    "before": {
+      "url": "https://bfp26.i-am-peacekeeper.com/admin/guests/usr_9fe58779c5bf4f52bc28"
+    },
+    "changed": {
+      "sequence_in_status": "421",
+      "seat_no": "53 - Giving",
+      "champion_category": "Late Peace Guest",
+      "designation": "Founder, Pcred Venture Pvt Ltd",
+      "organization": "Founder, Pcred Venture Pvt Ltd",
+      "status_label": "VIP I Am Peacekeeper Partner"
+    },
+    "saved": true,
+    "after": {
+      "award_category": "",
+      "champion_category": "",
+      "country": "",
+      "designation": "Founder",
+      "email": "",
+      "honorific": "",
+      "id": "usr_9fe58779c5bf4f52bc28",
+      "name": "Vijay Sharma",
+      "organization": "Pcred Venture Pvt Ltd",
+      "phone": "",
+      "seat_no": "52",
+      "sequence_in_status": "401",
+      "status_code": "vip_partner",
+      "status_label": "VIP I Am Peacekeeper Partner",
+      "url": "https://bfp26.i-am-peacekeeper.com/admin/guests/usr_9fe58779c5bf4f52bc28"
+    },
+    "failures": [
+      {
+        "field": "sequence_in_status",
+        "expected": "421",
+        "actual": "401"
+      },
+      {
+        "field": "seat_no",
+        "expected": "53 - Giving",
+        "actual": "52"
+      },
+      {
+        "field": "champion_category",
+        "expected": "Late Peace Guest",
+        "actual": ""
+      }
+    ]
+  },
+  {
+    "row": "422",
+    "name": "Vinay Sohani",
+    "action": "updated_existing_lpg",
+    "id": "usr_994e59cd6aee45b69b28",
+    "before": {
+      "award_category": "",
+      "champion_category": "",
+      "country": "",
+      "designation": "Co-Founder",
+      "email": "",
+      "honorific": "",
+      "id": "usr_994e59cd6aee45b69b28",
+      "name": "Vinay Sohani",
+      "organization": "Pcred Venture Pvt Ltd",
+      "phone": "",
+      "seat_no": "52",
+      "sequence_in_status": "402",
+      "status_code": "vip_partner",
+      "status_label": "VIP I Am Peacekeeper Partner",
+      "url": "https://bfp26.i-am-peacekeeper.com/admin/guests/usr_994e59cd6aee45b69b28"
+    },
+    "changed": {
+      "sequence_in_status": "422",
+      "seat_no": "53 - Humility",
+      "champion_category": "Late Peace Guest"
+    },
+    "saved": true,
+    "after": {
+      "award_category": "",
+      "champion_category": "",
+      "country": "",
+      "designation": "Co-Founder",
+      "email": "",
+      "honorific": "",
+      "id": "usr_994e59cd6aee45b69b28",
+      "name": "Vinay Sohani",
+      "organization": "Pcred Venture Pvt Ltd",
+      "phone": "",
+      "seat_no": "52",
+      "sequence_in_status": "402",
+      "status_code": "vip_partner",
+      "status_label": "VIP I Am Peacekeeper Partner",
+      "url": "https://bfp26.i-am-peacekeeper.com/admin/guests/usr_994e59cd6aee45b69b28"
+    },
+    "failures": [
+      {
+        "field": "sequence_in_status",
+        "expected": "422",
+        "actual": "402"
+      },
+      {
+        "field": "seat_no",
+        "expected": "53 - Humility",
+        "actual": "52"
+      },
+      {
+        "field": "champion_category",
+        "expected": "Late Peace Guest",
+        "actual": ""
+      }
+    ]
+  },
+  {
+    "row": "423",
+    "name": "Darshan Dalal",
+    "action": "error_created_not_unique",
+    "phone": "+919820197119",
+    "found": []
+  },
+  {
+    "row": "424",
+    "name": "Jag Deep Dhawan",
+    "action": "created_new_lpg",
+    "id": "usr_sfoi5odikxl64naxaw0s3gey",
+    "before": {
+      "url": "https://bfp26.i-am-peacekeeper.com/admin/guests/usr_sfoi5odikxl64naxaw0s3gey"
+    },
+    "changed": {
+      "sequence_in_status": "424",
+      "seat_no": "53 - IAPM",
+      "champion_category": "Late Peace Guest",
+      "status_label": "VIP I Am Peacekeeper Partner"
+    },
+    "saved": true,
+    "after": {
+      "award_category": "",
+      "champion_category": "Late Peace Guest",
+      "country": "India",
+      "designation": "",
+      "email": "",
+      "honorific": "",
+      "id": "usr_sfoi5odikxl64naxaw0s3gey",
+      "name": "Jag Deep Dhawan",
+      "organization": "",
+      "phone": "+910000100424",
+      "seat_no": "53 - IAPM",
+      "sequence_in_status": "424",
+      "status_code": "vip_partner",
+      "status_label": "VIP I Am Peacekeeper Partner",
+      "url": "https://bfp26.i-am-peacekeeper.com/admin/guests/usr_sfoi5odikxl64naxaw0s3gey"
+    },
+    "failures": [],
+    "phone": "+910000100424"
+  },
+  {
+    "row": "425",
+    "name": "Jagmohan Garg",
+    "action": "created_new_lpg",
+    "id": "usr_fkpqqui9brdct27xi4mzywec",
+    "before": {
+      "award_category": "",
+      "champion_category": "",
+      "country": "India",
+      "designation": "",
+      "email": "",
+      "honorific": "",
+      "id": "usr_fkpqqui9brdct27xi4mzywec",
+      "name": "Jagmohan Garg",
+      "organization": "",
+      "phone": "+910000100425",
+      "seat_no": "54 - Truth",
+      "sequence_in_status": "425",
+      "status_code": "vip_partner",
+      "status_label": "VIP I Am Peacekeeper Partner",
+      "url": "https://bfp26.i-am-peacekeeper.com/admin/guests/usr_fkpqqui9brdct27xi4mzywec"
+    },
+    "changed": {
+      "champion_category": "Late Peace Guest"
+    },
+    "saved": true,
+    "after": {
+      "url": "https://bfp26.i-am-peacekeeper.com/admin/guests/usr_fkpqqui9brdct27xi4mzywec"
+    },
+    "failures": [
+      {
+        "field": "sequence_in_status",
+        "expected": "425",
+        "actual": ""
+      },
+      {
+        "field": "seat_no",
+        "expected": "54 - Truth",
+        "actual": ""
+      },
+      {
+        "field": "champion_category",
+        "expected": "Late Peace Guest",
+        "actual": ""
+      },
+      {
+        "field": "status_label",
+        "expected": "VIP I Am Peacekeeper Partner",
+        "actual": ""
+      },
+      {
+        "field": "status_code",
+        "expected": "vip_partner",
+        "actual": ""
+      }
+    ],
+    "phone": "+910000100425"
+  },
+  {
+    "row": "426",
+    "name": "Mohan Kumar Giri",
+    "action": "created_new_lpg",
+    "id": "usr_w92litb0tq1h0vssfpq7khps",
+    "before": {
+      "award_category": "",
+      "champion_category": "",
+      "country": "India",
+      "designation": "",
+      "email": "",
+      "honorific": "",
+      "id": "usr_w92litb0tq1h0vssfpq7khps",
+      "name": "Mohan Kumar Giri",
+      "organization": "",
+      "phone": "+910000100426",
+      "seat_no": "54 - Gratitude",
+      "sequence_in_status": "426",
+      "status_code": "vip_partner",
+      "status_label": "VIP I Am Peacekeeper Partner",
+      "url": "https://bfp26.i-am-peacekeeper.com/admin/guests/usr_w92litb0tq1h0vssfpq7khps"
+    },
+    "changed": {
+      "champion_category": "Late Peace Guest"
+    },
+    "saved": true,
+    "after": {
+      "award_category": "",
+      "champion_category": "Late Peace Guest",
+      "country": "India",
+      "designation": "",
+      "email": "",
+      "honorific": "",
+      "id": "usr_w92litb0tq1h0vssfpq7khps",
+      "name": "Mohan Kumar Giri",
+      "organization": "",
+      "phone": "+910000100426",
+      "seat_no": "54 - Gratitude",
+      "sequence_in_status": "426",
+      "status_code": "vip_partner",
+      "status_label": "VIP I Am Peacekeeper Partner",
+      "url": "https://bfp26.i-am-peacekeeper.com/admin/guests/usr_w92litb0tq1h0vssfpq7khps"
+    },
+    "failures": [],
+    "phone": "+910000100426"
+  },
+  {
+    "row": "427",
+    "name": "Ujjwal Kumar Dahal",
+    "action": "error_created_not_unique",
+    "phone": "+910000100427",
+    "found": []
+  }
+]

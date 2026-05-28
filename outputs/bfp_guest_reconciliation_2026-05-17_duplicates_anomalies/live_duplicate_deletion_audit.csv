@@ -1,0 +1,46 @@
+timestamp,system_id,name,action,confirmation
+2026-05-17T23:38:18,usr_79dd4cfb568341239ee0,Amit Jain,deleted,user said delete while record visible
+2026-05-17T23:39:19,usr_859e0fc946f1442082f3,H.E. Prof Faustin-Archange Touadéra,deleted,user said delete while record visible
+2026-05-17T23:41:56,usr_1a25dc74b7dc4890a1e5,Gagan Mahotra,merged seat_no=32 into keeper,user requested merge data remove extra
+2026-05-17T23:41:56,usr_0257448ffa61428b9d19,Gagan Mahotra,deleted,"merged useful seat field into keeper, then removed extra"
+2026-05-17T23:46:12,usr_40c165f5d4e144caa67e,Gagan Mahotra,deleted,user said delete duplicate while record visible
+2026-05-17T23:47:42,usr_9ceab22a440d459f8b39,H.E Kane Amandus,deleted,user said delete after comparison shown
+2026-05-17T23:48:34,usr_18891f33ff914cb09f57,Keshav Hari,deleted,user said delete after comparison shown
+2026-05-17T23:49:36,usr_db6e520a36da4c75b1f0,Ms. Kuni Kristine Teimitsi,deleted,user said delete after comparison shown
+2026-05-17T23:51:08,usr_2c594469ef1c4096ac5f,Mr. Micheal Li,deleted,user said delete after comparison shown
+2026-05-17T23:53:36,usr_d29c2c7158114b01b735,Prof. Milind Patre,deleted,user said delete after comparison shown
+2026-05-17T23:56:31,usr_6cabb2008dd84b05a9b2,Pravin Kakad,deleted,user said delete after first Pravin duplicate recommendation; SCOPE-tier duplicate left for separate review
+2026-05-18T00:06:07,usr_be2d5465921646b28466,Pravin Kakad,updated VIP I Am Peacekeeper Partner to I Am Peacekeeper SCOPE; sequence set to 459; VIP wording removed,user said remove him from VIP
+2026-05-18T00:07:49,usr_9c37644ff4b54a15b91a,Pravin Kakad,deleted,user said delete after fuller Pravin record was changed from VIP to SCOPE
+2026-05-18T00:11:22,usr_0e58797c712846c09bc7,Dr. Sindhuja Iyengar,updated,"kept data-bearing SCOPE entry; corrected name spelling, slug and bio; preserved contact, role, organisation, status tier and pass"
+2026-05-18T00:12:14,usr_e7bfbad353374d98a446,Dr. Sindhuja Iyengar,deleted,user said delete after data-bearing SCOPE entry usr_0e58797c712846c09bc7 was retained and updated
+2026-05-18T00:13:09,usr_d63a7b0df5d94364a117,Dr. Sindhuja Iyengar,deleted,user said only duplicates delete; deleted NA duplicate after retaining real SCOPE entry usr_0e58797c712846c09bc7
+2026-05-18T00:14:40,usr_36086cbcfecf4660abcd,Vineet Nirmal Suchanti,deleted,user said delete; duplicate-only cleanup; retained data-bearing record usr_d7eaf75a08c749a98f59
+2026-05-18T00:19:54,usr_zfsqxxbwzu4ko6wev7a8p3od,Huzaifa Habil Khorakiwala,updated,merged seat Sofa from incomplete duplicate usr_59d751ecfb7945b88460 into retained data-bearing record
+2026-05-18T00:19:54,usr_59d751ecfb7945b88460,Huzaifa H Khorakiwala,deleted,user said merge and delete; retained data-bearing record usr_zfsqxxbwzu4ko6wev7a8p3od
+2026-05-18T00:24:35,usr_055bf8d8576241a38d5e,Avinash K. Dhakne, IAS,updated,merged IAS name, real phone +919869486624, seat 5, slug and City award category from duplicate usr_82e6cebeb0734495bcd0
+2026-05-18T00:24:35,usr_82e6cebeb0734495bcd0,Avinash K. Dhakne, IAS,deleted,user said merge and delete; retained data-bearing record usr_055bf8d8576241a38d5e
+2026-05-18T00:28:54,usr_04b83ee1af9c49edaab4,Zahabiya Habil Khorakiwala,updated,merged mobile +919820607069, seat 25 and Health award category from duplicate usr_4880149bd362453188ba
+2026-05-18T00:28:54,usr_4880149bd362453188ba,Zahabiya Khorakiwala,deleted,user said use contact details, merge and delete any extra; retained data-bearing record usr_04b83ee1af9c49edaab4
+usr_79d60c25e44e45f99052,Firoz Mohsin Bootwala,updated,merged seat 32 and I Am Peacekeeper Partner category fields from duplicate usr_2686ad561a5a4fffa78c
+usr_2686ad561a5a4fffa78c,Firoz Mosin Bootwala,deleted,user confirmed merge and delete; retained data-bearing record usr_79d60c25e44e45f99052
+usr_e7e4034422804ee5a657,Kavya Jha,updated,"user confirmed merge; corrected name/slug, merged seat 35, cleared Award and Champion categories per I Am Peacekeeper blank-category rule; retained PC and bio fields"
+usr_0983f965305f4585925b,Kavya Jha,deleted,user confirmed merge and delete; retained data-bearing record usr_e7e4034422804ee5a657
+usr_e7e4034422804ee5a657,Kavya Jha,updated,removed merged seat number per user instruction to remove seat numbers
+usr_808356c7194843c09248,Sanyogita Atrey,updated,cleared Champion category per I Am Peacekeeper blank-category rule
+usr_79d60c25e44e45f99052,Firoz Mohsin Bootwala,updated,cleared seat Award category and Champion category per I Am Peacekeeper rules; sequence set to 1
+usr_b7694ed3ff194b6bbe37,HRH Sanyogita Atrey,deleted,duplicate deleted after confirmation; kept usr_808356c7194843c09248 with live phone email and blank categories
+usr_b8f4f71b0e804286b80b,Ajhay R Somvanshi,updated,set sequence to 1 and cleared Award category and Champion category per I Am Peacekeeper rules
+usr_70cf1de9241f4c128592,Ajhay Somvanshi,deleted,duplicate already absent on direct open; confirmed only keeper remains in live search; kept usr_b8f4f71b0e804286b80b with live phone email and peace_manager role
+usr_930776234ca24ff288f4,Sabina Almeida,updated,set sequence to 1 and cleared Award category and Champion category per I Am Peacekeeper rules
+usr_86892b9184e34a5ba7a5,Mahee Choksey,updated,kept real phone email pass and Peace Contacts; cleared Award and Champion categories; kept sequence 76 and seat blank
+usr_52e146a3e4954fd6a43e,Mahee Choksey,deleted,user confirmed merge all into one proper and delete others; duplicate had dummy mobile and no PC
+usr_154d6717f98c4c98ae85,Adv. Mahee Choksey,deleted,user confirmed merge all into one proper and delete others; duplicate had no contact data and seat 36 not merged
+usr_f1bcf8bd25a64c599734,Omar Farooq Khan,updated,kept UK mobile +447805065123; merged email ceo@glaxospecter.com after duplicate removal; sequence set to 77; seat Award and Champion blank
+usr_01d8430450e0464e83b2,Omar Farooq Khan,deleted,user confirmed merge and delete; duplicate removed after preserving email into keeper
+usr_zfsqxxbwzu4ko6wev7a8p3od,Huzaifa Habil Khorakiwala,updated,cleared seat Award category and Champion category per I Am Peacekeeper rules; kept sequence 1 and contact data
+usr_055bf8d8576241a38d5e,Avinash K. Dhakne IAS,updated,cleared merged seat and category fields per I Am Peacekeeper rules; kept sequence 143 and phone
+usr_04b83ee1af9c49edaab4,Zahabiya Habil Khorakiwala,updated,cleared merged seat and category fields per I Am Peacekeeper rules; kept sequence 43 and contact data
+usr_be2d5465921646b28466,Pravin Kakad,updated,cleared Award category and Champion category per I Am Peacekeeper rules; kept SCOPE/IAPM sequence 459
+usr_0e58797c712846c09bc7,Dr Sindhuja Iyengar,updated,set sequence to 1 and cleared Award category and Champion category per I Am Peacekeeper rules
+usr_808356c7194843c09248,Sanyogita Atrey,updated,cleared whitespace Champion category; Award and seat already blank

@@ -1,0 +1,16 @@
+{
+  "generated_at": "2026-05-17T22:37:40.763Z",
+  "queue_rows": 315,
+  "queue_unique_live_ids": 313,
+  "ok_unique_live_ids": 300,
+  "skipped_unique_ids": 13,
+  "duplicate_live_id_conflict_groups": 2,
+  "manual_review_count": 15,
+  "notes": [
+    "Safe live updates completed for all unique editable rows in the 315-row queue.",
+    "Award Category was kept blank for all edited safe rows.",
+    "Champion Category was only set for I Am Peacekeeper Champion rows.",
+    "Seats were updated from the Farhat May 18 3am list.",
+    "Rows with status mismatch, multiple live IDs, or failed live ID pages were held for confirmation."
+  ]
+}

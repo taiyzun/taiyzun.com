@@ -1,0 +1,3654 @@
+[
+  {
+    "id": "",
+    "fans_row": "6",
+    "fans_name": "Mr Haccine Abassi",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Nobel Peace Prize (2015)",
+      "organization": "",
+      "country": "Tunisia"
+    },
+    "source": {
+      "FANS Category Final": "Main",
+      "FANS Category": "Nobel Laureate",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_59d751ecfb7945b88460",
+    "fans_row": "7",
+    "fans_name": "Dr Huzaifa H Khorakiwala",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Main",
+      "FANS Category": "I am Peacekeeper",
+      "FANS Award Category": "",
+      "System Name": "Huzaifa H Khorakiwala",
+      "System Status": "I Am Peacekeeper SCOPE",
+      "Reasons": "fuzzy system match"
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "",
+    "fans_row": "12",
+    "fans_name": "Professor Mohan Munasinghe",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Founder Chairman, Munasinghe Institute for Development (MIND) Colombo",
+      "organization": "",
+      "country": "Sri Lanka"
+    },
+    "source": {
+      "FANS Category Final": "Main",
+      "FANS Category": "Nobel Laureate",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "13",
+    "fans_name": "Hon'ble Shri Ram Nath Kovind",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "14th President of India",
+      "organization": "",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "Main",
+      "FANS Category": "Chief Guest",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_d2cd4258ca394bdd83c0",
+    "fans_row": "23",
+    "fans_name": "Dr Abhishek Verma",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "+919811432277911126653077",
+      "email": "",
+      "designation": "Chief National Coordinator for NDA Alliance & Elections",
+      "organization": "ShivSena (Shinde)",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Business",
+      "System Name": "Abhishek Verma",
+      "System Status": "I Am Peacekeeper Champion",
+      "Reasons": "fuzzy system match"
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "",
+    "fans_row": "26",
+    "fans_name": "Hon'ble Smt Aditi Tatkare",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Minister for Women & Child Development",
+      "organization": "Maharashtra",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Youth & Women",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "34",
+    "fans_name": "Ms Ameenah Gurib-Fakim",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Former President of Mauritius",
+      "organization": "",
+      "country": "Mauritius"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Justice & Peace",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_79dd4cfb568341239ee0 | usr_e36046686a8040619921",
+    "fans_row": "36",
+    "fans_name": "Mr Amit Jain",
+    "match_type": "exact_name_multiple",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Ashika",
+      "organization": "",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "Business",
+      "System Name": "Amit Jain | Amit Jain",
+      "System Status": "",
+      "Reasons": "multiple system matches; duplicate normalised name in Farhat list"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "39",
+    "fans_name": "Hon'ble Shri Anna Bansode",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Maharashtra Vidhan Sabha (Legislative Assembly)",
+      "organization": "Pimpri Chinchwad",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Justice & Peace",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_82e6cebeb0734495bcd0",
+    "fans_row": "50",
+    "fans_name": "Dr Avinash K. Dhakne, IAS",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "+919869486624",
+      "email": "",
+      "designation": "Additional Municipal Commissioner (Eastern Suburbs)",
+      "organization": "BMC",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "City",
+      "System Name": "Avinash K. Dhakne, IAS",
+      "System Status": "I Am Peacekeeper Champion",
+      "Reasons": "fuzzy system match"
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "",
+    "fans_row": "52",
+    "fans_name": "Mr Bahadur Ali",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Business",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "56",
+    "fans_name": "Mr Bhausaheb Wakchaure",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Member of Parliament, Lok Sabha",
+      "organization": "Shirdi",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Justice & Peace",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_13c5fc082e094fe9b288",
+    "fans_row": "58",
+    "fans_name": "Dr Bu Abdullah (Yaqoub Mousa Mohammed Hussain Almaazmi)",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "+971503555581",
+      "email": "",
+      "designation": "Chairman, Bu Abdullah Group of Companies",
+      "organization": "Dubai (also styled \"Bu Abdullah Investment Group\")",
+      "country": "UAE"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Business",
+      "System Name": "Bu Abdullah",
+      "System Status": "I Am Peacekeeper Champion",
+      "Reasons": "fuzzy system match"
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "",
+    "fans_row": "59",
+    "fans_name": "Hon'ble Bhiku Ramji Idate",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Member of Parliament, Lok Sabha",
+      "organization": "Shirdi",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Justice & Peace",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "69",
+    "fans_name": "GAIL Person",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "72",
+    "fans_name": "Hon'ble Shri Gulabrao Raghunath Patil",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "MLA",
+      "organization": "incumbent Water Supply & Sanitation Minister of Maharashtra",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Justice & Peace",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "73",
+    "fans_name": "Mr. Gurudas Verma",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Founder & CEO",
+      "organization": "GSSG Nirman Pvt. Ltd.",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Business",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "74",
+    "fans_name": "Mr Gurdeep Singh Sappal",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Media Professional",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Justice & Peace",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "76",
+    "fans_name": "Mr. Hardeep Singh Banga",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Managing Director",
+      "organization": "Victura Technologies Pvt. Ltd.",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Business",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "81",
+    "fans_name": "Molvi Imran Reza Ansari",
+    "match_type": "",
+    "target": {
+      "phone": "+919810000110",
+      "email": "",
+      "designation": "President",
+      "organization": "All J&K Shia Association",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Justice & Peace",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_48f27b59eec74a1498fc",
+    "fans_row": "82",
+    "fans_name": "Dr Jaan Nissar Lone",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "BRICS Global President",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Business",
+      "System Name": "Jaan Nissar Lone",
+      "System Status": "I Am Peacekeeper Champion",
+      "Reasons": "fuzzy system match"
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "",
+    "fans_row": "84",
+    "fans_name": "Hon'ble Shri Jaykumar Jitendrasinh Rawal",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Protocol Minister Maharashtra & Political Leader",
+      "organization": "",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Justice & Peace",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "89",
+    "fans_name": "HE K.L. Ganju",
+    "match_type": "",
+    "target": {
+      "phone": "+919810020661",
+      "email": "",
+      "designation": "Consul General (Hony) of Comoros",
+      "organization": "",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Justice & Peace",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_c4ed3e5df7274eb5a3e5",
+    "fans_row": "91",
+    "fans_name": "Dr Kirti Sisodia",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "+919755555571",
+      "email": "",
+      "designation": "Author & Influential Speaker",
+      "organization": "",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Influencers",
+      "System Name": "Kirti Sisodia",
+      "System Status": "I Am Peacekeeper Champion",
+      "Reasons": "fuzzy system match"
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "usr_beb030fb9dc244af91e3 | usr_a16928514e0849d3ad10",
+    "fans_row": "92",
+    "fans_name": "Shri Krishna Kumar (KK) Singh",
+    "match_type": "exact_name_multiple",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Interim Chairman & MD (Additional Charge)",
+      "organization": "Steel Authority of India Ltd",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Business",
+      "System Name": "Krishna Kumar (KK) Singh | Krishna Kumar Singh",
+      "System Status": "",
+      "Reasons": "multiple system matches"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "93",
+    "fans_name": "Hon'ble Mr Krishna N. Pimple",
+    "match_type": "",
+    "target": {
+      "phone": "+919769416373",
+      "email": "",
+      "designation": "Founder Chairman, CISB Group (CIS Bureaus Facility Services Pvt. Ltd.), CISS Ltd.",
+      "organization": "Rasheshwar Infrastructure and Krystal Cinemas",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Business",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "95",
+    "fans_name": "Komalraj Callychurn",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Advisor to the President · Republic of central africa",
+      "organization": "",
+      "country": "Port-Louis, Maurice"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "96",
+    "fans_name": "Respected Sardar Kulwant Singh ji",
+    "match_type": "",
+    "target": {
+      "phone": "+919821353984",
+      "email": "",
+      "designation": "President (Mukh Sewadar)",
+      "organization": "Sri Guru Singh Sabha Mumbai",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Justice & Peace",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_3a89ca86e7fe486daacf",
+    "fans_row": "101",
+    "fans_name": "H.E. Hon. Lionel Rouwen Aingimea",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Vice President of the Republic of Nauru",
+      "organization": "",
+      "country": "Nauru, Oceania"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Justice & Peace",
+      "System Name": "H.E. Hon. Lionel Rouwen Aingimea",
+      "System Status": "I Am Peacekeeper Champion",
+      "Reasons": "fuzzy system match"
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "",
+    "fans_row": "102",
+    "fans_name": "Hon'ble Shri Mahendra Sadashiv Thorve",
+    "match_type": "",
+    "target": {
+      "phone": "+919921414040",
+      "email": "",
+      "designation": "MLA",
+      "organization": "Karjat & Political Leader",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Justice & Peace",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "115",
+    "fans_name": "Dr Murtaza Habil Khorakiwala",
+    "match_type": "",
+    "target": {
+      "phone": "+919920376467",
+      "email": "",
+      "designation": "MD, Wockhardt Limited",
+      "organization": "Mumbai",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Business",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_8853203d42f9429d8a77",
+    "fans_row": "117",
+    "fans_name": "Dr Naveen Singh Suhag",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "+41796042210",
+      "email": "",
+      "designation": "Co-Founder & CEO",
+      "organization": "Inery",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Business",
+      "System Name": "Naveen Singh Suhag",
+      "System Status": "I Am Peacekeeper Champion",
+      "Reasons": "fuzzy system match"
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "usr_ef2e6370a29e4e788c3b",
+    "fans_row": "121",
+    "fans_name": "Dr P Siddeek Ahmed Haji",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "+966505859222",
+      "email": "",
+      "designation": "Chairman & MD",
+      "organization": "ERAM Group",
+      "country": "Saudi Arabia"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Business",
+      "System Name": "P Siddeek Ahmed Haji",
+      "System Status": "I Am Peacekeeper Champion",
+      "Reasons": "fuzzy system match"
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "",
+    "fans_row": "123",
+    "fans_name": "Parveen Goyal",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Chairman",
+      "organization": "Advanced Laparoscopy & Healthcare",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Business",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_65ebfbefacd84aa78163",
+    "fans_row": "124",
+    "fans_name": "Dr Pankaj Rajesh Bhoyar",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "+918806511133",
+      "email": "",
+      "designation": "Member of Legislative Assembly",
+      "organization": "Government of Maharashtra",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Housing",
+      "System Name": "Pankaj Rajesh Bhoyar",
+      "System Status": "I Am Peacekeeper Champion",
+      "Reasons": "fuzzy system match"
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "usr_76bff53401a74b71a3b1",
+    "fans_row": "125",
+    "fans_name": "H.E. Patrick Leverino",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "+919820573662",
+      "email": "Patrick.leverino@diplomatie.gouv.fr",
+      "designation": "Consul General of France in Mumbai",
+      "organization": "",
+      "country": "France"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Justice & Peace",
+      "System Name": "Patrick Leverino",
+      "System Status": "I Am Peacekeeper Champion",
+      "Reasons": "fuzzy system match"
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "",
+    "fans_row": "126",
+    "fans_name": "Petronet Person",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "128",
+    "fans_name": "Dr Prabal Roy",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Chairman",
+      "organization": "Advanced Laparoscopy & Healthcare",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Health",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_356c4ec004ac40a6bfe5",
+    "fans_row": "132",
+    "fans_name": "Dr Raghav Pat Singhania",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "MD of JK Cement",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Business",
+      "System Name": "Raghav Pat Singhania",
+      "System Status": "I Am Peacekeeper Champion",
+      "Reasons": "fuzzy system match"
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "",
+    "fans_row": "134",
+    "fans_name": "Most Venerable Dr Bhadant Rahul Bodhi Mahathero",
+    "match_type": "",
+    "target": {
+      "phone": "+919702548277",
+      "email": "",
+      "designation": "Chief Monk",
+      "organization": "Bhikkhu Sangha's United Buddhist Mission",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Justice & Peace",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_f6ccd55a931546dea7ed",
+    "fans_row": "135",
+    "fans_name": "Dr Rahul V. Karad",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "+918605003967",
+      "email": "",
+      "designation": "Managing Trustee and Executive President, MAEER's MIT Group of Institutions",
+      "organization": "Pune",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Education",
+      "System Name": "Rahul V. Karad",
+      "System Status": "I Am Peacekeeper Champion",
+      "Reasons": "fuzzy system match"
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "usr_aed75f2f8d534e36a438",
+    "fans_row": "139",
+    "fans_name": "Dr Rajiv Kumar Sharma",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "+918698123415",
+      "email": "rajiv@rv-health.com",
+      "designation": "Founder & Chairman",
+      "organization": "RV Group",
+      "country": "Singapore"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Health",
+      "System Name": "Rajiv Kumar Sharma",
+      "System Status": "I Am Peacekeeper Champion",
+      "Reasons": "fuzzy system match"
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "",
+    "fans_row": "149",
+    "fans_name": "Prof Dr Ron Chandiramani",
+    "match_type": "",
+    "target": {
+      "phone": "+971506538991",
+      "email": "",
+      "designation": "Group President",
+      "organization": "Al Midas group of companies",
+      "country": "Singapore"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Business",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "151",
+    "fans_name": "Ms Roshni Walia",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Actress",
+      "organization": "",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Artist & Literature",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_32aceae88e1b45548b5d",
+    "fans_row": "160",
+    "fans_name": "Dr Sandeep Bakshi",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "+919829062313",
+      "email": "",
+      "designation": "Founder, Chancellor & Chairman, Jaipur National University",
+      "organization": "Jaipur",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Education",
+      "System Name": "Sandeep Bakshi",
+      "System Status": "I Am Peacekeeper Champion",
+      "Reasons": "fuzzy system match"
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "",
+    "fans_row": "169",
+    "fans_name": "Padma Shri Savjibhai Dhanjibhai Dholakia",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Founder & Chairman",
+      "organization": "Hari Krishna Exports Pvt Ltd",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Social Innovation",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "173",
+    "fans_name": "Hon'ble Shri Shambhuraj Desai",
+    "match_type": "",
+    "target": {
+      "phone": "+919822766918",
+      "email": "",
+      "designation": "Tourism Minister",
+      "organization": "Maharashtra & Political Leader",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Justice & Peace",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "176",
+    "fans_name": "Hon'ble Shri Shivendaraje Bhosle",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "PWD Minister",
+      "organization": "Maharashtra & Political Leader",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Justice & Peace",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "185",
+    "fans_name": "Shri Suresh (Bhaiyyaji) Joshi",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Senior Leader",
+      "organization": "Rashtriya Swayamsevak Sangh (RSS)",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Justice & Peace",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_9781e1ecc9644604aec6",
+    "fans_row": "192",
+    "fans_name": "Dr Vanki Penchalaiah",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Founder Chairman",
+      "organization": "Audisankara Group of Educational Institutions",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Education",
+      "System Name": "Vanki Penchalaiah",
+      "System Status": "I Am Peacekeeper Champion",
+      "Reasons": "fuzzy system match"
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "usr_d7eaf75a08c749a98f59 | usr_36086cbcfecf4660abcd",
+    "fans_row": "200",
+    "fans_name": "Mr Vineet Nirmal Suchanti",
+    "match_type": "exact_name_multiple",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Chairman, MD and CFO",
+      "organization": "Keynote Financial Services Limited (BSE/ NSE: KEYFINSERV)",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "Guest of Honour",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Business",
+      "System Name": "Vineet Nirmal Suchanti | Vineet Nirmal Suchanti",
+      "System Status": "",
+      "Reasons": "multiple system matches"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "207",
+    "fans_name": "Naman Modi",
+    "match_type": "",
+    "target": {
+      "phone": "+919167342246",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Late Peace Guest",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; duplicate normalised name in Farhat list"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_a24f273f990649d3b299",
+    "fans_row": "217",
+    "fans_name": "Dr Aditi R Karad",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Executive Director",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "Aditi R Karad",
+      "System Status": "VIP I Am Peacekeeper Partner",
+      "Reasons": "fuzzy system match"
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "usr_79dd4cfb568341239ee0 | usr_e36046686a8040619921",
+    "fans_row": "224",
+    "fans_name": "Mr Amit Jain",
+    "match_type": "exact_name_multiple",
+    "target": {
+      "phone": "+919509346847",
+      "email": "",
+      "designation": "Founder and Director",
+      "organization": "Global Triumph Foundation",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "Amit Jain | Amit Jain",
+      "System Status": "",
+      "Reasons": "multiple system matches; duplicate normalised name in Farhat list"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_f5163ccb469e471a8290 | usr_2ffac04ead5f40489e8f",
+    "fans_row": "229",
+    "fans_name": "Ms Anjali Atha (check)",
+    "match_type": "exact_name_multiple",
+    "target": {
+      "phone": "+919920153800",
+      "email": "",
+      "designation": "Architect & Design",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "Anjali Atha | Anjali Atha (check)",
+      "System Status": "",
+      "Reasons": "multiple system matches"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "238",
+    "fans_name": "Mr Basant Khandelwal",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Akruti Gems",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "241",
+    "fans_name": "Adv. Bhupesh Pandey",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Advocate",
+      "organization": "Supreme Court of India",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_749aea9f721d41c3a801",
+    "fans_row": "242",
+    "fans_name": "H.E. Boniface Gambila Adagbila",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Former Ambassador of the Republic of Ghana to Burkina Faso (appointed 2021 by H.E. President Nana Addo Dankwa Akufo-Addo",
+      "organization": "",
+      "country": "Ghana"
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "Boniface Gambila Adagbila",
+      "System Status": "VIP I Am Peacekeeper Partner",
+      "Reasons": "fuzzy system match"
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "usr_7954dfe36ca4468ab1be",
+    "fans_row": "244",
+    "fans_name": "Dr. C Jayakumar",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "NHRD",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "Dr. C Jayakumar",
+      "System Status": "VIP I Am Peacekeeper Partner",
+      "Reasons": "fuzzy system match"
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "",
+    "fans_row": "246",
+    "fans_name": "Mr Chandraprakash Dheerajmal Siroya",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "MD, Siroya Jewellers LLC",
+      "organization": "Dubai",
+      "country": "UAE"
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_l3lui9yu6rc1mtzmvsez659h",
+    "fans_row": "249",
+    "fans_name": "⁠Dr. Christopher Abraham, PhD., FCIM",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "+97145616700971506595392",
+      "email": "",
+      "designation": "Chief Executive Officer",
+      "organization": "S P Jain School of Global Management",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "Christopher Abraham",
+      "System Status": "VIP I Am Peacekeeper Partner",
+      "Reasons": "fuzzy system match"
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "",
+    "fans_row": "256",
+    "fans_name": "Mr Dennis Shivani",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Entrepreneur & Business Leader",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "264",
+    "fans_name": "Dr G. D. Singh",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Founder and President",
+      "organization": "Unified Brainz Virtuoso Ltd",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_40c165f5d4e144caa67e | usr_0257448ffa61428b9d19 | usr_1a25dc74b7dc4890a1e5",
+    "fans_row": "265",
+    "fans_name": "Mr Gagan Mahotra",
+    "match_type": "exact_name_multiple",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Director",
+      "organization": "Dreamworth Solutions Pvt Ltd",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "Gagan Mahotra | Gagan Mahotra | Gagan Mahotra",
+      "System Status": "",
+      "Reasons": "multiple system matches"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_7664615ab10943c7bcb0",
+    "fans_row": "267",
+    "fans_name": "Dr Gagandeep Singh",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Director",
+      "organization": "Arman Cold Store Pvt",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "Gagandeep Singh",
+      "System Status": "VIP I Am Peacekeeper Partner",
+      "Reasons": "fuzzy system match"
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "",
+    "fans_row": "269",
+    "fans_name": "Prof. Gopal Wamane",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Asst. Professor",
+      "organization": "School of Piblic Policy",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_739e7edcc2514726be11",
+    "fans_row": "272",
+    "fans_name": "Dr Harjeet Singh Anand",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "+918433770226",
+      "email": "",
+      "designation": "Founder",
+      "organization": "Indo Global Business Chamber (IGBC)",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "Harjeet Singh Anand",
+      "System Status": "VIP I Am Peacekeeper Partner",
+      "Reasons": "fuzzy system match"
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "",
+    "fans_row": "283",
+    "fans_name": "Dr. K.S. Rana",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Vice-Chancellor @ R.G.Medical College & Research Center",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "288",
+    "fans_name": "H.E Kane Amandus",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "High Commissioner of Nauru to India",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_18891f33ff914cb09f57 | usr_ey1e25aknncvaeorhts6naqy",
+    "fans_row": "292",
+    "fans_name": "Keshav Hari",
+    "match_type": "exact_name_multiple",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Chielf of Staff",
+      "organization": "IIMSAM UN",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "Keshav Hari | Keshav Hari",
+      "System Status": "",
+      "Reasons": "multiple system matches"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_db6e520a36da4c75b1f0 | usr_k26769g3ttdbm7z1bp68fhjb",
+    "fans_row": "294",
+    "fans_name": "Ms. Kuni Kristine Teimitsi",
+    "match_type": "exact_name_multiple",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Personal Assistant to the Vice President",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "Ms. Kuni Kristine Teimitsi | Kuni Kristine Teimitsi",
+      "System Status": "",
+      "Reasons": "multiple system matches"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "299",
+    "fans_name": "Adv. Mahee Choksey",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Advocate",
+      "organization": "Bhopal",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_2c594469ef1c4096ac5f | usr_snpzo8qkcvvoumq3ig420m76",
+    "fans_row": "302",
+    "fans_name": "Mr. Micheal Li",
+    "match_type": "exact_name_multiple",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "Mr. Micheal Li | Micheal Li",
+      "System Status": "",
+      "Reasons": "multiple system matches"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_20a765288f064568a167",
+    "fans_row": "303",
+    "fans_name": "Dr Mikki Koomar",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Founder and Global Chairman",
+      "organization": "Xtreme Industries and Xtreme Entertainment Production Private Limited",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "Mikki Koomar",
+      "System Status": "VIP I Am Peacekeeper Partner",
+      "Reasons": "fuzzy system match"
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "",
+    "fans_row": "304",
+    "fans_name": "Prof. Milind Patre",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Associate Dean",
+      "organization": "Peace Studies",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_db65932b9a9f4e2384ed",
+    "fans_row": "309",
+    "fans_name": "CA Mukesh Mohta",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Chartered Accountant - firm / practice",
+      "organization": "",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "Mukesh Mohta",
+      "System Status": "VIP I Am Peacekeeper Partner",
+      "Reasons": "fuzzy system match"
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "",
+    "fans_row": "314",
+    "fans_name": "Dr Naval Kumar Verma",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Founder & Owner, Dr. Naval's Homeo Clinic And Research Centre in Rajouri Garden, Delhi",
+      "organization": "Advisor to the Government of India and UAE",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_10a2fa84024a46d998e5",
+    "fans_row": "317",
+    "fans_name": "CA Nimish Makwana",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Senior Partner, Crowe UAE (Crowe Mak), Jumeirah Lakes Towers",
+      "organization": "Dubai",
+      "country": "UAE"
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "Nimish Makwana",
+      "System Status": "VIP I Am Peacekeeper Partner",
+      "Reasons": "fuzzy system match"
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "usr_be2d5465921646b28466 | usr_6cabb2008dd84b05a9b2 | usr_9c37644ff4b54a15b91a",
+    "fans_row": "333",
+    "fans_name": "Mr Pravin Kakad",
+    "match_type": "exact_name_multiple",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Mumbai-based private-sector principal",
+      "organization": "",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "Pravin Kakad | Pravin Kakad | Pravin Kakad",
+      "System Status": "",
+      "Reasons": "multiple system matches; duplicate normalised name in Farhat list"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_623e73e2e05e4a509eca",
+    "fans_row": "336",
+    "fans_name": "Dr Prem Jagyasi",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Founder, MD & CEO",
+      "organization": "Dr Prem and Associates",
+      "country": "UAE"
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "Prem Jagyasi",
+      "System Status": "VIP I Am Peacekeeper Partner",
+      "Reasons": "fuzzy system match"
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "",
+    "fans_row": "349",
+    "fans_name": "Mr Rohit Chopra",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Entrepreneur & Business Leader",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_ee2eaa67eb4f434aae4c",
+    "fans_row": "355",
+    "fans_name": "Dr Sahitya K. Chaturvedi",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Secretary General, IBPC Dubai; Head of Internal Audit",
+      "organization": "Ajmal Perfumes",
+      "country": "UAE"
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "Sahitya K. Chaturvedi",
+      "System Status": "VIP I Am Peacekeeper Partner",
+      "Reasons": "fuzzy system match"
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "",
+    "fans_row": "365",
+    "fans_name": "HRH Sanyogita Atrey",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Chairperson & MD",
+      "organization": "SG18 Realty Pvt Ltd / 18SG Group",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "384",
+    "fans_name": "Adv Sudhir Babu",
+    "match_type": "",
+    "target": {
+      "phone": "+919995950000",
+      "email": "Babulaw2000@yahoo.com",
+      "designation": "Hon Trade Commissioner",
+      "organization": "India GCC Trade Council",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "388",
+    "fans_name": "Samyak Jain",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "with Mr Suraj Chouhan",
+      "organization": "",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "389",
+    "fans_name": "Rishabh Jain",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "with Mr Suraj Chouhan",
+      "organization": "",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "399",
+    "fans_name": "Vada Dasturji Tehemton Burjor Mirza",
+    "match_type": "",
+    "target": {
+      "phone": "+919820310104",
+      "email": "dastoortbmirza@gmail.com",
+      "designation": "Vada Dasturji (High Priest), Iranshah Atash Behram",
+      "organization": "Udvada",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_e3b823f39f804372b5c7",
+    "fans_row": "402",
+    "fans_name": "Dr Varun Suthra",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "+919987749115",
+      "email": "",
+      "designation": "Director (International Relations), KIIT & KISS",
+      "organization": "Bhubaneswar",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "Varun Suthra",
+      "System Status": "VIP I Am Peacekeeper Partner",
+      "Reasons": "fuzzy system match"
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "usr_e6b4abd2fcae42478f60",
+    "fans_row": "411",
+    "fans_name": "Dr Yogesh Dube",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "+919594555555",
+      "email": "",
+      "designation": "Chairman, Bhartiya Vikas Sansthan (pioneer organisation for cultural, social and child-relief work",
+      "organization": "Mumbai)",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "VIP Peace Partner",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "Yogesh Dube",
+      "System Status": "VIP I Am Peacekeeper Partner",
+      "Reasons": "fuzzy system match"
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "",
+    "fans_row": "418",
+    "fans_name": "Naman Modi",
+    "match_type": "",
+    "target": {
+      "phone": "+919167342246",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Late Peace Guest",
+      "FANS Category": "Late Peace Guest",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; duplicate normalised name in Farhat list"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "423",
+    "fans_name": "Darshan Dalal (Falguni Shah brother)",
+    "match_type": "",
+    "target": {
+      "phone": "+919820197119",
+      "email": "",
+      "designation": "@FaluMusic",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Late Peace Guest",
+      "FANS Category": "Late Peace Guest",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "424",
+    "fans_name": "Jag Deep Dhawan",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Late Peace Guest",
+      "FANS Category": "Late Peace Guest",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "425",
+    "fans_name": "Jagmohan Garg",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Late Peace Guest",
+      "FANS Category": "Late Peace Guest",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "426",
+    "fans_name": "Mohan Kumar Giri",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Late Peace Guest",
+      "FANS Category": "Late Peace Guest",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "427",
+    "fans_name": "Ujjwal Kumar Dahal",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "CMD",
+      "organization": "Mera Baba Group",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Late Peace Guest",
+      "FANS Category": "Late Peace Guest",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; no reliable live System ID from CSV snapshot"
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "",
+    "fans_row": "428",
+    "fans_name": "Rajeshree Shete Iyer",
+    "match_type": "",
+    "target": {
+      "phone": "+971506557199917498430568",
+      "email": "iyer.rajeshree@gmail.com",
+      "designation": "The Platinum One Media & Consulting",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Media",
+      "FANS Category": "PR & Social Media",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; Media row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_2bb76d8e1bb346a9a4b3",
+    "fans_row": "429",
+    "fans_name": "Media 1",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Media",
+      "FANS Category": "PR & Social Media",
+      "FANS Award Category": "",
+      "System Name": "Media 1",
+      "System Status": "I Am Peacekeeper SCOPE",
+      "Reasons": "Media row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_7c9e30313cc64694812a",
+    "fans_row": "430",
+    "fans_name": "Media 2",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Media",
+      "FANS Category": "PR & Social Media",
+      "FANS Award Category": "",
+      "System Name": "Media 2",
+      "System Status": "I Am Peacekeeper SCOPE",
+      "Reasons": "Media row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_fd76ffe7b499479cb106",
+    "fans_row": "431",
+    "fans_name": "Media 3",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Media",
+      "FANS Category": "PR & Social Media",
+      "FANS Award Category": "",
+      "System Name": "Media 3",
+      "System Status": "I Am Peacekeeper SCOPE",
+      "Reasons": "Media row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_d7a44358f28a4fe6bab8",
+    "fans_row": "432",
+    "fans_name": "Media 4",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Media",
+      "FANS Category": "PR & Social Media",
+      "FANS Award Category": "",
+      "System Name": "Media 4",
+      "System Status": "I Am Peacekeeper SCOPE",
+      "Reasons": "Media row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_f6d05c37b04848b8b900",
+    "fans_row": "433",
+    "fans_name": "Media 5",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Media",
+      "FANS Category": "PR & Social Media",
+      "FANS Award Category": "",
+      "System Name": "Media 5",
+      "System Status": "I Am Peacekeeper SCOPE",
+      "Reasons": "Media row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_0b101fbb0ed84b17b99e",
+    "fans_row": "434",
+    "fans_name": "Media 6",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Media",
+      "FANS Category": "PR & Social Media",
+      "FANS Award Category": "",
+      "System Name": "Media 6",
+      "System Status": "I Am Peacekeeper SCOPE",
+      "Reasons": "Media row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_1c6fea0ce9044d338ee6",
+    "fans_row": "435",
+    "fans_name": "Media 7",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Media",
+      "FANS Category": "PR & Social Media",
+      "FANS Award Category": "",
+      "System Name": "Media 7",
+      "System Status": "I Am Peacekeeper SCOPE",
+      "Reasons": "Media row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_d7cb63b39af14e0195d0",
+    "fans_row": "436",
+    "fans_name": "Media 8",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Media",
+      "FANS Category": "PR & Social Media",
+      "FANS Award Category": "",
+      "System Name": "Media 8",
+      "System Status": "I Am Peacekeeper SCOPE",
+      "Reasons": "Media row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_4e2940a308644601880d",
+    "fans_row": "437",
+    "fans_name": "Media 9",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Media",
+      "FANS Category": "PR & Social Media",
+      "FANS Award Category": "",
+      "System Name": "Media 9",
+      "System Status": "I Am Peacekeeper SCOPE",
+      "Reasons": "Media row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_048d5ba242a2456d9d32",
+    "fans_row": "438",
+    "fans_name": "Media 10",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Media",
+      "FANS Category": "PR & Social Media",
+      "FANS Award Category": "",
+      "System Name": "Media 10",
+      "System Status": "I Am Peacekeeper SCOPE",
+      "Reasons": "Media row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_9ddea8f68ed043d0bd15",
+    "fans_row": "439",
+    "fans_name": "Media 11",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Media",
+      "FANS Category": "PR & Social Media",
+      "FANS Award Category": "",
+      "System Name": "Media 11",
+      "System Status": "I Am Peacekeeper SCOPE",
+      "Reasons": "Media row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_d3169948ecb44fb5a6a4",
+    "fans_row": "440",
+    "fans_name": "Media 12",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Media",
+      "FANS Category": "PR & Social Media",
+      "FANS Award Category": "",
+      "System Name": "Media 12",
+      "System Status": "I Am Peacekeeper SCOPE",
+      "Reasons": "Media row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_b13cb0521c9945eba919",
+    "fans_row": "441",
+    "fans_name": "Media 13",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Media",
+      "FANS Category": "PR & Social Media",
+      "FANS Award Category": "",
+      "System Name": "Media 13",
+      "System Status": "I Am Peacekeeper SCOPE",
+      "Reasons": "Media row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_fadb1e0634eb41e7a82f",
+    "fans_row": "442",
+    "fans_name": "Media 14",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Media",
+      "FANS Category": "PR & Social Media",
+      "FANS Award Category": "",
+      "System Name": "Media 14",
+      "System Status": "I Am Peacekeeper SCOPE",
+      "Reasons": "Media row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_af773da5b4b44492aa65",
+    "fans_row": "443",
+    "fans_name": "Media 15",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Media",
+      "FANS Category": "PR & Social Media",
+      "FANS Award Category": "",
+      "System Name": "Media 15",
+      "System Status": "I Am Peacekeeper SCOPE",
+      "Reasons": "Media row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_c8e39bb491aa4453b329",
+    "fans_row": "444",
+    "fans_name": "Media 16",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Media",
+      "FANS Category": "PR & Social Media",
+      "FANS Award Category": "",
+      "System Name": "Media 16",
+      "System Status": "I Am Peacekeeper SCOPE",
+      "Reasons": "Media row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_4847fecfa0e5482b9d69",
+    "fans_row": "445",
+    "fans_name": "Media 17",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Media",
+      "FANS Category": "PR & Social Media",
+      "FANS Award Category": "",
+      "System Name": "Media 17",
+      "System Status": "I Am Peacekeeper SCOPE",
+      "Reasons": "Media row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_925cf7effcc4486c9976",
+    "fans_row": "446",
+    "fans_name": "Media 18",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Media",
+      "FANS Category": "PR & Social Media",
+      "FANS Award Category": "",
+      "System Name": "Media 18",
+      "System Status": "I Am Peacekeeper SCOPE",
+      "Reasons": "Media row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_0580583d06c94fd79eb4",
+    "fans_row": "447",
+    "fans_name": "Media 19",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Media",
+      "FANS Category": "PR & Social Media",
+      "FANS Award Category": "",
+      "System Name": "Media 19",
+      "System Status": "I Am Peacekeeper SCOPE",
+      "Reasons": "Media row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_dce68a9eadff4b4faa99",
+    "fans_row": "448",
+    "fans_name": "Media 20",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Media",
+      "FANS Category": "PR & Social Media",
+      "FANS Award Category": "",
+      "System Name": "Media 20",
+      "System Status": "I Am Peacekeeper SCOPE",
+      "Reasons": "Media row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_58e8c22fbe9a4c53a898",
+    "fans_row": "449",
+    "fans_name": "Ankita Thakkar",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Method Labs",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Media",
+      "FANS Category": "PR & Social Media",
+      "FANS Award Category": "",
+      "System Name": "Ankita Thakkar",
+      "System Status": "I Am Peacekeeper SCOPE",
+      "Reasons": "Media row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_af8924bea7424fbab05f",
+    "fans_row": "450",
+    "fans_name": "Hana Nakhwa",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Method Labs",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Media",
+      "FANS Category": "PR & Social Media",
+      "FANS Award Category": "",
+      "System Name": "Hana Nakhwa",
+      "System Status": "I Am Peacekeeper SCOPE",
+      "Reasons": "Media row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_15e5aa0f99834f429f72",
+    "fans_row": "475",
+    "fans_name": "Dr Nadeem Usmani",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "I Am Peacekeeper",
+      "FANS Category": "I am Peacekeeper",
+      "FANS Award Category": "",
+      "System Name": "Nadeem Usmani",
+      "System Status": "I Am Peacekeeper SCOPE",
+      "Reasons": "fuzzy system match; IAP has seat in Farhat sheet; verbal says no seat; Farhat gives broad I Am Peacekeeper only; keep existing COPE/SCOPE/ROPE unless user confirms."
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "usr_be2d5465921646b28466 | usr_6cabb2008dd84b05a9b2 | usr_9c37644ff4b54a15b91a",
+    "fans_row": "480",
+    "fans_name": "Pravin Kakad",
+    "match_type": "exact_name_multiple",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "I Am Peacekeeper",
+      "FANS Category": "I am Peacekeeper",
+      "FANS Award Category": "",
+      "System Name": "Pravin Kakad | Pravin Kakad | Pravin Kakad",
+      "System Status": "",
+      "Reasons": "multiple system matches; duplicate normalised name in Farhat list; IAP has seat in Farhat sheet; verbal says no seat; Farhat gives broad I Am Peacekeeper only; keep existing COPE/SCOPE/ROPE unless user confirms."
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_879db686e18f42819e0d | usr_8f86f01d0a1e47a290ef",
+    "fans_row": "491",
+    "fans_name": "Siddarth (Steve) Kapoor",
+    "match_type": "exact_name_multiple",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "I Am Peacekeeper",
+      "FANS Category": "I am Peacekeeper",
+      "FANS Award Category": "",
+      "System Name": "Siddarth Kapoor | Siddarth (Steve) Kapoor",
+      "System Status": "",
+      "Reasons": "multiple system matches; KEEP_EXISTING_IAP_STATUS; IAP has seat in Farhat sheet; verbal says no seat; Farhat gives broad I Am Peacekeeper only; keep existing COPE/SCOPE/ROPE unless user confirms."
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_e7bfbad353374d98a446 | usr_0e58797c712846c09bc7",
+    "fans_row": "492",
+    "fans_name": "Dr. Sindhuja Iyengar",
+    "match_type": "fuzzy_name_multiple",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "I Am Peacekeeper",
+      "FANS Category": "I am Peacekeeper",
+      "FANS Award Category": "",
+      "System Name": "Dr. Sindhuja Iyengar | Sindhujaa Iyengar",
+      "System Status": "",
+      "Reasons": "multiple system matches; fuzzy system match; Farhat gives broad I Am Peacekeeper only; keep existing COPE/SCOPE/ROPE unless user confirms."
+    },
+    "hold_reason": "missing or multiple live System IDs"
+  },
+  {
+    "id": "usr_d9c3bac9aeaf44efba0b",
+    "fans_row": "497",
+    "fans_name": "Dr. Vinod Bidhuri",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "I Am Peacekeeper",
+      "FANS Category": "I am Peacekeeper",
+      "FANS Award Category": "",
+      "System Name": "Dr. Vinod Bidhuri",
+      "System Status": "I Am Peacekeeper SCOPE",
+      "Reasons": "fuzzy system match; IAP has seat in Farhat sheet; verbal says no seat; Farhat gives broad I Am Peacekeeper only; keep existing COPE/SCOPE/ROPE unless user confirms."
+    },
+    "hold_reason": "not exact/phone match"
+  },
+  {
+    "id": "usr_37d59e056904425e99da",
+    "fans_row": "502",
+    "fans_name": "Cimran Ahuja",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Media",
+      "FANS Category": "I am Peacekeeper",
+      "FANS Award Category": "",
+      "System Name": "Cimran Ahuja",
+      "System Status": "I Am Peacekeeper SCOPE",
+      "Reasons": "Media row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "",
+    "fans_row": "503",
+    "fans_name": "Prachi",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Media",
+      "FANS Category": "I am Peacekeeper",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; Media row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "",
+    "fans_row": "504",
+    "fans_name": "Tirtharaj",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Media",
+      "FANS Category": "I am Peacekeeper",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; Media row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "",
+    "fans_row": "505",
+    "fans_name": "Uday",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "Media",
+      "FANS Category": "I am Peacekeeper",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; Media row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_00d989f16b3149dbb027",
+    "fans_row": "506",
+    "fans_name": "Shri Chirag Paswan",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Cabinet Minister of Food Processing Industries of India",
+      "organization": "",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "Chief Guest",
+      "FANS Award Category": "Justice & Peace XXX",
+      "System Name": "Chirag Paswan",
+      "System Status": "Chief Guest",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_c4e900e185804878903b",
+    "fans_row": "507",
+    "fans_name": "Shri Chirag Paswan - Accompany",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "with CG Chirag Paswan",
+      "organization": "",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "ChiefG accompany",
+      "FANS Award Category": "",
+      "System Name": "Chirag Paswan - Accompany",
+      "System Status": "NA",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_aa563ea7c1ad4a4b9287",
+    "fans_row": "508",
+    "fans_name": "Mr Deepak Kumar Thakur",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "+919718471359",
+      "email": "",
+      "designation": "Founder & Chairman, Balabel Group",
+      "organization": "Oman",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Business XXX",
+      "System Name": "Deepak Kumar Thakur",
+      "System Status": "I Am Peacekeeper Champion",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_8444d8792f414fc4afd6",
+    "fans_row": "509",
+    "fans_name": "Mr Paresh Thakur",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Business XXX",
+      "System Name": "Paresh Thakur",
+      "System Status": "I Am Peacekeeper Champion",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_19f80a98fd7e4f5a9c60",
+    "fans_row": "510",
+    "fans_name": "Shri Ramdas Athawale",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "+918850446061",
+      "email": "",
+      "designation": "Union Minister of State for Social Justice & Empowerment",
+      "organization": "Government of India",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "Ramdas Athawale",
+      "System Status": "NA",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_8b97c61226a644f9affa",
+    "fans_row": "511",
+    "fans_name": "Mr Shashi Kiran Shetty",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Founder and Executive Chairman",
+      "organization": "Allcargo Group (Mumbai)",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Business XXX",
+      "System Name": "Shashi Kiran Shetty",
+      "System Status": "I Am Peacekeeper Champion",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "",
+    "fans_row": "512",
+    "fans_name": "H.H Shihab AL Busaidi",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Business XXX",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "",
+    "fans_row": "513",
+    "fans_name": "Professor Achyuta Samanta",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Founder, KIIT & KISS",
+      "organization": "Bhubaneswar",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "XXX",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_1849f2ebf1414dd7a694",
+    "fans_row": "514",
+    "fans_name": "Mr Ameya A. Chandavarkar",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "CEO (International Business) & ED",
+      "organization": "FDC Ltd",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "XXX",
+      "FANS Award Category": "",
+      "System Name": "Ameya A. Chandavarkar",
+      "System Status": "NA",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_f5e1e69c7e0b447b85ef",
+    "fans_row": "515",
+    "fans_name": "Mr Balaji Rao",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Managing Director - Venky's India",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "To be confirmed",
+      "FANS Award Category": "",
+      "System Name": "Balaji Rao",
+      "System Status": "NA",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_96ecf11d79234aa7b324",
+    "fans_row": "516",
+    "fans_name": "Chukwunonyerem (Nonye) MeritNonye",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "I Am Peacekeeper",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "XXX",
+      "FANS Award Category": "",
+      "System Name": "Chukwunonyerem (Nonye) MeritNonye",
+      "System Status": "NA",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_430fad4b081f4b1894a7",
+    "fans_row": "517",
+    "fans_name": "Sh. Devki Nandan Thakur Ji",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Renowned Spiritual leader and Orator of the Shrimad Bhagwat Katha.",
+      "organization": "",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "To be confirmed",
+      "FANS Award Category": "",
+      "System Name": "Devki Nandan Thakur Ji",
+      "System Status": "NA",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_3e1a40eca26a46dd9afa",
+    "fans_row": "518",
+    "fans_name": "Dhruv Kapoor",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "I Am Peacekeeper",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "XXX",
+      "FANS Award Category": "",
+      "System Name": "Dhruv Kapoor",
+      "System Status": "NA",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_7b17429d6f07494a88c6",
+    "fans_row": "519",
+    "fans_name": "Firoza Sayed",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "To be confirmed",
+      "FANS Award Category": "",
+      "System Name": "Firoza Sayed",
+      "System Status": "NA",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_d1417dbe48b043e59969",
+    "fans_row": "520",
+    "fans_name": "Gagan Myne CHECK",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "To be confirmed",
+      "FANS Award Category": "",
+      "System Name": "Gagan Myne CHECK",
+      "System Status": "NA",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_5b99837701f04a059f50",
+    "fans_row": "521",
+    "fans_name": "Hitesh Chawla",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "To be confirmed",
+      "FANS Award Category": "",
+      "System Name": "Hitesh Chawla",
+      "System Status": "NA",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_0fb2716976e9400fbe20",
+    "fans_row": "522",
+    "fans_name": "Mr Ishan Jain",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Director at Bio-Veda Action Research Private Limited (Biotique)",
+      "organization": "",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "To be confirmed",
+      "FANS Award Category": "",
+      "System Name": "Ishan Jain",
+      "System Status": "NA",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_e60d2a6a773a4159b5aa",
+    "fans_row": "523",
+    "fans_name": "Ishita Joshi",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "To be confirmed",
+      "FANS Award Category": "",
+      "System Name": "Ishita Joshi",
+      "System Status": "NA",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_b403f23653dc4e399b55",
+    "fans_row": "524",
+    "fans_name": "Jason T",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "I Am Peacekeeper",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "XXX",
+      "FANS Award Category": "",
+      "System Name": "Jason T",
+      "System Status": "NA",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_f6fe522ff958446d877c",
+    "fans_row": "525",
+    "fans_name": "Josephine",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "I Am Peacekeeper",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "XXX",
+      "FANS Award Category": "",
+      "System Name": "Josephine",
+      "System Status": "NA",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_46261d5be98e4f06be14",
+    "fans_row": "526",
+    "fans_name": "Ms Leymah Gbowee",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Founder & President",
+      "organization": "Gbowee Peace Foundation Africa",
+      "country": "Liberia"
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "XXX",
+      "FANS Award Category": "",
+      "System Name": "Leymah Gbowee",
+      "System Status": "NA",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "",
+    "fans_row": "527",
+    "fans_name": "H.H. Maharaja Gaj Singh II",
+    "match_type": "",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Maharaja of Marwar-Jodhpur",
+      "organization": "Mehrangarh Museum Trust",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "XXX",
+      "FANS Award Category": "",
+      "System Name": "",
+      "System Status": "",
+      "Reasons": "not found in latest system CSV snapshot; XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_e8e324163d5a4c34865b",
+    "fans_row": "528",
+    "fans_name": "Mr Mukesh Vora",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Founder-Chairman, Gulf Worldwide Distribution (GWD) FZE / Gulf Worldwide Bearings (GWB) FZE, Jebel Ali Free Zone",
+      "organization": "Dubai",
+      "country": "UAE"
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "XXX",
+      "FANS Award Category": "",
+      "System Name": "Mukesh Vora",
+      "System Status": "NA",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_e207b29b2b09493ea813",
+    "fans_row": "529",
+    "fans_name": "Mr Mustafa Izuddine",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": "Singapore"
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "XXX",
+      "FANS Award Category": "",
+      "System Name": "Mustafa Izuddine",
+      "System Status": "NA",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_019509da0a1e49cc915a",
+    "fans_row": "530",
+    "fans_name": "Pankaj Patel WHO?",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "ppatelweb@gmail.com",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "To be confirmed",
+      "FANS Award Category": "",
+      "System Name": "Pankaj Patel WHO?",
+      "System Status": "NA",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_b0d1b6c987ec499c88d9",
+    "fans_row": "531",
+    "fans_name": "Paola Koz",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "I Am Peacekeeper",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "XXX",
+      "FANS Award Category": "",
+      "System Name": "Paola Koz",
+      "System Status": "NA",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_46ee611b1b1d443e8edf",
+    "fans_row": "532",
+    "fans_name": "Priyanka Ashok",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "To be confirmed",
+      "FANS Award Category": "",
+      "System Name": "Priyanka Ashok",
+      "System Status": "NA",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_bc47ebad3578418ea9c6",
+    "fans_row": "533",
+    "fans_name": "H.E. Prof Faustin-Archange Touadéra",
+    "match_type": "fuzzy_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "President of the Central African Republic",
+      "organization": "",
+      "country": "Central African Republic"
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "XXX",
+      "FANS Award Category": "",
+      "System Name": "Faustin-Archange Touadéra",
+      "System Status": "Chief Guest",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_3284208b57ca413b8d5d",
+    "fans_row": "534",
+    "fans_name": "Punit Sharma",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "To be confirmed",
+      "FANS Award Category": "",
+      "System Name": "Punit Sharma",
+      "System Status": "NA",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_4ce0e6f7372d457785d7",
+    "fans_row": "535",
+    "fans_name": "Ms Rakshatai Khadse",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Union Minister of State for Youth Affairs and Sports",
+      "organization": "Government of India",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "Awardee",
+      "FANS Award Category": "Youth & Women",
+      "System Name": "Rakshatai Khadse",
+      "System Status": "I Am Peacekeeper Champion",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_441f7ee1897f46c084e7",
+    "fans_row": "536",
+    "fans_name": "Rita Jairath",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "I Am Peacekeeper",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "XXX",
+      "FANS Award Category": "",
+      "System Name": "Rita Jairath",
+      "System Status": "NA",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_2a687748472f41909c1b",
+    "fans_row": "537",
+    "fans_name": "Ms Riya Sen",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "XXX",
+      "FANS Award Category": "",
+      "System Name": "Riya Sen",
+      "System Status": "NA",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_32cd8cb872864b4f92ea",
+    "fans_row": "538",
+    "fans_name": "Mr Saagar Mehta",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": "Singapore"
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "XXX",
+      "FANS Award Category": "",
+      "System Name": "Saagar Mehta",
+      "System Status": "NA",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_4f372b0490f546e3ba59",
+    "fans_row": "539",
+    "fans_name": "Shaurya Doval",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Managing Director",
+      "organization": "Torch Investment Management",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "XXX",
+      "FANS Award Category": "",
+      "System Name": "Shaurya Doval",
+      "System Status": "NA",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_26e0d8fa55714434b533",
+    "fans_row": "540",
+    "fans_name": "Ms Shereen Bhan",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Managing Editor CNBC TV 18",
+      "organization": "",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "XXX",
+      "FANS Award Category": "",
+      "System Name": "Shereen Bhan",
+      "System Status": "NA",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_8a885dafb3804e9696d8",
+    "fans_row": "541",
+    "fans_name": "Shivaji Patil",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "",
+      "organization": "",
+      "country": ""
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "To be confirmed",
+      "FANS Award Category": "",
+      "System Name": "Shivaji Patil",
+      "System Status": "NA",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_4f1bc76632204739afc8",
+    "fans_row": "542",
+    "fans_name": "Capt. Sudeep Mittal",
+    "match_type": "phone",
+    "target": {
+      "phone": "+919717200303",
+      "email": "",
+      "designation": "Founder and CEO",
+      "organization": "SeaLogger (maritime digitalisation)",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "XXX",
+      "FANS Award Category": "",
+      "System Name": "Sudeep Mittal",
+      "System Status": "NA",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_336f3a1949404b0ebe2c",
+    "fans_row": "543",
+    "fans_name": "Mr Tanil Kilachand",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Director",
+      "organization": "Polychem Ltd",
+      "country": "India"
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "XXX",
+      "FANS Award Category": "",
+      "System Name": "Tanil Kilachand",
+      "System Status": "NA",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  },
+  {
+    "id": "usr_1242d7fa24e3464d810b",
+    "fans_row": "544",
+    "fans_name": "Mr Vipin Yadav",
+    "match_type": "exact_name",
+    "target": {
+      "phone": "",
+      "email": "",
+      "designation": "Founder and CEO, Dure Technologies Pvt SA (Geneva",
+      "organization": "Switzerland)",
+      "country": "Switzerland"
+    },
+    "source": {
+      "FANS Category Final": "XXX",
+      "FANS Category": "Attendee",
+      "FANS Award Category": "",
+      "System Name": "Vipin Yadav",
+      "System Status": "VIP I Am Peacekeeper Partner",
+      "Reasons": "XXX row"
+    },
+    "hold_reason": "XXX/media row"
+  }
+]

@@ -1,0 +1,90 @@
+{
+  "generatedAt": "2026-05-11T22:54:48.179Z",
+  "root": "/Users/tai/Pictures/Space Gallery",
+  "totalFiles": 5597,
+  "sizeCandidateFiles": 33,
+  "exactDuplicateGroups": 5,
+  "duplicateFiles": 11,
+  "groups": [
+    {
+      "sha": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "paths": [
+        {
+          "path": "/Users/tai/Pictures/Space Gallery/Sp@cEmAn ~ The Overflow/0334 ~ @cE Empty Image File With No Visible Content in the Collection Sequence Between the Love and Wisdom Quotes.jpg",
+          "rel": "Sp@cEmAn ~ The Overflow/0334 ~ @cE Empty Image File With No Visible Content in the Collection Sequence Between the Love and Wisdom Quotes.jpg",
+          "size": 0
+        },
+        {
+          "path": "/Users/tai/Pictures/Space Gallery/Tai ~ Canvas And Soul/0240 ~ Gr@cE Empty Zero Byte File in the Canvas And Soul mE2 Poetry Series Awaiting Replacement or Restoration.jpg",
+          "rel": "Tai ~ Canvas And Soul/0240 ~ Gr@cE Empty Zero Byte File in the Canvas And Soul mE2 Poetry Series Awaiting Replacement or Restoration.jpg",
+          "size": 0
+        },
+        {
+          "path": "/Users/tai/Pictures/Space Gallery/Taiyzun ~ The Vault/1291 ~ Sp@cE Empty Transparent Canvas Placeholder Image File on White Background Square Format Clean.jpg",
+          "rel": "Taiyzun ~ The Vault/1291 ~ Sp@cE Empty Transparent Canvas Placeholder Image File on White Background Square Format Clean.jpg",
+          "size": 0
+        }
+      ]
+    },
+    {
+      "sha": "c615c83841c5221c44ac44f51dbed0f27fd3fe1c37b7df80e0a7977aa9645b20",
+      "paths": [
+        {
+          "path": "/Users/tai/Pictures/Space Gallery/Sp@cEmAn ~ Design Chronicles/0261 ~ Taiyzun Else Navy Blue Serif Typography With the Three Red Dots on the Yellow Green Background Small.jpg",
+          "rel": "Sp@cEmAn ~ Design Chronicles/0261 ~ Taiyzun Else Navy Blue Serif Typography With the Three Red Dots on the Yellow Green Background Small.jpg",
+          "size": 14548
+        },
+        {
+          "path": "/Users/tai/Pictures/Space Gallery/Sp@cEmAn ~ Design Chronicles/0290 ~ Tai Else Navy Dark Purple Serif Typography With the Three Red Dots and TM on the Yellow Green Large.jpg",
+          "rel": "Sp@cEmAn ~ Design Chronicles/0290 ~ Tai Else Navy Dark Purple Serif Typography With the Three Red Dots and TM on the Yellow Green Large.jpg",
+          "size": 14548
+        }
+      ]
+    },
+    {
+      "sha": "e6cbf3d6d5b1b2ffd9c16756c2e4b12c9ed7592ec64f6ec8e6c5d2df8507c9e5",
+      "paths": [
+        {
+          "path": "/Users/tai/Pictures/Space Gallery/Taiyzun ~ The Vault/0652 ~ Sp@cEmAn Else Brand Logo Dark Navy Serif Text TM on Pale Yellow Background Red Dots No at Symbol.jpg",
+          "rel": "Taiyzun ~ The Vault/0652 ~ Sp@cEmAn Else Brand Logo Dark Navy Serif Text TM on Pale Yellow Background Red Dots No at Symbol.jpg",
+          "size": 14497
+        },
+        {
+          "path": "/Users/tai/Pictures/Space Gallery/Taiyzun ~ The Vault/0699 ~ Sp@cE Else TM Dark Navy Serif Text Red Dots Pale Yellow Lime Background Wider Variant.jpg",
+          "rel": "Taiyzun ~ The Vault/0699 ~ Sp@cE Else TM Dark Navy Serif Text Red Dots Pale Yellow Lime Background Wider Variant.jpg",
+          "size": 14497
+        }
+      ]
+    },
+    {
+      "sha": "e4c175f919da11fe5cf54ab63ffa542bd1350f3335213accf4aaf3188495c461",
+      "paths": [
+        {
+          "path": "/Users/tai/Pictures/Space Gallery/Taiyzun ~ The Vault/1061 ~ Taiyzun Else Navy Serif on Yellow Lime Background with TM Mark and Red Dots Wide Variant Design.jpg",
+          "rel": "Taiyzun ~ The Vault/1061 ~ Taiyzun Else Navy Serif on Yellow Lime Background with TM Mark and Red Dots Wide Variant Design.jpg",
+          "size": 15047
+        },
+        {
+          "path": "/Users/tai/Pictures/Space Gallery/Taiyzun ~ The Vault/1090 ~ Tai Rock On Speakers Swirls Colourful Abstract Explosion of Sound on Blue Teal Wide Banner.jpg",
+          "rel": "Taiyzun ~ The Vault/1090 ~ Tai Rock On Speakers Swirls Colourful Abstract Explosion of Sound on Blue Teal Wide Banner.jpg",
+          "size": 15047
+        }
+      ]
+    },
+    {
+      "sha": "231ab6762caa903c1d8dfc7c3b7371cbe5ac95f50dcb7c32bb77abca48520eba",
+      "paths": [
+        {
+          "path": "/Users/tai/Pictures/Space Gallery/Taiyzun ~ The Vault/1216 ~ Gr@cE Else Spun Originals Colour Variations Six Logo Options in Beige Grey Mustard and Pink.jpg",
+          "rel": "Taiyzun ~ The Vault/1216 ~ Gr@cE Else Spun Originals Colour Variations Six Logo Options in Beige Grey Mustard and Pink.jpg",
+          "size": 14514
+        },
+        {
+          "path": "/Users/tai/Pictures/Space Gallery/Taiyzun ~ The Vault/1245 ~ Taiyzun Else Navy Serif Typography with TM Mark Red Ellipsis Dots on Lime Yellow Wide Canvas.jpg",
+          "rel": "Taiyzun ~ The Vault/1245 ~ Taiyzun Else Navy Serif Typography with TM Mark Red Ellipsis Dots on Lime Yellow Wide Canvas.jpg",
+          "size": 14514
+        }
+      ]
+    }
+  ]
+}

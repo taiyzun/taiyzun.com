@@ -1,0 +1,13 @@
+{
+  "admin_count_after_cleanup": 647,
+  "deleted_as_stale_duplicate": [
+    {
+      "id": "usr_e84279b4fde049198074",
+      "name": "Mr Radheshyam Laxmanrao Mopalwar",
+      "kept_id": "usr_aa41b58af91a4724afbb",
+      "kept_name": "Mr Radheshyam Laxmanrao Mopalwar, IAS (Retd.)",
+      "reason": "Farhat latest has the IAS (Retd.) row with phone +919820034166 and Nikhil Mathur; live admin had an older generic Mopalwar duplicate with placeholder phone.",
+      "verification": "Mopalwar search returns 1 of 647: IAS (Retd.) record only."
+    }
+  ]
+}

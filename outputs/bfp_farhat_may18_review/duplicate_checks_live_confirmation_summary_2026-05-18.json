@@ -1,0 +1,192 @@
+{
+  "counts": {
+    "LIVE_SINGLE_CURRENT_RECORD": 19,
+    "NO_LIVE_NAME_RECORD_PHONE_NOT_FOUND": 1,
+    "CONFIRMED_LIVE_DUPLICATE": 2,
+    "CONFIRMED_LIVE_DUPLICATE_VARIANT": 1,
+    "PHONE_CONFLICT_NO_NAME_RECORD": 2
+  },
+  "confirmed_live_duplicates": [
+    {
+      "candidate_name": "Anjali Atha",
+      "status": "CONFIRMED_LIVE_DUPLICATE",
+      "live_match_count": 2,
+      "live_matches": "Ms Anjali Atha <usr_f5163ccb469e471a8290> | Ms Anjali Atha (check) <usr_2ffac04ead5f40489e8f>",
+      "recommendation": "Show before merge/delete; choose keeper and merge data."
+    },
+    {
+      "candidate_name": "Siddarth Kapoor",
+      "status": "CONFIRMED_LIVE_DUPLICATE_VARIANT",
+      "live_match_count": 2,
+      "live_matches": "Mr Siddarth Kapoor <usr_879db686e18f42819e0d> | Siddarth (Steve) Kapoor <usr_8f86f01d0a1e47a290ef>",
+      "recommendation": "Likely duplicate variant; show before merge/delete; choose keeper and merge data."
+    },
+    {
+      "candidate_name": "Bu Abdullah",
+      "status": "CONFIRMED_LIVE_DUPLICATE",
+      "live_match_count": 2,
+      "live_matches": "Dr Bu Abdullah <usr_13c5fc082e094fe9b288> | Dr Bu Abdullah (Yaqoub Mousa Mohammed Hussain Almaazmi) <usr_ab3ec553045345eab79c>",
+      "recommendation": "Show before merge/delete; choose keeper and merge data."
+    }
+  ],
+  "phone_conflicts": [
+    {
+      "candidate_name": "Mrs. Hong",
+      "status": "PHONE_CONFLICT_NO_NAME_RECORD",
+      "live_match_count": 0,
+      "live_matches": "",
+      "recommendation": "Do not add or update automatically; phone belongs to another record."
+    },
+    {
+      "candidate_name": "Pablo Marcal",
+      "status": "PHONE_CONFLICT_NO_NAME_RECORD",
+      "live_match_count": 3,
+      "live_matches": "Carol Marcal <usr_ft3k1242ab49o35k3welor06> | Edurdo Marcal <usr_tment40y7g2p1m9wh1c9mhs7> | Ms. Fernanda Cecilio <usr_e361bujzmyfxff03vlpjyu4v>",
+      "recommendation": "Do not add or update automatically; phone belongs to another record."
+    }
+  ],
+  "no_live_name_record": [
+    {
+      "candidate_name": "Naman Modi",
+      "status": "NO_LIVE_NAME_RECORD_PHONE_NOT_FOUND",
+      "live_match_count": 2,
+      "live_matches": "Mr Harsh Shah <usr_6580d4f6e3704e989d49> | Mr Hemal Modi <usr_066f2be6ba554f37bb4e>",
+      "recommendation": "No live name/phone record found; only add if user confirms this Late/VIP row should exist."
+    }
+  ],
+  "single_current_records": [
+    {
+      "candidate_name": "Amit Jain",
+      "status": "LIVE_SINGLE_CURRENT_RECORD",
+      "live_match_count": 1,
+      "live_matches": "Mr. Amit Jain <usr_e36046686a8040619921>",
+      "recommendation": "No live duplicate currently visible for this candidate."
+    },
+    {
+      "candidate_name": "Lalit Gugalia",
+      "status": "LIVE_SINGLE_CURRENT_RECORD",
+      "live_match_count": 1,
+      "live_matches": "Lalit Gugalia <usr_1e76c007a5e44c539996>",
+      "recommendation": "No live duplicate currently visible for this candidate."
+    },
+    {
+      "candidate_name": "Piyush Sakharkar",
+      "status": "LIVE_SINGLE_CURRENT_RECORD",
+      "live_match_count": 1,
+      "live_matches": "Piyush Sakharkar <usr_fd2ceb1c353348d0b7ad>",
+      "recommendation": "No live duplicate currently visible for this candidate."
+    },
+    {
+      "candidate_name": "Sanjeev Khatri",
+      "status": "LIVE_SINGLE_CURRENT_RECORD",
+      "live_match_count": 1,
+      "live_matches": "Sanjeev Khatri <usr_304b6913e0194cf39747>",
+      "recommendation": "No live duplicate currently visible for this candidate."
+    },
+    {
+      "candidate_name": "Pravin Kakad",
+      "status": "LIVE_SINGLE_CURRENT_RECORD",
+      "live_match_count": 1,
+      "live_matches": "Mr. Pravin Kakad <usr_be2d5465921646b28466>",
+      "recommendation": "No live duplicate currently visible for this candidate."
+    },
+    {
+      "candidate_name": "Faustin-Archange Touadéra",
+      "status": "LIVE_SINGLE_CURRENT_RECORD",
+      "live_match_count": 1,
+      "live_matches": "HE Prof Faustin-Archange Touadéra <usr_bc47ebad3578418ea9c6>",
+      "recommendation": "No live duplicate currently visible for this candidate."
+    },
+    {
+      "candidate_name": "Mahee Choksey",
+      "status": "LIVE_SINGLE_CURRENT_RECORD",
+      "live_match_count": 1,
+      "live_matches": "Adv. Mahee Choksey <usr_86892b9184e34a5ba7a5>",
+      "recommendation": "No live duplicate currently visible for this candidate."
+    },
+    {
+      "candidate_name": "Omar Farooq Khan",
+      "status": "LIVE_SINGLE_CURRENT_RECORD",
+      "live_match_count": 1,
+      "live_matches": "Mr Omar Farooq Khan <usr_f1bcf8bd25a64c599734>",
+      "recommendation": "No live duplicate currently visible for this candidate."
+    },
+    {
+      "candidate_name": "Gagan Mahotra",
+      "status": "LIVE_SINGLE_CURRENT_RECORD",
+      "live_match_count": 1,
+      "live_matches": "Mr Gagan Mahotra <usr_1a25dc74b7dc4890a1e5>",
+      "recommendation": "No live duplicate currently visible for this candidate."
+    },
+    {
+      "candidate_name": "Kane Amandus",
+      "status": "LIVE_SINGLE_CURRENT_RECORD",
+      "live_match_count": 1,
+      "live_matches": "H.E Kane Amandus <usr_bc1o1ad5ese2qoylqponu5dj>",
+      "recommendation": "No live duplicate currently visible for this candidate."
+    },
+    {
+      "candidate_name": "Keshav Hari",
+      "status": "LIVE_SINGLE_CURRENT_RECORD",
+      "live_match_count": 1,
+      "live_matches": "Keshav Hari <usr_ey1e25aknncvaeorhts6naqy>",
+      "recommendation": "No live duplicate currently visible for this candidate."
+    },
+    {
+      "candidate_name": "Kuni Kristine Teimitsi",
+      "status": "LIVE_SINGLE_CURRENT_RECORD",
+      "live_match_count": 1,
+      "live_matches": "Ms Kuni Kristine Teimitsi <usr_k26769g3ttdbm7z1bp68fhjb>",
+      "recommendation": "No live duplicate currently visible for this candidate."
+    },
+    {
+      "candidate_name": "Micheal Li",
+      "status": "LIVE_SINGLE_CURRENT_RECORD",
+      "live_match_count": 1,
+      "live_matches": "Mr Micheal Li <usr_snpzo8qkcvvoumq3ig420m76>",
+      "recommendation": "No live duplicate currently visible for this candidate."
+    },
+    {
+      "candidate_name": "Milind Patre",
+      "status": "LIVE_SINGLE_CURRENT_RECORD",
+      "live_match_count": 1,
+      "live_matches": "Prof. Milind Patre <usr_ad9cmtmxeuy5j0if0wmb66gi>",
+      "recommendation": "No live duplicate currently visible for this candidate."
+    },
+    {
+      "candidate_name": "Sindhuja Iyengar",
+      "status": "LIVE_SINGLE_CURRENT_RECORD",
+      "live_match_count": 1,
+      "live_matches": "Dr Dr. Sindhuja Iyengar <usr_0e58797c712846c09bc7>",
+      "recommendation": "No live duplicate currently visible for this candidate."
+    },
+    {
+      "candidate_name": "Vineet Nirmal Suchanti",
+      "status": "LIVE_SINGLE_CURRENT_RECORD",
+      "live_match_count": 1,
+      "live_matches": "Mr Vineet Nirmal Suchanti <usr_d7eaf75a08c749a98f59>",
+      "recommendation": "No live duplicate currently visible for this candidate."
+    },
+    {
+      "candidate_name": "Krishna Kumar Singh",
+      "status": "LIVE_SINGLE_CURRENT_RECORD",
+      "live_match_count": 1,
+      "live_matches": "Shri Krishna Kumar Singh <usr_a16928514e0849d3ad10>",
+      "recommendation": "No live duplicate currently visible for this candidate."
+    },
+    {
+      "candidate_name": "Gagan Malik",
+      "status": "LIVE_SINGLE_CURRENT_RECORD",
+      "live_match_count": 1,
+      "live_matches": "Gagan Malik <usr_dq62oc4w8tu08h9y39kq4fne>",
+      "recommendation": "No live duplicate currently visible for this candidate."
+    },
+    {
+      "candidate_name": "Fernanda Cecilio",
+      "status": "LIVE_SINGLE_CURRENT_RECORD",
+      "live_match_count": 1,
+      "live_matches": "Ms. Fernanda Cecilio <usr_e361bujzmyfxff03vlpjyu4v>",
+      "recommendation": "No live duplicate currently visible for this candidate."
+    }
+  ]
+}

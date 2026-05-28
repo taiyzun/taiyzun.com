@@ -1,0 +1,159 @@
+{
+  "safePcAttemptUnavailable": {
+    "startedAt": "2026-05-18T08:38:58.455Z",
+    "actions": [
+      {
+        "type": "assign_pc_safe_pass",
+        "id": "usr_b695bd7e77d34dec998d",
+        "name": "Vinod Goenka",
+        "pc": "Shrey Shah",
+        "reason": "exact lowercase Farhat value shrey shah",
+        "pageText": "BFP\nADMIN\nBFP Conclave\nGuests\nGuests\nPasses\nAd-hoc passes\nAssignments\nStatuses\nVolunteers\nVolunteers\nTeams\nAll users\nRoles\nPermissions\nEvent\nSessions\nBroadcasts\nWhatsApp\nConfig\nExceptions\nInsights\nAudit log\nReports\nControl room\nTS\nTaiyzun Shahpurwala\nAdmin\nToggle Sidebar\nBFP CONCLAVE · ADMIN\n/\nGuests\n← Guests\nVinod Goenka\nchampion\npass issued\n· RSVP pending\nView pass\nDownload PDF\nAlign photo\nPlus-ones\nCopy WA link\nRequest RSVP\nSalutation\nName\nCountry\nPhone (E.164)\nEmail\nStatus tier\nI Am Peacekeeper Champion\nSequence #\nDesignation\nOrganisation\nCountry of origin\nSeat number\nSHARE URL\n\nPersonalised /q/ slug for sharing on WhatsApp. Leave blank on save to auto-generate from name.\n\nSlug\nRegenerate\n/q/mr-vinod-goenka\nCopy\nPEACE CONTACTS\n\nPrimary handles the guest first. Fallbacks step in if the primary is unreachable. Every PC on the chain sees the guest in their volunteer app.\n\n— unassigned —\n\nEdit chain\nBIO & HONOURS\n\nShown to volunteer Peace Contacts on /volunteer/assigned and /volunteer/lookup so they can greet this guest with personal context.\n\nBio\nHonours\nQualifications\nAward category\nChampion category\nHide “Status:” prefix on pass (show value only)\nPhoto\nSave\nDelete\nWHATSAPP MESSA",
+        "before": "Primary handles the guest first. Fallbacks step in if the primary is unreachable. Every PC on the chain sees the guest in their volunteer app. — unassigned — Edit chain",
+        "optionCount": 0,
+        "ok": false,
+        "error": "PC option not found"
+      },
+      {
+        "type": "assign_pc_safe_pass",
+        "id": "usr_304b6913e0194cf39747",
+        "name": "Sanjeev Khatri",
+        "pc": "Chandresh Patel",
+        "reason": "same system guest matched duplicate Farhat rows with same PC",
+        "pageText": "BFP\nADMIN\nBFP Conclave\nGuests\nGuests\nPasses\nAd-hoc passes\nAssignments\nStatuses\nVolunteers\nVolunteers\nTeams\nAll users\nRoles\nPermissions\nEvent\nSessions\nBroadcasts\nWhatsApp\nConfig\nExceptions\nInsights\nAudit log\nReports\nControl room\nTS\nTaiyzun Shahpurwala\nAdmin\nToggle Sidebar\nBFP CONCLAVE · ADMIN\n/\nGuests\n← Guests\nSanjeev Khatri\nvip_partner\npass issued\n· RSVP pending\nView pass\nDownload PDF\nAlign photo\nPlus-ones\nCopy WA link\nRequest RSVP\nSalutation\nName\nCountry\nPhone (E.164)\nEmail\nStatus tier\nVIP I Am Peacekeeper Partner\nSequence #\nDesignation\nOrganisation\nCountry of origin\nSeat number\nSHARE URL\n\nPersonalised /q/ slug for sharing on WhatsApp. Leave blank on save to auto-generate from name.\n\nSlug\nRegenerate\n/q/sanjeev-khatri\nCopy\nPEACE CONTACTS\n\nPrimary handles the guest first. Fallbacks step in if the primary is unreachable. Every PC on the chain sees the guest in their volunteer app.\n\n— unassigned —\n\nEdit chain\nBIO & HONOURS\n\nShown to volunteer Peace Contacts on /volunteer/assigned and /volunteer/lookup so they can greet this guest with personal context.\n\nBio\nHonours\nQualifications\nAward category\nChampion category\nHide “Status:” prefix on pass (show value only)\nPhoto\nSave\nDelete\nWHATSAP",
+        "before": "Primary handles the guest first. Fallbacks step in if the primary is unreachable. Every PC on the chain sees the guest in their volunteer app. — unassigned — Edit chain",
+        "optionCount": 0,
+        "ok": false,
+        "error": "PC option not found"
+      },
+      {
+        "type": "assign_pc_safe_pass",
+        "id": "usr_eb9e649a58fa4e20b055",
+        "name": "M S M Aftab",
+        "pc": "Syed Ali D Gurdezi",
+        "reason": "exact PC name in Farhat",
+        "pageText": "BFP\nADMIN\nBFP Conclave\nGuests\nGuests\nPasses\nAd-hoc passes\nAssignments\nStatuses\nVolunteers\nVolunteers\nTeams\nAll users\nRoles\nPermissions\nEvent\nSessions\nBroadcasts\nWhatsApp\nConfig\nExceptions\nInsights\nAudit log\nReports\nControl room\nTS\nTaiyzun Shahpurwala\nAdmin\nToggle Sidebar\nBFP CONCLAVE · ADMIN\n/\nGuests\n← Guests\nM S M Aftab\nvip_partner\npass issued\n· RSVP pending\nView pass\nDownload PDF\nAlign photo\nPlus-ones\nCopy WA link\nRequest RSVP\nSalutation\nName\nCountry\nPhone (E.164)\nEmail\nStatus tier\nVIP I Am Peacekeeper Partner\nSequence #\nDesignation\nOrganisation\nCountry of origin\nSeat number\nSHARE URL\n\nPersonalised /q/ slug for sharing on WhatsApp. Leave blank on save to auto-generate from name.\n\nSlug\nRegenerate\n/q/mr-m-s-m-aftab\nCopy\nPEACE CONTACTS\n\nPrimary handles the guest first. Fallbacks step in if the primary is unreachable. Every PC on the chain sees the guest in their volunteer app.\n\n— unassigned —\n\nEdit chain\nBIO & HONOURS\n\nShown to volunteer Peace Contacts on /volunteer/assigned and /volunteer/lookup so they can greet this guest with personal context.\n\nBio\nHonours\nQualifications\nAward category\nChampion category\nHide “Status:” prefix on pass (show value only)\nPhoto\nSave\nDelete\nWHATSAPP M",
+        "before": "Primary handles the guest first. Fallbacks step in if the primary is unreachable. Every PC on the chain sees the guest in their volunteer app. — unassigned — Edit chain",
+        "optionCount": 0,
+        "ok": false,
+        "error": "PC option not found"
+      },
+      {
+        "type": "assign_pc_safe_pass",
+        "id": "usr_75e432b112a54b51a5d7",
+        "name": "Mushtaq Ahmed Chaya",
+        "pc": "Dr Jaan",
+        "reason": "exact PC name in Farhat if available",
+        "pageText": "BFP\nADMIN\nBFP Conclave\nGuests\nGuests\nPasses\nAd-hoc passes\nAssignments\nStatuses\nVolunteers\nVolunteers\nTeams\nAll users\nRoles\nPermissions\nEvent\nSessions\nBroadcasts\nWhatsApp\nConfig\nExceptions\nInsights\nAudit log\nReports\nControl room\nTS\nTaiyzun Shahpurwala\nAdmin\nToggle Sidebar\nBFP CONCLAVE · ADMIN\n/\nGuests\n← Guests\nMushtaq Ahmed Chaya\nvip_partner\npass issued\n· RSVP pending\nView pass\nDownload PDF\nAlign photo\nPlus-ones\nCopy WA link\nRequest RSVP\nSalutation\nName\nCountry\nPhone (E.164)\nEmail\nStatus tier\nVIP I Am Peacekeeper Partner\nSequence #\nDesignation\nOrganisation\nCountry of origin\nSeat number\nSHARE URL\n\nPersonalised /q/ slug for sharing on WhatsApp. Leave blank on save to auto-generate from name.\n\nSlug\nRegenerate\n/q/mushtaq-ahmed-chaya\nCopy\nPEACE CONTACTS\n\nPrimary handles the guest first. Fallbacks step in if the primary is unreachable. Every PC on the chain sees the guest in their volunteer app.\n\n— unassigned —\n\nEdit chain\nBIO & HONOURS\n\nShown to volunteer Peace Contacts on /volunteer/assigned and /volunteer/lookup so they can greet this guest with personal context.\n\nBio\nHonours\nQualifications\nAward category\nChampion category\nHide “Status:” prefix on pass (show value only)\nPhoto\nSave\nDele",
+        "before": "Primary handles the guest first. Fallbacks step in if the primary is unreachable. Every PC on the chain sees the guest in their volunteer app. — unassigned — Edit chain",
+        "optionCount": 0,
+        "ok": false,
+        "error": "PC option not found"
+      }
+    ],
+    "finishedAt": "2026-05-18T08:39:08.098Z"
+  },
+  "aliasPassPartial": {
+    "startedAt": "2026-05-18T08:39:53.395Z",
+    "actions": [
+      {
+        "type": "assign_pc_available_alias",
+        "id": "usr_afb6af31a22744cdb090",
+        "name": "Aditi Tatkare",
+        "source": "Yakub",
+        "primary": "Yakub",
+        "note": "retry previous failed exact Yakub",
+        "before": "Primary handles the guest first. Fallbacks step in if the primary is unreachable. Every PC on the chain sees the guest in their volunteer app. — unassigned — Edit chain",
+        "primarySelected": true,
+        "after": "Primary handles the guest first. Fallbacks step in if the primary is unreachable. Every PC on the chain sees the guest in their volunteer app. — unassigned — Edit chain",
+        "ok": false
+      },
+      {
+        "type": "assign_pc_available_alias",
+        "id": "usr_af3fab5b570144968e33",
+        "name": "Hussain Mansuri",
+        "source": "Yakub / Syed Ali",
+        "primary": "Yakub",
+        "note": "Syed Ali option not available; applied available first named PC",
+        "before": "Primary handles the guest first. Fallbacks step in if the primary is unreachable. Every PC on the chain sees the guest in their volunteer app. — unassigned — Edit chain",
+        "primarySelected": true,
+        "after": "Primary handles the guest first. Fallbacks step in if the primary is unreachable. Every PC on the chain sees the guest in their volunteer app. — unassigned — Edit chain",
+        "ok": false
+      },
+      {
+        "type": "assign_pc_available_alias",
+        "id": "usr_c0437e4bf8104277be37",
+        "name": "Mayank Singhal",
+        "source": "Dr Huz / Shrey Shah",
+        "primary": "Huzaifa Habil Khorakiwala",
+        "note": "Dr Huz confirmed; Shrey Shah option not available",
+        "before": "Primary handles the guest first. Fallbacks step in if the primary is unreachable. Every PC on the chain sees the guest in their volunteer app. — unassigned — Edit chain",
+        "primarySelected": true,
+        "after": "Primary handles the guest first. Fallbacks step in if the primary is unreachable. Every PC on the chain sees the guest in their volunteer app. Primary Huzaifa Habil Khorakiwala Edit chain",
+        "ok": true
+      }
+    ]
+  },
+  "aliasVerify": {
+    "at": "2026-05-18T08:40:29.926Z",
+    "rows": [
+      {
+        "id": "usr_afb6af31a22744cdb090",
+        "name": "Aditi Tatkare",
+        "pcText": "Primary handles the guest first. Fallbacks step in if the primary is unreachable. Every PC on the chain sees the guest in their volunteer app. — unassigned — Edit chain",
+        "body": "BFP\nADMIN\nBFP Conclave\nGuests\nGuests\nPasses\nAd-hoc passes\nAssignments\nStatuses\nVolunteers\nVolunteers\nTeams\nAll users\nRoles\nPermissions\nEvent\nSessions\nBroadcasts\nWhatsApp\nConfig\nExceptions\nInsights\nAudit log\nReports\nControl room\nTS\nTaiyzun Shahpurwala\nAdmin\nToggle Sidebar\nBFP CONCLAVE · ADMIN\n/\nGuests\n← Guests\nAditi Tatkare\nchampion\npass issued\n· RSVP pending\nView pass\nDownload PDF\nAlign photo\nPlus-ones\nCopy WA link\nRequest RSVP\nSalutation\nName\nCountry\nPhone (E.164)\nEmail\nStatus tier\nI Am Peacekeeper Champion\nSequence #\nDesignation\nOrganisation\nCountry of origin\nSeat number\nSHARE URL\n\nPersonalised /q/ slug for sharing on WhatsApp. Leave blank on save to auto-generate from name.\n\nSlug\nRegenerate\n/q/hon-ble-smt-aditi-tatkare\nCopy\nPEACE CONTACTS\n\nPrimary handles the guest first. Fallbacks step in if the primary is unreachable. Every PC on the chain sees the guest in their volunteer app.\n\n— unassigned —\n\nEdit chain\nBIO & HONOURS\n\nShown to volunteer Peace Contacts on /volunteer/assigned and "
+      },
+      {
+        "id": "usr_af3fab5b570144968e33",
+        "name": "Hussain Mansuri",
+        "pcText": "Primary handles the guest first. Fallbacks step in if the primary is unreachable. Every PC on the chain sees the guest in their volunteer app. — unassigned — Edit chain",
+        "body": "BFP\nADMIN\nBFP Conclave\nGuests\nGuests\nPasses\nAd-hoc passes\nAssignments\nStatuses\nVolunteers\nVolunteers\nTeams\nAll users\nRoles\nPermissions\nEvent\nSessions\nBroadcasts\nWhatsApp\nConfig\nExceptions\nInsights\nAudit log\nReports\nControl room\nTS\nTaiyzun Shahpurwala\nAdmin\nToggle Sidebar\nBFP CONCLAVE · ADMIN\n/\nGuests\n← Guests\nHussain Mansuri\nchampion\npass issued\n· RSVP pending\nView pass\nDownload PDF\nAlign photo\nPlus-ones\nCopy WA link\nRequest RSVP\nSalutation\nName\nCountry\nPhone (E.164)\nEmail\nStatus tier\nI Am Peacekeeper Champion\nSequence #\nDesignation\nOrganisation\nCountry of origin\nSeat number\nSHARE URL\n\nPersonalised /q/ slug for sharing on WhatsApp. Leave blank on save to auto-generate from name.\n\nSlug\nRegenerate\n/q/hussain-mansuri\nCopy\nPEACE CONTACTS\n\nPrimary handles the guest first. Fallbacks step in if the primary is unreachable. Every PC on the chain sees the guest in their volunteer app.\n\n— unassigned —\n\nEdit chain\nBIO & HONOURS\n\nShown to volunteer Peace Contacts on /volunteer/assigned and /volunte"
+      },
+      {
+        "id": "usr_c0437e4bf8104277be37",
+        "name": "Mayank Singhal",
+        "pcText": "Primary handles the guest first. Fallbacks step in if the primary is unreachable. Every PC on the chain sees the guest in their volunteer app. Primary Huzaifa Habil Khorakiwala Edit chain",
+        "body": "BFP\nADMIN\nBFP Conclave\nGuests\nGuests\nPasses\nAd-hoc passes\nAssignments\nStatuses\nVolunteers\nVolunteers\nTeams\nAll users\nRoles\nPermissions\nEvent\nSessions\nBroadcasts\nWhatsApp\nConfig\nExceptions\nInsights\nAudit log\nReports\nControl room\nTS\nTaiyzun Shahpurwala\nAdmin\nToggle Sidebar\nBFP CONCLAVE · ADMIN\n/\nGuests\n← Guests\nMayank Singhal\nchampion\npass issued\n· RSVP pending\nView pass\nDownload PDF\nAlign photo\nPlus-ones\nCopy WA link\nRequest RSVP\nSalutation\nName\nCountry\nPhone (E.164)\nEmail\nStatus tier\nI Am Peacekeeper Champion\nSequence #\nDesignation\nOrganisation\nCountry of origin\nSeat number\nSHARE URL\n\nPersonalised /q/ slug for sharing on WhatsApp. Leave blank on save to auto-generate from name.\n\nSlug\nRegenerate\n/q/mr-mayank-singhal\nCopy\nPEACE CONTACTS\n\nPrimary handles the guest first. Fallbacks step in if the primary is unreachable. Every PC on the chain sees the guest in their volunteer app.\n\nPRIMARY\nHuzaifa Habil Khorakiwala\nEdit chain\nBIO & HONOURS\n\nShown to volunteer Peace Contacts on /volunteer/as"
+      },
+      {
+        "id": "usr_00fa3ec2f9744d48b727",
+        "name": "Dhawal Cheda",
+        "pcText": "Primary handles the guest first. Fallbacks step in if the primary is unreachable. Every PC on the chain sees the guest in their volunteer app. — unassigned — Edit chain",
+        "body": "BFP\nADMIN\nBFP Conclave\nGuests\nGuests\nPasses\nAd-hoc passes\nAssignments\nStatuses\nVolunteers\nVolunteers\nTeams\nAll users\nRoles\nPermissions\nEvent\nSessions\nBroadcasts\nWhatsApp\nConfig\nExceptions\nInsights\nAudit log\nReports\nControl room\nTS\nTaiyzun Shahpurwala\nAdmin\nToggle Sidebar\nBFP CONCLAVE · ADMIN\n/\nGuests\n← Guests\nDhawal Cheda\nvip_partner\npass issued\n· RSVP pending\nView pass\nDownload PDF\nAlign photo\nPlus-ones\nCopy WA link\nRequest RSVP\nSalutation\nName\nCountry\nPhone (E.164)\nEmail\nStatus tier\nVIP I Am Peacekeeper Partner\nSequence #\nDesignation\nOrganisation\nCountry of origin\nSeat number\nSHARE URL\n\nPersonalised /q/ slug for sharing on WhatsApp. Leave blank on save to auto-generate from name.\n\nSlug\nRegenerate\n/q/mr-dhawal-cheda\nCopy\nPEACE CONTACTS\n\nPrimary handles the guest first. Fallbacks step in if the primary is unreachable. Every PC on the chain sees the guest in their volunteer app.\n\n— unassigned —\n\nEdit chain\nBIO & HONOURS\n\nShown to volunteer Peace Contacts on /volunteer/assigned and /volu"
+      }
+    ]
+  },
+  "dhawalPrimary": {
+    "id": "usr_00fa3ec2f9744d48b727",
+    "name": "Dhawal Cheda",
+    "pc": "Huzaifa Habil Khorakiwala",
+    "before": "Primary handles the guest first. Fallbacks step in if the primary is unreachable. Every PC on the chain sees the guest in their volunteer app. — unassigned — Edit chain",
+    "optionExists": 1,
+    "after": "Primary handles the guest first. Fallbacks step in if the primary is unreachable. Every PC on the chain sees the guest in their volunteer app. Primary Huzaifa Habil Khorakiwala Edit chain",
+    "ok": true
+  },
+  "mohammadYakub": {
+    "at": "2026-05-18T08:41:47.327Z",
+    "actions": [
+      {
+        "id": "usr_afb6af31a22744cdb090",
+        "name": "Aditi Tatkare",
+        "pc": "Mohammad Yakub Ali",
+        "before": "Primary handles the guest first. Fallbacks step in if the primary is unreachable. Every PC on the chain sees the guest in their volunteer app. — unassigned — Edit chain",
+        "optionExists": 1,
+        "after": "Primary handles the guest first. Fallbacks step in if the primary is unreachable. Every PC on the chain sees the guest in their volunteer app. Primary Mohammad Yakub Ali Edit chain",
+        "ok": true
+      },
+      {
+        "id": "usr_af3fab5b570144968e33",
+        "name": "Hussain Mansuri",
+        "pc": "Mohammad Yakub Ali",
+        "before": "Primary handles the guest first. Fallbacks step in if the primary is unreachable. Every PC on the chain sees the guest in their volunteer app. — unassigned — Edit chain",
+        "optionExists": 1,
+        "after": "Primary handles the guest first. Fallbacks step in if the primary is unreachable. Every PC on the chain sees the guest in their volunteer app. Primary Mohammad Yakub Ali Edit chain",
+        "ok": true
+      }
+    ]
+  },
+  "savedAt": "2026-05-18T08:42:21.266Z"
+}

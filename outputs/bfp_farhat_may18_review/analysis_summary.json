@@ -1,0 +1,1834 @@
+{
+  "summary": [
+    {
+      "Metric": "New workbook rows with names",
+      "Value": 543,
+      "Note": "All named rows, including XXX and Media"
+    },
+    {
+      "Metric": "Rows marked XXX",
+      "Value": 39,
+      "Note": ""
+    },
+    {
+      "Metric": "Non-XXX named rows",
+      "Value": 504,
+      "Note": "Farhat said 505 total; file currently gives 504 if XXX rows are excluded"
+    },
+    {
+      "Metric": "VIP Peace Partner rows",
+      "Value": 209,
+      "Note": ""
+    },
+    {
+      "Metric": "Guest of Honour rows",
+      "Value": 188,
+      "Note": ""
+    },
+    {
+      "Metric": "I Am Peacekeeper rows",
+      "Value": 51,
+      "Note": ""
+    },
+    {
+      "Metric": "Media rows",
+      "Value": 27,
+      "Note": ""
+    },
+    {
+      "Metric": "Awardee rows",
+      "Value": 186,
+      "Note": "Farhat said 180 awards; file currently has 186 Awardee rows"
+    },
+    {
+      "Metric": "Rows with award category filled",
+      "Value": 185,
+      "Note": "Includes Business XXX / Justice & Peace XXX / typo values"
+    },
+    {
+      "Metric": "Award category filled and not XXX final",
+      "Value": 179,
+      "Note": ""
+    },
+    {
+      "Metric": "Awardee rows with no award category",
+      "Value": 3,
+      "Note": ""
+    },
+    {
+      "Metric": "IAP rows with a 3am seat value",
+      "Value": 50,
+      "Note": "Contradicts verbal “no place to sit for all IAPMs” only if seat values are meant to be blank"
+    }
+  ],
+  "category_final_counts": [
+    [
+      "VIP Peace Partner",
+      209
+    ],
+    [
+      "Guest of Honour",
+      188
+    ],
+    [
+      "I Am Peacekeeper",
+      51
+    ],
+    [
+      "XXX",
+      39
+    ],
+    [
+      "Media",
+      27
+    ],
+    [
+      "Main",
+      17
+    ],
+    [
+      "Late Peace Guest",
+      12
+    ]
+  ],
+  "category_counts": [
+    [
+      "Attendee",
+      212
+    ],
+    [
+      "Awardee",
+      186
+    ],
+    [
+      "I am Peacekeeper",
+      58
+    ],
+    [
+      "PR & Social Media",
+      23
+    ],
+    [
+      "XXX",
+      19
+    ],
+    [
+      "Late Peace Guest",
+      15
+    ],
+    [
+      "To be confirmed",
+      11
+    ],
+    [
+      "Nobel accompany",
+      5
+    ],
+    [
+      "ChiefG accompany",
+      5
+    ],
+    [
+      "Nobel Laureate",
+      4
+    ],
+    [
+      "Chief Guest",
+      3
+    ],
+    [
+      "Guest of Honour",
+      1
+    ]
+  ],
+  "award_counts": [
+    [
+      "Business",
+      75
+    ],
+    [
+      "Justice & Peace",
+      34
+    ],
+    [
+      "Artist & Literature",
+      21
+    ],
+    [
+      "Social Innovation",
+      12
+    ],
+    [
+      "Health",
+      9
+    ],
+    [
+      "Education",
+      9
+    ],
+    [
+      "Youth & Women",
+      5
+    ],
+    [
+      "Housing",
+      5
+    ],
+    [
+      "Business XXX",
+      4
+    ],
+    [
+      "Sports",
+      3
+    ],
+    [
+      "Influencers",
+      3
+    ],
+    [
+      "City",
+      1
+    ],
+    [
+      "Environment",
+      1
+    ],
+    [
+      "Champion Business",
+      1
+    ],
+    [
+      "Peace",
+      1
+    ],
+    [
+      "Justice & Peace XXX",
+      1
+    ]
+  ],
+  "added_count": 29,
+  "removed_count": 4,
+  "changes_count": 765,
+  "important_changes_count": 487,
+  "issues_count": 172,
+  "missing_in_system_csv_count": 51,
+  "fuzzy_system_count": 64,
+  "system_exact_name_count": 362,
+  "added_sample": [
+    {
+      "Name": "Ms Ameenah Gurib-Fakim",
+      "Category Final": "Guest of Honour",
+      "Category": "Awardee",
+      "Award Category (where applicable)": "Justice & Peace",
+      "Seat 18th 3am": "2 - IAPM",
+      "Cell": "",
+      "email": ""
+    },
+    {
+      "Name": "Mr Bahadur Ali",
+      "Category Final": "Guest of Honour",
+      "Category": "Awardee",
+      "Award Category (where applicable)": "Business",
+      "Seat 18th 3am": "5 - Gratitude",
+      "Cell": "",
+      "email": ""
+    },
+    {
+      "Name": "Mr Basant Khandelwal",
+      "Category Final": "VIP Peace Partner",
+      "Category": "Attendee",
+      "Award Category (where applicable)": "",
+      "Seat 18th 3am": "30 - Giving",
+      "Cell": "",
+      "email": ""
+    },
+    {
+      "Name": "Mr Bhausaheb Wakchaure",
+      "Category Final": "Guest of Honour",
+      "Category": "Awardee",
+      "Award Category (where applicable)": "Justice & Peace",
+      "Seat 18th 3am": "5 - Humility",
+      "Cell": "",
+      "email": ""
+    },
+    {
+      "Name": "Hon'ble Bhiku Ramji Idate",
+      "Category Final": "Guest of Honour",
+      "Category": "Awardee",
+      "Award Category (where applicable)": "Justice & Peace",
+      "Seat 18th 3am": "6 - Truth",
+      "Cell": "",
+      "email": ""
+    },
+    {
+      "Name": "Darshan Dalal (Falguni Shah brother)",
+      "Category Final": "Late Peace Guest",
+      "Category": "Late Peace Guest",
+      "Award Category (where applicable)": "",
+      "Seat 18th 3am": "53 - Patience",
+      "Cell": "98201 97119",
+      "email": ""
+    },
+    {
+      "Name": "Mr Dennis Shivani",
+      "Category Final": "VIP Peace Partner",
+      "Category": "Attendee",
+      "Award Category (where applicable)": "",
+      "Seat 18th 3am": "32 - Patience",
+      "Cell": "",
+      "email": ""
+    },
+    {
+      "Name": "GAIL Person",
+      "Category Final": "Guest of Honour",
+      "Category": "Attendee",
+      "Award Category (where applicable)": "",
+      "Seat 18th 3am": "7 - Forgiveness",
+      "Cell": "",
+      "email": ""
+    },
+    {
+      "Name": "Mr Gurdeep Singh Sappal",
+      "Category Final": "Guest of Honour",
+      "Category": "Awardee",
+      "Award Category (where applicable)": "Justice & Peace",
+      "Seat 18th 3am": "7 - IAPM",
+      "Cell": "",
+      "email": ""
+    },
+    {
+      "Name": "Mr. Gurudas Verma",
+      "Category Final": "Guest of Honour",
+      "Category": "Awardee",
+      "Award Category (where applicable)": "Business",
+      "Seat 18th 3am": "7 - Patience",
+      "Cell": "",
+      "email": ""
+    },
+    {
+      "Name": "Mr. Hardeep Singh Banga",
+      "Category Final": "Guest of Honour",
+      "Category": "Awardee",
+      "Award Category (where applicable)": "Business",
+      "Seat 18th 3am": "8 - Gratitude",
+      "Cell": "",
+      "email": ""
+    },
+    {
+      "Name": "Jag Deep Dhawan",
+      "Category Final": "Late Peace Guest",
+      "Category": "Late Peace Guest",
+      "Award Category (where applicable)": "",
+      "Seat 18th 3am": "53 - IAPM",
+      "Cell": "",
+      "email": ""
+    },
+    {
+      "Name": "Jagmohan Garg",
+      "Category Final": "Late Peace Guest",
+      "Category": "Late Peace Guest",
+      "Award Category (where applicable)": "",
+      "Seat 18th 3am": "54 - Truth",
+      "Cell": "",
+      "email": ""
+    },
+    {
+      "Name": "Komalraj Callychurn",
+      "Category Final": "Guest of Honour",
+      "Category": "",
+      "Award Category (where applicable)": "",
+      "Seat 18th 3am": "10 - Giving",
+      "Cell": "",
+      "email": ""
+    },
+    {
+      "Name": "Mohan Kumar Giri",
+      "Category Final": "Late Peace Guest",
+      "Category": "Late Peace Guest",
+      "Award Category (where applicable)": "",
+      "Seat 18th 3am": "54 - Gratitude",
+      "Cell": "",
+      "email": ""
+    },
+    {
+      "Name": "Naman Modi",
+      "Category Final": "VIP Peace Partner",
+      "Category": "Late Peace Guest",
+      "Award Category (where applicable)": "",
+      "Seat 18th 3am": "24 - Humility",
+      "Cell": "91673 42246",
+      "email": ""
+    },
+    {
+      "Name": "Dr Naval Kumar Verma",
+      "Category Final": "VIP Peace Partner",
+      "Category": "Attendee",
+      "Award Category (where applicable)": "",
+      "Seat 18th 3am": "40 - Truth",
+      "Cell": "",
+      "email": ""
+    },
+    {
+      "Name": "Parveen Goyal",
+      "Category Final": "Guest of Honour",
+      "Category": "Awardee",
+      "Award Category (where applicable)": "Business",
+      "Seat 18th 3am": "14 - Truth",
+      "Cell": "",
+      "email": ""
+    },
+    {
+      "Name": "Petronet Person",
+      "Category Final": "Guest of Honour",
+      "Category": "Attendee",
+      "Award Category (where applicable)": "",
+      "Seat 18th 3am": "14 - Love",
+      "Cell": "",
+      "email": ""
+    },
+    {
+      "Name": "Dr Prabal Roy",
+      "Category Final": "Guest of Honour",
+      "Category": "Awardee",
+      "Award Category (where applicable)": "Health",
+      "Seat 18th 3am": "14 - Humility",
+      "Cell": "",
+      "email": ""
+    },
+    {
+      "Name": "Prachi",
+      "Category Final": "Media",
+      "Category": "I am Peacekeeper",
+      "Award Category (where applicable)": "",
+      "Seat 18th 3am": "-",
+      "Cell": "",
+      "email": ""
+    },
+    {
+      "Name": "Rishabh Jain",
+      "Category Final": "VIP Peace Partner",
+      "Category": "Attendee",
+      "Award Category (where applicable)": "",
+      "Seat 18th 3am": "49 - Love",
+      "Cell": "",
+      "email": ""
+    },
+    {
+      "Name": "Mr Rohit Chopra",
+      "Category Final": "VIP Peace Partner",
+      "Category": "Attendee",
+      "Award Category (where applicable)": "",
+      "Seat 18th 3am": "44 - Love",
+      "Cell": "",
+      "email": ""
+    },
+    {
+      "Name": "Ms Roshni Walia",
+      "Category Final": "Guest of Honour",
+      "Category": "Awardee",
+      "Award Category (where applicable)": "Artist & Literature",
+      "Seat 18th 3am": "17 - Humility",
+      "Cell": "",
+      "email": ""
+    },
+    {
+      "Name": "Samyak Jain",
+      "Category Final": "VIP Peace Partner",
+      "Category": "Attendee",
+      "Award Category (where applicable)": "",
+      "Seat 18th 3am": "49 - Forgiveness",
+      "Cell": "",
+      "email": ""
+    },
+    {
+      "Name": "Padma Shri Savjibhai Dhanjibhai Dholakia",
+      "Category Final": "Guest of Honour",
+      "Category": "Awardee",
+      "Award Category (where applicable)": "Social Innovation",
+      "Seat 18th 3am": "19 - IAPM",
+      "Cell": "",
+      "email": ""
+    },
+    {
+      "Name": "Tirtharaj",
+      "Category Final": "Media",
+      "Category": "I am Peacekeeper",
+      "Award Category (where applicable)": "",
+      "Seat 18th 3am": "-",
+      "Cell": "",
+      "email": ""
+    },
+    {
+      "Name": "Uday",
+      "Category Final": "Media",
+      "Category": "I am Peacekeeper",
+      "Award Category (where applicable)": "",
+      "Seat 18th 3am": "-",
+      "Cell": "",
+      "email": ""
+    },
+    {
+      "Name": "Ujjwal Kumar Dahal",
+      "Category Final": "Late Peace Guest",
+      "Category": "Late Peace Guest",
+      "Award Category (where applicable)": "",
+      "Seat 18th 3am": "54 - Forgiveness",
+      "Cell": "",
+      "email": ""
+    }
+  ],
+  "removed_sample": [
+    {
+      "Name": "Ms Ameena Gurib-Fakim",
+      "Category Final": "Guest of Honour",
+      "Category": "Awardee",
+      "Award Category (where applicable)": "Justice & Peace",
+      "Seat 2pm": "3 - Gratitude",
+      "Cell": "",
+      "email": ""
+    },
+    {
+      "Name": "Padma Shri Savjibhai Dhanjibhai Dholakia",
+      "Category Final": "Guest of Honour",
+      "Category": "Awardee",
+      "Award Category (where applicable)": "Social Innovation",
+      "Seat 2pm": "14 - Humility",
+      "Cell": "",
+      "email": ""
+    },
+    {
+      "Name": "Mr Suraj Chouhan - Accompany",
+      "Category Final": "VIP Peace Partner",
+      "Category": "Attendee",
+      "Award Category (where applicable)": "",
+      "Seat 2pm": "47 - Patience",
+      "Cell": "",
+      "email": ""
+    },
+    {
+      "Name": "Mr Suraj Chouhan - Accompany #2",
+      "Category Final": "VIP Peace Partner",
+      "Category": "Attendee",
+      "Award Category (where applicable)": "",
+      "Seat 2pm": "47 - Peace",
+      "Cell": "",
+      "email": ""
+    }
+  ],
+  "important_changes_sample": [
+    {
+      "Key": "aakanksha chopra",
+      "Name": "Aakanksha Chopra",
+      "Row May18": 210,
+      "Field": "Seat 18th 3am",
+      "May17": "26 - Truth",
+      "May18": "25 - Truth"
+    },
+    {
+      "Key": "aanushka ramesh",
+      "Name": "Ms Aanushka Ramesh",
+      "Row May18": 211,
+      "Field": "Seat 18th 3am",
+      "May17": "26 - Gratitude",
+      "May18": "25 - Gratitude"
+    },
+    {
+      "Key": "aaron papi",
+      "Name": "Aaron Papi",
+      "Row May18": 212,
+      "Field": "Seat 18th 3am",
+      "May17": "26 - Forgiveness",
+      "May18": "25 - Forgiveness"
+    },
+    {
+      "Key": "aatmn parmar",
+      "Name": "Ms Aatmn Parmar",
+      "Row May18": 213,
+      "Field": "Seat 18th 3am",
+      "May17": "26 - Love",
+      "May18": "25 - Love"
+    },
+    {
+      "Key": "abbas master",
+      "Name": "Mr Abbas Master",
+      "Row May18": 214,
+      "Field": "Seat 18th 3am",
+      "May17": "26 - Humility",
+      "May18": "25 - Giving"
+    },
+    {
+      "Key": "abdul shinyas salim",
+      "Name": "Mr Abdul Shinyas Salim",
+      "Row May18": 215,
+      "Field": "Seat 18th 3am",
+      "May17": "26 - Giving",
+      "May18": "25 - Humility"
+    },
+    {
+      "Key": "acharya balkrishna",
+      "Name": "Acharya Balkrishna",
+      "Row May18": 24,
+      "Field": "Speaking",
+      "May17": "",
+      "May18": "Panel 3"
+    },
+    {
+      "Key": "acharya lokesh muni jain",
+      "Name": "Acharya Lokesh Muni Jain",
+      "Row May18": 25,
+      "Field": "Speaking",
+      "May17": "",
+      "May18": "Panel 1 + Religion - Jainism"
+    },
+    {
+      "Key": "adithya reddy",
+      "Name": "Mr. Adithya Reddy",
+      "Row May18": 216,
+      "Field": "Seat 18th 3am",
+      "May17": "26 - Patience",
+      "May18": "25 - Patience"
+    },
+    {
+      "Key": "aditi r karad dr",
+      "Name": "Dr Aditi R Karad",
+      "Row May18": 217,
+      "Field": "Seat 18th 3am",
+      "May17": "26 - Peace",
+      "May18": "25 - IAPM"
+    },
+    {
+      "Key": "aditi tatkare hon ble",
+      "Name": "Hon'ble Smt Aditi Tatkare",
+      "Row May18": 26,
+      "Field": "Seat 18th 3am",
+      "May17": "2 - Truth",
+      "May18": "1 - IAPM"
+    },
+    {
+      "Key": "aditya kapoor",
+      "Name": "Mr Aditya Kapoor",
+      "Row May18": 218,
+      "Field": "Seat 18th 3am",
+      "May17": "27 - Truth",
+      "May18": "28 - Truth"
+    },
+    {
+      "Key": "aditya vijay kashyap dr",
+      "Name": "Dr Aditya Vijay Kashyap",
+      "Row May18": 27,
+      "Field": "Seat 18th 3am",
+      "May17": "2 - Gratitude",
+      "May18": "2 - Truth"
+    },
+    {
+      "Key": "adrish ghosh",
+      "Name": "Mr Adrish Ghosh",
+      "Row May18": 219,
+      "Field": "Seat 18th 3am",
+      "May17": "27 - Gratitude",
+      "May18": "28 - Gratitude"
+    },
+    {
+      "Key": "adwik bollineni",
+      "Name": "Adwik Bollineni",
+      "Row May18": 28,
+      "Field": "Seat 18th 3am",
+      "May17": "",
+      "May18": "2 - Gratitude"
+    },
+    {
+      "Key": "afzal",
+      "Name": "Afzal",
+      "Row May18": 451,
+      "Field": "Seat 18th 3am",
+      "May17": "-",
+      "May18": "54 -"
+    },
+    {
+      "Key": "ahmar bubere",
+      "Name": "Mr Ahmar Bubere",
+      "Row May18": 220,
+      "Field": "Seat 18th 3am",
+      "May17": "27 - Forgiveness",
+      "May18": "28 - Forgiveness"
+    },
+    {
+      "Key": "ailene kelese",
+      "Name": "Ms. Ailene Kelese",
+      "Row May18": 221,
+      "Field": "Seat 18th 3am",
+      "May17": "27 - Love",
+      "May18": "28 - Love"
+    },
+    {
+      "Key": "aishwarya majmudar",
+      "Name": "Ms Aishwarya Majmudar",
+      "Row May18": 29,
+      "Field": "Seat 18th 3am",
+      "May17": "2 - Love",
+      "May18": "2 - Forgiveness"
+    },
+    {
+      "Key": "akbar khan",
+      "Name": "Mr Akbar Khan",
+      "Row May18": 30,
+      "Field": "Seat 18th 3am",
+      "May17": "2 - Giving",
+      "May18": "2 - Love"
+    },
+    {
+      "Key": "akbar sami",
+      "Name": "Mr Akbar Sami",
+      "Row May18": 31,
+      "Field": "Seat 18th 3am",
+      "May17": "2 - Humility",
+      "May18": "2 - Giving"
+    },
+    {
+      "Key": "akhil gupta",
+      "Name": "Mr Akhil Gupta",
+      "Row May18": 32,
+      "Field": "Seat 18th 3am",
+      "May17": "2 - Patience",
+      "May18": "2 - Humility"
+    },
+    {
+      "Key": "akhil khanna",
+      "Name": "Mr Akhil Khanna",
+      "Row May18": 33,
+      "Field": "Seat 18th 3am",
+      "May17": "3 - Truth",
+      "May18": "2 - Patience"
+    },
+    {
+      "Key": "alifiya rizvi dr",
+      "Name": "Dr Alifiya Rizvi",
+      "Row May18": 222,
+      "Field": "Seat 18th 3am",
+      "May17": "27 - Humility",
+      "May18": "28 - Giving"
+    },
+    {
+      "Key": "ameya chavhan",
+      "Name": "Mr. Ameya Chavhan",
+      "Row May18": 223,
+      "Field": "Seat 18th 3am",
+      "May17": "27 - Giving",
+      "May18": "28 - Humility"
+    },
+    {
+      "Key": "amit j dholakia",
+      "Name": "Mr Amit J. Dholakia",
+      "Row May18": 35,
+      "Field": "Seat 18th 3am",
+      "May17": "3 - Forgiveness",
+      "May18": "3 - Truth"
+    },
+    {
+      "Key": "amita kshatriya",
+      "Name": "Ms Amita Kshatriya",
+      "Row May18": 225,
+      "Field": "Seat 18th 3am",
+      "May17": "27 - Peace",
+      "May18": "28 - IAPM"
+    },
+    {
+      "Key": "ammin umer rajqotwala",
+      "Name": "Mr Ammin Umer Rajqotwala",
+      "Row May18": 226,
+      "Field": "Seat 18th 3am",
+      "May17": "28 - Truth",
+      "May18": "29 - Truth"
+    },
+    {
+      "Key": "amole singh",
+      "Name": "•⁠ ⁠⁠Amole Singh",
+      "Row May18": 227,
+      "Field": "Seat 18th 3am",
+      "May17": "28 - Gratitude",
+      "May18": "29 - Gratitude"
+    },
+    {
+      "Key": "amrish patel",
+      "Name": "Mr Amrish Patel",
+      "Row May18": 37,
+      "Field": "Seat 18th 3am",
+      "May17": "3 - Giving",
+      "May18": "3 - Forgiveness"
+    },
+    {
+      "Key": "anand goyal",
+      "Name": "•⁠ ⁠⁠Anand Goyal",
+      "Row May18": 228,
+      "Field": "Seat 18th 3am",
+      "May17": "28 - Forgiveness",
+      "May18": "29 - Forgiveness"
+    },
+    {
+      "Key": "andre timmins",
+      "Name": "Andre Timmins",
+      "Row May18": 38,
+      "Field": "Seat 18th 3am",
+      "May17": "",
+      "May18": "3 - Love"
+    },
+    {
+      "Key": "aniket karia",
+      "Name": "Aniket Karia",
+      "Row May18": 455,
+      "Field": "Seat 18th 3am",
+      "May17": "-",
+      "May18": "55 -"
+    },
+    {
+      "Key": "anjali atha",
+      "Name": "Ms Anjali Atha (check)",
+      "Row May18": 229,
+      "Field": "Seat 18th 3am",
+      "May17": "28 - Love",
+      "May18": "29 - Love"
+    },
+    {
+      "Key": "ankita pawar",
+      "Name": "Ankita Pawar",
+      "Row May18": 230,
+      "Field": "Seat 18th 3am",
+      "May17": "28 - Humility",
+      "May18": "29 - Giving"
+    },
+    {
+      "Key": "ankita thakkar",
+      "Name": "Ankita Thakkar",
+      "Row May18": 449,
+      "Field": "Category Final",
+      "May17": "Event",
+      "May18": "Media"
+    },
+    {
+      "Key": "ankita thakkar",
+      "Name": "Ankita Thakkar",
+      "Row May18": 449,
+      "Field": "Seat 18th 3am",
+      "May17": "",
+      "May18": "27 -"
+    },
+    {
+      "Key": "anna bansode hon ble",
+      "Name": "Hon'ble Shri Anna Bansode",
+      "Row May18": 39,
+      "Field": "Seat 18th 3am",
+      "May17": "3 - Patience",
+      "May18": "3 - Giving"
+    },
+    {
+      "Key": "annapurna das",
+      "Name": "Ms Annapurna Das",
+      "Row May18": 231,
+      "Field": "Seat 18th 3am",
+      "May17": "28 - Giving",
+      "May18": "29 - Humility"
+    },
+    {
+      "Key": "antonette jesumani fsp",
+      "Name": "Sr (Dr) Antonette Jesumani FSP",
+      "Row May18": 181,
+      "Field": "Seat 18th 3am",
+      "May17": "22 - Love",
+      "May18": "21 - Love"
+    },
+    {
+      "Key": "antonette jesumani fsp",
+      "Name": "Sr (Dr) Antonette Jesumani FSP",
+      "Row May18": 181,
+      "Field": "Speaking",
+      "May17": "",
+      "May18": "Panel 1"
+    },
+    {
+      "Key": "anup dandvani",
+      "Name": "Mr Anup Dandvani",
+      "Row May18": 232,
+      "Field": "Seat 18th 3am",
+      "May17": "28 - Patience",
+      "May18": "29 - Patience"
+    },
+    {
+      "Key": "anup kumar singh ips",
+      "Name": "Mr Anup Kumar Singh, IPS",
+      "Row May18": 40,
+      "Field": "Seat 18th 3am",
+      "May17": "4 - Truth",
+      "May18": "3 - Humility"
+    },
+    {
+      "Key": "anushi patel",
+      "Name": "Ms Anushi Patel",
+      "Row May18": 233,
+      "Field": "Seat 18th 3am",
+      "May17": "28 - Peace",
+      "May18": "29 - IAPM"
+    },
+    {
+      "Key": "arif fazlani",
+      "Name": "Mr Arif Fazlani",
+      "Row May18": 41,
+      "Field": "Seat 18th 3am",
+      "May17": "4 - Gratitude",
+      "May18": "3 - Patience"
+    },
+    {
+      "Key": "arshi ayub dr",
+      "Name": "Dr Arshi Ayub",
+      "Row May18": 42,
+      "Field": "Seat 18th 3am",
+      "May17": "4 - Forgiveness",
+      "May18": "3 - IAPM"
+    },
+    {
+      "Key": "asha sharma",
+      "Name": "Ms Asha Sharma",
+      "Row May18": 43,
+      "Field": "Seat 18th 3am",
+      "May17": "4 - Love",
+      "May18": "4 - Truth"
+    },
+    {
+      "Key": "ashdeen z lilaowala",
+      "Name": "Ashdeen Z. Lilaowala",
+      "Row May18": 44,
+      "Field": "Seat 18th 3am",
+      "May17": "4 - Giving",
+      "May18": "4 - Gratitude"
+    },
+    {
+      "Key": "ashish pednekar",
+      "Name": "Mr Ashish Pednekar",
+      "Row May18": 45,
+      "Field": "Seat 18th 3am",
+      "May17": "4 - Humility",
+      "May18": "4 - Forgiveness"
+    },
+    {
+      "Key": "ashish shelar",
+      "Name": "Ashish Shelar",
+      "Row May18": 46,
+      "Field": "Seat 18th 3am",
+      "May17": "4 - Patience",
+      "May18": "4 - Love"
+    },
+    {
+      "Key": "ashok jiravala",
+      "Name": "Ashok Jiravala",
+      "Row May18": 47,
+      "Field": "Seat 18th 3am",
+      "May17": "5 - Truth",
+      "May18": "4 - Giving"
+    },
+    {
+      "Key": "ashwin sanghi",
+      "Name": "Mr Ashwin Sanghi",
+      "Row May18": 48,
+      "Field": "Seat 18th 3am",
+      "May17": "5 - Gratitude",
+      "May18": "4 - Humility"
+    },
+    {
+      "Key": "asif ayoob",
+      "Name": "Er Asif Ayoob",
+      "Row May18": 234,
+      "Field": "Seat 18th 3am",
+      "May17": "29 - Truth",
+      "May18": "30 - Truth"
+    },
+    {
+      "Key": "atheka mehta",
+      "Name": "•⁠ ⁠⁠Atheka Mehta",
+      "Row May18": 235,
+      "Field": "Seat 18th 3am",
+      "May17": "29 - Gratitude",
+      "May18": "30 - Gratitude"
+    },
+    {
+      "Key": "atul mahajan",
+      "Name": "Mr Atul Mahajan",
+      "Row May18": 236,
+      "Field": "Seat 18th 3am",
+      "May17": "29 - Forgiveness",
+      "May18": "30 - Forgiveness"
+    },
+    {
+      "Key": "atul nisar",
+      "Name": "Atul Nisar",
+      "Row May18": 49,
+      "Field": "Seat 18th 3am",
+      "May17": "5 - Forgiveness",
+      "May18": "4 - Patience"
+    },
+    {
+      "Key": "avinash k dhakne ias dr",
+      "Name": "Dr Avinash K. Dhakne, IAS",
+      "Row May18": 50,
+      "Field": "Seat 18th 3am",
+      "May17": "5 - Love",
+      "May18": "4 - IAPM"
+    },
+    {
+      "Key": "ayaan sood",
+      "Name": "Ayaan Sood",
+      "Row May18": 51,
+      "Field": "Seat 18th 3am",
+      "May17": "",
+      "May18": "5 - Truth"
+    },
+    {
+      "Key": "baqar nasser",
+      "Name": "Mr Baqar Nasser",
+      "Row May18": 237,
+      "Field": "Seat 18th 3am",
+      "May17": "29 - Love",
+      "May18": "30 - Love"
+    },
+    {
+      "Key": "basab b paul",
+      "Name": "Mr Basab B. Paul",
+      "Row May18": 53,
+      "Field": "Seat 18th 3am",
+      "May17": "5 - Humility",
+      "May18": "5 - Forgiveness"
+    }
+  ],
+  "issues_sample": [
+    {
+      "Issue": "Awardee missing award category",
+      "Name": "Abhaynoor Singh",
+      "Row": 20,
+      "Category Final": "Guest of Honour",
+      "Category": "Awardee",
+      "Award Category": "",
+      "Seat 18th 3am": "1 - Gratitude",
+      "Suggested action": "Ask Farhat / user for Champion Category before update."
+    },
+    {
+      "Issue": "Award category wording is not controlled",
+      "Name": "Mr. Ganesh Nibe",
+      "Row": 70,
+      "Category Final": "Guest of Honour",
+      "Category": "Awardee",
+      "Award Category": "Champion Business",
+      "Seat 18th 3am": "7 - Love",
+      "Suggested action": "Business"
+    },
+    {
+      "Issue": "Award category wording is not controlled",
+      "Name": "Hussain Mansuri",
+      "Row": 80,
+      "Category Final": "Guest of Honour",
+      "Category": "Awardee",
+      "Award Category": "Peace",
+      "Seat 18th 3am": "8 - Humility",
+      "Suggested action": "Justice & Peace"
+    },
+    {
+      "Issue": "Awardee missing award category",
+      "Name": "Mr. Piyush Jhunjhunwala",
+      "Row": 127,
+      "Category Final": "Guest of Honour",
+      "Category": "Awardee",
+      "Award Category": "",
+      "Seat 18th 3am": "14 - Giving",
+      "Suggested action": "Ask Farhat / user for Champion Category before update."
+    },
+    {
+      "Issue": "Awardee missing award category",
+      "Name": "Mr Vijay Ram Rattan",
+      "Row": 195,
+      "Category Final": "Guest of Honour",
+      "Category": "Awardee",
+      "Award Category": "",
+      "Seat 18th 3am": "23 - Gratitude",
+      "Suggested action": "Ask Farhat / user for Champion Category before update."
+    },
+    {
+      "Issue": "Unclear marker in row",
+      "Name": "Ms Anjali Atha (check)",
+      "Row": 229,
+      "Category Final": "VIP Peace Partner",
+      "Category": "Attendee",
+      "Award Category": "",
+      "Seat 18th 3am": "29 - Love",
+      "Suggested action": "Manual review."
+    },
+    {
+      "Issue": "Media row should not be auto-added/updated",
+      "Name": "Rajeshree Shete Iyer",
+      "Row": 428,
+      "Category Final": "Media",
+      "Category": "PR & Social Media",
+      "Award Category": "",
+      "Seat 18th 3am": "26 - Patience",
+      "Suggested action": "Manual review only."
+    },
+    {
+      "Issue": "Media row should not be auto-added/updated",
+      "Name": "Media 1",
+      "Row": 429,
+      "Category Final": "Media",
+      "Category": "PR & Social Media",
+      "Award Category": "",
+      "Seat 18th 3am": "26 - Truth",
+      "Suggested action": "Manual review only."
+    },
+    {
+      "Issue": "Media row should not be auto-added/updated",
+      "Name": "Media 2",
+      "Row": 430,
+      "Category Final": "Media",
+      "Category": "PR & Social Media",
+      "Award Category": "",
+      "Seat 18th 3am": "26 - Gratitude",
+      "Suggested action": "Manual review only."
+    },
+    {
+      "Issue": "Media row should not be auto-added/updated",
+      "Name": "Media 3",
+      "Row": 431,
+      "Category Final": "Media",
+      "Category": "PR & Social Media",
+      "Award Category": "",
+      "Seat 18th 3am": "26 - Forgiveness",
+      "Suggested action": "Manual review only."
+    },
+    {
+      "Issue": "Media row should not be auto-added/updated",
+      "Name": "Media 4",
+      "Row": 432,
+      "Category Final": "Media",
+      "Category": "PR & Social Media",
+      "Award Category": "",
+      "Seat 18th 3am": "26 - Love",
+      "Suggested action": "Manual review only."
+    },
+    {
+      "Issue": "Media row should not be auto-added/updated",
+      "Name": "Media 5",
+      "Row": 433,
+      "Category Final": "Media",
+      "Category": "PR & Social Media",
+      "Award Category": "",
+      "Seat 18th 3am": "26 - Giving",
+      "Suggested action": "Manual review only."
+    },
+    {
+      "Issue": "Media row should not be auto-added/updated",
+      "Name": "Media 6",
+      "Row": 434,
+      "Category Final": "Media",
+      "Category": "PR & Social Media",
+      "Award Category": "",
+      "Seat 18th 3am": "26 - Humility",
+      "Suggested action": "Manual review only."
+    },
+    {
+      "Issue": "Media row should not be auto-added/updated",
+      "Name": "Media 7",
+      "Row": 435,
+      "Category Final": "Media",
+      "Category": "PR & Social Media",
+      "Award Category": "",
+      "Seat 18th 3am": "26 - Patience",
+      "Suggested action": "Manual review only."
+    },
+    {
+      "Issue": "Media row should not be auto-added/updated",
+      "Name": "Media 8",
+      "Row": 436,
+      "Category Final": "Media",
+      "Category": "PR & Social Media",
+      "Award Category": "",
+      "Seat 18th 3am": "26 - IAPM",
+      "Suggested action": "Manual review only."
+    },
+    {
+      "Issue": "Media row should not be auto-added/updated",
+      "Name": "Media 9",
+      "Row": 437,
+      "Category Final": "Media",
+      "Category": "PR & Social Media",
+      "Award Category": "",
+      "Seat 18th 3am": "27 - Truth",
+      "Suggested action": "Manual review only."
+    },
+    {
+      "Issue": "Media row should not be auto-added/updated",
+      "Name": "Media 10",
+      "Row": 438,
+      "Category Final": "Media",
+      "Category": "PR & Social Media",
+      "Award Category": "",
+      "Seat 18th 3am": "27 - Gratitude",
+      "Suggested action": "Manual review only."
+    },
+    {
+      "Issue": "Media row should not be auto-added/updated",
+      "Name": "Media 11",
+      "Row": 439,
+      "Category Final": "Media",
+      "Category": "PR & Social Media",
+      "Award Category": "",
+      "Seat 18th 3am": "27 - Forgiveness",
+      "Suggested action": "Manual review only."
+    },
+    {
+      "Issue": "Media row should not be auto-added/updated",
+      "Name": "Media 12",
+      "Row": 440,
+      "Category Final": "Media",
+      "Category": "PR & Social Media",
+      "Award Category": "",
+      "Seat 18th 3am": "27 - Love",
+      "Suggested action": "Manual review only."
+    },
+    {
+      "Issue": "Media row should not be auto-added/updated",
+      "Name": "Media 13",
+      "Row": 441,
+      "Category Final": "Media",
+      "Category": "PR & Social Media",
+      "Award Category": "",
+      "Seat 18th 3am": "27 - Giving",
+      "Suggested action": "Manual review only."
+    },
+    {
+      "Issue": "Media row should not be auto-added/updated",
+      "Name": "Media 14",
+      "Row": 442,
+      "Category Final": "Media",
+      "Category": "PR & Social Media",
+      "Award Category": "",
+      "Seat 18th 3am": "27 - Humility",
+      "Suggested action": "Manual review only."
+    },
+    {
+      "Issue": "Media row should not be auto-added/updated",
+      "Name": "Media 15",
+      "Row": 443,
+      "Category Final": "Media",
+      "Category": "PR & Social Media",
+      "Award Category": "",
+      "Seat 18th 3am": "27 - Patience",
+      "Suggested action": "Manual review only."
+    },
+    {
+      "Issue": "Media row should not be auto-added/updated",
+      "Name": "Media 16",
+      "Row": 444,
+      "Category Final": "Media",
+      "Category": "PR & Social Media",
+      "Award Category": "",
+      "Seat 18th 3am": "27 - IAPM",
+      "Suggested action": "Manual review only."
+    },
+    {
+      "Issue": "Media row should not be auto-added/updated",
+      "Name": "Media 17",
+      "Row": 445,
+      "Category Final": "Media",
+      "Category": "PR & Social Media",
+      "Award Category": "",
+      "Seat 18th 3am": "26 -",
+      "Suggested action": "Manual review only."
+    },
+    {
+      "Issue": "Media row should not be auto-added/updated",
+      "Name": "Media 18",
+      "Row": 446,
+      "Category Final": "Media",
+      "Category": "PR & Social Media",
+      "Award Category": "",
+      "Seat 18th 3am": "26 -",
+      "Suggested action": "Manual review only."
+    },
+    {
+      "Issue": "Media row should not be auto-added/updated",
+      "Name": "Media 19",
+      "Row": 447,
+      "Category Final": "Media",
+      "Category": "PR & Social Media",
+      "Award Category": "",
+      "Seat 18th 3am": "26 -",
+      "Suggested action": "Manual review only."
+    },
+    {
+      "Issue": "Media row should not be auto-added/updated",
+      "Name": "Media 20",
+      "Row": 448,
+      "Category Final": "Media",
+      "Category": "PR & Social Media",
+      "Award Category": "",
+      "Seat 18th 3am": "27 -",
+      "Suggested action": "Manual review only."
+    },
+    {
+      "Issue": "Media row should not be auto-added/updated",
+      "Name": "Ankita Thakkar",
+      "Row": 449,
+      "Category Final": "Media",
+      "Category": "PR & Social Media",
+      "Award Category": "",
+      "Seat 18th 3am": "27 -",
+      "Suggested action": "Manual review only."
+    },
+    {
+      "Issue": "Media row should not be auto-added/updated",
+      "Name": "Hana Nakhwa",
+      "Row": 450,
+      "Category Final": "Media",
+      "Category": "PR & Social Media",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Manual review only."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Afzal",
+      "Row": 451,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "54 -",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Ajhay Somvanshi",
+      "Row": 452,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Akash Vats",
+      "Row": 453,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Aline Fernandes Mascarenhas",
+      "Row": 454,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Aniket Karia",
+      "Row": 455,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "55 -",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Chandresh Panchal",
+      "Row": 456,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Denis Varghese",
+      "Row": 457,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Dharam Jayesh Jhaveri",
+      "Row": 458,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Faiza Mulla",
+      "Row": 459,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Farhat Navlakhi Saxena",
+      "Row": 460,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Ganesh Adukia",
+      "Row": 461,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Gaurav Shinde",
+      "Row": 462,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Gundip Singh Saluja",
+      "Row": 463,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "55 -",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Hala Nagash",
+      "Row": 464,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Harshal Mathur",
+      "Row": 465,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Hiren Joshi",
+      "Row": 466,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Jean T",
+      "Row": 467,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Jennifer Bhatia",
+      "Row": 468,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Justina",
+      "Row": 469,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Kanwaldeep Singh Bedi",
+      "Row": 470,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "55 -",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Kaushal Deshmukh",
+      "Row": 471,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Khozema Electricwala",
+      "Row": 472,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "KJ Subj",
+      "Row": 473,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Mukesh Ramnani",
+      "Row": 474,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Dr Nadeem Usmani",
+      "Row": 475,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "55 -",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Navin Kawal",
+      "Row": 476,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Neha Bilandani",
+      "Row": 477,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Nikhil Mathur",
+      "Row": 478,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Niveyidita",
+      "Row": 479,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Pravin Kakad",
+      "Row": 480,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "54 - Love",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Pravin More",
+      "Row": 481,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "54 - Love",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Prerna (Tina) Tandon",
+      "Row": 482,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Rahmat Ansari",
+      "Row": 483,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Reena Charles",
+      "Row": 484,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "55 -",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Riya Dayanand Patil",
+      "Row": 485,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Riya Dhalla",
+      "Row": 486,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "54 - Love",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Sabina de Almeida",
+      "Row": 487,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Saifuddin Barodawala",
+      "Row": 488,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "55 -",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Savanna",
+      "Row": 489,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Scherezaad",
+      "Row": 490,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "54 - Giving",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Siddarth (Steve) Kapoor",
+      "Row": 491,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Smita Kapoor",
+      "Row": 493,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "55 -",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Sneha Nikam Sawant",
+      "Row": 494,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Syed Musharraf",
+      "Row": 495,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "55 -",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Taiyzun Shabbir Shahpurwala",
+      "Row": 496,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Dr. Vinod Bidhuri",
+      "Row": 497,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "55 -",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Mr. Vipin Arumugham",
+      "Row": 498,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Viren Sharma",
+      "Row": 499,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "55 -",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Vishal Madle",
+      "Row": 500,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "IAP has seat value",
+      "Name": "Yakub Esteves",
+      "Row": 501,
+      "Category Final": "I Am Peacekeeper",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Confirm whether to blank seat in system; do not add seat."
+    },
+    {
+      "Issue": "Media row should not be auto-added/updated",
+      "Name": "Cimran Ahuja",
+      "Row": 502,
+      "Category Final": "Media",
+      "Category": "I am Peacekeeper",
+      "Award Category": "",
+      "Seat 18th 3am": "-",
+      "Suggested action": "Manual review only."
+    }
+  ],
+  "moon_fans": [
+    {
+      "Name": "Ms Riya Sen",
+      "Category Final": "XXX",
+      "Category": "XXX",
+      "Award Category (where applicable)": "",
+      "Seat 18th 3am": "",
+      "Cell": "",
+      "email": ""
+    }
+  ],
+  "moon_system": [
+    {
+      "id": "usr_fc5be80a66dc4510960f",
+      "name": "S Rohith Senthil Velan",
+      "status_label": "I Am Peacekeeper ROPE",
+      "phone": "+919864062080",
+      "email": "",
+      "champion_category": "Peace",
+      "award_category": "I Am Peacekeeper ROPE"
+    },
+    {
+      "id": "usr_2a687748472f41909c1b",
+      "name": "Riya Sen",
+      "status_label": "NA",
+      "phone": "+919820990606",
+      "email": "riyasen24@gmail.com",
+      "champion_category": "",
+      "award_category": ""
+    }
+  ]
+}

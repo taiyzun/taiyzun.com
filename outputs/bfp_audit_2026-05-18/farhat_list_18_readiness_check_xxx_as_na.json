@@ -1,0 +1,805 @@
+{
+  "interpretation": "Farhat XXX means NA/not coming; excluded from active readiness and should map to admin NA when matched.",
+  "farhat_total_rows": 543,
+  "farhat_xxx_na_rows": 39,
+  "active_rows_excluding_xxx_check_tbc": 503,
+  "check_or_to_be_confirmed_non_xxx_rows_count": 1,
+  "check_or_to_be_confirmed_non_xxx_rows": [
+    {
+      "rownum": 229,
+      "Name": "Ms Anjali Atha (check)",
+      "Category Final": "VIP Peace Partner",
+      "Seat 18th 3am": "29 - Love",
+      "Category": "Attendee",
+      "Connected by": "",
+      "Cell": 9920153800,
+      "email": ""
+    }
+  ],
+  "missing_seat_active_count": 41,
+  "exact_name_duplicate_groups_active_count": 5,
+  "exact_name_duplicate_groups_active": [
+    [
+      {
+        "rownum": 36,
+        "Name": "Mr Amit Jain",
+        "Category Final": "Guest of Honour",
+        "Seat 18th 3am": "3 - Gratitude",
+        "Category": "Attendee",
+        "Connected by": "",
+        "Cell": "",
+        "email": ""
+      },
+      {
+        "rownum": 224,
+        "Name": "Mr Amit Jain",
+        "Category Final": "VIP Peace Partner",
+        "Seat 18th 3am": "28 - Patience",
+        "Category": "Attendee",
+        "Connected by": "Sneha",
+        "Cell": 9509346847,
+        "email": ""
+      }
+    ],
+    [
+      {
+        "rownum": 207,
+        "Name": "Naman Modi",
+        "Category Final": "VIP Peace Partner",
+        "Seat 18th 3am": "24 - Humility",
+        "Category": "Late Peace Guest",
+        "Connected by": "Nikhil Mathur",
+        "Cell": "91673 42246",
+        "email": ""
+      },
+      {
+        "rownum": 418,
+        "Name": "Naman Modi",
+        "Category Final": "Late Peace Guest",
+        "Seat 18th 3am": "53 - Gratitude",
+        "Category": "Late Peace Guest",
+        "Connected by": "Nikhil Mathur",
+        "Cell": "91673 42246",
+        "email": ""
+      }
+    ],
+    [
+      {
+        "rownum": 208,
+        "Name": "Piyush Sakharkar",
+        "Category Final": "VIP Peace Partner",
+        "Seat 18th 3am": "24 - Patience",
+        "Category": "Late Peace Guest",
+        "Connected by": "",
+        "Cell": "",
+        "email": ""
+      },
+      {
+        "rownum": 419,
+        "Name": "Piyush Sakharkar",
+        "Category Final": "Late Peace Guest",
+        "Seat 18th 3am": "53 - Forgiveness",
+        "Category": "Late Peace Guest",
+        "Connected by": "",
+        "Cell": "",
+        "email": ""
+      }
+    ],
+    [
+      {
+        "rownum": 333,
+        "Name": "Mr Pravin Kakad",
+        "Category Final": "VIP Peace Partner",
+        "Seat 18th 3am": "42 - Love",
+        "Category": "Attendee",
+        "Connected by": "",
+        "Cell": "",
+        "email": ""
+      },
+      {
+        "rownum": 480,
+        "Name": "Pravin Kakad",
+        "Category Final": "I Am Peacekeeper",
+        "Seat 18th 3am": "54 - Love",
+        "Category": "I am Peacekeeper",
+        "Connected by": "",
+        "Cell": "",
+        "email": ""
+      }
+    ],
+    [
+      {
+        "rownum": 209,
+        "Name": "Sanjeev Khatri",
+        "Category Final": "VIP Peace Partner",
+        "Seat 18th 3am": "24 - IAPM",
+        "Category": "Late Peace Guest",
+        "Connected by": "Chandresh Patel",
+        "Cell": "",
+        "email": ""
+      },
+      {
+        "rownum": 420,
+        "Name": "Sanjeev Khatri",
+        "Category Final": "Late Peace Guest",
+        "Seat 18th 3am": "53 - Love",
+        "Category": "Late Peace Guest",
+        "Connected by": "Chandresh Patel",
+        "Cell": "",
+        "email": ""
+      }
+    ]
+  ],
+  "shared_phone_groups_active_count": 5,
+  "shared_phone_groups_active": [
+    {
+      "phone": "7790624273",
+      "rows": [
+        {
+          "rownum": 68,
+          "Name": "Ms. Fernanda Cecilio",
+          "Category Final": "Guest of Honour",
+          "Seat 18th 3am": "7 - Gratitude",
+          "Category": "Awardee",
+          "Connected by": "",
+          "Cell": "‪+27 79 062 4273‬",
+          "email": ""
+        },
+        {
+          "rownum": 122,
+          "Name": "Mr. Pablo Marcal ",
+          "Category Final": "Guest of Honour",
+          "Seat 18th 3am": "13 - IAPM",
+          "Category": "Awardee",
+          "Connected by": "",
+          "Cell": "‪+27 79 062 4273‬",
+          "email": ""
+        }
+      ]
+    },
+    {
+      "phone": "9167342246",
+      "rows": [
+        {
+          "rownum": 207,
+          "Name": "Naman Modi",
+          "Category Final": "VIP Peace Partner",
+          "Seat 18th 3am": "24 - Humility",
+          "Category": "Late Peace Guest",
+          "Connected by": "Nikhil Mathur",
+          "Cell": "91673 42246",
+          "email": ""
+        },
+        {
+          "rownum": 418,
+          "Name": "Naman Modi",
+          "Category Final": "Late Peace Guest",
+          "Seat 18th 3am": "53 - Gratitude",
+          "Category": "Late Peace Guest",
+          "Connected by": "Nikhil Mathur",
+          "Cell": "91673 42246",
+          "email": ""
+        }
+      ]
+    },
+    {
+      "phone": "9755555571",
+      "rows": [
+        {
+          "rownum": 91,
+          "Name": "Dr Kirti Sisodia",
+          "Category Final": "Guest of Honour",
+          "Seat 18th 3am": "10 - Truth",
+          "Category": "Awardee",
+          "Connected by": "Afzal",
+          "Cell": 9755555571,
+          "email": ""
+        },
+        {
+          "rownum": 406,
+          "Name": "Mr Vikram Singh Sisodia",
+          "Category Final": "VIP Peace Partner",
+          "Seat 18th 3am": "51 - Giving",
+          "Category": "Attendee",
+          "Connected by": "Afzal",
+          "Cell": 9755555571,
+          "email": ""
+        }
+      ]
+    },
+    {
+      "phone": "9820034166",
+      "rows": [
+        {
+          "rownum": 35,
+          "Name": "Mr Amit J. Dholakia",
+          "Category Final": "Guest of Honour",
+          "Seat 18th 3am": "3 - Truth",
+          "Category": "Awardee",
+          "Connected by": "N Mathur",
+          "Cell": "‪+91 98200 34166‬",
+          "email": ""
+        },
+        {
+          "rownum": 131,
+          "Name": "Mr Radheshyam Laxmanrao Mopalwar, IAS (Retd.)",
+          "Category Final": "Guest of Honour",
+          "Seat 18th 3am": "15 - Truth",
+          "Category": "Awardee",
+          "Connected by": "N Mathur",
+          "Cell": "‪+91 98200 34166‬",
+          "email": ""
+        }
+      ]
+    },
+    {
+      "phone": "9967912571",
+      "rows": [
+        {
+          "rownum": 266,
+          "Name": "Gagan Malik",
+          "Category Final": "VIP Peace Partner",
+          "Seat 18th 3am": "34 - Truth",
+          "Category": "Attendee",
+          "Connected by": "Steve Kapoor",
+          "Cell": 9967912571,
+          "email": ""
+        },
+        {
+          "rownum": 276,
+          "Name": "Mrs. Hong",
+          "Category Final": "VIP Peace Partner",
+          "Seat 18th 3am": "35 - Forgiveness",
+          "Category": "Attendee",
+          "Connected by": "Steve Kapoor",
+          "Cell": 9967912571,
+          "email": ""
+        }
+      ]
+    }
+  ],
+  "xxx_to_admin_na_queue_count": 8,
+  "xxx_to_admin_na_queue": [
+    {
+      "farhat_row": 506,
+      "farhat_name": "Shri Chirag Paswan",
+      "farhat_category_final": "XXX",
+      "farhat_category": "Chief Guest",
+      "farhat_phone": "",
+      "system_id": "usr_00d989f16b3149dbb027",
+      "system_name": "Chirag Paswan",
+      "system_status_code": "chief_guest",
+      "system_status_label": "Chief Guest",
+      "match_method": "name exact",
+      "score": 1.0
+    },
+    {
+      "farhat_row": 508,
+      "farhat_name": "Mr Deepak Kumar Thakur",
+      "farhat_category_final": "XXX",
+      "farhat_category": "Awardee",
+      "farhat_phone": "9718471359",
+      "system_id": "usr_aa563ea7c1ad4a4b9287",
+      "system_name": "Deepak Kumar Thakur",
+      "system_status_code": "champion",
+      "system_status_label": "I Am Peacekeeper Champion",
+      "match_method": "name exact",
+      "score": 1.0
+    },
+    {
+      "farhat_row": 509,
+      "farhat_name": "Mr Paresh Thakur",
+      "farhat_category_final": "XXX",
+      "farhat_category": "Awardee",
+      "farhat_phone": "",
+      "system_id": "usr_8444d8792f414fc4afd6",
+      "system_name": "Paresh Thakur",
+      "system_status_code": "champion",
+      "system_status_label": "I Am Peacekeeper Champion",
+      "match_method": "name exact",
+      "score": 1.0
+    },
+    {
+      "farhat_row": 511,
+      "farhat_name": "Mr Shashi Kiran Shetty",
+      "farhat_category_final": "XXX",
+      "farhat_category": "Awardee",
+      "farhat_phone": "",
+      "system_id": "usr_8b97c61226a644f9affa",
+      "system_name": "Shashi Kiran Shetty",
+      "system_status_code": "champion",
+      "system_status_label": "I Am Peacekeeper Champion",
+      "match_method": "name exact",
+      "score": 1.0
+    },
+    {
+      "farhat_row": 512,
+      "farhat_name": "H.H Shihab AL Busaidi",
+      "farhat_category_final": "XXX",
+      "farhat_category": "Awardee",
+      "farhat_phone": "",
+      "system_id": "usr_abe5c635d08244969f26",
+      "system_name": "H.H Shihab AL Busaidi",
+      "system_status_code": "champion",
+      "system_status_label": "I Am Peacekeeper Champion",
+      "match_method": "name exact",
+      "score": 1.0
+    },
+    {
+      "farhat_row": 533,
+      "farhat_name": "H.E. Prof Faustin-Archange Touadéra",
+      "farhat_category_final": "XXX",
+      "farhat_category": "XXX",
+      "farhat_phone": "",
+      "system_id": "usr_bc47ebad3578418ea9c6",
+      "system_name": "Faustin-Archange Touadéra",
+      "system_status_code": "chief_guest",
+      "system_status_label": "Chief Guest",
+      "match_method": "name fuzzy",
+      "score": 0.926
+    },
+    {
+      "farhat_row": 535,
+      "farhat_name": "Ms Rakshatai Khadse",
+      "farhat_category_final": "XXX",
+      "farhat_category": "Awardee",
+      "farhat_phone": "",
+      "system_id": "usr_4ce0e6f7372d457785d7",
+      "system_name": "Rakshatai Khadse",
+      "system_status_code": "champion",
+      "system_status_label": "I Am Peacekeeper Champion",
+      "match_method": "name exact",
+      "score": 1.0
+    },
+    {
+      "farhat_row": 544,
+      "farhat_name": "Mr Vipin Yadav",
+      "farhat_category_final": "XXX",
+      "farhat_category": "Attendee",
+      "farhat_phone": "",
+      "system_id": "usr_1242d7fa24e3464d810b",
+      "system_name": "Vipin Yadav",
+      "system_status_code": "vip_partner",
+      "system_status_label": "VIP I Am Peacekeeper Partner",
+      "match_method": "name exact",
+      "score": 1.0
+    }
+  ],
+  "xxx_na_held_count": 31,
+  "xxx_na_held": [
+    {
+      "farhat_row": 507,
+      "farhat_name": "Shri Chirag Paswan - Accompany",
+      "farhat_category_final": "XXX",
+      "farhat_category": "ChiefG accompany",
+      "farhat_phone": "",
+      "system_id": "usr_c4e900e185804878903b",
+      "system_name": "Chirag Paswan - Accompany",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "name exact",
+      "score": 1.0,
+      "hold": "already NA"
+    },
+    {
+      "farhat_row": 510,
+      "farhat_name": "Shri Ramdas Athawale",
+      "farhat_category_final": "XXX",
+      "farhat_category": "Attendee",
+      "farhat_phone": "(+91 8850446061)",
+      "system_id": "usr_19f80a98fd7e4f5a9c60",
+      "system_name": "Ramdas Athawale",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "name exact",
+      "score": 1.0,
+      "hold": "already NA"
+    },
+    {
+      "farhat_row": 513,
+      "farhat_name": "Professor Achyuta Samanta",
+      "farhat_category_final": "XXX",
+      "farhat_category": "XXX",
+      "farhat_phone": "",
+      "system_id": "usr_9d6e17ee40fa4400aa1c",
+      "system_name": "Achyuta Samanta",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "name exact",
+      "score": 1.0,
+      "hold": "already NA"
+    },
+    {
+      "farhat_row": 514,
+      "farhat_name": "Mr Ameya A. Chandavarkar",
+      "farhat_category_final": "XXX",
+      "farhat_category": "XXX",
+      "farhat_phone": "",
+      "system_id": "usr_1849f2ebf1414dd7a694",
+      "system_name": "Ameya A. Chandavarkar",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "name exact",
+      "score": 1.0,
+      "hold": "already NA"
+    },
+    {
+      "farhat_row": 515,
+      "farhat_name": "Mr Balaji Rao",
+      "farhat_category_final": "XXX",
+      "farhat_category": "To be confirmed",
+      "farhat_phone": "",
+      "system_id": "usr_f5e1e69c7e0b447b85ef",
+      "system_name": "Balaji Rao",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "name exact",
+      "score": 1.0,
+      "hold": "already NA"
+    },
+    {
+      "farhat_row": 516,
+      "farhat_name": "Chukwunonyerem (Nonye) MeritNonye",
+      "farhat_category_final": "XXX",
+      "farhat_category": "XXX",
+      "farhat_phone": "",
+      "system_id": "usr_96ecf11d79234aa7b324",
+      "system_name": "Chukwunonyerem (Nonye) MeritNonye",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "name exact",
+      "score": 1.0,
+      "hold": "already NA"
+    },
+    {
+      "farhat_row": 517,
+      "farhat_name": "Sh. Devki Nandan Thakur Ji",
+      "farhat_category_final": "XXX",
+      "farhat_category": "To be confirmed",
+      "farhat_phone": "",
+      "system_id": "usr_430fad4b081f4b1894a7",
+      "system_name": "Devki Nandan Thakur Ji",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "name fuzzy",
+      "score": 0.936,
+      "hold": "already NA"
+    },
+    {
+      "farhat_row": 518,
+      "farhat_name": "Dhruv Kapoor",
+      "farhat_category_final": "XXX",
+      "farhat_category": "XXX",
+      "farhat_phone": "",
+      "system_id": "usr_3e1a40eca26a46dd9afa",
+      "system_name": "Dhruv Kapoor",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "name exact",
+      "score": 1.0,
+      "hold": "already NA"
+    },
+    {
+      "farhat_row": 519,
+      "farhat_name": "Firoza Sayed",
+      "farhat_category_final": "XXX",
+      "farhat_category": "To be confirmed",
+      "farhat_phone": "",
+      "system_id": "usr_7b17429d6f07494a88c6",
+      "system_name": "Firoza Sayed",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "name exact",
+      "score": 1.0,
+      "hold": "already NA"
+    },
+    {
+      "farhat_row": 520,
+      "farhat_name": "Gagan Myne CHECK",
+      "farhat_category_final": "XXX",
+      "farhat_category": "To be confirmed",
+      "farhat_phone": "",
+      "system_id": "usr_d1417dbe48b043e59969",
+      "system_name": "Gagan Myne CHECK",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "name exact",
+      "score": 1.0,
+      "hold": "already NA"
+    },
+    {
+      "farhat_row": 521,
+      "farhat_name": "Hitesh Chawla",
+      "farhat_category_final": "XXX",
+      "farhat_category": "To be confirmed",
+      "farhat_phone": "",
+      "system_id": "usr_5b99837701f04a059f50",
+      "system_name": "Hitesh Chawla",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "name exact",
+      "score": 1.0,
+      "hold": "already NA"
+    },
+    {
+      "farhat_row": 522,
+      "farhat_name": "Mr Ishan Jain",
+      "farhat_category_final": "XXX",
+      "farhat_category": "To be confirmed",
+      "farhat_phone": "",
+      "system_id": "usr_0fb2716976e9400fbe20",
+      "system_name": "Ishan Jain",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "name exact",
+      "score": 1.0,
+      "hold": "already NA"
+    },
+    {
+      "farhat_row": 523,
+      "farhat_name": "Ishita Joshi",
+      "farhat_category_final": "XXX",
+      "farhat_category": "To be confirmed",
+      "farhat_phone": "",
+      "system_id": "usr_e60d2a6a773a4159b5aa",
+      "system_name": "Ishita Joshi",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "name exact",
+      "score": 1.0,
+      "hold": "already NA"
+    },
+    {
+      "farhat_row": 524,
+      "farhat_name": "Jason T",
+      "farhat_category_final": "XXX",
+      "farhat_category": "XXX",
+      "farhat_phone": "",
+      "system_id": "usr_b403f23653dc4e399b55",
+      "system_name": "Jason T",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "name exact",
+      "score": 1.0,
+      "hold": "already NA"
+    },
+    {
+      "farhat_row": 525,
+      "farhat_name": "Josephine",
+      "farhat_category_final": "XXX",
+      "farhat_category": "XXX",
+      "farhat_phone": "",
+      "system_id": "usr_f6fe522ff958446d877c",
+      "system_name": "Josephine",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "name exact",
+      "score": 1.0,
+      "hold": "already NA"
+    },
+    {
+      "farhat_row": 526,
+      "farhat_name": "Ms Leymah Gbowee",
+      "farhat_category_final": "XXX",
+      "farhat_category": "XXX",
+      "farhat_phone": "",
+      "system_id": "usr_46261d5be98e4f06be14",
+      "system_name": "Leymah Gbowee",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "name exact",
+      "score": 1.0,
+      "hold": "already NA"
+    },
+    {
+      "farhat_row": 527,
+      "farhat_name": "H.H. Maharaja Gaj Singh II",
+      "farhat_category_final": "XXX",
+      "farhat_category": "XXX",
+      "farhat_phone": "",
+      "system_id": "usr_d701ceb84b354536b89d",
+      "system_name": "H.H. Maharaja Gaj Singh II",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "name exact",
+      "score": 1.0,
+      "hold": "already NA"
+    },
+    {
+      "farhat_row": 528,
+      "farhat_name": "Mr Mukesh Vora",
+      "farhat_category_final": "XXX",
+      "farhat_category": "XXX",
+      "farhat_phone": "",
+      "system_id": "usr_e8e324163d5a4c34865b",
+      "system_name": "Mukesh Vora",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "name exact",
+      "score": 1.0,
+      "hold": "already NA"
+    },
+    {
+      "farhat_row": 529,
+      "farhat_name": "Mr Mustafa Izuddine",
+      "farhat_category_final": "XXX",
+      "farhat_category": "XXX",
+      "farhat_phone": "",
+      "system_id": "usr_e207b29b2b09493ea813",
+      "system_name": "Mustafa Izuddine",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "name exact",
+      "score": 1.0,
+      "hold": "already NA"
+    },
+    {
+      "farhat_row": 530,
+      "farhat_name": "Pankaj Patel WHO?",
+      "farhat_category_final": "XXX",
+      "farhat_category": "To be confirmed",
+      "farhat_phone": "",
+      "system_id": "usr_019509da0a1e49cc915a",
+      "system_name": "Pankaj Patel WHO?",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "name exact",
+      "score": 1.0,
+      "hold": "already NA"
+    },
+    {
+      "farhat_row": 531,
+      "farhat_name": "Paola Koz",
+      "farhat_category_final": "XXX",
+      "farhat_category": "XXX",
+      "farhat_phone": "",
+      "system_id": "usr_b0d1b6c987ec499c88d9",
+      "system_name": "Paola Koz",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "name exact",
+      "score": 1.0,
+      "hold": "already NA"
+    },
+    {
+      "farhat_row": 532,
+      "farhat_name": "Priyanka Ashok",
+      "farhat_category_final": "XXX",
+      "farhat_category": "To be confirmed",
+      "farhat_phone": "",
+      "system_id": "usr_46ee611b1b1d443e8edf",
+      "system_name": "Priyanka Ashok",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "name exact",
+      "score": 1.0,
+      "hold": "already NA"
+    },
+    {
+      "farhat_row": 534,
+      "farhat_name": "Punit Sharma",
+      "farhat_category_final": "XXX",
+      "farhat_category": "To be confirmed",
+      "farhat_phone": "",
+      "system_id": "usr_3284208b57ca413b8d5d",
+      "system_name": "Punit Sharma",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "name exact",
+      "score": 1.0,
+      "hold": "already NA"
+    },
+    {
+      "farhat_row": 536,
+      "farhat_name": "Rita Jairath",
+      "farhat_category_final": "XXX",
+      "farhat_category": "XXX",
+      "farhat_phone": "",
+      "system_id": "usr_441f7ee1897f46c084e7",
+      "system_name": "Rita Jairath",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "name exact",
+      "score": 1.0,
+      "hold": "already NA"
+    },
+    {
+      "farhat_row": 537,
+      "farhat_name": "Ms Riya Sen",
+      "farhat_category_final": "XXX",
+      "farhat_category": "XXX",
+      "farhat_phone": "",
+      "system_id": "usr_2a687748472f41909c1b",
+      "system_name": "Riya Sen",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "name exact",
+      "score": 1.0,
+      "hold": "already NA"
+    },
+    {
+      "farhat_row": 538,
+      "farhat_name": "Mr Saagar Mehta",
+      "farhat_category_final": "XXX",
+      "farhat_category": "XXX",
+      "farhat_phone": "",
+      "system_id": "usr_32cd8cb872864b4f92ea",
+      "system_name": "Saagar Mehta",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "name exact",
+      "score": 1.0,
+      "hold": "already NA"
+    },
+    {
+      "farhat_row": 539,
+      "farhat_name": "Shaurya Doval",
+      "farhat_category_final": "XXX",
+      "farhat_category": "XXX",
+      "farhat_phone": "",
+      "system_id": "usr_4f372b0490f546e3ba59",
+      "system_name": "Shaurya Doval",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "name exact",
+      "score": 1.0,
+      "hold": "already NA"
+    },
+    {
+      "farhat_row": 540,
+      "farhat_name": "Ms Shereen Bhan",
+      "farhat_category_final": "XXX",
+      "farhat_category": "XXX",
+      "farhat_phone": "",
+      "system_id": "usr_26e0d8fa55714434b533",
+      "system_name": "Shereen Bhan",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "name exact",
+      "score": 1.0,
+      "hold": "already NA"
+    },
+    {
+      "farhat_row": 541,
+      "farhat_name": "Shivaji Patil",
+      "farhat_category_final": "XXX",
+      "farhat_category": "To be confirmed",
+      "farhat_phone": "",
+      "system_id": "usr_8a885dafb3804e9696d8",
+      "system_name": "Shivaji Patil",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "name exact",
+      "score": 1.0,
+      "hold": "already NA"
+    },
+    {
+      "farhat_row": 542,
+      "farhat_name": "Capt. Sudeep Mittal",
+      "farhat_category_final": "XXX",
+      "farhat_category": "XXX",
+      "farhat_phone": "9717200303",
+      "system_id": "usr_4f1bc76632204739afc8",
+      "system_name": "Sudeep Mittal",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "phone exact",
+      "score": 1.0,
+      "hold": "already NA"
+    },
+    {
+      "farhat_row": 543,
+      "farhat_name": "Mr Tanil Kilachand",
+      "farhat_category_final": "XXX",
+      "farhat_category": "XXX",
+      "farhat_phone": "",
+      "system_id": "usr_336f3a1949404b0ebe2c",
+      "system_name": "Tanil Kilachand",
+      "system_status_code": "not_attending",
+      "system_status_label": "",
+      "match_method": "name exact",
+      "score": 1.0,
+      "hold": "already NA"
+    }
+  ]
+}

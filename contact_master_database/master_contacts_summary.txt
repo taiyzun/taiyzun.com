@@ -1,0 +1,15 @@
+Master contact database summary
+raw_records_total: 40247
+deduped_master_contacts: 12875
+contacts_with_email: 4367
+contacts_with_phone: 12008
+conflict_review_rows: 2381
+pass_match_suggestions: 369
+pass_match_review_required: 311
+
+Outputs:
+master_csv: /Users/tai/Documents/GitHub/taiyzun.com/contact_master_database/master_contacts_consolidated_deduped.csv
+raw_csv: /Users/tai/Documents/GitHub/taiyzun.com/contact_master_database/master_contacts_raw_sources.csv
+conflicts_csv: /Users/tai/Documents/GitHub/taiyzun.com/contact_master_database/master_contacts_conflicts_review.csv
+pass_match_csv: /Users/tai/Documents/GitHub/taiyzun.com/contact_master_database/passes_contact_match_suggestions.csv
+sqlite: /Users/tai/Documents/GitHub/taiyzun.com/contact_master_database/master_contacts.sqlite

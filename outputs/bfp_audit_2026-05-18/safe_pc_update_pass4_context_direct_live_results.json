@@ -1,0 +1,10 @@
+[
+  {
+    "index": 0,
+    "id": "usr_b695bd7e77d34dec998d",
+    "name": "Vinod Goenka",
+    "connected_by": "shrey shah",
+    "pc": "Shrey Shah",
+    "error": "Timed out after 3000ms waiting for selector internal:role=option[name=\"Shrey Shah\"s]: Browser Use encountered an error interacting with this webpage: Error: No element matched selector\n    at <anonymous>:202:31\n    at <anonymous>:204:11\nwaiting on click for selector internal:role=option[name=\"Shrey Shah\"s]"
+  }
+]

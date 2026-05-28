@@ -1,0 +1,12 @@
+name,id,reason,target_phone,target_email,target_designation,target_organization,note
+"Arabic Interpreter","usr_a93785e62d5940899fb1","country_only_update_not_persisting_skipped","","","","","Country-only update did not persist; skipped as low-confidence detail."
+"Jasbir Singh Chopra","usr_e7c03bfc35fc4eef9fe7","country_only_update_not_persisting_skipped","","","","","Country-only update did not persist; skipped as low-confidence detail."
+"Shri Jishnu Dev Varma - Accompany","usr_5ed7e885a39145a99ac6","country_only_update_not_persisting_skipped","","","","","Country-only update did not persist; skipped as low-confidence detail."
+"Ms Sria Munasinghe","usr_039fd8b2e7d14ea6a846","country_only_update_not_persisting_skipped","","","","","Country-only update did not persist; skipped as low-confidence detail."
+"Swati Kovind","usr_c836a3ef7ff14b16b570","country_only_update_not_persisting_skipped","","","","","Country-only update did not persist; skipped as low-confidence detail."
+"Mr Amit J. Dholakia","usr_edea9f7768bc4a02b85e","phone_from_farhat_reverts_after_save_manual_review","","","","","Farhat phone was entered but system reverted after save."
+"Mr Vineet Jain","usr_f8ccdaba69ba4497b106","phone_from_farhat_reverts_after_save_manual_review","+919820081764","","","","Farhat phone was entered but system reverted after save."
+"Ms Zahabiya Khorakiwala","usr_4880149bd362453188ba","live_id_page_failed_find_guest_manual_live_id_check_needed","","","","","Live guest form unavailable or failed page; find correct live record first."
+"Mr Firoz Mosin Bootwala","usr_2686ad561a5a4fffa78c","live_form_unavailable_or_detail_not_safe_after_retries","","","Co-Founder, Gemologist and Designer","Merlion Jewels","Live guest form unavailable or failed page; find correct live record first."
+"Ms Kavya Jha","usr_0983f965305f4585925b","live_form_unavailable_or_detail_not_safe_after_retries","","","","","Live guest form unavailable or failed page; find correct live record first."
+"Ajhay Somvanshi","usr_70cf1de9241f4c128592","live_form_unavailable_or_detail_not_safe_after_retries","","","Bombay","","Live guest form unavailable or failed page; find correct live record first."

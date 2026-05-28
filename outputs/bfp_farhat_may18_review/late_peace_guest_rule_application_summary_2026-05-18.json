@@ -1,0 +1,83 @@
+{
+  "rule_applied": "Late Peace Guest is stored as Champion Category = Late Peace Guest with Status Tier = VIP I Am Peacekeeper Partner and Award Category blank.",
+  "updated_or_added_verified": [
+    {
+      "row": "416",
+      "name": "Bineet Agarwal",
+      "system_id": "usr_psrob2qkx4o615sagco257sy",
+      "note": "Verified desired LPG record; duplicate old record also exists and needs delete confirmation."
+    },
+    {
+      "row": "417",
+      "name": "Hussain Mansuri ACCOMPANY",
+      "system_id": "usr_f200179e258c4493aed9"
+    },
+    {
+      "row": "421",
+      "name": "Vijay Sharma",
+      "system_id": "usr_zrmnalgf85jygeldkktw41fm",
+      "note": "Verified desired LPG record; duplicate old record also exists and needs delete confirmation."
+    },
+    {
+      "row": "422",
+      "name": "Vinay Sohani",
+      "system_id": "usr_994e59cd6aee45b69b28"
+    },
+    {
+      "row": "423",
+      "name": "Darshan Dalal",
+      "system_id": "usr_c1q4y6zvdvqbeaoitvsl419p"
+    },
+    {
+      "row": "424",
+      "name": "Jag Deep Dhawan",
+      "system_id": "usr_sfoi5odikxl64naxaw0s3gey"
+    },
+    {
+      "row": "425",
+      "name": "Jagmohan Garg",
+      "system_id": "usr_fkpqqui9brdct27xi4mzywec"
+    },
+    {
+      "row": "426",
+      "name": "Mohan Kumar Giri",
+      "system_id": "usr_w92litb0tq1h0vssfpq7khps"
+    },
+    {
+      "row": "427",
+      "name": "Ujjwal Kumar Dahal",
+      "system_id": "usr_p4vruclbwn9o8plli0dm9pos"
+    }
+  ],
+  "held_for_confirmation": [
+    {
+      "name": "Naman Modi",
+      "rows": "207 and 418",
+      "reason": "Same Farhat person appears twice with conflicting seats 24 - Humility and 53 - Gratitude; no exact live record found."
+    },
+    {
+      "name": "Piyush Sakharkar",
+      "rows": "208 and 419",
+      "reason": "Same Farhat person appears twice with conflicting seats 24 - Patience and 53 - Forgiveness; live record exists."
+    },
+    {
+      "name": "Sanjeev Khatri",
+      "rows": "209 and 420",
+      "reason": "Same Farhat person appears twice with conflicting seats 24 - IAPM and 53 - Love; live record exists."
+    }
+  ],
+  "delete_confirmation_needed": [
+    {
+      "name": "Bineet Agarwal",
+      "keep": "usr_psrob2qkx4o615sagco257sy",
+      "delete_candidate": "usr_2fb4db04e399485a9aa0",
+      "reason": "Keep record has correct LPG tier/category/seat/phone; older record opens without readable details."
+    },
+    {
+      "name": "Vijay Sharma",
+      "keep": "usr_zrmnalgf85jygeldkktw41fm",
+      "delete_candidate": "usr_9fe58779c5bf4f52bc28",
+      "reason": "Keep record has correct LPG tier/category/seat/phone; older record has old seat 52, blank phone, blank Champion Category."
+    }
+  ]
+}

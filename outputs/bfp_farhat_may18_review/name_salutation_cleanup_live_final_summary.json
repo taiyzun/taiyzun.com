@@ -1,0 +1,9 @@
+{
+  "live_rows_checked": 18,
+  "saved_verified_rows": 16,
+  "manual_or_reverted_rows": 1,
+  "final_status_csv": "/Users/tai/Documents/GitHub/taiyzun.com/outputs/bfp_farhat_may18_review/name_salutation_cleanup_live_final_status.csv",
+  "rnd_review_csv": "/Users/tai/Documents/GitHub/taiyzun.com/outputs/bfp_farhat_may18_review/name_salutation_rnd_review.csv",
+  "rnd_missing_only_csv": "/Users/tai/Documents/GitHub/taiyzun.com/outputs/bfp_farhat_may18_review/name_salutation_rnd_missing_only.csv",
+  "rnd_missing_only_rows": 83
+}

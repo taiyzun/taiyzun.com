@@ -1,0 +1,72 @@
+{
+  "interpretation": "Farhat XXX means NA / not available / not coming",
+  "verified_na_updates": [
+    {
+      "farhat_row": 506,
+      "id": "usr_00d989f16b3149dbb027",
+      "name": "Chirag Paswan",
+      "from": "chief_guest",
+      "to": "not_attending"
+    },
+    {
+      "farhat_row": 508,
+      "id": "usr_aa563ea7c1ad4a4b9287",
+      "name": "Deepak Kumar Thakur",
+      "from": "champion",
+      "to": "not_attending"
+    },
+    {
+      "farhat_row": 511,
+      "id": "usr_8b97c61226a644f9affa",
+      "name": "Shashi Kiran Shetty",
+      "from": "champion",
+      "to": "not_attending"
+    },
+    {
+      "farhat_row": 544,
+      "id": "usr_1242d7fa24e3464d810b",
+      "name": "Vipin Yadav",
+      "from": "vip_partner",
+      "to": "not_attending"
+    }
+  ],
+  "failed_to_persist_na_updates": [
+    {
+      "farhat_row": 509,
+      "id": "usr_8444d8792f414fc4afd6",
+      "name": "Paresh Thakur",
+      "current": "champion",
+      "attempted": "not_attending",
+      "result": "UI changed to NA before reload but did not persist",
+      "blocker_detail": "Detail form has required empty Phone (E.164); save changes visually but validation prevents persistence unless phone is supplied or another admin workflow is used."
+    },
+    {
+      "farhat_row": 512,
+      "id": "usr_abe5c635d08244969f26",
+      "name": "H.H Shihab AL Busaidi",
+      "current": "champion",
+      "attempted": "not_attending",
+      "result": "UI changed to NA before reload but did not persist",
+      "blocker_detail": "Detail form has required empty Phone (E.164); save changes visually but validation prevents persistence unless phone is supplied or another admin workflow is used."
+    },
+    {
+      "farhat_row": 533,
+      "id": "usr_bc47ebad3578418ea9c6",
+      "name": "Faustin-Archange Touadéra",
+      "current": "chief_guest",
+      "attempted": "not_attending",
+      "result": "UI changed to NA before reload but did not persist",
+      "blocker_detail": "Detail form changes visually but status reverts on reload; likely protected/high-tier status workflow. Do not force without confirmation."
+    },
+    {
+      "farhat_row": 535,
+      "id": "usr_4ce0e6f7372d457785d7",
+      "name": "Rakshatai Khadse",
+      "current": "champion",
+      "attempted": "not_attending",
+      "result": "UI changed to NA before reload but did not persist",
+      "blocker_detail": "Detail form has required empty Phone (E.164); save changes visually but validation prevents persistence unless phone is supplied or another admin workflow is used."
+    }
+  ],
+  "readiness_file": "farhat_list_18_readiness_check_xxx_as_na.json"
+}

@@ -1,0 +1,25 @@
+{
+  "total_rows": 543,
+  "actions": {
+    "ASK_STATUS": 61,
+    "READY_SAFE_UPDATE": 315,
+    "ASK_ADD_OR_FIND_LIVE": 54,
+    "ASK_FUZZY_MATCH": 32,
+    "ASK_AWARD_CATEGORY": 3,
+    "ASK_DUPLICATE": 12,
+    "SKIP_MANUAL_ONLY": 66
+  },
+  "target_statuses": {
+    "KEEP_EXISTING_OR_MANUAL": 11,
+    "Nobel Peace Laureates": 4,
+    "Chief Guest": 2,
+    "I Am Peacekeeper Champion": 182,
+    "Guest of Honour": 6,
+    "VIP I Am Peacekeeper Partner": 209,
+    "Late Peace Guest/manual": 12,
+    "Media/manual only": 27,
+    "KEEP_EXISTING_IAP_STATUS": 51,
+    "DO_NOT_UPDATE_OR_ADD": 39
+  },
+  "ready_safe_update": 315
+}

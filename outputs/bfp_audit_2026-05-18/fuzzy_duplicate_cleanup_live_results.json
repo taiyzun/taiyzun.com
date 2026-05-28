@@ -1,0 +1,61 @@
+{
+  "admin_count_after_fuzzy_cleanup": 648,
+  "deleted_as_strong_fuzzy_duplicates": [
+    {
+      "id": "usr_0018d70252a7435393ea",
+      "name": "Antonette Jesusmani FSP",
+      "kept_id": "usr_4e294557c30f4628aeba",
+      "kept_name": "Sr (Dr) Antonette Jesumani FSP",
+      "reason": "Farhat latest has Sr (Dr) Antonette Jesumani FSP with phone +918870956238/email and Justice & Peace category; deleted older misspelled/placeholder record."
+    },
+    {
+      "id": "usr_2b5ef084bf754bc3a65b",
+      "name": "Anup Kumar Singh",
+      "kept_id": "usr_f9cea39f176c43dfa3de",
+      "kept_name": "Mr Anup Kumar Singh, IPS",
+      "reason": "Farhat latest has IPS row with exact phone +919764160100; deleted generic placeholder duplicate."
+    },
+    {
+      "id": "usr_7ae346f1884f4dc38217",
+      "name": "Niveyidita Sharma",
+      "kept_id": "usr_471119beb996483099c6",
+      "kept_name": "Niveyidita",
+      "reason": "Farhat latest has Niveyidita only as I Am Peacekeeper; deleted Sharma duplicate with no matching source row."
+    },
+    {
+      "id": "usr_0224a320928b4d939448",
+      "name": "Kulwant Singh",
+      "kept_id": "usr_0300e913c3ef4cf9804f",
+      "kept_name": "Respected Sardar Kulwant Singh ji",
+      "reason": "Farhat latest has full Respected Sardar Kulwant Singh ji with exact phone +919821353984; deleted generic duplicate."
+    }
+  ],
+  "held_borderline_fuzzy_duplicates": [
+    {
+      "group": "Pankaj Patel",
+      "reason": "Farhat latest has Pankaj Patel WHO? as XXX / To be confirmed, while admin also has active Mr Pankaj Patel SCOPE. Needs human decision."
+    },
+    {
+      "group": "Omar Farooq",
+      "reason": "Farhat latest has Omar Farooq, but Omar Farooq Khan appears to be a PC/linked contact for other guests. Held to avoid breaking assignments."
+    },
+    {
+      "group": "Gagan Myne",
+      "reason": "Farhat latest has Gagan Myne CHECK as XXX / To be confirmed, while admin also has active Mr Gagan Myne SCOPE. Needs human decision."
+    },
+    {
+      "group": "Scherezaad",
+      "reason": "Farhat has Scherezaad as IAPM and also uses Scherezaad as connector; admin has Scherezaad Panthaki with phone and PC links. Held to avoid deleting PC/contact record."
+    }
+  ],
+  "verified_after_delete": {
+    "Antonette": "1 of 648",
+    "Anup Kumar Singh": "1 of 648",
+    "Niveyidita": "1 of 648",
+    "Kulwant Singh": "1 of 648",
+    "Pankaj Patel": "2 of 648 held",
+    "Omar Farooq": "2 of 648 held",
+    "Gagan Myne": "2 of 648 held",
+    "Scherezaad": "2 of 648 held"
+  }
+}

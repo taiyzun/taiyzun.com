@@ -1,0 +1,9 @@
+{
+  "contacts_parsed": 14568,
+  "safe_queue_rows": 14,
+  "verified_rows": 5,
+  "manual_or_rejected_rows": 9,
+  "manual_review_rows_from_matching": 116,
+  "final_status_csv": "/Users/tai/Documents/GitHub/taiyzun.com/outputs/bfp_farhat_may18_review/contacts_enrichment_live_final_status.csv",
+  "manual_review_csv": "/Users/tai/Documents/GitHub/taiyzun.com/outputs/bfp_farhat_may18_review/contacts_manual_review.csv"
+}

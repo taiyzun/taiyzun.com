@@ -1,0 +1,14 @@
+[
+  {
+    "id": "usr_aa41b58af91a4724afbb",
+    "system_name": "Radheshyam Laxmanrao Mopalwar, IAS (Retd.)",
+    "farhat_name": "Mr Amit J. Dholakia",
+    "source_row": 35,
+    "connected_by": "N Mathur",
+    "pc_name": "Nikhil Mathur",
+    "match_method": "phone exact",
+    "score": 1,
+    "name_aligns": false,
+    "hold_reason": "duplicate system id in pass3; less aligned source row"
+  }
+]
