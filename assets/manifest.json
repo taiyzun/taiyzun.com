@@ -1,7 +1,7 @@
 {
   "name": "Taiyzun Shahpurwala - Information & Technology Portfolio",
   "short_name": "Taiyzun",
-  "description": "Micro & Macro Information & Technology Strategy across Business Architecture, Technical Compliance, Due Diligence, Workflow Systems and Operational Governance.",
+  "description": "Information & Technology Business Strategy held across Micro & Macro matters, with Technical precision and graceful operational clarity.",
   "start_url": "/",
   "display": "standalone",
   "display_override": [
@@ -38,7 +38,7 @@
       "name": "View Portfolio",
       "short_name": "Portfolio",
       "url": "/creations.html",
-      "description": "Browse Micro & Macro Information & Technology work across Business Strategy, Technical delivery, Compliance and Due Diligence"
+      "description": "Browse Information & Technology Business Strategy across Micro & Macro work, Technical delivery, Compliance and Due Diligence"
     },
     {
       "name": "Selected Work",
@@ -50,7 +50,7 @@
       "name": "Structured Inquiry",
       "short_name": "Connect",
       "url": "/connect.html",
-      "description": "Open a structured inquiry for Business Strategy, Technical Compliance, Due Diligence and Micro & Macro delivery"
+      "description": "Open a structured inquiry for Information & Technology Business Strategy, Technical Compliance, Due Diligence and Micro & Macro delivery"
     }
   ],
   "icons": [
