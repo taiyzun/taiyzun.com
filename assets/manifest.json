@@ -1,7 +1,7 @@
 {
   "name": "Taiyzun Shahpurwala - Information & Technology Portfolio",
   "short_name": "Taiyzun",
-  "description": "Information & Technology specialist for information architecture, data hygiene, workflow design, communication matrices and structured delivery.",
+  "description": "Information & Technology specialist for Micro & Macro matters, Business Strategy, Technical Compliance, Due Diligence and structured delivery.",
   "start_url": "/",
   "display": "standalone",
   "display_override": [
@@ -38,19 +38,19 @@
       "name": "View Portfolio",
       "short_name": "Portfolio",
       "url": "/creations.html",
-      "description": "Browse information architecture, workflow maps and structured delivery records"
+      "description": "Browse Micro & Macro Information & Technology work across Business Strategy, Technical delivery, Compliance and Due Diligence"
     },
     {
       "name": "Selected Work",
       "short_name": "Work",
       "url": "/journey.html",
-      "description": "Explore selected work across information systems, communication matrices and operations"
+      "description": "Explore selected work across Micro & Macro systems, Business Strategy, Technical Compliance and operations"
     },
     {
       "name": "Structured Inquiry",
       "short_name": "Connect",
       "url": "/connect.html",
-      "description": "Open a structured inquiry for information architecture, workflow design and delivery"
+      "description": "Open a structured inquiry for Business Strategy, Technical Compliance, Due Diligence and Micro & Macro delivery"
     }
   ],
   "icons": [

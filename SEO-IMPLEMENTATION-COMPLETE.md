@@ -81,7 +81,7 @@ Comprehensive SEO, performance, and backend optimizations have been implemented 
 **Person Schema** (index.html):
 - Name: Taiyzun Shabbir Shahpurwala
 - Job Title: Information & Technology Specialist
-- Current public positioning: Information & Technology, Strategic Structured Delivery, Micro & Macro Matters
+- Current public positioning: Information & Technology, Micro & Macro, Business Strategy, Strategic and Technical Delivery, Compliance, Due Diligence
 - Skills & expertise documented
 - Social media profiles linked
 - Alumni organizations listed
@@ -280,8 +280,14 @@ og:locale: en_US
 ### Primary Keywords:
 - Taiyzun Shabbir Shahpurwala
 - Information & Technology
+- Micro & Macro
 - Strategic Structured Delivery
 - Micro & Macro Matters
+- Business Strategy
+- Strategic
+- Technical
+- Compliance
+- Due Diligence
 - Information Architecture
 - Workflow Design
 - Data Hygiene
@@ -292,7 +298,7 @@ og:locale: en_US
 - Operational Documentation
 
 ### Long-Tail Keywords:
-- Information & Technology specialist for strategic structured delivery
+- Information & Technology specialist for Micro & Macro matters, Business Strategy, Strategic and Technical delivery, Compliance and Due Diligence
 - Information architecture and workflow design portfolio
 - Data hygiene and operational documentation
 - Communication matrices and stakeholder coordination

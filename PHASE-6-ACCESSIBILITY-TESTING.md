@@ -50,6 +50,7 @@ From Phase 6 Step 4 automated validation:
 
 **Screen Reader Tests:**
 - [ ] Page title announced: "Taiyzun Shabbir Shahpurwala - Information & Technology Portfolio | Strategic Structured Delivery"
+- [ ] Key specialty terms present in descriptive copy: "Micro & Macro", "Business Strategy", "Technical Compliance", "Due Diligence"
 - [ ] Main heading (H1) identified: "Taiyzun Shabbir Shahpurwala"
 - [ ] Navigation landmarks announced: "navigation"
 - [ ] Interactive elements have descriptive text (not just "Click here")

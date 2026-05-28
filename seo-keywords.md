@@ -3,9 +3,18 @@
 ## Primary Search Terms Optimized (Exact Terms)
 - Taiyzun Shabbir Shahpurwala
 - Information & Technology
+- Micro & Macro
 - Strategic Structured Delivery
 - Micro & Macro Matters
 - Micro and Macro Matters
+- Business
+- Business Strategy
+- Strategy
+- Strategic
+- Technical
+- Technical Delivery
+- Compliance
+- Due Diligence
 - Information Architecture
 - Data Hygiene
 - Workflow Design
@@ -36,6 +45,10 @@
 
 ## Professional Leadership Positions
 - Information & Technology Specialist
+- Micro & Macro Specialist
+- Business Strategy Specialist
+- Technical Compliance Specialist
+- Due Diligence Specialist
 - Strategic Structured Delivery Specialist
 - Micro & Macro Matters Specialist
 - Information Systems and Communication Architecture
@@ -47,8 +60,16 @@
 
 ## Professional Expertise
 - Information & Technology
+- Micro & Macro
 - Strategic Structured Delivery
 - Micro & Macro Matters
+- Business
+- Business Strategy
+- Strategy
+- Strategic
+- Technical
+- Compliance
+- Due Diligence
 - Information Systems
 - Information Architecture
 - Data Hygiene
@@ -82,6 +103,10 @@
 - Media Capital
 - Entertainment Industry India
 - Information & Technology Specialist India
+- Micro & Macro Specialist India
+- Business Strategy India
+- Technical Compliance India
+- Due Diligence India
 - Strategic Structured Delivery India
 - Micro & Macro Matters India
 

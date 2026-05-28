@@ -7,7 +7,7 @@
 const THEMES_CONFIG = {
   home: {
     name: "Home - Information & Technology Portfolio",
-    keywords: ["information", "technology", "structured delivery", "micro macro", "systems"],
+    keywords: ["information", "technology", "micro macro", "business strategy", "technical compliance", "due diligence", "structured delivery", "systems"],
     colors: {
       // Base: Refined blues and teals (sophisticated, calm, thoughtful)
       base: {
@@ -38,7 +38,7 @@ const THEMES_CONFIG = {
 
   journey: {
     name: "Work - Selected Systems Archive",
-    keywords: ["selected work", "information architecture", "data hygiene", "workflow mapping", "delivery"],
+    keywords: ["selected work", "micro macro", "business strategy", "technical compliance", "due diligence", "information architecture", "data hygiene", "workflow mapping", "delivery"],
     colors: {
       // Base: Deep jewel tones (sophisticated, professional, flowing)
       base: {
@@ -69,7 +69,7 @@ const THEMES_CONFIG = {
 
   creations: {
     name: "Portfolio - Structured Delivery Archive",
-    keywords: ["portfolio", "communication assets", "workflow maps", "operational documentation", "systems coordination"],
+    keywords: ["portfolio", "micro macro", "business strategy", "technical delivery", "compliance", "due diligence", "communication assets", "workflow maps", "operational documentation", "systems coordination"],
     colors: {
       // Base: Warm neutrals (sophisticated, accessible, structured)
       base: {
@@ -100,7 +100,7 @@ const THEMES_CONFIG = {
 
   odyssey: {
     name: "Odyssey - Poetic Narrative",
-    keywords: ["narrative", "story", "transformation", "personal archive", "workflow logic"],
+    keywords: ["narrative", "micro macro", "business strategy", "technical discipline", "compliance", "due diligence", "personal archive", "workflow logic"],
     colors: {
       // Base: Warm jewel tones (luxurious, poetic, intimate)
       base: {
@@ -131,7 +131,7 @@ const THEMES_CONFIG = {
 
   connect: {
     name: "Connect - Network & Community",
-    keywords: ["connection", "collaboration", "community", "reach", "network"],
+    keywords: ["connection", "micro macro", "business strategy", "technical compliance", "due diligence", "strategic inquiry", "network"],
     colors: {
       // Base: Warm gold base (inviting, community-centered)
       base: {
