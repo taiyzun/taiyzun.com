@@ -226,6 +226,12 @@ body.home-page footer {
   transform: rotate(-18deg);
 }
 
+/* Prevent the shared orbit motif from clipping into a vertical mark on the home hero. */
+body.home-page .hero-content::after {
+  content: none !important;
+  display: none !important;
+}
+
 .hero-title,
 .page-hero h1,
 .gallery-label h2,
