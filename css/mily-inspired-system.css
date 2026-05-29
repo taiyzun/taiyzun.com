@@ -13,8 +13,8 @@
   --mily-bronze: #b28d58;
   --mily-bronze-soft: #ceb083;
   --mily-mist: #d9d0c5;
-  --mily-panel: linear-gradient(165deg, rgba(255, 255, 255, 0.84), rgba(246, 240, 232, 0.74));
-  --mily-panel-strong: linear-gradient(165deg, rgba(255, 255, 255, 0.9), rgba(246, 240, 232, 0.8));
+  --mily-panel: linear-gradient(165deg, rgba(255, 255, 255, 0.94), rgba(246, 240, 232, 0.88));
+  --mily-panel-strong: linear-gradient(165deg, rgba(255, 255, 255, 0.98), rgba(246, 240, 232, 0.92));
   --mily-border: rgba(178, 141, 88, 0.16);
   --mily-border-strong: rgba(178, 141, 88, 0.28);
   --mily-shadow-soft: 0 14px 34px rgba(91, 72, 42, 0.08);

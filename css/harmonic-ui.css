@@ -151,8 +151,8 @@ body.harmonic-ready .bio-section,
 body.harmonic-ready .timeline-category,
 body.harmonic-ready .contact-form {
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(255, 250, 239, 0.46)),
-    radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.7), transparent 0 13rem);
+    linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(255, 250, 239, 0.78)),
+    radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.82), transparent 0 13rem);
 }
 
 body.harmonic-ready .gallery-label::before,
@@ -296,7 +296,7 @@ body.harmonic-ready .social-link:hover::after {
   opacity: 0;
   transform: translate3d(0, 24px, 0) scale(0.985);
   filter: none;
-  transition: opacity var(--harmonic-slow), transform var(--harmonic-slow);
+  transition: opacity 260ms ease, transform var(--harmonic-slow);
 }
 
 .harmonic-reveal.is-harmonic-visible,
@@ -307,14 +307,18 @@ body.harmonic-ready .social-link:hover::after {
 }
 
 @supports (animation-timeline: view()) {
+  /* IntersectionObserver owns panel reveal; view timelines faded blocks again near page bottoms. */
   .harmonic-reveal {
-    animation: harmonicViewRise 1ms both linear;
-    animation-timeline: view();
-    animation-range: entry 0% cover 42%;
+    animation: none;
+    animation-timeline: auto;
+    animation-range: normal;
   }
 
-  .harmonic-reveal.is-harmonic-visible {
-    transition: opacity var(--harmonic-slow), transform var(--harmonic-slow);
+  .harmonic-reveal.is-harmonic-visible,
+  .harmonic-reveal[data-harmonic-immediate="true"] {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    transition: opacity 260ms ease, transform var(--harmonic-slow);
   }
 }
 
