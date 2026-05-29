@@ -121,16 +121,16 @@
   <div class="page-hero-overlay"></div>
   <div class="page-hero-content">
     <h1><em>Information</em> &amp; Technology Portfolio</h1>
-    <p class="intro">A curated archive of Micro &amp; Macro Business work: Information &amp; Technology, Business Strategy, Strategic and Technical Workflows, Compliance Records, Due Diligence context, Design Architecture, communication assets and technology-enabled coordination. The work names, sorts, aligns, documents and delivers with Precision, Beauty and grace.</p>
+    <p class="intro">A Curated Archive of Micro &amp; Macro Business Work: Information &amp; Technology, Business Strategy, Strategic and Technical Workflows, Compliance Records, Due Diligence Context, Design Architecture, Communication Assets and Technology-Enabled Coordination. The Work Names, Sorts, Aligns, Documents and Delivers with Precision, Beauty and Grace.</p>
   </div>
 </div>
 <div class="gallery-section" id="main-content">
   <div class="gallery-label reveal animate-on-scroll">
     <p class="section-label">Portfolio Archive</p>
-    <h2>A visual record of business structure</h2>
-    <p style="color:var(--text-secondary);font-weight:300;font-size:0.95rem;margin-top:0.5rem;">Showcasing Information &amp; Technology materials, Micro &amp; Macro thinking, Business Strategy notes, Technical Workflow maps, Compliance-minded Records, Due Diligence context and Design Systems shaped with Respect for detail.</p>
+    <h2>A Visual Record of Business Structure</h2>
+    <p style="color:var(--text-secondary);font-weight:300;font-size:0.95rem;margin-top:0.5rem;">Showcasing Information &amp; Technology Materials, Micro &amp; Macro Thinking, Business Strategy Notes, Technical Workflow Maps, Compliance-Minded Records, Due Diligence Context and Design Systems Shaped with Respect for Detail.</p>
   </div>
-  <p class="gallery-meta reveal animate-on-scroll"><span id="galleryCount">0</span> works in view</p>
+  <p class="gallery-meta reveal animate-on-scroll"><span id="galleryCount">0</span> Works in View</p>
   <div class="cat-filters reveal animate-on-scroll" id="catFilters"></div>
   <div class="art-grid" id="artGrid"></div>
 </div>
@@ -217,8 +217,25 @@
     }
   }
 
+  const TITLE_CONNECTORS = new Set(['a', 'an', 'and', 'as', 'at', 'but', 'by', 'for', 'from', 'in', 'into', 'nor', 'of', 'on', 'or', 'the', 'to', 'with']);
+
+  function titleCaseGeneratedTitle(value) {
+    let seenWord = false;
+    return String(value || '').replace(/(^|[^A-Za-z0-9@])(@?[A-Za-z][A-Za-z0-9@]*)/g, (match, prefix, word) => {
+      if (word.startsWith('@')) {
+        seenWord = true;
+        return prefix + word;
+      }
+      const lower = word.toLowerCase();
+      const isConnector = seenWord && TITLE_CONNECTORS.has(lower);
+      seenWord = true;
+      if (isConnector) return prefix + lower;
+      return prefix + word.charAt(0).toUpperCase() + word.slice(1);
+    });
+  }
+
   function titleForItem(item) {
-    return String(item.name || item.title || titleFromImagePath(item.full || item.thumb) || 'Untitled').replace(/_/g, ' ');
+    return titleCaseGeneratedTitle(String(item.name || item.title || titleFromImagePath(item.full || item.thumb) || 'Untitled').replace(/_/g, ' '));
   }
 
   function isPublicGalleryItem(item) {
@@ -271,7 +288,7 @@
   }
 
   function showLoading() {
-    document.getElementById('artGrid').innerHTML = '<div class="gallery-loading"><div class="gallery-spinner"></div><span>Loading gallery</span></div>';
+    document.getElementById('artGrid').innerHTML = '<div class="gallery-loading"><div class="gallery-spinner"></div><span>Loading Gallery</span></div>';
   }
   function hideLoading() {
     const l = document.querySelector('.gallery-loading');
@@ -308,7 +325,7 @@
     const grid = document.getElementById('artGrid');
     grid.innerHTML = '';
     if (!filteredItems.length) {
-      grid.innerHTML = '<div class="gallery-empty">No images in this category yet.</div>';
+      grid.innerHTML = '<div class="gallery-empty">No Images in This Category Yet.</div>';
       return;
     }
     appendBatch();
