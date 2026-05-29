@@ -49,9 +49,9 @@ From Phase 6 Step 4 automated validation:
 - [ ] Escape key doesn't conflict with native browser behavior
 
 **Screen Reader Tests:**
-- [ ] Page title announced: "Taiyzun Shabbir Shahpurwala - Information & Technology Portfolio | Strategic Structured Delivery"
+- [ ] Page title announced: "Taiyzun Shahpurwala | Information & Technology | Micro & Macro"
 - [ ] Key specialty terms present in descriptive copy: "Micro & Macro", "Business Strategy", "Technical Compliance", "Due Diligence"
-- [ ] Main heading (H1) identified: "Taiyzun Shabbir Shahpurwala"
+- [ ] Main heading (H1) identified: "Information & Technology / Micro & Macro"
 - [ ] Navigation landmarks announced: "navigation"
 - [ ] Interactive elements have descriptive text (not just "Click here")
 - [ ] Animated elements don't interfere with announcement

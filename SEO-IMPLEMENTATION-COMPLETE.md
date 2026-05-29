@@ -281,10 +281,11 @@ og:locale: en_US
 - Taiyzun Shabbir Shahpurwala
 - Information & Technology
 - Micro & Macro
-- Strategic Structured Delivery
 - Micro & Macro Matters
+- Business
 - Business Strategy
 - Strategic
+- Strategic Design Architecture
 - Technical
 - Compliance
 - Due Diligence
@@ -298,12 +299,12 @@ og:locale: en_US
 - Operational Documentation
 
 ### Long-Tail Keywords:
-- Information & Technology specialist for Micro & Macro matters, Business Strategy, Strategic and Technical delivery, Compliance and Due Diligence
-- Information architecture and workflow design portfolio
-- Data hygiene and operational documentation
-- Communication matrices and stakeholder coordination
-- Past peace initiative communications and logistics
-- Structured delivery across micro and macro matters
+- Information & Technology specialist for Micro & Macro business matters, Business Strategy, Strategic and Technical delivery, Compliance and Due Diligence
+- Information architecture and workflow design portfolio shaped by integrity, respect and precision
+- Data hygiene and operational documentation for strategic peace of mind
+- Communication matrices and stakeholder coordination across micro and macro scope
+- Past peace initiative communications and logistics, recorded with gratitude and respect
+- Structured business delivery across micro and macro matters
 
 ---
 

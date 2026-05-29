@@ -4,7 +4,6 @@
 - Taiyzun Shabbir Shahpurwala
 - Information & Technology
 - Micro & Macro
-- Strategic Structured Delivery
 - Micro & Macro Matters
 - Micro and Macro Matters
 - Business
@@ -49,7 +48,7 @@
 - Business Strategy Specialist
 - Technical Compliance Specialist
 - Due Diligence Specialist
-- Strategic Structured Delivery Specialist
+- Strategic Design Architecture Specialist
 - Micro & Macro Matters Specialist
 - Information Systems and Communication Architecture
 - Information Architecture and Workflow Design
@@ -61,7 +60,6 @@
 ## Professional Expertise
 - Information & Technology
 - Micro & Macro
-- Strategic Structured Delivery
 - Micro & Macro Matters
 - Business
 - Business Strategy
@@ -107,7 +105,7 @@
 - Business Strategy India
 - Technical Compliance India
 - Due Diligence India
-- Strategic Structured Delivery India
+- Strategic Design Architecture India
 - Micro & Macro Matters India
 
 ## Brand Associations
