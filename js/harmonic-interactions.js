@@ -170,7 +170,7 @@
   }
 
   const interactiveSelector = [
-    '.hero-content', '.page-hero-content', '.gallery-label', '.connect-label', '.contact-form',
+    '.gallery-label', '.connect-label', '.contact-form',
     '.highlight-card', '.value-item', '.timeline-category', '.social-card', '.cat-tab',
     '.hero-cta', '.submit-btn', '.social-link', '.art-item', '.gallery-item'
   ].join(',');

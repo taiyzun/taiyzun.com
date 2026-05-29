@@ -155,8 +155,6 @@ body.harmonic-ready .contact-form {
     radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.7), transparent 0 13rem);
 }
 
-body.harmonic-ready .hero-content::before,
-body.harmonic-ready .page-hero-content::before,
 body.harmonic-ready .gallery-label::before,
 body.harmonic-ready .connect-label::before,
 body.harmonic-ready .bio-section::before,
@@ -840,4 +838,16 @@ body.harmonic-ready .harmonic-block-motif::after {
   visibility: hidden !important;
   pointer-events: none !important;
   animation: none !important;
+}
+
+/* Hero copy panels stay clear on hover; no pseudo badge or spotlight layer. */
+body.harmonic-ready .hero-content::before,
+body.harmonic-ready .page-hero-content::before {
+  content: none !important;
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  animation: none !important;
+  transition: none !important;
 }
