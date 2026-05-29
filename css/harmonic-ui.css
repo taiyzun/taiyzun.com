@@ -829,3 +829,15 @@ body.harmonic-ready .harmonic-theme-connect .harmonic-block-motif::before {
     animation: none !important;
   }
 }
+
+/* Keep text panels clear: remove the decorative motif that could read as a vertical block. */
+body.harmonic-ready .harmonic-block-motif,
+body.harmonic-ready .harmonic-block-motif::before,
+body.harmonic-ready .harmonic-block-motif::after {
+  content: none !important;
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  animation: none !important;
+}
