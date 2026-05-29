@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "Static site for taiyzun.com — helper scripts",
   "scripts": {
+    "build": "npm run build:pages",
+    "build:pages": "node scripts/build-cloudflare-pages.js",
     "optimize-images": "node scripts/optimize-images.js",
     "privacy-review": "node scripts/generate-private-image-review.js"
   },
