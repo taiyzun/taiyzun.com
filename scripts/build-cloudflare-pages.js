@@ -17,6 +17,16 @@ const publicRootFiles = new Set([
   '_redirects'
 ]);
 
+const publicHtmlFiles = new Set([
+  'index.html',
+  'journey.html',
+  'odyssey.html',
+  'creations.html',
+  'connect.html',
+  '404.html',
+  '500.html'
+]);
+
 const publicDirectories = ['assets', 'css', 'js'];
 const ignoredNames = new Set(['.DS_Store']);
 
@@ -50,7 +60,7 @@ const copied = [];
 for (const entry of fs.readdirSync(rootDir, { withFileTypes: true })) {
   const isPublicFile =
     entry.isFile() &&
-    (entry.name.endsWith('.html') ||
+    (publicHtmlFiles.has(entry.name) ||
       entry.name.endsWith('.css') ||
       publicRootFiles.has(entry.name));
 

@@ -175,11 +175,11 @@
 </footer>
 <script>
   /* ── Config ── */
-  const GALLERY_MANIFEST_VERSION = '20260512-temp-review-clean-v2';
+  const GALLERY_MANIFEST_VERSION = '20260530-public-safety-clean-v1';
   const MANIFEST_URLS = [
-    `/assets/space-gallery-manifest.json?v=${GALLERY_MANIFEST_VERSION}`,
-    'https://pub-3c9f0c0ce1654d10a3df41d9987255b7.r2.dev/space-gallery/manifest.json'
+    `/assets/space-gallery-manifest.json?v=${GALLERY_MANIFEST_VERSION}`
   ];
+  const SENSITIVE_GALLERY_PATTERN = /\b(whatsapp|imessage|group chat|chat with|chat about|chat duplicate|call log|recents list|incoming calls|missed call|facetime call|phone numbers?|cheque|signature error|bank statement|statement|invoice|receipt|private storage|keep out|private gathering|contact card|business cards?|letterhead|address|contact details|email|passport|plan document|complaint text|vodafone mifi|counselling|medical|nooria|nuria)\b/i;
   const PAGE_SIZE = 60;
   const FALLBACK = [
     {full:'assets/Art/art_00001.jpg',thumb:'assets/Art/art_00001.jpg',cat:'Gallery',title:'0001 ~ Sp@cE Dragon Rides the Earth',sub:'Cosmic Fire Beyond the Gates'},
@@ -221,6 +221,11 @@
     return String(item.name || item.title || titleFromImagePath(item.full || item.thumb) || 'Untitled').replace(/_/g, ' ');
   }
 
+  function isPublicGalleryItem(item) {
+    const searchable = `${item.name || ''} ${item.title || ''} ${item.full || ''} ${item.thumb || ''}`;
+    return !SENSITIVE_GALLERY_PATTERN.test(searchable);
+  }
+
   /* ── Observers ── */
   const imgObs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting && e.target.dataset.src) { e.target.src = e.target.dataset.src; imgObs.unobserve(e.target); } });
@@ -251,6 +256,7 @@
       if (!cats.length) throw new Error('empty');
       cats.forEach(cat => {
         (manifest[cat] || []).forEach(item => {
+          if (!isPublicGalleryItem(item)) return;
           allItems.push({ full: item.full, thumb: item.thumb, cat, title: titleForItem(item), sub: cat });
           countByCat[cat] = (countByCat[cat] || 0) + 1;
         });
