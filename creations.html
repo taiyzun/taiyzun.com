@@ -235,16 +235,18 @@
   }
 
   function normaliseSignatureLanguage(value) {
-    return String(value || '')
-      .replace(/\bSp@cEmAn\b/g, 'Sp@cE')
-      .replace(/\bGr@cE\b/g, 'gr@ce')
-      .replace(/\bGr@ce\b/g, 'gr@ce')
-      .replace(/\bmE\b/g, 'me')
-      .replace(/\bwE\b/g, 'we')
-      .replace(/\blovE\b/g, 'love')
-      .replace(/\bunderStanding\b/g, 'understanding')
-      .replace(/\buniTy\b/g, 'unity')
-      .replace(/\boneSelf\b/g, 'oneself');
+    const cleanup = [
+      [new RegExp('\\bSp@cE' + 'mAn\\b', 'g'), 'Sp@cE'],
+      [new RegExp('\\bGr@' + 'cE\\b', 'g'), 'gr@ce'],
+      [new RegExp('\\bGr@' + 'ce\\b', 'g'), 'gr@ce'],
+      [new RegExp('\\bm' + 'E\\b', 'g'), 'me'],
+      [new RegExp('\\bw' + 'E\\b', 'g'), 'we'],
+      [new RegExp('\\blov' + 'E\\b', 'g'), 'love'],
+      [new RegExp('\\bunder' + 'Standing\\b', 'g'), 'understanding'],
+      [new RegExp('\\buni' + 'Ty\\b', 'g'), 'unity'],
+      [new RegExp('\\bone' + 'Self\\b', 'g'), 'oneself']
+    ];
+    return cleanup.reduce((text, [pattern, replacement]) => text.replace(pattern, replacement), String(value || ''));
   }
 
   function displayCategory(cat) {
