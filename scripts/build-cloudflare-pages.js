@@ -35,6 +35,7 @@ const publicAssetFiles = [
   'js/facebook-pixel.min.js',
   'js/harmonic-interactions.min.js',
   'js/mobile-menu.min.js',
+  'js/odyssey-portraits.js',
   'js/site-decorative-field.min.js',
   'js/theme-engine.min.js',
   'js/themes-config.min.js',
@@ -45,6 +46,7 @@ const publicAssetFiles = [
 const publicDirectories = [
   'assets/Art',
   'assets/Portfolio',
+  'assets/Portraits/odyssey-poetic',
   'assets/Portraits/optimized',
   'assets/Space Gallery',
   'assets/decorative/optimized',

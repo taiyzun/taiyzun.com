@@ -89,6 +89,7 @@
   <link rel="stylesheet" href="/css/visual-protocol.min.css?v=11">
   <link rel="stylesheet" href="/css/harmonic-ui.min.css?v=10">
   <link rel="stylesheet" href="/css/mobile-menu.css?v=2">
+  <link rel="stylesheet" href="/css/odyssey-portraits.css?v=1">
 <script defer src="/js/facebook-pixel.min.js?v=2"></script>
 </head>
 <body class="odyssey-page">
@@ -138,7 +139,7 @@
     <div class="timeline-item"><div class="desc"><strong>Jupiter</strong> offers justice, wisdom and expansion; the <strong>Moon</strong> gives emotional intelligence and care; <strong>Saturn</strong> gives endurance and karmic depth; <strong>Mercury</strong> gives eloquence, intellect and refined communication. <strong>Shani Hora</strong> becomes a quiet metaphor for patience, responsibility, structure and time-tested strength.</div></div>
     <div class="timeline-item"><div class="desc">The public meaning is practical: visibility should serve Stewardship, intuition should become measured verification, Beauty should support Design Architecture and insight should become Information Systems that protect Peace of Mind.</div></div>
   </div>
-  <p class="gallery-meta reveal animate-on-scroll"><span id="portraitCount">36</span> Portraits</p>
+  <p class="gallery-meta reveal animate-on-scroll"><span id="portraitCount">357</span> Portraits</p>
   <div class="gallery-grid" id="galleryGrid"></div>
 </div>
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
@@ -146,7 +147,7 @@
     <div class="lb-counter">
       <span class="lb-counter-current" id="lbCurrent">1</span>
       <span class="lb-counter-sep">&nbsp;/&nbsp;</span>
-      <span class="lb-counter-total" id="lbTotal">36</span>
+      <span class="lb-counter-total" id="lbTotal">357</span>
     </div>
     <div class="lb-meta" id="lbMeta"></div>
     <button class="lb-close" id="lbClose" aria-label="Close image viewer"><span>✕</span></button>
@@ -182,54 +183,41 @@
   <p class="footer-copy footer-signature">Built through TimE. Shaped across Sp@cEs.</p>
   <p class="footer-copy">&copy; 2026 Taiyzun Shabbir Shahpurwala. All rights reserved.</p>
 </footer>
+<script src="/js/odyssey-portraits.js?v=1"></script>
 <script>
-  const portraits = [
-    {title:'0001 ~ gr@ce Golden Afternoon Tea',sub:'Elegance in Every Sip'},
-    {title:'0002 ~ Sp@cE Midnight Flight Gaze',sub:'Jet Set Contemplation'},
-    {title:'0003 ~ Pe@cE Floral Mickey Smile',sub:'Whimsy Among Blossoms'},
-    {title:'0004 ~ Sp@cE Runway Sunlit Cool',sub:'Airport Shades of Gold'},
-    {title:'0005 ~ Tai Backseat Reverie',sub:'Pink Linen Wanderer'},
-    {title:'0006 ~ Taiyzun Lounge Warm Grin',sub:'Terminal Elegance'},
-    {title:'0007 ~ @cE Soft White Serenity',sub:'Quiet Morning Light'},
-    {title:'0008 ~ TimE Laptop Midnight Glow',sub:'Late Night Visionary'},
-    {title:'0009 ~ Taiyzun Suited Boardroom Glance',sub:'The Formal Intellect'},
-    {title:'0010 ~ Pe@cE Crystal Blue Lounge',sub:'Oceanview Calm'},
-    {title:'0011 ~ gr@ce Chandelier Ascent',sub:'Looking Up in Gold'},
-    {title:'0012 ~ Tai Tangerine Tilt',sub:'Warm Hues Lean In'},
-    {title:'0013 ~ Sp@cE Twilight Cafe Soul',sub:'Blue Hour Depth'},
-    {title:'0014 ~ @cE Dinner Polka Dot gr@ce',sub:'Fine Dining Moments'},
-    {title:'0015 ~ Sp@cE Burj Khalifa Sunset',sub:'Towering Over Dubai'},
-    {title:'0016 ~ Tai Restaurant Golden Hour',sub:'Candlelit With Family'},
-    {title:'0017 ~ TimE Airport Window Dream',sub:'Wings of Possibility'},
-    {title:'0018 ~ Taiyzun Opulent Night Feast',sub:'Luxury Dining Affair'},
-    {title:'0019 ~ Sp@cE Burj Power Stance',sub:'Sky Piercing Confidence'},
-    {title:'0020 ~ Sp@cE Emaar Cityscape Neon',sub:'Dubai Night Spectrum'},
-    {title:'0021 ~ Tai Mumbai Terminal Hustle',sub:'Departure Gate Energy'},
-    {title:'0022 ~ Pe@cE Hexagon Lounge Ponder',sub:'Airport Architecture'},
-    {title:'0023 ~ @cE Poolside Monochrome Chill',sub:'Black and White Leisure'},
-    {title:'0024 ~ gr@ce Enchanted Tree Lobby',sub:'Grand Illumination'},
-    {title:'0025 ~ Pe@cE Summit Selfie',sub:'Billionaires for Peace'},
-    {title:'0026 ~ Sp@cE Window Seat Cruising',sub:'Above the Clouds'},
-    {title:'0027 ~ Taiyzun Hotel Mirror Ready',sub:'Packed and Poised'},
-    {title:'0028 ~ Sp@cE Poolside Dubai Vibes',sub:'Museum of the Future'},
-    {title:'0029 ~ TimE Minion Expo Night',sub:'Golden Tee Explorer'},
-    {title:'0030 ~ Tai Istanbul Transit Glow',sub:'Yellow Bright Traveller'},
-    {title:'0031 ~ @cE Neon AR Night Walk',sub:'Luminous Letters'},
-    {title:'0032 ~ Sp@cE Glass Dome Lookup',sub:'Beneath the Canopy'},
-    {title:'0033 ~ gr@ce Museum Terrace Sun',sub:'Future Gazing Dubai'},
-    {title:'0034 ~ Taiyzun DIY Desk Builder',sub:'Hands On Creator'},
-    {title:'0035 ~ Sp@cE Desert Camel Shirt Ride',sub:'Cruising Through Dubai'},
-    {title:'0036 ~ TimE Elevator Gold Suited',sub:'Reflections of gr@ce'}
-  ];
+  const portraits = window.odysseyPortraits || [];
+  const gallerySizes = '(max-width: 640px) calc((100vw - 72px) / 2), (max-width: 960px) calc((100vw - 104px) / 3), 240px';
+
+  function escapeHTML(value) {
+    return String(value).replace(/[&<>"']/g, (char) => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    }[char]));
+  }
+
+  function portraitImage(p, size) {
+    if (p.kind === 'optimized' && p.base) return p.base + '-w' + size + '.webp';
+    return p.src;
+  }
+
+  function portraitMarkup(p) {
+    const title = escapeHTML(p.title);
+    if (p.kind === 'optimized' && p.base) {
+      return '<picture><source srcset="' + p.base + '-w400.avif 400w, ' + p.base + '-w800.avif 800w, ' + p.base + '-w1200.avif 1200w" sizes="' + gallerySizes + '" type="image/avif"><source srcset="' + p.base + '-w400.webp 400w, ' + p.base + '-w800.webp 800w, ' + p.base + '-w1200.webp 1200w" sizes="' + gallerySizes + '" type="image/webp"><img src="' + p.base + '-w800.webp" alt="' + title + '" loading="lazy" decoding="async" width="400" height="400"></picture>';
+    }
+    return '<img src="' + p.src + '" alt="' + title + '" loading="lazy" decoding="async" width="400" height="400">';
+  }
 
   /* ── Gallery grid ── */
   const grid = document.getElementById('galleryGrid');
   portraits.forEach((p, i) => {
-    const num = String(i+1).padStart(5,'0');
     const el = document.createElement('div');
     el.className = 'gallery-item reveal';
     el.setAttribute('data-index', i);
-    el.innerHTML = '<picture><source srcset="assets/Portraits/optimized/taiyzun_shahpurwala-' + num + '-w400.avif 400w, assets/Portraits/optimized/taiyzun_shahpurwala-' + num + '-w800.avif 800w, assets/Portraits/optimized/taiyzun_shahpurwala-' + num + '-w1200.avif 1200w" sizes="(max-width: 640px) calc((100vw - 72px) / 2), (max-width: 960px) calc((100vw - 104px) / 3), 240px" type="image/avif"><source srcset="assets/Portraits/optimized/taiyzun_shahpurwala-' + num + '-w400.webp 400w, assets/Portraits/optimized/taiyzun_shahpurwala-' + num + '-w800.webp 800w, assets/Portraits/optimized/taiyzun_shahpurwala-' + num + '-w1200.webp 1200w" sizes="(max-width: 640px) calc((100vw - 72px) / 2), (max-width: 960px) calc((100vw - 104px) / 3), 240px" type="image/webp"><img src="assets/Portraits/optimized/taiyzun_shahpurwala-' + num + '-w800.webp" alt="' + p.title + '" loading="lazy" decoding="async" width="400" height="400"></picture><div class="overlay"><span class="sparkle">✦</span><h3>' + p.title + '</h3><p>' + p.sub + '</p></div>';
+    el.innerHTML = portraitMarkup(p) + '<div class="overlay"><span class="sparkle">✦</span><h3>' + escapeHTML(p.title) + '</h3><p>' + escapeHTML(p.sub) + '</p></div>';
     grid.appendChild(el);
   });
 
@@ -256,10 +244,9 @@
 
   /* ── Build filmstrip ── */
   portraits.forEach((p, i) => {
-    const num = String(i+1).padStart(5,'0');
     const thumb = document.createElement('img');
     thumb.className = 'lb-thumb';
-    thumb.src = 'assets/Portraits/optimized/taiyzun_shahpurwala-' + num + '-w400.webp';
+    thumb.src = p.thumb || portraitImage(p, 400);
     thumb.alt = p.title;
     thumb.loading = 'lazy';
     thumb.addEventListener('click', () => { if (i !== currentIdx) navigate(i, i > currentIdx ? 'next' : 'prev'); });
@@ -291,10 +278,8 @@
     isZoomed = false;
     lbImg.classList.remove('zoomed');
     currentIdx = i;
-    const num = String(i+1).padStart(5,'0');
-    const webpSrc = 'assets/Portraits/optimized/taiyzun_shahpurwala-' + num + '-w1200.webp';
     lbImg.onerror = null;
-    lbImg.src = webpSrc;
+    lbImg.src = portraits[i].full || portraitImage(portraits[i], 1200);
     lbImg.alt = portraits[i].title;
     lbTitle.textContent = portraits[i].title;
     lbSub.textContent = portraits[i].sub;
@@ -372,7 +357,7 @@
   lbImg.addEventListener('load', () => {
     const preload = (idx) => {
       const img = new Image();
-      img.src = 'assets/Portraits/optimized/taiyzun_shahpurwala-' + String(idx+1).padStart(5,'0') + '-w1200.webp';
+      img.src = portraits[idx].full || portraitImage(portraits[idx], 1200);
     };
     preload((currentIdx + 1) % portraits.length);
     preload((currentIdx - 1 + portraits.length) % portraits.length);

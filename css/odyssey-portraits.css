@@ -1,0 +1,66 @@
+body.odyssey-page .gallery-grid {
+  scroll-margin-top: clamp(5rem, 10vw, 7rem);
+}
+
+body.odyssey-page .gallery-item {
+  width: 100%;
+  min-height: clamp(13rem, 22vw, 20rem);
+  box-sizing: border-box;
+  cursor: zoom-in;
+}
+
+body.odyssey-page .gallery-item img {
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  body.odyssey-page .page-hero {
+    padding-top: clamp(8.5rem, 31vw, 10.5rem);
+  }
+
+  body.odyssey-page .page-hero-content {
+    padding-inline: clamp(1rem, 5vw, 1.5rem);
+  }
+
+  body.odyssey-page .page-hero h1 {
+    max-width: 10ch;
+    margin-inline: auto;
+    margin-bottom: clamp(1.5rem, 6vw, 2.2rem);
+    font-size: clamp(2.35rem, 11.5vw, 3.35rem);
+    line-height: 1.08;
+    letter-spacing: 0;
+    overflow-wrap: normal;
+  }
+
+  body.odyssey-page .page-hero .intro {
+    max-width: 32ch;
+    font-size: clamp(1rem, 3.9vw, 1.12rem);
+    line-height: 1.68;
+  }
+
+  body.odyssey-page .coming-soon {
+    max-width: min(100%, 22rem);
+    white-space: normal;
+  }
+
+  body.odyssey-page .gallery-label {
+    text-align: left;
+  }
+
+  body.odyssey-page .gallery-label h2 {
+    max-width: min(100%, 17ch);
+    margin-inline: 0;
+    font-size: clamp(2rem, 10vw, 3rem);
+    line-height: 1.08;
+    letter-spacing: 0;
+    text-wrap: balance;
+  }
+
+  body.odyssey-page .gallery-label p {
+    max-width: 34ch;
+  }
+
+  body.odyssey-page .gallery-item {
+    min-height: clamp(17rem, 82vw, 23rem);
+  }
+}
