@@ -10,3 +10,10 @@ dist/
 
 # Local generated privacy review outputs
 privacy-review/
+
+# Local/generated due-diligence outputs
+outputs/
+bfp_public_content_cleanup/
+contact_master_database/
+reports/
+lighthouse-*.json

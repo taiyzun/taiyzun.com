@@ -1,6 +1,0 @@
-{
-  "safe_cleanup_rows": 18,
-  "rnd_or_manual_review_rows": 200,
-  "safe_queue": "/Users/tai/Documents/GitHub/taiyzun.com/outputs/bfp_farhat_may18_review/name_salutation_cleanup_queue.json",
-  "review_csv": "/Users/tai/Documents/GitHub/taiyzun.com/outputs/bfp_farhat_may18_review/name_salutation_rnd_review.csv"
-}
