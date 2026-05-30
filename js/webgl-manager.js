@@ -1,7 +1,7 @@
 /**
  * WEBGL / CANVAS MANAGER
  * Manages Three.js and PixiJS effects for advanced visual animations
- * Handles hero sections, particle systems, and interactive 3D visualizations
+ * Handles hero sections, particle systems and interactive 3D visualizations
  */
 
 class WebGLManager {
@@ -15,7 +15,7 @@ class WebGLManager {
 
   /**
    * Detect performance mode based on device capabilities
-   * @returns {string} 'high', 'medium', or 'low'
+   * @returns {string} 'high', 'medium' or 'low'
    */
   detectPerformanceMode() {
     // Check for low-end devices

@@ -1,6 +1,6 @@
 /**
  * ANIMATION CONTROLLER
- * Orchestrates complex animation sequences, page transitions, and scroll-triggered effects
+ * Orchestrates complex animation sequences, page transitions and scroll-triggered effects
  * Works with ThemeEngine to coordinate smooth theme transitions during navigation
  */
 

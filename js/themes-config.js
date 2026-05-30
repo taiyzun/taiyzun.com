@@ -1,6 +1,6 @@
 /**
  * THEMES CONFIGURATION
- * Defines color palettes, keywords, and animation parameters for each page
+ * Defines color palettes, keywords and animation parameters for each page
  * Color Strategy: Sophisticated refined base + strategic bold accents
  */
 
@@ -50,7 +50,7 @@ const THEMES_CONFIG = {
       // Accent: Jewel tones and deep purples (growth, richness)
       accents: {
         primary: "#7c5cff", // Deep purple
-        secondary: "#1fb8d4", // Teal (flowing, organic)
+        secondary: "#1fb8d4", // Teal (flowing and organic)
         tertiary: "#ff6b9d", // Deep pink (achievement)
         gold: "#e8b44a" // Warm gold (milestones)
       },

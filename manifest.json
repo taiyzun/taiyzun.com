@@ -37,19 +37,19 @@
     {
       "name": "View Portfolio",
       "short_name": "Portfolio",
-      "url": "/creations.html",
-      "description": "Browse Information & Technology and Micro & Macro Business work across Strategy, Design Architecture, Compliance, Strategic Due Diligence, Trust and Human Values"
+      "url": "/creations",
+      "description": "Browse Information & Technology and Micro & Macro Business work across Strategy, Design Architecture, Compliance, Strategic Due Diligence, Stewardship and Trust"
     },
     {
       "name": "Selected Work",
       "short_name": "Work",
-      "url": "/journey.html",
+      "url": "/journey",
       "description": "Explore selected Business work across India, Dubai/UAE, the United States and the United Kingdom through Information & Technology, Micro & Macro systems, Strategy, Stewardship, TimE and Sp@cE"
     },
     {
       "name": "Structured Enquiry",
       "short_name": "Connect",
-      "url": "/connect.html",
+      "url": "/connect",
       "description": "Open a structured enquiry for Information & Technology, Micro & Macro Business matters, Strategic Due Diligence, Stewardship, Trust and Peace of Mind"
     }
   ],

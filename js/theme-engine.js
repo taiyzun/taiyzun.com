@@ -1,6 +1,6 @@
 /**
  * THEME ENGINE
- * Handles dynamic theme application, CSS variable management, and theme transitions
+ * Handles dynamic theme application, CSS variable management and theme transitions
  */
 
 class ThemeEngine {
