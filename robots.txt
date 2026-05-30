@@ -8,12 +8,11 @@ Allow: /css/
 Allow: /js/
 Allow: /assets/images/
 Allow: /assets/Art/
-Allow: /assets/Logos/
 Allow: /assets/Portfolio/
 Allow: /assets/Portraits/
-Allow: /assets/decorative/
-Allow: /assets/easter-eggs/
-Allow: /assets/manifest.json
+Allow: /assets/Space%20Gallery/
+Allow: /assets/decorative/optimized/
+Allow: /manifest.json
 
 Disallow: /seo-keywords.md
 Disallow: /VALIDATION-COMPLETE.md

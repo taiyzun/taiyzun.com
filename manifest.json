@@ -1,7 +1,7 @@
 {
   "name": "Taiyzun | Micro & Macro | Information & Technology",
   "short_name": "Taiyzun",
-  "description": "Information & Technology. Micro & Macro. Business Portfolio across India, Dubai in the United Arab Emirates, the United States and the United Kingdom for Strategy, Strategic Due Diligence, Design Architecture, Technical Compliance, Stewardship, Trust and Peace of Mind.",
+  "description": "Information & Technology. Micro & Macro. Business Portfolio across Bombay in India, Dubai in the United Arab Emirates, London in the United Kingdom and New York in the United States.",
   "start_url": "/",
   "display": "standalone",
   "display_override": [
@@ -38,19 +38,19 @@
       "name": "View Portfolio",
       "short_name": "Portfolio",
       "url": "/creations",
-      "description": "Browse Information & Technology and Micro & Macro Business work across Strategy, Design Architecture, Compliance, Strategic Due Diligence, Stewardship and Trust"
+      "description": "Browse Information & Technology and Micro & Macro Business work across Strategy, Design Architecture, Compliance, Strategic Due Diligence and Trust"
     },
     {
       "name": "Selected Work",
       "short_name": "Work",
       "url": "/journey",
-      "description": "Explore selected Business work across India, Dubai in the United Arab Emirates, the United States and the United Kingdom through Information & Technology, Micro & Macro systems, Strategy, Stewardship, TimE and Sp@cE"
+      "description": "Explore selected Business work across Bombay in India, Dubai in the United Arab Emirates, London in the United Kingdom and New York in the United States"
     },
     {
       "name": "Structured Enquiry",
       "short_name": "Connect",
       "url": "/connect",
-      "description": "Open a structured enquiry for Information & Technology, Micro & Macro Business matters, Strategic Due Diligence, Stewardship, Trust and Peace of Mind"
+      "description": "Open a structured enquiry for Information & Technology, Micro & Macro Business matters, Strategic Due Diligence, Trust and Peace of Mind"
     }
   ],
   "icons": [

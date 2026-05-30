@@ -27,7 +27,32 @@ const publicHtmlFiles = new Set([
   '500.html'
 ]);
 
-const publicDirectories = ['assets', 'css', 'js'];
+const publicAssetFiles = [
+  'assets/favicon.svg',
+  'assets/space-gallery-manifest.json',
+  'js/ambient-video.min.js',
+  'js/animation-controller.min.js',
+  'js/facebook-pixel.min.js',
+  'js/harmonic-interactions.min.js',
+  'js/mobile-menu.min.js',
+  'js/site-decorative-field.min.js',
+  'js/theme-engine.min.js',
+  'js/themes-config.min.js',
+  'js/webgl-manager.min.js',
+  'js/zepto-mail-integration.min.js'
+];
+
+const publicDirectories = [
+  'assets/Art',
+  'assets/Portfolio',
+  'assets/Portraits/optimized',
+  'assets/Space Gallery',
+  'assets/decorative/optimized',
+  'assets/icons',
+  'assets/images',
+  'assets/video',
+  'css'
+];
 const ignoredNames = new Set(['.DS_Store']);
 
 function shouldCopy(source) {
@@ -72,6 +97,12 @@ for (const entry of fs.readdirSync(rootDir, { withFileTypes: true })) {
 for (const directory of publicDirectories) {
   if (copyPath(directory)) {
     copied.push(`${directory}/`);
+  }
+}
+
+for (const assetFile of publicAssetFiles) {
+  if (copyPath(assetFile)) {
+    copied.push(assetFile);
   }
 }
 

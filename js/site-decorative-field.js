@@ -301,6 +301,7 @@
   let frameHandle = 0;
   let resizeHandle = 0;
   let pointerObserver = null;
+  let decorativeFieldStarted = false;
   const supportsFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
   const pointerState = {
     targetX: 0,
@@ -691,16 +692,11 @@
       image.sizes = `${width}px`;
     }
     image.dataset.originalSrc = assetPath;
-    image.onerror = () => {
-      if (image.src.endsWith(assetPath)) {
-        return;
-      }
-      image.onerror = null;
-      image.src = assetPath;
-    };
+    image.onerror = () => image.remove();
     image.alt = "";
     image.decoding = "async";
-    image.loading = isHero ? "eager" : "lazy";
+    image.loading = "lazy";
+    image.fetchPriority = "low";
     image.setAttribute("aria-hidden", "true");
     image.style.setProperty("--decor-width", `${width}px`);
     image.style.setProperty("--decor-opacity", opacity.toFixed(3));
@@ -1000,15 +996,31 @@
   window.addEventListener("pointerleave", softenPointer);
   window.addEventListener("blur", softenPointer);
   window.addEventListener("resize", scheduleLayout);
-  window.addEventListener("load", () => {
+  function startDecorativeField() {
+    if (decorativeFieldStarted) {
+      return;
+    }
+
+    decorativeFieldStarted = true;
     layout();
     initPointerReactiveSurfaces();
     startLoop();
     window.setTimeout(layout, 900);
     window.setTimeout(initPointerReactiveSurfaces, 1000);
-  }, { once: true });
+  }
 
-  layout();
-  initPointerReactiveSurfaces();
-  startLoop();
+  function scheduleDecorativeField() {
+    const startAfterSettle = () => {
+      window.setTimeout(startDecorativeField, 2200);
+    };
+
+    if (document.readyState === "complete") {
+      startAfterSettle();
+      return;
+    }
+
+    window.addEventListener("load", startAfterSettle, { once: true });
+  }
+
+  scheduleDecorativeField();
 })();

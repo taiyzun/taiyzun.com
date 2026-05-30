@@ -16,10 +16,12 @@
   }
 
   const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const mobileQuery = window.matchMedia("(max-width: 768px)");
   const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  let ambientVideoStarted = false;
 
   function ambientVideoDisabled() {
-    return motionQuery.matches || Boolean(connection && connection.saveData);
+    return motionQuery.matches || mobileQuery.matches || Boolean(connection && connection.saveData);
   }
 
   function ensureVideoSource(video) {
@@ -40,7 +42,7 @@
       root.classList.contains("ambient-video-disabled") ||
       document.hidden;
 
-    if (disabled) {
+    if (!ambientVideoStarted || disabled) {
       video.pause();
       return;
     }
@@ -62,9 +64,36 @@
     }
 
     videos.forEach((video) => {
-      video.preload = root.classList.contains("ambient-video-disabled") ? "none" : "metadata";
+      video.preload = !ambientVideoStarted || root.classList.contains("ambient-video-disabled") ? "none" : "metadata";
       syncVideo(video);
     });
+  }
+
+  function startAmbientVideo() {
+    if (ambientVideoStarted) {
+      return;
+    }
+
+    ambientVideoStarted = true;
+    applyAmbientPreference();
+  }
+
+  function scheduleAmbientVideo() {
+    const passiveOnce = { once: true, passive: true };
+    window.addEventListener("pointerdown", startAmbientVideo, passiveOnce);
+    window.addEventListener("scroll", startAmbientVideo, passiveOnce);
+    window.addEventListener("keydown", startAmbientVideo, { once: true });
+
+    const startAfterPageSettles = () => {
+      window.setTimeout(startAmbientVideo, 7000);
+    };
+
+    if (document.readyState === "complete") {
+      startAfterPageSettles();
+      return;
+    }
+
+    window.addEventListener("load", startAfterPageSettles, { once: true });
   }
 
   videos.forEach((video) => {
@@ -94,9 +123,16 @@
     motionQuery.addListener(applyAmbientPreference);
   }
 
+  if (typeof mobileQuery.addEventListener === "function") {
+    mobileQuery.addEventListener("change", applyAmbientPreference);
+  } else if (typeof mobileQuery.addListener === "function") {
+    mobileQuery.addListener(applyAmbientPreference);
+  }
+
   if (connection && typeof connection.addEventListener === "function") {
     connection.addEventListener("change", applyAmbientPreference);
   }
 
   applyAmbientPreference();
+  scheduleAmbientVideo();
 })();
