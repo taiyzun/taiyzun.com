@@ -1,7 +1,7 @@
 {
   "name": "Taiyzun | Micro & Macro | Information & Technology",
   "short_name": "Taiyzun",
-  "description": "Information & Technology. Micro & Macro. Business Portfolio for Strategy, Due Diligence, Design Architecture, Technical Compliance, Integrity and Peace of Mind.",
+  "description": "Information & Technology. Micro & Macro. Business Portfolio across India, Dubai/UAE, the United States and the United Kingdom for Strategy, Due Diligence, Design Architecture, Technical Compliance, Integrity and Peace of Mind.",
   "start_url": "/",
   "display": "standalone",
   "display_override": [
@@ -44,7 +44,7 @@
       "name": "Selected Work",
       "short_name": "Work",
       "url": "/journey.html",
-      "description": "Explore selected business work across Information & Technology, Micro & Macro systems, Strategy and operations"
+      "description": "Explore selected business work across India, Dubai/UAE, the United States and the United Kingdom through Information & Technology, Micro & Macro systems, Strategy and operations"
     },
     {
       "name": "Structured Inquiry",
