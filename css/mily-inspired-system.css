@@ -1,6 +1,6 @@
 /*
  * Shared refinement layer inspired by the Mily Group reference:
- * stone palette, capsule navigation, editorial typography, and restrained glass panels.
+ * stone palette, capsule navigation, editorial typography and restrained glass panels.
  */
 
 :root {
@@ -211,6 +211,81 @@ button:hover,
   border-color: var(--mily-border-strong);
 }
 
+.operating-thesis-section {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.8rem);
+  align-items: start;
+}
+
+.thesis-intro {
+  width: min(960px, 100%);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.thesis-intro .section-label {
+  justify-content: center;
+}
+
+.thesis-intro p:not(.section-label) {
+  max-width: 68ch;
+  margin: 0.9rem auto 0;
+  color: var(--mily-copy);
+  font-size: clamp(0.98rem, 1.6vw, 1.08rem);
+  line-height: 1.8;
+}
+
+.thesis-grid {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.4rem);
+}
+
+.thesis-card {
+  position: relative;
+  min-height: 100%;
+  padding: clamp(1.15rem, 2.2vw, 1.65rem);
+  overflow: hidden;
+  background: var(--mily-panel) !important;
+  border: 1px solid var(--mily-border) !important;
+  border-radius: 24px !important;
+  box-shadow: var(--mily-shadow-soft) !important;
+}
+
+.thesis-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(135deg, rgba(178, 141, 88, 0.12), transparent 42%),
+    radial-gradient(circle at 86% 18%, rgba(255, 255, 255, 0.82), transparent 0 5rem);
+  opacity: 0.72;
+}
+
+.thesis-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.thesis-card h3 {
+  margin: 0 0 0.75rem;
+  color: var(--mily-ink);
+  font-family: var(--serif);
+  font-size: clamp(1.08rem, 1.7vw, 1.32rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.thesis-card p {
+  margin: 0;
+  color: var(--mily-copy);
+  font-size: clamp(0.9rem, 1.3vw, 0.98rem);
+  line-height: 1.72;
+}
+
 .divider {
   background: linear-gradient(90deg, transparent, rgba(178, 141, 88, 0.22), transparent);
 }
@@ -232,6 +307,10 @@ button:hover,
 }
 
 @media (max-width: 900px) {
+  .thesis-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .hero-content,
   .page-hero-content {
     text-align: center;
@@ -251,6 +330,10 @@ button:hover,
 }
 
 @media (max-width: 768px) {
+  .thesis-grid {
+    grid-template-columns: 1fr;
+  }
+
   nav {
     top: 10px;
     left: 10px;
