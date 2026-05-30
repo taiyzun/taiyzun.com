@@ -1,7 +1,7 @@
 {
   "name": "Taiyzun | Micro & Macro | Information & Technology",
   "short_name": "Taiyzun",
-  "description": "Information & Technology. Micro & Macro. Business Portfolio across Bombay in India, Dubai in the United Arab Emirates, London in the United Kingdom and New York in the United States.",
+  "description": "Information & Technology. Micro & Macro. Taiyzun Shahpurwala's business identity platform for Strategy, Strategic Due Diligence, Design Architecture and Peace of Mind.",
   "start_url": "/",
   "display": "standalone",
   "display_override": [
@@ -38,19 +38,19 @@
       "name": "View Portfolio",
       "short_name": "Portfolio",
       "url": "/creations",
-      "description": "Browse Information & Technology and Micro & Macro Business work across Strategy, Design Architecture, Compliance, Strategic Due Diligence and Trust"
+      "description": "Browse a refined showcase of Information & Technology, Micro & Macro thinking, Business Strategy, Design Architecture and Trust"
     },
     {
       "name": "Selected Work",
       "short_name": "Work",
       "url": "/journey",
-      "description": "Explore selected Business work across Bombay in India, Dubai in the United Arab Emirates, London in the United Kingdom and New York in the United States"
+      "description": "Explore selected Business work shaped by Strategy, Strategic Due Diligence, Operational Clarity, TimE and Sp@cE"
     },
     {
       "name": "Structured Enquiry",
       "short_name": "Connect",
       "url": "/connect",
-      "description": "Open a structured enquiry for Information & Technology, Micro & Macro Business matters, Strategic Due Diligence, Trust and Peace of Mind"
+      "description": "Open a structured enquiry for Information & Technology, Micro & Macro Business matters, due diligence and Peace of Mind"
     }
   ],
   "icons": [
