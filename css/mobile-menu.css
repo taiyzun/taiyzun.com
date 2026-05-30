@@ -379,6 +379,90 @@
   }
 }
 
+@media (max-width: 768px) {
+  body.home-page .hero {
+    overflow-x: hidden !important;
+    padding-left: max(10px, env(safe-area-inset-left)) !important;
+    padding-right: max(10px, env(safe-area-inset-right)) !important;
+  }
+
+  body.home-page .hero-content {
+    width: min(100%, calc(100vw - 28px)) !important;
+    max-width: calc(100vw - 28px) !important;
+    min-width: 0 !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+
+  body.home-page .hero-eyebrow,
+  body.home-page .hero-title,
+  body.home-page .hero-subtitle,
+  body.home-page .hero-cta-group {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  body.home-page .hero-eyebrow {
+    font-size: clamp(0.68rem, 3vw, 0.82rem) !important;
+    letter-spacing: 0.14em !important;
+    line-height: 1.55 !important;
+    overflow-wrap: anywhere !important;
+    text-wrap: balance;
+  }
+
+  body.home-page .hero-title {
+    font-size: clamp(2rem, 8.8vw, 3rem) !important;
+    line-height: 1.04 !important;
+    overflow-wrap: normal !important;
+    text-wrap: balance;
+  }
+
+  body.home-page .hero-title em {
+    display: block !important;
+    max-width: 100% !important;
+  }
+
+  body.home-page .hero-subtitle {
+    font-size: clamp(0.86rem, 3.45vw, 0.96rem) !important;
+    line-height: 1.55 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  body.home-page .hero-cta-group {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 0.7rem !important;
+  }
+
+  body.home-page .hero-cta {
+    width: 100% !important;
+    justify-content: center !important;
+    min-width: 0 !important;
+    white-space: normal !important;
+  }
+}
+
+@media (max-width: 420px) {
+  body.home-page .hero-content {
+    width: min(100%, calc(100vw - 24px)) !important;
+    max-width: calc(100vw - 24px) !important;
+    padding-left: 0.95rem !important;
+    padding-right: 0.95rem !important;
+  }
+
+  body.home-page .hero-title {
+    font-size: clamp(1.92rem, 8.2vw, 2.42rem) !important;
+  }
+
+  body.home-page .hero-eyebrow {
+    letter-spacing: 0.1em !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hamburger,
   .hamburger span,

@@ -87,7 +87,7 @@
   <link rel="stylesheet" href="/css/mily-inspired-system.css?v=3">
   <link rel="stylesheet" href="/css/visual-protocol.min.css?v=11">
   <link rel="stylesheet" href="/css/harmonic-ui.min.css?v=10">
-  <link rel="stylesheet" href="/css/mobile-menu.css?v=1">
+  <link rel="stylesheet" href="/css/mobile-menu.css?v=2">
 <script defer src="/js/facebook-pixel.js?v=1"></script>
 </head>
 <body class="creations-page">
@@ -176,11 +176,10 @@
 </footer>
 <script>
   /* ── Config ── */
-  const GALLERY_MANIFEST_VERSION = '20260530-gallery-dedup-v1';
+  const GALLERY_MANIFEST_VERSION = '20260530-gallery-public-v2';
   const MANIFEST_URLS = [
     `/assets/space-gallery-manifest.json?v=${GALLERY_MANIFEST_VERSION}`
   ];
-  const SENSITIVE_GALLERY_PATTERN = /\b(whatsapp|imessage|group chat|chat with|chat about|chat duplicate|call log|recents list|incoming calls|missed call|facetime call|phone numbers?|cheque|signature error|bank statement|statement|invoice|receipt|private storage|keep out|private gathering|contact card|business cards?|letterhead|address|contact details|email|passport|plan document|complaint text|vodafone mifi|counselling|medical|nooria|nuria)\b/i;
   const PAGE_SIZE = 60;
   const FALLBACK = [
     {full:'assets/Art/art_00001.jpg',thumb:'assets/Art/art_00001.jpg',cat:'Gallery',title:'0001 ~ Sp@cE Dragon Rides the Earth',sub:'Cosmic Fire Beyond the Gates'},
@@ -262,8 +261,7 @@
   }
 
   function isPublicGalleryItem(item) {
-    const searchable = `${item.name || ''} ${item.title || ''} ${item.full || ''} ${item.thumb || ''}`;
-    return !SENSITIVE_GALLERY_PATTERN.test(searchable);
+    return item.public !== false && item.private !== true && item.hidden !== true;
   }
 
   /* ── Observers ── */
