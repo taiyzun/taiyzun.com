@@ -1011,7 +1011,7 @@
 
   function scheduleDecorativeField() {
     const startAfterSettle = () => {
-      window.setTimeout(startDecorativeField, 2200);
+      window.setTimeout(startDecorativeField, 6500);
     };
 
     if (document.readyState === "complete") {
