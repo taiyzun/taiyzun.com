@@ -285,6 +285,19 @@
     },
     "fallback": "assets/Portraits/taiyzun_shahpurwala 00022.jpeg"
   },
+  "assets/Portraits/taiyzun_shahpurwala 00023.jpeg": {
+    "src": "assets/Portraits/taiyzun_shahpurwala 00023.jpeg",
+    "sizes": [
+      400,
+      800,
+      1200
+    ],
+    "srcset": {
+      "avif": "assets/Portraits/optimized/taiyzun_shahpurwala-00023-w400.avif 400w, assets/Portraits/optimized/taiyzun_shahpurwala-00023-w800.avif 800w, assets/Portraits/optimized/taiyzun_shahpurwala-00023-w1200.avif 1200w",
+      "webp": "assets/Portraits/optimized/taiyzun_shahpurwala-00023-w400.webp 400w, assets/Portraits/optimized/taiyzun_shahpurwala-00023-w800.webp 800w, assets/Portraits/optimized/taiyzun_shahpurwala-00023-w1200.webp 1200w"
+    },
+    "fallback": "assets/Portraits/taiyzun_shahpurwala 00023.jpeg"
+  },
   "assets/Portraits/taiyzun_shahpurwala 00024.jpeg": {
     "src": "assets/Portraits/taiyzun_shahpurwala 00024.jpeg",
     "sizes": [
@@ -323,6 +336,32 @@
       "webp": "assets/Portraits/optimized/taiyzun_shahpurwala-00026-w400.webp 400w, assets/Portraits/optimized/taiyzun_shahpurwala-00026-w800.webp 800w, assets/Portraits/optimized/taiyzun_shahpurwala-00026-w1200.webp 1200w"
     },
     "fallback": "assets/Portraits/taiyzun_shahpurwala 00026.jpeg"
+  },
+  "assets/Portraits/taiyzun_shahpurwala 00027.jpeg": {
+    "src": "assets/Portraits/taiyzun_shahpurwala 00027.jpeg",
+    "sizes": [
+      400,
+      800,
+      1200
+    ],
+    "srcset": {
+      "avif": "assets/Portraits/optimized/taiyzun_shahpurwala-00027-w400.avif 400w, assets/Portraits/optimized/taiyzun_shahpurwala-00027-w800.avif 800w, assets/Portraits/optimized/taiyzun_shahpurwala-00027-w1200.avif 1200w",
+      "webp": "assets/Portraits/optimized/taiyzun_shahpurwala-00027-w400.webp 400w, assets/Portraits/optimized/taiyzun_shahpurwala-00027-w800.webp 800w, assets/Portraits/optimized/taiyzun_shahpurwala-00027-w1200.webp 1200w"
+    },
+    "fallback": "assets/Portraits/taiyzun_shahpurwala 00027.jpeg"
+  },
+  "assets/Portraits/taiyzun_shahpurwala 00028.jpeg": {
+    "src": "assets/Portraits/taiyzun_shahpurwala 00028.jpeg",
+    "sizes": [
+      400,
+      800,
+      1200
+    ],
+    "srcset": {
+      "avif": "assets/Portraits/optimized/taiyzun_shahpurwala-00028-w400.avif 400w, assets/Portraits/optimized/taiyzun_shahpurwala-00028-w800.avif 800w, assets/Portraits/optimized/taiyzun_shahpurwala-00028-w1200.avif 1200w",
+      "webp": "assets/Portraits/optimized/taiyzun_shahpurwala-00028-w400.webp 400w, assets/Portraits/optimized/taiyzun_shahpurwala-00028-w800.webp 800w, assets/Portraits/optimized/taiyzun_shahpurwala-00028-w1200.webp 1200w"
+    },
+    "fallback": "assets/Portraits/taiyzun_shahpurwala 00028.jpeg"
   },
   "assets/Portraits/taiyzun_shahpurwala 00029.jpeg": {
     "src": "assets/Portraits/taiyzun_shahpurwala 00029.jpeg",
