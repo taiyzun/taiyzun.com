@@ -89,7 +89,7 @@
   <link rel="stylesheet" href="/css/visual-protocol.min.css?v=11">
   <link rel="stylesheet" href="/css/harmonic-ui.min.css?v=10">
   <link rel="stylesheet" href="/css/mobile-menu.css?v=2">
-  <link rel="stylesheet" href="/css/odyssey-portraits.css?v=1">
+  <link rel="stylesheet" href="/css/odyssey-portraits.css?v=2">
 <script defer src="/js/facebook-pixel.min.js?v=2"></script>
 </head>
 <body class="odyssey-page">
@@ -187,6 +187,15 @@
 <script>
   const portraits = window.odysseyPortraits || [];
   const gallerySizes = '(max-width: 640px) calc((100vw - 72px) / 2), (max-width: 960px) calc((100vw - 104px) / 3), 240px';
+  const isMemoryConstrainedGallery = (
+    window.matchMedia('(max-width: 820px)').matches ||
+    window.matchMedia('(pointer: coarse)').matches ||
+    /iP(hone|ad|od)/.test(navigator.userAgent)
+  );
+
+  if (isMemoryConstrainedGallery) {
+    document.body.classList.add('odyssey-memory-lite');
+  }
 
   function escapeHTML(value) {
     return String(value).replace(/[&<>"']/g, (char) => ({
@@ -206,20 +215,93 @@
   function portraitMarkup(p) {
     const title = escapeHTML(p.title);
     if (p.kind === 'optimized' && p.base) {
-      return '<picture><source srcset="' + p.base + '-w400.avif 400w, ' + p.base + '-w800.avif 800w, ' + p.base + '-w1200.avif 1200w" sizes="' + gallerySizes + '" type="image/avif"><source srcset="' + p.base + '-w400.webp 400w, ' + p.base + '-w800.webp 800w, ' + p.base + '-w1200.webp 1200w" sizes="' + gallerySizes + '" type="image/webp"><img src="' + p.base + '-w800.webp" alt="' + title + '" loading="lazy" decoding="async" width="400" height="400"></picture>';
+      return '<picture><source srcset="' + p.base + '-w400.avif 400w, ' + p.base + '-w800.avif 800w, ' + p.base + '-w1200.avif 1200w" sizes="' + gallerySizes + '" type="image/avif"><source srcset="' + p.base + '-w400.webp 400w, ' + p.base + '-w800.webp 800w, ' + p.base + '-w1200.webp 1200w" sizes="' + gallerySizes + '" type="image/webp"><img src="' + p.base + '-w800.webp" alt="' + title + '" loading="lazy" decoding="async" fetchpriority="low" width="400" height="400"></picture>';
     }
-    return '<img src="' + p.src + '" alt="' + title + '" loading="lazy" decoding="async" width="400" height="400">';
+    return '<img src="' + p.src + '" alt="' + title + '" loading="lazy" decoding="async" fetchpriority="low" width="400" height="400">';
   }
 
   /* ── Gallery grid ── */
   const grid = document.getElementById('galleryGrid');
-  portraits.forEach((p, i) => {
+  const gallerySentinel = document.createElement('div');
+  gallerySentinel.className = 'gallery-sentinel';
+  gallerySentinel.setAttribute('aria-hidden', 'true');
+  const galleryMoreButton = document.createElement('button');
+  galleryMoreButton.className = 'gallery-load-more';
+  galleryMoreButton.type = 'button';
+  galleryMoreButton.textContent = 'Load More Portraits';
+  galleryMoreButton.hidden = true;
+  grid.after(gallerySentinel);
+  gallerySentinel.after(galleryMoreButton);
+
+  let renderedPortraitCount = 0;
+  let galleryBatchPending = false;
+  let galleryLoadObserver = null;
+  let revealObserver = null;
+  const initialGalleryBatch = isMemoryConstrainedGallery ? 36 : portraits.length;
+  const galleryBatchSize = isMemoryConstrainedGallery ? 24 : portraits.length;
+
+  function buildGalleryItem(p, i) {
     const el = document.createElement('div');
     el.className = 'gallery-item reveal';
     el.setAttribute('data-index', i);
     el.innerHTML = portraitMarkup(p) + '<div class="overlay"><span class="sparkle">✦</span><h3>' + escapeHTML(p.title) + '</h3><p>' + escapeHTML(p.sub) + '</p></div>';
-    grid.appendChild(el);
-  });
+    el.addEventListener('click', () => {
+      el.classList.add('pulse');
+      el.addEventListener('animationend', () => el.classList.remove('pulse'), {once: true});
+      openLB(parseInt(el.dataset.index, 10));
+    });
+    if (revealObserver) revealObserver.observe(el);
+    return el;
+  }
+
+  function renderPortraitBatch(limit) {
+    const end = Math.min(renderedPortraitCount + limit, portraits.length);
+    const fragment = document.createDocumentFragment();
+    for (let i = renderedPortraitCount; i < end; i++) {
+      fragment.appendChild(buildGalleryItem(portraits[i], i));
+    }
+    renderedPortraitCount = end;
+    grid.appendChild(fragment);
+
+    if (renderedPortraitCount >= portraits.length) {
+      if (galleryLoadObserver) galleryLoadObserver.disconnect();
+      gallerySentinel.remove();
+      galleryMoreButton.remove();
+    } else if (isMemoryConstrainedGallery) {
+      galleryMoreButton.hidden = false;
+    }
+  }
+
+  function schedulePortraitBatch() {
+    if (galleryBatchPending || renderedPortraitCount >= portraits.length) return;
+    galleryBatchPending = true;
+    const run = () => {
+      galleryBatchPending = false;
+      renderPortraitBatch(galleryBatchSize);
+    };
+    if ('requestIdleCallback' in window) requestIdleCallback(run, {timeout: 1200});
+    else window.setTimeout(run, 80);
+  }
+
+  renderPortraitBatch(initialGalleryBatch);
+  galleryMoreButton.addEventListener('click', schedulePortraitBatch);
+
+  if (renderedPortraitCount < portraits.length) {
+    if ('IntersectionObserver' in window) {
+      galleryLoadObserver = new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) schedulePortraitBatch();
+      }, {rootMargin: '900px 0px 1200px 0px', threshold: 0});
+      galleryLoadObserver.observe(gallerySentinel);
+    } else {
+      while (renderedPortraitCount < portraits.length) renderPortraitBatch(galleryBatchSize);
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!gallerySentinel.isConnected) return;
+      const rect = gallerySentinel.getBoundingClientRect();
+      if (rect.top - window.innerHeight < 1200) schedulePortraitBatch();
+    }, {passive: true});
+  }
 
   /* ── Lightbox elements ── */
   const lb            = document.getElementById('lightbox');
@@ -237,23 +319,31 @@
 
   let currentIdx = 0, isTransitioning = false, isZoomed = false;
   let touchStartX = 0, touchStartY = 0;
+  let filmstripBuilt = false;
 
   lbTotal.textContent = portraits.length;
   const portraitCount = document.getElementById('portraitCount');
   if (portraitCount) portraitCount.textContent = portraits.length;
 
-  /* ── Build filmstrip ── */
-  portraits.forEach((p, i) => {
-    const thumb = document.createElement('img');
-    thumb.className = 'lb-thumb';
-    thumb.src = p.thumb || portraitImage(p, 400);
-    thumb.alt = p.title;
-    thumb.loading = 'lazy';
-    thumb.addEventListener('click', () => { if (i !== currentIdx) navigate(i, i > currentIdx ? 'next' : 'prev'); });
-    lbFilmstrip.appendChild(thumb);
-  });
+  function buildFilmstrip() {
+    if (filmstripBuilt || isMemoryConstrainedGallery) return;
+    const fragment = document.createDocumentFragment();
+    portraits.forEach((p, i) => {
+      const thumb = document.createElement('img');
+      thumb.className = 'lb-thumb';
+      thumb.src = p.thumb || portraitImage(p, 400);
+      thumb.alt = p.title;
+      thumb.loading = 'lazy';
+      thumb.decoding = 'async';
+      thumb.addEventListener('click', () => { if (i !== currentIdx) navigate(i, i > currentIdx ? 'next' : 'prev'); });
+      fragment.appendChild(thumb);
+    });
+    lbFilmstrip.appendChild(fragment);
+    filmstripBuilt = true;
+  }
 
   function updateFilmstrip() {
+    if (!filmstripBuilt) return;
     const thumbs = lbFilmstrip.querySelectorAll('.lb-thumb');
     thumbs.forEach((t, i) => t.classList.toggle('active', i === currentIdx));
     const active = thumbs[currentIdx];
@@ -293,6 +383,7 @@
 
   function openLB(i) {
     if (lb.classList.contains('open')) return;
+    buildFilmstrip();
     loadImage(i, 'open');
     lb.classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -307,15 +398,6 @@
   function navigate(i, direction) { loadImage(i, direction); }
   function prevImage() { navigate((currentIdx - 1 + portraits.length) % portraits.length, 'prev'); }
   function nextImage() { navigate((currentIdx + 1) % portraits.length, 'next'); }
-
-  /* ── Gallery click with pulse animation ── */
-  document.querySelectorAll('.gallery-item').forEach(item => {
-    item.addEventListener('click', () => {
-      item.classList.add('pulse');
-      item.addEventListener('animationend', () => item.classList.remove('pulse'), {once: true});
-      openLB(parseInt(item.dataset.index));
-    });
-  });
 
   /* ── Controls ── */
   lbClose.addEventListener('click', closeLB);
@@ -368,10 +450,10 @@
   window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
 
   /* ── Reveal on scroll ── */
-  const obs = new IntersectionObserver((entries) => {
+  revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, {threshold: 0.05, rootMargin: '0px 0px -20px 0px'});
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
   /* ── Cursor glow ── */
   const glow = document.getElementById('cursorGlow');
@@ -416,6 +498,7 @@
   document.querySelectorAll('.reveal-left, .reveal-right, .reveal-scale').forEach(el => revealAllObs.observe(el));
   // ── Floating particles ──
   (function(){
+    if (isMemoryConstrainedGallery) return;
     document.querySelectorAll('section, .gallery-section, .page-hero, footer').forEach(sec => {
       for (let i = 0; i < 4; i++) {
         const p = document.createElement('div');
@@ -429,7 +512,18 @@
 </script>
 <script src="/js/ambient-video.min.js?v=4"></script>
 <script src="/js/mobile-menu.min.js?v=2"></script>
-<script src="/js/site-decorative-field.min.js?v=12"></script>
-<script src="/js/harmonic-interactions.min.js?v=9"></script>
+<script>
+  (function loadDesktopEnhancements() {
+    const memoryLite = document.body.classList.contains('odyssey-memory-lite');
+    if (memoryLite) return;
+
+    ['/js/site-decorative-field.min.js?v=12', '/js/harmonic-interactions.min.js?v=9'].forEach((src) => {
+      const script = document.createElement('script');
+      script.src = src;
+      script.defer = true;
+      document.body.appendChild(script);
+    });
+  })();
+</script>
 </body>
 </html>
