@@ -36,6 +36,7 @@ const publicAssetFiles = [
   'js/harmonic-interactions.min.js',
   'js/mobile-menu.min.js',
   'js/odyssey-portraits.js',
+  'js/site-mobile-lite.min.js',
   'js/site-decorative-field.min.js',
   'js/theme-engine.min.js',
   'js/themes-config.min.js',

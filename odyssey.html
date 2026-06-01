@@ -88,11 +88,12 @@
   <link rel="stylesheet" href="/css/mily-inspired-system.css?v=3">
   <link rel="stylesheet" href="/css/visual-protocol.min.css?v=11">
   <link rel="stylesheet" href="/css/harmonic-ui.min.css?v=10">
-  <link rel="stylesheet" href="/css/mobile-menu.css?v=2">
+  <link rel="stylesheet" href="/css/mobile-menu.css?v=3">
   <link rel="stylesheet" href="/css/odyssey-portraits.css?v=2">
 <script defer src="/js/facebook-pixel.min.js?v=2"></script>
 </head>
 <body class="odyssey-page">
+<script src="/js/site-mobile-lite.min.js?v=1"></script>
 <noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=1367325403354093&ev=PageView&noscript=1"></noscript>
 <a href="#main-content" class="skip-link">Skip to main content</a>
 <div class="cursor-glow" id="cursorGlow"></div>
@@ -188,6 +189,7 @@
   const portraits = window.odysseyPortraits || [];
   const gallerySizes = '(max-width: 640px) calc((100vw - 72px) / 2), (max-width: 960px) calc((100vw - 104px) / 3), 240px';
   const isMemoryConstrainedGallery = (
+    window.TAIYZUN_MOBILE_LITE ||
     window.matchMedia('(max-width: 820px)').matches ||
     window.matchMedia('(pointer: coarse)').matches ||
     /iP(hone|ad|od)/.test(navigator.userAgent)
@@ -514,15 +516,10 @@
 <script src="/js/mobile-menu.min.js?v=2"></script>
 <script>
   (function loadDesktopEnhancements() {
-    const memoryLite = document.body.classList.contains('odyssey-memory-lite');
-    if (memoryLite) return;
-
-    ['/js/site-decorative-field.min.js?v=12', '/js/harmonic-interactions.min.js?v=9'].forEach((src) => {
-      const script = document.createElement('script');
-      script.src = src;
-      script.defer = true;
-      document.body.appendChild(script);
-    });
+    window.TAIYZUN_loadDesktopEnhancements?.([
+      '/js/site-decorative-field.min.js?v=12',
+      '/js/harmonic-interactions.min.js?v=9'
+    ]);
   })();
 </script>
 </body>

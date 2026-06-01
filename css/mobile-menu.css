@@ -5,6 +5,50 @@
   --mobile-nav-paper: rgba(255, 252, 245, 0.9);
 }
 
+html.site-mobile-lite,
+body.site-mobile-lite {
+  scroll-behavior: auto;
+}
+
+body.site-mobile-lite .cursor-glow,
+body.site-mobile-lite .cursor-ring,
+body.site-mobile-lite .float-particle,
+body.site-mobile-lite .site-decorative-png,
+body.site-mobile-lite #siteDecorativeField,
+body.site-mobile-lite .harmonic-orbit-field,
+body.site-mobile-lite .harmonic-section-grid,
+body.site-mobile-lite .harmonic-geometry,
+body.site-mobile-lite [data-webgl] {
+  display: none !important;
+}
+
+html.site-mobile-lite .hero-video,
+html.site-mobile-lite .page-hero-video,
+html.site-mobile-lite .bg-video {
+  display: none !important;
+}
+
+body.site-mobile-lite .hero,
+body.site-mobile-lite .page-hero {
+  background:
+    radial-gradient(circle at 14% 12%, rgba(201, 168, 76, 0.16), transparent 36%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(247, 241, 222, 0.78));
+}
+
+body.site-mobile-lite .art-item,
+body.site-mobile-lite .gallery-item,
+body.site-mobile-lite .timeline-category,
+body.site-mobile-lite .highlight-card,
+body.site-mobile-lite .value-item,
+body.site-mobile-lite .social-card {
+  content-visibility: auto;
+  contain-intrinsic-size: 360px;
+}
+
+body.site-mobile-lite .lb-filmstrip-wrap {
+  display: none !important;
+}
+
 @media (min-width: 901px) {
   .hamburger {
     display: none !important;
