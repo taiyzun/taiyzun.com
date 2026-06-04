@@ -286,6 +286,12 @@ button:hover,
   line-height: 1.72;
 }
 
+@media (min-width: 901px) {
+  .thesis-card:nth-child(7) {
+    grid-column: 2;
+  }
+}
+
 .divider {
   background: linear-gradient(90deg, transparent, rgba(178, 141, 88, 0.22), transparent);
 }
@@ -309,6 +315,12 @@ button:hover,
 @media (max-width: 900px) {
   .thesis-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .thesis-card:nth-child(7) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: min(100%, 32rem);
   }
 
   .hero-content,
