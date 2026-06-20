@@ -38,6 +38,7 @@ const publicAssetFiles = [
   'js/odyssey-portraits.js',
   'js/site-mobile-lite.min.js',
   'js/site-decorative-field.min.js',
+  'js/taiyzun-3d-field.min.js',
   'js/theme-engine.min.js',
   'js/themes-config.min.js',
   'js/webgl-manager.min.js',
@@ -57,6 +58,17 @@ const publicDirectories = [
   'css'
 ];
 const ignoredNames = new Set(['.DS_Store']);
+
+const vendorAssetFiles = [
+  {
+    source: 'node_modules/three/build/three.core.min.js',
+    destination: 'js/vendor/three.core.min.js'
+  },
+  {
+    source: 'node_modules/three/build/three.module.min.js',
+    destination: 'js/vendor/three.module.min.js'
+  }
+];
 
 function shouldCopy(source) {
   const name = path.basename(source);
@@ -106,6 +118,16 @@ for (const directory of publicDirectories) {
 for (const assetFile of publicAssetFiles) {
   if (copyPath(assetFile)) {
     copied.push(assetFile);
+  }
+}
+
+for (const vendorFile of vendorAssetFiles) {
+  const source = path.join(rootDir, vendorFile.source);
+  const destination = path.join(outputDir, vendorFile.destination);
+  if (fs.existsSync(source)) {
+    fs.mkdirSync(path.dirname(destination), { recursive: true });
+    fs.copyFileSync(source, destination);
+    copied.push(vendorFile.destination);
   }
 }
 
