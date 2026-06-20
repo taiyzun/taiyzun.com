@@ -997,7 +997,7 @@
   window.addEventListener("blur", softenPointer);
   window.addEventListener("resize", scheduleLayout);
   function startDecorativeField() {
-    if (decorativeFieldStarted) {
+    if (decorativeFieldStarted || document.body?.dataset.taiyzun3dReady === "true") {
       return;
     }
 
