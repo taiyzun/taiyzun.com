@@ -67,6 +67,62 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     'assets/decorative/optimized/decor-48-bb8cc65c4a-384.webp',
     'assets/decorative/optimized/decor-49-eabf0a16e7-384.webp'
   ];
+  const shiftSurfaces = new Set();
+  const shiftPointer = { x: 0, y: 0, tx: 0, ty: 0 };
+  let shiftFrame = 0;
+
+  function scheduleKineticShifts() {
+    if (reduceMotion || shiftFrame) return;
+    shiftFrame = window.requestAnimationFrame(updateKineticShifts);
+  }
+
+  function updateKineticShifts() {
+    shiftFrame = 0;
+    shiftPointer.x += (shiftPointer.tx - shiftPointer.x) * 0.09;
+    shiftPointer.y += (shiftPointer.ty - shiftPointer.y) * 0.09;
+
+    const viewportHeight = Math.max(window.innerHeight, 1);
+    const viewportCenter = viewportHeight * 0.5;
+    let activeCount = 0;
+
+    shiftSurfaces.forEach((node) => {
+      if (!node.isConnected) {
+        shiftSurfaces.delete(node);
+        return;
+      }
+
+      const rect = node.getBoundingClientRect();
+      if (rect.bottom < -viewportHeight * 0.35 || rect.top > viewportHeight * 1.35) {
+        node.style.setProperty('--tz3d-shift-x', '0px');
+        node.style.setProperty('--tz3d-shift-y', '0px');
+        node.style.setProperty('--tz3d-shift-r', '0deg');
+        return;
+      }
+
+      const center = rect.top + rect.height * 0.5;
+      const distance = clamp((center - viewportCenter) / viewportHeight, -1.35, 1.35);
+      const presence = clamp(1 - Math.abs(distance) / 1.2, 0, 1);
+      const seed = Number(node.dataset.tz3dSeed || 0);
+      const direction = seed % 2 ? 1 : -1;
+      const isHero = node.matches('.hero-content, .page-hero-content, .about-grid, .gallery-label, .connect-label');
+      const isDense = node.matches('.art-item, .gallery-item, .cat-tab, .home-btn');
+      const amplitude = isHero ? (compactMode ? 20 : 30) : isDense ? (compactMode ? 9 : 14) : (compactMode ? 12 : 18);
+      const shiftX = (direction * presence * amplitude * 0.18 + shiftPointer.x * presence * amplitude * 0.28).toFixed(2);
+      const shiftY = (-distance * presence * amplitude + shiftPointer.y * presence * amplitude * 0.18).toFixed(2);
+      const shiftR = (direction * presence * 0.16 + shiftPointer.x * presence * 0.055).toFixed(3);
+
+      node.style.setProperty('--tz3d-shift-x', `${shiftX}px`);
+      node.style.setProperty('--tz3d-shift-y', `${shiftY}px`);
+      node.style.setProperty('--tz3d-shift-r', `${shiftR}deg`);
+      activeCount += presence > 0.02 ? 1 : 0;
+    });
+
+    root.dataset.shiftSurfaces = String(activeCount);
+
+    if (Math.abs(shiftPointer.tx - shiftPointer.x) > 0.002 || Math.abs(shiftPointer.ty - shiftPointer.y) > 0.002) {
+      scheduleKineticShifts();
+    }
+  }
 
   function attachSurfaceDepth() {
     const selector = [
@@ -78,8 +134,9 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     doc.querySelectorAll(selector).forEach((node, index) => {
       if (node.dataset.tz3dSurface === 'true') return;
       node.dataset.tz3dSurface = 'true';
-      node.classList.add('tz3d-surface');
-      node.style.setProperty('--tz3d-seed', String(index % 11));
+      node.dataset.tz3dSeed = String(index % 11);
+      node.classList.add('tz3d-surface', 'tz3d-shift');
+      shiftSurfaces.add(node);
 
       const update = (event) => {
         if (reduceMotion) return;
@@ -106,9 +163,20 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       node.addEventListener('pointerleave', reset);
       node.addEventListener('pointercancel', reset);
     });
+
+    scheduleKineticShifts();
   }
 
   attachSurfaceDepth();
+  window.addEventListener('scroll', scheduleKineticShifts, { passive: true });
+  window.addEventListener('resize', scheduleKineticShifts, { passive: true });
+  window.addEventListener('pointermove', (event) => {
+    if (reduceMotion) return;
+    shiftPointer.tx = clamp((event.clientX / Math.max(window.innerWidth, 1) - 0.5) * 2, -1, 1);
+    shiftPointer.ty = clamp((event.clientY / Math.max(window.innerHeight, 1) - 0.5) * 2, -1, 1);
+    scheduleKineticShifts();
+  }, { passive: true });
+
   if ('MutationObserver' in window) {
     new MutationObserver(() => window.requestAnimationFrame(attachSurfaceDepth)).observe(body, {
       childList: true,
