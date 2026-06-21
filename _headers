@@ -1,6 +1,18 @@
 /
   Cache-Control: no-cache, must-revalidate
 
+/journey
+  Cache-Control: no-cache, must-revalidate
+
+/creations
+  Cache-Control: no-cache, must-revalidate
+
+/odyssey
+  Cache-Control: no-cache, must-revalidate
+
+/connect
+  Cache-Control: no-cache, must-revalidate
+
 /*.html
   Cache-Control: no-cache, must-revalidate
 
