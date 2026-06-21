@@ -9,6 +9,7 @@
   const nextButton = carousel.querySelector('[data-video-next]');
   const dotsNode = carousel.querySelector('[data-video-dots]');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const coarsePointer = window.matchMedia('(pointer: coarse), (max-width: 700px)').matches;
   const excludedVideo = 'KhT4KWHZvEI';
 
   if (!cards.length || !iframe) return;
@@ -84,8 +85,19 @@
       const angle = (360 / cards.length) * offset;
       const yLift = offset % 2 === 0 ? -10 : 10;
 
-      card.classList.toggle('is-active', cardIndex === activeIndex);
-      card.setAttribute('aria-pressed', String(cardIndex === activeIndex));
+      const isActive = cardIndex === activeIndex;
+
+      card.classList.toggle('is-active', isActive);
+      card.setAttribute('aria-pressed', String(isActive));
+      if (coarsePointer && !isActive) {
+        card.setAttribute('tabindex', '-1');
+        card.setAttribute('aria-hidden', 'true');
+        card.setAttribute('inert', '');
+      } else {
+        card.removeAttribute('tabindex');
+        card.removeAttribute('aria-hidden');
+        card.removeAttribute('inert');
+      }
       card.style.setProperty('--card-angle', `${angle.toFixed(3)}deg`);
       card.style.setProperty('--card-counter-angle', `${(-angle).toFixed(3)}deg`);
       card.dataset.cardBaseAngle = angle.toFixed(3);

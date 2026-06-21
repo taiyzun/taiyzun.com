@@ -7,7 +7,7 @@
 
 html.site-mobile-lite,
 body.site-mobile-lite {
-  scroll-behavior: auto;
+  scroll-behavior: smooth;
 }
 
 body.site-mobile-lite .cursor-glow,
@@ -20,6 +20,13 @@ body.site-mobile-lite .harmonic-section-grid,
 body.site-mobile-lite .harmonic-geometry,
 body.site-mobile-lite [data-webgl] {
   display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.site-mobile-lite,
+  body.site-mobile-lite {
+    scroll-behavior: auto;
+  }
 }
 
 html.site-mobile-lite .hero-video,
@@ -219,6 +226,7 @@ body.site-mobile-lite .lb-filmstrip-wrap {
     display: flex !important;
     position: fixed !important;
     inset: 0 !important;
+    box-sizing: border-box !important;
     width: 100vw !important;
     height: 100dvh !important;
     max-height: none !important;

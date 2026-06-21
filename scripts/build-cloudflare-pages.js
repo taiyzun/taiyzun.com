@@ -108,7 +108,7 @@ function copyPath(relativePath) {
   return true;
 }
 
-fs.rmSync(outputDir, { recursive: true, force: true });
+fs.rmSync(outputDir, { recursive: true, force: true, maxRetries: 6, retryDelay: 120 });
 fs.mkdirSync(outputDir, { recursive: true });
 
 const copied = [];
@@ -130,6 +130,22 @@ for (const directory of publicDirectories) {
     copied.push(`${directory}/`);
   }
 }
+
+function syncPublicDirectory(relativePath) {
+  const source = path.join(rootDir, relativePath);
+  const destination = path.join(outputDir, relativePath);
+
+  if (!fs.existsSync(source)) {
+    return;
+  }
+
+  fs.rmSync(destination, { recursive: true, force: true, maxRetries: 6, retryDelay: 120 });
+  fs.mkdirSync(path.dirname(destination), { recursive: true });
+  fs.cpSync(source, destination, { recursive: true, force: true });
+}
+
+syncPublicDirectory('assets/decorative/optimized');
+syncPublicDirectory('assets/icons');
 
 for (const assetFile of publicAssetFiles) {
   if (copyPath(assetFile)) {

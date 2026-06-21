@@ -4,6 +4,43 @@
  * Works with ThemeEngine to coordinate smooth theme transitions during navigation
  */
 
+if (!window.gsap) {
+  window.gsap = {
+    timeline(config = {}) {
+      let completed = false;
+      const complete = () => {
+        if (completed || typeof config.onComplete !== 'function') return;
+        completed = true;
+        window.setTimeout(config.onComplete, 0);
+      };
+
+      return {
+        to() {
+          complete();
+          return this;
+        },
+        fromTo() { return this; },
+        call(callback) {
+          if (typeof callback === 'function') window.setTimeout(callback, 0);
+          return this;
+        },
+        kill() {
+          complete();
+        },
+      };
+    },
+    to() { return { kill() {} }; },
+    fromTo() { return { kill() {} }; },
+    registerPlugin() {},
+  };
+}
+
+if (!window.ScrollTrigger) {
+  window.ScrollTrigger = {
+    create() { return { kill() {} }; },
+  };
+}
+
 class AnimationController {
   constructor() {
     this.timeline = gsap.timeline();
