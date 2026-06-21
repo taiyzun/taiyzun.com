@@ -33,6 +33,29 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     return t * t * (3 - 2 * t);
   }
 
+  function hashString(value) {
+    let hash = 2166136261;
+
+    for (let i = 0; i < value.length; i += 1) {
+      hash ^= value.charCodeAt(i);
+      hash = Math.imul(hash, 16777619);
+    }
+
+    return hash >>> 0;
+  }
+
+  function seededRandom(seed) {
+    let state = seed || 1;
+
+    return () => {
+      state += 0x6d2b79f5;
+      let t = state;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
   function detectPage() {
     const path = window.location.pathname.toLowerCase();
     if (body.classList.contains('journey-page') || path.includes('journey')) return 'journey';
@@ -104,9 +127,75 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     'assets/decorative/optimized/decor-48-bb8cc65c4a-384.webp',
     'assets/decorative/optimized/decor-49-eabf0a16e7-384.webp'
   ];
+  const decorativeAssetFamilies = {
+    1: 'liberty-ball',
+    2: 'tz-mark',
+    3: 'tz-mark',
+    4: 'tz-mark',
+    5: 'breath-vertical',
+    6: 'breath-sting',
+    7: 'breath-layer',
+    8: 'breath-layer',
+    9: 'breath-layer',
+    10: 'breath-layer',
+    11: 'hearts',
+    12: 'namesis',
+    13: 'sword',
+    14: 'yoda',
+    15: 'logo',
+    16: 'suits',
+    17: 'earth',
+    18: 'ganesh',
+    19: 'portrait',
+    20: 'infinity',
+    21: 'me-mark',
+    22: 'me-mark',
+    23: 'me-mark',
+    24: 'me-mark',
+    25: 'me-mark',
+    26: 'logo',
+    27: 'logo',
+    28: 'logo',
+    29: 'sword',
+    30: 'sword',
+    31: 'sword',
+    32: 'aeone',
+    33: 'earth',
+    34: 'namesis',
+    35: 'breath-sting',
+    36: 'suits',
+    37: 'logo',
+    38: 'diya',
+    39: 'earth',
+    40: 'epoch',
+    41: 'ganesh',
+    42: 'hearts',
+    43: 'hearts',
+    44: 'logo',
+    45: 'signature',
+    46: 'star',
+    47: 'breath-sting',
+    48: 'sword',
+    49: 'infinity'
+  };
   const shiftSurfaces = new Set();
   const shiftPointer = { x: 0, y: 0, tx: 0, ty: 0 };
   let shiftFrame = 0;
+
+  function decorativeAssetNumber(asset) {
+    const match = String(asset).match(/decor-(\d+)/);
+    return match ? Number(match[1]) : 0;
+  }
+
+  function decorativeAssetFamily(asset) {
+    const number = decorativeAssetNumber(asset);
+    return decorativeAssetFamilies[number] || `decor-${number || 'unknown'}`;
+  }
+
+  function hasNearbyDecorativeFamily(asset, selected, radius) {
+    const family = decorativeAssetFamily(asset);
+    return selected.slice(Math.max(0, selected.length - radius)).some((selectedAsset) => decorativeAssetFamily(selectedAsset) === family);
+  }
 
   function scheduleKineticShifts() {
     if (reduceMotion || shiftFrame) return;
@@ -439,12 +528,47 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       const count = compactMode ? Math.min(18, decorativeTextureAssets.length) : decorativeTextureAssets.length;
       const seed = page.split('').reduce((total, letter) => total + letter.charCodeAt(0), 0);
       const selected = [];
+      const groups = new Map();
+      const spacingRadius = compactMode ? 3 : 4;
+
+      decorativeTextureAssets.forEach((asset) => {
+        const family = decorativeAssetFamily(asset);
+        if (!groups.has(family)) groups.set(family, []);
+        groups.get(family).push(asset);
+      });
+
+      groups.forEach((assets, family) => {
+        assets.sort((assetA, assetB) => {
+          const scoreA = hashString(`${page}:${family}:${assetA}:${seed}`);
+          const scoreB = hashString(`${page}:${family}:${assetB}:${seed}`);
+          return scoreA - scoreB;
+        });
+      });
 
       for (let i = 0; i < count; i += 1) {
-        const index = page === 'odyssey'
-          ? i % decorativeTextureAssets.length
-          : (seed + i * 5 + Math.floor(i / 3) * 2) % decorativeTextureAssets.length;
-        selected.push(decorativeTextureAssets[index]);
+        const recentFamilies = selected
+          .slice(Math.max(0, selected.length - spacingRadius))
+          .map((asset) => decorativeAssetFamily(asset));
+        const candidates = Array.from(groups.entries())
+          .filter(([, assets]) => assets.length)
+          .sort((entryA, entryB) => {
+            const [familyA, assetsA] = entryA;
+            const [familyB, assetsB] = entryB;
+            const recentA = recentFamilies.includes(familyA) ? 1 : 0;
+            const recentB = recentFamilies.includes(familyB) ? 1 : 0;
+            if (recentA !== recentB) return recentA - recentB;
+            if (assetsA.length !== assetsB.length) return assetsB.length - assetsA.length;
+            return hashString(`${page}:${i}:${familyA}:${seed}`) - hashString(`${page}:${i}:${familyB}:${seed}`);
+          });
+
+        const chosen = candidates[0];
+        if (chosen) {
+          const [, assets] = chosen;
+          const asset = assets.shift();
+          if (asset) {
+            selected.push(asset);
+          }
+        }
       }
 
       return selected;
@@ -501,20 +625,12 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       void main() {
         vUv = uv;
         vec3 p = position;
-        vec2 centre = uv - 0.5;
-        float curvature = dot(centre, centre);
-        float waveA = sin((uv.y * 11.0) + (uTime * 1.15) + (uMorph * 4.0));
-        float waveB = cos((uv.x * 9.0) - (uTime * 0.82));
-        p.x += waveA * 0.012 * uPointer;
-        p.y += waveB * 0.009 * uPointer;
-        p.z += curvature * 0.016 + (waveA + waveB) * 0.01 * uPointer;
         gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
       }
     `;
 
     const liquidFragmentShader = `
       uniform sampler2D uMap;
-      uniform sampler2D uNextMap;
       uniform vec3 uTint;
       uniform float uTime;
       uniform float uPointer;
@@ -523,20 +639,14 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       varying vec2 vUv;
 
       void main() {
-        vec2 wave = vec2(
-          sin((vUv.y + uTime * 0.045) * 22.0),
-          cos((vUv.x - uTime * 0.04) * 19.0)
-        ) * 0.004 * uPointer;
-        vec4 currentTex = texture2D(uMap, vUv + wave);
-        vec4 nextTex = texture2D(uNextMap, vUv - wave * 0.76);
-        float veil = smoothstep(0.08, 0.92, uMorph + sin((vUv.x + vUv.y + uTime * 0.32) * 5.0) * 0.08 * uPointer);
-        vec4 mixedTex = mix(currentTex, nextTex, veil * 0.34 * uPointer);
+        vec4 currentTex = texture2D(uMap, vUv);
+        vec4 mixedTex = currentTex;
         vec2 edgeUv = min(vUv, 1.0 - vUv);
         float edge = 1.0 - smoothstep(0.0, 0.11, min(edgeUv.x, edgeUv.y));
         float sheen = smoothstep(0.78, 1.0, sin((vUv.x * 5.2) + (vUv.y * 6.4) + uTime * 0.82 + uMorph * 2.0) * 0.5 + 0.5);
         vec3 colour = mix(mixedTex.rgb, mixedTex.rgb * uTint, 0.08);
-        colour += vec3(1.0, 0.82, 0.46) * sheen * uPointer * mixedTex.a * 0.08;
-        colour += uTint * edge * mixedTex.a * (0.05 + uPointer * 0.04);
+        colour += vec3(1.0, 0.82, 0.46) * sheen * uPointer * mixedTex.a * 0.035;
+        colour += uTint * edge * mixedTex.a * (0.04 + uPointer * 0.025);
         float alpha = max(currentTex.a, mixedTex.a) * uOpacity;
 
         if (alpha < 0.035) discard;
@@ -544,11 +654,10 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       }
     `;
 
-    function createLiquidFaceMaterial(texture, nextTexture, tintColour, opacity) {
+    function createLiquidFaceMaterial(texture, tintColour, opacity) {
       return new THREE.ShaderMaterial({
         uniforms: {
           uMap: { value: texture },
-          uNextMap: { value: nextTexture || texture },
           uTint: { value: tintColour },
           uTime: { value: 0 },
           uPointer: { value: 0 },
@@ -566,7 +675,6 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     function addDecorativeObjects() {
       const selectedAssets = selectDecorativeAssets();
       const accentMaterialColour = new THREE.Color(theme.accent);
-      const loadedDecorTextures = [];
       liquidLinkPositions = new Float32Array(selectedAssets.length * 2 * 3);
       liquidLinkGeometry = new THREE.BufferGeometry();
       liquidLinkGeometry.setAttribute('position', new THREE.BufferAttribute(liquidLinkPositions, 3).setUsage(THREE.DynamicDrawUsage));
@@ -580,22 +688,6 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       liquidLinks.frustumCulled = false;
       decor.add(liquidLinks);
 
-      function updateNeighbourTextures(index) {
-        const total = selectedAssets.length;
-        const currentGroup = decorObjectsByIndex[index];
-        const nextTexture = loadedDecorTextures[(index + 1) % total];
-        const previousIndex = (index - 1 + total) % total;
-        const previousGroup = decorObjectsByIndex[previousIndex];
-
-        if (currentGroup && nextTexture) {
-          currentGroup.userData.faceMaterial.uniforms.uNextMap.value = nextTexture;
-        }
-
-        if (previousGroup && loadedDecorTextures[index]) {
-          previousGroup.userData.faceMaterial.uniforms.uNextMap.value = loadedDecorTextures[index];
-        }
-      }
-
       selectedAssets.forEach((asset, index) => {
         textureLoader.load(asset, (texture) => {
           if (THREE.SRGBColorSpace) {
@@ -603,26 +695,36 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
           }
 
           texture.anisotropy = Math.min(renderer.capabilities.getMaxAnisotropy(), compactMode ? 4 : 8);
-          loadedDecorTextures[index] = texture;
 
           const sourceSlot = buildScatterSlot(index);
           const slot = compactMode
-            ? [
-                clamp(sourceSlot[0] * 0.38, -2.18, 2.18),
-                clamp(sourceSlot[1] * 0.78, -3.22, 3.22),
-                sourceSlot[2] + 0.38,
-                sourceSlot[3] * 1.08,
-                sourceSlot[4] * 0.72,
-                sourceSlot[5] * 0.62,
-                sourceSlot[6]
-              ]
+            ? (() => {
+                const lane = index % 6;
+                const side = index % 2 ? 1 : -1;
+                const laneY = [3.04, 2.34, 1.54, -1.48, -2.32, -3.04][lane];
+                const sideLane = side * (0.72 + (index % 3) * 0.18);
+                const visibilityLift = page === 'odyssey' ? 0.16 : 0;
+
+                return [
+                  clamp(sourceSlot[0] * 0.24 + sideLane, -2.24, 2.24),
+                  clamp(sourceSlot[1] * 0.22 + laneY, -3.34, 3.34),
+                  sourceSlot[2] + (page === 'odyssey' ? 0.02 : 0.38),
+                  sourceSlot[3] * (page === 'odyssey' ? 1.42 : 1.08),
+                  sourceSlot[4] * 0.72,
+                  sourceSlot[5] * 0.62,
+                  sourceSlot[6] + visibilityLift * side
+                ];
+              })()
             : sourceSlot;
           const sphereSlot = buildSphereSlot(index, selectedAssets.length);
           const imageWidth = texture.image && texture.image.width ? texture.image.width : 384;
           const imageHeight = texture.image && texture.image.height ? texture.image.height : 384;
           const aspect = clamp(imageWidth / Math.max(imageHeight, 1), 0.12, 8);
           const isPrimaryObject = !compactMode && (page === 'home' ? index < 18 : page === 'odyssey' ? true : index < 22);
-          const baseScale = slot[3] * (compactMode ? 0.92 : isPrimaryObject ? 1.16 : 0.96);
+          const baseScaleBoost = page === 'odyssey'
+            ? (compactMode ? 1.48 : 1.5)
+            : (compactMode ? 0.92 : isPrimaryObject ? 1.16 : 0.96);
+          const baseScale = slot[3] * baseScaleBoost;
           const objectWidth = aspect >= 1 ? baseScale : baseScale * aspect;
           const objectHeight = aspect >= 1 ? baseScale / aspect : baseScale;
           const geometry = new THREE.PlaneGeometry(objectWidth, objectHeight, 8, 8);
@@ -642,7 +744,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
           const depthColour = sampledColour.clone().lerp(accentMaterialColour, 0.6);
           const edgeColour = sampledColour.clone().lerp(accentMaterialColour, 0.42);
           const backBaseOpacity = page === 'odyssey'
-            ? (compactMode ? 0.024 : isPrimaryObject ? 0.022 : 0.014)
+            ? (compactMode ? 0.032 : isPrimaryObject ? 0.022 : 0.014)
             : (compactMode ? 0.008 : 0.004);
           const backMaterial = new THREE.MeshBasicMaterial({
             color: depthColour,
@@ -651,11 +753,11 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
             depthWrite: false,
             side: THREE.DoubleSide
           });
-          const faceBaseOpacity = compactMode ? 0.62 : isPrimaryObject ? 0.82 : 0.64;
+          const faceBaseOpacity = compactMode ? (page === 'odyssey' ? 0.74 : 0.62) : isPrimaryObject ? 0.82 : 0.64;
           const edgeBaseOpacity = page === 'odyssey'
-            ? (compactMode ? 0.16 : isPrimaryObject ? 0.24 : 0.16)
+            ? (compactMode ? 0.22 : isPrimaryObject ? 0.24 : 0.16)
             : (compactMode ? 0.04 : isPrimaryObject ? 0.075 : 0.045);
-          const faceMaterial = createLiquidFaceMaterial(texture, loadedDecorTextures[(index + 1) % selectedAssets.length] || texture, glassColour, faceBaseOpacity);
+          const faceMaterial = createLiquidFaceMaterial(texture, glassColour, faceBaseOpacity);
           const edgeMaterial = new THREE.LineBasicMaterial({
             color: edgeColour,
             transparent: true,
@@ -676,7 +778,16 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
           group.name = `taiyzun-3d-entity-${index + 1}`;
           group.position.set(slot[0], slot[1], slot[2]);
           group.rotation.set(slot[4], slot[5], slot[6]);
+          const actorRandom = seededRandom(hashString(`${page}:${asset}:${index}`));
+          const actorSign = () => (actorRandom() > 0.5 ? 1 : -1);
+          const actorPhase = actorRandom() * Math.PI * 2 + index * 0.377 + page.length;
+          const actorEnergy = page === 'odyssey' ? 1 : 0.42;
+          const leftRightBias = actorSign();
+          const upDownBias = actorSign();
+          const depthBias = actorSign();
           group.userData = {
+            asset,
+            family: decorativeAssetFamily(asset),
             baseX: slot[0],
             baseY: slot[1],
             baseZ: slot[2],
@@ -689,28 +800,41 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
             sphereZ: sphereSlot.z,
             sphereCenterZ: sphereSlot.centerZ,
             sphereTheta: sphereSlot.theta,
-            phase: index * 0.74 + page.length,
-            orbitDirection: index % 2 ? 1 : -1,
-            orbitSpeed: 0.16 + (index % 7) * 0.021,
-            orbitScroll: 0.58 + (index % 6) * 0.12,
-            swayX: 0.035 + (index % 5) * 0.019,
-            swayY: 0.026 + (index % 4) * 0.014,
-            swayZ: 0.05 + (index % 6) * 0.018,
-            scrollX: (index % 2 ? 1 : -1) * (0.08 + (index % 5) * 0.018),
-            scrollY: (index % 3 - 1) * (0.09 + (index % 4) * 0.014),
-            scrollZ: -0.04 - (index % 5) * 0.016,
-            pointerX: (0.18 + (index % 5) * 0.052) * (index % 2 ? 1 : -1),
-            pointerY: 0.12 + (index % 6) * 0.035,
-            pointerZ: (index % 2 ? -1 : 1) * (0.08 + (index % 4) * 0.024),
-            pointerRotX: 0.07 + (index % 5) * 0.018,
-            pointerRotY: 0.11 + (index % 6) * 0.021,
-            spinX: 0.026 + (index % 6) * 0.008,
-            spinY: 0.034 + (index % 7) * 0.009,
-            spinZ: 0.022 + (index % 5) * 0.007,
-            scalePulse: 0.018 + (index % 6) * 0.004,
-            formationDelay: compactMode ? (index % 4) * 0.035 : (index % 7) * 0.028,
+            phase: actorPhase,
+            orbitDirection: actorSign(),
+            orbitSpeed: 0.135 + actorRandom() * 0.185,
+            orbitScroll: 0.34 + actorRandom() * 1.04,
+            swayX: (0.022 + actorRandom() * 0.126) * leftRightBias,
+            swayY: (0.018 + actorRandom() * 0.096) * upDownBias,
+            swayZ: (0.05 + actorRandom() * 0.22) * depthBias,
+            scrollX: (0.035 + actorRandom() * 0.21) * leftRightBias,
+            scrollY: (0.026 + actorRandom() * 0.18) * upDownBias,
+            scrollZ: (0.08 + actorRandom() * 0.32) * depthBias * (compactMode ? 0.86 : 1),
+            scrollRotX: (0.014 + actorRandom() * 0.09) * actorSign(),
+            scrollRotY: (0.022 + actorRandom() * 0.115) * actorSign(),
+            scrollRotZ: (0.012 + actorRandom() * 0.075) * actorSign(),
+            pointerX: (0.08 + actorRandom() * 0.42) * leftRightBias,
+            pointerY: (0.07 + actorRandom() * 0.34) * upDownBias,
+            pointerZ: (0.08 + actorRandom() * 0.32) * depthBias,
+            pointerRotX: (0.045 + actorRandom() * 0.18) * actorSign(),
+            pointerRotY: (0.052 + actorRandom() * 0.22) * actorSign(),
+            pointerRotZ: (0.022 + actorRandom() * 0.095) * actorSign(),
+            spinX: (0.014 + actorRandom() * 0.07) * actorSign(),
+            spinY: (0.018 + actorRandom() * 0.09) * actorSign(),
+            spinZ: (0.012 + actorRandom() * 0.065) * actorSign(),
+            flipRotX: (0.026 + actorRandom() * 0.16) * actorSign(),
+            flipRotY: (0.034 + actorRandom() * 0.2) * actorSign(),
+            flipSpeedX: 0.52 + actorRandom() * 1.18,
+            flipSpeedY: 0.48 + actorRandom() * 1.26,
+            depthPulse: 0.028 + actorRandom() * 0.12,
+            depthScale: 0.14 + actorRandom() * 0.16,
+            zoomPulse: 0.024 + actorRandom() * 0.084,
+            zoomScroll: 0.026 + actorRandom() * 0.096,
+            zoomPointer: 0.014 + actorRandom() * 0.056,
+            zoomSpeed: 0.78 + actorRandom() * 1.55,
+            formationDelay: compactMode ? actorRandom() * 0.16 : actorRandom() * 0.28,
             baseObjectScale: 1,
-            rotationEnergy: page === 'odyssey' ? 1 : 0.32,
+            rotationEnergy: actorEnergy,
             faceBaseOpacity,
             edgeBaseOpacity,
             backBaseOpacity,
@@ -722,8 +846,6 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
           decorObjects.push(group);
           decorObjectsByIndex[index] = group;
           decor.add(group);
-          updateNeighbourTextures(index);
-          updateNeighbourTextures((index - 1 + selectedAssets.length) % selectedAssets.length);
           root.dataset.decor3d = String(decorObjects.length);
           root.dataset.decor3dEntities = String(decorObjects.length);
           root.dataset.decor3dMode = page === 'odyssey' ? 'sphere-orbit' : 'independent';
@@ -801,8 +923,28 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
         const sphereX = (data.sphereX * Math.cos(orbitAngle) - relZ * Math.sin(orbitAngle)) * sphereExpansion;
         const sphereZ = data.sphereCenterZ + (data.sphereX * Math.sin(orbitAngle) + relZ * Math.cos(orbitAngle)) * sphereExpansion;
         const sphereY = data.sphereY * sphereExpansion + Math.cos(phase * 0.8) * data.swayY * 1.8;
-        const pulse = Math.sin(phase * 1.92 + index) * data.scalePulse * speed;
-        const entityScale = data.baseObjectScale * (1 + pulse + entityBlend * 0.16);
+        const targetX = lerp(scatterX, sphereX, entityBlend);
+        const targetY = lerp(scatterY, sphereY, entityBlend);
+        const targetZ = lerp(scatterZ, sphereZ, entityBlend);
+
+        if (entityBlend > 0.02) {
+          sphereMemberCount += 1;
+        }
+
+        const pointerMagnitude = clamp(Math.hypot(pointer.x, pointer.y), 0, 1);
+        const depthZoom = clamp((targetZ - data.baseZ) * data.depthScale, -0.28, 0.42);
+        const nearFarZoom = Math.sin(phase * data.zoomSpeed + scrollRatio * data.orbitScroll + pointerMagnitude) * data.depthPulse * speed;
+        const driftZoom = Math.sin(phase * data.zoomSpeed + index) * data.zoomPulse * speed;
+        const scrollZoom = Math.sin(scrollRatio * data.orbitScroll + data.phase) * data.zoomScroll * speed;
+        const pointerZoom = pointerMagnitude * data.zoomPointer * speed;
+        const entityScale = data.baseObjectScale * clamp(
+          1 + driftZoom + scrollZoom + pointerZoom + nearFarZoom + depthZoom + entityBlend * 0.2,
+          page === 'odyssey' ? 0.58 : 0.72,
+          page === 'odyssey' ? (compactMode ? 2.08 : 1.86) : 1.42
+        );
+        const rotationEnergy = data.rotationEnergy;
+        const flipX = Math.sin(phase * data.flipSpeedX + scrollRatio * 0.72) * data.flipRotX * speed * rotationEnergy;
+        const flipY = Math.cos(phase * data.flipSpeedY - scrollRatio * 0.64) * data.flipRotY * speed * rotationEnergy;
 
         if (
           Math.abs(scatterX - data.baseX) > 0.006 ||
@@ -812,24 +954,25 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
           independentMotionCount += 1;
         }
 
-        if (entityBlend > 0.02) {
-          sphereMemberCount += 1;
-        }
-
-        object.position.x = lerp(scatterX, sphereX, entityBlend);
-        object.position.y = lerp(scatterY, sphereY, entityBlend);
-        object.position.z = lerp(scatterZ, sphereZ, entityBlend);
+        object.position.x = targetX;
+        object.position.y = targetY;
+        object.position.z = targetZ;
         object.scale.setScalar(entityScale);
-        const rotationEnergy = data.rotationEnergy;
         object.rotation.x = data.baseRotX
           + pointer.y * data.pointerRotX * rotationEnergy
+          + scrollRatio * data.scrollRotX * rotationEnergy
           + Math.cos(phase * 0.74) * data.spinX * speed * rotationEnergy
+          + flipX
           + entityBlend * Math.sin(orbitAngle) * 0.24;
         object.rotation.y = data.baseRotY
           + pointer.x * data.pointerRotY * rotationEnergy
+          + scrollRatio * data.scrollRotY * rotationEnergy
           + Math.sin(phase * 0.67) * data.spinY * speed * rotationEnergy
+          + flipY
           + entityBlend * Math.cos(orbitAngle) * 0.34;
         object.rotation.z = data.baseRotZ
+          + pointer.x * data.pointerRotZ * rotationEnergy
+          + scrollRatio * data.scrollRotZ * rotationEnergy
           + Math.sin(phase * 0.9) * data.spinZ * speed * rotationEnergy
           + entityBlend * data.orbitDirection * 0.22;
 
@@ -872,11 +1015,29 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       }
 
       if (frame % 10 === 0) {
+        const orderedObjects = decorObjectsByIndex.filter(Boolean);
+        const families = orderedObjects.map((object) => object.userData.family);
+        const spacingRadius = compactMode ? 3 : 4;
+        let similarNeighbourCount = 0;
+
+        families.forEach((family, index) => {
+          for (let offset = 1; offset <= spacingRadius && index - offset >= 0; offset += 1) {
+            if (families[index - offset] === family) similarNeighbourCount += 1;
+          }
+        });
+
         root.dataset.decor3dIndependent = String(independentMotionCount);
         root.dataset.decor3dSphereMembers = String(sphereMemberCount);
         root.dataset.decor3dColours = 'sampled';
         root.dataset.decor3dLiquid = liquidEnergy.toFixed(3);
         root.dataset.decor3dLayering = 'single-surface-depth';
+        root.dataset.decor3dAspectMode = 'native-uniform-scale';
+        root.dataset.decor3dDepthMotion = 'z-position-plus-uniform-zoom';
+        root.dataset.decor3dScaleMode = page === 'odyssey' ? 'large-depth-responsive' : 'native-depth-responsive';
+        root.dataset.decor3dFamilySpacing = `slot-family-radius-${spacingRadius}`;
+        root.dataset.decor3dSimilarNeighbours = String(similarNeighbourCount);
+        root.dataset.decor3dUniqueAssets = String(new Set(orderedObjects.map((object) => object.userData.asset)).size);
+        root.dataset.decor3dUniqueMotion = 'seeded-per-png';
       }
 
       renderer.render(scene, camera);
@@ -904,8 +1065,8 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
 
   function scheduleThreeField() {
     const priorityPage = page === 'odyssey';
-    const delay = priorityPage ? (compactMode ? 900 : 1300) : (compactMode ? 2400 : 5600);
-    const idleTimeout = priorityPage ? 2400 : 6200;
+    const delay = priorityPage ? (compactMode ? 360 : 520) : (compactMode ? 2400 : 5600);
+    const idleTimeout = priorityPage ? 1200 : 6200;
     let timer = 0;
     let scheduledDelay = Infinity;
     let started = false;
@@ -931,10 +1092,11 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       schedule(priorityPage ? 180 : 320);
     };
 
-    if (doc.readyState === 'complete') {
+    if (doc.readyState === 'complete' || (priorityPage && doc.readyState !== 'loading')) {
       schedule();
     } else {
-      window.addEventListener('load', () => schedule(), { once: true });
+      const eventName = priorityPage ? 'DOMContentLoaded' : 'load';
+      window.addEventListener(eventName, () => schedule(), { once: true });
     }
 
     if (!priorityPage) {
