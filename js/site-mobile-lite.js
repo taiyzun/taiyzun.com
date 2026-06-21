@@ -29,14 +29,44 @@
   window.TAIYZUN_applyMobileLite = applyMobileLite;
   window.TAIYZUN_loadDesktopEnhancements = function loadDesktopEnhancements(srcs) {
     if (applyMobileLite()) return;
-    srcs.forEach((src) => {
-      if (document.querySelector(`script[src="${src}"]`)) return;
+    const pendingSrcs = Array.from(new Set(srcs || []))
+      .filter((src) => src && !document.querySelector(`script[src="${src}"]`));
+
+    if (!pendingSrcs.length) return;
+
+    const loadScript = (src) => new Promise((resolve) => {
+      if (document.querySelector(`script[src="${src}"]`)) {
+        resolve();
+        return;
+      }
+
       const script = document.createElement('script');
       script.src = src;
       script.async = false;
       script.defer = true;
+      script.onload = resolve;
+      script.onerror = resolve;
       document.body.appendChild(script);
     });
+
+    const inject = () => {
+      if (applyMobileLite()) return;
+      pendingSrcs.reduce((chain, src) => chain.then(() => loadScript(src)), Promise.resolve());
+    };
+
+    const schedule = () => {
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(inject, { timeout: 1800 });
+      } else {
+        window.setTimeout(inject, 360);
+      }
+    };
+
+    if (document.readyState === 'complete') {
+      schedule();
+    } else {
+      window.addEventListener('load', schedule, { once: true });
+    }
   };
 
   applyMobileLite();

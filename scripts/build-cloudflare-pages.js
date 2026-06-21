@@ -63,6 +63,14 @@ const duplicateCopyPattern = /^(.*) \d+(\.[^.]+)$/;
 
 const vendorAssetFiles = [
   {
+    source: 'node_modules/gsap/dist/gsap.min.js',
+    destination: 'js/vendor/gsap.min.js'
+  },
+  {
+    source: 'node_modules/gsap/dist/ScrollTrigger.min.js',
+    destination: 'js/vendor/ScrollTrigger.min.js'
+  },
+  {
     source: 'node_modules/three/build/three.core.min.js',
     destination: 'js/vendor/three.core.min.js'
   },
