@@ -21,7 +21,7 @@
 
 .taiyzun-3d-field[data-status="ready"],
 .taiyzun-3d-field[data-status="fallback"] {
-  opacity: 0.82;
+  opacity: 0.88;
 }
 
 .taiyzun-3d-field__canvas {
@@ -54,19 +54,19 @@ body.taiyzun-3d-ready .skip-link {
 }
 
 .taiyzun-3d-field::before {
-  opacity: 0.42;
+  opacity: 0.48;
   background:
-    linear-gradient(115deg, transparent 0 24%, rgba(202, 168, 84, 0.09) 24.2% 24.55%, transparent 24.8% 100%),
-    linear-gradient(64deg, transparent 0 63%, rgba(64, 94, 98, 0.08) 63.2% 63.48%, transparent 63.8% 100%),
+    linear-gradient(115deg, transparent 0 24%, rgba(202, 168, 84, 0.12) 24.2% 24.55%, transparent 24.8% 100%),
+    linear-gradient(64deg, transparent 0 63%, rgba(64, 94, 98, 0.1) 63.2% 63.48%, transparent 63.8% 100%),
     repeating-linear-gradient(90deg, transparent 0 118px, rgba(119, 92, 42, 0.035) 119px 120px);
   transform: translate3d(var(--tz3d-field-x, 0), var(--tz3d-field-y, 0), 0);
 }
 
 .taiyzun-3d-field::after {
-  opacity: 0.28;
+  opacity: 0.34;
   background:
     radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.68), transparent 0 16rem),
-    radial-gradient(circle at 72% 30%, rgba(202, 168, 84, 0.16), transparent 0 20rem),
+    radial-gradient(circle at 72% 30%, rgba(202, 168, 84, 0.2), transparent 0 20rem),
     radial-gradient(circle at 56% 78%, rgba(82, 111, 116, 0.13), transparent 0 18rem);
 }
 
@@ -187,7 +187,7 @@ body.taiyzun-3d-ready .value-item h3 {
 
   .taiyzun-3d-field[data-status="ready"],
   .taiyzun-3d-field[data-status="fallback"] {
-    opacity: 0.28;
+    opacity: 0.34;
   }
 
   body.taiyzun-3d-ready .hero-content,

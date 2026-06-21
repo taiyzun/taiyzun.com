@@ -1,5 +1,5 @@
 // Service Worker for taiyzun.com
-const CACHE_NAME = 'taiyzun-core-v39';
+const CACHE_NAME = 'taiyzun-core-v41';
 const RUNTIME_IMAGE_CACHE = 'taiyzun-images-v2';
 const ASSETS_TO_CACHE = [
   '/',
@@ -12,6 +12,7 @@ const ASSETS_TO_CACHE = [
   '/css/gold-glam-ui.css',
   '/css/mobile-menu.css',
   '/css/taiyzun-3d-field.min.css',
+  '/css/video-field.min.css',
   '/js/mobile-menu.min.js',
   '/js/site-mobile-lite.min.js',
   '/js/taiyzun-3d-field.min.js',

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data: blob:; media-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://static.cloudflareinsights.com https://connect.facebook.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://cloudflareinsights.com https://www.facebook.com https://connect.facebook.net;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data: blob:; media-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://static.cloudflareinsights.com https://connect.facebook.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-src 'self' https://www.youtube-nocookie.com https://www.youtube.com; connect-src 'self' https://cloudflareinsights.com https://www.facebook.com https://connect.facebook.net;">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
 <meta name="mobile-web-app-capable" content="yes">
@@ -306,6 +306,8 @@
 <link rel="dns-prefetch" href="https://fonts.gstatic.com">
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/philosopher/v21/vEFV2_5QCwIS4_Dhez5jcWBuT0020Nqf.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/philosopher/v21/vEFI2_5QCwIS4_Dhez5jcWjValgb8te1Xb7G.woff2" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="/css/fonts.min.css?v=2">
@@ -314,13 +316,14 @@
   <link rel="stylesheet" href="/css/padding-fix.css?v=1">
   <link rel="stylesheet" href="/css/fctrylab-inspired.css?v=3">
   <link rel="stylesheet" href="/css/ambient-video.css?v=4">
+  <link rel="stylesheet" href="/css/video-field.min.css?v=1">
   <link rel="stylesheet" href="/css/site-decorative-field.css?v=3">
   <link rel="stylesheet" href="/css/mily-inspired-system.css?v=3">
   <link rel="stylesheet" href="/css/visual-protocol.min.css?v=11">
   <link rel="stylesheet" href="/css/harmonic-ui.min.css?v=10">
   <link rel="stylesheet" href="/css/gold-glam-ui.css?v=1">
   <link rel="stylesheet" href="/css/mobile-menu.css?v=3">
-  <link rel="stylesheet" href="/css/taiyzun-3d-field.min.css?v=3">
+  <link rel="stylesheet" href="/css/taiyzun-3d-field.min.css?v=4">
 <!-- Performance: Preload critical CSS -->
 <link rel="preload" href="/css/white-theme.min.css?v=3" as="style">
 <!-- Performance: Prefetch other pages -->
@@ -429,6 +432,35 @@
     <div class="value-item"><span class="value-icon">□</span><h3>Humility</h3><p>Quiet Strength, Listening Before Designing and Learning Before Leading</p></div>
     <div class="value-item"><span class="value-icon">◆</span><h3>Giving</h3><p>Contribution, Service and Value Creation Across Business, Digital and Human Spaces</p></div>
     <div class="value-item"><span class="value-icon">✧</span><h3>Patience</h3><p>Disciplined TimE, Strategic Restraint and Refinement Before Declaration</p></div>
+  </div>
+</section>
+<div class="divider"></div>
+<section class="section-bg video-field-section" id="video-field" aria-labelledby="video-field-title">
+  <div class="video-field-shell reveal animate-on-scroll">
+    <div class="video-field-copy">
+      <p class="section-label">Moving Field</p>
+      <h2 class="section-title" id="video-field-title">Signal, Story &amp;<br>Living Archive</h2>
+      <p>Video carries the living edge of the work: voice, image, timing, feeling and consequence held inside one moving Business field. These recordings belong beside the written architecture as a public archive of Information &amp; Technology, Micro &amp; Macro awareness and creative Strategic Communication.</p>
+      <div class="video-field-actions">
+        <a class="video-field-link" href="https://www.youtube.com/taiyzun" target="_blank" rel="noopener noreferrer">Open Taiyzun on YouTube</a>
+      </div>
+    </div>
+    <div class="video-stage" aria-label="Taiyzun YouTube videos">
+      <div class="video-frame">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/videoseries?list=UUEMWFf1WarjQ2yHNvmjmURg&amp;rel=0&amp;modestbranding=1"
+          title="Taiyzun YouTube video archive"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen></iframe>
+      </div>
+      <div class="video-panel" aria-hidden="true">
+        <span>Information &amp; Technology</span>
+        <span>Micro &amp; Macro</span>
+        <span>Business Strategy</span>
+      </div>
+    </div>
   </div>
 </section>
 <footer style="position:relative;">
@@ -720,7 +752,7 @@
 </script>
 <script src="/js/ambient-video.min.js?v=4"></script>
 <script src="/js/mobile-menu.min.js?v=2"></script>
-<script type="module" src="/js/taiyzun-3d-field.min.js?v=3" crossorigin="anonymous"></script>
+<script type="module" src="/js/taiyzun-3d-field.min.js?v=4" crossorigin="anonymous"></script>
 <script>
   window.TAIYZUN_loadDesktopEnhancements?.([
     'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js',

@@ -58,6 +58,7 @@ const publicDirectories = [
   'css'
 ];
 const ignoredNames = new Set(['.DS_Store']);
+const duplicateCopyPattern = /^(.*) \d+(\.[^.]+)$/;
 
 const vendorAssetFiles = [
   {
@@ -72,7 +73,21 @@ const vendorAssetFiles = [
 
 function shouldCopy(source) {
   const name = path.basename(source);
-  return !ignoredNames.has(name);
+  if (ignoredNames.has(name)) return false;
+
+  const duplicateMatch = name.match(duplicateCopyPattern);
+  if (!duplicateMatch) return true;
+
+  const canonicalPath = path.join(path.dirname(source), `${duplicateMatch[1]}${duplicateMatch[2]}`);
+  if (!fs.existsSync(canonicalPath)) return true;
+
+  const sourceStats = fs.statSync(source);
+  const canonicalStats = fs.statSync(canonicalPath);
+  if (!sourceStats.isFile() || !canonicalStats.isFile() || sourceStats.size !== canonicalStats.size) {
+    return true;
+  }
+
+  return !fs.readFileSync(source).equals(fs.readFileSync(canonicalPath));
 }
 
 function copyPath(relativePath) {
