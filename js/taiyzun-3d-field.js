@@ -374,7 +374,33 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
 
     function buildScatterSlot(index) {
       const source = decorSlots[index % decorSlots.length];
-      if (index < decorSlots.length) return source;
+      if (index < decorSlots.length) {
+        if (page === 'home') {
+          return [
+            source[0] * 0.96,
+            source[1] * 0.94,
+            source[2] + 0.28,
+            source[3] * 1.22,
+            source[4] * 0.32,
+            source[5] * 0.32,
+            source[6] * 0.72
+          ];
+        }
+
+        if (page !== 'odyssey') {
+          return [
+            source[0] * 0.98,
+            source[1] * 0.98,
+            source[2] + 0.16,
+            source[3] * 1.08,
+            source[4] * 0.46,
+            source[5] * 0.46,
+            source[6] * 0.82
+          ];
+        }
+
+        return source;
+      }
 
       const angle = index * goldenAngle + page.length * 0.23;
       const radiusX = compactMode ? 2.22 : 5.86;
@@ -385,10 +411,10 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
         Math.cos(angle) * radiusX * edgePull,
         Math.sin(angle * 1.17) * radiusY,
         -3.02 - (index % 6) * 0.34,
-        0.4 + (index % 5) * 0.054,
-        Math.sin(angle) * 0.28,
-        Math.cos(angle * 0.9) * 0.62,
-        Math.sin(angle * 1.33) * 0.34
+        (0.4 + (index % 5) * 0.054) * (page === 'home' ? 1.1 : 1),
+        Math.sin(angle) * (page === 'odyssey' ? 0.28 : 0.12),
+        Math.cos(angle * 0.9) * (page === 'odyssey' ? 0.62 : 0.22),
+        Math.sin(angle * 1.33) * (page === 'odyssey' ? 0.34 : 0.2)
       ];
     }
 
@@ -479,9 +505,9 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
         float curvature = dot(centre, centre);
         float waveA = sin((uv.y * 11.0) + (uTime * 1.15) + (uMorph * 4.0));
         float waveB = cos((uv.x * 9.0) - (uTime * 0.82));
-        p.x += waveA * 0.026 * uPointer;
-        p.y += waveB * 0.018 * uPointer;
-        p.z += curvature * 0.052 + (waveA + waveB) * 0.024 * uPointer;
+        p.x += waveA * 0.012 * uPointer;
+        p.y += waveB * 0.009 * uPointer;
+        p.z += curvature * 0.016 + (waveA + waveB) * 0.01 * uPointer;
         gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
       }
     `;
@@ -500,7 +526,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
         vec2 wave = vec2(
           sin((vUv.y + uTime * 0.045) * 22.0),
           cos((vUv.x - uTime * 0.04) * 19.0)
-        ) * 0.012 * uPointer;
+        ) * 0.004 * uPointer;
         vec4 currentTex = texture2D(uMap, vUv + wave);
         vec4 nextTex = texture2D(uNextMap, vUv - wave * 0.76);
         float veil = smoothstep(0.08, 0.92, uMorph + sin((vUv.x + vUv.y + uTime * 0.32) * 5.0) * 0.08 * uPointer);
@@ -508,9 +534,9 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
         vec2 edgeUv = min(vUv, 1.0 - vUv);
         float edge = 1.0 - smoothstep(0.0, 0.11, min(edgeUv.x, edgeUv.y));
         float sheen = smoothstep(0.78, 1.0, sin((vUv.x * 5.2) + (vUv.y * 6.4) + uTime * 0.82 + uMorph * 2.0) * 0.5 + 0.5);
-        vec3 colour = mix(mixedTex.rgb, mixedTex.rgb * uTint, 0.18);
-        colour += vec3(1.0, 0.82, 0.46) * sheen * uPointer * mixedTex.a * 0.13;
-        colour += uTint * edge * mixedTex.a * (0.08 + uPointer * 0.08);
+        vec3 colour = mix(mixedTex.rgb, mixedTex.rgb * uTint, 0.08);
+        colour += vec3(1.0, 0.82, 0.46) * sheen * uPointer * mixedTex.a * 0.08;
+        colour += uTint * edge * mixedTex.a * (0.05 + uPointer * 0.04);
         float alpha = max(currentTex.a, mixedTex.a) * uOpacity;
 
         if (alpha < 0.035) discard;
@@ -594,10 +620,11 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
           const sphereSlot = buildSphereSlot(index, selectedAssets.length);
           const imageWidth = texture.image && texture.image.width ? texture.image.width : 384;
           const imageHeight = texture.image && texture.image.height ? texture.image.height : 384;
-          const aspect = clamp(imageWidth / Math.max(imageHeight, 1), 0.34, 2.7);
-          const baseScale = slot[3] * (compactMode ? 0.9 : 1);
-          const objectWidth = baseScale * Math.sqrt(aspect);
-          const objectHeight = baseScale / Math.sqrt(aspect);
+          const aspect = clamp(imageWidth / Math.max(imageHeight, 1), 0.12, 8);
+          const isPrimaryObject = !compactMode && (page === 'home' ? index < 18 : page === 'odyssey' ? true : index < 22);
+          const baseScale = slot[3] * (compactMode ? 0.92 : isPrimaryObject ? 1.16 : 0.96);
+          const objectWidth = aspect >= 1 ? baseScale : baseScale * aspect;
+          const objectHeight = aspect >= 1 ? baseScale / aspect : baseScale;
           const geometry = new THREE.PlaneGeometry(objectWidth, objectHeight, 8, 8);
           const depthGeometry = new THREE.BoxGeometry(
             objectWidth * 0.92,
@@ -614,18 +641,25 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
           const glassColour = new THREE.Color(0xffffff).lerp(sampledColour, 0.16).lerp(accentMaterialColour, 0.1);
           const depthColour = sampledColour.clone().lerp(accentMaterialColour, 0.6);
           const edgeColour = sampledColour.clone().lerp(accentMaterialColour, 0.42);
+          const backBaseOpacity = page === 'odyssey'
+            ? (compactMode ? 0.024 : isPrimaryObject ? 0.022 : 0.014)
+            : (compactMode ? 0.008 : 0.004);
           const backMaterial = new THREE.MeshBasicMaterial({
             color: depthColour,
             transparent: true,
-            opacity: compactMode ? 0.055 : 0.07,
+            opacity: backBaseOpacity,
             depthWrite: false,
             side: THREE.DoubleSide
           });
-          const faceMaterial = createLiquidFaceMaterial(texture, loadedDecorTextures[(index + 1) % selectedAssets.length] || texture, glassColour, compactMode ? 0.46 : 0.4);
+          const faceBaseOpacity = compactMode ? 0.62 : isPrimaryObject ? 0.82 : 0.64;
+          const edgeBaseOpacity = page === 'odyssey'
+            ? (compactMode ? 0.16 : isPrimaryObject ? 0.24 : 0.16)
+            : (compactMode ? 0.04 : isPrimaryObject ? 0.075 : 0.045);
+          const faceMaterial = createLiquidFaceMaterial(texture, loadedDecorTextures[(index + 1) % selectedAssets.length] || texture, glassColour, faceBaseOpacity);
           const edgeMaterial = new THREE.LineBasicMaterial({
             color: edgeColour,
             transparent: true,
-            opacity: compactMode ? 0.22 : 0.28,
+            opacity: edgeBaseOpacity,
             depthWrite: false
           });
           const back = new THREE.Mesh(depthGeometry, backMaterial);
@@ -676,6 +710,10 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
             scalePulse: 0.018 + (index % 6) * 0.004,
             formationDelay: compactMode ? (index % 4) * 0.035 : (index % 7) * 0.028,
             baseObjectScale: 1,
+            rotationEnergy: page === 'odyssey' ? 1 : 0.32,
+            faceBaseOpacity,
+            edgeBaseOpacity,
+            backBaseOpacity,
             faceMaterial,
             backMaterial,
             edgeMaterial
@@ -730,7 +768,9 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       const sphereBlendRaw = page === 'odyssey' ? smoothstep(0.02, 0.88, scrollRatio) : 0;
       const sphereExpansion = page === 'odyssey' ? 1 + smoothstep(0.84, 1.65, scrollRatio) * 0.34 : 1;
       const pointerEnergy = speed * clamp(Math.abs(pointer.x) * 0.72 + Math.abs(pointer.y) * 0.62 + 0.06, 0, 1);
-      const liquidEnergy = clamp(pointerEnergy + sphereBlendRaw * 0.48 + (page === 'odyssey' ? 0.12 : 0.04), 0, 1);
+      const liquidEnergy = page === 'odyssey'
+        ? clamp(pointerEnergy + sphereBlendRaw * 0.48 + 0.12, 0, 1)
+        : clamp(pointerEnergy * 0.34 + 0.018, 0, 0.34);
       let independentMotionCount = 0;
       let sphereMemberCount = 0;
       decor.rotation.set(0, 0, 0);
@@ -780,21 +820,22 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
         object.position.y = lerp(scatterY, sphereY, entityBlend);
         object.position.z = lerp(scatterZ, sphereZ, entityBlend);
         object.scale.setScalar(entityScale);
+        const rotationEnergy = data.rotationEnergy;
         object.rotation.x = data.baseRotX
-          + pointer.y * data.pointerRotX
-          + Math.cos(phase * 0.74) * data.spinX * speed
+          + pointer.y * data.pointerRotX * rotationEnergy
+          + Math.cos(phase * 0.74) * data.spinX * speed * rotationEnergy
           + entityBlend * Math.sin(orbitAngle) * 0.24;
         object.rotation.y = data.baseRotY
-          + pointer.x * data.pointerRotY
-          + Math.sin(phase * 0.67) * data.spinY * speed
+          + pointer.x * data.pointerRotY * rotationEnergy
+          + Math.sin(phase * 0.67) * data.spinY * speed * rotationEnergy
           + entityBlend * Math.cos(orbitAngle) * 0.34;
         object.rotation.z = data.baseRotZ
-          + Math.sin(phase * 0.9) * data.spinZ * speed
+          + Math.sin(phase * 0.9) * data.spinZ * speed * rotationEnergy
           + entityBlend * data.orbitDirection * 0.22;
 
-        data.backMaterial.opacity = (compactMode ? 0.052 : 0.066) + entityBlend * 0.024;
-        data.edgeMaterial.opacity = (compactMode ? 0.16 : 0.22) + entityBlend * 0.08;
-        data.faceMaterial.uniforms.uOpacity.value = (compactMode ? 0.44 : 0.38) + entityBlend * (compactMode ? 0.08 : 0.1);
+        data.backMaterial.opacity = data.backBaseOpacity + entityBlend * 0.014;
+        data.edgeMaterial.opacity = data.edgeBaseOpacity + entityBlend * 0.06;
+        data.faceMaterial.uniforms.uOpacity.value = data.faceBaseOpacity + entityBlend * (compactMode ? 0.04 : 0.08);
         data.faceMaterial.uniforms.uTime.value = time + index * 0.021;
         data.faceMaterial.uniforms.uPointer.value = liquidEnergy;
         data.faceMaterial.uniforms.uMorph.value = (Math.sin(phase * 0.56 + pointer.x * data.orbitDirection * 1.6) + 1) * 0.5;
