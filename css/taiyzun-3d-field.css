@@ -39,6 +39,9 @@ body.taiyzun-3d-ready > :not(.taiyzun-3d-field):not(script):not(noscript):not(.s
 
 body.taiyzun-3d-ready nav#mainNav {
   z-index: 20;
+  width: auto !important;
+  max-width: calc(100vw - (2 * clamp(14px, 2vw, 28px)));
+  box-sizing: border-box;
 }
 
 body.taiyzun-3d-ready .cursor-glow,
