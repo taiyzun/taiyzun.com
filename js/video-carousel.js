@@ -22,10 +22,13 @@
   let activeIndex = 0;
   let targetSpin = 0;
   let spin = 0;
+  let dragSpin = 0;
   let pointerX = 0;
   let pointerY = 0;
   let isInteracting = false;
   let interactionTimer = 0;
+  let dragState = null;
+  let suppressClickUntil = 0;
 
   const dots = cards.map((card, index) => {
     const dot = document.createElement('button');
@@ -63,13 +66,14 @@
     const nextSrc = `https://www.youtube-nocookie.com/embed/${videoId}?rel=0&modestbranding=1&playsinline=1`;
     if (iframe.src !== nextSrc) iframe.src = nextSrc;
     iframe.title = `Taiyzun YouTube video: ${title}`;
+    carousel.style.setProperty('--video-preview-image', `url("https://i.ytimg.com/vi/${videoId}/hqdefault.jpg")`);
     if (titleNode) titleNode.textContent = title;
   }
 
   function updateCardFacing() {
     cards.forEach((card) => {
       const baseAngle = Number(card.dataset.cardBaseAngle || 0);
-      card.style.setProperty('--card-face-angle', `${(-baseAngle - spin).toFixed(3)}deg`);
+      card.style.setProperty('--card-face-angle', `${(-baseAngle - spin - dragSpin).toFixed(3)}deg`);
     });
   }
 
@@ -130,31 +134,94 @@
       const pointerSpin = pointerX * 9;
       const scrollSpin = scrollRatio * 6;
       spin += (targetSpin + pointerSpin + scrollSpin - spin) * 0.045;
-      carousel.style.setProperty('--video-spin-angle', `${spin.toFixed(3)}deg`);
+      carousel.style.setProperty('--video-spin-angle', `${(spin + dragSpin).toFixed(3)}deg`);
       carousel.style.setProperty('--video-tilt-x', `${(-pointerY * 4.8).toFixed(3)}deg`);
       carousel.style.setProperty('--video-tilt-y', `${(pointerX * 7.2).toFixed(3)}deg`);
-      carousel.dataset.spinAngle = spin.toFixed(2);
+      carousel.dataset.spinAngle = (spin + dragSpin).toFixed(2);
       updateCardFacing();
     }
 
     window.requestAnimationFrame(animate);
   }
 
-  carousel.addEventListener('pointermove', (event) => {
+  function updatePointer(event) {
     const rect = carousel.getBoundingClientRect();
     pointerX = ((event.clientX - rect.left) / Math.max(rect.width, 1) - 0.5) * 2;
     pointerY = ((event.clientY - rect.top) / Math.max(rect.height, 1) - 0.5) * 2;
     carousel.style.setProperty('--video-glow-x', `${(((pointerX + 1) / 2) * 100).toFixed(2)}%`);
     carousel.style.setProperty('--video-glow-y', `${(((pointerY + 1) / 2) * 100).toFixed(2)}%`);
+  }
+
+  function endDrag(event) {
+    if (!dragState) return;
+
+    const deltaX = event.clientX - dragState.startX;
+    const deltaTime = Math.max(event.timeStamp - dragState.startTime, 1);
+    const velocity = deltaX / deltaTime;
+    const degreesPerCard = 360 / cards.length;
+    const projectedDegrees = dragSpin + velocity * 190;
+    const steps = Math.max(-3, Math.min(3, Math.round(-projectedDegrees / degreesPerCard)));
+
+    carousel.releasePointerCapture?.(event.pointerId);
+    carousel.classList.remove('is-dragging');
+
+    if (Math.abs(deltaX) > 8) {
+      suppressClickUntil = Date.now() + 280;
+      if (steps !== 0) {
+        setActive(activeIndex + steps, true);
+      } else {
+        setInteractionState();
+      }
+    }
+
+    dragState = null;
+    dragSpin = 0;
+    carousel.style.setProperty('--video-drag-angle', '0deg');
+  }
+
+  carousel.addEventListener('pointerdown', (event) => {
+    if (event.button !== undefined && event.button !== 0) return;
+    dragState = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      lastX: event.clientX,
+      startTime: event.timeStamp
+    };
+    dragSpin = 0;
+    carousel.classList.add('is-dragging');
+    carousel.setPointerCapture?.(event.pointerId);
+    updatePointer(event);
+    setInteractionState();
   }, { passive: true });
 
+  carousel.addEventListener('pointermove', (event) => {
+    updatePointer(event);
+
+    if (dragState && event.pointerId === dragState.pointerId) {
+      const deltaX = event.clientX - dragState.startX;
+      const deltaY = event.clientY - dragState.startY;
+      if (Math.abs(deltaX) > 4 || Math.abs(deltaY) > 4) {
+        dragSpin = Math.max(-150, Math.min(150, deltaX * 0.52));
+        carousel.style.setProperty('--video-drag-angle', `${dragSpin.toFixed(3)}deg`);
+      }
+    }
+  }, { passive: true });
+
+  carousel.addEventListener('pointerup', endDrag, { passive: true });
+  carousel.addEventListener('pointercancel', endDrag, { passive: true });
+
   carousel.addEventListener('pointerleave', () => {
+    if (dragState) return;
     pointerX = 0;
     pointerY = 0;
   });
 
   cards.forEach((card, index) => {
-    card.addEventListener('click', () => setActive(index, true));
+    card.addEventListener('click', () => {
+      if (Date.now() < suppressClickUntil) return;
+      setActive(index, true);
+    });
   });
 
   prevButton?.addEventListener('click', () => setActive(activeIndex - 1, true));

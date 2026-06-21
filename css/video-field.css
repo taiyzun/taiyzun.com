@@ -147,19 +147,25 @@
 .video-carousel {
   --video-radius: clamp(16rem, 30vw, 24rem);
   --video-spin-angle: 0deg;
+  --video-drag-angle: 0deg;
   --video-tilt-x: 0deg;
   --video-tilt-y: 0deg;
   --video-glow-x: 50%;
   --video-glow-y: 45%;
+  --video-preview-image: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(230,203,126,0.5));
   position: relative;
   width: min(100%, 720px);
   min-height: clamp(27rem, 46vw, 41rem);
   margin-inline: auto;
   transform-style: preserve-3d;
-  transform:
-    rotateX(var(--video-tilt-x))
-    rotateY(var(--video-tilt-y));
-  transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+  transition: filter 280ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.video-carousel.is-dragging {
+  cursor: grabbing;
 }
 
 .video-carousel::before,
@@ -203,14 +209,22 @@
 
 .video-frame {
   position: absolute;
-  inset: 13% 9% auto;
+  top: 9%;
+  left: 50%;
+  width: min(78%, 28rem);
   z-index: 8;
   overflow: hidden;
-  aspect-ratio: 16 / 10;
-  border-radius: clamp(16px, 1.4vw, 22px);
-  clip-path: polygon(8% 0, 92% 0, 100% 50%, 92% 100%, 8% 100%, 0 50%);
-  transform: translate3d(0, 0, 94px) rotateX(3.2deg) rotateY(-6deg);
-  transform-origin: 42% 50%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  clip-path: circle(50% at 50% 50%);
+  transform: translate3d(-50%, 0, 0);
+  transform-origin: 50% 50%;
+  background:
+    radial-gradient(circle at 28% 18%, rgba(255, 255, 255, 0.48), transparent 0 32%),
+    radial-gradient(circle at 70% 76%, rgba(42, 30, 14, 0.26), transparent 0 38%),
+    var(--video-preview-image);
+  background-size: 100% 100%, 100% 100%, auto 166%;
+  background-position: center, center, center 42%;
 }
 
 .video-frame::before,
@@ -236,11 +250,16 @@
 }
 
 .video-frame::after {
+  content: "";
   border: 2px solid rgba(255, 255, 255, 0.42);
   border-radius: inherit;
-  clip-path: inherit;
+  background:
+    radial-gradient(circle at 52% 50%, rgba(255, 255, 255, 0.16), transparent 0 16%),
+    conic-gradient(from 36deg, rgba(255,255,255,0.22), transparent 18%, rgba(202,168,84,0.24), transparent 48%, rgba(255,255,255,0.18), transparent 78%);
   box-shadow:
     inset 0 0 0 1px rgba(120, 88, 32, 0.08),
+    inset 18px 0 44px rgba(255, 255, 255, 0.28),
+    inset -28px -18px 58px rgba(91, 67, 28, 0.18),
     inset 0 0 34px rgba(202, 168, 84, 0.12);
 }
 
@@ -253,12 +272,16 @@
 
 .video-frame iframe {
   position: absolute;
-  inset: 0;
-  width: 100%;
+  top: 0;
+  left: 50%;
+  width: 178%;
   height: 100%;
+  transform: translateX(-50%);
   border: 0;
   display: block;
   background: #f6efe2;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .video-current {
@@ -321,12 +344,12 @@
   position: absolute;
   top: 51%;
   left: 50%;
-  width: clamp(9.5rem, 26%, 13.5rem);
-  aspect-ratio: 16 / 10;
+  width: clamp(8.4rem, 22%, 11.8rem);
+  aspect-ratio: 1;
   padding: 0;
   overflow: hidden;
-  border-radius: 18px;
-  clip-path: polygon(9% 0, 91% 0, 100% 50%, 91% 100%, 9% 100%, 0 50%);
+  border-radius: 50%;
+  clip-path: circle(50% at 50% 50%);
   cursor: pointer;
   pointer-events: auto;
   transform-style: preserve-3d;
@@ -353,14 +376,16 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 44%;
   filter: sepia(0.08) saturate(0.88) contrast(1.02);
+  transform: scale(1.24);
 }
 
 .video-card span {
   position: absolute;
-  left: 0.7rem;
-  right: 0.7rem;
-  bottom: 0.65rem;
+  left: 0.85rem;
+  right: 0.85rem;
+  bottom: 0.9rem;
   z-index: 3;
   display: block;
   padding: 0.45rem 0.58rem;
@@ -410,11 +435,13 @@
   bottom: clamp(0.3rem, 2vw, 1.2rem);
   z-index: 32;
   display: inline-flex;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
-  gap: 0.7rem;
+  gap: clamp(0.35rem, 1vw, 0.7rem);
+  width: min(92vw, 25rem);
   min-height: 3.15rem;
-  padding: 0.35rem 0.55rem;
+  padding: 0.42rem 0.65rem;
   border: 1px solid rgba(202, 168, 84, 0.24);
   border-radius: 999px;
   background: rgba(255, 253, 246, 0.72);
@@ -447,24 +474,30 @@
 .video-dots {
   display: inline-flex;
   align-items: center;
-  gap: 0.12rem;
+  justify-content: center;
+  flex: 1 1 auto;
+  gap: clamp(0.18rem, 0.9vw, 0.34rem);
+  min-width: 0;
 }
 
 .video-dot {
   position: relative;
-  width: 1.55rem;
-  height: 1.55rem;
+  width: clamp(1.35rem, 4.8vw, 1.75rem);
+  height: clamp(1.35rem, 4.8vw, 1.75rem);
+  flex: 0 0 auto;
   padding: 0;
-  border-color: transparent;
+  border-color: rgba(202, 168, 84, 0.2);
   border-radius: 50%;
-  background: transparent;
-  box-shadow: none;
+  background: rgba(255, 253, 246, 0.58);
+  box-shadow:
+    0 5px 14px rgba(83, 62, 27, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 
 .video-dot::before {
   content: "";
-  width: 0.62rem;
-  height: 0.62rem;
+  width: clamp(0.55rem, 1.8vw, 0.72rem);
+  height: clamp(0.55rem, 1.8vw, 0.72rem);
   border: 1px solid rgba(202, 168, 84, 0.3);
   border-radius: inherit;
   background: rgba(255, 255, 255, 0.62);
@@ -477,6 +510,11 @@
   border-color: rgba(202, 168, 84, 0.74);
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(232, 202, 116, 0.74));
   color: #2d2417;
+}
+
+.video-dot.is-active {
+  border-color: rgba(202, 168, 84, 0.62);
+  background: rgba(255, 249, 235, 0.9);
 }
 
 .video-panel {
@@ -547,10 +585,12 @@
   }
 
   .video-frame {
-    inset: 8% 3% auto;
-    aspect-ratio: 16 / 9;
-    clip-path: polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%);
-    transform: translate3d(0, 0, 78px);
+    top: 7%;
+    left: 50%;
+    width: min(82%, 25rem);
+    aspect-ratio: 1;
+    clip-path: circle(50% at 50% 50%);
+    transform: translate3d(-50%, 0, 0);
   }
 
   .video-card {
@@ -591,15 +631,18 @@
   }
 
   .video-frame {
-    inset: 6% 0 auto;
-    border-radius: 16px;
-    clip-path: none;
+    top: 6%;
+    width: min(90%, 21rem);
+    border-radius: 50%;
+    clip-path: circle(50% at 50% 50%);
   }
 
   .video-frame iframe {
-    inset: 0;
-    width: 100%;
+    top: 0;
+    left: 50%;
+    width: 178%;
     height: 100%;
+    transform: translateX(-50%);
   }
 
   .video-panel span {
@@ -618,9 +661,9 @@
 
   .video-card {
     top: 60%;
-    width: 7.7rem;
-    border-radius: 14px;
-    clip-path: none;
+    width: 7.4rem;
+    border-radius: 50%;
+    clip-path: circle(50% at 50% 50%);
   }
 
   .video-card span {
@@ -640,6 +683,8 @@
 
   .video-controls {
     bottom: 0;
+    width: min(96vw, 22rem);
+    padding-inline: 0.45rem;
   }
 }
 
