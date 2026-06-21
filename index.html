@@ -316,7 +316,7 @@
   <link rel="stylesheet" href="/css/padding-fix.css?v=1">
   <link rel="stylesheet" href="/css/fctrylab-inspired.css?v=3">
   <link rel="stylesheet" href="/css/ambient-video.css?v=4">
-  <link rel="stylesheet" href="/css/video-field.min.css?v=1">
+  <link rel="stylesheet" href="/css/video-field.min.css?v=3">
   <link rel="stylesheet" href="/css/site-decorative-field.css?v=3">
   <link rel="stylesheet" href="/css/mily-inspired-system.css?v=3">
   <link rel="stylesheet" href="/css/visual-protocol.min.css?v=11">
@@ -446,14 +446,60 @@
       </div>
     </div>
     <div class="video-stage" aria-label="Taiyzun YouTube videos">
-      <div class="video-frame">
-        <iframe
-          src="https://www.youtube-nocookie.com/embed/videoseries?list=UUEMWFf1WarjQ2yHNvmjmURg&amp;rel=0&amp;modestbranding=1"
-          title="Taiyzun YouTube video archive"
-          loading="lazy"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen></iframe>
+      <div class="video-carousel" data-video-carousel>
+        <div class="video-player video-frame" data-video-player>
+          <iframe
+            data-video-iframe
+            src="https://www.youtube-nocookie.com/embed/D3bBKhJsHeQ?rel=0&amp;modestbranding=1&amp;playsinline=1"
+            title="Taiyzun YouTube video: wiThOuT muSic..."
+            loading="lazy"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
+          <div class="video-current" aria-live="polite">
+            <span>Now Showing</span>
+            <strong data-video-current-title>wiThOuT muSic&hellip;</strong>
+          </div>
+        </div>
+        <div class="video-orbit" data-video-orbit aria-label="Select a YouTube video">
+          <button class="video-card is-active" type="button" data-video-card data-video-id="D3bBKhJsHeQ" data-video-title="wiThOuT muSic&hellip;" aria-pressed="true">
+            <img src="https://i.ytimg.com/vi/D3bBKhJsHeQ/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+            <span>wiThOuT muSic&hellip;</span>
+          </button>
+          <button class="video-card" type="button" data-video-card data-video-id="qWuKUHS7MAA" data-video-title="seEcurE peAcE" aria-pressed="false">
+            <img src="https://i.ytimg.com/vi/qWuKUHS7MAA/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+            <span>seEcurE peAcE</span>
+          </button>
+          <button class="video-card" type="button" data-video-card data-video-id="3eiwNfl_xww" data-video-title="jail: life leSsOnS" aria-pressed="false">
+            <img src="https://i.ytimg.com/vi/3eiwNfl_xww/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+            <span>jail: life leSsOnS</span>
+          </button>
+          <button class="video-card" type="button" data-video-card data-video-id="GvIniPqYkS0" data-video-title="jail: lifE" aria-pressed="false">
+            <img src="https://i.ytimg.com/vi/GvIniPqYkS0/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+            <span>jail: lifE</span>
+          </button>
+          <button class="video-card" type="button" data-video-card data-video-id="AkALoBfUarQ" data-video-title="Capitol" aria-pressed="false">
+            <img src="https://i.ytimg.com/vi/AkALoBfUarQ/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+            <span>Capitol</span>
+          </button>
+          <button class="video-card" type="button" data-video-card data-video-id="jQDJzUtiDOQ" data-video-title="United States Congress" aria-pressed="false">
+            <img src="https://i.ytimg.com/vi/jQDJzUtiDOQ/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+            <span>United States Congress</span>
+          </button>
+          <button class="video-card" type="button" data-video-card data-video-id="kTL8UwGb9eY" data-video-title="mirrOr mE: reflection" aria-pressed="false">
+            <img src="https://i.ytimg.com/vi/kTL8UwGb9eY/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+            <span>mirrOr mE</span>
+          </button>
+          <button class="video-card" type="button" data-video-card data-video-id="Kzvwl_lFkBI" data-video-title="mirrOr mE: archive" aria-pressed="false">
+            <img src="https://i.ytimg.com/vi/Kzvwl_lFkBI/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+            <span>mirrOr mE</span>
+          </button>
+        </div>
+        <div class="video-controls" aria-label="Video carousel controls">
+          <button class="video-control" type="button" data-video-prev aria-label="Previous video">&#8249;</button>
+          <div class="video-dots" data-video-dots aria-label="Video position"></div>
+          <button class="video-control" type="button" data-video-next aria-label="Next video">&#8250;</button>
+        </div>
       </div>
       <div class="video-panel" aria-hidden="true">
         <span>Information &amp; Technology</span>
@@ -752,6 +798,7 @@
 </script>
 <script src="/js/ambient-video.min.js?v=4"></script>
 <script src="/js/mobile-menu.min.js?v=2"></script>
+<script src="/js/video-carousel.min.js?v=2"></script>
 <script type="module" src="/js/taiyzun-3d-field.min.js?v=14" crossorigin="anonymous"></script>
 <script>
   window.TAIYZUN_loadDesktopEnhancements?.([

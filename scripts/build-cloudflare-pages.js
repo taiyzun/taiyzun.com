@@ -41,6 +41,7 @@ const publicAssetFiles = [
   'js/taiyzun-3d-field.min.js',
   'js/theme-engine.min.js',
   'js/themes-config.min.js',
+  'js/video-carousel.min.js',
   'js/webgl-manager.min.js',
   'js/zepto-mail-integration.min.js'
 ];
