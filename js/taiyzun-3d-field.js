@@ -640,28 +640,18 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       varying vec2 vUv;
 
       void main() {
-        vec2 coverUv = vUv;
-
-        if (uTextureAspect > 1.0) {
-          coverUv.x = (vUv.x - 0.5) / uTextureAspect + 0.5;
-        } else {
-          coverUv.y = (vUv.y - 0.5) * uTextureAspect + 0.5;
-        }
-
-        vec4 currentTex = texture2D(uMap, coverUv);
+        vec4 currentTex = texture2D(uMap, vUv);
         vec4 mixedTex = currentTex;
-        float radius = distance(vUv, vec2(0.5));
-        float sphereMask = 1.0 - smoothstep(0.485, 0.505, radius);
-        float edge = smoothstep(0.36, 0.5, radius);
-        float sphereShade = 0.82 + 0.2 * smoothstep(0.62, 0.02, distance(vUv, vec2(0.32, 0.24)));
-        float rimShade = smoothstep(0.34, 0.5, radius) * 0.18;
+        float edgeX = max(smoothstep(0.0, 0.14, vUv.x), smoothstep(1.0, 0.86, vUv.x));
+        float edgeY = max(smoothstep(0.0, 0.14, vUv.y), smoothstep(1.0, 0.86, vUv.y));
+        float edge = max(edgeX, edgeY) * currentTex.a;
+        float objectShade = 0.88 + 0.14 * smoothstep(0.72, 0.02, distance(vUv, vec2(0.34, 0.25)));
         float sheen = smoothstep(0.78, 1.0, sin((vUv.x * 5.2) + (vUv.y * 6.4) + uTime * 0.82 + uMorph * 2.0) * 0.5 + 0.5);
         vec3 colour = mix(mixedTex.rgb, mixedTex.rgb * uTint, 0.08);
-        colour *= sphereShade;
+        colour *= objectShade;
         colour += vec3(1.0, 0.82, 0.46) * sheen * uPointer * mixedTex.a * 0.035;
         colour += uTint * edge * mixedTex.a * (0.06 + uPointer * 0.04);
-        colour -= vec3(0.08, 0.06, 0.03) * rimShade;
-        float alpha = max(currentTex.a, mixedTex.a) * uOpacity * sphereMask;
+        float alpha = max(currentTex.a, mixedTex.a) * uOpacity;
 
         if (alpha < 0.035) discard;
         gl_FragColor = vec4(colour, alpha);
@@ -740,15 +730,15 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
             ? (compactMode ? 1.48 : 1.5)
             : (compactMode ? 0.92 : isPrimaryObject ? 1.16 : 0.96);
           const baseScale = slot[3] * baseScaleBoost;
-          const objectWidth = baseScale;
-          const objectHeight = baseScale;
-          const geometry = new THREE.CircleGeometry(baseScale * 0.5, compactMode ? 48 : 72);
+          const objectWidth = aspect >= 1 ? baseScale : baseScale * aspect;
+          const objectHeight = aspect >= 1 ? baseScale / aspect : baseScale;
+          const geometry = new THREE.PlaneGeometry(objectWidth, objectHeight, 1, 1);
           const objectDepth = page === 'odyssey'
             ? (compactMode ? 0.052 : 0.086)
             : (compactMode ? 0.026 : 0.046);
-          const depthGeometry = new THREE.CircleGeometry(baseScale * 0.49, compactMode ? 48 : 72);
-          const objectEdges = new THREE.RingGeometry(baseScale * 0.492, baseScale * 0.506, compactMode ? 48 : 72);
-          const shadowGeometry = new THREE.CircleGeometry(baseScale * 0.58, compactMode ? 48 : 72);
+          const depthGeometry = new THREE.PlaneGeometry(objectWidth * 1.012, objectHeight * 1.012, 1, 1);
+          const objectEdges = new THREE.EdgesGeometry(geometry);
+          const shadowGeometry = new THREE.PlaneGeometry(objectWidth * 1.12, objectHeight * 1.12, 1, 1);
           const group = new THREE.Group();
           const sampledColour = sampleTextureColour(texture, accentMaterialColour);
           const glassColour = new THREE.Color(0xffffff).lerp(sampledColour, 0.16).lerp(accentMaterialColour, 0.1);
@@ -791,7 +781,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
           const shadow = new THREE.Mesh(shadowGeometry, shadowMaterial);
           const back = new THREE.Mesh(depthGeometry, backMaterial);
           const face = new THREE.Mesh(geometry, faceMaterial);
-          const edge = new THREE.Mesh(objectEdges, edgeMaterial);
+          const edge = new THREE.LineSegments(objectEdges, edgeMaterial);
 
           shadow.scale.set(1.02, 1.02, 1);
           shadow.position.set(0.034, -0.046, -objectDepth * 1.35);
@@ -882,8 +872,8 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
           root.dataset.decor3dEntities = String(decorObjects.length);
           root.dataset.decor3dMode = page === 'odyssey' ? 'sphere-orbit' : 'independent';
           root.dataset.nativeAssetScale = 'native-uniform-scale';
-          root.dataset.decor3dAspectMode = 'round-cover-sphere-mask';
-          root.dataset.decor3dLayering = 'round-rim-shadow-depth';
+          root.dataset.decor3dAspectMode = 'native-aspect-uncropped-transparent-png';
+          root.dataset.decor3dLayering = 'native-plane-rim-shadow-depth';
           root.dataset.decor3dDepthMotion = 'z-position-plus-uniform-zoom-rim-shadow';
           root.dataset.decor3dUniqueAssets = String(new Set(decorObjects.map((object) => object.userData.asset)).size);
           root.dataset.uniqueAssets = root.dataset.decor3dUniqueAssets;
@@ -1071,8 +1061,8 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
         root.dataset.decor3dSphereMembers = String(sphereMemberCount);
         root.dataset.decor3dColours = 'sampled';
         root.dataset.decor3dLiquid = liquidEnergy.toFixed(3);
-        root.dataset.decor3dLayering = 'round-rim-shadow-depth';
-        root.dataset.decor3dAspectMode = 'round-cover-sphere-mask';
+        root.dataset.decor3dLayering = 'native-plane-rim-shadow-depth';
+        root.dataset.decor3dAspectMode = 'native-aspect-uncropped-transparent-png';
         root.dataset.decor3dDepthMotion = 'z-position-plus-uniform-zoom-rim-shadow';
         root.dataset.decor3dScaleMode = page === 'odyssey' ? 'large-depth-responsive' : 'native-depth-responsive';
         root.dataset.decor3dFamilySpacing = `slot-family-radius-${spacingRadius}`;
