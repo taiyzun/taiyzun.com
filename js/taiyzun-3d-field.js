@@ -232,7 +232,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       const direction = seed % 2 ? 1 : -1;
       const isHero = node.matches('.hero-content, .page-hero-content, .about-grid, .gallery-label, .connect-label');
       const isDense = node.matches('.art-item, .gallery-item, .cat-tab, .home-btn');
-      const amplitude = isHero ? (compactMode ? 20 : 30) : isDense ? (compactMode ? 9 : 14) : (compactMode ? 12 : 18);
+      const amplitude = isHero ? (compactMode ? 8 : 30) : isDense ? (compactMode ? 3 : 14) : (compactMode ? 4 : 18);
       const shiftX = (direction * presence * amplitude * 0.18 + shiftPointer.x * presence * amplitude * 0.28).toFixed(2);
       const shiftY = (-distance * presence * amplitude + shiftPointer.y * presence * amplitude * 0.18).toFixed(2);
       const shiftR = (direction * presence * 0.16 + shiftPointer.x * presence * 0.055).toFixed(3);
@@ -728,24 +728,29 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
           const objectWidth = aspect >= 1 ? baseScale : baseScale * aspect;
           const objectHeight = aspect >= 1 ? baseScale / aspect : baseScale;
           const geometry = new THREE.PlaneGeometry(objectWidth, objectHeight, 8, 8);
+          const objectDepth = page === 'odyssey'
+            ? (compactMode ? 0.052 : 0.086)
+            : (compactMode ? 0.026 : 0.046);
           const depthGeometry = new THREE.BoxGeometry(
-            objectWidth * 0.92,
-            objectHeight * 0.92,
-            compactMode ? 0.018 : 0.032,
+            objectWidth * 0.94,
+            objectHeight * 0.94,
+            objectDepth,
             1,
             1,
             1
           );
           const edgeGeometry = new THREE.PlaneGeometry(objectWidth, objectHeight, 1, 1);
           const objectEdges = new THREE.EdgesGeometry(edgeGeometry);
+          const shadowGeometry = new THREE.PlaneGeometry(objectWidth * 1.18, objectHeight * 1.18, 1, 1);
           const group = new THREE.Group();
           const sampledColour = sampleTextureColour(texture, accentMaterialColour);
           const glassColour = new THREE.Color(0xffffff).lerp(sampledColour, 0.16).lerp(accentMaterialColour, 0.1);
           const depthColour = sampledColour.clone().lerp(accentMaterialColour, 0.6);
           const edgeColour = sampledColour.clone().lerp(accentMaterialColour, 0.42);
+          const shadowColour = new THREE.Color(0x6f5527).lerp(sampledColour, 0.24);
           const backBaseOpacity = page === 'odyssey'
-            ? (compactMode ? 0.032 : isPrimaryObject ? 0.022 : 0.014)
-            : (compactMode ? 0.008 : 0.004);
+            ? (compactMode ? 0.07 : isPrimaryObject ? 0.052 : 0.038)
+            : (compactMode ? 0.016 : 0.01);
           const backMaterial = new THREE.MeshBasicMaterial({
             color: depthColour,
             transparent: true,
@@ -753,9 +758,19 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
             depthWrite: false,
             side: THREE.DoubleSide
           });
+          const shadowBaseOpacity = page === 'odyssey'
+            ? (compactMode ? 0.055 : 0.072)
+            : (compactMode ? 0.018 : 0.012);
+          const shadowMaterial = new THREE.MeshBasicMaterial({
+            color: shadowColour,
+            transparent: true,
+            opacity: shadowBaseOpacity,
+            depthWrite: false,
+            side: THREE.DoubleSide
+          });
           const faceBaseOpacity = compactMode ? (page === 'odyssey' ? 0.74 : 0.62) : isPrimaryObject ? 0.82 : 0.64;
           const edgeBaseOpacity = page === 'odyssey'
-            ? (compactMode ? 0.22 : isPrimaryObject ? 0.24 : 0.16)
+            ? (compactMode ? 0.28 : isPrimaryObject ? 0.34 : 0.24)
             : (compactMode ? 0.04 : isPrimaryObject ? 0.075 : 0.045);
           const faceMaterial = createLiquidFaceMaterial(texture, glassColour, faceBaseOpacity);
           const edgeMaterial = new THREE.LineBasicMaterial({
@@ -764,14 +779,18 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
             opacity: edgeBaseOpacity,
             depthWrite: false
           });
+          const shadow = new THREE.Mesh(shadowGeometry, shadowMaterial);
           const back = new THREE.Mesh(depthGeometry, backMaterial);
           const face = new THREE.Mesh(geometry, faceMaterial);
           const edge = new THREE.LineSegments(objectEdges, edgeMaterial);
 
-          back.scale.set(1.01, 1.01, 1);
-          back.position.z = -0.036;
-          face.position.z = 0.025;
-          edge.position.z = 0.036;
+          shadow.scale.set(1.02, 1.02, 1);
+          shadow.position.set(0.034, -0.046, -objectDepth * 1.35);
+          back.scale.set(1.016, 1.016, 1);
+          back.position.z = -objectDepth * 0.56;
+          face.position.z = objectDepth * 0.38;
+          edge.position.z = objectDepth * 0.52;
+          group.add(shadow);
           group.add(back);
           group.add(face);
           group.add(edge);
@@ -838,17 +857,27 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
             faceBaseOpacity,
             edgeBaseOpacity,
             backBaseOpacity,
+            shadowBaseOpacity,
             faceMaterial,
             backMaterial,
-            edgeMaterial
+            edgeMaterial,
+            shadowMaterial,
+            shadow
           };
 
           decorObjects.push(group);
           decorObjectsByIndex[index] = group;
           decor.add(group);
+          root.dataset.objects = String(decorObjects.length);
           root.dataset.decor3d = String(decorObjects.length);
           root.dataset.decor3dEntities = String(decorObjects.length);
           root.dataset.decor3dMode = page === 'odyssey' ? 'sphere-orbit' : 'independent';
+          root.dataset.nativeAssetScale = 'native-uniform-scale';
+          root.dataset.decor3dAspectMode = 'native-uniform-scale';
+          root.dataset.decor3dLayering = 'extruded-rim-shadow-depth';
+          root.dataset.decor3dDepthMotion = 'z-position-plus-uniform-zoom-rim-shadow';
+          root.dataset.decor3dUniqueAssets = String(new Set(decorObjects.map((object) => object.userData.asset)).size);
+          root.dataset.uniqueAssets = root.dataset.decor3dUniqueAssets;
         }, undefined, () => {
           root.dataset.decor3dErrors = String((Number(root.dataset.decor3dErrors) || 0) + 1);
         });
@@ -976,8 +1005,11 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
           + Math.sin(phase * 0.9) * data.spinZ * speed * rotationEnergy
           + entityBlend * data.orbitDirection * 0.22;
 
-        data.backMaterial.opacity = data.backBaseOpacity + entityBlend * 0.014;
-        data.edgeMaterial.opacity = data.edgeBaseOpacity + entityBlend * 0.06;
+        const depthGlow = clamp(0.5 + depthZoom * 1.9 + nearFarZoom * 2.4 + entityBlend * 0.22, 0.28, 1.45);
+        data.backMaterial.opacity = data.backBaseOpacity * depthGlow + entityBlend * 0.018;
+        data.edgeMaterial.opacity = data.edgeBaseOpacity * (0.88 + liquidEnergy * 0.42) + entityBlend * 0.07;
+        data.shadowMaterial.opacity = data.shadowBaseOpacity * clamp(1.12 - depthZoom * 1.65 + entityBlend * 0.16, 0.34, 1.36);
+        data.shadow.scale.setScalar(clamp(1.02 + pointerMagnitude * 0.05 - depthZoom * 0.06, 0.96, 1.12));
         data.faceMaterial.uniforms.uOpacity.value = data.faceBaseOpacity + entityBlend * (compactMode ? 0.04 : 0.08);
         data.faceMaterial.uniforms.uTime.value = time + index * 0.021;
         data.faceMaterial.uniforms.uPointer.value = liquidEnergy;
@@ -1014,7 +1046,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
         liquidLinkMaterial.opacity = (compactMode ? 0.018 : 0.028) + liquidEnergy * (compactMode ? 0.022 : 0.034) + sphereBlendRaw * 0.025;
       }
 
-      if (frame % 10 === 0) {
+      if (frame % 10 === 0 || frame <= 3) {
         const orderedObjects = decorObjectsByIndex.filter(Boolean);
         const families = orderedObjects.map((object) => object.userData.family);
         const spacingRadius = compactMode ? 3 : 4;
@@ -1030,13 +1062,17 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
         root.dataset.decor3dSphereMembers = String(sphereMemberCount);
         root.dataset.decor3dColours = 'sampled';
         root.dataset.decor3dLiquid = liquidEnergy.toFixed(3);
-        root.dataset.decor3dLayering = 'single-surface-depth';
+        root.dataset.decor3dLayering = 'extruded-rim-shadow-depth';
         root.dataset.decor3dAspectMode = 'native-uniform-scale';
-        root.dataset.decor3dDepthMotion = 'z-position-plus-uniform-zoom';
+        root.dataset.decor3dDepthMotion = 'z-position-plus-uniform-zoom-rim-shadow';
         root.dataset.decor3dScaleMode = page === 'odyssey' ? 'large-depth-responsive' : 'native-depth-responsive';
         root.dataset.decor3dFamilySpacing = `slot-family-radius-${spacingRadius}`;
         root.dataset.decor3dSimilarNeighbours = String(similarNeighbourCount);
-        root.dataset.decor3dUniqueAssets = String(new Set(orderedObjects.map((object) => object.userData.asset)).size);
+        root.dataset.similarNeighbours = String(similarNeighbourCount);
+        root.dataset.objects = String(orderedObjects.length);
+        root.dataset.nativeAssetScale = 'native-uniform-scale';
+        root.dataset.uniqueAssets = String(new Set(orderedObjects.map((object) => object.userData.asset)).size);
+        root.dataset.decor3dUniqueAssets = root.dataset.uniqueAssets;
         root.dataset.decor3dUniqueMotion = 'seeded-per-png';
       }
 
@@ -1065,8 +1101,8 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
 
   function scheduleThreeField() {
     const priorityPage = page === 'odyssey';
-    const delay = priorityPage ? (compactMode ? 360 : 520) : (compactMode ? 2400 : 5600);
-    const idleTimeout = priorityPage ? 1200 : 6200;
+    const delay = priorityPage ? (compactMode ? 300 : 420) : (compactMode ? 900 : 1400);
+    const idleTimeout = priorityPage ? 1000 : 2600;
     let timer = 0;
     let scheduledDelay = Infinity;
     let started = false;
