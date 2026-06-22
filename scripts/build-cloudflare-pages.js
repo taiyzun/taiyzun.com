@@ -2,6 +2,7 @@
 
 const fs = require('node:fs');
 const path = require('node:path');
+const { execFileSync } = require('node:child_process');
 
 const rootDir = path.resolve(__dirname, '..');
 const outputDir = path.join(rootDir, 'dist');
@@ -30,6 +31,7 @@ const publicHtmlFiles = new Set([
 const publicAssetFiles = [
   'assets/favicon.svg',
   'assets/space-gallery-manifest.json',
+  'assets/space-gallery-share-index.json',
   'assets/easter-eggs/taiyzun-atme-3d-loader.avif',
   'assets/easter-eggs/taiyzun-atme-3d-loader.webp',
   'assets/easter-eggs/taiyzun-atme-3d-loader.png',
@@ -123,6 +125,10 @@ function copyPath(relativePath) {
 
   return true;
 }
+
+execFileSync(process.execPath, [path.join(rootDir, 'scripts', 'build-space-gallery-share-index.js')], {
+  stdio: 'inherit'
+});
 
 fs.rmSync(outputDir, { recursive: true, force: true, maxRetries: 6, retryDelay: 120 });
 fs.mkdirSync(outputDir, { recursive: true });

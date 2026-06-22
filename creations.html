@@ -73,25 +73,25 @@
 </script>
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-regular-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-italic-latin.woff2" crossorigin>
-<link rel="stylesheet" href="/css/fonts.min.css?v=20260623a">
+<link rel="stylesheet" href="/css/fonts.min.css?v=20260623b">
   <link rel="stylesheet" href="/css/design-principles.min.css">
-  <link rel="stylesheet" href="/css/white-theme.min.css?v=20260623a">
-  <link rel="stylesheet" href="/css/padding-fix.css?v=20260623a">
-  <link rel="stylesheet" href="/css/gallery-visual-fix.css?v=20260623a">
-  <link rel="stylesheet" href="/css/fctrylab-inspired.css?v=20260623a">
-  <link rel="stylesheet" href="/css/vaulk-gallery-inspired.css?v=20260623a">
-  <link rel="stylesheet" href="/css/ambient-video.css?v=20260623a">
-  <link rel="stylesheet" href="/css/site-decorative-field.css?v=20260623a">
-  <link rel="stylesheet" href="/css/mily-inspired-system.css?v=20260623a">
-  <link rel="stylesheet" href="/css/visual-protocol.min.css?v=20260623a">
-  <link rel="stylesheet" href="/css/harmonic-ui.min.css?v=20260623a">
-  <link rel="stylesheet" href="/css/gold-glam-ui.css?v=20260623a">
-  <link rel="stylesheet" href="/css/mobile-menu.css?v=20260623a">
-  <link rel="stylesheet" href="/css/taiyzun-3d-field.min.css?v=20260623a">
+  <link rel="stylesheet" href="/css/white-theme.min.css?v=20260623b">
+  <link rel="stylesheet" href="/css/padding-fix.css?v=20260623b">
+  <link rel="stylesheet" href="/css/gallery-visual-fix.css?v=20260623b">
+  <link rel="stylesheet" href="/css/fctrylab-inspired.css?v=20260623b">
+  <link rel="stylesheet" href="/css/vaulk-gallery-inspired.css?v=20260623b">
+  <link rel="stylesheet" href="/css/ambient-video.css?v=20260623b">
+  <link rel="stylesheet" href="/css/site-decorative-field.css?v=20260623b">
+  <link rel="stylesheet" href="/css/mily-inspired-system.css?v=20260623b">
+  <link rel="stylesheet" href="/css/visual-protocol.min.css?v=20260623b">
+  <link rel="stylesheet" href="/css/harmonic-ui.min.css?v=20260623b">
+  <link rel="stylesheet" href="/css/gold-glam-ui.css?v=20260623b">
+  <link rel="stylesheet" href="/css/mobile-menu.css?v=20260623b">
+  <link rel="stylesheet" href="/css/taiyzun-3d-field.min.css?v=20260623b">
 <link rel="preload" as="image" href="/assets/easter-eggs/taiyzun-atme-3d-loader.webp" type="image/webp">
 </head>
 <body class="creations-page">
-<script src="/js/site-mobile-lite.min.js?v=20260623a"></script>
+<script src="/js/site-mobile-lite.min.js?v=20260623b"></script>
 <a href="#main-content" class="skip-link">Skip to main content</a>
 <div class="cursor-glow" id="cursorGlow"></div>
 <div class="site-loader" id="siteLoader" role="status" aria-live="polite" aria-label="Loading Taiyzun" data-start="0" style="position:fixed;inset:0;z-index:100000;display:grid;place-items:center;overflow:hidden;width:100vw;height:100vh;contain:strict;"><span class="site-loader__orb" style="position:relative;width:clamp(136px,18vw,232px);aspect-ratio:1;display:grid;place-items:center;transform-style:preserve-3d;border-radius:50%;"><span class="site-loader__object" style="position:relative;width:84%;aspect-ratio:1;display:block;overflow:hidden;transform-style:preserve-3d;border-radius:50%;"><picture class="site-loader__face" style="position:absolute;inset:0;width:100%;height:100%;display:block;overflow:hidden;border-radius:50%;"><source srcset="/assets/easter-eggs/taiyzun-atme-3d-loader.avif" type="image/avif"><source srcset="/assets/easter-eggs/taiyzun-atme-3d-loader.webp" type="image/webp"><img class="site-loader__mark" src="/assets/easter-eggs/taiyzun-atme-3d-loader.png" alt="" width="1024" height="1024" decoding="async" style="display:block;width:100%;height:100%;object-fit:contain;border-radius:50%;"></picture></span></span></div>
@@ -142,6 +142,10 @@
     <span class="lb-counter-sep">/</span>
     <span class="lb-counter-total" id="lbTotal">00</span>
     <span class="lb-cat-label" id="lbCat"></span>
+    <button class="lb-share" id="lbShare" type="button" aria-label="Share image" title="Share image">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 16.1c-.76 0-1.44.3-1.96.77L8.91 12.7a3.2 3.2 0 0 0 0-1.39l7.05-4.13A2.99 2.99 0 1 0 15 5c0 .24.03.47.08.69L8.03 9.82a3 3 0 1 0 0 4.36l7.1 4.17c-.08.26-.13.53-.13.81a3 3 0 1 0 3-3.06Z"/></svg>
+    </button>
+    <span class="lb-share-status" id="lbShareStatus" aria-live="polite"></span>
     <button class="lb-close" id="lbClose" aria-label="Close lightbox">✕</button>
   </div>
   <div class="lb-main" id="lbMain">
@@ -177,7 +181,8 @@
 </footer>
 <script>
   /* ── Config ── */
-  const GALLERY_MANIFEST_VERSION = '20260623-creations-r2-v1';
+  const GALLERY_MANIFEST_VERSION = '20260623-creations-share-v2';
+  const SHARE_ROUTE_PREFIX = '/creations/image/';
   const MANIFEST_URLS = [
     `/assets/space-gallery-manifest.json?v=${GALLERY_MANIFEST_VERSION}`
   ];
@@ -197,6 +202,7 @@
 
   /* ── State ── */
   let allItems = [], filteredItems = [], currentPage = 0, lbIdx = 0, lbOpen = false;
+  let shareStatusTimer = null;
   const galleryCountEl = document.getElementById('galleryCount');
 
   function escapeHTML(v) {
@@ -226,6 +232,66 @@
 
   function titleForItem(item) {
     return String(item.name || item.title || titleFromImagePath(item.full || item.thumb) || 'Untitled').replace(/_/g, ' ').trim();
+  }
+
+  function cleanImageId(value) {
+    return String(value || '').trim().replace(/\.html?$/i, '').replace(/[^a-zA-Z0-9._~-]/g, '');
+  }
+
+  function imageIdFromUrl(value) {
+    try {
+      const parsed = new URL(value, window.location.href);
+      return cleanImageId(parsed.pathname.split('/').pop().replace(/\.(?:webp|avif|jpe?g|png)$/i, ''));
+    } catch (error) {
+      return cleanImageId(String(value || '').split('/').pop().split('?')[0].replace(/\.(?:webp|avif|jpe?g|png)$/i, ''));
+    }
+  }
+
+  function normalizeGalleryItem(item, cat) {
+    const normalized = {
+      full: item.full,
+      thumb: item.thumb || item.full,
+      cat,
+      title: titleForItem(item),
+      sub: displayCategory(cat)
+    };
+    normalized.id = cleanImageId(item.id) || imageIdFromUrl(normalized.full || normalized.thumb || normalized.title);
+    return normalized;
+  }
+
+  function getRequestedImageId() {
+    const params = new URLSearchParams(window.location.search);
+    const queryId = params.get('image') || params.get('creation');
+    if (queryId) return cleanImageId(queryId);
+    const hashMatch = decodeURIComponent(window.location.hash || '').match(/(?:image|creation)=([^&]+)/i);
+    return hashMatch ? cleanImageId(hashMatch[1]) : '';
+  }
+
+  function sharePageUrlForItem(item) {
+    return `${window.location.origin}${SHARE_ROUTE_PREFIX}${encodeURIComponent(item.id)}`;
+  }
+
+  function galleryUrlForItem(item) {
+    return `${window.location.origin}/creations?image=${encodeURIComponent(item.id)}`;
+  }
+
+  function setImageUrl(item, mode = 'replace') {
+    if (!item || !item.id || !window.history?.[`${mode}State`]) return;
+    const url = new URL(window.location.href);
+    url.pathname = '/creations';
+    url.search = `?image=${encodeURIComponent(item.id)}`;
+    url.hash = '';
+    window.history[`${mode}State`]({ image: item.id }, '', url);
+  }
+
+  function clearImageUrl(mode = 'push') {
+    if (!window.history?.[`${mode}State`]) return;
+    const url = new URL(window.location.href);
+    url.pathname = '/creations';
+    url.searchParams.delete('image');
+    url.searchParams.delete('creation');
+    url.hash = '';
+    window.history[`${mode}State`]({}, '', url);
   }
 
   function isPublicGalleryItem(item) {
@@ -263,17 +329,18 @@
       cats.forEach(cat => {
         (manifest[cat] || []).forEach(item => {
           if (!isPublicGalleryItem(item)) return;
-          allItems.push({ full: item.full, thumb: item.thumb, cat, title: titleForItem(item), sub: displayCategory(cat) });
+          allItems.push(normalizeGalleryItem(item, cat));
           countByCat[cat] = (countByCat[cat] || 0) + 1;
         });
       });
       buildFilters([...cats, 'all'], countByCat);
     } catch (e) {
-      allItems = FALLBACK;
+      allItems = FALLBACK.map(item => normalizeGalleryItem(item, item.cat || 'Gallery'));
       buildFilters(['all'], { all: FALLBACK.length });
     }
     hideLoading();
     renderGrid('all');
+    openRequestedImage();
   }
 
   function showLoading() {
@@ -361,25 +428,92 @@
   const lbPrevBtn  = document.getElementById('lbPrev');
   const lbNextBtn  = document.getElementById('lbNext');
   const lbCloseBtn = document.getElementById('lbClose');
+  const lbShareBtn = document.getElementById('lbShare');
+  const lbShareStatus = document.getElementById('lbShareStatus');
   const lbFilmstrip = document.getElementById('lbFilmstrip');
   const lbProgressBar = document.getElementById('lbProgressBar');
   const lbMain     = document.getElementById('lbMain');
 
-  function openLB(i) {
+  function setShareStatus(message) {
+    if (!lbShareStatus) return;
+    window.clearTimeout(shareStatusTimer);
+    lbShareStatus.textContent = message || '';
+    if (message) {
+      shareStatusTimer = window.setTimeout(() => {
+        lbShareStatus.textContent = '';
+      }, 1800);
+    }
+  }
+
+  function updateShareButton(item) {
+    if (!lbShareBtn || !item) return;
+    lbShareBtn.dataset.shareUrl = sharePageUrlForItem(item);
+    lbShareBtn.title = `Share ${item.title || 'image'}`;
+    lbShareBtn.setAttribute('aria-label', `Share ${item.title || 'image'}`);
+  }
+
+  async function copyToClipboard(value) {
+    if (navigator.clipboard?.writeText) {
+      try {
+        await navigator.clipboard.writeText(value);
+        return;
+      } catch (error) {
+        // Fall through to the textarea copy path for browsers with stricter permissions.
+      }
+    }
+    const input = document.createElement('textarea');
+    input.value = value;
+    input.setAttribute('readonly', '');
+    input.style.cssText = 'position:fixed;left:-9999px;top:0;';
+    document.body.appendChild(input);
+    input.select();
+    const copied = document.execCommand('copy');
+    input.remove();
+    if (!copied) throw new Error('Unable to copy share link.');
+  }
+
+  async function shareCurrentImage() {
+    const item = filteredItems[lbIdx];
+    if (!item) return;
+    const url = sharePageUrlForItem(item);
+    const payload = {
+      title: item.title || 'Taiyzun Creation',
+      text: `${item.title || 'Taiyzun Creation'} | ${displayCategory(item.cat || '')}`,
+      url
+    };
+    try {
+      if (navigator.share) {
+        await navigator.share(payload);
+        setShareStatus('Shared');
+      } else {
+        await copyToClipboard(url);
+        setShareStatus('Link Copied');
+      }
+    } catch (error) {
+      if (error?.name === 'AbortError') return;
+      await copyToClipboard(url);
+      setShareStatus('Link Copied');
+    }
+  }
+
+  function openLB(i, options = {}) {
     lbIdx = i; lbOpen = true;
     lbTotal.textContent = String(filteredItems.length).padStart(2, '0');
     buildFilmstrip();
-    loadLBImage(i, 'enter');
+    const historyMode = Object.prototype.hasOwnProperty.call(options, 'historyMode') ? options.historyMode : 'push';
+    loadLBImage(i, 'enter', historyMode);
     lb.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
-  function closeLB() {
+  function closeLB(options = {}) {
     lb.classList.remove('open');
     document.body.style.overflow = '';
     lbOpen = false;
     lbImg.className = '';
+    setShareStatus('');
+    if (options.clearUrl !== false) clearImageUrl(options.historyMode || 'push');
   }
-  function loadLBImage(i, dir) {
+  function loadLBImage(i, dir, historyMode = 'replace') {
     lbIdx = i;
     const item = filteredItems[i];
     lbCounter.textContent = String(i + 1).padStart(2, '0');
@@ -398,6 +532,8 @@
     lbImg.alt = item.title || '';
     const ac = dir === 'enter' ? 'lb-anim-enter' : dir === 'next' ? 'lb-anim-next' : 'lb-anim-prev';
     lbImg.classList.add(ac);
+    updateShareButton(item);
+    if (historyMode) setImageUrl(item, historyMode);
   }
   function buildFilmstrip() {
     if (siteMobileLite) return;
@@ -426,17 +562,38 @@
     if (!found) buildFilmstrip();
   }
 
-  lbCloseBtn.addEventListener('click', closeLB);
+  function openRequestedImage(options = {}) {
+    const requestedId = getRequestedImageId();
+    if (!requestedId || !allItems.length) return false;
+    const index = allItems.findIndex(item => item.id === requestedId);
+    if (index < 0) return false;
+    const allTab = document.querySelector('.cat-tab[data-cat="all"]');
+    if (allTab) {
+      document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+      allTab.classList.add('active');
+    }
+    if (filteredItems !== allItems) renderGrid('all');
+    openLB(index, { historyMode: options.historyMode === false ? false : 'replace' });
+    return true;
+  }
+
+  lbCloseBtn.addEventListener('click', () => closeLB());
+  lbShareBtn.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); shareCurrentImage(); });
   lbPrevBtn.addEventListener('click', () => { const n = (lbIdx - 1 + filteredItems.length) % filteredItems.length; loadLBImage(n, 'prev'); });
   lbNextBtn.addEventListener('click', () => { const n = (lbIdx + 1) % filteredItems.length; loadLBImage(n, 'next'); });
   lbMain.addEventListener('click', e => { if (e.target === lbMain) closeLB(); });
   lbImg.addEventListener('click', e => { e.stopPropagation(); lbImg.classList.toggle('zoomed'); });
-  [lbPrevBtn, lbNextBtn, lbFilmstrip].forEach(el => el.addEventListener('click', e => e.stopPropagation()));
+  [lbPrevBtn, lbNextBtn, lbShareBtn, lbFilmstrip].forEach(el => el.addEventListener('click', e => e.stopPropagation()));
   document.addEventListener('keydown', e => {
     if (!lbOpen) return;
     if (e.key === 'Escape') { e.preventDefault(); closeLB(); }
     if (e.key === 'ArrowLeft') { e.preventDefault(); const n = (lbIdx - 1 + filteredItems.length) % filteredItems.length; loadLBImage(n, 'prev'); }
     if (e.key === 'ArrowRight') { e.preventDefault(); const n = (lbIdx + 1) % filteredItems.length; loadLBImage(n, 'next'); }
+  });
+  window.addEventListener('popstate', () => {
+    const requestedId = getRequestedImageId();
+    if (requestedId) openRequestedImage({ historyMode: false });
+    else if (lbOpen) closeLB({ clearUrl: false });
   });
   let tsX = 0;
   lb.addEventListener('touchstart', e => { tsX = e.touches[0].clientX; }, { passive: true });
@@ -510,6 +667,11 @@
       init();
     };
 
+    if (getRequestedImageId()) {
+      start();
+      return;
+    }
+
     const galleryTrigger = document.getElementById('artGrid') || document.querySelector('.gallery-section');
     if ('IntersectionObserver' in window && galleryTrigger) {
       const galleryStartObserver = new IntersectionObserver((entries) => {
@@ -531,12 +693,12 @@
   scheduleGalleryInit();
 
 </script>
-<script src="/js/ambient-video.min.js?v=20260623a"></script>
-<script src="/js/mobile-menu.min.js?v=20260623a"></script>
-<script type="module" src="/js/taiyzun-3d-field.min.js?v=20260623a" crossorigin="anonymous"></script>
+<script src="/js/ambient-video.min.js?v=20260623b"></script>
+<script src="/js/mobile-menu.min.js?v=20260623b"></script>
+<script type="module" src="/js/taiyzun-3d-field.min.js?v=20260623b" crossorigin="anonymous"></script>
 <script>
   window.TAIYZUN_loadDesktopEnhancements?.([
-    '/js/harmonic-interactions.min.js?v=20260623a'
+    '/js/harmonic-interactions.min.js?v=20260623b'
   ]);
 </script>
 </body>

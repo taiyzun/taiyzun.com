@@ -22,6 +22,12 @@
 /manifest.json
   Cache-Control: no-cache, must-revalidate
 
+/assets/space-gallery-manifest.json
+  Cache-Control: public, max-age=300, must-revalidate
+
+/assets/space-gallery-share-index.json
+  Cache-Control: public, max-age=300, must-revalidate
+
 /sitemap.xml
   Cache-Control: no-cache, must-revalidate
 
