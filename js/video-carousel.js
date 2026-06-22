@@ -152,6 +152,10 @@
     carousel.style.setProperty('--video-glow-y', `${(((pointerY + 1) / 2) * 100).toFixed(2)}%`);
   }
 
+  function shouldSkipDragTarget(target) {
+    return target instanceof Element && Boolean(target.closest('button, a, iframe, input, select, textarea, label'));
+  }
+
   function endDrag(event) {
     if (!dragState) return;
 
@@ -181,6 +185,10 @@
 
   carousel.addEventListener('pointerdown', (event) => {
     if (event.button !== undefined && event.button !== 0) return;
+    if (shouldSkipDragTarget(event.target)) {
+      updatePointer(event);
+      return;
+    }
     dragState = {
       pointerId: event.pointerId,
       startX: event.clientX,
