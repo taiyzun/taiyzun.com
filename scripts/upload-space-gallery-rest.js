@@ -14,7 +14,7 @@ const { readdir } = require('fs/promises');
 
 const ACCOUNT_ID = '45c2547d0e32e249912336f66a9c5c01';
 const BUCKET = 'taiyzun-gallery';
-const PUBLIC_URL = 'https://pub-3c9f0c0ce1654d10a3df41d9987255b7.r2.dev';
+const PUBLIC_URL = 'https://assets.taiyzun.com';
 const PREFIX = process.env.SPACE_GALLERY_PREFIX || 'space-gallery';
 const MANIFEST_KEY = process.env.SPACE_GALLERY_MANIFEST_KEY || `${PREFIX}/manifest.json`;
 const LOCAL_MANIFEST_PATH = process.env.SPACE_GALLERY_LOCAL_MANIFEST_PATH || path.join(process.cwd(), 'assets', 'space-gallery-manifest.json');

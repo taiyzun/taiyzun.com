@@ -24,7 +24,7 @@ const { readdir } = require('fs/promises');
 /* ── Config ────────────────────────────────────────────── */
 const ACCOUNT_ID  = '45c2547d0e32e249912336f66a9c5c01';
 const BUCKET      = 'taiyzun-gallery';
-const PUBLIC_URL  = 'https://pub-3c9f0c0ce1654d10a3df41d9987255b7.r2.dev';
+const PUBLIC_URL  = 'https://assets.taiyzun.com';
 const MAX_FULL    = 1920;   // max width for full image (px)
 const THUMB_W     = 480;    // thumbnail width (px)
 const CONCURRENCY = 4;      // parallel uploads
