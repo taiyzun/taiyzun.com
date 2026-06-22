@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-06-21T08:54:46.283Z",
+  "timestamp": "2026-06-22T20:02:54.978Z",
   "pages": [
     {
       "page": "Home",
@@ -60,7 +60,7 @@
             },
             {
               "test": "checkMediaQueries",
-              "status": "WARN"
+              "status": "PASS"
             },
             {
               "test": "checkResponsiveImages",
@@ -85,7 +85,7 @@
             },
             {
               "test": "checkLetterSpacing",
-              "status": "WARN"
+              "status": "PASS"
             }
           ]
         },
@@ -98,7 +98,7 @@
             },
             {
               "test": "checkCSSMinified",
-              "status": "WARN"
+              "status": "PASS"
             },
             {
               "test": "checkScriptDefer",
@@ -159,8 +159,8 @@
         }
       ],
       "stats": {
-        "passed": 24,
-        "warning": 4,
+        "passed": 27,
+        "warning": 1,
         "failed": 0
       }
     },
@@ -223,7 +223,7 @@
             },
             {
               "test": "checkMediaQueries",
-              "status": "WARN"
+              "status": "PASS"
             },
             {
               "test": "checkResponsiveImages",
@@ -248,7 +248,7 @@
             },
             {
               "test": "checkLetterSpacing",
-              "status": "WARN"
+              "status": "PASS"
             }
           ]
         },
@@ -261,7 +261,7 @@
             },
             {
               "test": "checkCSSMinified",
-              "status": "WARN"
+              "status": "PASS"
             },
             {
               "test": "checkScriptDefer",
@@ -322,8 +322,8 @@
         }
       ],
       "stats": {
-        "passed": 23,
-        "warning": 5,
+        "passed": 26,
+        "warning": 2,
         "failed": 0
       }
     },
@@ -386,7 +386,7 @@
             },
             {
               "test": "checkMediaQueries",
-              "status": "WARN"
+              "status": "PASS"
             },
             {
               "test": "checkResponsiveImages",
@@ -411,7 +411,7 @@
             },
             {
               "test": "checkLetterSpacing",
-              "status": "WARN"
+              "status": "PASS"
             }
           ]
         },
@@ -424,7 +424,7 @@
             },
             {
               "test": "checkCSSMinified",
-              "status": "WARN"
+              "status": "PASS"
             },
             {
               "test": "checkScriptDefer",
@@ -485,8 +485,8 @@
         }
       ],
       "stats": {
-        "passed": 24,
-        "warning": 4,
+        "passed": 27,
+        "warning": 1,
         "failed": 0
       }
     },
@@ -549,7 +549,7 @@
             },
             {
               "test": "checkMediaQueries",
-              "status": "WARN"
+              "status": "PASS"
             },
             {
               "test": "checkResponsiveImages",
@@ -574,7 +574,7 @@
             },
             {
               "test": "checkLetterSpacing",
-              "status": "WARN"
+              "status": "PASS"
             }
           ]
         },
@@ -587,7 +587,7 @@
             },
             {
               "test": "checkCSSMinified",
-              "status": "WARN"
+              "status": "PASS"
             },
             {
               "test": "checkScriptDefer",
@@ -648,8 +648,8 @@
         }
       ],
       "stats": {
-        "passed": 24,
-        "warning": 4,
+        "passed": 27,
+        "warning": 1,
         "failed": 0
       }
     },
@@ -712,7 +712,7 @@
             },
             {
               "test": "checkMediaQueries",
-              "status": "WARN"
+              "status": "PASS"
             },
             {
               "test": "checkResponsiveImages",
@@ -737,7 +737,7 @@
             },
             {
               "test": "checkLetterSpacing",
-              "status": "WARN"
+              "status": "PASS"
             }
           ]
         },
@@ -750,7 +750,7 @@
             },
             {
               "test": "checkCSSMinified",
-              "status": "WARN"
+              "status": "PASS"
             },
             {
               "test": "checkScriptDefer",
@@ -811,16 +811,16 @@
         }
       ],
       "stats": {
-        "passed": 24,
-        "warning": 4,
+        "passed": 27,
+        "warning": 1,
         "failed": 0
       }
     }
   ],
   "summary": {
     "totalTests": 140,
-    "passed": 119,
-    "warnings": 21,
+    "passed": 134,
+    "warnings": 6,
     "failed": 0
   }
 }

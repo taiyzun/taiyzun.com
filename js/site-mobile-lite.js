@@ -56,9 +56,9 @@
 
     const schedule = () => {
       if ('requestIdleCallback' in window) {
-        window.requestIdleCallback(inject, { timeout: 1800 });
+        window.requestIdleCallback(inject, { timeout: 4200 });
       } else {
-        window.setTimeout(inject, 360);
+        window.setTimeout(inject, 1600);
       }
     };
 

@@ -477,6 +477,8 @@
 .video-dot {
   display: inline-grid;
   place-items: center;
+  box-sizing: border-box;
+  padding: 0;
   border: 1px solid rgba(202, 168, 84, 0.3);
   color: #6b4f1e;
   background: rgba(255, 255, 255, 0.62);
@@ -710,9 +712,9 @@
 
   .video-controls {
     bottom: 1.1rem;
-    width: min(calc(100% - 1rem), 20.5rem);
-    max-width: calc(100vw - 28px);
-    padding-inline: 0.45rem;
+    width: min(calc(100% - 0.5rem), 21.75rem);
+    max-width: calc(100vw - 14px);
+    padding-inline: 0.5rem;
     transform: translate3d(-50%, 0, 96px);
   }
 
@@ -722,12 +724,12 @@
   }
 
   .video-dots {
-    gap: 0.14rem;
+    gap: 0.24rem;
   }
 
   .video-dot {
-    width: clamp(1.08rem, 5.4vw, 1.34rem);
-    height: clamp(1.08rem, 5.4vw, 1.34rem);
+    width: clamp(1.5rem, 6vw, 1.6rem);
+    height: clamp(1.5rem, 6vw, 1.6rem);
   }
 }
 

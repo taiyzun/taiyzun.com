@@ -1,6 +1,38 @@
 /* Font Hierarchy Implementation */
 /* Priority: Philosopher → DINPro → Optima → Trebuchet MS */
 
+@font-face {
+  font-family: 'Philosopher';
+  font-style: normal;
+  font-weight: 400;
+  font-display: optional;
+  src: url('/assets/fonts/philosopher-regular-latin.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Philosopher';
+  font-style: normal;
+  font-weight: 700;
+  font-display: optional;
+  src: url('/assets/fonts/philosopher-bold-latin.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Philosopher';
+  font-style: italic;
+  font-weight: 400;
+  font-display: optional;
+  src: url('/assets/fonts/philosopher-italic-latin.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Philosopher';
+  font-style: italic;
+  font-weight: 700;
+  font-display: optional;
+  src: url('/assets/fonts/philosopher-bold-italic-latin.woff2') format('woff2');
+}
+
 :root {
   /* Font Families (Priority Order) */
   --font-display: 'Philosopher', 'DINPro', 'Optima', 'Trebuchet MS', sans-serif;

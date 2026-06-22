@@ -29,6 +29,9 @@
   let interactionTimer = 0;
   let dragState = null;
   let suppressClickUntil = 0;
+  let animationFrame = 0;
+  let carouselInView = true;
+  let documentVisible = !document.hidden;
 
   const dots = cards.map((card, index) => {
     const dot = document.createElement('button');
@@ -126,22 +129,46 @@
     if (userInitiated) setInteractionState();
   }
 
-  function animate() {
-    if (!reduceMotion) {
-      const scrollRatio = window.scrollY / Math.max(window.innerHeight, 1);
-      const drift = isInteracting ? 0.018 : 0.05;
-      targetSpin += drift;
-      const pointerSpin = pointerX * 9;
-      const scrollSpin = scrollRatio * 6;
-      spin += (targetSpin + pointerSpin + scrollSpin - spin) * 0.045;
-      carousel.style.setProperty('--video-spin-angle', `${(spin + dragSpin).toFixed(3)}deg`);
-      carousel.style.setProperty('--video-tilt-x', `${(-pointerY * 4.8).toFixed(3)}deg`);
-      carousel.style.setProperty('--video-tilt-y', `${(pointerX * 7.2).toFixed(3)}deg`);
-      carousel.dataset.spinAngle = (spin + dragSpin).toFixed(2);
-      updateCardFacing();
-    }
+  function shouldAnimate() {
+    return !reduceMotion && documentVisible && carouselInView;
+  }
 
-    window.requestAnimationFrame(animate);
+  function stopAnimationLoop() {
+    if (!animationFrame) return;
+    window.cancelAnimationFrame(animationFrame);
+    animationFrame = 0;
+  }
+
+  function startAnimationLoop() {
+    if (animationFrame || !shouldAnimate()) return;
+    animationFrame = window.requestAnimationFrame(animate);
+  }
+
+  function syncAnimationLoop() {
+    if (shouldAnimate()) {
+      startAnimationLoop();
+    } else {
+      stopAnimationLoop();
+    }
+  }
+
+  function animate() {
+    animationFrame = 0;
+    if (!shouldAnimate()) return;
+
+    const scrollRatio = window.scrollY / Math.max(window.innerHeight, 1);
+    const drift = isInteracting ? 0.018 : 0.05;
+    targetSpin += drift;
+    const pointerSpin = pointerX * 9;
+    const scrollSpin = scrollRatio * 6;
+    spin += (targetSpin + pointerSpin + scrollSpin - spin) * 0.045;
+    carousel.style.setProperty('--video-spin-angle', `${(spin + dragSpin).toFixed(3)}deg`);
+    carousel.style.setProperty('--video-tilt-x', `${(-pointerY * 4.8).toFixed(3)}deg`);
+    carousel.style.setProperty('--video-tilt-y', `${(pointerX * 7.2).toFixed(3)}deg`);
+    carousel.dataset.spinAngle = (spin + dragSpin).toFixed(2);
+    updateCardFacing();
+
+    startAnimationLoop();
   }
 
   function updatePointer(event) {
@@ -235,6 +262,19 @@
   prevButton?.addEventListener('click', () => setActive(activeIndex - 1, true));
   nextButton?.addEventListener('click', () => setActive(activeIndex + 1, true));
 
+  document.addEventListener('visibilitychange', () => {
+    documentVisible = !document.hidden;
+    syncAnimationLoop();
+  });
+
+  if ('IntersectionObserver' in window) {
+    const carouselObserver = new IntersectionObserver((entries) => {
+      carouselInView = entries.some((entry) => entry.isIntersecting);
+      syncAnimationLoop();
+    }, { threshold: 0.04, rootMargin: '360px 0px' });
+    carouselObserver.observe(carousel);
+  }
+
   setActive(0, false);
-  window.requestAnimationFrame(animate);
+  syncAnimationLoop();
 })();

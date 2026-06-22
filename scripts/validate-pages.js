@@ -13,6 +13,8 @@
 
 const fs = require('fs');
 const path = require('path');
+const projectRoot = path.join(__dirname, '..');
+const linkedAssetCache = new Map();
 
 const pages = [
   { name: 'Home', file: 'index.html', route: '/' },
@@ -32,6 +34,43 @@ const results = {
     failed: 0
   }
 };
+
+function readLinkedAsset(href) {
+  if (!href || /^https?:\/\//i.test(href) || href.startsWith('//')) return '';
+  const cleanHref = href.split('?')[0].replace(/^\/+/, '');
+  const filePath = path.join(projectRoot, cleanHref);
+
+  if (!filePath.startsWith(projectRoot)) return '';
+  if (linkedAssetCache.has(filePath)) return linkedAssetCache.get(filePath);
+
+  let content = '';
+  try {
+    if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+      content = fs.readFileSync(filePath, 'utf-8');
+    }
+  } catch (_) {
+    content = '';
+  }
+
+  linkedAssetCache.set(filePath, content);
+  return content;
+}
+
+function readLinkedStyles(content) {
+  const styles = [];
+  const linkRegex = /<link[^>]+rel=["'][^"']*stylesheet[^"']*["'][^>]*href=["']([^"']+)["'][^>]*>/gi;
+  let match;
+
+  while ((match = linkRegex.exec(content))) {
+    styles.push(readLinkedAsset(match[1]));
+  }
+
+  return styles.join('\n');
+}
+
+function combinedContent(content) {
+  return `${content}\n${readLinkedStyles(content)}`;
+}
 
 // Test categories
 const tests = {
@@ -65,29 +104,31 @@ const tests = {
   
   // 3. Responsive Design
   checkViewportMeta: (content) => /viewport[^>]*width=device-width/i.test(content),
-  checkMediaQueries: (content) => /@media/.test(content),
+  checkMediaQueries: (content) => /@media/.test(combinedContent(content)),
   checkResponsiveImages: (content) => content.includes('srcset') || content.includes('picture'),
-  checkCSSVars: (content) => /--[\w-]+/.test(content),
+  checkCSSVars: (content) => /--[\w-]+/.test(combinedContent(content)),
   
   // 4. Fonts & Typography
   checkFontLoading: (content) => {
-    const hasGoogleFonts = content.includes('fonts.googleapis.com');
-    const hasFontFace = content.includes('@font-face');
-    const hasPhilosopher = content.includes('Philosopher') || content.includes('--font');
+    const merged = combinedContent(content);
+    const hasGoogleFonts = merged.includes('fonts.googleapis.com');
+    const hasFontFace = merged.includes('@font-face');
+    const hasPhilosopher = merged.includes('Philosopher') || merged.includes('--font');
     return hasGoogleFonts || hasFontFace || hasPhilosopher;
   },
   checkFontHierarchy: (content) => {
-    const font1 = content.includes('Philosopher');
-    const font2 = content.includes('DINPro');
-    const font3 = content.includes('Optima');
+    const merged = combinedContent(content);
+    const font1 = merged.includes('Philosopher');
+    const font2 = merged.includes('DINPro');
+    const font3 = merged.includes('Optima');
     return font1 || font2 || font3;
   },
-  checkLetterSpacing: (content) => /letter-spacing/.test(content),
+  checkLetterSpacing: (content) => /letter-spacing/.test(combinedContent(content)),
   
   // 5. Performance
   checkLazyLoading: (content) => content.includes('loading="lazy"') || content.includes('Intersection'),
-  checkCSSMinified: (content) => content.includes('style.min.css'),
-  checkScriptDefer: (content) => content.match(/<script[^>]*defer/gi) ? true : false,
+  checkCSSMinified: (content) => /\.min\.css(?:\?|["'])/.test(content),
+  checkScriptDefer: (content) => /<script[^>]*(defer|type=["']module["'])/i.test(content),
   checkPreload: (content) => content.includes('preload') || content.includes('prefetch'),
   
   // 6. Modern Features

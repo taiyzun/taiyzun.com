@@ -8,9 +8,7 @@ Allow: /css/
 Allow: /js/
 Allow: /assets/images/
 Allow: /assets/Art/
-Allow: /assets/Portfolio/
 Allow: /assets/Portraits/
-Allow: /assets/Space%20Gallery/
 Allow: /assets/decorative/optimized/
 Allow: /manifest.json
 

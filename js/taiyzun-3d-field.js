@@ -16,7 +16,8 @@ function installSiteLoader() {
     loader.setAttribute('aria-live', 'polite');
     loader.setAttribute('aria-label', 'Loading Taiyzun');
     loader.dataset.start = String(startedAt);
-    loader.innerHTML = '<span class="site-loader__orb"><span class="site-loader__object"><picture class="site-loader__face"><source srcset="/assets/easter-eggs/taiyzun-atme-3d-loader.avif" type="image/avif"><source srcset="/assets/easter-eggs/taiyzun-atme-3d-loader.webp" type="image/webp"><img class="site-loader__mark" src="/assets/easter-eggs/taiyzun-atme-3d-loader.png" alt="" width="1024" height="1024" decoding="async"></picture></span></span>';
+    loader.style.cssText = 'position:fixed;inset:0;z-index:100000;display:grid;place-items:center;overflow:hidden;width:100vw;height:100vh;contain:strict;';
+    loader.innerHTML = '<span class="site-loader__orb" style="position:relative;width:clamp(136px,18vw,232px);aspect-ratio:1;display:grid;place-items:center;transform-style:preserve-3d;border-radius:50%;"><span class="site-loader__object" style="position:relative;width:84%;aspect-ratio:1;display:block;overflow:hidden;transform-style:preserve-3d;border-radius:50%;"><picture class="site-loader__face" style="position:absolute;inset:0;width:100%;height:100%;display:block;overflow:hidden;border-radius:50%;"><source srcset="/assets/easter-eggs/taiyzun-atme-3d-loader.avif" type="image/avif"><source srcset="/assets/easter-eggs/taiyzun-atme-3d-loader.webp" type="image/webp"><img class="site-loader__mark" src="/assets/easter-eggs/taiyzun-atme-3d-loader.png" alt="" width="1024" height="1024" decoding="async" style="display:block;width:100%;height:100%;object-fit:contain;border-radius:50%;"></picture></span></span>';
     body.insertBefore(loader, body.firstChild);
   } else {
     const existingStart = Number(loader.dataset.start);
@@ -28,15 +29,19 @@ function installSiteLoader() {
   const hideLoader = () => {
     if (!loader || loader.dataset.hidden === 'true') return;
     loader.dataset.hidden = 'true';
+    loader.setAttribute('aria-hidden', 'true');
     loader.classList.add('is-hidden');
     body.classList.remove('site-loader-active');
-    window.setTimeout(() => loader?.remove(), 640);
   };
 
   const requestHide = () => {
     const loaderStart = Number(loader.dataset.start || startedAt);
     const elapsed = performance.now() - loaderStart;
-    const minVisible = 720;
+    const compactLoader = Boolean(
+      window.TAIYZUN_MOBILE_LITE ||
+      window.matchMedia?.('(max-width: 820px), (pointer: coarse)')?.matches
+    );
+    const minVisible = compactLoader ? 520 : 720;
     window.setTimeout(hideLoader, Math.max(0, minVisible - elapsed));
   };
 
@@ -45,12 +50,19 @@ function installSiteLoader() {
   if (doc.readyState === 'complete') {
     requestHide();
   } else {
+    doc.addEventListener('DOMContentLoaded', () => {
+      window.setTimeout(requestHide, 700);
+    }, { once: true });
     window.addEventListener('load', () => {
-      window.setTimeout(requestHide, 1100);
+      window.setTimeout(requestHide, 900);
     }, { once: true });
   }
 
-  window.setTimeout(hideLoader, 5200);
+  const maxVisible = Boolean(
+    window.TAIYZUN_MOBILE_LITE ||
+    window.matchMedia?.('(max-width: 820px), (pointer: coarse)')?.matches
+  ) ? 2400 : 3600;
+  window.setTimeout(hideLoader, maxVisible);
 }
 
 installSiteLoader();
@@ -305,12 +317,15 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
   }
 
   function attachSurfaceDepth() {
-    const selector = [
+    const selector = (compactMode ? [
+      '.hero-content', '.page-hero-content', '.about-grid', '.gallery-label', '.connect-label',
+      '.home-btn', '.video-field-shell', '.video-stage', '.video-frame', '.video-panel'
+    ] : [
       '.hero-content', '.page-hero-content', '.about-grid', '.highlight-card', '.thesis-card',
       '.value-item', '.timeline-category', '.timeline-item', '.gallery-label', '.connect-label',
       '.contact-form', '.social-card', '.info-card', '.cat-tab', '.art-item', '.gallery-item', '.home-btn',
       '.video-field-shell', '.video-stage', '.video-frame', '.video-panel'
-    ].join(',');
+    ]).join(',');
 
     doc.querySelectorAll(selector).forEach((node, index) => {
       if (node.dataset.tz3dSurface === 'true') return;
@@ -389,7 +404,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       alpha: true,
       antialias: !compactMode,
       powerPreference: compactMode ? 'low-power' : 'high-performance',
-      preserveDrawingBuffer: true
+      preserveDrawingBuffer: !compactMode
     });
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(46, 1, 0.1, 120);
@@ -420,7 +435,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     camera.position.set(0, 0, compactMode ? 10.5 : 9.2);
     renderer.setClearColor(0x000000, 0);
 
-    const pointCount = compactMode ? 90 : 220;
+    const pointCount = compactMode ? 56 : 220;
     const positions = new Float32Array(pointCount * 3);
     const colours = new Float32Array(pointCount * 3);
     const colour = new THREE.Color(theme.node);
@@ -740,6 +755,8 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     }
 
     function sampleTextureColour(texture, fallbackColour) {
+      if (compactMode) return fallbackColour.clone();
+
       const image = texture.image;
       if (!image || !image.width || !image.height) return fallbackColour.clone();
 
@@ -1280,8 +1297,8 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
 
   function scheduleThreeField() {
     const priorityPage = page === 'odyssey';
-    const delay = priorityPage ? (compactMode ? 240 : 360) : (compactMode ? 520 : 760);
-    const idleTimeout = priorityPage ? 900 : 1900;
+    const delay = priorityPage ? (compactMode ? 240 : 360) : (compactMode ? 1100 : 1700);
+    const idleTimeout = priorityPage ? 900 : (compactMode ? 3200 : 4200);
     let timer = 0;
     let scheduledDelay = Infinity;
     let started = false;
@@ -1303,10 +1320,6 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       timer = window.setTimeout(start, nextDelay);
     };
 
-    const interactionStart = () => {
-      schedule(priorityPage ? 180 : 320);
-    };
-
     if (doc.readyState === 'complete' || (priorityPage && doc.readyState !== 'loading')) {
       schedule();
     } else {
@@ -1314,7 +1327,8 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       window.addEventListener(eventName, () => schedule(), { once: true });
     }
 
-    if (!priorityPage) {
+    if (priorityPage) {
+      const interactionStart = () => schedule(180);
       window.addEventListener('pointerdown', interactionStart, { once: true, passive: true });
       window.addEventListener('wheel', interactionStart, { once: true, passive: true });
       window.addEventListener('keydown', interactionStart, { once: true });
