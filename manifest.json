@@ -22,7 +22,7 @@
     "productivity",
     "social",
     "design",
-    "portfolio"
+    "creativity"
   ],
   "launch_handler": {
     "client_mode": [
@@ -35,8 +35,8 @@
   },
   "shortcuts": [
     {
-      "name": "View Portfolio",
-      "short_name": "Portfolio",
+      "name": "View Creations",
+      "short_name": "Creations",
       "url": "/creations",
       "description": "Browse a refined showcase of Information & Technology, Micro & Macro thinking, Business Strategy, Design Architecture and Trust"
     },

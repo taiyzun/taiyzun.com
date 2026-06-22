@@ -118,7 +118,7 @@
   const themeRules = [
     { theme: 'technology', pattern: /technology|information|architecture|workflow|data|systems|delivery|documentation|process|research/i },
     { theme: 'ceremony', pattern: /convening|summit|event|stakeholder|coordination|logistics|public initiative/i },
-    { theme: 'art', pattern: /portfolio|visual|design|brand|gallery|archive|fashion|craft/i },
+    { theme: 'art', pattern: /creations|visual|design|brand|gallery|archive|fashion|craft/i },
     { theme: 'values', pattern: /truth|sincerity|integrity|vision|purpose|authentic|principle/i },
     { theme: 'journey', pattern: /journey|role|career|education|exploration|founding|entrepreneur|media|current|recent/i },
     { theme: 'connect', pattern: /connect|contact|social|instagram|facebook|linkedin|youtube|threads|message|email/i },

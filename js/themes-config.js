@@ -6,7 +6,7 @@
 
 const THEMES_CONFIG = {
   home: {
-    name: "Home - Information & Technology Portfolio",
+    name: "Home - Information & Technology",
     keywords: ["information", "technology", "micro macro", "business strategy", "technical compliance", "due diligence", "structured delivery", "systems"],
     colors: {
       // Base: Refined blues and teals (sophisticated, calm, thoughtful)
@@ -68,8 +68,8 @@ const THEMES_CONFIG = {
   },
 
   creations: {
-    name: "Portfolio - Structured Delivery Archive",
-    keywords: ["portfolio", "micro macro", "business strategy", "technical delivery", "compliance", "due diligence", "communication assets", "workflow maps", "operational documentation", "systems coordination"],
+    name: "Creations - Structured Delivery Archive",
+    keywords: ["creations", "micro macro", "business strategy", "technical delivery", "compliance", "due diligence", "communication assets", "workflow maps", "operational documentation", "systems coordination"],
     colors: {
       // Base: Warm neutrals (sophisticated, accessible, structured)
       base: {
