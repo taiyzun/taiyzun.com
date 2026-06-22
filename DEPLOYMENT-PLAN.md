@@ -34,12 +34,12 @@ git commit -m "Add CNAME for GitHub Pages deployment"
 # - Wait for DNS to propagate (~5 min)
 ```
 
-#### Option B: Netlify
-1. Go to https://netlify.com
-2. Connect your GitHub repo
-3. Set build command: (leave empty - static site)
-4. Set publish directory: / (root)
-5. Add domain: taiyzun.com
+#### Option B: Cloudflare Pages (Current)
+1. Use the connected Cloudflare Pages project: `taiyzun-com`
+2. Production branch: `main`
+3. Build command: `npm run build`
+4. Publish directory: `dist`
+5. Custom domain: `taiyzun.com`
 
 #### Option C: Vercel
 1. Go to https://vercel.com
@@ -191,4 +191,3 @@ The page needs to dynamically load gallery images from `/gallery/space/`
 ---
 
 **Status:** Ready to execute deployment steps
-
