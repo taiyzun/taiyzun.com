@@ -585,10 +585,12 @@
   .video-field-section {
     max-width: min(100%, calc(100vw - 24px));
     padding-inline: clamp(1rem, 4vw, 1.4rem);
+    overflow-x: clip;
   }
 
   .video-field-shell {
     grid-template-columns: 1fr;
+    overflow-x: clip;
   }
 
   .video-field-copy {
@@ -598,11 +600,13 @@
   .video-stage {
     min-height: clamp(34rem, 72vw, 42rem);
     overflow: hidden;
+    max-width: 100%;
   }
 
   .video-carousel {
     --video-radius: clamp(11rem, 38vw, 16rem);
     min-height: clamp(33rem, 72vw, 42rem);
+    max-width: 100%;
     transform: none;
   }
 
@@ -673,12 +677,13 @@
   }
 
   .video-stage {
-    min-height: 35rem;
+    min-height: 32rem;
   }
 
   .video-carousel {
     --video-radius: 8.4rem;
-    min-height: 34rem;
+    min-height: 31rem;
+    overflow-x: clip;
   }
 
   .video-card {
@@ -704,9 +709,25 @@
   }
 
   .video-controls {
-    bottom: 0;
-    width: min(96vw, 22rem);
+    bottom: 1.1rem;
+    width: min(calc(100% - 1rem), 20.5rem);
+    max-width: calc(100vw - 28px);
     padding-inline: 0.45rem;
+    transform: translate3d(-50%, 0, 96px);
+  }
+
+  .video-control {
+    width: 2.12rem;
+    height: 2.12rem;
+  }
+
+  .video-dots {
+    gap: 0.14rem;
+  }
+
+  .video-dot {
+    width: clamp(1.08rem, 5.4vw, 1.34rem);
+    height: clamp(1.08rem, 5.4vw, 1.34rem);
   }
 }
 

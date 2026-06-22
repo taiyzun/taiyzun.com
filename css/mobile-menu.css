@@ -52,6 +52,11 @@ body.site-mobile-lite .social-card {
   contain-intrinsic-size: 360px;
 }
 
+body.site-mobile-lite .tz3d-surface,
+body.site-mobile-lite .tz3d-shift {
+  transform: none !important;
+}
+
 body.site-mobile-lite .lb-filmstrip-wrap {
   display: none !important;
 }
@@ -225,9 +230,10 @@ body.site-mobile-lite .lb-filmstrip-wrap {
   .nav-links {
     display: flex !important;
     position: fixed !important;
-    inset: 0 !important;
+    inset: 0 auto 0 0 !important;
     box-sizing: border-box !important;
-    width: 100vw !important;
+    width: 100% !important;
+    max-width: 100vw !important;
     height: 100dvh !important;
     max-height: none !important;
     margin: 0 !important;
@@ -316,6 +322,9 @@ body.site-mobile-lite .lb-filmstrip-wrap {
   }
 
   .nav-links li {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
     border: 0 !important;
     opacity: 0;
     transform: translateY(18px) scale(0.98);
@@ -336,6 +345,9 @@ body.site-mobile-lite .lb-filmstrip-wrap {
   .nav-links.open li:nth-child(5), .nav-links.active li:nth-child(5), body.tai-mobile-menu-open .nav-links li:nth-child(5) { transition-delay: 320ms; }
 
   .nav-links a {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
