@@ -1,6 +1,60 @@
 const doc = document;
 const body = doc.body;
 
+function installSiteLoader() {
+  if (!body || body.dataset.siteLoaderReady === 'true') return;
+
+  body.dataset.siteLoaderReady = 'true';
+  let loader = doc.getElementById('siteLoader');
+  const startedAt = performance.now();
+
+  if (!loader) {
+    loader = doc.createElement('div');
+    loader.id = 'siteLoader';
+    loader.className = 'site-loader';
+    loader.setAttribute('role', 'status');
+    loader.setAttribute('aria-live', 'polite');
+    loader.setAttribute('aria-label', 'Loading Taiyzun');
+    loader.dataset.start = String(startedAt);
+    loader.innerHTML = '<span class="site-loader__orb"><span class="site-loader__object"><picture class="site-loader__face"><source srcset="/assets/easter-eggs/taiyzun-atme-3d-loader.avif" type="image/avif"><source srcset="/assets/easter-eggs/taiyzun-atme-3d-loader.webp" type="image/webp"><img class="site-loader__mark" src="/assets/easter-eggs/taiyzun-atme-3d-loader.png" alt="" width="1024" height="1024" decoding="async"></picture></span></span>';
+    body.insertBefore(loader, body.firstChild);
+  } else {
+    const existingStart = Number(loader.dataset.start);
+    if (!existingStart || existingStart < 1) loader.dataset.start = String(startedAt);
+  }
+
+  body.classList.add('site-loader-active');
+
+  const hideLoader = () => {
+    if (!loader || loader.dataset.hidden === 'true') return;
+    loader.dataset.hidden = 'true';
+    loader.classList.add('is-hidden');
+    body.classList.remove('site-loader-active');
+    window.setTimeout(() => loader?.remove(), 640);
+  };
+
+  const requestHide = () => {
+    const loaderStart = Number(loader.dataset.start || startedAt);
+    const elapsed = performance.now() - loaderStart;
+    const minVisible = 720;
+    window.setTimeout(hideLoader, Math.max(0, minVisible - elapsed));
+  };
+
+  window.TAIYZUN_completeSiteLoader = requestHide;
+
+  if (doc.readyState === 'complete') {
+    requestHide();
+  } else {
+    window.addEventListener('load', () => {
+      window.setTimeout(requestHide, 1100);
+    }, { once: true });
+  }
+
+  window.setTimeout(hideLoader, 5200);
+}
+
+installSiteLoader();
+
 if (body && body.dataset.taiyzun3dReady !== 'true') {
   body.dataset.taiyzun3dReady = 'true';
   body.classList.add('taiyzun-3d-ready');
@@ -265,8 +319,14 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       node.classList.add('tz3d-surface', 'tz3d-shift');
       shiftSurfaces.add(node);
 
-      const update = (event) => {
+      let hoverEvent = null;
+      let hoverFrame = 0;
+
+      const applyHover = () => {
+        hoverFrame = 0;
+        if (!hoverEvent) return;
         if (reduceMotion) return;
+        const event = hoverEvent;
         const rect = node.getBoundingClientRect();
         const localX = clamp((event.clientX - rect.left) / Math.max(rect.width, 1), 0, 1);
         const localY = clamp((event.clientY - rect.top) / Math.max(rect.height, 1), 0, 1);
@@ -281,7 +341,17 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
         node.style.transform = `perspective(1200px) rotateX(${tiltX.toFixed(3)}deg) rotateY(${tiltY.toFixed(3)}deg) translate3d(0, 0, ${lift}px)`;
       };
 
+      const update = (event) => {
+        hoverEvent = event;
+        if (!hoverFrame) hoverFrame = window.requestAnimationFrame(applyHover);
+      };
+
       const reset = () => {
+        hoverEvent = null;
+        if (hoverFrame) {
+          window.cancelAnimationFrame(hoverFrame);
+          hoverFrame = 0;
+        }
         node.classList.remove('tz3d-hover');
         node.style.transform = '';
       };
@@ -1078,6 +1148,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       renderer.render(scene, camera);
       root.dataset.status = 'ready';
       root.dataset.frame = String(frame);
+      if (frame === 1) window.TAIYZUN_completeSiteLoader?.();
       if (!reduceMotion || frame < 3) window.requestAnimationFrame(render);
     }
 
@@ -1095,13 +1166,14 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     window.requestAnimationFrame(render);
     } catch (_) {
       root.dataset.status = 'fallback';
+      window.TAIYZUN_completeSiteLoader?.();
     }
   }
 
   function scheduleThreeField() {
     const priorityPage = page === 'odyssey';
-    const delay = priorityPage ? (compactMode ? 300 : 420) : (compactMode ? 900 : 1400);
-    const idleTimeout = priorityPage ? 1000 : 2600;
+    const delay = priorityPage ? (compactMode ? 240 : 360) : (compactMode ? 520 : 760);
+    const idleTimeout = priorityPage ? 900 : 1900;
     let timer = 0;
     let scheduledDelay = Infinity;
     let started = false;

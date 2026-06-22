@@ -8,6 +8,170 @@
   --tz3d-edge: rgba(202, 168, 84, 0.28);
 }
 
+.site-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  pointer-events: auto;
+  perspective: 960px;
+  background:
+    radial-gradient(circle at 50% 44%, rgba(255, 255, 255, 0.96), rgba(255, 250, 238, 0.84) 0 18rem, transparent 18.4rem),
+    radial-gradient(circle at 34% 30%, rgba(202, 168, 84, 0.18), transparent 0 21rem),
+    linear-gradient(135deg, #fffdfa, #f6efe0 46%, #ffffff);
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 420ms ease, visibility 0s linear 420ms;
+  contain: strict;
+}
+
+.site-loader.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.site-loader__orb {
+  position: relative;
+  width: clamp(136px, 18vw, 232px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  transform-style: preserve-3d;
+  border-radius: 32%;
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, 0.82), rgba(255, 249, 232, 0.36) 58%, rgba(202, 168, 84, 0.12));
+  box-shadow:
+    0 26px 82px rgba(82, 58, 20, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82);
+  animation: taiLoaderClockwise 3.8s linear infinite;
+}
+
+.site-loader__orb::before,
+.site-loader__orb::after {
+  content: "";
+  position: absolute;
+  inset: -12%;
+  border-radius: 50%;
+  border: 1px solid rgba(202, 168, 84, 0.22);
+  opacity: 0.72;
+}
+
+.site-loader__orb::after {
+  inset: -24%;
+  border-color: rgba(95, 126, 126, 0.15);
+  transform: rotate(24deg);
+}
+
+.site-loader__object {
+  position: relative;
+  width: 82%;
+  aspect-ratio: 1;
+  display: block;
+  transform-style: preserve-3d;
+  animation: taiLoaderAxisSpin 1.65s cubic-bezier(0.42, 0, 0.18, 1) infinite;
+}
+
+.site-loader__object::before,
+.site-loader__object::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 26%;
+  background-image: url("/assets/easter-eggs/taiyzun-atme-3d-loader.webp");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  pointer-events: none;
+}
+
+.site-loader__object::before {
+  opacity: 0.5;
+  filter: brightness(0.25) saturate(1.25) blur(0.2px);
+  transform: translate3d(0, 0, -24px) scale(0.988);
+}
+
+.site-loader__object::after {
+  opacity: 0.28;
+  filter: brightness(1.24) saturate(1.18);
+  mix-blend-mode: screen;
+  transform: translate3d(0, 0, 20px) scale(1.012);
+}
+
+.site-loader__face {
+  position: absolute;
+  inset: 0;
+  display: block;
+  transform: translate3d(0, 0, 28px);
+}
+
+.site-loader__mark {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 16px 26px rgba(23, 19, 12, 0.2))
+    drop-shadow(0 0 18px rgba(202, 168, 84, 0.2));
+  transform-origin: 50% 50%;
+}
+
+body.site-loader-active {
+  overflow: hidden;
+}
+
+.cursor-glow,
+.cursor-ring {
+  left: 0;
+  top: 0;
+  will-change: transform, opacity;
+  contain: layout style paint;
+  transform: translate3d(-9999px, -9999px, 0) translate(-50%, -50%);
+}
+
+.cursor-ring {
+  position: fixed;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(202, 168, 84, 0.46);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0;
+  transition: opacity 240ms ease, width 240ms ease, height 240ms ease, border-color 240ms ease;
+}
+
+.cursor-ring.active {
+  opacity: 0.74;
+}
+
+.cursor-ring.hovered {
+  width: 46px;
+  height: 46px;
+  border-color: rgba(202, 168, 84, 0.76);
+}
+
+@keyframes taiLoaderClockwise {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes taiLoaderAxisSpin {
+  0% {
+    transform: rotateX(-16deg) rotateY(0deg) rotateZ(0deg);
+  }
+
+  50% {
+    transform: rotateX(14deg) rotateY(180deg) rotateZ(7deg);
+  }
+
+  100% {
+    transform: rotateX(-16deg) rotateY(360deg) rotateZ(0deg);
+  }
+}
+
 .taiyzun-3d-field {
   position: fixed;
   inset: 0;
@@ -32,7 +196,7 @@
   height: 100%;
 }
 
-body.taiyzun-3d-ready > :not(.taiyzun-3d-field):not(.site-ambient-video):not(.hero-video):not(.page-hero-video):not(.harmonic-orbit-field):not(.site-decorative-png):not(.float-particle):not(script):not(noscript):not(.skip-link):not(.cursor-glow):not(.cursor-ring) {
+body.taiyzun-3d-ready > :not(.taiyzun-3d-field):not(.site-loader):not(.site-ambient-video):not(.hero-video):not(.page-hero-video):not(.harmonic-orbit-field):not(.site-decorative-png):not(.float-particle):not(script):not(noscript):not(.skip-link):not(.cursor-glow):not(.cursor-ring) {
   position: relative;
   z-index: 2;
 }
@@ -269,8 +433,13 @@ body.taiyzun-3d-ready .value-item h3 {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .site-loader,
+  .site-loader__object,
+  .site-loader__orb,
+  .site-loader__mark,
   .taiyzun-3d-field,
   .taiyzun-3d-field::before {
+    animation: none;
     transition: none;
   }
 

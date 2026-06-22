@@ -78,29 +78,31 @@
 <link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/philosopher/v21/vEFI2_5QCwIS4_Dhez5jcWjValgb8te1Xb7G.woff2" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="/css/fonts.min.css?v=20260622e">
+  <link rel="stylesheet" href="/css/fonts.min.css?v=20260622g">
   <link rel="stylesheet" href="/css/design-principles.min.css">
-  <link rel="stylesheet" href="/css/white-theme.min.css?v=20260622e">
-  <link rel="stylesheet" href="/css/padding-fix.css?v=20260622e">
-  <link rel="stylesheet" href="/css/gallery-visual-fix.css?v=20260622e">
-  <link rel="stylesheet" href="/css/fctrylab-inspired.css?v=20260622e">
-  <link rel="stylesheet" href="/css/vaulk-gallery-inspired.css?v=20260622e">
-  <link rel="stylesheet" href="/css/ambient-video.css?v=20260622e">
-  <link rel="stylesheet" href="/css/site-decorative-field.css?v=20260622e">
-  <link rel="stylesheet" href="/css/mily-inspired-system.css?v=20260622e">
-  <link rel="stylesheet" href="/css/visual-protocol.min.css?v=20260622e">
-  <link rel="stylesheet" href="/css/harmonic-ui.min.css?v=20260622e">
-  <link rel="stylesheet" href="/css/gold-glam-ui.css?v=20260622e">
-  <link rel="stylesheet" href="/css/mobile-menu.css?v=20260622e">
-  <link rel="stylesheet" href="/css/taiyzun-3d-field.min.css?v=20260622e">
-  <link rel="stylesheet" href="/css/odyssey-portraits.css?v=20260622e">
-<script defer src="/js/facebook-pixel.min.js?v=20260622e"></script>
+  <link rel="stylesheet" href="/css/white-theme.min.css?v=20260622g">
+  <link rel="stylesheet" href="/css/padding-fix.css?v=20260622g">
+  <link rel="stylesheet" href="/css/gallery-visual-fix.css?v=20260622g">
+  <link rel="stylesheet" href="/css/fctrylab-inspired.css?v=20260622g">
+  <link rel="stylesheet" href="/css/vaulk-gallery-inspired.css?v=20260622g">
+  <link rel="stylesheet" href="/css/ambient-video.css?v=20260622g">
+  <link rel="stylesheet" href="/css/site-decorative-field.css?v=20260622g">
+  <link rel="stylesheet" href="/css/mily-inspired-system.css?v=20260622g">
+  <link rel="stylesheet" href="/css/visual-protocol.min.css?v=20260622g">
+  <link rel="stylesheet" href="/css/harmonic-ui.min.css?v=20260622g">
+  <link rel="stylesheet" href="/css/gold-glam-ui.css?v=20260622g">
+  <link rel="stylesheet" href="/css/mobile-menu.css?v=20260622g">
+  <link rel="stylesheet" href="/css/taiyzun-3d-field.min.css?v=20260622g">
+  <link rel="stylesheet" href="/css/odyssey-portraits.css?v=20260622g">
+<link rel="preload" as="image" href="/assets/easter-eggs/taiyzun-atme-3d-loader.webp" type="image/webp">
+<script defer src="/js/facebook-pixel.min.js?v=20260622g"></script>
 </head>
 <body class="odyssey-page">
-<script src="/js/site-mobile-lite.min.js?v=20260622e"></script>
+<script src="/js/site-mobile-lite.min.js?v=20260622g"></script>
 <noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=1367325403354093&ev=PageView&noscript=1"></noscript>
 <a href="#main-content" class="skip-link">Skip to main content</a>
 <div class="cursor-glow" id="cursorGlow"></div>
+<div class="site-loader" id="siteLoader" role="status" aria-live="polite" aria-label="Loading Taiyzun" data-start="0"><span class="site-loader__orb"><span class="site-loader__object"><picture class="site-loader__face"><source srcset="/assets/easter-eggs/taiyzun-atme-3d-loader.avif" type="image/avif"><source srcset="/assets/easter-eggs/taiyzun-atme-3d-loader.webp" type="image/webp"><img class="site-loader__mark" src="/assets/easter-eggs/taiyzun-atme-3d-loader.png" alt="" width="1024" height="1024" decoding="async"></picture></span></span></div>
 <nav id="mainNav">
   <a href="/" class="logo" aria-label="Taiyzun — Home"><picture>
         <source srcset="assets/images/Taiyzun-logo-36w.avif 1x, assets/images/Taiyzun-logo-52w.avif 1.5x, assets/images/Taiyzun-logo-200w.avif 2x" type="image/avif">
@@ -188,7 +190,7 @@
   <p class="footer-copy footer-signature">Built through TimE. Shaped by SpAcE.</p>
   <p class="footer-copy">&copy; 2026 Taiyzun Shabbir Shahpurwala. All rights reserved.</p>
 </footer>
-<script src="/js/odyssey-portraits.js?v=20260622e"></script>
+<script src="/js/odyssey-portraits.js?v=20260622g"></script>
 <script>
   const portraits = window.odysseyPortraits || [];
   const gallerySizes = '(max-width: 640px) calc((100vw - 72px) / 2), (max-width: 960px) calc((100vw - 104px) / 3), 240px';
@@ -453,7 +455,7 @@
 
   /* ── Nav scroll ── */
   const nav = document.getElementById('mainNav');
-  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
 
   /* ── Reveal on scroll ── */
   revealObserver = new IntersectionObserver((entries) => {
@@ -466,7 +468,7 @@
   let glowOn = false;
   document.addEventListener('mousemove', (e) => {
     if (!glowOn) { glow.classList.add('active'); glowOn = true; }
-    requestAnimationFrame(() => { glow.style.left = e.clientX + 'px'; glow.style.top = e.clientY + 'px'; });
+    requestAnimationFrame(() => { glow.style.transform = 'translate3d(' + e.clientX + 'px,' + e.clientY + 'px,0) translate(-50%,-50%)'; });
   });
   document.addEventListener('mouseleave', () => { glow.classList.remove('active'); glowOn = false; });
 
@@ -516,13 +518,13 @@
     });
   })();
 </script>
-<script src="/js/ambient-video.min.js?v=20260622e"></script>
-<script src="/js/mobile-menu.min.js?v=20260622e"></script>
-<script type="module" src="/js/taiyzun-3d-field.min.js?v=20260622e" crossorigin="anonymous"></script>
+<script src="/js/ambient-video.min.js?v=20260622g"></script>
+<script src="/js/mobile-menu.min.js?v=20260622g"></script>
+<script type="module" src="/js/taiyzun-3d-field.min.js?v=20260622g" crossorigin="anonymous"></script>
 <script>
   (function loadDesktopEnhancements() {
     window.TAIYZUN_loadDesktopEnhancements?.([
-      '/js/harmonic-interactions.min.js?v=20260622e'
+      '/js/harmonic-interactions.min.js?v=20260622g'
     ]);
   })();
 </script>

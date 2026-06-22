@@ -30,6 +30,9 @@ const publicHtmlFiles = new Set([
 const publicAssetFiles = [
   'assets/favicon.svg',
   'assets/space-gallery-manifest.json',
+  'assets/easter-eggs/taiyzun-atme-3d-loader.avif',
+  'assets/easter-eggs/taiyzun-atme-3d-loader.webp',
+  'assets/easter-eggs/taiyzun-atme-3d-loader.png',
   'js/ambient-video.min.js',
   'js/animation-controller.min.js',
   'js/facebook-pixel.min.js',
@@ -107,6 +110,7 @@ function copyPath(relativePath) {
     return false;
   }
 
+  fs.mkdirSync(path.dirname(destination), { recursive: true });
   fs.cpSync(source, destination, {
     recursive: true,
     force: true,
