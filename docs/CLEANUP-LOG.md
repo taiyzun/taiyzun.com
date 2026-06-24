@@ -6,6 +6,7 @@
 - Removed Tai `CNAME` from tracked source and from the Cloudflare Pages build allow-list.
 - Removed Tai stale `.htaccess` and `style.css.backup`.
 - Added noindex headers for Tai Cloudflare Pages default and deployment hosts.
+- Added Tai Pages middleware to enforce noindex on `*.taiyzun-com.pages.dev` and return `404` for retired `/CNAME`.
 - Cleaned Taj root by removing public `README.md`.
 - Added a real Taj `404.html` page.
 - Added noindex headers for Taj Cloudflare Pages default and deployment hosts.
