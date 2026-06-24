@@ -147,6 +147,10 @@ function removeIgnoredFiles(directory) {
   }
 }
 
+execFileSync(process.execPath, [path.join(rootDir, 'scripts', 'build-css-bundles.js')], {
+  stdio: 'inherit'
+});
+
 execFileSync(process.execPath, [path.join(rootDir, 'scripts', 'build-space-gallery-share-index.js')], {
   stdio: 'inherit'
 });
