@@ -8,7 +8,6 @@ const rootDir = path.resolve(__dirname, '..');
 const outputDir = path.join(rootDir, 'dist');
 
 const publicRootFiles = new Set([
-  'CNAME',
   'favicon.ico',
   'manifest.json',
   'robots.txt',
@@ -126,6 +125,25 @@ function copyPath(relativePath) {
   return true;
 }
 
+function removeIgnoredFiles(directory) {
+  if (!fs.existsSync(directory)) {
+    return;
+  }
+
+  for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+    const currentPath = path.join(directory, entry.name);
+
+    if (ignoredNames.has(entry.name)) {
+      fs.rmSync(currentPath, { force: true, recursive: entry.isDirectory() });
+      continue;
+    }
+
+    if (entry.isDirectory()) {
+      removeIgnoredFiles(currentPath);
+    }
+  }
+}
+
 execFileSync(process.execPath, [path.join(rootDir, 'scripts', 'build-space-gallery-share-index.js')], {
   stdio: 'inherit'
 });
@@ -184,5 +202,7 @@ for (const vendorFile of vendorAssetFiles) {
     copied.push(vendorFile.destination);
   }
 }
+
+removeIgnoredFiles(outputDir);
 
 console.log(`Cloudflare Pages build ready: copied ${copied.length} public entries to dist/`);

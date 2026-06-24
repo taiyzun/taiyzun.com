@@ -3,6 +3,8 @@
 gallery/
 node_modules/
 dist/
+dist 2/
+*.backup
 .wrangler/
 
 # Local Netlify folder

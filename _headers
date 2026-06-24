@@ -1,3 +1,9 @@
+https://taiyzun-com.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:deployment.taiyzun-com.pages.dev/*
+  X-Robots-Tag: noindex
+
 /
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
