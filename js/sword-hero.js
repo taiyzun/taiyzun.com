@@ -53,6 +53,99 @@
     });
   }
 
+  function createAlphaExtrusionGeometry(THREE, image, objectWidth, objectHeight, depth) {
+    const sourceWidth = image?.naturalWidth || image?.width || 0;
+    const sourceHeight = image?.naturalHeight || image?.height || 0;
+    if (!sourceWidth || !sourceHeight) return null;
+
+    const sampleWidth = compactMode ? 96 : 192;
+    const sampleHeight = Math.max(1, Math.round(sampleWidth * (sourceHeight / sourceWidth)));
+    const sampler = document.createElement('canvas');
+    sampler.width = sampleWidth;
+    sampler.height = sampleHeight;
+    const context = sampler.getContext('2d', { willReadFrequently: true });
+    if (!context) return null;
+
+    try {
+      context.clearRect(0, 0, sampleWidth, sampleHeight);
+      context.drawImage(image, 0, 0, sampleWidth, sampleHeight);
+    } catch (_) {
+      return null;
+    }
+
+    const pixels = context.getImageData(0, 0, sampleWidth, sampleHeight).data;
+    const solid = new Uint8Array(sampleWidth * sampleHeight);
+    const alphaThreshold = 22;
+    let solidPixels = 0;
+
+    for (let i = 0; i < solid.length; i += 1) {
+      const alpha = pixels[i * 4 + 3];
+      if (alpha > alphaThreshold) {
+        solid[i] = 1;
+        solidPixels += 1;
+      }
+    }
+
+    if (!solidPixels) return null;
+
+    const positions = [];
+    const normals = [];
+    const zFront = depth * 0.5;
+    const zBack = -depth * 0.5;
+    const xAt = (x) => (x / sampleWidth - 0.5) * objectWidth;
+    const yAt = (y) => (0.5 - y / sampleHeight) * objectHeight;
+    const isSolid = (x, y) => x >= 0 && x < sampleWidth && y >= 0 && y < sampleHeight && solid[y * sampleWidth + x];
+
+    const addQuad = (a, b, c, d, normal) => {
+      [a, b, c, a, c, d].forEach((point) => {
+        positions.push(point[0], point[1], point[2]);
+        normals.push(normal[0], normal[1], normal[2]);
+      });
+    };
+
+    let edgeSegments = 0;
+
+    for (let y = 0; y < sampleHeight; y += 1) {
+      for (let x = 0; x < sampleWidth; x += 1) {
+        if (!isSolid(x, y)) continue;
+
+        const x0 = xAt(x);
+        const x1 = xAt(x + 1);
+        const y0 = yAt(y);
+        const y1 = yAt(y + 1);
+
+        if (!isSolid(x - 1, y)) {
+          addQuad([x0, y0, zFront], [x0, y1, zFront], [x0, y1, zBack], [x0, y0, zBack], [-1, 0, 0]);
+          edgeSegments += 1;
+        }
+
+        if (!isSolid(x + 1, y)) {
+          addQuad([x1, y1, zFront], [x1, y0, zFront], [x1, y0, zBack], [x1, y1, zBack], [1, 0, 0]);
+          edgeSegments += 1;
+        }
+
+        if (!isSolid(x, y - 1)) {
+          addQuad([x1, y0, zFront], [x0, y0, zFront], [x0, y0, zBack], [x1, y0, zBack], [0, 1, 0]);
+          edgeSegments += 1;
+        }
+
+        if (!isSolid(x, y + 1)) {
+          addQuad([x0, y1, zFront], [x1, y1, zFront], [x1, y1, zBack], [x0, y1, zBack], [0, -1, 0]);
+          edgeSegments += 1;
+        }
+      }
+    }
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+    geometry.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+    geometry.computeBoundingSphere();
+    geometry.userData.edgeSegments = edgeSegments;
+    geometry.userData.sample = `${sampleWidth}x${sampleHeight}`;
+    geometry.userData.solidPixels = solidPixels;
+    return geometry;
+  }
+
   function resize() {
     if (!renderer || !camera) return;
 
@@ -69,7 +162,7 @@
 
     if (swordGroup) {
       swordGroup.position.x = width < 760 ? 0 : 1.28;
-      swordGroup.position.y = width < 760 ? 0.9 : -0.08;
+      swordGroup.position.y = width < 760 ? 0.62 : -0.08;
       swordGroup.scale.setScalar(width < 760 ? 0.86 : 1);
     }
   }
@@ -82,8 +175,9 @@
     pointer.x += (pointer.tx - pointer.x) * 0.055;
     pointer.y += (pointer.ty - pointer.y) * 0.055;
 
+    const baseYaw = compactMode ? -0.18 : -0.28;
     const spin = reduceMotion ? 0.14 : t * secondHandSweepSpeed;
-    swordGroup.rotation.y = spin + pointer.x * 0.16;
+    swordGroup.rotation.y = baseYaw + spin + pointer.x * 0.18;
     swordGroup.rotation.x = Math.sin(t * secondHandSweepSpeed * 1.35) * 0.035 - pointer.y * 0.06;
     swordGroup.rotation.z = Math.sin(t * secondHandSweepSpeed * 0.82) * 0.018;
     swordGroup.position.z = Math.sin(t * secondHandSweepSpeed * 1.55) * 0.05;
@@ -133,43 +227,59 @@
       swordGroup = new THREE.Group();
       swordGroup.name = 'TaiyzunSwordHero';
 
+      const objectDepth = compactMode ? 0.24 : 0.34;
       const faceGeometry = new THREE.PlaneGeometry(objectWidth, objectHeight, 1, 1);
-      const faceMaterial = new THREE.MeshStandardMaterial({
+      const frontMaterial = new THREE.MeshStandardMaterial({
         map: texture,
         transparent: true,
         alphaTest: 0.035,
-        metalness: 0.24,
-        roughness: 0.42,
+        metalness: 0.34,
+        roughness: 0.36,
+        side: THREE.FrontSide
+      });
+
+      const backMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        color: 0xd0a339,
+        transparent: true,
+        alphaTest: 0.035,
+        opacity: 0.72,
+        metalness: 0.48,
+        roughness: 0.34,
+        side: THREE.FrontSide
+      });
+
+      const sideMaterial = new THREE.MeshStandardMaterial({
+        color: 0xbe8e19,
+        metalness: 0.72,
+        roughness: 0.28,
+        transparent: true,
+        opacity: 0.96,
         side: THREE.DoubleSide
       });
 
-      const face = new THREE.Mesh(faceGeometry, faceMaterial);
-      face.position.z = 0.08;
+      const face = new THREE.Mesh(faceGeometry, frontMaterial);
+      face.position.z = objectDepth * 0.5 + 0.006;
       swordGroup.add(face);
 
-      const depthGeometry = new THREE.BoxGeometry(objectWidth * 0.92, objectHeight * 0.94, 0.16);
-      const depthMaterial = new THREE.MeshStandardMaterial({
-        color: 0xb88a16,
-        metalness: 0.68,
-        roughness: 0.32,
-        transparent: true,
-        opacity: 0.12,
-        depthWrite: false
-      });
-      const depth = new THREE.Mesh(depthGeometry, depthMaterial);
-      depth.position.z = -0.04;
-      swordGroup.add(depth);
+      const back = new THREE.Mesh(faceGeometry.clone(), backMaterial);
+      back.rotation.y = Math.PI;
+      back.position.z = -objectDepth * 0.5 - 0.006;
+      swordGroup.add(back);
 
-      const edge = new THREE.LineSegments(
-        new THREE.EdgesGeometry(depthGeometry),
-        new THREE.LineBasicMaterial({
-          color: 0xf0cf74,
-          transparent: true,
-          opacity: 0.24
-        })
-      );
-      edge.position.z = -0.04;
-      swordGroup.add(edge);
+      const sideGeometry = createAlphaExtrusionGeometry(THREE, texture.image, objectWidth, objectHeight, objectDepth);
+      if (sideGeometry) {
+        const side = new THREE.Mesh(sideGeometry, sideMaterial);
+        side.name = 'TaiyzunSwordAlphaExtrusion';
+        swordGroup.add(side);
+
+        root.dataset.geometry = 'alpha-extruded-silhouette';
+        root.dataset.depth = objectDepth.toFixed(2);
+        root.dataset.edgeSegments = String(sideGeometry.userData.edgeSegments || 0);
+        root.dataset.alphaSample = sideGeometry.userData.sample || '';
+      } else {
+        root.dataset.geometry = 'front-back-depth-fallback';
+      }
 
       scene.add(swordGroup);
       resize();
