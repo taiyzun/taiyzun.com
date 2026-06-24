@@ -16,6 +16,12 @@
   const coarsePointer = window.matchMedia('(pointer: coarse), (max-width: 820px)').matches;
   const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
   const compactMode = Boolean(window.TAIYZUN_MOBILE_LITE || coarsePointer || (connection && connection.saveData));
+  function detectLargeViewportMode() {
+    const viewportArea = Math.max(window.innerWidth, 1) * Math.max(window.innerHeight, 1);
+    const maxViewportSide = Math.max(window.innerWidth, window.innerHeight);
+    return !compactMode && (viewportArea >= 1100000 || maxViewportSide >= 1440);
+  }
+  let largeViewportMode = detectLargeViewportMode();
   const secondHandSweepSpeed = (Math.PI * 2) / 60;
 
   let renderer = null;
@@ -38,6 +44,11 @@
     if (fallback) fallback.hidden = false;
   }
 
+  function syncPerformanceMode() {
+    largeViewportMode = detectLargeViewportMode();
+    root.dataset.performanceMode = compactMode ? 'compact' : largeViewportMode ? 'large-viewport-smooth' : 'rich';
+  }
+
   function loadTexture(THREE, src, backupSrc) {
     const loader = new THREE.TextureLoader();
 
@@ -58,7 +69,7 @@
     const sourceHeight = image?.naturalHeight || image?.height || 0;
     if (!sourceWidth || !sourceHeight) return null;
 
-    const sampleWidth = compactMode ? 96 : 192;
+    const sampleWidth = compactMode ? 96 : largeViewportMode ? 160 : 192;
     const sampleHeight = Math.max(1, Math.round(sampleWidth * (sourceHeight / sourceWidth)));
     const sampler = document.createElement('canvas');
     sampler.width = sampleWidth;
@@ -148,13 +159,14 @@
 
   function resize() {
     if (!renderer || !camera) return;
+    syncPerformanceMode();
 
     const rect = root.getBoundingClientRect();
     width = Math.max(1, Math.round(rect.width || window.innerWidth || 1));
     height = Math.max(1, Math.round(rect.height || window.innerHeight || 1));
 
     renderer.setSize(width, height, false);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, compactMode ? 1.35 : 1.75));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, compactMode ? 1.35 : largeViewportMode ? 1.2 : 1.75));
 
     camera.aspect = width / height;
     camera.position.z = width < 760 ? 7.55 : 6.75;
@@ -193,7 +205,7 @@
       renderer = new THREE.WebGLRenderer({
         canvas,
         alpha: true,
-        antialias: !compactMode,
+        antialias: !(compactMode || largeViewportMode),
         powerPreference: compactMode ? 'low-power' : 'high-performance'
       });
       renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -286,6 +298,7 @@
       setStatus('ready');
       root.dataset.texture = textureSrc;
       root.dataset.object = 'taiyzun-sword-logo-2021';
+      syncPerformanceMode();
       root.dataset.lighting = 'ambient-directional-rim';
       root.dataset.motion = reduceMotion ? 'reduced-y-axis' : 'smooth-second-hand-y-axis-rotation';
 

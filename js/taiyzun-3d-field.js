@@ -78,6 +78,12 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
   const mobileViewport = window.matchMedia('(max-width: 820px)').matches;
   const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
   const compactMode = Boolean(window.TAIYZUN_MOBILE_LITE || coarsePointer || mobileViewport || (connection && connection.saveData));
+  function detectLargeViewportMode() {
+    const viewportArea = Math.max(window.innerWidth, 1) * Math.max(window.innerHeight, 1);
+    const maxViewportSide = Math.max(window.innerWidth, window.innerHeight);
+    return !compactMode && (viewportArea >= 1100000 || maxViewportSide >= 1440);
+  }
+  let largeViewportMode = detectLargeViewportMode();
   const root = doc.createElement('div');
   const canvas = doc.createElement('canvas');
 
@@ -87,6 +93,14 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
   canvas.className = 'taiyzun-3d-field__canvas';
   root.appendChild(canvas);
   body.insertBefore(root, body.firstChild);
+
+  function syncPerformanceMode() {
+    largeViewportMode = detectLargeViewportMode();
+    root.dataset.performanceMode = compactMode ? 'compact' : largeViewportMode ? 'large-viewport-smooth' : 'rich';
+    root.dataset.fullscreenSmooth = largeViewportMode ? 'true' : 'false';
+  }
+
+  syncPerformanceMode();
 
   function clamp(value, min, max) {
     return Math.min(max, Math.max(min, value));
@@ -300,7 +314,8 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       const direction = seed % 2 ? 1 : -1;
       const isHero = node.matches('.hero-content, .page-hero-content, .about-grid, .gallery-label, .connect-label');
       const isDense = node.matches('.art-item, .gallery-item, .cat-tab, .home-btn');
-      const amplitude = isHero ? (compactMode ? 8 : 30) : isDense ? (compactMode ? 3 : 14) : (compactMode ? 4 : 18);
+      const fullscreenScale = largeViewportMode ? 0.62 : 1;
+      const amplitude = (isHero ? (compactMode ? 8 : 30) : isDense ? (compactMode ? 3 : 14) : (compactMode ? 4 : 18)) * fullscreenScale;
       const shiftX = (direction * presence * amplitude * 0.18 + shiftPointer.x * presence * amplitude * 0.28).toFixed(2);
       const shiftY = (-distance * presence * amplitude + shiftPointer.y * presence * amplitude * 0.18).toFixed(2);
       const shiftR = (direction * presence * 0.16 + shiftPointer.x * presence * 0.055).toFixed(3);
@@ -319,7 +334,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
   }
 
   function attachSurfaceDepth() {
-    const selector = (compactMode ? [
+    const selector = ((compactMode || largeViewportMode) ? [
       '.hero-content', '.page-hero-content', '.about-grid', '.gallery-label', '.connect-label',
       '.home-btn', '.video-field-shell', '.video-stage', '.video-frame', '.video-panel'
     ] : [
@@ -347,8 +362,10 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
         const rect = node.getBoundingClientRect();
         const localX = clamp((event.clientX - rect.left) / Math.max(rect.width, 1), 0, 1);
         const localY = clamp((event.clientY - rect.top) / Math.max(rect.height, 1), 0, 1);
-        const strength = node.matches('.hero-content, .page-hero-content, .about-grid') ? 4.6 : 7.4;
-        const lift = node.matches('.art-item, .gallery-item') ? 22 : 13;
+        const strength = largeViewportMode
+          ? (node.matches('.hero-content, .page-hero-content, .about-grid') ? 3.2 : 4.8)
+          : node.matches('.hero-content, .page-hero-content, .about-grid') ? 4.6 : 7.4;
+        const lift = largeViewportMode ? 10 : node.matches('.art-item, .gallery-item') ? 22 : 13;
         const tiltX = (0.5 - localY) * strength;
         const tiltY = (localX - 0.5) * strength;
 
@@ -404,9 +421,9 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     const renderer = new THREE.WebGLRenderer({
       canvas,
       alpha: true,
-      antialias: !compactMode,
+      antialias: false,
       powerPreference: compactMode ? 'low-power' : 'high-performance',
-      preserveDrawingBuffer: !compactMode
+      preserveDrawingBuffer: false
     });
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(46, 1, 0.1, 120);
@@ -416,7 +433,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     const decor = new THREE.Group();
     const decorObjects = [];
     const decorObjectsByIndex = [];
-    const decorMotionClusterSizes = compactMode ? [4, 7] : [4, 7, 12, 21];
+    const decorMotionClusterSizes = compactMode ? [4, 7] : largeViewportMode ? [4, 7, 12, 12] : [4, 7, 12, 21];
     const decorMotionClusterBudget = decorMotionClusterSizes.reduce((total, size) => total + size, 0);
     const decorMotionClusters = [];
     const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
@@ -425,7 +442,8 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       targetY: window.scrollY || 0
     };
     const secondHandSweepSpeed = (Math.PI * 2) / 60;
-    const quality = compactMode ? 0.58 : 1;
+    const quality = compactMode ? 0.58 : largeViewportMode ? 0.78 : 1;
+    const fieldCssOffset = { x: 0, y: 0, ready: false };
     let liquidLinks = null;
     let liquidLinkPositions = null;
     let liquidLinkGeometry = null;
@@ -442,7 +460,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     camera.position.set(0, 0, compactMode ? 10.5 : 9.2);
     renderer.setClearColor(0x000000, 0);
 
-    const pointCount = compactMode ? 56 : 220;
+    const pointCount = compactMode ? 56 : largeViewportMode ? 128 : 220;
     const positions = new Float32Array(pointCount * 3);
     const colours = new Float32Array(pointCount * 3);
     const colour = new THREE.Color(theme.node);
@@ -470,10 +488,10 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     const points = new THREE.Points(
       pointGeometry,
       new THREE.PointsMaterial({
-        size: compactMode ? 0.038 : 0.052,
+        size: compactMode ? 0.038 : largeViewportMode ? 0.046 : 0.052,
         vertexColors: true,
         transparent: true,
-        opacity: compactMode ? 0.42 : 0.54,
+        opacity: compactMode ? 0.42 : largeViewportMode ? 0.48 : 0.54,
         depthWrite: false,
         blending: THREE.AdditiveBlending
       })
@@ -481,7 +499,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     micro.add(points);
 
     const linePositions = [];
-    const lineStride = compactMode ? 10 : 7;
+    const lineStride = compactMode ? 10 : largeViewportMode ? 9 : 7;
     for (let i = 0; i < pointCount - lineStride; i += lineStride) {
       const a = i * 3;
       const b = (i + lineStride) * 3;
@@ -497,7 +515,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       new THREE.LineBasicMaterial({
         color: lineColour,
         transparent: true,
-        opacity: compactMode ? 0.11 : 0.16,
+        opacity: compactMode ? 0.11 : largeViewportMode ? 0.13 : 0.16,
         depthWrite: false
       })
     );
@@ -506,14 +524,14 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     const ringMaterial = new THREE.MeshBasicMaterial({
       color: theme.node,
       transparent: true,
-      opacity: compactMode ? 0.09 : 0.125,
+      opacity: compactMode ? 0.09 : largeViewportMode ? 0.105 : 0.125,
       depthWrite: false,
       side: THREE.DoubleSide
     });
-    const rings = compactMode ? 3 : 5;
+    const rings = compactMode ? 3 : largeViewportMode ? 4 : 5;
     for (let i = 0; i < rings; i += 1) {
       const ring = new THREE.Mesh(
-        new THREE.TorusGeometry(1.42 + i * 0.88, 0.006 + i * 0.0018, 8, 128),
+        new THREE.TorusGeometry(1.42 + i * 0.88, 0.006 + i * 0.0018, 8, largeViewportMode ? 96 : 128),
         ringMaterial.clone()
       );
       ring.rotation.set(Math.PI / (2.7 + i * 0.21), i * 0.42, i * 0.18);
@@ -523,7 +541,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
 
     const planeGeometry = new THREE.PlaneGeometry(7.2, 4.2, 1, 1);
     const edgeGeometry = new THREE.EdgesGeometry(planeGeometry);
-    for (let i = 0; i < (compactMode ? 2 : 4); i += 1) {
+    for (let i = 0; i < (compactMode ? 2 : largeViewportMode ? 3 : 4); i += 1) {
       const plane = new THREE.LineSegments(
         edgeGeometry,
         new THREE.LineBasicMaterial({
@@ -678,7 +696,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
 
         const random = seededRandom(hashString(`${page}:decor-cluster:${index}:${requestedSize}:${total}`));
         const sign = () => (random() > 0.5 ? 1 : -1);
-        const compactScale = compactMode ? 0.62 : 1;
+        const compactScale = compactMode ? 0.62 : largeViewportMode ? 0.82 : 1;
         const cluster = {
           index,
           start,
@@ -727,7 +745,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
         const phase = cluster.phase + time * cluster.timeSpeed * speed;
         const scrollWave = scrollProgress * Math.PI * cluster.scrollSpeed + cluster.phase * 0.37;
         const scrollBias = scrollProgress - 0.5;
-        const ease = clamp(cluster.ease * (compactMode ? 0.82 : 1), 0.032, 0.082);
+        const ease = clamp(cluster.ease * (compactMode ? 0.82 : largeViewportMode ? 0.74 : 1), 0.032, 0.082);
 
         const targetX = pointerState.x * cluster.pointerX
           + scrollBias * cluster.scrollX
@@ -771,7 +789,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     }
 
     function sampleTextureColour(texture, fallbackColour) {
-      if (compactMode) return fallbackColour.clone();
+      if (compactMode || largeViewportMode) return fallbackColour.clone();
 
       const image = texture.image;
       if (!image || !image.width || !image.height) return fallbackColour.clone();
@@ -882,7 +900,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       root.dataset.decor3dClusters = String(decorMotionClusters.length);
       root.dataset.decor3dClusterRequested = decorMotionClusterSizes.join('|');
       root.dataset.decor3dClusterPlan = decorMotionClusters.map((cluster) => cluster.count).join('|');
-      root.dataset.decor3dUniqueMotion = compactMode ? 'clustered-4-7' : 'clustered-4-7-12-21';
+      root.dataset.decor3dUniqueMotion = compactMode ? 'clustered-4-7' : largeViewportMode ? 'clustered-4-7-12-balanced' : 'clustered-4-7-12-21';
       liquidLinkPositions = new Float32Array(selectedAssets.length * 2 * 3);
       liquidLinkGeometry = new THREE.BufferGeometry();
       liquidLinkGeometry.setAttribute('position', new THREE.BufferAttribute(liquidLinkPositions, 3).setUsage(THREE.DynamicDrawUsage));
@@ -902,7 +920,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
             texture.colorSpace = THREE.SRGBColorSpace;
           }
 
-          texture.anisotropy = Math.min(renderer.capabilities.getMaxAnisotropy(), compactMode ? 4 : 8);
+          texture.anisotropy = Math.min(renderer.capabilities.getMaxAnisotropy(), (compactMode || largeViewportMode) ? 4 : 8);
 
           const sourceSlot = buildScatterSlot(index);
           const slot = compactMode
@@ -937,8 +955,8 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
           const objectHeight = aspect >= 1 ? baseScale / aspect : baseScale;
           const geometry = new THREE.PlaneGeometry(objectWidth, objectHeight, 1, 1);
           const objectDepth = page === 'odyssey'
-            ? (compactMode ? 0.052 : 0.086)
-            : (compactMode ? 0.026 : 0.046);
+            ? (compactMode ? 0.052 : largeViewportMode ? 0.07 : 0.086)
+            : (compactMode ? 0.026 : largeViewportMode ? 0.036 : 0.046);
           const depthGeometry = new THREE.PlaneGeometry(objectWidth * 1.012, objectHeight * 1.012, 1, 1);
           const objectEdges = new THREE.EdgesGeometry(geometry);
           const shadowGeometry = new THREE.PlaneGeometry(objectWidth * 1.12, objectHeight * 1.12, 1, 1);
@@ -1115,13 +1133,14 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     addDecorativeObjects();
 
     function resize() {
+      syncPerformanceMode();
       width = Math.max(window.innerWidth, 1);
       height = Math.max(window.innerHeight, 1);
-      const dpr = Math.min(window.devicePixelRatio || 1, compactMode ? 1.15 : 1.75);
+      const dpr = Math.min(window.devicePixelRatio || 1, compactMode ? 1.15 : largeViewportMode ? 1.15 : 1.75);
       renderer.setPixelRatio(dpr);
       renderer.setSize(width, height, false);
       camera.aspect = width / height;
-      camera.position.z = compactMode ? 10.8 : 9.2;
+      camera.position.z = compactMode ? 10.8 : largeViewportMode ? 9.45 : 9.2;
       camera.updateProjectionMatrix();
     }
 
@@ -1132,7 +1151,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       pointer.y += (pointer.ty - pointer.y) * 0.045;
 
       scrollState.targetY = window.scrollY || 0;
-      scrollState.y += (scrollState.targetY - scrollState.y) * (compactMode ? 0.07 : 0.085);
+      scrollState.y += (scrollState.targetY - scrollState.y) * (compactMode ? 0.07 : largeViewportMode ? 0.064 : 0.085);
       if (Math.abs(scrollState.targetY - scrollState.y) < 0.08) {
         scrollState.y = scrollState.targetY;
       }
@@ -1143,15 +1162,22 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       const scrollProgress = clamp(smoothScrollY / maxScroll, 0, 1);
       const time = now * 0.001;
       const speed = reduceMotion ? 0 : 1;
-      root.style.setProperty('--tz3d-field-x', `${(pointer.x * 8).toFixed(2)}px`);
-      root.style.setProperty('--tz3d-field-y', `${(pointer.y * 6).toFixed(2)}px`);
+      const nextFieldX = pointer.x * (largeViewportMode ? 5.2 : 8);
+      const nextFieldY = pointer.y * (largeViewportMode ? 4.1 : 6);
+      if (!fieldCssOffset.ready || Math.abs(nextFieldX - fieldCssOffset.x) > 0.18 || Math.abs(nextFieldY - fieldCssOffset.y) > 0.18) {
+        fieldCssOffset.x = nextFieldX;
+        fieldCssOffset.y = nextFieldY;
+        fieldCssOffset.ready = true;
+        root.style.setProperty('--tz3d-field-x', `${nextFieldX.toFixed(2)}px`);
+        root.style.setProperty('--tz3d-field-y', `${nextFieldY.toFixed(2)}px`);
+      }
 
       field.rotation.x = pointer.y * 0.035 + Math.sin(time * 0.18) * 0.012 * speed;
       field.rotation.y = pointer.x * 0.052 + scrollRatio * 0.035 + Math.cos(time * 0.16) * 0.016 * speed;
       field.rotation.z = Math.sin(time * 0.12 + page.length) * 0.014 * speed;
       macro.rotation.z = time * 0.018 * speed + scrollRatio * 0.02;
       micro.rotation.y = -time * 0.024 * speed + pointer.x * 0.024;
-      points.material.opacity = (compactMode ? 0.38 : 0.5) + Math.sin(time * 0.9) * 0.035 * speed;
+      points.material.opacity = (compactMode ? 0.38 : largeViewportMode ? 0.44 : 0.5) + Math.sin(time * 0.9) * 0.035 * speed;
 
       const sphereBlendRaw = page === 'odyssey' ? smoothstep(0.02, 0.88, scrollRatio) : 0;
       const sphereExpansion = page === 'odyssey' ? 1 + smoothstep(0.84, 1.65, scrollRatio) * 0.34 : 1;
@@ -1279,7 +1305,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
         data.faceMaterial.uniforms.uMorph.value = (Math.sin(phase * 0.56 + pointer.x * data.orbitDirection * 1.6) + 1) * 0.5;
       });
 
-      if (liquidLinkPositions && liquidLinkGeometry && decorObjectsByIndex.length > 1) {
+      if ((!largeViewportMode || frame % 2 === 0) && liquidLinkPositions && liquidLinkGeometry && decorObjectsByIndex.length > 1) {
         let cursor = 0;
         for (let i = 0; i < decorObjectsByIndex.length; i += 1) {
           const current = decorObjectsByIndex[i];
@@ -1309,7 +1335,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
         liquidLinkMaterial.opacity = (compactMode ? 0.018 : 0.028) + liquidEnergy * (compactMode ? 0.022 : 0.034) + sphereBlendRaw * 0.025;
       }
 
-      if (frame % 10 === 0 || frame <= 3) {
+      if (frame % (largeViewportMode ? 20 : 10) === 0 || frame <= 3) {
         const orderedObjects = decorObjectsByIndex.filter(Boolean);
         const families = orderedObjects.map((object) => object.userData.family);
         const spacingRadius = compactMode ? 3 : 4;
@@ -1343,7 +1369,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
         root.dataset.nativeAssetScale = 'native-uniform-scale';
         root.dataset.uniqueAssets = String(new Set(orderedObjects.map((object) => object.userData.asset)).size);
         root.dataset.decor3dUniqueAssets = root.dataset.uniqueAssets;
-        root.dataset.decor3dUniqueMotion = compactMode ? 'clustered-4-7' : 'clustered-4-7-12-21';
+        root.dataset.decor3dUniqueMotion = compactMode ? 'clustered-4-7' : largeViewportMode ? 'clustered-4-7-12-balanced' : 'clustered-4-7-12-21';
       }
 
       renderer.render(scene, camera);
