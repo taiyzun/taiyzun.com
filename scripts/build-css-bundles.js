@@ -22,7 +22,8 @@ const bundles = {
     'harmonic-ui.min.css',
     'gold-glam-ui.css',
     'mobile-menu.css',
-    'taiyzun-3d-field.min.css'
+    'taiyzun-3d-field.min.css',
+    'sword-hero.css'
   ],
   'taiyzun-journey.bundle.min.css': [
     'fonts.min.css',

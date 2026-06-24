@@ -308,8 +308,9 @@
 </script>
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-regular-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-italic-latin.woff2" crossorigin>
-<link rel="stylesheet" href="/css/taiyzun-index.bundle.min.css?v=20260625b">
+<link rel="stylesheet" href="/css/taiyzun-index.bundle.min.css?v=20260625c">
 <link rel="preload" as="image" href="/assets/easter-eggs/taiyzun-atme-3d-loader-192.avif" type="image/avif">
+<link rel="preload" as="image" href="/assets/images/taiyzun-sword-logo-2021.webp" type="image/webp">
 <!-- Performance: Prefetch other pages -->
 </head>
 <body class="home-page">
@@ -335,11 +336,29 @@
     <li><a href="/connect">Connect</a></li>
   </ul>
 </nav>
-<section class="hero" id="main-content">
+<section class="hero sword-hero" id="main-content">
   <div class="hero-video" aria-hidden="true">
     <video class="ambient-video-media" autoplay muted loop playsinline webkit-playsinline preload="metadata" disablepictureinpicture>
       <source data-src="/assets/video/sora.mp4" type="video/mp4">
     </video>
+  </div>
+  <div
+    class="sword-hero-stage"
+    data-sword-hero
+    data-sword-src="/assets/images/taiyzun-sword-logo-2021.webp"
+    data-sword-fallback="/assets/images/taiyzun-sword-logo-2021.png"
+    role="img"
+    aria-label="Rotating Taiyzun sword logo">
+    <canvas class="sword-hero-canvas" data-sword-hero-canvas aria-hidden="true"></canvas>
+    <img
+      class="sword-hero-fallback"
+      data-sword-hero-fallback
+      src="/assets/images/taiyzun-sword-logo-2021.png"
+      alt=""
+      width="1100"
+      height="1650"
+      decoding="async"
+      fetchpriority="high">
   </div>
 <div data-webgl="home-particles" style="position: absolute; inset: 0; z-index: 2; pointer-events: none;"></div>
   <div class="hero-overlay"></div>
@@ -780,6 +799,7 @@
 <script src="/js/ambient-video.min.js?v=20260623b"></script>
 <script src="/js/mobile-menu.min.js?v=20260623b"></script>
 <script src="/js/video-carousel.min.js?v=20260625b"></script>
+<script type="module" src="/js/sword-hero.min.js?v=20260625b" crossorigin="anonymous"></script>
 <script type="module" src="/js/taiyzun-3d-field.min.js?v=20260625b" crossorigin="anonymous"></script>
 <script>
   window.TAIYZUN_loadDesktopEnhancements?.([

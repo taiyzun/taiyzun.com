@@ -52,6 +52,7 @@ const publicAssetFiles = [
   'js/odyssey-portraits.js',
   'js/site-mobile-lite.min.js',
   'js/site-decorative-field.min.js',
+  'js/sword-hero.min.js',
   'js/taiyzun-3d-field.min.js',
   'js/theme-engine.min.js',
   'js/themes-config.min.js',
