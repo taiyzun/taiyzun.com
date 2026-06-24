@@ -1,6 +1,6 @@
 # Final Deployment Closeout
 
-Last verified: 2026-06-24 13:51 IST.
+Last verified: 2026-06-24 14:08 IST.
 
 ## Active production sites
 
@@ -100,23 +100,31 @@ Previously verified cleanup checks:
 - Workflow file: `.github/workflows/lighthouse.yml`
 - Workflow name: `Lighthouse Audit`
 - Branch: `main`
-- Latest failing run inspected: `28069081061`
-- Failing job: `lighthouse`
-- Failure phase: before checkout; no workflow steps were started.
-- GitHub check-run annotation: `The job was not started because your account is locked due to a billing issue.`
-- Billable runtime reported by GitHub: `0 ms`.
+- Latest run inspected: `28069081061`
+- Latest successful attempt: `3`
+- Latest successful job: `83152107333`
+- Workflow job: `lighthouse`
+- Final status: passed.
+- GitHub billing lock status: cleared for this workflow run; GitHub-hosted runner started successfully.
+- Artifact downloaded: `lighthouse-report`.
+- Target URL: `https://taiyzun.com/odyssey`
+- Mode: mobile.
+- Report fetch time: `2026-06-24T08:37:05.498Z`.
+- Lighthouse scores:
+  - Performance: `52`
+  - Accessibility: `98`
+  - Best Practices: `81`
+  - SEO: `100`
+  - Agentic Browsing: `100`
 - Authenticated `gh` status after refresh: valid, with `gist`, `read:org`, `repo`, and `workflow` scopes.
 
-This is not caused by workflow syntax, checkout, Node setup, package installation, Lighthouse configuration, target URL availability, artifact upload, secrets, branch protection, or Cloudflare/live-site behavior. The blocker is GitHub account billing state.
+Earlier failed attempts were not caused by workflow syntax, checkout, Node setup, package installation, Lighthouse configuration, target URL availability, artifact upload, secrets, branch protection, or Cloudflare/live-site behavior. They were blocked before runner startup by GitHub account billing state.
 
-After the GitHub billing lock is resolved, re-run:
+Remaining CI warning:
 
-```bash
-gh run rerun 28069081061 --failed
-gh run view 28069081061 --log-failed
-```
+- GitHub emitted a warning that `actions/checkout@v4` and `actions/upload-artifact@v4` target Node.js 20 and are being forced to run on Node.js 24. The workflow passed, so no workflow change was made during this closeout.
 
-If the rerun starts and then fails inside a workflow step, treat that as a new direct CI failure and fix only that next cause.
+If a future run fails inside a real workflow step, inspect that step log and fix only the next direct cause.
 
 ## Rollback method
 
@@ -164,7 +172,7 @@ git push origin main
 - Confirm Cloudflare Pages still lists only `taiyzun-com` and `taj-mahal-movie-com`.
 - Confirm R2 still lists only `taiyzun-gallery` and `taj-mahal-movie-media`.
 - Check `gh auth status` before any GitHub Actions investigation.
-- Check the Tai `Lighthouse Audit` status after GitHub billing is resolved.
+- Check the Tai `Lighthouse Audit` status and review any GitHub Actions runtime deprecation warnings.
 - Run Tai `npm audit --omit=dev`.
 - Run Tai `npm run build`.
 - Verify key live routes for both sites.
