@@ -1,5 +1,5 @@
 // Service Worker for taiyzun.com
-const CACHE_NAME = 'taiyzun-core-v79';
+const CACHE_NAME = 'taiyzun-core-v80';
 const RUNTIME_IMAGE_CACHE = 'taiyzun-images-v2';
 const ASSETS_TO_CACHE = [
   '/',
@@ -18,9 +18,6 @@ const ASSETS_TO_CACHE = [
   '/js/taiyzun-3d-field.min.js',
   '/js/video-carousel.min.js',
   '/manifest.json',
-  '/assets/easter-eggs/taiyzun-atme-3d-loader.avif',
-  '/assets/easter-eggs/taiyzun-atme-3d-loader.webp',
-  '/assets/easter-eggs/taiyzun-atme-3d-loader.png',
   '/assets/easter-eggs/taiyzun-atme-3d-loader-192.avif',
   '/assets/easter-eggs/taiyzun-atme-3d-loader-192.webp',
   '/assets/easter-eggs/taiyzun-atme-3d-loader-192.png',

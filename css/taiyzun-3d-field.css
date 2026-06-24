@@ -102,18 +102,13 @@
 }
 
 .site-loader__object::before {
-  background-image: url("/assets/easter-eggs/taiyzun-atme-3d-loader.webp");
+  background-image: url("/assets/easter-eggs/taiyzun-atme-3d-loader-192.avif");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
   opacity: 0.34;
   filter: brightness(0.34) saturate(1.18) blur(0.25px);
   transform: rotateY(180deg) translate3d(0, 0, -28px) scale(0.985);
-}
-
-body.odyssey-page .site-loader__object::before,
-body.creations-page .site-loader__object::before {
-  background-image: url("/assets/easter-eggs/taiyzun-atme-3d-loader-192.avif");
 }
 
 .site-loader__object::after {
