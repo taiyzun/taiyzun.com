@@ -28,6 +28,7 @@
   let isInteracting = false;
   let interactionTimer = 0;
   let dragState = null;
+  let carouselTapState = null;
   let suppressClickUntil = 0;
   let animationFrame = 0;
   let carouselInView = true;
@@ -65,8 +66,18 @@
     }, 3200);
   }
 
-  function setIframe(videoId, title) {
-    const nextSrc = `https://www.youtube-nocookie.com/embed/${videoId}?rel=0&modestbranding=1&playsinline=1`;
+  function setIframe(videoId, title, options = {}) {
+    const params = new URLSearchParams({
+      rel: '0',
+      modestbranding: '1',
+      playsinline: '1'
+    });
+
+    if (options.autoplay) {
+      params.set('autoplay', '1');
+    }
+
+    const nextSrc = `https://www.youtube-nocookie.com/embed/${videoId}?${params.toString()}`;
     if (iframe.src !== nextSrc) iframe.src = nextSrc;
     iframe.title = `Taiyzun YouTube video: ${title}`;
     carousel.style.setProperty('--video-preview-image', `url("https://i.ytimg.com/vi/${videoId}/hqdefault.jpg")`);
@@ -98,13 +109,11 @@
       card.setAttribute('aria-pressed', String(isActive));
       if (coarsePointer && !isActive) {
         card.setAttribute('tabindex', '-1');
-        card.setAttribute('aria-hidden', 'true');
-        card.setAttribute('inert', '');
       } else {
         card.removeAttribute('tabindex');
-        card.removeAttribute('aria-hidden');
-        card.removeAttribute('inert');
       }
+      card.removeAttribute('aria-hidden');
+      card.removeAttribute('inert');
       card.style.setProperty('--card-angle', `${angle.toFixed(3)}deg`);
       card.style.setProperty('--card-counter-angle', `${(-angle).toFixed(3)}deg`);
       card.dataset.cardBaseAngle = angle.toFixed(3);
@@ -120,7 +129,7 @@
       dot.setAttribute('aria-current', dotIndex === activeIndex ? 'true' : 'false');
     });
 
-    setIframe(videoId, title);
+    setIframe(videoId, title, { autoplay: userInitiated });
     updateCardFacing();
     carousel.dataset.activeVideoId = videoId;
     carousel.dataset.activeVideoTitle = title;
@@ -183,6 +192,29 @@
     return target instanceof Element && Boolean(target.closest('button, a, iframe, input, select, textarea, label'));
   }
 
+  function shouldSkipCarouselTapTarget(target) {
+    return target instanceof Element && Boolean(target.closest('.video-controls, a, iframe, input, select, textarea, label'));
+  }
+
+  function getCardIndexAtPoint(x, y) {
+    const hitCards = cards
+      .map((card, index) => {
+        const rect = card.getBoundingClientRect();
+        const containsPoint = x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
+        if (!containsPoint) return null;
+
+        return {
+          index,
+          zIndex: Number(card.style.zIndex || 0),
+          distance: Math.hypot(x - (rect.left + rect.width / 2), y - (rect.top + rect.height / 2))
+        };
+      })
+      .filter(Boolean)
+      .sort((a, b) => b.zIndex - a.zIndex || a.distance - b.distance);
+
+    return hitCards[0]?.index ?? -1;
+  }
+
   function endDrag(event) {
     if (!dragState) return;
 
@@ -212,6 +244,16 @@
 
   carousel.addEventListener('pointerdown', (event) => {
     if (event.button !== undefined && event.button !== 0) return;
+    if (shouldSkipCarouselTapTarget(event.target)) {
+      carouselTapState = null;
+    } else {
+      carouselTapState = {
+        pointerId: event.pointerId,
+        startX: event.clientX,
+        startY: event.clientY
+      };
+    }
+
     if (shouldSkipDragTarget(event.target)) {
       updatePointer(event);
       return;
@@ -245,6 +287,9 @@
 
   carousel.addEventListener('pointerup', endDrag, { passive: true });
   carousel.addEventListener('pointercancel', endDrag, { passive: true });
+  carousel.addEventListener('pointercancel', () => {
+    carouselTapState = null;
+  }, { passive: true });
 
   carousel.addEventListener('pointerleave', () => {
     if (dragState) return;
@@ -258,6 +303,22 @@
       setActive(index, true);
     });
   });
+
+  carousel.addEventListener('pointerup', (event) => {
+    if (!carouselTapState || carouselTapState.pointerId !== event.pointerId) return;
+
+    const deltaX = event.clientX - carouselTapState.startX;
+    const deltaY = event.clientY - carouselTapState.startY;
+    carouselTapState = null;
+
+    if (Date.now() < suppressClickUntil || Math.hypot(deltaX, deltaY) > 8) return;
+
+    const cardIndex = getCardIndexAtPoint(event.clientX, event.clientY);
+    if (cardIndex < 0) return;
+
+    setActive(cardIndex, true);
+    suppressClickUntil = Date.now() + 120;
+  }, { passive: true });
 
   prevButton?.addEventListener('click', () => setActive(activeIndex - 1, true));
   nextButton?.addEventListener('click', () => setActive(activeIndex + 1, true));

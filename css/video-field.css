@@ -289,14 +289,15 @@
   position: absolute;
   top: 0;
   left: 50%;
+  z-index: 1;
   width: 178%;
   height: 100%;
   transform: translateX(-50%);
   border: 0;
   display: block;
   background: #f6efe2;
-  opacity: 0;
-  pointer-events: none;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .video-current {
