@@ -1132,7 +1132,6 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       let clusteredMemberCount = 0;
       let sphereMemberCount = 0;
       decor.rotation.set(0, 0, 0);
-      root.dataset.decor3dSphereBlend = sphereBlendRaw.toFixed(3);
 
       decorObjects.forEach((object, index) => {
         const data = object.userData;
@@ -1265,6 +1264,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
         root.dataset.decor3dClusterMembers = String(clusteredMemberCount);
         root.dataset.decor3dClusters = String(decorMotionClusters.length);
         root.dataset.decor3dClusterPlan = decorMotionClusters.map((cluster) => cluster.count).join('|');
+        root.dataset.decor3dSphereBlend = sphereBlendRaw.toFixed(3);
         root.dataset.decor3dSphereMembers = String(sphereMemberCount);
         root.dataset.decor3dColours = 'sampled';
         root.dataset.decor3dLiquid = liquidEnergy.toFixed(3);
@@ -1283,8 +1283,8 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       }
 
       renderer.render(scene, camera);
-      root.dataset.status = 'ready';
-      root.dataset.frame = String(frame);
+      if (root.dataset.status !== 'ready') root.dataset.status = 'ready';
+      if (frame <= 3 || frame % 30 === 0) root.dataset.frame = String(frame);
       if (frame === 1) window.TAIYZUN_completeSiteLoader?.();
       if (!reduceMotion || frame < 3) window.requestAnimationFrame(render);
     }
