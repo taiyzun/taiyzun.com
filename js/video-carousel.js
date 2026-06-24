@@ -33,13 +33,23 @@
   let animationFrame = 0;
   let carouselInView = true;
   let documentVisible = !document.hidden;
+  const cardTapStates = new WeakMap();
 
   const dots = cards.map((card, index) => {
     const dot = document.createElement('button');
     dot.type = 'button';
     dot.className = 'video-dot';
     dot.setAttribute('aria-label', `Show video ${index + 1}`);
-    dot.addEventListener('click', () => setActive(index, true));
+    dot.addEventListener('pointerdown', (event) => {
+      event.stopPropagation();
+    }, { passive: true });
+    dot.addEventListener('pointerup', (event) => {
+      event.stopPropagation();
+    }, { passive: true });
+    dot.addEventListener('click', (event) => {
+      event.stopPropagation();
+      setActive(index, true);
+    });
     dotsNode?.appendChild(dot);
     return dot;
   });
@@ -193,7 +203,7 @@
   }
 
   function shouldSkipCarouselTapTarget(target) {
-    return target instanceof Element && Boolean(target.closest('.video-controls, a, iframe, input, select, textarea, label'));
+    return target instanceof Element && Boolean(target.closest('.video-controls, button, a, iframe, input, select, textarea, label'));
   }
 
   function getCardIndexAtPoint(x, y) {
@@ -298,7 +308,35 @@
   });
 
   cards.forEach((card, index) => {
-    card.addEventListener('click', () => {
+    card.addEventListener('pointerdown', (event) => {
+      if (event.button !== undefined && event.button !== 0) return;
+      cardTapStates.set(card, {
+        pointerId: event.pointerId,
+        startX: event.clientX,
+        startY: event.clientY
+      });
+    }, { passive: true });
+
+    card.addEventListener('pointerup', (event) => {
+      const tapState = cardTapStates.get(card);
+      cardTapStates.delete(card);
+      if (!tapState || tapState.pointerId !== event.pointerId) return;
+
+      const deltaX = event.clientX - tapState.startX;
+      const deltaY = event.clientY - tapState.startY;
+      if (Date.now() < suppressClickUntil || Math.hypot(deltaX, deltaY) > 8) return;
+
+      event.stopPropagation();
+      suppressClickUntil = Date.now() + 120;
+      setActive(index, true);
+    }, { passive: true });
+
+    card.addEventListener('pointercancel', () => {
+      cardTapStates.delete(card);
+    }, { passive: true });
+
+    card.addEventListener('click', (event) => {
+      event.stopPropagation();
       if (Date.now() < suppressClickUntil) return;
       setActive(index, true);
     });
@@ -320,8 +358,23 @@
     suppressClickUntil = Date.now() + 120;
   }, { passive: true });
 
-  prevButton?.addEventListener('click', () => setActive(activeIndex - 1, true));
-  nextButton?.addEventListener('click', () => setActive(activeIndex + 1, true));
+  [prevButton, nextButton].forEach((button) => {
+    button?.addEventListener('pointerdown', (event) => {
+      event.stopPropagation();
+    }, { passive: true });
+    button?.addEventListener('pointerup', (event) => {
+      event.stopPropagation();
+    }, { passive: true });
+  });
+
+  prevButton?.addEventListener('click', (event) => {
+    event.stopPropagation();
+    setActive(activeIndex - 1, true);
+  });
+  nextButton?.addEventListener('click', (event) => {
+    event.stopPropagation();
+    setActive(activeIndex + 1, true);
+  });
 
   document.addEventListener('visibilitychange', () => {
     documentVisible = !document.hidden;
