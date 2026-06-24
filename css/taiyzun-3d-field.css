@@ -111,7 +111,8 @@
   transform: rotateY(180deg) translate3d(0, 0, -28px) scale(0.985);
 }
 
-body.odyssey-page .site-loader__object::before {
+body.odyssey-page .site-loader__object::before,
+body.creations-page .site-loader__object::before {
   background-image: url("/assets/easter-eggs/taiyzun-atme-3d-loader-192.avif");
 }
 

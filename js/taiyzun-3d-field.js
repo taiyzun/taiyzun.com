@@ -1,11 +1,14 @@
 const doc = document;
 const body = doc.body;
 
-function isOdysseyRoute() {
+function usesCompactLoaderRoute() {
   return Boolean(
     body?.classList.contains('odyssey-page') ||
+    body?.classList.contains('creations-page') ||
     window.location.pathname.replace(/\/$/, '') === '/odyssey' ||
-    window.location.pathname.endsWith('/odyssey.html')
+    window.location.pathname.replace(/\/$/, '') === '/creations' ||
+    window.location.pathname.endsWith('/odyssey.html') ||
+    window.location.pathname.endsWith('/creations.html')
   );
 }
 
@@ -25,10 +28,11 @@ function installSiteLoader() {
     loader.setAttribute('aria-label', 'Loading Taiyzun');
     loader.dataset.start = String(startedAt);
     loader.style.cssText = 'position:fixed;inset:0;z-index:100000;display:grid;place-items:center;overflow:hidden;width:100vw;height:100vh;contain:strict;';
-    const loaderAssetPrefix = isOdysseyRoute()
+    const useCompactLoaderAsset = usesCompactLoaderRoute();
+    const loaderAssetPrefix = useCompactLoaderAsset
       ? '/assets/easter-eggs/taiyzun-atme-3d-loader-192'
       : '/assets/easter-eggs/taiyzun-atme-3d-loader';
-    const loaderAssetSize = isOdysseyRoute() ? 192 : 1024;
+    const loaderAssetSize = useCompactLoaderAsset ? 192 : 1024;
     loader.innerHTML = '<span class="site-loader__orb" style="position:relative;width:clamp(136px,18vw,232px);aspect-ratio:1;display:grid;place-items:center;transform-style:preserve-3d;border-radius:50%;"><span class="site-loader__object" style="position:relative;width:84%;aspect-ratio:1;display:block;overflow:hidden;transform-style:preserve-3d;border-radius:50%;"><picture class="site-loader__face" style="position:absolute;inset:0;width:100%;height:100%;display:block;overflow:hidden;border-radius:50%;"><source srcset="' + loaderAssetPrefix + '.avif" type="image/avif"><source srcset="' + loaderAssetPrefix + '.webp" type="image/webp"><img class="site-loader__mark" src="' + loaderAssetPrefix + '.png" alt="" width="' + loaderAssetSize + '" height="' + loaderAssetSize + '" decoding="async" style="display:block;width:100%;height:100%;object-fit:contain;border-radius:50%;"></picture></span></span>';
     body.insertBefore(loader, body.firstChild);
   } else {
@@ -1309,9 +1313,9 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
 
   function scheduleThreeField() {
     const priorityPage = page === 'odyssey';
-    const odysseyMobileGate = priorityPage && compactMode;
+    const mobileDeferredPage = compactMode && (page === 'odyssey' || page === 'creations');
     const delay = priorityPage ? (compactMode ? 240 : 360) : (compactMode ? 1100 : 1700);
-    const idleTimeout = odysseyMobileGate ? 2400 : priorityPage ? 900 : (compactMode ? 3200 : 4200);
+    const idleTimeout = mobileDeferredPage ? 2400 : priorityPage ? 900 : (compactMode ? 3200 : 4200);
     let timer = 0;
     let scheduledDelay = Infinity;
     let started = false;
@@ -1319,7 +1323,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     const start = () => {
       if (started) return;
       started = true;
-      if (odysseyMobileGate) root.dataset.mobile3dGate = 'starting';
+      if (mobileDeferredPage) root.dataset.mobile3dGate = `${page}-starting`;
       if ('requestIdleCallback' in window) {
         window.requestIdleCallback(startThreeField, { timeout: idleTimeout });
       } else {
@@ -1334,8 +1338,8 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       timer = window.setTimeout(start, nextDelay);
     };
 
-    if (odysseyMobileGate) {
-      root.dataset.mobile3dGate = reduceMotion ? 'reduced-motion' : 'deferred';
+    if (mobileDeferredPage) {
+      root.dataset.mobile3dGate = reduceMotion ? `${page}-reduced-motion` : `${page}-deferred`;
       root.dataset.status = 'fallback';
 
       if (reduceMotion) return;
@@ -1347,7 +1351,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       window.addEventListener('keydown', interactionStart, { once: true });
 
       const settledStart = () => {
-        window.setTimeout(() => schedule(0), 12000);
+        window.setTimeout(() => schedule(0), page === 'odyssey' ? 12000 : 10000);
       };
 
       if (doc.readyState === 'complete') {
