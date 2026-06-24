@@ -16,6 +16,7 @@
   const coarsePointer = window.matchMedia('(pointer: coarse), (max-width: 820px)').matches;
   const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
   const compactMode = Boolean(window.TAIYZUN_MOBILE_LITE || coarsePointer || (connection && connection.saveData));
+  const secondHandSweepSpeed = (Math.PI * 2) / 60;
 
   let renderer = null;
   let scene = null;
@@ -81,11 +82,11 @@
     pointer.x += (pointer.tx - pointer.x) * 0.055;
     pointer.y += (pointer.ty - pointer.y) * 0.055;
 
-    const spin = reduceMotion ? 0.14 : t * 0.22;
+    const spin = reduceMotion ? 0.14 : t * secondHandSweepSpeed;
     swordGroup.rotation.y = spin + pointer.x * 0.16;
-    swordGroup.rotation.x = Math.sin(t * 0.48) * 0.035 - pointer.y * 0.06;
-    swordGroup.rotation.z = Math.sin(t * 0.22) * 0.018;
-    swordGroup.position.z = Math.sin(t * 0.72) * 0.05;
+    swordGroup.rotation.x = Math.sin(t * secondHandSweepSpeed * 1.35) * 0.035 - pointer.y * 0.06;
+    swordGroup.rotation.z = Math.sin(t * secondHandSweepSpeed * 0.82) * 0.018;
+    swordGroup.position.z = Math.sin(t * secondHandSweepSpeed * 1.55) * 0.05;
 
     root.dataset.rotationY = swordGroup.rotation.y.toFixed(3);
     renderer.render(scene, camera);
@@ -176,7 +177,7 @@
       root.dataset.texture = textureSrc;
       root.dataset.object = 'taiyzun-sword-logo-2021';
       root.dataset.lighting = 'ambient-directional-rim';
-      root.dataset.motion = reduceMotion ? 'reduced-y-axis' : 'smooth-y-axis-rotation';
+      root.dataset.motion = reduceMotion ? 'reduced-y-axis' : 'smooth-second-hand-y-axis-rotation';
 
       window.addEventListener('resize', resize, { passive: true });
       window.addEventListener('pointermove', (event) => {

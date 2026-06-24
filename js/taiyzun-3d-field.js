@@ -420,6 +420,11 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     const decorMotionClusterBudget = decorMotionClusterSizes.reduce((total, size) => total + size, 0);
     const decorMotionClusters = [];
     const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
+    const scrollState = {
+      y: window.scrollY || 0,
+      targetY: window.scrollY || 0
+    };
+    const secondHandSweepSpeed = (Math.PI * 2) / 60;
     const quality = compactMode ? 0.58 : 1;
     let liquidLinks = null;
     let liquidLinkPositions = null;
@@ -701,6 +706,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
           spinX: (0.014 + random() * 0.05) * sign() * compactScale,
           spinY: (0.016 + random() * 0.062) * sign() * compactScale,
           spinZ: (0.012 + random() * 0.046) * sign() * compactScale,
+          ease: 0.046 + random() * 0.026,
           x: 0,
           y: 0,
           z: 0,
@@ -721,25 +727,33 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
         const phase = cluster.phase + time * cluster.timeSpeed * speed;
         const scrollWave = scrollProgress * Math.PI * cluster.scrollSpeed + cluster.phase * 0.37;
         const scrollBias = scrollProgress - 0.5;
+        const ease = clamp(cluster.ease * (compactMode ? 0.82 : 1), 0.032, 0.082);
 
-        cluster.x = pointerState.x * cluster.pointerX
+        const targetX = pointerState.x * cluster.pointerX
           + scrollBias * cluster.scrollX
           + Math.sin(phase) * cluster.swayX * speed;
-        cluster.y = pointerState.y * cluster.pointerY
+        const targetY = pointerState.y * cluster.pointerY
           + Math.sin(scrollWave) * cluster.scrollY * 0.42
           + Math.cos(phase * 0.84) * cluster.swayY * speed;
-        cluster.z = pointerState.x * cluster.pointerZ * 0.42
+        const targetZ = pointerState.x * cluster.pointerZ * 0.42
           + Math.cos(scrollWave * 0.72) * cluster.scrollZ * 0.36
           + Math.sin(phase * 0.68) * cluster.swayZ * speed;
-        cluster.rotX = pointerState.y * cluster.pointerRotX
+        const targetRotX = pointerState.y * cluster.pointerRotX
           + scrollRatio * cluster.scrollRotX * 0.18
           + Math.sin(phase * 0.63) * cluster.spinX * speed;
-        cluster.rotY = pointerState.x * cluster.pointerRotY
+        const targetRotY = pointerState.x * cluster.pointerRotY
           + scrollRatio * cluster.scrollRotY * 0.18
           + Math.cos(phase * 0.58) * cluster.spinY * speed;
-        cluster.rotZ = pointerState.x * cluster.pointerRotZ
+        const targetRotZ = pointerState.x * cluster.pointerRotZ
           + scrollRatio * cluster.scrollRotZ * 0.12
           + Math.sin(phase * 0.49) * cluster.spinZ * speed;
+
+        cluster.x += (targetX - cluster.x) * ease;
+        cluster.y += (targetY - cluster.y) * ease;
+        cluster.z += (targetZ - cluster.z) * ease;
+        cluster.rotX += (targetRotX - cluster.rotX) * ease;
+        cluster.rotY += (targetRotY - cluster.rotY) * ease;
+        cluster.rotZ += (targetRotZ - cluster.rotZ) * ease;
 
         if (
           Math.abs(cluster.x) > 0.006 ||
@@ -1015,10 +1029,10 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
             sphereTheta: sphereSlot.theta,
             phase: actorPhase,
             orbitDirection: actorSign(),
-            orbitSpeed: 0.12 + actorRandom() * 0.21,
+            orbitSpeed: secondHandSweepSpeed * (0.72 + actorRandom() * 0.72),
             orbitScroll: 0.42 + actorRandom() * 1.18,
-            minuteSpeed: 0.035 + actorRandom() * 0.07,
-            secondSpeed: 0.62 + actorRandom() * 1.18,
+            minuteSpeed: secondHandSweepSpeed * (0.28 + actorRandom() * 0.28),
+            secondSpeed: secondHandSweepSpeed * (0.84 + actorRandom() * 0.32),
             minuteScroll: 0.32 + actorRandom() * 0.82,
             clockDirection: actorSign(),
             secondDirection: actorSign(),
@@ -1056,14 +1070,14 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
             spinZ: (0.012 + actorRandom() * 0.065) * actorSign(),
             flipRotX: (0.026 + actorRandom() * 0.16) * actorSign(),
             flipRotY: (0.034 + actorRandom() * 0.2) * actorSign(),
-            flipSpeedX: 0.52 + actorRandom() * 1.18,
-            flipSpeedY: 0.48 + actorRandom() * 1.26,
+            flipSpeedX: secondHandSweepSpeed * (0.76 + actorRandom() * 1.08),
+            flipSpeedY: secondHandSweepSpeed * (0.72 + actorRandom() * 1.12),
             depthPulse: 0.036 + actorRandom() * 0.14,
             depthScale: 0.14 + actorRandom() * 0.16,
             zoomPulse: 0.032 + actorRandom() * 0.1,
             zoomScroll: 0.036 + actorRandom() * 0.12,
             zoomPointer: 0.018 + actorRandom() * 0.07,
-            zoomSpeed: 0.78 + actorRandom() * 1.55,
+            zoomSpeed: secondHandSweepSpeed * (0.9 + actorRandom() * 1.3),
             formationDelay: compactMode ? actorRandom() * 0.16 : actorRandom() * 0.28,
             baseObjectScale: 1,
             rotationEnergy: actorEnergy,
@@ -1088,8 +1102,8 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
           root.dataset.nativeAssetScale = 'native-uniform-scale';
           root.dataset.decor3dAspectMode = 'native-aspect-uncropped-transparent-png';
           root.dataset.decor3dLayering = 'native-plane-rim-shadow-depth';
-          root.dataset.decor3dDepthMotion = 'clocked-revolution-scroll-pointer-zoom';
-          root.dataset.decor3dClockMotion = 'minute-second-scroll-pointer';
+          root.dataset.decor3dDepthMotion = 'continuous-second-speed-scroll-pointer-zoom';
+          root.dataset.decor3dClockMotion = 'smooth-second-speed-scroll-pointer';
           root.dataset.decor3dUniqueAssets = String(new Set(decorObjects.map((object) => object.userData.asset)).size);
           root.dataset.uniqueAssets = root.dataset.decor3dUniqueAssets;
         }, undefined, () => {
@@ -1117,9 +1131,16 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       pointer.x += (pointer.tx - pointer.x) * 0.045;
       pointer.y += (pointer.ty - pointer.y) * 0.045;
 
-      const scrollRatio = window.scrollY / Math.max(window.innerHeight, 1);
+      scrollState.targetY = window.scrollY || 0;
+      scrollState.y += (scrollState.targetY - scrollState.y) * (compactMode ? 0.07 : 0.085);
+      if (Math.abs(scrollState.targetY - scrollState.y) < 0.08) {
+        scrollState.y = scrollState.targetY;
+      }
+
+      const smoothScrollY = scrollState.y;
+      const scrollRatio = smoothScrollY / Math.max(window.innerHeight, 1);
       const maxScroll = Math.max(doc.documentElement.scrollHeight - window.innerHeight, window.innerHeight, 1);
-      const scrollProgress = clamp(window.scrollY / maxScroll, 0, 1);
+      const scrollProgress = clamp(smoothScrollY / maxScroll, 0, 1);
       const time = now * 0.001;
       const speed = reduceMotion ? 0 : 1;
       root.style.setProperty('--tz3d-field-x', `${(pointer.x * 8).toFixed(2)}px`);
@@ -1311,8 +1332,9 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
         root.dataset.decor3dLiquid = liquidEnergy.toFixed(3);
         root.dataset.decor3dLayering = 'native-plane-rim-shadow-depth';
         root.dataset.decor3dAspectMode = 'native-aspect-uncropped-transparent-png';
-        root.dataset.decor3dDepthMotion = 'clocked-revolution-scroll-pointer-zoom';
-        root.dataset.decor3dClockMotion = 'minute-second-scroll-pointer';
+        root.dataset.decor3dDepthMotion = 'continuous-second-speed-scroll-pointer-zoom';
+        root.dataset.decor3dClockMotion = 'smooth-second-speed-scroll-pointer';
+        root.dataset.decor3dMotionSmoothing = 'interpolated-scroll-and-cluster-targets';
         root.dataset.decor3dScaleMode = page === 'odyssey' ? 'large-depth-responsive' : 'larger-native-depth-responsive';
         root.dataset.decor3dFamilySpacing = `slot-family-radius-${spacingRadius}`;
         root.dataset.decor3dSimilarNeighbours = String(similarNeighbourCount);
