@@ -129,7 +129,7 @@
     <h2>A Visual Record of Business Structure</h2>
     <p style="color:var(--text-secondary);font-weight:300;font-size:0.95rem;margin-top:0.5rem;">Showcasing Information &amp; Technology materials, Micro &amp; Macro thinking, Business Strategy notes, Technical workflow maps, compliance-ready records, Strategic Due Diligence context, Design systems, Stewardship and Trust shaped across digital, Business and human Spaces.</p>
   </div>
-  <p class="gallery-meta reveal animate-on-scroll"><span id="galleryCount">0</span> Works in View</p>
+  <p class="gallery-meta reveal animate-on-scroll" aria-live="polite"><span id="galleryCount">Loading Gallery</span></p>
   <div class="cat-filters reveal animate-on-scroll" id="catFilters"></div>
   <div class="art-grid" id="artGrid"></div>
 </div>
@@ -375,7 +375,7 @@
   /* ── Grid ── */
   function renderGrid(filter) {
     filteredItems = filter === 'all' ? allItems : allItems.filter(i => i.cat === filter);
-    if (galleryCountEl) galleryCountEl.textContent = filteredItems.length.toLocaleString();
+    if (galleryCountEl) galleryCountEl.textContent = `${filteredItems.length.toLocaleString()} Works in View`;
     currentPage = 0;
     const grid = document.getElementById('artGrid');
     grid.innerHTML = '';
@@ -689,6 +689,20 @@
       galleryStartObserver.observe(galleryTrigger);
     } else {
       window.addEventListener('load', () => window.setTimeout(start, 1200), { once: true });
+    }
+
+    const startWhenIdle = () => {
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(start, { timeout: siteMobileLite ? 2600 : 1800 });
+      } else {
+        window.setTimeout(start, siteMobileLite ? 2200 : 1400);
+      }
+    };
+
+    if (document.readyState === 'complete') {
+      startWhenIdle();
+    } else {
+      window.addEventListener('load', startWhenIdle, { once: true });
     }
 
     window.addEventListener('scroll', start, { once: true, passive: true });
