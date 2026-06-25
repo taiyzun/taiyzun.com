@@ -353,7 +353,7 @@
     <img
       class="sword-hero-fallback"
       data-sword-hero-fallback
-      src="/assets/images/taiyzun-sword-logo-2021.png"
+      src="/assets/images/taiyzun-sword-logo-2021.webp"
       alt=""
       width="1100"
       height="1650"
@@ -796,10 +796,40 @@
     revealElements.forEach(el => observer.observe(el));
   })();
 </script>
-<script src="/js/ambient-video.min.js?v=20260623b"></script>
-<script src="/js/mobile-menu.min.js?v=20260623b"></script>
-<script src="/js/video-carousel.min.js?v=20260625b"></script>
-<script type="module" src="/js/sword-hero.min.js?v=20260625e" crossorigin="anonymous"></script>
+<script src="/js/ambient-video.min.js?v=20260623b" defer></script>
+<script src="/js/mobile-menu.min.js?v=20260623b" defer></script>
+<script src="/js/video-carousel.min.js?v=20260625b" defer></script>
+<script>
+  (() => {
+    const loadSwordHero = () => {
+      if (document.querySelector('script[data-sword-hero-runtime]')) return;
+      const script = document.createElement('script');
+      script.type = 'module';
+      script.src = '/js/sword-hero.min.js?v=20260625e';
+      script.crossOrigin = 'anonymous';
+      script.dataset.swordHeroRuntime = 'true';
+      document.body.appendChild(script);
+    };
+
+    const scheduleSwordHero = () => {
+      const mobileLite = Boolean(window.TAIYZUN_applyMobileLite?.());
+      const delay = mobileLite ? 1800 : 420;
+      window.setTimeout(() => {
+        if ('requestIdleCallback' in window) {
+          window.requestIdleCallback(loadSwordHero, { timeout: mobileLite ? 2200 : 900 });
+        } else {
+          loadSwordHero();
+        }
+      }, delay);
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', scheduleSwordHero, { once: true });
+    } else {
+      scheduleSwordHero();
+    }
+  })();
+</script>
 <script type="module" src="/js/taiyzun-3d-field.min.js?v=20260625d" crossorigin="anonymous"></script>
 <script>
   window.TAIYZUN_loadDesktopEnhancements?.([
