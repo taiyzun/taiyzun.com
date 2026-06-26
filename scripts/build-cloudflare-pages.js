@@ -29,6 +29,7 @@ const publicHtmlFiles = new Set([
 
 const publicAssetFiles = [
   'assets/favicon.svg',
+  'assets/space-gallery-index.json',
   'assets/space-gallery-manifest.json',
   'assets/space-gallery-share-index.json',
   'assets/easter-eggs/taiyzun-atme-3d-loader.avif',
@@ -67,6 +68,7 @@ const publicDirectories = [
   'assets/fonts',
   'assets/icons',
   'assets/images',
+  'assets/space-gallery-categories',
   'assets/video',
   'css'
 ];
@@ -153,6 +155,10 @@ execFileSync(process.execPath, [path.join(rootDir, 'scripts', 'build-css-bundles
 });
 
 execFileSync(process.execPath, [path.join(rootDir, 'scripts', 'build-space-gallery-share-index.js')], {
+  stdio: 'inherit'
+});
+
+execFileSync(process.execPath, [path.join(rootDir, 'scripts', 'build-space-gallery-chunks.js')], {
   stdio: 'inherit'
 });
 

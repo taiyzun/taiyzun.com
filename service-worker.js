@@ -1,29 +1,12 @@
 // Service Worker for taiyzun.com
-const CACHE_NAME = 'taiyzun-core-v92';
+const CACHE_NAME = 'taiyzun-core-v95';
 const RUNTIME_IMAGE_CACHE = 'taiyzun-images-v2';
 const ASSETS_TO_CACHE = [
-  '/',
   '/index.html',
-  '/odyssey.html',
-  '/creations.html',
-  '/journey.html',
-  '/connect.html',
-  '/style.css',
-  '/css/gold-glam-ui.css',
-  '/css/mobile-menu.css',
-  '/css/taiyzun-3d-field.min.css',
-  '/css/video-field.min.css',
-  '/js/mobile-menu.min.js',
   '/js/site-mobile-lite.min.js',
-  '/js/taiyzun-3d-field.min.js',
-  '/js/video-carousel.min.js',
   '/manifest.json',
   '/assets/easter-eggs/taiyzun-atme-3d-loader-192.avif',
-  '/assets/easter-eggs/taiyzun-atme-3d-loader-192.webp',
-  '/assets/easter-eggs/taiyzun-atme-3d-loader-192.png',
-  '/assets/images/logo.png',
-  '/assets/images/taiyzun-sword-logo-2021.webp',
-  '/assets/images/taiyzun-t1000-profile-og-20260530-fresh.jpg',
+  '/assets/images/Taiyzun-logo-36w.avif',
   '/assets/icons/favicon-32x32.png',
   '/favicon.ico'
 ];

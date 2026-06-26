@@ -105,7 +105,9 @@ export async function onRequestGet(context) {
 
     const requestUrl = new URL(context.request.url);
     const canonicalUrl = absoluteUrl(requestUrl.origin, `/creations/image/${encodeURIComponent(id)}`);
-    const galleryUrl = absoluteUrl(requestUrl.origin, `/creations?image=${encodeURIComponent(id)}`);
+    const galleryParams = new URLSearchParams({ image: id });
+    if (item.category) galleryParams.set('cat', item.category);
+    const galleryUrl = absoluteUrl(requestUrl.origin, `/creations?${galleryParams.toString()}`);
     return htmlResponse(renderSharePage({ item, canonicalUrl, galleryUrl, siteUrl: requestUrl.origin }));
   } catch (error) {
     return htmlResponse(`<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Creations</title><meta name="robots" content="noindex"></head><body><main><h1>Creations</h1><p><a href="/creations">Open Creations</a></p></main></body></html>`, 502);

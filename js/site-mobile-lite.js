@@ -111,7 +111,21 @@
     };
 
     if (!compact && !connectionSlow) {
-      inject();
+      const startDesktopField = () => {
+        window.setTimeout(() => {
+          if ('requestIdleCallback' in window) {
+            window.requestIdleCallback(inject, { timeout: 1600 });
+          } else {
+            inject();
+          }
+        }, 520);
+      };
+
+      if (document.readyState === 'complete') {
+        startDesktopField();
+      } else {
+        window.addEventListener('load', startDesktopField, { once: true });
+      }
       return;
     }
 

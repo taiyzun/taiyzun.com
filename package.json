@@ -6,6 +6,7 @@
     "build": "npm run build:pages",
     "build:pages": "node scripts/build-cloudflare-pages.js",
     "gallery:share-index": "node scripts/build-space-gallery-share-index.js",
+    "gallery:chunks": "node scripts/build-space-gallery-chunks.js",
     "optimize-images": "node scripts/optimize-images.js",
     "privacy-review": "node scripts/generate-private-image-review.js"
   },

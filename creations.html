@@ -89,7 +89,7 @@
 <link rel="preload" as="image" href="/assets/easter-eggs/taiyzun-atme-3d-loader-192.avif" type="image/avif">
 </head>
 <body class="creations-page">
-<script data-cfasync="false" src="/js/site-mobile-lite.min.js?v=20260626b"></script>
+<script data-cfasync="false" src="/js/site-mobile-lite.min.js?v=20260626c"></script>
 <a href="#main-content" class="skip-link">Skip to main content</a>
 <div class="cursor-glow" id="cursorGlow"></div>
 <div class="site-loader" id="siteLoader" role="status" aria-live="polite" aria-label="Loading Taiyzun" data-start="0" style="position:fixed;inset:0;z-index:100000;display:grid;place-items:center;overflow:hidden;width:100vw;height:100vh;contain:strict;"><span class="site-loader__orb" style="position:relative;width:clamp(136px,18vw,232px);aspect-ratio:1;display:grid;place-items:center;transform-style:preserve-3d;border-radius:50%;"><span class="site-loader__object" style="position:relative;width:84%;aspect-ratio:1;display:block;overflow:hidden;transform-style:preserve-3d;border-radius:50%;"><picture class="site-loader__face" style="position:absolute;inset:0;width:100%;height:100%;display:block;overflow:hidden;border-radius:50%;"><source srcset="/assets/easter-eggs/taiyzun-atme-3d-loader-192.avif" type="image/avif"><source srcset="/assets/easter-eggs/taiyzun-atme-3d-loader-192.webp" type="image/webp"><img class="site-loader__mark" src="/assets/easter-eggs/taiyzun-atme-3d-loader-192.png" alt="" width="192" height="192" decoding="async" style="display:block;width:100%;height:100%;object-fit:contain;border-radius:50%;"></picture></span></span></div>
@@ -179,8 +179,9 @@
 </footer>
 <script data-cfasync="false">
   /* ── Config ── */
-  const GALLERY_MANIFEST_VERSION = '20260623-creations-share-v2';
+  const GALLERY_MANIFEST_VERSION = '20260626-gallery-chunks-v1';
   const SHARE_ROUTE_PREFIX = '/creations/image/';
+  const GALLERY_INDEX_URL = `/assets/space-gallery-index.json?v=${GALLERY_MANIFEST_VERSION}`;
   const MANIFEST_URLS = [
     `/assets/space-gallery-manifest.json?v=${GALLERY_MANIFEST_VERSION}`
   ];
@@ -201,6 +202,13 @@
 
   /* ── State ── */
   let allItems = [], filteredItems = [], currentPage = 0, lbIdx = 0, lbOpen = false;
+  let activeFilter = 'all';
+  let galleryCatalogReady = false;
+  let galleryLoadingMore = false;
+  let categoryMeta = [];
+  let categoryCounts = {};
+  let categoryItems = new Map();
+  let categoryLoadCursor = 0;
   let shareStatusTimer = null;
   const galleryCountEl = document.getElementById('galleryCount');
 
@@ -266,19 +274,28 @@
     return hashMatch ? cleanImageId(hashMatch[1]) : '';
   }
 
+  function getRequestedCategory() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('cat') || params.get('category') || '';
+  }
+
   function sharePageUrlForItem(item) {
     return `${window.location.origin}${SHARE_ROUTE_PREFIX}${encodeURIComponent(item.id)}`;
   }
 
   function galleryUrlForItem(item) {
-    return `${window.location.origin}/creations?image=${encodeURIComponent(item.id)}`;
+    const params = new URLSearchParams({ image: item.id });
+    if (item.cat) params.set('cat', item.cat);
+    return `${window.location.origin}/creations?${params.toString()}`;
   }
 
   function setImageUrl(item, mode = 'replace') {
     if (!item || !item.id || !window.history?.[`${mode}State`]) return;
     const url = new URL(window.location.href);
     url.pathname = '/creations';
-    url.search = `?image=${encodeURIComponent(item.id)}`;
+    url.search = '';
+    url.searchParams.set('image', item.id);
+    if (item.cat) url.searchParams.set('cat', item.cat);
     url.hash = '';
     window.history[`${mode}State`]({ image: item.id }, '', url);
   }
@@ -289,12 +306,129 @@
     url.pathname = '/creations';
     url.searchParams.delete('image');
     url.searchParams.delete('creation');
+    url.searchParams.delete('cat');
+    url.searchParams.delete('category');
     url.hash = '';
     window.history[`${mode}State`]({}, '', url);
   }
 
   function isPublicGalleryItem(item) {
     return item.public !== false && item.private !== true && item.hidden !== true;
+  }
+
+  async function fetchJson(url) {
+    const res = await fetch(url, { cache: 'force-cache' });
+    if (!res.ok) throw new Error(`Unable to load ${url}`);
+    return res.json();
+  }
+
+  function rebuildAllItems() {
+    allItems = [];
+    categoryMeta.forEach(meta => {
+      const items = categoryItems.get(meta.key);
+      if (items?.length) allItems.push(...items);
+    });
+  }
+
+  function activeTotalFor(filter = activeFilter) {
+    if (filter === 'all') {
+      return categoryMeta.reduce((sum, meta) => sum + (categoryCounts[meta.key] || 0), 0) || allItems.length;
+    }
+    return categoryCounts[filter] || categoryItems.get(filter)?.length || 0;
+  }
+
+  function itemsForFilter(filter = activeFilter) {
+    return filter === 'all' ? allItems : (categoryItems.get(filter) || []);
+  }
+
+  function categoryMetaFor(key) {
+    return categoryMeta.find(meta => meta.key === key);
+  }
+
+  async function loadCategoryChunk(key) {
+    if (categoryItems.has(key)) return categoryItems.get(key);
+    const meta = categoryMetaFor(key);
+    if (!meta?.path) return [];
+
+    const entries = await fetchJson(`${meta.path}?v=${GALLERY_MANIFEST_VERSION}`);
+    const items = (Array.isArray(entries) ? entries : [])
+      .filter(isPublicGalleryItem)
+      .map(item => normalizeGalleryItem(item, key));
+    categoryItems.set(key, items);
+    categoryCounts[key] = items.length;
+    rebuildAllItems();
+    return items;
+  }
+
+  async function ensureItemsForFilter(filter = activeFilter, minCount = PAGE_SIZE) {
+    if (!galleryCatalogReady) return;
+
+    if (filter !== 'all') {
+      await loadCategoryChunk(filter);
+      filteredItems = itemsForFilter(filter);
+      return;
+    }
+
+    while (allItems.length < minCount && categoryLoadCursor < categoryMeta.length) {
+      const meta = categoryMeta[categoryLoadCursor++];
+      await loadCategoryChunk(meta.key);
+    }
+    filteredItems = allItems;
+  }
+
+  async function loadChunkedCatalog() {
+    const index = await fetchJson(GALLERY_INDEX_URL);
+    if (!Array.isArray(index.categories) || !index.categories.length) throw new Error('empty chunk index');
+
+    categoryMeta = index.categories
+      .filter(meta => meta?.key && meta?.path)
+      .map(meta => ({
+        key: meta.key,
+        path: meta.path,
+        displayCategory: meta.displayCategory || displayCategory(meta.key),
+        count: Number(meta.count) || 0
+      }));
+    if (!categoryMeta.length) throw new Error('empty category metadata');
+
+    categoryCounts = Object.fromEntries(categoryMeta.map(meta => [meta.key, meta.count]));
+    categoryItems = new Map();
+    categoryLoadCursor = 0;
+    galleryCatalogReady = true;
+    buildFilters([...categoryMeta.map(meta => meta.key), 'all'], categoryCounts);
+  }
+
+  async function loadLegacyManifest() {
+    let manifest = null;
+    for (const url of MANIFEST_URLS) {
+      const res = await fetch(url, { cache: 'force-cache' });
+      if (!res.ok) continue;
+      manifest = await res.json();
+      break;
+    }
+    if (!manifest) throw new Error('fetch failed');
+    const cats = Object.keys(manifest);
+    if (!cats.length) throw new Error('empty');
+
+    categoryMeta = cats.map(cat => ({
+      key: cat,
+      path: '',
+      displayCategory: displayCategory(cat),
+      count: Array.isArray(manifest[cat]) ? manifest[cat].filter(isPublicGalleryItem).length : 0
+    }));
+    categoryCounts = {};
+    categoryItems = new Map();
+    allItems = [];
+    cats.forEach(cat => {
+      const items = (manifest[cat] || [])
+        .filter(isPublicGalleryItem)
+        .map(item => normalizeGalleryItem(item, cat));
+      categoryItems.set(cat, items);
+      categoryCounts[cat] = items.length;
+      allItems.push(...items);
+    });
+    categoryLoadCursor = categoryMeta.length;
+    galleryCatalogReady = true;
+    buildFilters([...cats, 'all'], categoryCounts);
   }
 
   /* ── Observers ── */
@@ -307,39 +441,30 @@
   }, { threshold: 0.04, rootMargin: '0px 0px -20px 0px' });
 
   const sentinelObs = new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting) appendBatch();
+    if (entries[0].isIntersecting) void appendBatch();
   }, { rootMargin: '300px' });
 
   /* ── Init ── */
   async function init() {
     showLoading();
-    const countByCat = {};
     try {
-      let manifest = null;
-      for (const url of MANIFEST_URLS) {
-        const res = await fetch(url, { cache: 'force-cache' });
-        if (!res.ok) continue;
-        manifest = await res.json();
-        break;
-      }
-      if (!manifest) throw new Error('fetch failed');
-      const cats = Object.keys(manifest);
-      if (!cats.length) throw new Error('empty');
-      cats.forEach(cat => {
-        (manifest[cat] || []).forEach(item => {
-          if (!isPublicGalleryItem(item)) return;
-          allItems.push(normalizeGalleryItem(item, cat));
-          countByCat[cat] = (countByCat[cat] || 0) + 1;
-        });
-      });
-      buildFilters([...cats, 'all'], countByCat);
+      await loadChunkedCatalog();
     } catch (e) {
-      allItems = FALLBACK.map(item => normalizeGalleryItem(item, item.cat || 'Gallery'));
-      buildFilters(['all'], { all: FALLBACK.length });
+      try {
+        await loadLegacyManifest();
+      } catch (legacyError) {
+        categoryMeta = [{ key: 'Gallery', path: '', displayCategory: 'Gallery', count: FALLBACK.length }];
+        categoryCounts = { Gallery: FALLBACK.length };
+        categoryItems = new Map([['Gallery', FALLBACK.map(item => normalizeGalleryItem(item, item.cat || 'Gallery'))]]);
+        categoryLoadCursor = categoryMeta.length;
+        galleryCatalogReady = true;
+        rebuildAllItems();
+        buildFilters(['Gallery', 'all'], categoryCounts);
+      }
     }
     hideLoading();
-    renderGrid('all');
-    openRequestedImage();
+    await renderGrid('all');
+    await openRequestedImage();
   }
 
   function showLoading() {
@@ -361,60 +486,76 @@
       const btn = document.createElement('button');
       btn.className = 'cat-tab' + (cat === 'all' ? ' active' : '');
       btn.dataset.cat = cat;
-      const count = cat === 'all' ? allItems.length : (counts[cat] || 0);
+      const count = cat === 'all' ? activeTotalFor('all') : (counts[cat] || 0);
       btn.textContent = `${displayCategory(cat)} (${count})`;
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', async () => {
         document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        renderGrid(cat);
+        await renderGrid(cat);
       });
       c.appendChild(btn);
     });
   }
 
   /* ── Grid ── */
-  function renderGrid(filter) {
-    filteredItems = filter === 'all' ? allItems : allItems.filter(i => i.cat === filter);
-    if (galleryCountEl) galleryCountEl.textContent = `${filteredItems.length.toLocaleString()} Works in View`;
+  async function renderGrid(filter) {
+    activeFilter = filter || 'all';
+    const activeTotal = activeTotalFor(activeFilter);
+    if (galleryCountEl) galleryCountEl.textContent = `${activeTotal.toLocaleString()} Works in View`;
     currentPage = 0;
     const grid = document.getElementById('artGrid');
     grid.innerHTML = '';
-    if (!filteredItems.length) {
+    if (!activeTotal) {
       grid.innerHTML = '<div class="gallery-empty">No Images in This Category Yet.</div>';
       return;
     }
-    appendBatch();
+    await ensureItemsForFilter(activeFilter, PAGE_SIZE);
+    filteredItems = itemsForFilter(activeFilter);
+    await appendBatch();
   }
 
-  function appendBatch() {
-    const start = currentPage * PAGE_SIZE;
-    if (start >= filteredItems.length) return;
-    const end = Math.min(start + PAGE_SIZE, filteredItems.length);
-    const grid = document.getElementById('artGrid');
-    const oldSentinel = document.getElementById('gridSentinel');
-    if (oldSentinel) { sentinelObs.unobserve(oldSentinel); oldSentinel.remove(); }
-    for (let i = start; i < end; i++) {
-      const item = filteredItems[i];
-      const el = document.createElement('div');
-      el.className = 'art-item reveal';
-      el.dataset.index = i;
-      const t = escapeHTML(item.title);
-      const s = escapeHTML(item.sub);
-      const thumb = escapeHTML(item.thumb);
-      const fetchPriority = i < start + (siteMobileLite ? 4 : 8) ? 'auto' : 'low';
-      el.innerHTML = `<img data-src="${thumb}" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="${t}" width="360" height="360" sizes="${GRID_IMAGE_SIZES}" loading="lazy" decoding="async" fetchpriority="${fetchPriority}"><div class="overlay"><span class="sparkle">✦</span><h3>${t}</h3><p>${s}</p></div>`;
-      el.addEventListener('click', () => openLB(i));
-      grid.appendChild(el);
-      imgObs.observe(el.querySelector('img'));
-      revealObs.observe(el);
-    }
-    currentPage++;
-    if (currentPage * PAGE_SIZE < filteredItems.length) {
-      const sentinel = document.createElement('div');
-      sentinel.id = 'gridSentinel';
-      sentinel.style.cssText = 'height:2px;';
-      grid.appendChild(sentinel);
-      sentinelObs.observe(sentinel);
+  async function appendBatch() {
+    if (galleryLoadingMore) return;
+    galleryLoadingMore = true;
+    try {
+      filteredItems = itemsForFilter(activeFilter);
+      const activeTotal = activeTotalFor(activeFilter);
+      const start = currentPage * PAGE_SIZE;
+      if (start >= activeTotal) return;
+      if (start + PAGE_SIZE > filteredItems.length && filteredItems.length < activeTotal) {
+        await ensureItemsForFilter(activeFilter, start + PAGE_SIZE);
+        filteredItems = itemsForFilter(activeFilter);
+      }
+      if (start >= filteredItems.length) return;
+      const end = Math.min(start + PAGE_SIZE, filteredItems.length);
+      const grid = document.getElementById('artGrid');
+      const oldSentinel = document.getElementById('gridSentinel');
+      if (oldSentinel) { sentinelObs.unobserve(oldSentinel); oldSentinel.remove(); }
+      for (let i = start; i < end; i++) {
+        const item = filteredItems[i];
+        const el = document.createElement('div');
+        el.className = 'art-item reveal';
+        el.dataset.index = i;
+        const t = escapeHTML(item.title);
+        const s = escapeHTML(item.sub);
+        const thumb = escapeHTML(item.thumb);
+        const fetchPriority = i < start + (siteMobileLite ? 4 : 8) ? 'auto' : 'low';
+        el.innerHTML = `<img data-src="${thumb}" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="${t}" width="360" height="360" sizes="${GRID_IMAGE_SIZES}" loading="lazy" decoding="async" fetchpriority="${fetchPriority}"><div class="overlay"><span class="sparkle">✦</span><h3>${t}</h3><p>${s}</p></div>`;
+        el.addEventListener('click', () => openLB(i));
+        grid.appendChild(el);
+        imgObs.observe(el.querySelector('img'));
+        revealObs.observe(el);
+      }
+      currentPage++;
+      if (currentPage * PAGE_SIZE < activeTotal) {
+        const sentinel = document.createElement('div');
+        sentinel.id = 'gridSentinel';
+        sentinel.style.cssText = 'height:2px;';
+        grid.appendChild(sentinel);
+        sentinelObs.observe(sentinel);
+      }
+    } finally {
+      galleryLoadingMore = false;
     }
   }
 
@@ -767,7 +908,7 @@
 
   function openLB(i, options = {}) {
     lbIdx = i; lbOpen = true;
-    lbTotal.textContent = String(filteredItems.length).padStart(2, '0');
+    lbTotal.textContent = String(activeTotalFor(activeFilter)).padStart(2, '0');
     buildFilmstrip();
     const historyMode = Object.prototype.hasOwnProperty.call(options, 'historyMode') ? options.historyMode : 'push';
     loadLBImage(i, 'enter', historyMode);
@@ -785,13 +926,16 @@
   }
   function loadLBImage(i, dir, historyMode = 'replace') {
     lbIdx = i;
+    filteredItems = itemsForFilter(activeFilter);
     const item = filteredItems[i];
+    if (!item) return;
     lightboxGestures?.reset();
     lbCounter.textContent = String(i + 1).padStart(2, '0');
     lbCat.textContent = displayCategory(item.cat || '');
     lbTitle.textContent = item.title || '';
     lbSub.textContent = item.sub || '';
-    lbProgressBar.style.width = ((i + 1) / filteredItems.length * 100) + '%';
+    lbTotal.textContent = String(activeTotalFor(activeFilter)).padStart(2, '0');
+    lbProgressBar.style.width = ((i + 1) / activeTotalFor(activeFilter) * 100) + '%';
     updateFilmstrip(i);
     lbImg.className = '';
     void lbImg.offsetWidth;
@@ -809,6 +953,7 @@
   function buildFilmstrip() {
     if (siteMobileLite) return;
     lbFilmstrip.innerHTML = '';
+    filteredItems = itemsForFilter(activeFilter);
     const total = filteredItems.length;
     const WIN = Math.min(total, 50);
     const half = Math.floor(WIN / 2);
@@ -838,29 +983,79 @@
     if (!found) buildFilmstrip();
   }
 
-  function showPreviousImage() {
-    if (!filteredItems.length) return;
-    const n = (lbIdx - 1 + filteredItems.length) % filteredItems.length;
+  async function ensureLightboxIndex(index) {
+    if (index < 0) return false;
+    filteredItems = itemsForFilter(activeFilter);
+    if (index < filteredItems.length) return true;
+    await ensureItemsForFilter(activeFilter, index + 1);
+    filteredItems = itemsForFilter(activeFilter);
+    return index < filteredItems.length;
+  }
+
+  async function showPreviousImage() {
+    const total = activeTotalFor(activeFilter);
+    if (!total) return;
+    const n = (lbIdx - 1 + total) % total;
+    if (!await ensureLightboxIndex(n)) return;
     loadLBImage(n, 'prev');
   }
 
-  function showNextImage() {
-    if (!filteredItems.length) return;
-    const n = (lbIdx + 1) % filteredItems.length;
+  async function showNextImage() {
+    const total = activeTotalFor(activeFilter);
+    if (!total) return;
+    const n = (lbIdx + 1) % total;
+    if (!await ensureLightboxIndex(n)) return;
     loadLBImage(n, 'next');
   }
 
-  function openRequestedImage(options = {}) {
+  async function findRequestedImageIndex(requestedId) {
+    filteredItems = allItems;
+    let index = allItems.findIndex(item => item.id === requestedId);
+    if (index >= 0) return index;
+
+    for (const meta of categoryMeta) {
+      if (!categoryItems.has(meta.key)) {
+        await loadCategoryChunk(meta.key);
+        filteredItems = allItems;
+        index = allItems.findIndex(item => item.id === requestedId);
+        if (index >= 0) return index;
+      }
+    }
+
+    return -1;
+  }
+
+  async function openRequestedImage(options = {}) {
     const requestedId = getRequestedImageId();
-    if (!requestedId || !allItems.length) return false;
-    const index = allItems.findIndex(item => item.id === requestedId);
+    if (!requestedId) return false;
+
+    const requestedCat = getRequestedCategory();
+    if (requestedCat && categoryMetaFor(requestedCat)) {
+      await loadCategoryChunk(requestedCat);
+      const categoryItemsForRequest = categoryItems.get(requestedCat) || [];
+      const categoryIndex = categoryItemsForRequest.findIndex(item => item.id === requestedId);
+      if (categoryIndex >= 0) {
+        const catTab = Array.from(document.querySelectorAll('.cat-tab')).find(button => button.dataset.cat === requestedCat);
+        if (catTab) {
+          document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+          catTab.classList.add('active');
+        }
+        if (activeFilter !== requestedCat) await renderGrid(requestedCat);
+        filteredItems = itemsForFilter(requestedCat);
+        openLB(categoryIndex, { historyMode: options.historyMode === false ? false : 'replace' });
+        return true;
+      }
+    }
+
+    const index = await findRequestedImageIndex(requestedId);
     if (index < 0) return false;
     const allTab = document.querySelector('.cat-tab[data-cat="all"]');
     if (allTab) {
       document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
       allTab.classList.add('active');
     }
-    if (filteredItems !== allItems) renderGrid('all');
+    if (activeFilter !== 'all') await renderGrid('all');
+    filteredItems = allItems;
     openLB(index, { historyMode: options.historyMode === false ? false : 'replace' });
     return true;
   }
@@ -885,7 +1080,7 @@
   });
   window.addEventListener('popstate', () => {
     const requestedId = getRequestedImageId();
-    if (requestedId) openRequestedImage({ historyMode: false });
+    if (requestedId) void openRequestedImage({ historyMode: false });
     else if (lbOpen) closeLB({ clearUrl: false });
   });
   /* ── Page ── */
@@ -947,7 +1142,7 @@
     const start = () => {
       if (started) return;
       started = true;
-      init();
+      void init();
     };
 
     if (getRequestedImageId()) {

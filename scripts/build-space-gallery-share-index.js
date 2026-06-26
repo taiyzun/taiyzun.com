@@ -54,18 +54,32 @@ function buildShareIndex() {
     Object.entries(items).sort((a, b) => a[0].localeCompare(b[0], undefined, { numeric: true, sensitivity: 'base' }))
   );
 
-  fs.writeFileSync(
-    outputPath,
-    JSON.stringify(
-      {
-        generatedAt: new Date().toISOString(),
-        total: Object.keys(orderedItems).length,
-        items: orderedItems
-      },
-      null,
-      2
-    )
-  );
+  const nextPayload = {
+    generatedAt: new Date().toISOString(),
+    total: Object.keys(orderedItems).length,
+    items: orderedItems
+  };
+
+  if (fs.existsSync(outputPath)) {
+    try {
+      const previousPayload = JSON.parse(fs.readFileSync(outputPath, 'utf8'));
+      const previousStable = JSON.stringify({
+        total: previousPayload.total,
+        items: previousPayload.items
+      });
+      const nextStable = JSON.stringify({
+        total: nextPayload.total,
+        items: nextPayload.items
+      });
+      if (previousStable === nextStable && previousPayload.generatedAt) {
+        nextPayload.generatedAt = previousPayload.generatedAt;
+      }
+    } catch {
+      // Regenerate from the manifest when an existing index cannot be parsed.
+    }
+  }
+
+  fs.writeFileSync(outputPath, JSON.stringify(nextPayload, null, 2));
 
   console.log(`Built gallery share index with ${Object.keys(orderedItems).length} items.`);
 }
