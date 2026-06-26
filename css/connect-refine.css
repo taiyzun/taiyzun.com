@@ -112,6 +112,99 @@ body.connect-page .contact-form textarea {
   resize: vertical;
 }
 
+body.connect-page .opt-in-group {
+  margin-top: 0.2rem;
+}
+
+body.connect-page .opt-in-control {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.15rem minmax(0, 1fr);
+  gap: 0.82rem;
+  align-items: start;
+  padding: 0.92rem 1rem;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.56);
+  cursor: pointer;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+}
+
+body.connect-page .opt-in-control input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+body.connect-page .opt-in-box {
+  display: grid;
+  place-items: center;
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-top: 0.1rem;
+  border: 1px solid rgba(173, 138, 32, 0.42);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+body.connect-page .opt-in-box::after {
+  content: "";
+  width: 0.42rem;
+  height: 0.68rem;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  opacity: 0;
+  transform: rotate(42deg) translateY(-1px);
+}
+
+body.connect-page .opt-in-control input:checked + .opt-in-box {
+  border-color: rgba(173, 138, 32, 0.92);
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.96), rgba(183, 151, 48, 0.96));
+}
+
+body.connect-page .opt-in-control input:checked + .opt-in-box::after {
+  opacity: 1;
+}
+
+body.connect-page .opt-in-control input:focus-visible + .opt-in-box {
+  box-shadow:
+    0 0 0 4px rgba(212, 175, 55, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.86);
+}
+
+body.connect-page .opt-in-copy {
+  display: grid;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+body.connect-page .opt-in-title {
+  font-family: var(--display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  color: rgba(97, 78, 49, 0.88);
+}
+
+body.connect-page .opt-in-note {
+  font-family: var(--body);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  color: rgba(64, 54, 44, 0.72);
+}
+
 body.connect-page .contact-form input:focus,
 body.connect-page .contact-form textarea:focus {
   border-color: rgba(212, 175, 55, 0.42);

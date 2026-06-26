@@ -25,6 +25,8 @@
   - `taiyzun-gallery`
   - `taj-mahal-movie-media`
 - Confirm no private docs, setup notes, local reports, `.env` files, `.DS_Store`, `CNAME`, or backup files are served publicly.
+- Confirm the Tai contact form still delivers without Mailchimp configuration, and that Mailchimp opt-in failures do not block the normal contact response.
+- If Mailchimp is enabled, confirm the `Taiyzun Serious Enquiry` tag or configured replacement tag still starts the intended welcome journey.
 - Review GitHub branch protection and Dependabot status.
 - Keep billing/payment changes manual and owner-approved.
 
