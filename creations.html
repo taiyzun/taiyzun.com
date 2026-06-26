@@ -89,7 +89,7 @@
 <link rel="preload" as="image" href="/assets/easter-eggs/taiyzun-atme-3d-loader-192.avif" type="image/avif">
 </head>
 <body class="creations-page">
-<script data-cfasync="false" src="/js/site-mobile-lite.min.js?v=20260623b"></script>
+<script data-cfasync="false" src="/js/site-mobile-lite.min.js?v=20260626b"></script>
 <a href="#main-content" class="skip-link">Skip to main content</a>
 <div class="cursor-glow" id="cursorGlow"></div>
 <div class="site-loader" id="siteLoader" role="status" aria-live="polite" aria-label="Loading Taiyzun" data-start="0" style="position:fixed;inset:0;z-index:100000;display:grid;place-items:center;overflow:hidden;width:100vw;height:100vh;contain:strict;"><span class="site-loader__orb" style="position:relative;width:clamp(136px,18vw,232px);aspect-ratio:1;display:grid;place-items:center;transform-style:preserve-3d;border-radius:50%;"><span class="site-loader__object" style="position:relative;width:84%;aspect-ratio:1;display:block;overflow:hidden;transform-style:preserve-3d;border-radius:50%;"><picture class="site-loader__face" style="position:absolute;inset:0;width:100%;height:100%;display:block;overflow:hidden;border-radius:50%;"><source srcset="/assets/easter-eggs/taiyzun-atme-3d-loader-192.avif" type="image/avif"><source srcset="/assets/easter-eggs/taiyzun-atme-3d-loader-192.webp" type="image/webp"><img class="site-loader__mark" src="/assets/easter-eggs/taiyzun-atme-3d-loader-192.png" alt="" width="192" height="192" decoding="async" style="display:block;width:100%;height:100%;object-fit:contain;border-radius:50%;"></picture></span></span></div>
@@ -185,7 +185,7 @@
     `/assets/space-gallery-manifest.json?v=${GALLERY_MANIFEST_VERSION}`
   ];
   const siteMobileLite = Boolean(window.TAIYZUN_applyMobileLite?.());
-  const PAGE_SIZE = siteMobileLite ? 20 : 48;
+  const PAGE_SIZE = siteMobileLite ? 12 : 36;
   const GRID_IMAGE_SIZES = '(max-width: 420px) calc(100vw - 2rem), (max-width: 768px) calc((100vw - 3rem) / 2), (max-width: 1180px) 220px, 260px';
   const FALLBACK = [
     {full:'assets/Art/art_00001.jpg',thumb:'assets/Art/art_00001.jpg',cat:'Gallery',title:'0001 ~ Sp@cE Dragon Rides the Earth',sub:'Cosmic Fire Beyond the Gates'},
@@ -962,17 +962,25 @@
           galleryStartObserver.disconnect();
           start();
         }
-      }, { rootMargin: siteMobileLite ? '180px 0px' : '420px 0px', threshold: 0.01 });
+      }, { rootMargin: siteMobileLite ? '0px 0px -42% 0px' : '420px 0px', threshold: 0.01 });
       galleryStartObserver.observe(galleryTrigger);
     } else {
       window.addEventListener('load', () => window.setTimeout(start, 1200), { once: true });
     }
 
     const startWhenIdle = () => {
-      if ('requestIdleCallback' in window) {
-        window.requestIdleCallback(start, { timeout: siteMobileLite ? 2600 : 1800 });
+      const runIdle = () => {
+        if ('requestIdleCallback' in window) {
+          window.requestIdleCallback(start, { timeout: siteMobileLite ? 1800 : 1800 });
+        } else {
+          start();
+        }
+      };
+
+      if (siteMobileLite) {
+        window.setTimeout(runIdle, 5200);
       } else {
-        window.setTimeout(start, siteMobileLite ? 2200 : 1400);
+        runIdle();
       }
     };
 
@@ -992,7 +1000,7 @@
 </script>
 <script data-cfasync="false" src="/js/ambient-video.min.js?v=20260623b"></script>
 <script data-cfasync="false" src="/js/mobile-menu.min.js?v=20260623b"></script>
-<script data-cfasync="false" type="module" src="/js/taiyzun-3d-field.min.js?v=20260625d" crossorigin="anonymous"></script>
+<script data-cfasync="false">window.TAIYZUN_load3DField?.('/js/taiyzun-3d-field.min.js?v=20260626b');</script>
 <script data-cfasync="false">
   window.TAIYZUN_loadDesktopEnhancements?.([
     '/js/harmonic-interactions.min.js?v=20260623b'

@@ -26,7 +26,124 @@
     return enabled;
   }
 
+  function installPageLoaderController() {
+    if (!document.body || document.body.dataset.siteLoaderReady === 'true') return;
+
+    document.body.dataset.siteLoaderReady = 'true';
+    const startedAt = performance.now();
+
+    const getLoaders = () => Array.from(new Set([
+      ...document.querySelectorAll('.site-loader'),
+      ...document.querySelectorAll('#siteLoader')
+    ]));
+
+    const syncLoaderStart = () => {
+      getLoaders().forEach((loader) => {
+        const existingStart = Number(loader.dataset.start);
+        if (!existingStart || existingStart < 1) loader.dataset.start = String(startedAt);
+      });
+    };
+
+    const hideLoaders = () => {
+      getLoaders().forEach((loader) => {
+        if (loader.dataset.hidden === 'true') return;
+        loader.dataset.hidden = 'true';
+        loader.setAttribute('aria-hidden', 'true');
+        loader.classList.add('is-hidden');
+      });
+      document.body.classList.remove('site-loader-active');
+    };
+
+    const requestHide = () => {
+      syncLoaderStart();
+      const firstLoader = getLoaders()[0];
+      const loaderStart = Number(firstLoader?.dataset.start || startedAt);
+      const elapsed = performance.now() - loaderStart;
+      const compactLoader = Boolean(
+        window.TAIYZUN_MOBILE_LITE ||
+        window.matchMedia?.('(max-width: 820px), (pointer: coarse)')?.matches
+      );
+      const minVisible = compactLoader ? 520 : 720;
+      window.setTimeout(hideLoaders, Math.max(0, minVisible - elapsed));
+    };
+
+    document.body.classList.add('site-loader-active');
+    window.TAIYZUN_completeSiteLoader = requestHide;
+
+    if (document.readyState === 'complete') {
+      requestHide();
+    } else {
+      document.addEventListener('DOMContentLoaded', () => {
+        window.setTimeout(requestHide, 700);
+      }, { once: true });
+      window.addEventListener('load', () => {
+        window.setTimeout(requestHide, 900);
+      }, { once: true });
+    }
+
+    const maxVisible = Boolean(
+      window.TAIYZUN_MOBILE_LITE ||
+      window.matchMedia?.('(max-width: 820px), (pointer: coarse)')?.matches
+    ) ? 2400 : 3600;
+    window.setTimeout(hideLoaders, maxVisible);
+  }
+
   window.TAIYZUN_applyMobileLite = applyMobileLite;
+
+  window.TAIYZUN_load3DField = function load3DField(src) {
+    if (!src || document.querySelector(`script[src="${src}"]`)) return;
+
+    const compact = applyMobileLite();
+    const reduceMotion = reduceQuery && reduceQuery.matches;
+    const connectionSlow =
+      connection &&
+      (connection.saveData || /(^|-)2g$|slow-2g/i.test(connection.effectiveType || ''));
+
+    const inject = () => {
+      if (document.querySelector(`script[src="${src}"]`)) return;
+
+      const script = document.createElement('script');
+      script.src = src;
+      script.type = 'module';
+      script.crossOrigin = 'anonymous';
+      script.dataset.cfasync = 'false';
+      document.body.appendChild(script);
+    };
+
+    if (!compact && !connectionSlow) {
+      inject();
+      return;
+    }
+
+    if (reduceMotion) return;
+
+    let scheduled = false;
+    const schedule = (delay) => {
+      if (scheduled) return;
+      scheduled = true;
+      window.setTimeout(() => {
+        if ('requestIdleCallback' in window) {
+          window.requestIdleCallback(inject, { timeout: 2200 });
+        } else {
+          inject();
+        }
+      }, delay);
+    };
+
+    const interactionStart = () => schedule(720);
+    window.addEventListener('pointerdown', interactionStart, { once: true, passive: true });
+    window.addEventListener('touchstart', interactionStart, { once: true, passive: true });
+    window.addEventListener('wheel', interactionStart, { once: true, passive: true });
+    window.addEventListener('keydown', interactionStart, { once: true });
+
+    const settledStart = () => schedule(connectionSlow ? 14000 : 9000);
+    if (document.readyState === 'complete') {
+      settledStart();
+    } else {
+      window.addEventListener('load', settledStart, { once: true });
+    }
+  };
+
   window.TAIYZUN_loadDesktopEnhancements = function loadDesktopEnhancements(srcs) {
     if (applyMobileLite()) return;
     const pendingSrcs = Array.from(new Set(srcs || []))
@@ -70,6 +187,7 @@
   };
 
   applyMobileLite();
+  installPageLoaderController();
   [mobileQuery, coarseQuery, reduceQuery].forEach((query) => {
     if (!query) return;
     if (typeof query.addEventListener === 'function') {
