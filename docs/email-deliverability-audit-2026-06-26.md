@@ -128,3 +128,50 @@ CAA:
 - DNS proves the Google DKIM TXT record is published, but an admin still needs to confirm inside Google Admin that DKIM signing is enabled / started for `taiyzun.com`.
 - The visible personal Gmail account `taiyzun@gmail.com` does not currently list `taiyzun@taiyzun.com` under "Send mail as". If mail should be sent from the personal Gmail interface as `taiyzun@taiyzun.com`, add that sender identity through Gmail settings or use the actual Google Workspace mailbox for `taiyzun.com`.
 - Consider adding a DMARC aggregate report address later, but only after confirming where reports should be received. It was not added during this pass to avoid routing large automated reports into the wrong mailbox.
+
+## Final manual verification pass
+
+Checked: 2026-06-26 21:57 IST
+
+- Google Admin DKIM:
+  - Google Admin was opened with the Workspace account at `admin.google.com/u/1`.
+  - Gmail authentication page for `taiyzun.com` shows `STATUS: Authenticating email with DKIM`.
+  - The available action is `STOP AUTHENTICATION`, which confirms DKIM signing is switched on rather than merely published in DNS.
+  - The selector shown by Google Admin is `google._domainkey`, matching the DNS TXT record already published.
+- Gmail / Workspace sender identity:
+  - Workspace Gmail for `taiyzun@taiyzun.com` is signed in and receiving mail.
+  - Personal Gmail `taiyzun@gmail.com` still does not list `taiyzun@taiyzun.com` under "Send mail as".
+  - Do not add the personal Gmail send-as alias until Workspace SMTP details and account policy are confirmed; the real Workspace mailbox is the cleaner sending path.
+- Zepto contact-form test:
+  - One fresh low-volume form submission was sent with subject `Taiyzun delivery check for Friday`.
+  - Gmail received it in `INBOX` and `IMPORTANT`, not Spam.
+  - Raw Gmail headers show:
+    - `dkim=pass header.i=@taiyzun.com header.s=2673527`
+    - `spf=pass` for `bounce-zem.taiyzun.com`
+    - `dmarc=pass` for `taiyzun.com`
+    - `From: Taiyzun <taiyzun@taiyzun.com>`
+- Gmail spam / reputation clean-up:
+  - Spam search for recent `taiyzun@taiyzun.com` mail returned no matching Spam messages.
+  - Gmail filter already keeps `from:(taiyzun@taiyzun.com)` out of Spam and marks it important.
+  - `taiyzun@taiyzun.com` was promoted from Other Contacts into saved Google Contacts.
+  - A single warm-up message was sent from `taiyzun@gmail.com` to `taiyzun@taiyzun.com`; Workspace Gmail received it in Inbox.
+- Google Workspace outbound test:
+  - One natural Workspace message was attempted from `taiyzun@taiyzun.com` to `taiyzun@gmail.com`.
+  - Workspace Sent shows the attempted subject `Taiyzun workspace delivery check`, but the same thread received a Google Mail Delivery Subsystem notice: `You have reached a limit for sending mail. Your message was not sent.`
+  - No further Workspace sends were attempted to avoid worsening reputation or hitting limits repeatedly.
+- DNS verification:
+  - Root SPF remains `v=spf1 include:_spf.google.com ~all`.
+  - MX still points to Google.
+  - DMARC remains `v=DMARC1; p=reject; adkim=r; aspf=r;`.
+  - Google DKIM TXT is present.
+  - Zepto DKIM TXT is present.
+  - Zepto bounce CNAME remains `bounce-zem.taiyzun.com CNAME cluster89.zeptomail.com`.
+- Outlook / Yahoo / corporate tests:
+  - Not completed in this pass because no confirmed recipient mailbox access was available for Outlook, Yahoo or a corporate inbox.
+  - Do not send speculative tests to external addresses without mailbox access; it creates volume without proving placement.
+
+### Remaining action
+
+- Resolve the Google Workspace sending-limit issue before any further direct Workspace outbound testing.
+- After the limit clears, send one Workspace message to `taiyzun@gmail.com`, inspect the raw Gmail headers and confirm Google Workspace SPF/DKIM/DMARC pass from the received copy.
+- Only then run one Outlook/Yahoo/corporate placement check each, using inboxes that can actually be inspected.
