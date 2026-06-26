@@ -19,3 +19,17 @@ bfp_public_content_cleanup/
 contact_master_database/
 reports/
 lighthouse-*.json
+
+# Local gallery copy artifacts
+assets/space-gallery-share-index [0-9]*.json
+
+# Local one-off Mac cleanup scripts kept out of website commits
+tools/*cleanup*.py
+tools/*duplicate*.py
+tools/*screenshot*.py
+tools/*hard_drive*.py
+tools/*review_hub*.py
+tools/*whatsapp*.py
+tools/*empty_folder*.py
+tools/build_manual_review_buckets.py
+tools/release_cruft_filename_dry_run.py
