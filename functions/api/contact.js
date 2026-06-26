@@ -250,14 +250,21 @@ function buildDeliveryResponse(deliveryResult, mailchimpResult) {
   return json(body);
 }
 
+function contactSubject(subject) {
+  const base = clean(subject) || 'General inquiry';
+  const prefixed = /^taiyzun contact:/i.test(base) ? base : `Taiyzun contact: ${base}`;
+
+  return prefixed.length > 150 ? `${prefixed.slice(0, 147)}...` : prefixed;
+}
+
 function buildZeptoPayload({ name, email, subject, message, seriousEnquiryOptIn }, senderEmail, recipientEmail) {
-  const effectiveSubject = subject || `New Contact Message from ${name}`;
+  const effectiveSubject = contactSubject(subject);
   const optInLabel = seriousEnquiryOptIn ? 'Requested' : 'Not requested';
 
   return {
     from: {
       address: senderEmail,
-      name: 'Taiyzun Contact'
+      name: 'Taiyzun'
     },
     to: [
       {

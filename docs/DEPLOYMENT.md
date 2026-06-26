@@ -20,7 +20,7 @@ The public form in `connect.html` posts to `functions/api/contact.js`. Normal co
 Required Cloudflare Pages production secrets for Zepto delivery:
 
 - `ZEPTO_MAIL_API_KEY`
-- `ZEPTO_MAIL_SENDER`
+- `ZEPTO_MAIL_SENDER`: use the real domain sender `taiyzun@taiyzun.com`, not `noreply@taiyzun.com`.
 - `ZEPTO_MAIL_RECIPIENT`
 
 Optional fallback:
