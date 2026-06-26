@@ -297,6 +297,7 @@
   display: block;
   background: #f6efe2;
   opacity: 1;
+  clip-path: circle(50% at 50% 50%);
   pointer-events: auto;
 }
 
@@ -343,7 +344,7 @@
 .video-orbit {
   position: absolute;
   inset: 0;
-  z-index: 4;
+  z-index: 14;
   transform-style: preserve-3d;
   transform: rotateY(var(--video-spin-angle));
   pointer-events: none;
@@ -443,6 +444,11 @@
     0 0 34px rgba(218, 180, 86, 0.24),
     0 0 0 1px rgba(255, 255, 255, 0.58) inset,
     inset 0 0 34px rgba(202, 168, 84, 0.14);
+}
+
+.video-card.is-active {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .video-card:focus-visible,
