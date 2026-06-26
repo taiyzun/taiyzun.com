@@ -31,6 +31,29 @@ function splitCsv(value) {
     .filter(Boolean);
 }
 
+function getField(data, name) {
+  if (!data) {
+    return null;
+  }
+
+  if (typeof data.get === 'function') {
+    return data.get(name);
+  }
+
+  return data[name] ?? null;
+}
+
+async function readContactData(request) {
+  const contentType = clean(request.headers.get('content-type')).toLowerCase();
+
+  if (contentType.includes('application/json')) {
+    const payload = await request.json().catch(() => null);
+    return payload && typeof payload === 'object' ? payload : null;
+  }
+
+  return request.formData().catch(() => null);
+}
+
 function mailchimpStatus(env) {
   const configured = clean(env.MAILCHIMP_SUBSCRIBE_STATUS).toLowerCase();
   if (configured === 'subscribed' || configured === 'pending') {
@@ -411,14 +434,18 @@ async function sendViaFormspree(fields, env) {
 }
 
 export async function onRequestPost(context) {
-  const formData = await context.request.formData();
-  const optInValue = formData.get('serious_enquiry_opt_in') ?? formData.get('mailchimp_opt_in') ?? formData.get('newsletter_opt_in');
+  const contactData = await readContactData(context.request);
+  if (!contactData) {
+    return json({ ok: false, message: 'Please submit the form again.' }, 400);
+  }
+
+  const optInValue = getField(contactData, 'serious_enquiry_opt_in') ?? getField(contactData, 'mailchimp_opt_in') ?? getField(contactData, 'newsletter_opt_in');
   const fields = {
-    name: clean(formData.get('name')),
-    email: clean(formData.get('email')),
-    subject: clean(formData.get('subject') || formData.get('_subject')),
-    message: clean(formData.get('message')),
-    gotcha: clean(formData.get('_gotcha')),
+    name: clean(getField(contactData, 'name')),
+    email: clean(getField(contactData, 'email')),
+    subject: clean(getField(contactData, 'subject') || getField(contactData, '_subject')),
+    message: clean(getField(contactData, 'message')),
+    gotcha: clean(getField(contactData, '_gotcha') || getField(contactData, 'company')),
     seriousEnquiryOptIn: isOptInValue(optInValue)
   };
 
