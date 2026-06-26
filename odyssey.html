@@ -84,7 +84,7 @@
 </script>
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-regular-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-italic-latin.woff2" crossorigin>
-<link rel="stylesheet" href="/css/taiyzun-odyssey.bundle.min.css?v=20260624a">
+<link rel="stylesheet" href="/css/taiyzun-odyssey.bundle.min.css?v=20260626a">
 <link rel="preload" as="image" href="/assets/easter-eggs/taiyzun-atme-3d-loader-192.avif" type="image/avif">
 </head>
 <body class="odyssey-page">
@@ -329,10 +329,11 @@
   const lbPrevBtn     = document.getElementById('lbPrev');
   const lbNextBtn     = document.getElementById('lbNext');
   const lbClose       = document.getElementById('lbClose');
+  const lbImgWrap     = document.getElementById('lbImgWrap');
 
   let currentIdx = 0, isTransitioning = false, isZoomed = false;
-  let touchStartX = 0, touchStartY = 0;
   let filmstripBuilt = false;
+  let lightboxGestures = null;
 
   lbTotal.textContent = portraits.length;
   const portraitCount = document.getElementById('portraitCount');
@@ -367,6 +368,263 @@
     lbProgressBar.style.width = ((currentIdx + 1) / portraits.length * 100) + '%';
   }
 
+  function createLightboxGestureController({ wrap, image, previous, next, onZoomChange }) {
+    const MAX_SCALE = 4;
+    const DOUBLE_TAP_MS = 280;
+    const TAP_MOVE_PX = 14;
+    const SWIPE_PX = 48;
+    const state = {
+      scale: 1,
+      x: 0,
+      y: 0,
+      startScale: 1,
+      startX: 0,
+      startY: 0,
+      startDistance: 0,
+      startMid: null,
+      touchStart: null,
+      dragging: false,
+      pinching: false,
+      pointerStart: null,
+      lastTapAt: 0,
+      lastTapX: 0,
+      lastTapY: 0
+    };
+    const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+    const isActiveZoom = () => state.scale > 1.01;
+    const setZoomState = (zoomed) => { if (onZoomChange) onZoomChange(zoomed); };
+    const relativePoint = (clientX, clientY) => {
+      const rect = wrap.getBoundingClientRect();
+      return {
+        x: clientX - rect.left - rect.width / 2,
+        y: clientY - rect.top - rect.height / 2
+      };
+    };
+    const distance = (touches) => Math.hypot(
+      touches[0].clientX - touches[1].clientX,
+      touches[0].clientY - touches[1].clientY
+    );
+    const midpoint = (touches) => relativePoint(
+      (touches[0].clientX + touches[1].clientX) / 2,
+      (touches[0].clientY + touches[1].clientY) / 2
+    );
+    function clampPan() {
+      if (!isActiveZoom()) {
+        state.scale = 1;
+        state.x = 0;
+        state.y = 0;
+        return;
+      }
+      const rect = wrap.getBoundingClientRect();
+      const width = Math.max(image.offsetWidth || rect.width, 1);
+      const height = Math.max(image.offsetHeight || rect.height, 1);
+      const maxX = Math.max(0, (width * state.scale - rect.width) / 2);
+      const maxY = Math.max(0, (height * state.scale - rect.height) / 2);
+      state.x = clamp(state.x, -maxX, maxX);
+      state.y = clamp(state.y, -maxY, maxY);
+    }
+    function apply({ animate = true } = {}) {
+      clampPan();
+      const zoomed = isActiveZoom();
+      wrap.classList.toggle('is-zoomed', zoomed);
+      image.classList.toggle('zoomed', zoomed);
+      wrap.dataset.zoomScale = zoomed ? state.scale.toFixed(2) : '1.00';
+      setZoomState(zoomed);
+      if (!zoomed) {
+        image.style.transform = '';
+        image.style.transition = '';
+        wrap.classList.remove('is-dragging', 'is-pinching');
+        return;
+      }
+      image.style.transition = animate ? 'transform 180ms cubic-bezier(0.16, 1, 0.3, 1)' : 'none';
+      image.style.transform = `translate3d(${state.x.toFixed(1)}px, ${state.y.toFixed(1)}px, 0) scale(${state.scale.toFixed(4)})`;
+    }
+    function reset() {
+      state.scale = 1;
+      state.x = 0;
+      state.y = 0;
+      state.touchStart = null;
+      state.dragging = false;
+      state.pinching = false;
+      state.pointerStart = null;
+      wrap.classList.remove('is-zoomed', 'is-dragging', 'is-pinching');
+      wrap.dataset.zoomScale = '1.00';
+      image.classList.remove('zoomed');
+      image.style.transform = '';
+      image.style.transition = '';
+      setZoomState(false);
+    }
+    function zoomAt(nextScale, clientX, clientY, animate = true) {
+      const oldScale = Math.max(state.scale, 1);
+      const target = clamp(nextScale, 1, MAX_SCALE);
+      if (target <= 1.01) {
+        reset();
+        return;
+      }
+      const point = relativePoint(clientX, clientY);
+      const ratio = target / oldScale;
+      state.x = point.x - (point.x - state.x) * ratio;
+      state.y = point.y - (point.y - state.y) * ratio;
+      state.scale = target;
+      apply({ animate });
+    }
+    function toggleZoom(clientX, clientY) {
+      zoomAt(isActiveZoom() ? 1 : 2.6, clientX, clientY, true);
+    }
+    function rememberTouchStart(touch) {
+      state.touchStart = {
+        x: touch.clientX,
+        y: touch.clientY,
+        panX: state.x,
+        panY: state.y,
+        time: Date.now()
+      };
+    }
+    function handleTap(touch, event) {
+      if (!state.touchStart) return false;
+      const moved = Math.hypot(touch.clientX - state.touchStart.x, touch.clientY - state.touchStart.y);
+      if (moved > TAP_MOVE_PX) {
+        state.lastTapAt = 0;
+        return false;
+      }
+      const now = Date.now();
+      const nearLastTap = Math.hypot(touch.clientX - state.lastTapX, touch.clientY - state.lastTapY) < 36;
+      if (now - state.lastTapAt < DOUBLE_TAP_MS && nearLastTap) {
+        event.preventDefault();
+        state.lastTapAt = 0;
+        toggleZoom(touch.clientX, touch.clientY);
+        return true;
+      }
+      state.lastTapAt = now;
+      state.lastTapX = touch.clientX;
+      state.lastTapY = touch.clientY;
+      return false;
+    }
+    wrap.addEventListener('touchstart', event => {
+      if (event.touches.length === 2) {
+        event.preventDefault();
+        state.pinching = true;
+        state.dragging = false;
+        state.startScale = state.scale;
+        state.startX = state.x;
+        state.startY = state.y;
+        state.startDistance = Math.max(distance(event.touches), 1);
+        state.startMid = midpoint(event.touches);
+        wrap.classList.add('is-pinching');
+        wrap.classList.remove('is-dragging');
+        return;
+      }
+      if (event.touches.length === 1) {
+        rememberTouchStart(event.touches[0]);
+        state.dragging = isActiveZoom();
+        wrap.classList.toggle('is-dragging', state.dragging);
+      }
+    }, { passive: false });
+    wrap.addEventListener('touchmove', event => {
+      if (event.touches.length === 2) {
+        event.preventDefault();
+        if (!state.pinching) {
+          state.pinching = true;
+          state.startScale = state.scale;
+          state.startX = state.x;
+          state.startY = state.y;
+          state.startDistance = Math.max(distance(event.touches), 1);
+          state.startMid = midpoint(event.touches);
+          wrap.classList.add('is-pinching');
+        }
+        const mid = midpoint(event.touches);
+        const nextScale = clamp(state.startScale * (distance(event.touches) / state.startDistance), 1, MAX_SCALE);
+        const ratio = nextScale / Math.max(state.startScale, 1);
+        state.scale = nextScale;
+        state.x = mid.x - (state.startMid.x - state.startX) * ratio;
+        state.y = mid.y - (state.startMid.y - state.startY) * ratio;
+        apply({ animate: false });
+        return;
+      }
+      if (event.touches.length === 1 && isActiveZoom()) {
+        event.preventDefault();
+        if (!state.touchStart) rememberTouchStart(event.touches[0]);
+        state.dragging = true;
+        wrap.classList.add('is-dragging');
+        state.x = state.touchStart.panX + event.touches[0].clientX - state.touchStart.x;
+        state.y = state.touchStart.panY + event.touches[0].clientY - state.touchStart.y;
+        apply({ animate: false });
+      }
+    }, { passive: false });
+    wrap.addEventListener('touchend', event => {
+      const touch = event.changedTouches[0];
+      if (state.pinching) {
+        event.preventDefault();
+        state.pinching = false;
+        wrap.classList.remove('is-pinching');
+        if (event.touches.length === 1) {
+          rememberTouchStart(event.touches[0]);
+          state.dragging = isActiveZoom();
+          wrap.classList.toggle('is-dragging', state.dragging);
+        } else {
+          state.dragging = false;
+          wrap.classList.remove('is-dragging');
+          apply({ animate: true });
+        }
+        return;
+      }
+      const usedTap = touch ? handleTap(touch, event) : false;
+      if (isActiveZoom()) {
+        state.dragging = false;
+        wrap.classList.remove('is-dragging');
+        if (!usedTap) apply({ animate: true });
+        return;
+      }
+      if (!usedTap && touch && state.touchStart) {
+        const dx = state.touchStart.x - touch.clientX;
+        const dy = state.touchStart.y - touch.clientY;
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > SWIPE_PX) {
+          event.preventDefault();
+          if (dx > 0) next();
+          else previous();
+        }
+      }
+    }, { passive: false });
+    wrap.addEventListener('touchcancel', () => {
+      state.dragging = false;
+      state.pinching = false;
+      state.touchStart = null;
+      wrap.classList.remove('is-dragging', 'is-pinching');
+      apply({ animate: true });
+    });
+    wrap.addEventListener('dblclick', event => {
+      event.preventDefault();
+      event.stopPropagation();
+      toggleZoom(event.clientX, event.clientY);
+    });
+    wrap.addEventListener('pointerdown', event => {
+      if (event.pointerType === 'touch' || !isActiveZoom()) return;
+      event.preventDefault();
+      state.pointerStart = { id: event.pointerId, x: event.clientX, y: event.clientY, panX: state.x, panY: state.y };
+      state.dragging = true;
+      wrap.classList.add('is-dragging');
+      wrap.setPointerCapture?.(event.pointerId);
+    });
+    wrap.addEventListener('pointermove', event => {
+      if (!state.pointerStart || state.pointerStart.id !== event.pointerId || !isActiveZoom()) return;
+      event.preventDefault();
+      state.x = state.pointerStart.panX + event.clientX - state.pointerStart.x;
+      state.y = state.pointerStart.panY + event.clientY - state.pointerStart.y;
+      apply({ animate: false });
+    });
+    const endPointer = event => {
+      if (!state.pointerStart || state.pointerStart.id !== event.pointerId) return;
+      state.pointerStart = null;
+      state.dragging = false;
+      wrap.classList.remove('is-dragging');
+      apply({ animate: true });
+    };
+    wrap.addEventListener('pointerup', endPointer);
+    wrap.addEventListener('pointercancel', endPointer);
+    image.addEventListener('dragstart', event => event.preventDefault());
+    return { reset, isZoomed: isActiveZoom };
+  }
+
   function animateImg(direction) {
     lbImg.classList.remove('lb-anim-enter','lb-anim-next','lb-anim-prev');
     void lbImg.offsetWidth;
@@ -379,7 +637,7 @@
     if (isTransitioning) return;
     isTransitioning = true;
     isZoomed = false;
-    lbImg.classList.remove('zoomed');
+    lightboxGestures?.reset();
     currentIdx = i;
     lbImg.onerror = null;
     lbImg.src = portraits[i].full || portraitImage(portraits[i], 1200);
@@ -403,7 +661,8 @@
   }
 
   function closeLB() {
-    if (isZoomed) { isZoomed = false; lbImg.classList.remove('zoomed'); return; }
+    lightboxGestures?.reset();
+    isZoomed = false;
     lb.classList.remove('open');
     document.body.style.overflow = '';
   }
@@ -417,12 +676,12 @@
   lbPrevBtn.addEventListener('click', prevImage);
   lbNextBtn.addEventListener('click', nextImage);
   lb.addEventListener('click', (e) => { if (e.target === lb) closeLB(); });
-
-  /* ── Zoom on image click ── */
-  lbImg.addEventListener('click', (e) => {
-    e.stopPropagation();
-    isZoomed = !isZoomed;
-    lbImg.classList.toggle('zoomed', isZoomed);
+  lightboxGestures = createLightboxGestureController({
+    wrap: lbImgWrap,
+    image: lbImg,
+    previous: prevImage,
+    next: nextImage,
+    onZoomChange: zoomed => { isZoomed = zoomed; }
   });
 
   /* ── Keyboard ── */
@@ -432,20 +691,6 @@
     if (e.key === 'ArrowLeft'  && !isZoomed) { e.preventDefault(); prevImage(); }
     if (e.key === 'ArrowRight' && !isZoomed) { e.preventDefault(); nextImage(); }
     if (e.key === ' '          && !isZoomed) { e.preventDefault(); nextImage(); }
-  });
-
-  /* ── Touch swipe ── */
-  lb.addEventListener('touchstart', (e) => {
-    touchStartX = e.touches[0].clientX;
-    touchStartY = e.touches[0].clientY;
-  }, {passive: true});
-  lb.addEventListener('touchend', (e) => {
-    if (isZoomed) return;
-    const dx = touchStartX - e.changedTouches[0].clientX;
-    const dy = touchStartY - e.changedTouches[0].clientY;
-    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 45) {
-      if (dx > 0) nextImage(); else prevImage();
-    }
   });
 
   /* ── Preload adjacent images ── */
