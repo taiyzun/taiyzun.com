@@ -37,6 +37,11 @@
       ...document.querySelectorAll('#siteLoader')
     ]));
 
+    const readTiming = (loader, name, fallback) => {
+      const value = Number(loader?.dataset?.[name]);
+      return Number.isFinite(value) && value >= 0 ? value : fallback;
+    };
+
     const syncLoaderStart = () => {
       getLoaders().forEach((loader) => {
         const existingStart = Number(loader.dataset.start);
@@ -63,7 +68,9 @@
         window.TAIYZUN_MOBILE_LITE ||
         window.matchMedia?.('(max-width: 820px), (pointer: coarse)')?.matches
       );
-      const minVisible = compactLoader ? 520 : 720;
+      const minVisible = compactLoader
+        ? readTiming(firstLoader, 'compactMin', 520)
+        : readTiming(firstLoader, 'defaultMin', 720);
       window.setTimeout(hideLoaders, Math.max(0, minVisible - elapsed));
     };
 
@@ -73,18 +80,25 @@
     if (document.readyState === 'complete') {
       requestHide();
     } else {
+      const firstLoader = getLoaders()[0];
+      const domDelay = readTiming(firstLoader, 'domDelay', 700);
+      const loadDelay = readTiming(firstLoader, 'loadDelay', 900);
       document.addEventListener('DOMContentLoaded', () => {
-        window.setTimeout(requestHide, 700);
+        window.setTimeout(requestHide, domDelay);
       }, { once: true });
       window.addEventListener('load', () => {
-        window.setTimeout(requestHide, 900);
+        window.setTimeout(requestHide, loadDelay);
       }, { once: true });
     }
 
-    const maxVisible = Boolean(
+    const compactLoader = Boolean(
       window.TAIYZUN_MOBILE_LITE ||
       window.matchMedia?.('(max-width: 820px), (pointer: coarse)')?.matches
-    ) ? 2400 : 3600;
+    );
+    const firstLoader = getLoaders()[0];
+    const maxVisible = compactLoader
+      ? readTiming(firstLoader, 'compactMax', 2400)
+      : readTiming(firstLoader, 'defaultMax', 3600);
     window.setTimeout(hideLoaders, maxVisible);
   }
 
@@ -213,4 +227,6 @@
   if (connection && typeof connection.addEventListener === 'function') {
     connection.addEventListener('change', applyMobileLite);
   }
+
+  window.dispatchEvent(new Event('taiyzun:mobile-lite-ready'));
 })();
