@@ -19,7 +19,7 @@ function installSiteLoader() {
     loader.style.cssText = 'position:fixed;inset:0;z-index:100000;display:grid;place-items:center;overflow:hidden;width:100vw;height:100vh;contain:strict;';
     const loaderAssetPrefix = '/assets/easter-eggs/taiyzun-atme-3d-loader-192';
     const loaderAssetSize = 192;
-    loader.innerHTML = '<span class="site-loader__orb" style="position:relative;width:clamp(136px,18vw,232px);aspect-ratio:1;display:grid;place-items:center;transform-style:preserve-3d;border-radius:50%;"><span class="site-loader__object" style="position:relative;width:84%;aspect-ratio:1;display:block;overflow:hidden;transform-style:preserve-3d;border-radius:50%;"><picture class="site-loader__face" style="position:absolute;inset:0;width:100%;height:100%;display:block;overflow:hidden;border-radius:50%;"><source srcset="' + loaderAssetPrefix + '.avif" type="image/avif"><source srcset="' + loaderAssetPrefix + '.webp" type="image/webp"><img class="site-loader__mark" src="' + loaderAssetPrefix + '.png" alt="" width="' + loaderAssetSize + '" height="' + loaderAssetSize + '" decoding="async" style="display:block;width:100%;height:100%;object-fit:contain;border-radius:50%;"></picture></span></span>';
+    loader.innerHTML = '<span class="site-loader__orb" style="position:relative;width:clamp(136px,18vw,232px);aspect-ratio:1;display:grid;place-items:center;transform-style:preserve-3d;border-radius:50%;"><span class="site-loader__object" style="position:relative;width:84%;aspect-ratio:1;display:block;overflow:hidden;transform-style:preserve-3d;border-radius:50%;"><picture class="site-loader__face" style="position:absolute;inset:0;width:100%;height:100%;display:block;overflow:hidden;border-radius:50%;"><source srcset="' + loaderAssetPrefix + '.avif" type="image/avif"><source srcset="' + loaderAssetPrefix + '.webp" type="image/webp"><img class="site-loader__mark" src="' + loaderAssetPrefix + '.png" alt="" width="' + loaderAssetSize + '" height="' + loaderAssetSize + '" decoding="async" fetchpriority="high" style="display:block;width:100%;height:100%;object-fit:contain;border-radius:50%;"></picture></span></span>';
     body.insertBefore(loader, body.firstChild);
   } else {
     const existingStart = Number(loader.dataset.start);
@@ -33,6 +33,9 @@ function installSiteLoader() {
     loader.dataset.hidden = 'true';
     loader.setAttribute('aria-hidden', 'true');
     loader.classList.add('is-hidden');
+    window.setTimeout(() => {
+      if (loader.dataset.hidden === 'true') loader.hidden = true;
+    }, 460);
     body.classList.remove('site-loader-active');
   };
 

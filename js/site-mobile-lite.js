@@ -55,6 +55,9 @@
         loader.dataset.hidden = 'true';
         loader.setAttribute('aria-hidden', 'true');
         loader.classList.add('is-hidden');
+        window.setTimeout(() => {
+          if (loader.dataset.hidden === 'true') loader.hidden = true;
+        }, 460);
       });
       document.body.classList.remove('site-loader-active');
     };
