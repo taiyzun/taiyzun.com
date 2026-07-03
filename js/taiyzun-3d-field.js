@@ -439,6 +439,9 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     const decorMotionClusterSizes = compactMode ? [4, 7] : largeViewportMode ? [4, 7, 12] : [4, 7, 12, 21];
     const decorMotionClusterBudget = decorMotionClusterSizes.reduce((total, size) => total + size, 0);
     const decorMotionClusters = [];
+    const decorObjectMotionEase = compactMode ? 0.078 : largeViewportMode ? 0.052 : 0.064;
+    const decorClusterMotionWeight = compactMode ? 0.78 : largeViewportMode ? 0.92 : 0.86;
+    const decorIndividualMotionWeight = compactMode ? 0.32 : largeViewportMode ? 0.16 : 0.24;
     const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
     const scrollState = {
       y: window.scrollY || 0,
@@ -903,7 +906,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       root.dataset.decor3dClusters = String(decorMotionClusters.length);
       root.dataset.decor3dClusterRequested = decorMotionClusterSizes.join('|');
       root.dataset.decor3dClusterPlan = decorMotionClusters.map((cluster) => cluster.count).join('|');
-          root.dataset.decor3dUniqueMotion = compactMode ? 'clustered-4-7' : largeViewportMode ? 'clustered-4-7-12-fullscreen-smooth' : 'clustered-4-7-12-21';
+      root.dataset.decor3dUniqueMotion = compactMode ? 'clustered-4-7-damped' : largeViewportMode ? 'clustered-4-7-12-fullscreen-damped' : 'clustered-4-7-12-21-damped';
       liquidLinkPositions = new Float32Array(selectedAssets.length * 2 * 3);
       liquidLinkGeometry = new THREE.BufferGeometry();
       liquidLinkGeometry.setAttribute('position', new THREE.BufferAttribute(liquidLinkPositions, 3).setUsage(THREE.DynamicDrawUsage));
@@ -951,8 +954,8 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
           const aspect = clamp(imageWidth / Math.max(imageHeight, 1), 0.12, 8);
           const isPrimaryObject = !compactMode && (page === 'home' ? index < 18 : page === 'odyssey' ? true : index < 22);
           const baseScaleBoost = page === 'odyssey'
-            ? (compactMode ? 1.56 : 1.62)
-            : (compactMode ? 1.02 : isPrimaryObject ? 1.34 : 1.08);
+            ? (compactMode ? 1.62 : largeViewportMode ? 1.68 : 1.7)
+            : (compactMode ? 1.1 : isPrimaryObject ? (largeViewportMode ? 1.42 : 1.38) : (largeViewportMode ? 1.16 : 1.12));
           const baseScale = slot[3] * baseScaleBoost;
           const objectWidth = aspect >= 1 ? baseScale : baseScale * aspect;
           const objectHeight = aspect >= 1 ? baseScale / aspect : baseScale;
@@ -1027,6 +1030,9 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
           const leftRightBias = actorSign();
           const upDownBias = actorSign();
           const depthBias = actorSign();
+          const objectMotionEase = clamp(decorObjectMotionEase + actorRandom() * 0.014 - 0.007, 0.04, 0.09);
+          const clusterMotionWeight = clamp(decorClusterMotionWeight + actorRandom() * 0.06 - 0.03, 0.68, 0.96);
+          const individualMotionWeight = clamp(decorIndividualMotionWeight + actorRandom() * 0.06 - 0.03, 0.1, 0.38);
           const motionCluster = decorMotionClusters.find((cluster) => index >= cluster.start && index < cluster.end)
             || decorMotionClusters[decorMotionClusters.length - 1]
             || null;
@@ -1042,6 +1048,16 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
             baseRotX: slot[4],
             baseRotY: slot[5],
             baseRotZ: slot[6],
+            motionX: slot[0],
+            motionY: slot[1],
+            motionZ: slot[2],
+            motionRotX: slot[4],
+            motionRotY: slot[5],
+            motionRotZ: slot[6],
+            motionScale: 1,
+            motionEase: objectMotionEase,
+            clusterMotionWeight,
+            individualMotionWeight,
             aspect,
             sphereX: sphereSlot.x,
             sphereY: sphereSlot.y,
@@ -1123,8 +1139,8 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
           root.dataset.nativeAssetScale = 'native-uniform-scale';
           root.dataset.decor3dAspectMode = 'native-aspect-uncropped-transparent-png';
           root.dataset.decor3dLayering = 'native-plane-rim-shadow-depth';
-          root.dataset.decor3dDepthMotion = 'continuous-second-speed-scroll-pointer-zoom';
-          root.dataset.decor3dClockMotion = 'smooth-second-speed-scroll-pointer';
+          root.dataset.decor3dDepthMotion = 'cluster-damped-scroll-pointer-zoom';
+          root.dataset.decor3dClockMotion = 'smooth-grouped-second-speed';
           root.dataset.decor3dUniqueAssets = String(new Set(decorObjects.map((object) => object.userData.asset)).size);
           root.dataset.uniqueAssets = root.dataset.decor3dUniqueAssets;
         }, undefined, () => {
@@ -1196,6 +1212,8 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       decorObjects.forEach((object, index) => {
         const data = object.userData;
         const cluster = decorMotionClusters[data.clusterIndex] || null;
+        const clusterWeight = data.clusterMotionWeight * speed;
+        const individualWeight = data.individualMotionWeight * speed;
         const phase = data.phase + time * data.orbitSpeed * speed;
         const pointerMagnitude = clamp(Math.hypot(pointer.x, pointer.y), 0, 1);
         const minutePhase = data.phase
@@ -1208,31 +1226,31 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
           ? smoothstep(data.formationDelay, 1, sphereBlendRaw)
           : 0;
         const localPhase = data.phase + time * data.orbitSpeed * speed * 0.22 + data.clusterSlot * 0.31;
-        const localX = Math.sin(localPhase) * data.swayX * 0.34 * speed;
-        const localY = Math.cos(localPhase * 0.86) * data.swayY * 0.32 * speed;
-        const localZ = Math.sin(localPhase * 0.7) * data.swayZ * 0.28 * speed;
+        const localX = Math.sin(localPhase) * data.swayX * 0.34 * individualWeight;
+        const localY = Math.cos(localPhase * 0.86) * data.swayY * 0.32 * individualWeight;
+        const localZ = Math.sin(localPhase * 0.7) * data.swayZ * 0.28 * individualWeight;
         const clockX = (
           Math.cos(minutePhase) * data.minuteOrbitX +
           Math.sin(secondPhase) * data.secondOrbitX
-        ) * speed;
+        ) * individualWeight;
         const clockY = (
           Math.sin(minutePhase * 0.84) * data.minuteOrbitY +
           Math.cos(secondPhase * 0.92) * data.secondOrbitY
-        ) * speed;
+        ) * individualWeight;
         const clockZ = (
           Math.sin(minutePhase * 0.72) * data.minuteOrbitZ +
           Math.cos(secondPhase * 0.78) * data.secondOrbitZ
-        ) * speed;
+        ) * individualWeight;
         const scatterX = data.baseX
-          + (cluster ? cluster.x : 0)
+          + (cluster ? cluster.x * clusterWeight : 0)
           + localX
           + clockX;
         const scatterY = data.baseY
-          + (cluster ? cluster.y : 0)
+          + (cluster ? cluster.y * clusterWeight : 0)
           + localY
           + clockY;
         const scatterZ = data.baseZ
-          + (cluster ? cluster.z : 0)
+          + (cluster ? cluster.z * clusterWeight : 0)
           + localZ
           + clockZ;
         const orbitAngle = data.sphereTheta
@@ -1241,7 +1259,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
         const relZ = data.sphereZ - data.sphereCenterZ;
         const sphereX = (data.sphereX * Math.cos(orbitAngle) - relZ * Math.sin(orbitAngle)) * sphereExpansion;
         const sphereZ = data.sphereCenterZ + (data.sphereX * Math.sin(orbitAngle) + relZ * Math.cos(orbitAngle)) * sphereExpansion;
-        const sphereY = data.sphereY * sphereExpansion + Math.cos(phase * 0.8) * data.swayY * 1.8;
+        const sphereY = data.sphereY * sphereExpansion + Math.cos(phase * 0.8) * data.swayY * 1.8 * individualWeight;
         const targetX = lerp(scatterX, sphereX, entityBlend);
         const targetY = lerp(scatterY, sphereY, entityBlend);
         const targetZ = lerp(scatterZ, sphereZ, entityBlend);
@@ -1255,47 +1273,59 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
         }
 
         const depthZoom = clamp((targetZ - data.baseZ) * data.depthScale, -0.28, 0.42);
-        const nearFarZoom = Math.sin(phase * data.zoomSpeed + scrollRatio * data.orbitScroll + pointerMagnitude) * data.depthPulse * speed;
-        const driftZoom = Math.sin(phase * data.zoomSpeed + index) * data.zoomPulse * speed;
-        const scrollZoom = Math.sin(scrollProgress * Math.PI * data.orbitScroll + data.phase) * data.zoomScroll * speed;
-        const pointerZoom = pointerMagnitude * data.zoomPointer * speed;
+        const nearFarZoom = Math.sin(phase * data.zoomSpeed + scrollRatio * data.orbitScroll + pointerMagnitude) * data.depthPulse * individualWeight;
+        const driftZoom = Math.sin(phase * data.zoomSpeed + index) * data.zoomPulse * individualWeight;
+        const scrollZoom = Math.sin(scrollProgress * Math.PI * data.orbitScroll + data.phase) * data.zoomScroll * individualWeight;
+        const pointerZoom = pointerMagnitude * data.zoomPointer * individualWeight;
         const clockZoom = (
           Math.sin(minutePhase) * data.minuteZoom +
           Math.sin(secondPhase) * data.secondZoom
-        ) * speed;
-        const entityScale = data.baseObjectScale * clamp(
+        ) * individualWeight;
+        const targetScale = data.baseObjectScale * clamp(
           1 + driftZoom + scrollZoom + pointerZoom + nearFarZoom + depthZoom + clockZoom + entityBlend * 0.2,
           page === 'odyssey' ? 0.56 : 0.7,
           page === 'odyssey' ? (compactMode ? 2.16 : 1.98) : (compactMode ? 1.5 : 1.62)
         );
         const rotationEnergy = data.rotationEnergy;
-        const flipX = Math.sin(phase * data.flipSpeedX + scrollProgress * 0.72) * data.flipRotX * speed * rotationEnergy * 0.34;
-        const flipY = Math.cos(phase * data.flipSpeedY - scrollProgress * 0.64) * data.flipRotY * speed * rotationEnergy * 0.34;
-
-        object.position.x = targetX;
-        object.position.y = targetY;
-        object.position.z = targetZ;
-        object.scale.setScalar(entityScale);
-        object.rotation.x = data.baseRotX
-          + (cluster ? cluster.rotX : 0) * rotationEnergy
-          + Math.cos(phase * 0.74) * data.spinX * speed * rotationEnergy * 0.24
-          + Math.cos(minutePhase) * data.minuteRotX * rotationEnergy
-          + Math.sin(secondPhase) * data.secondRotX * rotationEnergy
+        const individualRotationEnergy = rotationEnergy * individualWeight;
+        const flipX = Math.sin(phase * data.flipSpeedX + scrollProgress * 0.72) * data.flipRotX * individualRotationEnergy * 0.34;
+        const flipY = Math.cos(phase * data.flipSpeedY - scrollProgress * 0.64) * data.flipRotY * individualRotationEnergy * 0.34;
+        const targetRotX = data.baseRotX
+          + (cluster ? cluster.rotX * clusterWeight : 0) * rotationEnergy
+          + Math.cos(phase * 0.74) * data.spinX * individualRotationEnergy * 0.24
+          + Math.cos(minutePhase) * data.minuteRotX * individualRotationEnergy
+          + Math.sin(secondPhase) * data.secondRotX * individualRotationEnergy
           + flipX
           + entityBlend * Math.sin(orbitAngle) * 0.24;
-        object.rotation.y = data.baseRotY
-          + (cluster ? cluster.rotY : 0) * rotationEnergy
-          + Math.sin(phase * 0.67) * data.spinY * speed * rotationEnergy * 0.24
-          + Math.sin(minutePhase * 0.92) * data.minuteRotY * rotationEnergy
-          + Math.cos(secondPhase * 0.82) * data.secondRotY * rotationEnergy
+        const targetRotY = data.baseRotY
+          + (cluster ? cluster.rotY * clusterWeight : 0) * rotationEnergy
+          + Math.sin(phase * 0.67) * data.spinY * individualRotationEnergy * 0.24
+          + Math.sin(minutePhase * 0.92) * data.minuteRotY * individualRotationEnergy
+          + Math.cos(secondPhase * 0.82) * data.secondRotY * individualRotationEnergy
           + flipY
           + entityBlend * Math.cos(orbitAngle) * 0.34;
-        object.rotation.z = data.baseRotZ
-          + (cluster ? cluster.rotZ : 0) * rotationEnergy
-          + Math.sin(phase * 0.9) * data.spinZ * speed * rotationEnergy * 0.22
-          + Math.sin(minutePhase * 0.7) * data.minuteRotZ * rotationEnergy
-          + Math.cos(secondPhase * 0.66) * data.secondRotZ * rotationEnergy
+        const targetRotZ = data.baseRotZ
+          + (cluster ? cluster.rotZ * clusterWeight : 0) * rotationEnergy
+          + Math.sin(phase * 0.9) * data.spinZ * individualRotationEnergy * 0.22
+          + Math.sin(minutePhase * 0.7) * data.minuteRotZ * individualRotationEnergy
+          + Math.cos(secondPhase * 0.66) * data.secondRotZ * individualRotationEnergy
           + entityBlend * data.orbitDirection * 0.22;
+
+        data.motionX += (targetX - data.motionX) * data.motionEase;
+        data.motionY += (targetY - data.motionY) * data.motionEase;
+        data.motionZ += (targetZ - data.motionZ) * data.motionEase;
+        data.motionScale += (targetScale - data.motionScale) * data.motionEase;
+        data.motionRotX += (targetRotX - data.motionRotX) * data.motionEase;
+        data.motionRotY += (targetRotY - data.motionRotY) * data.motionEase;
+        data.motionRotZ += (targetRotZ - data.motionRotZ) * data.motionEase;
+
+        object.position.x = data.motionX;
+        object.position.y = data.motionY;
+        object.position.z = data.motionZ;
+        object.scale.setScalar(data.motionScale);
+        object.rotation.x = data.motionRotX;
+        object.rotation.y = data.motionRotY;
+        object.rotation.z = data.motionRotZ;
 
         const depthGlow = clamp(0.5 + depthZoom * 1.9 + nearFarZoom * 2.4 + entityBlend * 0.22, 0.28, 1.45);
         data.backMaterial.opacity = data.backBaseOpacity * depthGlow + entityBlend * 0.018;
@@ -1350,9 +1380,10 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
           }
         });
 
-        root.dataset.decor3dIndependent = '0';
+        root.dataset.decor3dIndependent = 'cluster-weighted';
         root.dataset.decor3dClusterActive = String(activeClusterMotionCount);
         root.dataset.decor3dClusterMembers = String(clusteredMemberCount);
+        root.dataset.decor3dClusterDominant = 'true';
         root.dataset.decor3dClusters = String(decorMotionClusters.length);
         root.dataset.decor3dClusterPlan = decorMotionClusters.map((cluster) => cluster.count).join('|');
         root.dataset.decor3dSphereBlend = sphereBlendRaw.toFixed(3);
@@ -1361,9 +1392,9 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
         root.dataset.decor3dLiquid = liquidEnergy.toFixed(3);
         root.dataset.decor3dLayering = 'native-plane-rim-shadow-depth';
         root.dataset.decor3dAspectMode = 'native-aspect-uncropped-transparent-png';
-        root.dataset.decor3dDepthMotion = 'continuous-second-speed-scroll-pointer-zoom';
-        root.dataset.decor3dClockMotion = 'smooth-second-speed-scroll-pointer';
-        root.dataset.decor3dMotionSmoothing = 'interpolated-scroll-and-cluster-targets';
+        root.dataset.decor3dDepthMotion = 'cluster-damped-scroll-pointer-zoom';
+        root.dataset.decor3dClockMotion = 'smooth-grouped-second-speed';
+        root.dataset.decor3dMotionSmoothing = 'damped-cluster-dominant-targets';
         root.dataset.decor3dScaleMode = page === 'odyssey' ? 'large-depth-responsive' : 'larger-native-depth-responsive';
         root.dataset.decor3dFamilySpacing = `slot-family-radius-${spacingRadius}`;
         root.dataset.decor3dSimilarNeighbours = String(similarNeighbourCount);
@@ -1372,7 +1403,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
         root.dataset.nativeAssetScale = 'native-uniform-scale';
         root.dataset.uniqueAssets = String(new Set(orderedObjects.map((object) => object.userData.asset)).size);
         root.dataset.decor3dUniqueAssets = root.dataset.uniqueAssets;
-        root.dataset.decor3dUniqueMotion = compactMode ? 'clustered-4-7' : largeViewportMode ? 'clustered-4-7-12-fullscreen-smooth' : 'clustered-4-7-12-21';
+        root.dataset.decor3dUniqueMotion = compactMode ? 'clustered-4-7-damped' : largeViewportMode ? 'clustered-4-7-12-fullscreen-damped' : 'clustered-4-7-12-21-damped';
       }
 
       renderer.render(scene, camera);
