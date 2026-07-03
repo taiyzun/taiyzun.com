@@ -241,8 +241,65 @@ body.premium-ui-ready .page-hero-overlay {
     linear-gradient(0deg, rgba(248, 243, 232, 0.92), transparent 46%);
 }
 
+body.premium-ui-ready .at-logo-3d-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+  isolation: isolate;
+  opacity: 0.26;
+  mix-blend-mode: normal;
+}
+
+body.premium-ui-ready .at-logo-3d-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+body.premium-ui-ready .at-logo-3d-fallback {
+  position: absolute;
+  top: 50%;
+  right: clamp(5rem, 14vw, 16rem);
+  width: clamp(92px, 12vw, 190px);
+  height: auto;
+  opacity: 0.12;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 22px 54px rgba(151, 108, 38, 0.16))
+    saturate(1.04);
+  transform: translate3d(0, -50%, 0) rotate(-2deg);
+  transform-origin: 50% 50%;
+}
+
+body.premium-ui-ready .at-logo-3d-stage[data-at-logo-variant="home"] {
+  opacity: 0.2;
+}
+
+body.premium-ui-ready .at-logo-3d-stage[data-at-logo-variant="home"] .at-logo-3d-fallback {
+  top: 56%;
+  right: clamp(9rem, 20vw, 19rem);
+  width: clamp(78px, 8vw, 135px);
+  opacity: 0.1;
+}
+
+body.premium-ui-ready .at-logo-3d-stage[data-at-logo-variant="odyssey"] .at-logo-3d-fallback,
+body.premium-ui-ready .at-logo-3d-stage[data-at-logo-variant="creations"] .at-logo-3d-fallback {
+  width: clamp(104px, 13vw, 210px);
+  opacity: 0.13;
+}
+
+body.premium-ui-ready .at-logo-3d-stage[data-status="ready"] .at-logo-3d-fallback {
+  display: none;
+}
+
 body.premium-ui-ready .hero-content,
 body.premium-ui-ready .page-hero-content {
+  position: relative;
+  z-index: 4;
   width: min(980px, 100%);
   padding: 0;
   border: 0;
@@ -739,6 +796,22 @@ body.premium-ui-ready .error-num {
     font-size: clamp(1rem, 4vw, 1.08rem);
     line-height: 1.52;
   }
+
+  body.premium-ui-ready .at-logo-3d-stage {
+    opacity: 0.46;
+  }
+
+  body.premium-ui-ready .at-logo-3d-canvas {
+    display: none;
+  }
+
+  body.premium-ui-ready .at-logo-3d-fallback {
+    top: 24%;
+    right: 50%;
+    width: min(42vw, 180px);
+    opacity: 0.14;
+    transform: translate3d(50%, -50%, 0) rotate(-1deg);
+  }
 }
 
 @media (max-width: 700px) {
@@ -782,6 +855,24 @@ body.premium-ui-ready .error-num {
     max-height: min(50svh, 390px) !important;
     opacity: 0.86 !important;
     transform: translate3d(50%, -50%, 0) rotate(0.5deg) !important;
+  }
+
+  body.premium-ui-ready .at-logo-3d-stage {
+    opacity: 0.38;
+    mix-blend-mode: multiply;
+  }
+
+  body.premium-ui-ready .at-logo-3d-canvas {
+    display: none !important;
+  }
+
+  body.premium-ui-ready .at-logo-3d-fallback {
+    top: 20%;
+    right: 50%;
+    width: min(50vw, 190px);
+    opacity: 0.12;
+    filter: drop-shadow(0 16px 36px rgba(151, 108, 38, 0.16)) saturate(1.02);
+    transform: translate3d(50%, -50%, 0) rotate(-2deg);
   }
 
   body.premium-ui-ready.home-page .sword-hero .hero-content {
@@ -879,6 +970,15 @@ body.premium-ui-ready .error-num {
 
   body.premium-ui-ready::before {
     transform: none;
+  }
+
+  body.premium-ui-ready .at-logo-3d-canvas {
+    display: none !important;
+  }
+
+  body.premium-ui-ready .at-logo-3d-fallback {
+    opacity: 0.13;
+    transform: translate3d(0, -50%, 0);
   }
 
   body.premium-ui-ready *,

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data: blob:; media-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; font-src 'self'; frame-src 'self' https://www.youtube-nocookie.com https://www.youtube.com; connect-src 'self' https://cloudflareinsights.com;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data: blob:; media-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; font-src 'self'; frame-src 'self' https://www.youtube-nocookie.com https://www.youtube.com; connect-src 'self' blob: https://cloudflareinsights.com;">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
 <meta name="mobile-web-app-capable" content="yes">
@@ -308,7 +308,7 @@
 </script>
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-regular-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-italic-latin.woff2" crossorigin>
-<link rel="stylesheet" href="/css/taiyzun-index.bundle.min.css?v=20260704a">
+<link rel="stylesheet" href="/css/taiyzun-index.bundle.min.css?v=20260704b">
 <link rel="preload" as="image" href="/assets/easter-eggs/taiyzun-atme-3d-loader-192.avif" type="image/avif">
 <link rel="preload" as="image" href="/assets/images/taiyzun-sword-logo-samurai-sharp-clean-transparent.webp" type="image/webp">
 <!-- Performance: Prefetch other pages -->
@@ -362,6 +362,16 @@
       fetchpriority="high">
   </div>
 <div data-webgl="home-particles" style="position: absolute; inset: 0; z-index: 2; pointer-events: none;"></div>
+  <div
+    class="at-logo-3d-stage"
+    data-at-logo-3d
+    data-at-logo-variant="home"
+    data-at-logo-model="/assets/models/taiyzun-at-logo-blade-edge-gold-silver-web.glb"
+    data-at-logo-fallback="/assets/easter-eggs/taiyzun-at-logo-blade-edge-gold-silver-384.webp"
+    aria-hidden="true">
+    <canvas class="at-logo-3d-canvas" data-at-logo-3d-canvas></canvas>
+    <img class="at-logo-3d-fallback" data-at-logo-3d-fallback src="/assets/easter-eggs/taiyzun-at-logo-blade-edge-gold-silver-384.webp" alt="" width="384" height="384" decoding="async" loading="lazy">
+  </div>
   <div class="hero-overlay"></div>
   <div class="hero-grain"></div>
   <div class="hero-scan"></div>
@@ -851,6 +861,7 @@
     '/js/themes-config.min.js?v=20260623b',
     '/js/theme-engine.min.js?v=20260623b',
     '/js/animation-controller.min.js?v=20260623b',
+    '/js/taiyzun-at-logo-3d.min.js?v=20260704a',
     '/js/harmonic-interactions.min.js?v=20260623b'
   ]);
 </script>
