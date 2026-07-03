@@ -49,10 +49,10 @@
   body { font-family: var(--sans); background: var(--bg-primary); color: var(--text-primary); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; -webkit-font-smoothing: antialiased; }
   .skip-link { position: absolute; top: -44px; left: 1rem; padding: 0.6rem 1.2rem; background: var(--gold); color: #0a0a0f; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 0 0 4px 4px; transition: top 0.2s ease; z-index: 9999; }
   .skip-link:focus { top: 0; }
-  main { text-align: center; padding: 2rem; max-width: 600px; }
+  main { text-align: center; padding: clamp(1.5rem, 5vw, 2.4rem); width: min(92vw, 620px); border: 1px solid rgba(201,168,76,0.16); background: linear-gradient(135deg, rgba(255,250,239,0.06), rgba(255,255,255,0.025)); box-shadow: 0 28px 90px rgba(0,0,0,0.24); }
   .error-num { font-family: var(--serif); font-size: clamp(6rem, 20vw, 12rem); font-weight: 300; line-height: 1; background: linear-gradient(135deg, var(--gold-light), var(--gold), #d4a843); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .error-title { font-family: var(--serif); font-size: clamp(1.4rem, 4vw, 2.2rem); font-weight: 300; font-style: italic; margin: 0.5rem 0 1.5rem; color: var(--text-primary); }
-  .error-msg { font-size: 0.95rem; color: var(--text-secondary); font-weight: 300; line-height: 1.75; margin-bottom: 2.5rem; }
+  .error-msg { font-size: 0.95rem; color: rgba(240,236,228,0.78); font-weight: 300; line-height: 1.75; margin-bottom: 2.5rem; }
   .home-btn { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.9rem 2.2rem; border: 1px solid var(--gold); color: var(--gold); font-family: var(--sans); font-size: 0.78rem; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; transition: all 0.4s ease; position: relative; overflow: hidden; }
   .home-btn::before { content: ''; position: absolute; inset: 0; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; z-index: -1; }
   .home-btn:hover { color: #0a0a0f; }
@@ -75,7 +75,7 @@
 <main id="main-content">
   <p class="error-num">500</p>
   <h1 class="error-title">System Interruption</h1>
-  <p class="error-msg">A temporary fault interrupted the Information &amp; Technology layer.<br>Please return in a moment while the Business system restores clear order, continuity and Peace of Mind.</p>
+  <p class="error-msg">A temporary fault interrupted the Information &amp; Technology layer.<br>Please return in a moment while the Business service restores clear order, continuity and Peace of Mind.</p>
   <a href="/" class="home-btn">Return Home <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
 </main>
 <script data-cfasync="false" src="/js/mobile-menu.min.js?v=20260623a"></script>

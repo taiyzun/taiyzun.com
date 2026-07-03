@@ -4,6 +4,7 @@
 
   const cards = Array.from(carousel.querySelectorAll('[data-video-card]'));
   const iframe = carousel.querySelector('[data-video-iframe]');
+  const frame = carousel.querySelector('.video-frame');
   const titleNode = carousel.querySelector('[data-video-current-title]');
   const prevButton = carousel.querySelector('[data-video-prev]');
   const nextButton = carousel.querySelector('[data-video-next]');
@@ -18,6 +19,10 @@
   carousel.dataset.carouselMode = 'spinning-depth-orbit';
   carousel.dataset.carouselItems = String(cards.length);
   carousel.dataset.zoomVideoExcluded = String(!cards.some((card) => card.dataset.videoId === excludedVideo));
+  iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+  iframe.setAttribute('allowfullscreen', '');
+  iframe.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+  frame?.classList.add('is-video-loading');
 
   let activeIndex = 0;
   let targetSpin = 0;
@@ -80,7 +85,8 @@
     const params = new URLSearchParams({
       rel: '0',
       modestbranding: '1',
-      playsinline: '1'
+      playsinline: '1',
+      origin: window.location.origin || 'https://taiyzun.com'
     });
 
     if (options.autoplay) {
@@ -88,11 +94,26 @@
     }
 
     const nextSrc = `https://www.youtube-nocookie.com/embed/${videoId}?${params.toString()}`;
-    if (iframe.src !== nextSrc) iframe.src = nextSrc;
+    if (iframe.src !== nextSrc) {
+      frame?.classList.remove('is-video-ready');
+      frame?.classList.add('is-video-loading');
+      iframe.src = nextSrc;
+    }
+    frame?.classList.toggle('is-video-playing', Boolean(options.autoplay));
     iframe.title = `Taiyzun YouTube video: ${title}`;
     carousel.style.setProperty('--video-preview-image', `url("https://i.ytimg.com/vi/${videoId}/hqdefault.jpg")`);
     if (titleNode) titleNode.textContent = title;
   }
+
+  iframe.addEventListener('load', () => {
+    frame?.classList.remove('is-video-loading');
+    frame?.classList.add('is-video-ready');
+  });
+
+  frame?.addEventListener('click', (event) => {
+    if (event.target instanceof Element && event.target.closest('a, button')) return;
+    setActive(activeIndex, true);
+  });
 
   function updateCardFacing() {
     cards.forEach((card) => {
