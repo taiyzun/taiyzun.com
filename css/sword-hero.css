@@ -20,7 +20,7 @@ body.home-page .sword-hero {
 body.home-page .sword-hero::before {
   background:
     radial-gradient(circle at 72% 44%, rgba(212, 175, 55, 0.22), transparent 0 37%),
-    radial-gradient(circle at 38% 68%, rgba(95, 126, 126, 0.1), transparent 0 30%),
+    radial-gradient(circle at 38% 68%, rgba(50, 82, 130, 0.1), transparent 0 30%),
     linear-gradient(105deg, rgba(255, 255, 255, 0.46), transparent 42%, rgba(202, 168, 84, 0.08));
 }
 

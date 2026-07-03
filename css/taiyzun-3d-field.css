@@ -75,7 +75,7 @@
 
 .site-loader__orb::after {
   inset: -24%;
-  border-color: rgba(95, 126, 126, 0.15);
+  border-color: rgba(50, 82, 130, 0.15);
   transform: rotate(24deg);
 }
 
@@ -125,7 +125,7 @@
     radial-gradient(circle at 26% 18%, rgba(255, 255, 255, 0.48), transparent 0 22%),
     radial-gradient(circle at 68% 74%, rgba(0, 0, 0, 0.26), transparent 0 58%),
     radial-gradient(circle at 50% 50%, transparent 0 58%, rgba(255, 247, 219, 0.24) 65%, rgba(202, 168, 84, 0.3) 79%, rgba(65, 45, 16, 0.28) 100%),
-    conic-gradient(from 24deg, rgba(255, 255, 255, 0.16), rgba(202, 168, 84, 0.18), transparent 28%, rgba(92, 118, 118, 0.14), transparent 60%, rgba(255, 255, 255, 0.18));
+    conic-gradient(from 24deg, rgba(255, 255, 255, 0.16), rgba(202, 168, 84, 0.18), transparent 28%, rgba(50, 82, 130, 0.12), transparent 60%, rgba(255, 255, 255, 0.18));
   opacity: 0.68;
   mix-blend-mode: screen;
   transform: translate3d(0, 0, 30px) scale(1.01);
@@ -341,7 +341,7 @@ body.taiyzun-3d-ready .skip-link {
   opacity: 0.48;
   background:
     linear-gradient(115deg, transparent 0 24%, rgba(202, 168, 84, 0.12) 24.2% 24.55%, transparent 24.8% 100%),
-    linear-gradient(64deg, transparent 0 63%, rgba(64, 94, 98, 0.1) 63.2% 63.48%, transparent 63.8% 100%),
+    linear-gradient(64deg, transparent 0 63%, rgba(36, 70, 114, 0.1) 63.2% 63.48%, transparent 63.8% 100%),
     repeating-linear-gradient(90deg, transparent 0 118px, rgba(119, 92, 42, 0.035) 119px 120px);
   transform: translate3d(var(--tz3d-field-x, 0), var(--tz3d-field-y, 0), 0);
 }
@@ -352,7 +352,7 @@ body.taiyzun-3d-ready .skip-link {
   background:
     radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.68), transparent 0 16rem),
     radial-gradient(circle at 72% 30%, rgba(202, 168, 84, 0.2), transparent 0 20rem),
-    radial-gradient(circle at 56% 78%, rgba(82, 111, 116, 0.13), transparent 0 18rem);
+    radial-gradient(circle at 56% 78%, rgba(46, 82, 130, 0.12), transparent 0 18rem);
 }
 
 body.taiyzun-3d-ready .hero,
@@ -422,7 +422,7 @@ body.taiyzun-3d-ready .tz3d-surface::after {
   opacity: 0;
   background:
     radial-gradient(circle at var(--tz3d-x, 50%) var(--tz3d-y, 50%), rgba(255, 255, 255, 0.68), transparent 0 18%),
-    linear-gradient(135deg, rgba(202, 168, 84, 0.18), transparent 44%, rgba(64, 94, 98, 0.12));
+    linear-gradient(135deg, rgba(202, 168, 84, 0.18), transparent 44%, rgba(36, 70, 114, 0.11));
   transition: opacity 420ms ease;
 }
 

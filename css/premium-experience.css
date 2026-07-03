@@ -1,13 +1,13 @@
 :root {
   --colour-primary: #211a12;
-  --colour-secondary: #0f5f62;
+  --colour-secondary: #183d63;
   --colour-accent: #c99b3f;
   --colour-surface: #fffaf0;
   --colour-surface-soft: #f4eee1;
   --colour-text: #191611;
   --colour-muted: rgba(25, 22, 17, 0.66);
   --colour-line: rgba(134, 102, 48, 0.22);
-  --colour-glow: rgba(15, 95, 98, 0.16);
+  --colour-glow: rgba(201, 155, 63, 0.18);
   --colour-shadow: rgba(50, 38, 24, 0.18);
   --colour-highlight: #e7c978;
   --premium-radius-card: 8px;
@@ -43,7 +43,7 @@ body.premium-ui-ready::before {
   background:
     linear-gradient(90deg, transparent calc(33.333% - 0.5px), rgba(60, 48, 34, 0.055) 33.333%, transparent calc(33.333% + 0.5px)),
     linear-gradient(90deg, transparent calc(66.666% - 0.5px), rgba(60, 48, 34, 0.042) 66.666%, transparent calc(66.666% + 0.5px)),
-    linear-gradient(0deg, transparent calc(38.2% - 0.5px), rgba(15, 95, 98, 0.052) 38.2%, transparent calc(38.2% + 0.5px)),
+    linear-gradient(0deg, transparent calc(38.2% - 0.5px), rgba(24, 61, 99, 0.046) 38.2%, transparent calc(38.2% + 0.5px)),
     linear-gradient(0deg, transparent calc(61.8% - 0.5px), rgba(134, 102, 48, 0.047) 61.8%, transparent calc(61.8% + 0.5px)),
     repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0 1px, transparent 1px 34px);
   transform: translate3d(0, calc(var(--premium-scroll, 0) * -18px), 0);
@@ -57,7 +57,7 @@ body.premium-ui-ready::after {
   pointer-events: none;
   opacity: 0.3;
   background:
-    conic-gradient(from 45deg at 50% 50%, transparent 0 24%, rgba(201, 155, 63, 0.08) 25%, transparent 26% 49%, rgba(15, 95, 98, 0.055) 50%, transparent 52% 100%);
+    conic-gradient(from 45deg at 50% 50%, transparent 0 24%, rgba(201, 155, 63, 0.08) 25%, transparent 26% 49%, rgba(24, 61, 99, 0.048) 50%, transparent 52% 100%);
   mix-blend-mode: multiply;
 }
 
@@ -399,7 +399,7 @@ body.premium-ui-ready .info-card:hover,
 body.premium-ui-ready .art-item:hover,
 body.premium-ui-ready .gallery-item:hover {
   --premium-lift: -6px;
-  border-color: rgba(15, 95, 98, 0.32);
+  border-color: rgba(201, 155, 63, 0.42);
   box-shadow: 0 28px 70px rgba(48, 35, 18, 0.16);
 }
 
@@ -428,7 +428,7 @@ body.premium-ui-ready .divider {
   height: 1px;
   margin: 0 auto;
   background:
-    linear-gradient(90deg, transparent, rgba(15, 95, 98, 0.22), rgba(201, 155, 63, 0.34), transparent);
+    linear-gradient(90deg, transparent, rgba(24, 61, 99, 0.16), rgba(201, 155, 63, 0.38), transparent);
   opacity: 0.9;
 }
 
@@ -440,9 +440,9 @@ body.premium-ui-ready .lb-share {
   border-radius: 999px !important;
   border: 1px solid rgba(201, 155, 63, 0.62);
   background:
-    linear-gradient(135deg, #241b11, #0f5f62);
+    linear-gradient(135deg, #241b11, #b8791e 58%, #183d63);
   color: #fff8e8 !important;
-  box-shadow: 0 16px 38px rgba(15, 95, 98, 0.18);
+  box-shadow: 0 16px 38px rgba(151, 95, 24, 0.2);
   letter-spacing: 0;
 }
 
@@ -457,7 +457,7 @@ body.premium-ui-ready .submit-btn:hover,
 body.premium-ui-ready .home-btn:hover,
 body.premium-ui-ready .lb-share:hover {
   transform: translate3d(0, -3px, 0);
-  box-shadow: 0 24px 60px rgba(15, 95, 98, 0.24);
+  box-shadow: 0 24px 60px rgba(151, 95, 24, 0.26);
 }
 
 body.premium-ui-ready img,
@@ -506,13 +506,13 @@ body.premium-ui-ready .cat-tab {
 
 body.premium-ui-ready .cat-tab.active,
 body.premium-ui-ready .cat-tab[aria-selected="true"] {
-  background: linear-gradient(135deg, rgba(15, 95, 98, 0.16), rgba(201, 155, 63, 0.18));
-  border-color: rgba(15, 95, 98, 0.34);
+  background: linear-gradient(135deg, rgba(24, 61, 99, 0.12), rgba(201, 155, 63, 0.2));
+  border-color: rgba(201, 155, 63, 0.42);
 }
 
 body.premium-ui-ready .lightbox {
   background:
-    linear-gradient(135deg, rgba(9, 8, 6, 0.94), rgba(18, 28, 29, 0.92));
+    linear-gradient(135deg, rgba(9, 8, 6, 0.94), rgba(13, 22, 38, 0.92));
 }
 
 body.premium-ui-ready .lb-topbar,
@@ -541,7 +541,7 @@ body.premium-ui-ready input:focus,
 body.premium-ui-ready textarea:focus,
 body.premium-ui-ready button:focus-visible,
 body.premium-ui-ready a:focus-visible {
-  outline: 2px solid rgba(15, 95, 98, 0.72);
+  outline: 2px solid rgba(201, 155, 63, 0.78);
   outline-offset: 4px;
 }
 

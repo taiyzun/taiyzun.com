@@ -268,9 +268,9 @@ body.connect-page #form-status {
 
 body.connect-page #form-status.success {
   display: block;
-  background: rgba(102, 146, 94, 0.12);
-  border: 1px solid rgba(102, 146, 94, 0.22);
-  color: #466645;
+  background: rgba(201, 155, 63, 0.13);
+  border: 1px solid rgba(201, 155, 63, 0.28);
+  color: #6f4f1e;
 }
 
 body.connect-page #form-status.error {

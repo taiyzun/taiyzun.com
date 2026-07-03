@@ -51,7 +51,7 @@
   pointer-events: none;
   background:
     repeating-radial-gradient(circle, rgba(202, 168, 84, 0.11) 0 1px, transparent 1px 19px),
-    conic-gradient(from 36deg, transparent, rgba(202, 168, 84, 0.18), transparent 38%, rgba(92, 118, 118, 0.11), transparent 72%);
+    conic-gradient(from 36deg, transparent, rgba(202, 168, 84, 0.18), transparent 38%, rgba(34, 70, 112, 0.1), transparent 72%);
   opacity: 0.38;
   transform: translate3d(-50%, 0, 0) rotate(8deg);
   filter: blur(0.2px);
@@ -128,7 +128,7 @@
   background:
     radial-gradient(circle at 32% 22%, rgba(255, 255, 255, 0.88), transparent 0 12rem),
     radial-gradient(circle at 58% 70%, rgba(202, 168, 84, 0.2), transparent 0 18rem),
-    radial-gradient(circle at 82% 35%, rgba(125, 151, 143, 0.1), transparent 0 14rem);
+    radial-gradient(circle at 82% 35%, rgba(45, 83, 128, 0.1), transparent 0 14rem);
   filter: blur(18px);
   transform: translate3d(0, 12px, -100px);
 }
@@ -181,7 +181,7 @@
   border: 1px solid rgba(202, 168, 84, 0.22);
   background:
     radial-gradient(circle at var(--video-glow-x) var(--video-glow-y), rgba(255, 255, 255, 0.62), transparent 0 18%),
-    conic-gradient(from 38deg, transparent, rgba(202, 168, 84, 0.16), transparent 36%, rgba(98, 126, 118, 0.12), transparent 72%);
+    conic-gradient(from 38deg, transparent, rgba(202, 168, 84, 0.16), transparent 36%, rgba(34, 70, 112, 0.12), transparent 72%);
   opacity: 0.76;
   transform: rotateX(74deg) translate3d(0, 7.5rem, -150px);
   filter: blur(0.2px);

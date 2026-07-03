@@ -9,24 +9,24 @@ const THEMES_CONFIG = {
     name: "Home - Information & Technology",
     keywords: ["information", "technology", "micro macro", "business strategy", "technical compliance", "due diligence", "structured delivery", "systems"],
     colors: {
-      // Base: Refined blues and teals (sophisticated, calm, thoughtful)
+      // Base: refined navy and pearl contrast with warm Taiyzun gold.
       base: {
         background: "#0a0f15", // Deep navy-black
         secondary: "#0d1820", // Slightly lighter navy
         text: "#e8eef5", // Cool off-white
         textSecondary: "rgba(232, 238, 245, 0.65)" // Semi-transparent
       },
-      // Accent: Bold prismatic colors (identity facets)
+      // Accent: gold-led identity facets with restrained sky-blue contrast.
       accents: {
-        primary: "#6ba3ff", // Vibrant cool blue
-        secondary: "#00d9ff", // Cyan (multifaceted)
-        tertiary: "#b84dff", // Magenta accent
-        gold: "#ffd700" // Gold highlight for emphasis
+        primary: "#d6a13a", // Taiyzun gold
+        secondary: "#7fb7e8", // Restrained sky blue
+        tertiary: "#f28c32", // Sunset orange
+        gold: "#ffd36a" // Gold highlight for emphasis
       },
       // Gradients for kaleidoscopic effects
       gradients: {
-        prismatic: "linear-gradient(135deg, #6ba3ff, #00d9ff, #b84dff, #6ba3ff)",
-        shimmer: "linear-gradient(90deg, #ffd700, #00d9ff, #6ba3ff)"
+        prismatic: "linear-gradient(135deg, #d6a13a, #f28c32, #7fb7e8, #d6a13a)",
+        shimmer: "linear-gradient(90deg, #ffd36a, #f28c32, #7fb7e8)"
       }
     },
     animation: {
@@ -47,17 +47,17 @@ const THEMES_CONFIG = {
         text: "#dce4f0", // Cool light gray
         textSecondary: "rgba(220, 228, 240, 0.65)"
       },
-      // Accent: Jewel tones and deep purples (growth, richness)
+      // Accent: warm-gold system with deep-blue structure.
       accents: {
-        primary: "#7c5cff", // Deep purple
-        secondary: "#1fb8d4", // Teal (flowing and organic)
-        tertiary: "#ff6b9d", // Deep pink (achievement)
-        gold: "#e8b44a" // Warm gold (milestones)
+        primary: "#d2a247", // Warm gold
+        secondary: "#6fa8dc", // Sky-blue structural contrast
+        tertiary: "#d96f2b", // Sunset orange
+        gold: "#f0c35c" // Warm gold (milestones)
       },
       // Timeline gradients
       gradients: {
-        flow: "linear-gradient(180deg, #7c5cff, #1fb8d4, #ff6b9d)",
-        path: "linear-gradient(90deg, #7c5cff, #1fb8d4)"
+        flow: "linear-gradient(180deg, #d2a247, #6fa8dc, #d96f2b)",
+        path: "linear-gradient(90deg, #d2a247, #6fa8dc)"
       }
     },
     animation: {
@@ -78,16 +78,16 @@ const THEMES_CONFIG = {
         text: "#f0ede8", // Warm off-white
         textSecondary: "rgba(240, 237, 232, 0.65)"
       },
-      // Accent: Bright, saturated colors (creativity, energy, playfulness)
+      // Accent: creative warmth without neon colour drift.
       accents: {
         primary: "#ff6b5a", // Vibrant coral
         secondary: "#ffa500", // Bright orange
         tertiary: "#ffdb58", // Golden yellow
-        quaternary: "#ff1493" // Deep pink (bold accent)
+        quaternary: "#7fb7e8" // Sky-blue counterpoint
       },
       // Experimental gradients
       gradients: {
-        structured: "linear-gradient(45deg, #ff6b5a, #ffa500, #ffdb58, #ff1493)",
+        structured: "linear-gradient(45deg, #ff6b5a, #ffa500, #ffdb58, #7fb7e8)",
         warm: "linear-gradient(135deg, #ff6b5a, #ffa500)"
       }
     },
@@ -140,17 +140,17 @@ const THEMES_CONFIG = {
         text: "#f0ede8", // Warm off-white
         textSecondary: "rgba(240, 237, 232, 0.65)"
       },
-      // Accent: Warm, connective colors (community, warmth, reach)
+      // Accent: warm connective colours with sky-blue clarity.
       accents: {
         primary: "#d4a574", // Warm bronze (primary theme)
-        secondary: "#3dd5f3", // Bright cyan (connection lines)
-        tertiary: "#6bc34a", // Vibrant green (growth)
+        secondary: "#7fb7e8", // Sky-blue connection lines
+        tertiary: "#f28c32", // Sunset orange energy
         gold: "#ffc107" // Bold gold (nodes)
       },
       // Network gradients
       gradients: {
-        network: "linear-gradient(135deg, #d4a574, #3dd5f3, #6bc34a)",
-        connection: "linear-gradient(90deg, #3dd5f3, #6bc34a)"
+        network: "linear-gradient(135deg, #d4a574, #ffc107, #7fb7e8)",
+        connection: "linear-gradient(90deg, #ffc107, #7fb7e8)"
       }
     },
     animation: {
