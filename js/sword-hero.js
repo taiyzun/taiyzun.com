@@ -29,12 +29,17 @@
   let scene = null;
   let camera = null;
   let swordGroup = null;
+  let keyLight = null;
+  let rimLight = null;
   let frameId = 0;
   let animationStartTime = 0;
+  let lastMotionDatasetUpdate = 0;
   let visible = true;
   let width = 1;
   let height = 1;
   const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
+  const scroll = { y: 0, ty: 0, hero: 0, thero: 0 };
+  const baseTransform = { x: 0, y: 0, z: 0, scale: 1 };
 
   function setStatus(status) {
     root.dataset.status = status;
@@ -55,6 +60,25 @@
   function syncPerformanceMode() {
     largeViewportMode = detectLargeViewportMode();
     root.dataset.performanceMode = compactMode ? 'compact' : largeViewportMode ? 'large-viewport-smooth' : 'rich';
+  }
+
+  function clamp(value, min, max) {
+    return Math.min(max, Math.max(min, value));
+  }
+
+  function updateScrollMotion() {
+    const documentElement = document.documentElement;
+    const maxScroll = Math.max(1, documentElement.scrollHeight - window.innerHeight);
+    scroll.ty = clamp(window.scrollY / maxScroll, 0, 1);
+
+    if (!hero) {
+      scroll.thero = scroll.ty;
+      return;
+    }
+
+    const rect = hero.getBoundingClientRect();
+    const heroHeight = Math.max(rect.height, 1);
+    scroll.thero = clamp(-rect.top / heroHeight, 0, 1);
   }
 
   function loadTexture(THREE, src, backupSrc) {
@@ -270,10 +294,18 @@
 
     if (swordGroup) {
       const modelAsset = Boolean(swordGroup.userData.modelAsset);
-      swordGroup.position.x = width < 760 ? 0 : modelAsset ? 1.58 : 1.28;
-      swordGroup.position.y = width < 760 ? 0.62 : modelAsset ? 0.82 : -0.08;
-      swordGroup.scale.setScalar(width < 760 ? 0.86 : modelAsset ? 0.5 : 1);
+      baseTransform.x = width < 760 ? 0 : modelAsset ? 1.58 : 1.28;
+      baseTransform.y = width < 760 ? 0.62 : modelAsset ? 0.82 : -0.08;
+      baseTransform.z = 0;
+      baseTransform.scale = width < 760 ? 0.86 : modelAsset ? 0.5 : 1;
+      swordGroup.position.set(baseTransform.x, baseTransform.y, baseTransform.z);
+      swordGroup.scale.setScalar(baseTransform.scale);
     }
+  }
+
+  function handleResize() {
+    resize();
+    updateScrollMotion();
   }
 
   function animate(now = 0) {
@@ -284,15 +316,42 @@
     const t = (now - animationStartTime) * 0.001;
     pointer.x += (pointer.tx - pointer.x) * 0.055;
     pointer.y += (pointer.ty - pointer.y) * 0.055;
+    scroll.y += (scroll.ty - scroll.y) * 0.052;
+    scroll.hero += (scroll.thero - scroll.hero) * 0.062;
 
     const baseYaw = compactMode ? -0.18 : -0.28;
-    const spin = reduceMotion ? 0.14 : t * secondHandSweepSpeed;
-    swordGroup.rotation.y = baseYaw + spin + pointer.x * 0.18;
-    swordGroup.rotation.x = Math.sin(t * secondHandSweepSpeed * 1.35) * 0.035 - pointer.y * 0.06;
-    swordGroup.rotation.z = Math.sin(t * secondHandSweepSpeed * 0.82) * 0.018;
-    swordGroup.position.z = Math.sin(t * secondHandSweepSpeed * 1.55) * 0.05;
+    const motionSpeed = compactMode || largeViewportMode ? 0.72 : 0.92;
+    const spin = reduceMotion ? scroll.hero * 0.16 : t * secondHandSweepSpeed * motionSpeed;
+    const orbitPhase = spin + scroll.hero * Math.PI * 0.84;
+    const orbitStrength = compactMode ? 0.075 : largeViewportMode ? 0.13 : 0.18;
+    const scrollYaw = scroll.hero * (compactMode ? 0.22 : 0.48);
+    const pointerYaw = pointer.x * (compactMode ? 0.12 : 0.24);
+    const pointerPitch = pointer.y * (compactMode ? 0.045 : 0.072);
+    const breathing = reduceMotion ? 1 : 1 + Math.sin(t * secondHandSweepSpeed * 1.18) * 0.018;
 
-    root.dataset.rotationY = swordGroup.rotation.y.toFixed(3);
+    swordGroup.rotation.y = baseYaw + spin + scrollYaw + pointerYaw;
+    swordGroup.rotation.x = Math.sin(t * secondHandSweepSpeed * 1.35) * 0.045 - pointerPitch + scroll.hero * 0.035;
+    swordGroup.rotation.z = Math.sin(t * secondHandSweepSpeed * 0.82) * 0.024 + pointer.x * 0.018 + scroll.y * 0.018;
+    swordGroup.position.x = baseTransform.x + Math.sin(orbitPhase) * orbitStrength + pointer.x * 0.085;
+    swordGroup.position.y = baseTransform.y + Math.cos(orbitPhase * 0.76) * orbitStrength * 0.46 - scroll.hero * 0.18 - pointer.y * 0.052;
+    swordGroup.position.z = baseTransform.z + Math.sin(orbitPhase * 1.22) * (compactMode ? 0.05 : 0.12) + scroll.hero * 0.14 + scroll.y * 0.05;
+    swordGroup.scale.setScalar(baseTransform.scale * breathing * (1 - scroll.hero * 0.035 + Math.abs(pointer.x) * 0.01));
+
+    if (keyLight) {
+      keyLight.position.x = 3.2 + pointer.x * 0.8 + Math.sin(orbitPhase) * 0.22;
+      keyLight.position.y = 4.1 - pointer.y * 0.34 + scroll.hero * 0.24;
+    }
+
+    if (rimLight) {
+      rimLight.intensity = 1.08 + Math.abs(pointer.x) * 0.18 + scroll.hero * 0.16;
+    }
+
+    if (now - lastMotionDatasetUpdate > 240) {
+      lastMotionDatasetUpdate = now;
+      root.dataset.rotationY = swordGroup.rotation.y.toFixed(3);
+      root.dataset.scrollMotion = scroll.hero.toFixed(3);
+      root.dataset.revolution = `${swordGroup.position.x.toFixed(2)},${swordGroup.position.y.toFixed(2)},${swordGroup.position.z.toFixed(2)}`;
+    }
     renderer.render(scene, camera);
   }
 
@@ -316,11 +375,11 @@
 
       scene.add(new THREE.AmbientLight(0xffedbf, 1.45));
 
-      const keyLight = new THREE.DirectionalLight(0xffffff, 2.4);
+      keyLight = new THREE.DirectionalLight(0xffffff, 2.4);
       keyLight.position.set(3.2, 4.1, 5.5);
       scene.add(keyLight);
 
-      const rimLight = new THREE.DirectionalLight(0xd3a64b, 1.15);
+      rimLight = new THREE.DirectionalLight(0xd3a64b, 1.15);
       rimLight.position.set(-4.5, 1.6, -3.5);
       scene.add(rimLight);
 
@@ -408,16 +467,22 @@
 
       scene.add(swordGroup);
       resize();
+      updateScrollMotion();
       setStatus('ready');
       syncPerformanceMode();
       root.dataset.lighting = 'ambient-directional-rim';
-      root.dataset.motion = reduceMotion ? 'reduced-y-axis' : 'smooth-second-hand-y-axis-rotation';
+      root.dataset.motion = reduceMotion ? 'reduced-scroll-aware-pose' : 'smooth-time-scroll-pointer-revolution';
 
-      window.addEventListener('resize', resize, { passive: true });
+      window.addEventListener('resize', handleResize, { passive: true });
+      window.addEventListener('scroll', updateScrollMotion, { passive: true });
       window.addEventListener('pointermove', (event) => {
         if (reduceMotion) return;
         pointer.tx = Math.max(-1, Math.min(1, (event.clientX / Math.max(window.innerWidth, 1) - 0.5) * 2));
         pointer.ty = Math.max(-1, Math.min(1, (event.clientY / Math.max(window.innerHeight, 1) - 0.5) * 2));
+      }, { passive: true });
+      window.addEventListener('pointerleave', () => {
+        pointer.tx = 0;
+        pointer.ty = 0;
       }, { passive: true });
 
       if ('IntersectionObserver' in window) {
