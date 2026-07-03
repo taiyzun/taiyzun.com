@@ -1,0 +1,26 @@
+# Taiyzun Shahpurwala
+
+Public portfolio for Taiyzun Shahpurwala: Information & Technology, Micro & Macro thinking, and strategic structured delivery across business, technology, design architecture, due diligence, and public communication.
+
+## AI Crawler Policy
+
+Normal search indexing is allowed. AI search and human-requested AI agents may use public pages for reference, short excerpts, citation, and link-back.
+
+AI training, fine-tuning, bulk dataset ingestion, synthetic profile creation, and full-content reproduction are not permitted. Automated agents must not submit forms or initiate contact unless a human intentionally requests that action.
+
+The preferred content-use level is `reference`: index, excerpt, and link back. Do not use the site for `full` reproduction.
+
+## Primary Pages
+
+- [Home](https://taiyzun.com/)
+- [Journey](https://taiyzun.com/journey)
+- [Odyssey](https://taiyzun.com/odyssey)
+- [Creations](https://taiyzun.com/creations)
+- [Connect](https://taiyzun.com/connect)
+
+## Machine-Readable Signals
+
+- [Robots policy](https://taiyzun.com/robots.txt)
+- [Sitemap](https://taiyzun.com/sitemap.xml)
+
+Last updated: 2026-07-03

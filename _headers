@@ -65,6 +65,11 @@ https://:deployment.taiyzun-com.pages.dev/*
 /robots.txt
   Cache-Control: no-cache, must-revalidate
 
+/llms.txt
+  Cache-Control: no-cache, must-revalidate
+  X-Content-Type-Options: nosniff
+  X-Robots-Tag: noindex
+
 /css/*
   Cache-Control: public, max-age=31536000, immutable
 

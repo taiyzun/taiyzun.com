@@ -9,6 +9,7 @@ const outputDir = path.join(rootDir, 'dist');
 
 const publicRootFiles = new Set([
   'favicon.ico',
+  'llms.txt',
   'manifest.json',
   'robots.txt',
   'service-worker.js',
