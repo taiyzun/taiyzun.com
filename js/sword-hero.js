@@ -10,6 +10,7 @@
   root.dataset.status = 'loading';
 
   const hero = root.closest('.hero');
+  const modelSrc = root.dataset.swordModel || '/assets/models/taiyzun-sword-logo-sharp-3d-lightweight.glb';
   const textureSrc = root.dataset.swordSrc || '/assets/images/taiyzun-sword-logo-2021.webp';
   const fallbackSrc = root.dataset.swordFallback || '/assets/images/taiyzun-sword-logo-2021.png';
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -29,6 +30,7 @@
   let camera = null;
   let swordGroup = null;
   let frameId = 0;
+  let animationStartTime = 0;
   let visible = true;
   let width = 1;
   let height = 1;
@@ -37,6 +39,12 @@
   function setStatus(status) {
     root.dataset.status = status;
     if (hero) hero.dataset.swordReady = String(status === 'ready');
+    if (fallback) {
+      const fallbackInactive = status === 'ready';
+      fallback.hidden = fallbackInactive;
+      fallback.style.display = fallbackInactive ? 'none' : '';
+      fallback.setAttribute('aria-hidden', fallbackInactive ? 'true' : 'false');
+    }
   }
 
   function showFallback() {
@@ -157,6 +165,94 @@
     return geometry;
   }
 
+  function prepareMetallicGoldSword(THREE, object) {
+    object.traverse((child) => {
+      if (!child.isMesh) return;
+
+      if (child.geometry && typeof child.geometry.computeVertexNormals === 'function') {
+        child.geometry.computeVertexNormals();
+      }
+
+      child.material = new THREE.MeshStandardMaterial({
+        color: 0xd4a43a,
+        metalness: 0.88,
+        roughness: 0.22,
+        envMapIntensity: 0.86,
+        side: THREE.DoubleSide
+      });
+      child.castShadow = false;
+      child.receiveShadow = false;
+      child.frustumCulled = false;
+    });
+  }
+
+  function normalizeModelToSwordFrame(THREE, object, targetHeight) {
+    object.updateMatrixWorld(true);
+
+    const firstBox = new THREE.Box3().setFromObject(object);
+    const firstSize = new THREE.Vector3();
+    firstBox.getSize(firstSize);
+
+    if (firstSize.z > firstSize.y * 1.35 && firstSize.z > firstSize.x * 1.35) {
+      object.rotation.x = -Math.PI / 2;
+    } else if (firstSize.x > firstSize.y * 1.35 && firstSize.x > firstSize.z * 1.35) {
+      object.rotation.z = Math.PI / 2;
+    }
+
+    object.updateMatrixWorld(true);
+
+    const box = new THREE.Box3().setFromObject(object);
+    const size = new THREE.Vector3();
+    const center = new THREE.Vector3();
+    box.getSize(size);
+    box.getCenter(center);
+
+    if (!Number.isFinite(size.y) || size.y <= 0.0001) {
+      throw new Error('Sword GLB has invalid bounds');
+    }
+
+    object.position.x -= center.x;
+    object.position.y -= center.y;
+    object.position.z -= center.z;
+
+    const scale = targetHeight / size.y;
+    object.scale.multiplyScalar(scale);
+
+    return {
+      width: size.x * scale,
+      height: size.y * scale,
+      depth: size.z * scale,
+      scale
+    };
+  }
+
+  async function createModelSwordGroup(THREE) {
+    const { GLTFLoader } = await import('./vendor/GLTFLoader.js?v=20260703a');
+    const loader = new GLTFLoader();
+    const gltf = await new Promise((resolve, reject) => {
+      loader.load(modelSrc, resolve, undefined, reject);
+    });
+    const model = gltf.scene || (gltf.scenes && gltf.scenes[0]);
+
+    if (!model) {
+      throw new Error('Sword GLB scene missing');
+    }
+
+    const group = new THREE.Group();
+    group.name = 'TaiyzunSwordHero';
+    group.userData.modelAsset = true;
+    prepareMetallicGoldSword(THREE, model);
+
+    const bounds = normalizeModelToSwordFrame(THREE, model, 5.2);
+    group.add(model);
+
+    root.dataset.geometry = 'glb-production-model';
+    root.dataset.model = modelSrc;
+    root.dataset.modelBounds = `${bounds.width.toFixed(2)}x${bounds.height.toFixed(2)}x${bounds.depth.toFixed(2)}`;
+    root.dataset.object = 'taiyzun-sword-logo-sharp-3d-lightweight';
+    return group;
+  }
+
   function resize() {
     if (!renderer || !camera) return;
     syncPerformanceMode();
@@ -173,9 +269,10 @@
     camera.updateProjectionMatrix();
 
     if (swordGroup) {
-      swordGroup.position.x = width < 760 ? 0 : 1.28;
-      swordGroup.position.y = width < 760 ? 0.62 : -0.08;
-      swordGroup.scale.setScalar(width < 760 ? 0.86 : 1);
+      const modelAsset = Boolean(swordGroup.userData.modelAsset);
+      swordGroup.position.x = width < 760 ? 0 : modelAsset ? 1.58 : 1.28;
+      swordGroup.position.y = width < 760 ? 0.62 : modelAsset ? 0.82 : -0.08;
+      swordGroup.scale.setScalar(width < 760 ? 0.86 : modelAsset ? 0.5 : 1);
     }
   }
 
@@ -183,7 +280,8 @@
     frameId = window.requestAnimationFrame(animate);
     if (!renderer || !scene || !camera || !swordGroup || !visible) return;
 
-    const t = now * 0.001;
+    if (!animationStartTime) animationStartTime = now;
+    const t = (now - animationStartTime) * 0.001;
     pointer.x += (pointer.tx - pointer.x) * 0.055;
     pointer.y += (pointer.ty - pointer.y) * 0.055;
 
@@ -226,78 +324,91 @@
       rimLight.position.set(-4.5, 1.6, -3.5);
       scene.add(rimLight);
 
-      const texture = await loadTexture(THREE, textureSrc, fallbackSrc);
-      texture.colorSpace = THREE.SRGBColorSpace;
-      texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+      if (!compactMode && modelSrc) {
+        try {
+          swordGroup = await createModelSwordGroup(THREE);
+        } catch (modelError) {
+          root.dataset.modelError = modelError && modelError.message
+            ? modelError.message.slice(0, 96)
+            : 'sword-hero-glb-fallback';
+        }
+      }
 
-      const imageWidth = texture.image?.naturalWidth || texture.image?.width || 1100;
-      const imageHeight = texture.image?.naturalHeight || texture.image?.height || 1650;
-      const aspect = imageWidth / Math.max(imageHeight, 1);
-      const objectHeight = 4.95;
-      const objectWidth = objectHeight * aspect;
+      if (!swordGroup) {
+        const texture = await loadTexture(THREE, textureSrc, fallbackSrc);
+        texture.colorSpace = THREE.SRGBColorSpace;
+        texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
 
-      swordGroup = new THREE.Group();
-      swordGroup.name = 'TaiyzunSwordHero';
+        const imageWidth = texture.image?.naturalWidth || texture.image?.width || 1100;
+        const imageHeight = texture.image?.naturalHeight || texture.image?.height || 1650;
+        const aspect = imageWidth / Math.max(imageHeight, 1);
+        const objectHeight = 4.95;
+        const objectWidth = objectHeight * aspect;
 
-      const objectDepth = compactMode ? 0.24 : 0.34;
-      const faceGeometry = new THREE.PlaneGeometry(objectWidth, objectHeight, 1, 1);
-      const frontMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        transparent: true,
-        alphaTest: 0.035,
-        metalness: 0.34,
-        roughness: 0.36,
-        side: THREE.FrontSide
-      });
+        swordGroup = new THREE.Group();
+        swordGroup.name = 'TaiyzunSwordHero';
 
-      const backMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        color: 0xd0a339,
-        transparent: true,
-        alphaTest: 0.035,
-        opacity: 0.72,
-        metalness: 0.48,
-        roughness: 0.34,
-        side: THREE.FrontSide
-      });
+        const objectDepth = compactMode ? 0.24 : 0.34;
+        const faceGeometry = new THREE.PlaneGeometry(objectWidth, objectHeight, 1, 1);
+        const frontMaterial = new THREE.MeshStandardMaterial({
+          map: texture,
+          transparent: true,
+          alphaTest: 0.035,
+          metalness: 0.34,
+          roughness: 0.36,
+          side: THREE.FrontSide
+        });
 
-      const sideMaterial = new THREE.MeshStandardMaterial({
-        color: 0xbe8e19,
-        metalness: 0.72,
-        roughness: 0.28,
-        transparent: true,
-        opacity: 0.96,
-        side: THREE.DoubleSide
-      });
+        const backMaterial = new THREE.MeshStandardMaterial({
+          map: texture,
+          color: 0xd0a339,
+          transparent: true,
+          alphaTest: 0.035,
+          opacity: 0.72,
+          metalness: 0.48,
+          roughness: 0.34,
+          side: THREE.FrontSide
+        });
 
-      const face = new THREE.Mesh(faceGeometry, frontMaterial);
-      face.position.z = objectDepth * 0.5 + 0.006;
-      swordGroup.add(face);
+        const sideMaterial = new THREE.MeshStandardMaterial({
+          color: 0xbe8e19,
+          metalness: 0.72,
+          roughness: 0.28,
+          transparent: true,
+          opacity: 0.96,
+          side: THREE.DoubleSide
+        });
 
-      const back = new THREE.Mesh(faceGeometry.clone(), backMaterial);
-      back.rotation.y = Math.PI;
-      back.position.z = -objectDepth * 0.5 - 0.006;
-      swordGroup.add(back);
+        const face = new THREE.Mesh(faceGeometry, frontMaterial);
+        face.position.z = objectDepth * 0.5 + 0.006;
+        swordGroup.add(face);
 
-      const sideGeometry = createAlphaExtrusionGeometry(THREE, texture.image, objectWidth, objectHeight, objectDepth);
-      if (sideGeometry) {
-        const side = new THREE.Mesh(sideGeometry, sideMaterial);
-        side.name = 'TaiyzunSwordAlphaExtrusion';
-        swordGroup.add(side);
+        const back = new THREE.Mesh(faceGeometry.clone(), backMaterial);
+        back.rotation.y = Math.PI;
+        back.position.z = -objectDepth * 0.5 - 0.006;
+        swordGroup.add(back);
 
-        root.dataset.geometry = 'alpha-extruded-silhouette';
-        root.dataset.depth = objectDepth.toFixed(2);
-        root.dataset.edgeSegments = String(sideGeometry.userData.edgeSegments || 0);
-        root.dataset.alphaSample = sideGeometry.userData.sample || '';
-      } else {
-        root.dataset.geometry = 'front-back-depth-fallback';
+        const sideGeometry = createAlphaExtrusionGeometry(THREE, texture.image, objectWidth, objectHeight, objectDepth);
+        if (sideGeometry) {
+          const side = new THREE.Mesh(sideGeometry, sideMaterial);
+          side.name = 'TaiyzunSwordAlphaExtrusion';
+          swordGroup.add(side);
+
+          root.dataset.geometry = 'alpha-extruded-silhouette';
+          root.dataset.depth = objectDepth.toFixed(2);
+          root.dataset.edgeSegments = String(sideGeometry.userData.edgeSegments || 0);
+          root.dataset.alphaSample = sideGeometry.userData.sample || '';
+        } else {
+          root.dataset.geometry = 'front-back-depth-fallback';
+        }
+
+        root.dataset.texture = textureSrc;
+        root.dataset.object = 'taiyzun-sword-logo-2021';
       }
 
       scene.add(swordGroup);
       resize();
       setStatus('ready');
-      root.dataset.texture = textureSrc;
-      root.dataset.object = 'taiyzun-sword-logo-2021';
       syncPerformanceMode();
       root.dataset.lighting = 'ambient-directional-rim';
       root.dataset.motion = reduceMotion ? 'reduced-y-axis' : 'smooth-second-hand-y-axis-rotation';

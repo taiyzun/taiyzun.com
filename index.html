@@ -308,7 +308,7 @@
 </script>
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-regular-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-italic-latin.woff2" crossorigin>
-<link rel="stylesheet" href="/css/taiyzun-index.bundle.min.css?v=20260703c">
+<link rel="stylesheet" href="/css/taiyzun-index.bundle.min.css?v=20260703d">
 <link rel="preload" as="image" href="/assets/easter-eggs/taiyzun-atme-3d-loader-192.avif" type="image/avif">
 <link rel="preload" as="image" href="/assets/images/taiyzun-sword-logo-2021.webp" type="image/webp">
 <!-- Performance: Prefetch other pages -->
@@ -345,6 +345,7 @@
   <div
     class="sword-hero-stage"
     data-sword-hero
+    data-sword-model="/assets/models/taiyzun-sword-logo-sharp-3d-lightweight.glb"
     data-sword-src="/assets/images/taiyzun-sword-logo-2021.webp"
     data-sword-fallback="/assets/images/taiyzun-sword-logo-2021.png"
     role="img"
@@ -802,17 +803,24 @@
 <script data-cfasync="false" src="/js/premium-experience.min.js?v=20260703a" defer></script>
 <script data-cfasync="false">
   (() => {
+    const useStaticMobileHero = () => window.matchMedia?.('(max-width: 700px), (prefers-reduced-motion: reduce)')?.matches;
+
     const loadSwordHero = () => {
+      if (useStaticMobileHero()) return;
       if (document.querySelector('script[data-sword-hero-runtime]')) return;
       const script = document.createElement('script');
       script.type = 'module';
-      script.src = '/js/sword-hero.min.js?v=20260625e';
+      script.src = '/js/sword-hero.min.js?v=20260703h';
       script.crossOrigin = 'anonymous';
       script.dataset.swordHeroRuntime = 'true';
       document.body.appendChild(script);
     };
 
     const scheduleSwordHero = () => {
+      if (useStaticMobileHero()) {
+        document.querySelector('[data-sword-hero]')?.setAttribute('data-status', 'mobile-static');
+        return;
+      }
       const mobileLite = Boolean(window.TAIYZUN_applyMobileLite?.());
       const delay = mobileLite ? 1800 : 420;
       window.setTimeout(() => {
@@ -831,7 +839,11 @@
     }
   })();
 </script>
-<script data-cfasync="false">window.TAIYZUN_load3DField?.('/js/taiyzun-3d-field.min.js?v=20260703b');</script>
+<script data-cfasync="false">
+  if (!window.matchMedia?.('(max-width: 700px), (prefers-reduced-motion: reduce)')?.matches) {
+    window.TAIYZUN_load3DField?.('/js/taiyzun-3d-field.min.js?v=20260703b');
+  }
+</script>
 <script data-cfasync="false">
   window.TAIYZUN_loadDesktopEnhancements?.([
     '/js/vendor/gsap.min.js?v=20260623b',
