@@ -85,7 +85,7 @@
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-regular-latin.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-bold-latin.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-italic-latin.woff2" crossorigin>
-<link rel="stylesheet" href="/css/taiyzun-creations.bundle.min.css?v=20260703a">
+<link rel="stylesheet" href="/css/taiyzun-creations.bundle.min.css?v=20260703b">
 <link rel="preload" as="image" href="/assets/easter-eggs/taiyzun-atme-3d-loader-192.avif" type="image/avif">
 </head>
 <body class="creations-page">
@@ -210,7 +210,11 @@
   let categoryItems = new Map();
   let categoryLoadCursor = 0;
   let shareStatusTimer = null;
+  let galleryAppendTimer = 0;
+  let galleryNextAppendAt = 0;
   const galleryCountEl = document.getElementById('galleryCount');
+  const GALLERY_APPEND_SETTLE_MS = siteMobileLite ? 520 : 720;
+  const SENTINEL_PRELOAD_MARGIN = siteMobileLite ? 160 : 220;
 
   function escapeHTML(v) {
     return String(v || '')
@@ -441,8 +445,25 @@
   }, { threshold: 0.04, rootMargin: '0px 0px -20px 0px' });
 
   const sentinelObs = new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting) void appendBatch();
-  }, { rootMargin: '300px' });
+    if (entries[0]?.isIntersecting) scheduleAppendBatch();
+  }, { rootMargin: `${SENTINEL_PRELOAD_MARGIN}px` });
+
+  function sentinelIsNearViewport() {
+    const sentinel = document.getElementById('gridSentinel');
+    if (!sentinel) return false;
+    const rect = sentinel.getBoundingClientRect();
+    return rect.top < window.innerHeight + SENTINEL_PRELOAD_MARGIN && rect.bottom > -SENTINEL_PRELOAD_MARGIN;
+  }
+
+  function scheduleAppendBatch() {
+    if (galleryLoadingMore || !galleryCatalogReady) return;
+    window.clearTimeout(galleryAppendTimer);
+    const delay = Math.max(0, galleryNextAppendAt - performance.now());
+    galleryAppendTimer = window.setTimeout(() => {
+      galleryAppendTimer = 0;
+      if (sentinelIsNearViewport()) void appendBatch();
+    }, delay);
+  }
 
   /* ── Init ── */
   async function init() {
@@ -505,6 +526,9 @@
     currentPage = 0;
     const grid = document.getElementById('artGrid');
     grid.innerHTML = '';
+    window.clearTimeout(galleryAppendTimer);
+    galleryAppendTimer = 0;
+    galleryNextAppendAt = performance.now();
     if (!activeTotal) {
       grid.innerHTML = '<div class="gallery-empty">No Images in This Category Yet.</div>';
       return;
@@ -531,6 +555,9 @@
       const grid = document.getElementById('artGrid');
       const oldSentinel = document.getElementById('gridSentinel');
       if (oldSentinel) { sentinelObs.unobserve(oldSentinel); oldSentinel.remove(); }
+      const fragment = document.createDocumentFragment();
+      const pendingImages = [];
+      const pendingRevealItems = [];
       for (let i = start; i < end; i++) {
         const item = filteredItems[i];
         const el = document.createElement('div');
@@ -542,19 +569,23 @@
         const fetchPriority = i < start + (siteMobileLite ? 4 : 8) ? 'auto' : 'low';
         el.innerHTML = `<img data-src="${thumb}" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="${t}" width="360" height="360" sizes="${GRID_IMAGE_SIZES}" loading="lazy" decoding="async" fetchpriority="${fetchPriority}"><div class="overlay"><span class="sparkle">✦</span><h3>${t}</h3><p>${s}</p></div>`;
         el.addEventListener('click', () => openLB(i));
-        grid.appendChild(el);
-        imgObs.observe(el.querySelector('img'));
-        revealObs.observe(el);
+        fragment.appendChild(el);
+        pendingImages.push(el.querySelector('img'));
+        pendingRevealItems.push(el);
       }
+      grid.appendChild(fragment);
+      pendingImages.forEach(img => { if (img) imgObs.observe(img); });
+      pendingRevealItems.forEach(el => revealObs.observe(el));
       currentPage++;
       if (currentPage * PAGE_SIZE < activeTotal) {
         const sentinel = document.createElement('div');
         sentinel.id = 'gridSentinel';
         sentinel.style.cssText = 'height:2px;';
         grid.appendChild(sentinel);
-        sentinelObs.observe(sentinel);
+        window.requestAnimationFrame(() => sentinelObs.observe(sentinel));
       }
     } finally {
+      galleryNextAppendAt = performance.now() + GALLERY_APPEND_SETTLE_MS;
       galleryLoadingMore = false;
     }
   }

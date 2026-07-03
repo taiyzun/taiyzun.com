@@ -185,7 +185,7 @@ html:has(body > .site-loader) {
   top: 0;
   will-change: transform, opacity;
   contain: layout style paint;
-  transform: translate3d(-9999px, -9999px, 0) translate(-50%, -50%);
+  transform: translate3d(0, 0, 0) translate(-50%, -50%) scale(0.01);
 }
 
 .cursor-ring {
