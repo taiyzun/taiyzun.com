@@ -792,9 +792,31 @@
 <script data-cfasync="false" src="/js/mobile-menu.min.js?v=20260623b" defer></script>
 <script data-cfasync="false">
   (function schedule3DField() {
+    const shouldKeepWebGLDeferred = () => {
+      const compactViewport = window.matchMedia?.('(max-width: 820px), (pointer: coarse)')?.matches;
+      const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+      const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+      const constrainedNetwork = Boolean(
+        connection &&
+        (connection.saveData || /(^|-)2g$|slow-2g/i.test(connection.effectiveType || ''))
+      );
+      const mobileAgent = /iP(hone|ad|od)|Android/i.test(navigator.userAgent || '');
+
+      return Boolean(compactViewport || reduceMotion || constrainedNetwork || mobileAgent);
+    };
+
     const load = () => window.TAIYZUN_load3DField?.('/js/taiyzun-3d-field.min.js?v=20260703b');
-    if (window.TAIYZUN_load3DField) load();
-    else window.addEventListener('taiyzun:mobile-lite-ready', load, { once: true });
+    const loadWhenSafe = () => {
+      if (shouldKeepWebGLDeferred()) {
+        document.documentElement.dataset.odysseyWebgl = 'mobile-deferred';
+        return;
+      }
+
+      document.documentElement.dataset.odysseyWebgl = 'desktop-enhanced';
+      load();
+    };
+    if (window.TAIYZUN_load3DField) loadWhenSafe();
+    else window.addEventListener('taiyzun:mobile-lite-ready', loadWhenSafe, { once: true });
   })();
 </script>
 <script data-cfasync="false">
