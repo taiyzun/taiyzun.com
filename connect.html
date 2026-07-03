@@ -95,7 +95,7 @@
 </script>
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-regular-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-italic-latin.woff2" crossorigin>
-<link rel="stylesheet" href="/css/taiyzun-connect.bundle.min.css?v=20260704e">
+<link rel="stylesheet" href="/css/taiyzun-connect.bundle.min.css?v=20260704g">
 <link rel="preload" as="image" href="/assets/easter-eggs/taiyzun-atme-3d-loader-192.avif" type="image/avif">
 </head>
 <body class="connect-page premium-ui-ready">
@@ -136,6 +136,17 @@
     aria-hidden="true">
     <canvas class="at-logo-3d-canvas" data-at-logo-3d-canvas></canvas>
     <img class="at-logo-3d-fallback" data-at-logo-3d-fallback src="/assets/easter-eggs/taiyzun-at-logo-blade-edge-gold-silver-384.webp" alt="" width="384" height="384" decoding="async" loading="lazy">
+  </div>
+  <div
+    class="sword-hero-stage page-sword-hero-stage"
+    data-sword-hero
+    data-sword-variant="page"
+    data-sword-model="/assets/models/taiyzun-sword-logo-samurai-sharp-web.glb"
+    data-sword-src="/assets/images/taiyzun-sword-logo-samurai-sharp-clean-transparent.webp"
+    data-sword-fallback="/assets/images/taiyzun-sword-logo-samurai-sharp-clean-transparent.png"
+    aria-hidden="true">
+    <canvas class="sword-hero-canvas" data-sword-hero-canvas></canvas>
+    <img class="sword-hero-fallback" data-sword-hero-fallback src="/assets/images/taiyzun-sword-logo-samurai-sharp-clean-transparent.webp" alt="" width="700" height="1800" decoding="async" loading="lazy">
   </div>
   <div class="page-hero-overlay"></div>
   <div class="page-hero-content">
@@ -275,6 +286,7 @@
 <script data-cfasync="false">
   window.TAIYZUN_loadDesktopEnhancements?.([
     '/js/taiyzun-at-logo-3d.min.js?v=20260704b',
+    '/js/sword-hero.min.js?v=20260704d',
     '/js/harmonic-interactions.min.js?v=20260623b'
   ]);
 </script>

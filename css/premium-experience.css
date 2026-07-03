@@ -329,6 +329,61 @@ body.premium-ui-ready .at-logo-3d-stage[data-status="ready"] .at-logo-3d-fallbac
   display: none;
 }
 
+body.premium-ui-ready .page-hero .page-sword-hero-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: block;
+  overflow: hidden;
+  pointer-events: none;
+  contain: layout paint style;
+  isolation: isolate;
+  opacity: 0.28;
+  mix-blend-mode: multiply;
+}
+
+body.premium-ui-ready .page-hero .page-sword-hero-stage .sword-hero-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 620ms ease;
+}
+
+body.premium-ui-ready .page-hero .page-sword-hero-stage[data-status="ready"] .sword-hero-canvas {
+  opacity: 1;
+}
+
+body.premium-ui-ready .page-hero .page-sword-hero-stage .sword-hero-fallback {
+  position: absolute;
+  top: 50%;
+  right: clamp(4rem, 11vw, 13rem);
+  display: block;
+  width: auto;
+  height: min(42vh, 350px);
+  max-height: min(42vh, 350px);
+  object-fit: contain;
+  opacity: 0.42;
+  filter:
+    drop-shadow(0 28px 58px rgba(75, 50, 12, 0.18))
+    saturate(1.04)
+    contrast(1.03);
+  transform: translate3d(0, -50%, 0) rotate(1deg);
+  transform-origin: 50% 50%;
+  transition: opacity 420ms ease;
+}
+
+body.premium-ui-ready .page-hero .page-sword-hero-stage[data-status="ready"] .sword-hero-fallback {
+  display: none;
+}
+
+body.premium-ui-ready.odyssey-page .page-hero .page-sword-hero-stage,
+body.premium-ui-ready.creations-page .page-hero .page-sword-hero-stage {
+  opacity: 0.24;
+}
+
 body.premium-ui-ready .hero-content,
 body.premium-ui-ready .page-hero-content {
   position: relative;
@@ -861,6 +916,10 @@ body.premium-ui-ready .error-num {
     opacity: 0.14;
     transform: translate3d(50%, -50%, 0) rotate(-1deg);
   }
+
+  body.premium-ui-ready .page-hero .page-sword-hero-stage {
+    display: none !important;
+  }
 }
 
 @media (max-width: 700px) {
@@ -940,6 +999,10 @@ body.premium-ui-ready .error-num {
     opacity: 0.12;
     filter: drop-shadow(0 16px 36px rgba(151, 108, 38, 0.16)) saturate(1.02);
     transform: translate3d(50%, -50%, 0) rotate(-2deg);
+  }
+
+  body.premium-ui-ready .page-hero .page-sword-hero-stage {
+    display: none !important;
   }
 
   body.premium-ui-ready.home-page .sword-hero .hero-content {
@@ -1040,6 +1103,10 @@ body.premium-ui-ready .error-num {
   }
 
   body.premium-ui-ready .at-logo-3d-canvas {
+    display: none !important;
+  }
+
+  body.premium-ui-ready .page-hero .page-sword-hero-stage {
     display: none !important;
   }
 

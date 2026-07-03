@@ -10,6 +10,9 @@
   root.dataset.status = 'loading';
 
   const hero = root.closest('.hero');
+  const heroSurface = root.closest('.hero, .page-hero');
+  const swordVariant = root.dataset.swordVariant || (root.closest('.page-hero') ? 'page' : 'home');
+  const isPageVariant = swordVariant === 'page' || swordVariant === 'inner-page';
   const modelSrc = root.dataset.swordModel || '/assets/models/taiyzun-sword-logo-samurai-sharp-web.glb';
   const textureSrc = root.dataset.swordSrc || '/assets/images/taiyzun-sword-logo-samurai-sharp-clean-transparent.webp';
   const fallbackSrc = root.dataset.swordFallback || '/assets/images/taiyzun-sword-logo-samurai-sharp-clean-transparent.png';
@@ -45,6 +48,7 @@
   function setStatus(status) {
     root.dataset.status = status;
     if (hero) hero.dataset.swordReady = String(status === 'ready');
+    if (heroSurface && heroSurface !== hero) heroSurface.dataset.swordReady = String(status === 'ready');
     if (fallback) {
       const fallbackInactive = status === 'ready';
       fallback.hidden = fallbackInactive;
@@ -72,12 +76,12 @@
     const maxScroll = Math.max(1, documentElement.scrollHeight - window.innerHeight);
     scroll.ty = clamp(window.scrollY / maxScroll, 0, 1);
 
-    if (!hero) {
+    if (!heroSurface) {
       scroll.thero = scroll.ty;
       return;
     }
 
-    const rect = hero.getBoundingClientRect();
+    const rect = heroSurface.getBoundingClientRect();
     const heroHeight = Math.max(rect.height, 1);
     scroll.thero = clamp(-rect.top / heroHeight, 0, 1);
   }
@@ -278,7 +282,7 @@
     group.userData.modelAsset = true;
     prepareMetallicGoldSword(THREE, model);
 
-    const bounds = normalizeModelToSwordFrame(THREE, model, 5.2);
+    const bounds = normalizeModelToSwordFrame(THREE, model, isPageVariant ? 4.75 : 5.2);
     group.add(model);
 
     root.dataset.geometry = 'glb-production-model';
@@ -300,7 +304,7 @@
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, compactMode ? 1.35 : largeViewportMode ? 1.2 : 1.75));
 
     camera.aspect = width / height;
-    camera.position.z = width < 760 ? 7.55 : largeViewportMode ? 6.35 : 6.55;
+    camera.position.z = width < 760 ? 7.55 : isPageVariant ? largeViewportMode ? 6.85 : 7.05 : largeViewportMode ? 6.35 : 6.55;
     camera.updateProjectionMatrix();
 
     if (swordGroup) {
@@ -311,6 +315,10 @@
         baseTransform.x = 0;
         baseTransform.y = 0.62;
         baseTransform.scale = 0.86;
+      } else if (isPageVariant) {
+        baseTransform.x = largeViewportMode ? 2.08 : 1.95;
+        baseTransform.y = largeViewportMode ? 0.28 : 0.24;
+        baseTransform.scale = largeViewportMode ? 0.36 : 0.33;
       } else if (modelAsset) {
         baseTransform.x = largeViewportMode ? 1.5 : 1.44;
         baseTransform.y = largeViewportMode ? 0.54 : 0.58;
@@ -342,14 +350,14 @@
     scroll.y += (scroll.ty - scroll.y) * 0.052;
     scroll.hero += (scroll.thero - scroll.hero) * 0.062;
 
-    const baseYaw = compactMode ? -0.18 : -0.28;
+    const baseYaw = compactMode ? -0.18 : isPageVariant ? -0.2 : -0.28;
     const motionSpeed = compactMode || largeViewportMode ? 0.72 : 0.92;
     const spin = reduceMotion ? scroll.hero * 0.16 : t * secondHandSweepSpeed * motionSpeed;
     const orbitPhase = spin + scroll.hero * Math.PI * 0.84;
-    const orbitStrength = compactMode ? 0.075 : largeViewportMode ? 0.13 : 0.18;
-    const scrollYaw = scroll.hero * (compactMode ? 0.22 : 0.48);
-    const pointerYaw = pointer.x * (compactMode ? 0.12 : 0.24);
-    const pointerPitch = pointer.y * (compactMode ? 0.045 : 0.072);
+    const orbitStrength = isPageVariant ? 0.075 : compactMode ? 0.075 : largeViewportMode ? 0.13 : 0.18;
+    const scrollYaw = scroll.hero * (isPageVariant ? 0.3 : compactMode ? 0.22 : 0.48);
+    const pointerYaw = pointer.x * (isPageVariant ? 0.16 : compactMode ? 0.12 : 0.24);
+    const pointerPitch = pointer.y * (isPageVariant ? 0.052 : compactMode ? 0.045 : 0.072);
     const breathing = reduceMotion ? 1 : 1 + Math.sin(t * secondHandSweepSpeed * 1.18) * 0.018;
 
     swordGroup.rotation.y = baseYaw + spin + scrollYaw + pointerYaw;
@@ -505,6 +513,7 @@
       syncPerformanceMode();
       root.dataset.lighting = 'ambient-hemisphere-key-fill-rim';
       root.dataset.motion = reduceMotion ? 'reduced-scroll-aware-pose' : 'smooth-time-scroll-pointer-revolution';
+      root.dataset.variant = swordVariant;
 
       window.addEventListener('resize', handleResize, { passive: true });
       window.addEventListener('scroll', updateScrollMotion, { passive: true });
