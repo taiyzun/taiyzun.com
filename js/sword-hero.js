@@ -10,9 +10,9 @@
   root.dataset.status = 'loading';
 
   const hero = root.closest('.hero');
-  const modelSrc = root.dataset.swordModel || '/assets/models/taiyzun-sword-logo-sharp-3d-lightweight.glb';
-  const textureSrc = root.dataset.swordSrc || '/assets/images/taiyzun-sword-logo-2021.webp';
-  const fallbackSrc = root.dataset.swordFallback || '/assets/images/taiyzun-sword-logo-2021.png';
+  const modelSrc = root.dataset.swordModel || '/assets/models/taiyzun-sword-logo-samurai-sharp-web.glb';
+  const textureSrc = root.dataset.swordSrc || '/assets/images/taiyzun-sword-logo-samurai-sharp-clean-transparent.webp';
+  const fallbackSrc = root.dataset.swordFallback || '/assets/images/taiyzun-sword-logo-samurai-sharp-clean-transparent.png';
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const coarsePointer = window.matchMedia('(pointer: coarse), (max-width: 820px)').matches;
   const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
@@ -273,7 +273,7 @@
     root.dataset.geometry = 'glb-production-model';
     root.dataset.model = modelSrc;
     root.dataset.modelBounds = `${bounds.width.toFixed(2)}x${bounds.height.toFixed(2)}x${bounds.depth.toFixed(2)}`;
-    root.dataset.object = 'taiyzun-sword-logo-sharp-3d-lightweight';
+    root.dataset.object = 'taiyzun-sword-logo-samurai-sharp-web';
     return group;
   }
 
@@ -462,7 +462,7 @@
         }
 
         root.dataset.texture = textureSrc;
-        root.dataset.object = 'taiyzun-sword-logo-2021';
+        root.dataset.object = 'taiyzun-sword-logo-samurai-sharp-clean-transparent';
       }
 
       scene.add(swordGroup);

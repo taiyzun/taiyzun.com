@@ -755,10 +755,33 @@ body.premium-ui-ready .error-num {
       linear-gradient(145deg, #fffdf7 0%, #f5ecd9 58%, #fffaf0 100%);
   }
 
-  body.premium-ui-ready.home-page .sword-hero-stage,
   body.premium-ui-ready.home-page [data-webgl="home-particles"],
   body.premium-ui-ready.home-page .particles {
     display: none !important;
+  }
+
+  body.premium-ui-ready.home-page .sword-hero-stage {
+    display: block !important;
+    z-index: 0;
+    opacity: 0.2;
+    mix-blend-mode: multiply;
+    transform: translate3d(0, -9svh, 0) scale(0.8);
+    transform-origin: 50% 18%;
+  }
+
+  body.premium-ui-ready.home-page .sword-hero-stage[data-status="mobile-static"] .sword-hero-canvas {
+    display: none !important;
+  }
+
+  body.premium-ui-ready.home-page .sword-hero-stage[data-status="mobile-static"] .sword-hero-fallback {
+    display: block !important;
+    top: 31% !important;
+    right: 50% !important;
+    width: auto !important;
+    height: min(50svh, 390px) !important;
+    max-height: min(50svh, 390px) !important;
+    opacity: 0.86 !important;
+    transform: translate3d(50%, -50%, 0) rotate(0.5deg) !important;
   }
 
   body.premium-ui-ready.home-page .sword-hero .hero-content {

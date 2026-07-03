@@ -40,6 +40,7 @@ const publicAssetFiles = [
   'assets/easter-eggs/taiyzun-atme-3d-loader-192.webp',
   'assets/easter-eggs/taiyzun-atme-3d-loader-192.png',
   'assets/models/taiyzun-sword-logo-sharp-3d-lightweight.glb',
+  'assets/models/taiyzun-sword-logo-samurai-sharp-web.glb',
   'assets/Art/art_00001.jpg',
   'assets/Art/art_00002.jpg',
   'assets/Art/art_00003.jpg',

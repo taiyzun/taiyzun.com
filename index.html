@@ -308,9 +308,9 @@
 </script>
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-regular-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-italic-latin.woff2" crossorigin>
-<link rel="stylesheet" href="/css/taiyzun-index.bundle.min.css?v=20260703e">
+<link rel="stylesheet" href="/css/taiyzun-index.bundle.min.css?v=20260704a">
 <link rel="preload" as="image" href="/assets/easter-eggs/taiyzun-atme-3d-loader-192.avif" type="image/avif">
-<link rel="preload" as="image" href="/assets/images/taiyzun-sword-logo-2021.webp" type="image/webp">
+<link rel="preload" as="image" href="/assets/images/taiyzun-sword-logo-samurai-sharp-clean-transparent.webp" type="image/webp">
 <!-- Performance: Prefetch other pages -->
 </head>
 <body class="home-page">
@@ -345,19 +345,19 @@
   <div
     class="sword-hero-stage"
     data-sword-hero
-    data-sword-model="/assets/models/taiyzun-sword-logo-sharp-3d-lightweight.glb"
-    data-sword-src="/assets/images/taiyzun-sword-logo-2021.webp"
-    data-sword-fallback="/assets/images/taiyzun-sword-logo-2021.png"
+    data-sword-model="/assets/models/taiyzun-sword-logo-samurai-sharp-web.glb"
+    data-sword-src="/assets/images/taiyzun-sword-logo-samurai-sharp-clean-transparent.webp"
+    data-sword-fallback="/assets/images/taiyzun-sword-logo-samurai-sharp-clean-transparent.png"
     role="img"
     aria-label="Rotating Taiyzun sword logo">
     <canvas class="sword-hero-canvas" data-sword-hero-canvas aria-hidden="true"></canvas>
     <img
       class="sword-hero-fallback"
       data-sword-hero-fallback
-      src="/assets/images/taiyzun-sword-logo-2021.webp"
+      src="/assets/images/taiyzun-sword-logo-samurai-sharp-clean-transparent.webp"
       alt=""
-      width="1100"
-      height="1650"
+      width="700"
+      height="1800"
       decoding="async"
       fetchpriority="high">
   </div>
@@ -810,7 +810,7 @@
       if (document.querySelector('script[data-sword-hero-runtime]')) return;
       const script = document.createElement('script');
       script.type = 'module';
-      script.src = '/js/sword-hero.min.js?v=20260704a';
+      script.src = '/js/sword-hero.min.js?v=20260704b';
       script.crossOrigin = 'anonymous';
       script.dataset.swordHeroRuntime = 'true';
       document.body.appendChild(script);
