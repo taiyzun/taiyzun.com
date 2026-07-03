@@ -436,7 +436,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     const decor = new THREE.Group();
     const decorObjects = [];
     const decorObjectsByIndex = [];
-    const decorMotionClusterSizes = compactMode ? [4, 7] : largeViewportMode ? [4, 7, 12, 12] : [4, 7, 12, 21];
+    const decorMotionClusterSizes = compactMode ? [4, 7] : largeViewportMode ? [4, 7, 12] : [4, 7, 12, 21];
     const decorMotionClusterBudget = decorMotionClusterSizes.reduce((total, size) => total + size, 0);
     const decorMotionClusters = [];
     const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
@@ -445,7 +445,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       targetY: window.scrollY || 0
     };
     const secondHandSweepSpeed = (Math.PI * 2) / 60;
-    const quality = compactMode ? 0.58 : largeViewportMode ? 0.78 : 1;
+    const quality = compactMode ? 0.58 : largeViewportMode ? 0.68 : 1;
     const fieldCssOffset = { x: 0, y: 0, ready: false };
     let liquidLinks = null;
     let liquidLinkPositions = null;
@@ -463,7 +463,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     camera.position.set(0, 0, compactMode ? 10.5 : 9.2);
     renderer.setClearColor(0x000000, 0);
 
-    const pointCount = compactMode ? 56 : largeViewportMode ? 128 : 220;
+    const pointCount = compactMode ? 56 : largeViewportMode ? 96 : 220;
     const positions = new Float32Array(pointCount * 3);
     const colours = new Float32Array(pointCount * 3);
     const colour = new THREE.Color(theme.node);
@@ -502,7 +502,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     micro.add(points);
 
     const linePositions = [];
-    const lineStride = compactMode ? 10 : largeViewportMode ? 9 : 7;
+    const lineStride = compactMode ? 10 : largeViewportMode ? 11 : 7;
     for (let i = 0; i < pointCount - lineStride; i += lineStride) {
       const a = i * 3;
       const b = (i + lineStride) * 3;
@@ -534,7 +534,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     const rings = compactMode ? 3 : largeViewportMode ? 4 : 5;
     for (let i = 0; i < rings; i += 1) {
       const ring = new THREE.Mesh(
-        new THREE.TorusGeometry(1.42 + i * 0.88, 0.006 + i * 0.0018, 8, largeViewportMode ? 96 : 128),
+        new THREE.TorusGeometry(1.42 + i * 0.88, 0.006 + i * 0.0018, 8, largeViewportMode ? 80 : 128),
         ringMaterial.clone()
       );
       ring.rotation.set(Math.PI / (2.7 + i * 0.21), i * 0.42, i * 0.18);
@@ -903,7 +903,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       root.dataset.decor3dClusters = String(decorMotionClusters.length);
       root.dataset.decor3dClusterRequested = decorMotionClusterSizes.join('|');
       root.dataset.decor3dClusterPlan = decorMotionClusters.map((cluster) => cluster.count).join('|');
-      root.dataset.decor3dUniqueMotion = compactMode ? 'clustered-4-7' : largeViewportMode ? 'clustered-4-7-12-balanced' : 'clustered-4-7-12-21';
+          root.dataset.decor3dUniqueMotion = compactMode ? 'clustered-4-7' : largeViewportMode ? 'clustered-4-7-12-fullscreen-smooth' : 'clustered-4-7-12-21';
       liquidLinkPositions = new Float32Array(selectedAssets.length * 2 * 3);
       liquidLinkGeometry = new THREE.BufferGeometry();
       liquidLinkGeometry.setAttribute('position', new THREE.BufferAttribute(liquidLinkPositions, 3).setUsage(THREE.DynamicDrawUsage));
@@ -1372,7 +1372,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
         root.dataset.nativeAssetScale = 'native-uniform-scale';
         root.dataset.uniqueAssets = String(new Set(orderedObjects.map((object) => object.userData.asset)).size);
         root.dataset.decor3dUniqueAssets = root.dataset.uniqueAssets;
-        root.dataset.decor3dUniqueMotion = compactMode ? 'clustered-4-7' : largeViewportMode ? 'clustered-4-7-12-balanced' : 'clustered-4-7-12-21';
+        root.dataset.decor3dUniqueMotion = compactMode ? 'clustered-4-7' : largeViewportMode ? 'clustered-4-7-12-fullscreen-smooth' : 'clustered-4-7-12-21';
       }
 
       renderer.render(scene, camera);

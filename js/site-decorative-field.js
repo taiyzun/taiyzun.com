@@ -292,6 +292,12 @@
     { key: "glide-rise", pattern: "glide", dirX: 1, dirY: -1, rotDir: 1 },
     { key: "glide-fall", pattern: "glide", dirX: -1, dirY: 1, rotDir: -1 }
   ];
+  const motionGroupProfiles = [
+    { label: "4", speed: 0.12, ampX: 18, ampY: 12, rotAmp: 0.34, zoomAmp: 0.006, scrollX: 0.012, scrollY: -0.038, pointerX: 7, pointerY: 5 },
+    { label: "7", speed: 0.085, ampX: 24, ampY: 16, rotAmp: -0.42, zoomAmp: 0.008, scrollX: -0.016, scrollY: 0.046, pointerX: -8, pointerY: 6 },
+    { label: "12", speed: 0.062, ampX: 30, ampY: 20, rotAmp: 0.52, zoomAmp: 0.01, scrollX: 0.018, scrollY: 0.032, pointerX: 10, pointerY: -7 },
+    { label: "21", speed: 0.044, ampX: 38, ampY: 24, rotAmp: -0.64, zoomAmp: 0.012, scrollX: -0.01, scrollY: -0.028, pointerX: -11, pointerY: -8 }
+  ];
   const legacyDecoratives = document.querySelectorAll(
     ".hero-decorative-png, .decor-top-left, .decor-top-right, .decor-bottom-left, .decor-center-right, .easter-egg, .parallax-el"
   );
@@ -302,6 +308,7 @@
   let resizeHandle = 0;
   let pointerObserver = null;
   let decorativeFieldStarted = false;
+  let motionGroups = [];
   const supportsFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
   const pointerState = {
     targetX: 0,
@@ -496,7 +503,7 @@
     const pageMultiplier = Math.max(1, Math.ceil(Math.max(document.body.scrollHeight, window.innerHeight) / Math.max(window.innerHeight, 1)));
 
     if (window.innerWidth >= 1280) {
-      return Math.min(decorativeAssets.length, pageKey === "home-page" ? 24 : 22 + pageMultiplier * 2);
+      return Math.min(21, pageKey === "home-page" ? 21 : 15 + pageMultiplier * 2);
     }
     if (window.innerWidth >= 768) {
       return Math.min(18, 10 + pageMultiplier * 2);
@@ -538,17 +545,18 @@
       max *= 0.86;
     }
 
-    return Math.round(min + rng() * (max - min));
+    const desktopScale = window.innerWidth >= 1280 ? 1.08 : 1;
+    return Math.round((min + rng() * (max - min)) * desktopScale);
   }
 
   function motionMetrics(pattern, isHero, rng) {
     const heroBoost = isHero ? 1.18 : 1;
-    const baseAmpX = (16 + rng() * 28) * heroBoost;
-    const baseAmpY = (14 + rng() * 26) * heroBoost;
-    const baseSpeed = 0.38 + rng() * 0.72;
+    const baseAmpX = (22 + rng() * 34) * heroBoost;
+    const baseAmpY = (18 + rng() * 30) * heroBoost;
+    const baseSpeed = 0.08 + rng() * 0.16;
     const introDelay = (isHero ? 0.34 : 0.18) + rng() * 0.9;
     const introRamp = 0.55 + rng() * 0.55;
-    const rotAmp = 0.45 + rng() * 1.25;
+    const rotAmp = 0.32 + rng() * 0.82;
 
     switch (pattern) {
       case "orbit":
@@ -601,6 +609,63 @@
         })
       ) || ordered[0]
     );
+  }
+
+  function buildMotionGroups(itemCount) {
+    const groupCount = Math.min(
+      motionGroupProfiles.length,
+      Math.max(1, itemCount >= 12 ? 4 : itemCount >= 7 ? 3 : itemCount >= 4 ? 2 : 1)
+    );
+
+    return motionGroupProfiles.slice(0, groupCount).map((profile, index) => {
+      const rng = createRng(hashString(`${pageLoadNonce}:motion-group:${profile.label}:${itemCount}`));
+      const direction = rng() > 0.5 ? 1 : -1;
+
+      return {
+        index,
+        label: profile.label,
+        phase: rng() * Math.PI * 2 + index * 0.77,
+        secondaryPhase: rng() * Math.PI * 2 + index * 1.17,
+        speed: profile.speed * (0.86 + rng() * 0.28),
+        secondarySpeed: profile.speed * (0.38 + rng() * 0.22),
+        ampX: profile.ampX * (0.82 + rng() * 0.34),
+        ampY: profile.ampY * (0.82 + rng() * 0.34),
+        rotAmp: profile.rotAmp * (0.78 + rng() * 0.28),
+        zoomAmp: profile.zoomAmp * (0.82 + rng() * 0.34),
+        scrollX: profile.scrollX * direction,
+        scrollY: profile.scrollY,
+        pointerX: profile.pointerX,
+        pointerY: profile.pointerY
+      };
+    });
+  }
+
+  function groupFrame(group, time, scrollY, scrollVelocity, pointerEnabled) {
+    if (!group || prefersReducedMotion.matches) {
+      return { x: 0, y: 0, rotation: 0, scale: 1 };
+    }
+
+    const primary = time * group.speed + group.phase;
+    const secondary = time * group.secondarySpeed + group.secondaryPhase;
+    const pointerX = pointerEnabled ? pointerState.x : 0;
+    const pointerY = pointerEnabled ? pointerState.y : 0;
+
+    return {
+      x:
+        Math.sin(primary) * group.ampX +
+        Math.cos(secondary) * group.ampX * 0.22 +
+        scrollY * group.scrollX +
+        scrollVelocity * group.scrollX * 0.8 +
+        pointerX * group.pointerX,
+      y:
+        Math.cos(primary * 0.82) * group.ampY +
+        Math.sin(secondary * 0.74) * group.ampY * 0.18 +
+        scrollY * group.scrollY +
+        scrollVelocity * group.scrollY * 0.58 +
+        pointerY * group.pointerY,
+      rotation: Math.sin(primary * 0.52) * group.rotAmp + pointerX * group.rotAmp * 0.28,
+      scale: 1 + Math.sin(secondary * 0.66) * group.zoomAmp + Math.hypot(pointerX, pointerY) * group.zoomAmp * 0.35
+    };
   }
 
   function buildSectionSlots() {
@@ -667,9 +732,9 @@
     }
     const motionVariant = pickMotionVariant(baseX, baseY, width, priorPlacements, rng);
     const metrics = motionMetrics(motionVariant.pattern, isHero, rng);
-    const scrollXFactor = (0.035 + rng() * 0.095) * motionVariant.dirX;
-    const scrollYFactor = (0.115 + rng() * 0.22) * motionVariant.dirY;
-    const scrollSpeedFactor = (0.028 + rng() * 0.055) * (rng() > 0.5 ? 1 : -1);
+    const scrollXFactor = (0.012 + rng() * 0.032) * motionVariant.dirX;
+    const scrollYFactor = (0.035 + rng() * 0.075) * motionVariant.dirY;
+    const scrollSpeedFactor = (0.004 + rng() * 0.012) * (rng() > 0.5 ? 1 : -1);
     const driftAmpX = prefersReducedMotion.matches ? 0 : metrics.ampX;
     const driftAmpY = prefersReducedMotion.matches ? 0 : metrics.ampY;
     const driftSpeed = metrics.speed;
@@ -683,6 +748,7 @@
     const pointerRotate = (0.45 + rng() * 1.25) * motionVariant.rotDir;
     const opacity = isHero ? 0.14 + rng() * 0.06 : 0.09 + rng() * 0.05;
     const image = document.createElement("img");
+    const groupIndex = motionGroups.length ? assetIndex % motionGroups.length : 0;
 
     image.className = `site-decorative-png${isHero ? " is-hero-decor" : ""}`;
     const optimizedAsset = optimizedAssetSet(assetPath);
@@ -719,6 +785,30 @@
     image.dataset.motionKey = motionVariant.key;
     image.dataset.motionDelay = introDelay.toFixed(5);
     image.dataset.motionRamp = introRamp.toFixed(5);
+    image.dataset.motionGroup = motionGroups[groupIndex]?.label || "1";
+    image._decorState = {
+      baseX,
+      baseY,
+      width,
+      scrollXFactor,
+      scrollYFactor,
+      scrollSpeedFactor,
+      driftAmpX,
+      driftAmpY,
+      driftSpeed,
+      driftPhase,
+      baseRotation: 0,
+      rotationDrift,
+      rotationScroll,
+      pointerDepth,
+      pointerLift,
+      pointerRotate,
+      motionPattern: motionVariant.pattern,
+      motionDelay: introDelay,
+      motionRamp: introRamp,
+      groupIndex,
+      lastTransform: ""
+    };
 
     return image;
   }
@@ -750,78 +840,79 @@
       pointerState.y = 0;
     }
 
+    const scrollVelocity = Number(field.dataset.scrollVelocity || 0);
+    const viewportTop = scrollY - window.innerHeight * 1.35;
+    const viewportBottom = scrollY + window.innerHeight * 2.25;
+    const groupFrames = motionGroups.map((group) => groupFrame(group, time, scrollY, scrollVelocity, pointerEnabled));
+
     items.forEach((image) => {
-      const baseX = Number(image.dataset.baseX || 0);
-      const baseY = Number(image.dataset.baseY || 0);
-      const scrollXFactor = Number(image.dataset.scrollXFactor || 0);
-      const scrollYFactor = Number(image.dataset.scrollYFactor || 0);
-      const scrollSpeedFactor = Number(image.dataset.scrollSpeedFactor || 0);
-      const driftAmpX = Number(image.dataset.driftAmpX || 0);
-      const driftAmpY = Number(image.dataset.driftAmpY || 0);
-      const driftSpeed = Number(image.dataset.driftSpeed || 0);
-      const driftPhase = Number(image.dataset.driftPhase || 0);
-      const motionPattern = image.dataset.motionPattern || "drift";
-      const motionDelay = Number(image.dataset.motionDelay || 0);
-      const motionRamp = Number(image.dataset.motionRamp || 0.6);
-      const baseRotation = Number(image.dataset.baseRotation || 0);
-      const rotationDrift = Number(image.dataset.rotationDrift || 0);
-      const rotationScroll = Number(image.dataset.rotationScroll || 0);
-      const pointerDepth = Number(image.dataset.pointerDepth || 0);
-      const pointerLift = Number(image.dataset.pointerLift || 0);
-      const pointerRotate = Number(image.dataset.pointerRotate || 0);
-      const liveTime = Math.max(0, time - motionDelay);
-      const ramp = prefersReducedMotion.matches ? 0 : clamp(liveTime / Math.max(motionRamp, 0.001), 0, 1);
+      const state = image._decorState;
+      if (!state) return;
+
+      const liveTime = Math.max(0, time - state.motionDelay);
+      const ramp = prefersReducedMotion.matches ? 0 : clamp(liveTime / Math.max(state.motionRamp, 0.001), 0, 1);
       let driftX = 0;
       let driftY = 0;
       let rotationWave = 0;
 
       if (!prefersReducedMotion.matches && liveTime > 0) {
-        const motionTime = liveTime * driftSpeed;
+        const motionTime = liveTime * state.driftSpeed;
 
-        switch (motionPattern) {
+        switch (state.motionPattern) {
           case "orbit":
-            driftX = Math.cos(motionTime * 1.04 + driftPhase) * driftAmpX;
-            driftY = Math.sin(motionTime * 1.04 + driftPhase) * driftAmpY;
-            rotationWave = Math.sin(motionTime * 0.62 + driftPhase) * rotationDrift;
+            driftX = Math.cos(motionTime * 1.04 + state.driftPhase) * state.driftAmpX;
+            driftY = Math.sin(motionTime * 1.04 + state.driftPhase) * state.driftAmpY;
+            rotationWave = Math.sin(motionTime * 0.62 + state.driftPhase) * state.rotationDrift;
             break;
           case "sway":
-            driftX = Math.sin(motionTime * 1.16 + driftPhase) * driftAmpX;
-            driftY = Math.sin(motionTime * 0.58 + driftPhase) * driftAmpY;
-            rotationWave = Math.sin(motionTime * 0.8 + driftPhase) * rotationDrift;
+            driftX = Math.sin(motionTime * 1.16 + state.driftPhase) * state.driftAmpX;
+            driftY = Math.sin(motionTime * 0.58 + state.driftPhase) * state.driftAmpY;
+            rotationWave = Math.sin(motionTime * 0.8 + state.driftPhase) * state.rotationDrift;
             break;
           case "glide":
             driftX =
-              Math.sin(motionTime * 0.74 + driftPhase) * driftAmpX +
-              Math.cos(motionTime * 0.34 + driftPhase) * driftAmpX * 0.26;
-            driftY = Math.cos(motionTime * 0.86 + driftPhase) * driftAmpY;
-            rotationWave = Math.sin(motionTime * 0.52 + driftPhase) * rotationDrift;
+              Math.sin(motionTime * 0.74 + state.driftPhase) * state.driftAmpX +
+              Math.cos(motionTime * 0.34 + state.driftPhase) * state.driftAmpX * 0.26;
+            driftY = Math.cos(motionTime * 0.86 + state.driftPhase) * state.driftAmpY;
+            rotationWave = Math.sin(motionTime * 0.52 + state.driftPhase) * state.rotationDrift;
             break;
           default:
-            driftX = Math.sin(motionTime + driftPhase) * driftAmpX;
-            driftY = Math.cos(motionTime * 0.92 + driftPhase) * driftAmpY;
-            rotationWave = Math.sin(motionTime * 0.65 + driftPhase) * rotationDrift;
+            driftX = Math.sin(motionTime + state.driftPhase) * state.driftAmpX;
+            driftY = Math.cos(motionTime * 0.92 + state.driftPhase) * state.driftAmpY;
+            rotationWave = Math.sin(motionTime * 0.65 + state.driftPhase) * state.rotationDrift;
             break;
         }
       }
 
       driftX *= ramp;
       driftY *= ramp;
-      const shiftX = prefersReducedMotion.matches ? 0 : scrollY * scrollXFactor * ramp;
-      const scrollVelocity = Number(field.dataset.scrollVelocity || 0);
-      const shiftY = prefersReducedMotion.matches ? 0 : (scrollY * scrollYFactor + scrollVelocity * scrollSpeedFactor) * ramp;
-      const pointerX = pointerEnabled ? pointerState.x * pointerDepth * ramp : 0;
-      const pointerY = pointerEnabled ? pointerState.y * pointerLift * ramp : 0;
-      const pointerTurn = pointerEnabled ? pointerState.x * pointerRotate * ramp : 0;
-      const pointerScale = pointerEnabled ? 1 + Math.min(0.025, Math.hypot(pointerState.x, pointerState.y) * 0.012 * ramp) : 1;
+      const group = groupFrames[state.groupIndex] || { x: 0, y: 0, rotation: 0, scale: 1 };
+      const shiftX = prefersReducedMotion.matches ? 0 : scrollY * state.scrollXFactor * ramp;
+      const shiftY = prefersReducedMotion.matches ? 0 : (scrollY * state.scrollYFactor + scrollVelocity * state.scrollSpeedFactor) * ramp;
+      const pointerX = pointerEnabled ? pointerState.x * state.pointerDepth * ramp : 0;
+      const pointerY = pointerEnabled ? pointerState.y * state.pointerLift * ramp : 0;
+      const pointerTurn = pointerEnabled ? pointerState.x * state.pointerRotate * ramp : 0;
+      const pointerScale = pointerEnabled ? 1 + Math.min(0.018, Math.hypot(pointerState.x, pointerState.y) * 0.008 * ramp) : 1;
       const rotation = prefersReducedMotion.matches
-        ? baseRotation
-        : baseRotation + scrollY * rotationScroll * ramp + rotationWave * ramp + pointerTurn;
+        ? state.baseRotation
+        : state.baseRotation + scrollY * state.rotationScroll * ramp + rotationWave * ramp + pointerTurn + group.rotation * ramp;
+      const x = state.baseX + shiftX + driftX + pointerX + group.x * ramp;
+      const y = state.baseY + shiftY + driftY + pointerY + group.y * ramp;
+      const width = state.width || 0;
+
+      if (!force && (y + width < viewportTop || y - width > viewportBottom)) {
+        return;
+      }
 
       if (force) {
         image.style.opacity = image.style.getPropertyValue("--decor-opacity");
       }
 
-      image.style.transform = `translate3d(${baseX + shiftX + driftX + pointerX}px, ${baseY + shiftY + driftY + pointerY}px, 0) rotate(${rotation}deg) scale(${pointerScale})`;
+      const nextTransform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0) rotate(${rotation.toFixed(3)}deg) scale(${(pointerScale * group.scale).toFixed(4)})`;
+      if (force || nextTransform !== state.lastTransform) {
+        image.style.transform = nextTransform;
+        state.lastTransform = nextTransform;
+      }
     });
   }
 
@@ -832,6 +923,7 @@
 
     field.innerHTML = "";
     items.length = 0;
+    motionGroups = buildMotionGroups(slots.length);
     field.dataset.lastScrollY = String(window.scrollY);
     field.dataset.scrollVelocity = "0";
     field.style.height = `${Math.max(document.body.scrollHeight, document.documentElement.scrollHeight)}px`;
