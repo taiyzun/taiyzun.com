@@ -30,6 +30,7 @@
   let camera = null;
   let swordGroup = null;
   let keyLight = null;
+  let fillLight = null;
   let rimLight = null;
   let frameId = 0;
   let animationStartTime = 0;
@@ -197,13 +198,23 @@
         child.geometry.computeVertexNormals();
       }
 
-      child.material = new THREE.MeshStandardMaterial({
+      const materialOptions = {
         color: 0xd4a43a,
-        metalness: 0.88,
-        roughness: 0.22,
-        envMapIntensity: 0.86,
+        metalness: 0.94,
+        roughness: 0.18,
+        envMapIntensity: 1.18,
         side: THREE.DoubleSide
-      });
+      };
+
+      child.material = THREE.MeshPhysicalMaterial
+        ? new THREE.MeshPhysicalMaterial({
+            ...materialOptions,
+            clearcoat: 0.52,
+            clearcoatRoughness: 0.22,
+            reflectivity: 0.74
+          })
+        : new THREE.MeshStandardMaterial(materialOptions);
+      child.material.needsUpdate = true;
       child.castShadow = false;
       child.receiveShadow = false;
       child.frustumCulled = false;
@@ -289,15 +300,27 @@
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, compactMode ? 1.35 : largeViewportMode ? 1.2 : 1.75));
 
     camera.aspect = width / height;
-    camera.position.z = width < 760 ? 7.55 : 6.75;
+    camera.position.z = width < 760 ? 7.55 : largeViewportMode ? 6.35 : 6.55;
     camera.updateProjectionMatrix();
 
     if (swordGroup) {
       const modelAsset = Boolean(swordGroup.userData.modelAsset);
-      baseTransform.x = width < 760 ? 0 : modelAsset ? 1.58 : 1.28;
-      baseTransform.y = width < 760 ? 0.62 : modelAsset ? 0.82 : -0.08;
       baseTransform.z = 0;
-      baseTransform.scale = width < 760 ? 0.86 : modelAsset ? 0.5 : 1;
+
+      if (width < 760) {
+        baseTransform.x = 0;
+        baseTransform.y = 0.62;
+        baseTransform.scale = 0.86;
+      } else if (modelAsset) {
+        baseTransform.x = largeViewportMode ? 1.5 : 1.44;
+        baseTransform.y = largeViewportMode ? 0.54 : 0.58;
+        baseTransform.scale = largeViewportMode ? 0.62 : 0.58;
+      } else {
+        baseTransform.x = 1.28;
+        baseTransform.y = -0.08;
+        baseTransform.scale = 1;
+      }
+
       swordGroup.position.set(baseTransform.x, baseTransform.y, baseTransform.z);
       swordGroup.scale.setScalar(baseTransform.scale);
     }
@@ -342,8 +365,13 @@
       keyLight.position.y = 4.1 - pointer.y * 0.34 + scroll.hero * 0.24;
     }
 
+    if (fillLight) {
+      fillLight.position.x = -2.8 + pointer.x * 0.42;
+      fillLight.intensity = 0.64 + scroll.hero * 0.12;
+    }
+
     if (rimLight) {
-      rimLight.intensity = 1.08 + Math.abs(pointer.x) * 0.18 + scroll.hero * 0.16;
+      rimLight.intensity = 1.2 + Math.abs(pointer.x) * 0.22 + scroll.hero * 0.18;
     }
 
     if (now - lastMotionDatasetUpdate > 240) {
@@ -373,13 +401,18 @@
       scene = new THREE.Scene();
       camera = new THREE.PerspectiveCamera(40, 1, 0.1, 40);
 
-      scene.add(new THREE.AmbientLight(0xffedbf, 1.45));
+      scene.add(new THREE.AmbientLight(0xffedbf, 1.22));
+      scene.add(new THREE.HemisphereLight(0xfff2cf, 0x4b3820, 0.72));
 
-      keyLight = new THREE.DirectionalLight(0xffffff, 2.4);
-      keyLight.position.set(3.2, 4.1, 5.5);
+      keyLight = new THREE.DirectionalLight(0xffffff, 2.75);
+      keyLight.position.set(3.4, 4.25, 5.65);
       scene.add(keyLight);
 
-      rimLight = new THREE.DirectionalLight(0xd3a64b, 1.15);
+      fillLight = new THREE.DirectionalLight(0x8fb1ff, 0.64);
+      fillLight.position.set(-2.8, -0.8, 3.3);
+      scene.add(fillLight);
+
+      rimLight = new THREE.DirectionalLight(0xffc86c, 1.2);
       rimLight.position.set(-4.5, 1.6, -3.5);
       scene.add(rimLight);
 
@@ -470,7 +503,7 @@
       updateScrollMotion();
       setStatus('ready');
       syncPerformanceMode();
-      root.dataset.lighting = 'ambient-directional-rim';
+      root.dataset.lighting = 'ambient-hemisphere-key-fill-rim';
       root.dataset.motion = reduceMotion ? 'reduced-scroll-aware-pose' : 'smooth-time-scroll-pointer-revolution';
 
       window.addEventListener('resize', handleResize, { passive: true });

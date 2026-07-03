@@ -887,8 +887,8 @@ body.premium-ui-ready .error-num {
     z-index: 0;
     opacity: 0.2;
     mix-blend-mode: multiply;
-    transform: translate3d(0, -9svh, 0) scale(0.8);
-    transform-origin: 50% 18%;
+    transform: translate3d(0, -2svh, 0) scale(0.74);
+    transform-origin: 50% 20%;
   }
 
   body.premium-ui-ready.home-page .sword-hero-stage[data-status="mobile-static"] .sword-hero-canvas {
@@ -897,12 +897,12 @@ body.premium-ui-ready .error-num {
 
   body.premium-ui-ready.home-page .sword-hero-stage[data-status="mobile-static"] .sword-hero-fallback {
     display: block !important;
-    top: 31% !important;
+    top: 41% !important;
     right: 50% !important;
     width: auto !important;
-    height: min(50svh, 390px) !important;
-    max-height: min(50svh, 390px) !important;
-    opacity: 0.86 !important;
+    height: min(46svh, 360px) !important;
+    max-height: min(46svh, 360px) !important;
+    opacity: 0.76 !important;
     transform: translate3d(50%, -50%, 0) rotate(0.5deg) !important;
   }
 

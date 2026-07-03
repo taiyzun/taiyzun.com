@@ -70,11 +70,15 @@
   }
 
   function tuneMaterial(THREE, material) {
-    const next = material?.clone ? material.clone() : new THREE.MeshStandardMaterial();
+    const next = material?.clone
+      ? material.clone()
+      : new (THREE.MeshPhysicalMaterial || THREE.MeshStandardMaterial)();
     if (!next.map && !next.color) next.color = new THREE.Color(0xd8b35e);
-    if (typeof next.metalness === 'number') next.metalness = Math.max(next.metalness, 0.82);
-    if (typeof next.roughness === 'number') next.roughness = Math.min(next.roughness, 0.26);
-    next.envMapIntensity = Math.max(next.envMapIntensity || 0, 0.95);
+    if (typeof next.metalness === 'number') next.metalness = Math.max(next.metalness, 0.9);
+    if (typeof next.roughness === 'number') next.roughness = Math.min(next.roughness, 0.2);
+    if (typeof next.clearcoat === 'number') next.clearcoat = Math.max(next.clearcoat, 0.42);
+    if (typeof next.clearcoatRoughness === 'number') next.clearcoatRoughness = Math.min(next.clearcoatRoughness, 0.24);
+    next.envMapIntensity = Math.max(next.envMapIntensity || 0, 1.12);
     next.side = THREE.DoubleSide;
     return next;
   }
@@ -126,7 +130,7 @@
     };
 
     if (variant === 'home') {
-      return { ...base, x: 2.5, y: 0.58, height: 1.12, yaw: -0.12, orbit: 0.08 };
+      return { ...base, x: 2.18, y: 0.48, height: 1.06, yaw: -0.14, orbit: 0.07 };
     }
 
     if (variant === 'odyssey') {
