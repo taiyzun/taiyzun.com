@@ -209,7 +209,7 @@
     }
 
     const script = document.createElement('script');
-    script.src = '/js/odyssey-portraits.js?v=20260623b';
+    script.src = '/js/odyssey-portraits.js?v=20260704a';
     script.async = true;
     script.onload = resolve;
     script.onerror = resolve;
@@ -242,12 +242,27 @@
   }
 
   function portraitImage(p, size) {
-    if (p.kind === 'optimized' && p.base) return p.base + '-w' + size + '.webp';
+    if ((p.kind === 'optimized' || p.kind === 'responsive') && p.base) {
+      if (Array.isArray(p.widths) && p.widths.length) {
+        const width = p.widths.reduce((best, candidate) => (
+          Math.abs(candidate - size) < Math.abs(best - size) ? candidate : best
+        ), p.widths[0]);
+        return p.base + '-w' + width + '.webp';
+      }
+      return p.base + '-w' + size + '.webp';
+    }
     return p.src;
   }
 
   function portraitMarkup(p) {
     const title = escapeHTML(p.title);
+    if (p.kind === 'responsive' && p.base && Array.isArray(p.widths) && p.widths.length) {
+      const srcset = (format) => p.widths.map(width => p.base + '-w' + width + '.' + format + ' ' + width + 'w').join(', ');
+      const fallbackWidth = p.widths[Math.min(1, p.widths.length - 1)];
+      const width = Number(p.width) || 400;
+      const height = Number(p.height) || 400;
+      return '<picture><source srcset="' + srcset('avif') + '" sizes="' + gallerySizes + '" type="image/avif"><source srcset="' + srcset('webp') + '" sizes="' + gallerySizes + '" type="image/webp"><img src="' + p.base + '-w' + fallbackWidth + '.webp" alt="' + title + '" loading="lazy" decoding="async" fetchpriority="low" width="' + width + '" height="' + height + '"></picture>';
+    }
     if (p.kind === 'optimized' && p.base) {
       return '<picture><source srcset="' + p.base + '-w400.avif 400w, ' + p.base + '-w800.avif 800w, ' + p.base + '-w1200.avif 1200w" sizes="' + gallerySizes + '" type="image/avif"><source srcset="' + p.base + '-w400.webp 400w, ' + p.base + '-w800.webp 800w, ' + p.base + '-w1200.webp 1200w" sizes="' + gallerySizes + '" type="image/webp"><img src="' + p.base + '-w800.webp" alt="' + title + '" loading="lazy" decoding="async" fetchpriority="low" width="400" height="400"></picture>';
     }

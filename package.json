@@ -8,6 +8,7 @@
     "gallery:share-index": "node scripts/build-space-gallery-share-index.js",
     "gallery:chunks": "node scripts/build-space-gallery-chunks.js",
     "optimize-images": "node scripts/optimize-images.js",
+    "optimize-odyssey-portraits": "node scripts/optimize-odyssey-portraits.js",
     "privacy-review": "node scripts/generate-private-image-review.js"
   },
   "dependencies": {

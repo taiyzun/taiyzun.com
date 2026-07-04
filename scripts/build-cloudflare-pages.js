@@ -75,6 +75,7 @@ const publicAssetFiles = [
 
 const publicDirectories = [
   'assets/Portraits/odyssey-poetic',
+  'assets/Portraits/odyssey-optimized',
   'assets/Portraits/optimized',
   'assets/decorative/optimized',
   'assets/fonts',
