@@ -201,9 +201,79 @@
   <p class="footer-copy">&copy; 2026 Taiyzun Shabbir Shahpurwala. All rights reserved.</p>
 </footer>
 <script data-cfasync="false" src="/js/site-mobile-lite.min.js?v=20260703a" defer></script>
-<script data-cfasync="false" src="/js/ambient-video.min.js?v=20260623b" defer></script>
 <script data-cfasync="false" src="/js/mobile-menu.min.js?v=20260623b" defer></script>
-<script data-cfasync="false" data-compact-defer="true" src="/js/premium-experience.min.js?v=20260704b" defer></script>
+<script data-cfasync="false">
+  (function scheduleOdysseyEnhancementAssets() {
+    const enhancementScripts = [
+      '/js/ambient-video.min.js?v=20260623b',
+      '/js/premium-experience.min.js?v=20260704b'
+    ];
+    let scheduled = false;
+    let loaded = false;
+
+    const isCompact = () => Boolean(
+      window.TAIYZUN_MOBILE_LITE ||
+      window.matchMedia?.('(max-width: 820px), (pointer: coarse)')?.matches ||
+      /iP(hone|ad|od)|Android/i.test(navigator.userAgent || '') ||
+      navigator.connection?.saveData
+    );
+
+    const injectScript = (src) => new Promise((resolve) => {
+      if (document.querySelector('script[src="' + src + '"]')) {
+        resolve();
+        return;
+      }
+
+      const script = document.createElement('script');
+      script.src = src;
+      script.async = false;
+      script.dataset.cfasync = 'false';
+      script.onload = resolve;
+      script.onerror = resolve;
+      document.body.appendChild(script);
+    });
+
+    const injectAll = () => {
+      if (loaded) return;
+      loaded = true;
+      enhancementScripts.reduce((chain, src) => (
+        chain.then(() => injectScript(src))
+      ), Promise.resolve());
+    };
+
+    const runIdle = (timeout) => {
+      if ('requestIdleCallback' in window) requestIdleCallback(injectAll, { timeout });
+      else window.setTimeout(injectAll, Math.min(timeout, 420));
+    };
+
+    const schedule = (delay, timeout) => {
+      if (scheduled || loaded) return;
+      scheduled = true;
+      window.setTimeout(() => runIdle(timeout), delay);
+    };
+
+    const whenReady = () => {
+      const compact = isCompact();
+      if (!compact) {
+        schedule(700, 1800);
+        return;
+      }
+
+      const promptStart = () => schedule(760, 2200);
+      window.addEventListener('pointerdown', promptStart, { once: true, passive: true });
+      window.addEventListener('touchstart', promptStart, { once: true, passive: true });
+      window.addEventListener('wheel', promptStart, { once: true, passive: true });
+      window.addEventListener('keydown', promptStart, { once: true });
+
+      const settledStart = () => schedule(11000, 3200);
+      if (document.readyState === 'complete') settledStart();
+      else window.addEventListener('load', settledStart, { once: true });
+    };
+
+    if (window.TAIYZUN_MOBILE_LITE !== undefined) whenReady();
+    else window.addEventListener('taiyzun:mobile-lite-ready', whenReady, { once: true });
+  })();
+</script>
 <script data-cfasync="false">
   (function scheduleOdysseyRuntimeAsset() {
     const src = '/js/odyssey-runtime.min.js?v=20260704a';
