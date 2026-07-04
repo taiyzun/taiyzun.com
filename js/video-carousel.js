@@ -34,10 +34,12 @@
   let isInteracting = false;
   let interactionTimer = 0;
   let dragState = null;
+  let pointTapState = null;
   let carouselTapState = null;
   let suppressClickUntil = 0;
   let animationFrame = 0;
   let carouselInView = true;
+  let pointerInsideCarousel = false;
   let documentVisible = !document.hidden;
   const cardTapStates = new WeakMap();
   let playButton = null;
@@ -251,7 +253,8 @@
     if (!shouldAnimate()) return;
 
     const scrollRatio = window.scrollY / Math.max(window.innerHeight, 1);
-    const drift = coarsePointer ? (isInteracting ? 0 : 0.006) : (isInteracting ? 0.018 : 0.05);
+    const shouldHoldOrbit = isInteracting || pointerInsideCarousel;
+    const drift = coarsePointer ? (shouldHoldOrbit ? 0 : 0.006) : (shouldHoldOrbit ? 0 : 0.05);
     targetSpin += drift;
     const pointerSpin = coarsePointer ? 0 : pointerX * 9;
     const scrollSpin = coarsePointer ? scrollRatio * 1.2 : scrollRatio * 6;
@@ -281,9 +284,16 @@
     return target instanceof Element && Boolean(target.closest('.video-controls, button, a, iframe, input, select, textarea, label'));
   }
 
+  function shouldSkipPointTapTarget(target) {
+    return target instanceof Element && Boolean(target.closest('.video-controls, .video-frame, a, iframe, input, select, textarea, label'));
+  }
+
   function getCardIndexAtPoint(x, y) {
     const hitCards = cards
       .map((card, index) => {
+        const style = window.getComputedStyle(card);
+        if (card.classList.contains('is-active') || style.pointerEvents === 'none' || Number(style.opacity) < 0.08) return null;
+
         const rect = card.getBoundingClientRect();
         const containsPoint = x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
         if (!containsPoint) return null;
@@ -357,6 +367,20 @@
     setInteractionState();
   }, { passive: true });
 
+  carousel.addEventListener('pointerdown', (event) => {
+    if (event.button !== undefined && event.button !== 0) return;
+    if (shouldSkipPointTapTarget(event.target)) {
+      pointTapState = null;
+      return;
+    }
+
+    pointTapState = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY
+    };
+  }, { capture: true, passive: true });
+
   carousel.addEventListener('pointermove', (event) => {
     updatePointer(event);
 
@@ -370,13 +394,35 @@
     }
   }, { passive: true });
 
+  carousel.addEventListener('pointerenter', () => {
+    pointerInsideCarousel = true;
+  }, { passive: true });
+
   carousel.addEventListener('pointerup', endDrag, { passive: true });
   carousel.addEventListener('pointercancel', endDrag, { passive: true });
+  carousel.addEventListener('pointerup', (event) => {
+    if (!pointTapState || pointTapState.pointerId !== event.pointerId) return;
+
+    const deltaX = event.clientX - pointTapState.startX;
+    const deltaY = event.clientY - pointTapState.startY;
+    pointTapState = null;
+
+    if (Date.now() < suppressClickUntil || Math.hypot(deltaX, deltaY) > 8) return;
+
+    const cardIndex = getCardIndexAtPoint(event.clientX, event.clientY);
+    if (cardIndex < 0) return;
+
+    event.stopPropagation();
+    setActive(cardIndex, true);
+    suppressClickUntil = Date.now() + 160;
+  }, { capture: true, passive: true });
   carousel.addEventListener('pointercancel', () => {
+    pointTapState = null;
     carouselTapState = null;
   }, { passive: true });
 
   carousel.addEventListener('pointerleave', () => {
+    pointerInsideCarousel = false;
     if (dragState) return;
     pointerX = 0;
     pointerY = 0;
