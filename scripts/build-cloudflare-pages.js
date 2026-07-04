@@ -41,6 +41,7 @@ const publicAssetFiles = [
   'assets/easter-eggs/taiyzun-atme-3d-loader-192.png',
   'assets/easter-eggs/taiyzun-at-logo-blade-edge-gold-silver.png',
   'assets/easter-eggs/taiyzun-at-logo-blade-edge-gold-silver-192.webp',
+  'assets/easter-eggs/taiyzun-at-logo-blade-edge-gold-silver-288.webp',
   'assets/easter-eggs/taiyzun-at-logo-blade-edge-gold-silver-384.webp',
   'assets/models/taiyzun-at-logo-blade-edge-gold-silver-web.glb',
   'assets/models/taiyzun-sword-logo-sharp-3d-lightweight.glb',
