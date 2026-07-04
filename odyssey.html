@@ -202,6 +202,35 @@
 </footer>
 <script data-cfasync="false">
 (function scheduleOdysseyRuntime() {
+  const isCompactOdysseyRuntime = () => {
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const compactViewport = window.matchMedia?.('(max-width: 820px), (pointer: coarse)')?.matches;
+    const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+    const constrainedNetwork = Boolean(
+      connection &&
+      (connection.saveData || /(^|-)2g$|slow-2g/i.test(connection.effectiveType || ''))
+    );
+    const lowMemory = typeof navigator.deviceMemory === 'number' && navigator.deviceMemory <= 4;
+    const mobileAgent = /iP(hone|ad|od)|Android/i.test(navigator.userAgent || '');
+
+    return Boolean(
+      window.TAIYZUN_MOBILE_LITE ||
+      compactViewport ||
+      reduceMotion ||
+      constrainedNetwork ||
+      lowMemory ||
+      mobileAgent
+    );
+  };
+
+  const runIdle = (callback, timeout) => {
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(callback, { timeout });
+    } else {
+      window.setTimeout(callback, Math.min(timeout, 160));
+    }
+  };
+
   const loadPortraitData = () => new Promise((resolve) => {
     if (Array.isArray(window.odysseyPortraits) && window.odysseyPortraits.length) {
       resolve();
@@ -211,6 +240,8 @@
     const script = document.createElement('script');
     script.src = '/js/odyssey-portraits.js?v=20260704a';
     script.async = true;
+    script.dataset.cfasync = 'false';
+    script.fetchPriority = isCompactOdysseyRuntime() ? 'low' : 'auto';
     script.onload = resolve;
     script.onerror = resolve;
     document.head.appendChild(script);
@@ -289,6 +320,8 @@
   let revealObserver = null;
   const initialGalleryBatch = isMemoryConstrainedGallery ? 6 : portraits.length;
   const galleryBatchSize = isMemoryConstrainedGallery ? 8 : portraits.length;
+  const galleryAutoRootMargin = isMemoryConstrainedGallery ? '120px 0px 220px 0px' : '260px 0px 520px 0px';
+  const galleryScrollPreload = isMemoryConstrainedGallery ? 220 : 540;
 
   function buildGalleryItem(p, i) {
     const el = document.createElement('div');
@@ -329,8 +362,7 @@
       galleryBatchPending = false;
       renderPortraitBatch(galleryBatchSize);
     };
-    if ('requestIdleCallback' in window) requestIdleCallback(run, {timeout: 1200});
-    else window.setTimeout(run, 80);
+    runIdle(run, isMemoryConstrainedGallery ? 1800 : 1200);
   }
 
   renderPortraitBatch(initialGalleryBatch);
@@ -340,7 +372,7 @@
     if ('IntersectionObserver' in window) {
       galleryLoadObserver = new IntersectionObserver((entries) => {
         if (entries.some((entry) => entry.isIntersecting)) schedulePortraitBatch();
-      }, {rootMargin: '260px 0px 520px 0px', threshold: 0});
+      }, {rootMargin: galleryAutoRootMargin, threshold: 0});
       galleryLoadObserver.observe(gallerySentinel);
     } else {
       while (renderedPortraitCount < portraits.length) renderPortraitBatch(galleryBatchSize);
@@ -349,7 +381,7 @@
     window.addEventListener('scroll', () => {
       if (!gallerySentinel.isConnected) return;
       const rect = gallerySentinel.getBoundingClientRect();
-      if (rect.top - window.innerHeight < 540) schedulePortraitBatch();
+      if (rect.top - window.innerHeight < galleryScrollPreload) schedulePortraitBatch();
     }, {passive: true});
   }
 
@@ -821,15 +853,35 @@
   })();
   };
 
+  let runtimeStarted = false;
+  let runtimeTimer = 0;
+  let runtimeDueAt = Infinity;
+  const scheduleRuntimeStart = (delay, timeout) => {
+    const dueAt = Date.now() + delay;
+    if (runtimeStarted || dueAt >= runtimeDueAt) return;
+    if (runtimeTimer) window.clearTimeout(runtimeTimer);
+    runtimeDueAt = dueAt;
+    runtimeTimer = window.setTimeout(() => {
+      runtimeTimer = 0;
+      runtimeDueAt = Infinity;
+      if (runtimeStarted) return;
+      runtimeStarted = true;
+      runIdle(start, timeout);
+    }, delay);
+  };
+
   const runWhenReady = () => {
-    const minDelay = window.TAIYZUN_MOBILE_LITE ? 1800 : 450;
-    window.setTimeout(() => {
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(start, { timeout: window.TAIYZUN_MOBILE_LITE ? 2200 : 1200 });
-      } else {
-        start();
-      }
-    }, minDelay);
+    const compactRuntime = isCompactOdysseyRuntime();
+    scheduleRuntimeStart(compactRuntime ? 3800 : 450, compactRuntime ? 3600 : 1200);
+
+    if (!compactRuntime) return;
+
+    const promptStart = () => scheduleRuntimeStart(650, 1800);
+    window.addEventListener('pointerdown', promptStart, { once: true, passive: true });
+    window.addEventListener('touchstart', promptStart, { once: true, passive: true });
+    window.addEventListener('wheel', promptStart, { once: true, passive: true });
+    window.addEventListener('scroll', promptStart, { once: true, passive: true });
+    window.addEventListener('keydown', promptStart, { once: true });
   };
 
   if (document.readyState === 'loading') {
