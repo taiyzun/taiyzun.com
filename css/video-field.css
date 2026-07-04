@@ -145,7 +145,7 @@
 }
 
 .video-carousel {
-  --video-radius: clamp(16rem, 30vw, 24rem);
+  --video-radius: clamp(13rem, 23vw, 18rem);
   --video-spin-angle: 0deg;
   --video-drag-angle: 0deg;
   --video-tilt-x: 0deg;
@@ -454,7 +454,7 @@
   position: absolute;
   top: 51%;
   left: 50%;
-  width: clamp(8.4rem, 22%, 11.8rem);
+  width: clamp(7.1rem, 17%, 9.3rem);
   aspect-ratio: 1;
   padding: 0;
   overflow: hidden;
