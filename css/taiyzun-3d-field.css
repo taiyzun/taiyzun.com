@@ -174,17 +174,11 @@ body.site-loader-active {
   max-width: 100vw;
 }
 
-body:has(> .site-loader) {
-  overflow-x: clip;
-  width: 100%;
-  max-width: 100vw;
-}
-
-html:has(body.site-loader-active) {
+html.site-loader-active {
   overflow: hidden;
 }
 
-html:has(body > .site-loader) {
+html.has-site-loader {
   overflow-x: clip;
 }
 

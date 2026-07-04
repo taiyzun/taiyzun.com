@@ -71,6 +71,7 @@
         }, 460);
       });
       document.body.classList.remove('site-loader-active');
+      root.classList.remove('site-loader-active');
     };
 
     const requestHide = () => {
@@ -85,6 +86,7 @@
       window.setTimeout(hideLoaders, Math.max(0, minVisible - elapsed));
     };
 
+    root.classList.add('has-site-loader', 'site-loader-active');
     document.body.classList.add('site-loader-active');
     window.TAIYZUN_completeSiteLoader = requestHide;
 
