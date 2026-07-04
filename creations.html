@@ -85,7 +85,7 @@
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-regular-latin.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-bold-latin.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-italic-latin.woff2" crossorigin>
-<link rel="stylesheet" href="/css/taiyzun-creations.bundle.min.css?v=20260704j">
+<link rel="stylesheet" href="/css/taiyzun-creations.bundle.min.css?v=20260704k">
 <link rel="preload" as="image" href="/assets/easter-eggs/taiyzun-atme-3d-loader-192.avif" type="image/avif">
 </head>
 <body class="creations-page premium-ui-ready">
@@ -207,8 +207,10 @@
     `/assets/space-gallery-manifest.json?v=${GALLERY_MANIFEST_VERSION}`
   ];
   const siteMobileLite = Boolean(window.TAIYZUN_applyMobileLite?.());
-  const PAGE_SIZE = siteMobileLite ? 12 : 36;
+  const PAGE_SIZE = siteMobileLite ? 8 : 30;
   const GRID_IMAGE_SIZES = '(max-width: 420px) calc(100vw - 2rem), (max-width: 768px) calc((100vw - 3rem) / 2), (max-width: 1180px) 220px, 260px';
+  const PLACEHOLDER_SRC = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+  const supportsNativeLazy = 'loading' in HTMLImageElement.prototype;
   const FALLBACK = [
     {full:'assets/Art/art_00001.jpg',thumb:'assets/Art/art_00001.jpg',cat:'Gallery',title:'0001 ~ Sp@cE Dragon Rides the Earth',sub:'Cosmic Fire Beyond the Gates'},
     {full:'assets/Art/art_00002.jpg',thumb:'assets/Art/art_00002.jpg',cat:'Gallery',title:'0002 ~ Sp@cE Chakra Grid Meditation',sub:'Sacred Geometry of Light'},
@@ -234,8 +236,8 @@
   let galleryAppendTimer = 0;
   let galleryNextAppendAt = 0;
   const galleryCountEl = document.getElementById('galleryCount');
-  const GALLERY_APPEND_SETTLE_MS = siteMobileLite ? 520 : 720;
-  const SENTINEL_PRELOAD_MARGIN = siteMobileLite ? 160 : 220;
+  const GALLERY_APPEND_SETTLE_MS = siteMobileLite ? 820 : 640;
+  const SENTINEL_PRELOAD_MARGIN = siteMobileLite ? 120 : 220;
 
   function escapeHTML(v) {
     return String(v || '')
@@ -457,9 +459,9 @@
   }
 
   /* ── Observers ── */
-  const imgObs = new IntersectionObserver(entries => {
+  const imgObs = supportsNativeLazy ? null : new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting && e.target.dataset.src) { e.target.src = e.target.dataset.src; imgObs.unobserve(e.target); } });
-  }, { rootMargin: '350px' });
+  }, { rootMargin: siteMobileLite ? '220px' : '360px' });
 
   const revealObs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
@@ -482,7 +484,16 @@
     const delay = Math.max(0, galleryNextAppendAt - performance.now());
     galleryAppendTimer = window.setTimeout(() => {
       galleryAppendTimer = 0;
-      if (sentinelIsNearViewport()) void appendBatch();
+      if (!sentinelIsNearViewport()) return;
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(() => {
+          if (sentinelIsNearViewport()) void appendBatch();
+        }, { timeout: siteMobileLite ? 1400 : 900 });
+      } else {
+        window.setTimeout(() => {
+          if (sentinelIsNearViewport()) void appendBatch();
+        }, siteMobileLite ? 90 : 0);
+      }
     }, delay);
   }
 
@@ -526,13 +537,19 @@
     orderedCats.push('all');
     orderedCats.forEach(cat => {
       const btn = document.createElement('button');
+      btn.type = 'button';
       btn.className = 'cat-tab' + (cat === 'all' ? ' active' : '');
       btn.dataset.cat = cat;
+      btn.setAttribute('aria-selected', cat === 'all' ? 'true' : 'false');
       const count = cat === 'all' ? activeTotalFor('all') : (counts[cat] || 0);
       btn.textContent = `${displayCategory(cat)} (${count})`;
       btn.addEventListener('click', async () => {
-        document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.cat-tab').forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
         btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
         await renderGrid(cat);
       });
       c.appendChild(btn);
@@ -546,17 +563,23 @@
     if (galleryCountEl) galleryCountEl.textContent = `${activeTotal.toLocaleString()} Works in View`;
     currentPage = 0;
     const grid = document.getElementById('artGrid');
+    grid.setAttribute('aria-busy', 'true');
     grid.innerHTML = '';
     window.clearTimeout(galleryAppendTimer);
     galleryAppendTimer = 0;
     galleryNextAppendAt = performance.now();
     if (!activeTotal) {
       grid.innerHTML = '<div class="gallery-empty">No Images in This Category Yet.</div>';
+      grid.setAttribute('aria-busy', 'false');
       return;
     }
-    await ensureItemsForFilter(activeFilter, PAGE_SIZE);
-    filteredItems = itemsForFilter(activeFilter);
-    await appendBatch();
+    try {
+      await ensureItemsForFilter(activeFilter, PAGE_SIZE);
+      filteredItems = itemsForFilter(activeFilter);
+      await appendBatch();
+    } finally {
+      grid.setAttribute('aria-busy', 'false');
+    }
   }
 
   async function appendBatch() {
@@ -587,15 +610,19 @@
         const t = escapeHTML(item.title);
         const s = escapeHTML(item.sub);
         const thumb = escapeHTML(item.thumb);
-        const fetchPriority = i < start + (siteMobileLite ? 4 : 8) ? 'auto' : 'low';
-        el.innerHTML = `<img data-src="${thumb}" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="${t}" width="360" height="360" sizes="${GRID_IMAGE_SIZES}" loading="lazy" decoding="async" fetchpriority="${fetchPriority}"><div class="overlay"><span class="sparkle">✦</span><h3>${t}</h3><p>${s}</p></div>`;
+        const prioritySlots = siteMobileLite ? 2 : 6;
+        const priorityImage = currentPage === 0 && i < start + prioritySlots;
+        const loadingMode = priorityImage ? 'eager' : 'lazy';
+        const fetchPriority = priorityImage ? 'high' : 'low';
+        const sourceAttrs = supportsNativeLazy ? `src="${thumb}"` : `data-src="${thumb}" src="${PLACEHOLDER_SRC}"`;
+        el.innerHTML = `<img ${sourceAttrs} alt="${t}" width="360" height="360" sizes="${GRID_IMAGE_SIZES}" loading="${loadingMode}" decoding="async" fetchpriority="${fetchPriority}"><div class="overlay"><span class="sparkle">✦</span><h3>${t}</h3><p>${s}</p></div>`;
         el.addEventListener('click', () => openLB(i));
         fragment.appendChild(el);
         pendingImages.push(el.querySelector('img'));
         pendingRevealItems.push(el);
       }
       grid.appendChild(fragment);
-      pendingImages.forEach(img => { if (img) imgObs.observe(img); });
+      pendingImages.forEach(img => { if (img && imgObs) imgObs.observe(img); });
       pendingRevealItems.forEach(el => revealObs.observe(el));
       currentPage++;
       if (currentPage * PAGE_SIZE < activeTotal) {

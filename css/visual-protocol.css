@@ -665,12 +665,16 @@ body.creations-page .art-grid {
   align-items: start;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
   gap: clamp(0.8rem, 2vw, 1.45rem);
+  contain: layout paint;
 }
 
 body.odyssey-page .gallery-item,
 body.creations-page .art-item {
   min-width: 0;
   max-width: 100%;
+  contain: layout paint style;
+  content-visibility: auto;
+  contain-intrinsic-size: 320px;
 }
 
 body.odyssey-page .gallery-item picture,
@@ -903,6 +907,22 @@ body.connect-page .social-card {
     padding-block: clamp(0.8rem, 4vw, 1.4rem);
   }
 
+  body.site-mobile-lite.creations-page .art-item {
+    contain-intrinsic-size: 300px;
+    transition:
+      transform 260ms cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 260ms ease,
+      border-color 260ms ease;
+  }
+
+  body.site-mobile-lite.creations-page .art-item img {
+    transition: opacity 260ms ease, filter 260ms ease;
+  }
+
+  body.site-mobile-lite.creations-page .overlay .sparkle {
+    animation: none;
+  }
+
   body.odyssey-page .lb-main,
   body.creations-page .lb-main {
     padding: 0.45rem clamp(2.35rem, 11vw, 3.05rem);
@@ -933,6 +953,10 @@ body.connect-page .social-card {
   body.odyssey-page .gallery-grid,
   body.creations-page .art-grid {
     grid-template-columns: 1fr;
+  }
+
+  body.site-mobile-lite.creations-page .art-item {
+    contain-intrinsic-size: 360px;
   }
 
   body.odyssey-page .lb-topbar,
