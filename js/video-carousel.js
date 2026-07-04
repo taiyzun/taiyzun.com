@@ -39,12 +39,15 @@
   let carouselInView = true;
   let documentVisible = !document.hidden;
   const cardTapStates = new WeakMap();
+  let playButton = null;
 
   const dots = cards.map((card, index) => {
     const dot = document.createElement('button');
+    const title = card.dataset.videoTitle || card.textContent.trim() || `video ${index + 1}`;
     dot.type = 'button';
     dot.className = 'video-dot';
-    dot.setAttribute('aria-label', `Show video ${index + 1}`);
+    dot.dataset.videoDot = String(index + 1);
+    dot.setAttribute('aria-label', `Play ${title}`);
     dot.addEventListener('pointerdown', (event) => {
       event.stopPropagation();
     }, { passive: true });
@@ -58,6 +61,34 @@
     dotsNode?.appendChild(dot);
     return dot;
   });
+
+  if (frame) {
+    playButton = frame.querySelector('[data-video-play]');
+    if (!playButton) {
+      playButton = document.createElement('button');
+      playButton.type = 'button';
+      playButton.className = 'video-play-toggle';
+      playButton.dataset.videoPlay = 'true';
+      playButton.setAttribute('aria-label', 'Play selected video');
+      playButton.innerHTML = '<span aria-hidden="true"></span>';
+      frame.appendChild(playButton);
+    }
+
+    playButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      playActiveVideo();
+    });
+
+    if ('MutationObserver' in window) {
+      const frameStateObserver = new MutationObserver(() => {
+        if (frame.dataset.videoState === 'playing' && !frame.classList.contains('is-video-playing')) {
+          frame.classList.add('is-video-playing');
+        }
+      });
+      frameStateObserver.observe(frame, { attributes: true, attributeFilter: ['class'] });
+    }
+  }
 
   function normaliseIndex(index) {
     return (index + cards.length) % cards.length;
@@ -81,15 +112,30 @@
     }, 3200);
   }
 
+  function syncFramePlaybackState(isPlaying) {
+    const state = isPlaying ? 'playing' : 'preview';
+    carousel.dataset.videoState = state;
+    if (frame) {
+      frame.dataset.videoState = state;
+      frame.classList.toggle('is-video-playing', isPlaying);
+    }
+    if (playButton) {
+      playButton.hidden = isPlaying;
+      playButton.setAttribute('aria-hidden', String(isPlaying));
+    }
+  }
+
   function setIframe(videoId, title, options = {}) {
+    const isPlaying = Boolean(options.autoplay);
     const params = new URLSearchParams({
       rel: '0',
       modestbranding: '1',
+      enablejsapi: '1',
       playsinline: '1',
       origin: window.location.origin || 'https://taiyzun.com'
     });
 
-    if (options.autoplay) {
+    if (isPlaying) {
       params.set('autoplay', '1');
     }
 
@@ -99,7 +145,7 @@
       frame?.classList.add('is-video-loading');
       iframe.src = nextSrc;
     }
-    frame?.classList.toggle('is-video-playing', Boolean(options.autoplay));
+    syncFramePlaybackState(isPlaying);
     iframe.title = `Taiyzun YouTube video: ${title}`;
     carousel.style.setProperty('--video-preview-image', `url("https://i.ytimg.com/vi/${videoId}/hqdefault.jpg")`);
     if (titleNode) titleNode.textContent = title;
@@ -108,11 +154,18 @@
   iframe.addEventListener('load', () => {
     frame?.classList.remove('is-video-loading');
     frame?.classList.add('is-video-ready');
+    if (frame?.dataset.videoState === 'playing') {
+      frame.classList.add('is-video-playing');
+    }
   });
+
+  function playActiveVideo() {
+    setActive(activeIndex, true);
+  }
 
   frame?.addEventListener('click', (event) => {
     if (event.target instanceof Element && event.target.closest('a, button')) return;
-    setActive(activeIndex, true);
+    playActiveVideo();
   });
 
   function updateCardFacing() {

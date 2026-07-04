@@ -214,7 +214,7 @@
   top: 9%;
   left: 50%;
   width: min(78%, 28rem);
-  z-index: 8;
+  z-index: 24;
   overflow: hidden;
   contain: paint;
   aspect-ratio: 1;
@@ -238,6 +238,11 @@
     inset -34px -32px 58px rgba(47, 32, 11, 0.22),
     inset 0 0 58px rgba(202, 168, 84, 0.18);
   filter: saturate(1.08) contrast(1.04);
+  cursor: pointer;
+}
+
+.video-frame[data-video-state="playing"] {
+  cursor: default;
 }
 
 .video-frame::before,
@@ -312,8 +317,81 @@
   pointer-events: auto;
 }
 
+.video-frame[data-video-state="playing"] iframe,
+.video-carousel[data-video-state="playing"] .video-frame iframe {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .video-frame.is-video-ready::before {
   opacity: 0.42;
+}
+
+.video-play-toggle {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  z-index: 8 !important;
+  display: inline-grid;
+  place-items: center;
+  width: clamp(3.35rem, 9vw, 5.4rem);
+  height: clamp(3.35rem, 9vw, 5.4rem);
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.76);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 22%, rgba(255, 255, 255, 0.94), transparent 0 35%),
+    linear-gradient(135deg, rgba(255, 252, 239, 0.86), rgba(202, 168, 84, 0.72));
+  color: #2d2417;
+  box-shadow:
+    0 18px 48px rgba(54, 36, 13, 0.24),
+    0 0 0 9px rgba(255, 255, 255, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  overflow: visible !important;
+  transform: translate3d(-50%, -50%, 0) scale(1) !important;
+  opacity: 1;
+  pointer-events: auto;
+  cursor: pointer;
+  transition:
+    opacity 260ms ease,
+    transform 360ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 360ms ease;
+}
+
+.video-play-toggle::before {
+  content: "";
+  position: absolute;
+  inset: -0.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.36);
+  border-radius: inherit;
+  opacity: 0.56;
+}
+
+.video-play-toggle span {
+  width: 0;
+  height: 0;
+  margin-left: 0.22rem;
+  border-top: clamp(0.72rem, 1.8vw, 1rem) solid transparent;
+  border-bottom: clamp(0.72rem, 1.8vw, 1rem) solid transparent;
+  border-left: clamp(1.05rem, 2.5vw, 1.5rem) solid currentColor;
+  filter: drop-shadow(0 2px 0 rgba(255, 255, 255, 0.4));
+}
+
+.video-play-toggle:hover,
+.video-play-toggle:focus-visible {
+  box-shadow:
+    0 24px 66px rgba(54, 36, 13, 0.3),
+    0 0 0 11px rgba(255, 255, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82);
+  transform: translate3d(-50%, -50%, 0) scale(1.045) !important;
+}
+
+.video-frame.is-video-playing .video-play-toggle,
+.video-frame[data-video-state="playing"] .video-play-toggle,
+.video-play-toggle[hidden] {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(-50%, -50%, 0) scale(0.88) !important;
 }
 
 .video-current {
@@ -497,6 +575,7 @@
   transform: translate3d(-50%, 0, 126px);
   pointer-events: auto;
   touch-action: manipulation;
+  isolation: isolate;
 }
 
 .video-control,
@@ -536,22 +615,20 @@
 
 .video-dot {
   position: relative;
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 1.46rem;
+  height: 1.46rem;
   flex: 0 0 auto;
   padding: 0;
-  border-color: rgba(202, 168, 84, 0.2);
+  border-color: transparent;
   border-radius: 50%;
-  background: rgba(255, 253, 246, 0.46);
-  box-shadow:
-    0 4px 12px rgba(83, 62, 27, 0.07),
-    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  background: transparent;
+  box-shadow: none;
 }
 
 .video-dot::before {
   content: "";
-  width: clamp(0.42rem, 1.38vw, 0.58rem);
-  height: clamp(0.42rem, 1.38vw, 0.58rem);
+  width: clamp(0.45rem, 1.24vw, 0.58rem);
+  height: clamp(0.45rem, 1.24vw, 0.58rem);
   border: 1px solid rgba(202, 168, 84, 0.3);
   border-radius: inherit;
   background: rgba(255, 255, 255, 0.62);
@@ -571,8 +648,8 @@
 }
 
 .video-dot.is-active {
-  border-color: rgba(202, 168, 84, 0.62);
-  background: rgba(255, 249, 235, 0.9);
+  border-color: rgba(202, 168, 84, 0.28);
+  background: rgba(255, 249, 235, 0.32);
 }
 
 .video-dot.is-active::before {
@@ -773,8 +850,8 @@
   }
 
   .video-dot {
-    width: clamp(1.82rem, 7.6vw, 1.95rem);
-    height: clamp(1.82rem, 7.6vw, 1.95rem);
+    width: clamp(1.5rem, 6.4vw, 1.7rem);
+    height: clamp(1.5rem, 6.4vw, 1.7rem);
   }
 }
 

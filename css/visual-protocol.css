@@ -552,6 +552,25 @@ body.creations-page:has(.lightbox.open) nav {
   pointer-events: none;
 }
 
+html.tai-lightbox-open,
+html.tai-lightbox-open body {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+html.tai-lightbox-open .lightbox.open {
+  touch-action: none;
+}
+
+html.tai-lightbox-open .lb-topbar,
+html.tai-lightbox-open .lb-close,
+html.tai-lightbox-open .lb-share,
+html.tai-lightbox-open .lb-nav,
+html.tai-lightbox-open .lb-filmstrip-wrap,
+html.tai-lightbox-open .lb-filmstrip {
+  touch-action: manipulation;
+}
+
 body.odyssey-page .lb-topbar,
 body.creations-page .lb-topbar,
 body.odyssey-page .lb-caption,
