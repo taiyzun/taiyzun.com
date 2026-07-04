@@ -85,7 +85,7 @@
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-regular-latin.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-bold-latin.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-italic-latin.woff2" crossorigin>
-<link rel="stylesheet" href="/css/taiyzun-creations.bundle.min.css?v=20260704l">
+<link rel="stylesheet" href="/css/taiyzun-creations.bundle.min.css?v=20260704m">
 <link rel="preload" as="image" href="/assets/easter-eggs/taiyzun-atme-3d-loader-192.avif" type="image/avif">
 </head>
 <body class="creations-page premium-ui-ready">
@@ -169,7 +169,7 @@
   </div>
   <div class="lb-main" id="lbMain">
     <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous image">‹</button>
-    <div class="lb-img-wrap" id="lbImgWrap">
+    <div class="lb-img-wrap" id="lbImgWrap" tabindex="0" aria-label="Zoomable image">
       <div class="lb-corner-bl"></div>
       <div class="lb-corner-br"></div>
       <img id="lbImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="" draggable="false" decoding="async">
@@ -676,6 +676,40 @@
     lbShareBtn.setAttribute('aria-label', `Share ${item.title || 'image'}`);
   }
 
+  function prepareActiveLightboxImage() {
+    lbImg.loading = 'eager';
+    lbImg.decoding = 'async';
+    lbImg.fetchPriority = 'high';
+  }
+
+  function preloadLightboxImage(item) {
+    if (!item?.full) return;
+    const img = new Image();
+    img.decoding = 'async';
+    img.fetchPriority = 'low';
+    img.src = item.full;
+  }
+
+  function scheduleAdjacentLightboxPreload() {
+    if (!lbOpen) return;
+    const total = activeTotalFor(activeFilter);
+    if (total < 2) return;
+    const offsets = siteMobileLite ? [1] : [1, -1];
+    const run = async () => {
+      for (const offset of offsets) {
+        const index = (lbIdx + offset + total) % total;
+        if (!await ensureLightboxIndex(index)) continue;
+        const item = itemsForFilter(activeFilter)[index];
+        preloadLightboxImage(item);
+      }
+    };
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(run, { timeout: siteMobileLite ? 1800 : 1200 });
+    } else {
+      window.setTimeout(run, siteMobileLite ? 360 : 140);
+    }
+  }
+
   async function copyToClipboard(value) {
     if (navigator.clipboard?.writeText) {
       try {
@@ -1027,6 +1061,7 @@
       lbImg.onerror = null;
       lbImg.src = item.thumb || item.full;
     };
+    prepareActiveLightboxImage();
     lbImg.src = item.full;
     lbImg.alt = item.title || '';
     const ac = dir === 'enter' ? 'lb-anim-enter' : dir === 'next' ? 'lb-anim-next' : 'lb-anim-prev';
@@ -1148,6 +1183,7 @@
   lbShareBtn.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); shareCurrentImage(); });
   lbPrevBtn.addEventListener('click', showPreviousImage);
   lbNextBtn.addEventListener('click', showNextImage);
+  lbImg.addEventListener('load', scheduleAdjacentLightboxPreload);
   lbMain.addEventListener('click', e => { if (e.target === lbMain) closeLB(); });
   [lbPrevBtn, lbNextBtn, lbShareBtn, lbFilmstrip].forEach(el => el.addEventListener('click', e => e.stopPropagation()));
   lightboxGestures = createLightboxGestureController({

@@ -789,8 +789,15 @@ body.creations-page .lb-img-wrap {
   cursor: zoom-in;
   touch-action: none;
   overscroll-behavior: contain;
+  -webkit-touch-callout: none;
   -webkit-user-select: none;
   user-select: none;
+}
+
+body.odyssey-page .lb-img-wrap:focus-visible,
+body.creations-page .lb-img-wrap:focus-visible {
+  outline: 2px solid rgba(212, 175, 55, 0.7);
+  outline-offset: 4px;
 }
 
 body.odyssey-page .lb-img-wrap img,

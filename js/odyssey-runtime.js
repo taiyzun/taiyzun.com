@@ -256,6 +256,12 @@
     lbProgressBar.style.width = ((currentIdx + 1) / portraitTotal * 100) + '%';
   }
 
+  function prepareActiveLightboxImage() {
+    lbImg.loading = 'eager';
+    lbImg.decoding = 'async';
+    lbImg.fetchPriority = 'high';
+  }
+
   function createLightboxGestureController({ wrap, image, previous, next, onZoomChange }) {
     const MAX_SCALE = 4;
     const DOUBLE_TAP_MS = 280;
@@ -534,6 +540,7 @@
       return;
     }
     lbImg.onerror = null;
+    prepareActiveLightboxImage();
     lbImg.src = portrait.full || portraitImage(portrait, 1200);
     lbImg.alt = portrait.title;
     lbTitle.textContent = portrait.title;
@@ -599,6 +606,8 @@
       await ensurePortraitRange(idx + 1);
       if (!portraits[idx]) return;
       const img = new Image();
+      img.decoding = 'async';
+      img.fetchPriority = 'low';
       img.src = portraits[idx].full || portraitImage(portraits[idx], 1200);
     };
     if (isMemoryConstrainedGallery) {

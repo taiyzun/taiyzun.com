@@ -85,7 +85,7 @@
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-regular-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-italic-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-bold-latin.woff2" crossorigin>
-<link rel="stylesheet" href="/css/taiyzun-odyssey.bundle.min.css?v=20260704j">
+<link rel="stylesheet" href="/css/taiyzun-odyssey.bundle.min.css?v=20260704k">
 <link rel="preload" as="image" href="/assets/easter-eggs/taiyzun-atme-3d-loader-192.avif" type="image/avif">
 </head>
 <body class="odyssey-page premium-ui-ready">
@@ -171,7 +171,7 @@
   </div>
   <div class="lb-main">
     <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous image">&#8249;</button>
-    <div class="lb-img-wrap" id="lbImgWrap">
+    <div class="lb-img-wrap" id="lbImgWrap" tabindex="0" aria-label="Zoomable image">
       <div class="lb-corner-bl"></div>
       <div class="lb-corner-br"></div>
       <img id="lbImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="" draggable="false" decoding="async">
@@ -276,7 +276,7 @@
 </script>
 <script data-cfasync="false">
   (function scheduleOdysseyRuntimeAsset() {
-    const src = '/js/odyssey-runtime.min.js?v=20260704a';
+    const src = '/js/odyssey-runtime.min.js?v=20260704b';
     let loaded = false;
     let timer = 0;
 
