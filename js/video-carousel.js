@@ -17,6 +17,7 @@
 
   carousel.dataset.videoCarouselReady = 'true';
   carousel.dataset.carouselMode = 'spinning-depth-orbit';
+  carousel.dataset.pointerMode = coarsePointer ? 'touch-stable' : 'fine-orbit';
   carousel.dataset.carouselItems = String(cards.length);
   carousel.dataset.zoomVideoExcluded = String(!cards.some((card) => card.dataset.videoId === excludedVideo));
   iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
@@ -250,14 +251,14 @@
     if (!shouldAnimate()) return;
 
     const scrollRatio = window.scrollY / Math.max(window.innerHeight, 1);
-    const drift = isInteracting ? 0.018 : 0.05;
+    const drift = coarsePointer ? (isInteracting ? 0 : 0.006) : (isInteracting ? 0.018 : 0.05);
     targetSpin += drift;
-    const pointerSpin = pointerX * 9;
-    const scrollSpin = scrollRatio * 6;
-    spin += (targetSpin + pointerSpin + scrollSpin - spin) * 0.045;
+    const pointerSpin = coarsePointer ? 0 : pointerX * 9;
+    const scrollSpin = coarsePointer ? scrollRatio * 1.2 : scrollRatio * 6;
+    spin += (targetSpin + pointerSpin + scrollSpin - spin) * (coarsePointer ? 0.026 : 0.045);
     carousel.style.setProperty('--video-spin-angle', `${(spin + dragSpin).toFixed(3)}deg`);
-    carousel.style.setProperty('--video-tilt-x', `${(-pointerY * 4.8).toFixed(3)}deg`);
-    carousel.style.setProperty('--video-tilt-y', `${(pointerX * 7.2).toFixed(3)}deg`);
+    carousel.style.setProperty('--video-tilt-x', `${(coarsePointer ? 0 : -pointerY * 4.8).toFixed(3)}deg`);
+    carousel.style.setProperty('--video-tilt-y', `${(coarsePointer ? 0 : pointerX * 7.2).toFixed(3)}deg`);
     carousel.dataset.spinAngle = (spin + dragSpin).toFixed(2);
     updateCardFacing();
 
@@ -363,7 +364,7 @@
       const deltaX = event.clientX - dragState.startX;
       const deltaY = event.clientY - dragState.startY;
       if (Math.abs(deltaX) > 4 || Math.abs(deltaY) > 4) {
-        dragSpin = Math.max(-150, Math.min(150, deltaX * 0.52));
+        dragSpin = Math.max(-150, Math.min(150, deltaX * (coarsePointer ? 0.32 : 0.52)));
         carousel.style.setProperty('--video-drag-angle', `${dragSpin.toFixed(3)}deg`);
       }
     }

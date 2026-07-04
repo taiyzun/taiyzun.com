@@ -800,20 +800,25 @@
   }
 
   .video-stage {
-    min-height: 29.5rem;
+    min-height: 34rem;
   }
 
   .video-carousel {
     --video-radius: clamp(7rem, 31vw, 7.8rem);
-    min-height: 29rem;
+    min-height: 33.5rem;
     overflow-x: clip;
   }
 
   .video-card {
-    top: 55.5%;
+    top: 68%;
     width: clamp(5.9rem, 27vw, 6.8rem);
     border-radius: 50%;
     clip-path: circle(50% at 50% 50%);
+    transition:
+      opacity 180ms ease,
+      filter 180ms ease,
+      box-shadow 180ms ease,
+      border-color 180ms ease;
   }
 
   .video-card span {
@@ -852,6 +857,44 @@
   .video-dot {
     width: clamp(1.5rem, 6.4vw, 1.7rem);
     height: clamp(1.5rem, 6.4vw, 1.7rem);
+  }
+}
+
+@media (hover: none), (pointer: coarse), (max-width: 700px) {
+  .video-carousel {
+    cursor: default;
+    touch-action: pan-y;
+  }
+
+  .video-frame {
+    z-index: 18;
+  }
+
+  .video-orbit {
+    z-index: 28;
+    pointer-events: none;
+  }
+
+  .video-card {
+    pointer-events: auto;
+    touch-action: manipulation;
+    will-change: opacity, filter, box-shadow;
+  }
+
+  .video-card.is-active {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .video-controls {
+    z-index: 58;
+    pointer-events: auto;
+    transform: translate3d(-50%, 0, 0);
+  }
+
+  .video-control,
+  .video-dot {
+    -webkit-tap-highlight-color: transparent;
   }
 }
 
