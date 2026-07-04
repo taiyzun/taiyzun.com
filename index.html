@@ -316,7 +316,7 @@
 <!-- Performance: Prefetch other pages -->
 </head>
 <body class="home-page premium-ui-ready">
-<script data-cfasync="false" src="/js/site-mobile-lite.min.js?v=20260703a"></script>
+<script data-cfasync="false" src="/js/site-mobile-lite.min.js?v=20260704b"></script>
 <a href="#main-content" class="skip-link">Skip to main content</a>
 <div class="cursor-glow" id="cursorGlow"></div>
 <div class="cursor-ring" id="cursorRing"></div>
@@ -809,10 +809,14 @@
     revealElements.forEach(el => observer.observe(el));
   })();
 </script>
-<script data-cfasync="false" src="/js/ambient-video.min.js?v=20260623b" defer></script>
 <script data-cfasync="false" src="/js/mobile-menu.min.js?v=20260623b" defer></script>
 <script data-cfasync="false" src="/js/video-carousel.min.js?v=20260704a" defer></script>
-<script data-cfasync="false" src="/js/premium-experience.min.js?v=20260703a" defer></script>
+<script data-cfasync="false">
+  window.TAIYZUN_loadEnhancementScripts?.([
+    '/js/ambient-video.min.js?v=20260623b',
+    '/js/premium-experience.min.js?v=20260704b'
+  ]);
+</script>
 <script data-cfasync="false">
   (() => {
     const useStaticMobileHero = () => window.matchMedia?.('(max-width: 700px), (prefers-reduced-motion: reduce)')?.matches;

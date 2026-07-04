@@ -217,6 +217,78 @@
     }
   };
 
+  window.TAIYZUN_loadEnhancementScripts = function loadEnhancementScripts(srcs, options = {}) {
+    const pendingSrcs = Array.from(new Set(srcs || []))
+      .filter((src) => src && !document.querySelector(`script[src="${src}"]`));
+
+    if (!pendingSrcs.length) return;
+
+    let scheduled = false;
+    let loaded = false;
+
+    const loadScript = (src) => new Promise((resolve) => {
+      if (document.querySelector(`script[src="${src}"]`)) {
+        resolve();
+        return;
+      }
+
+      const script = document.createElement('script');
+      script.src = src;
+      script.async = false;
+      script.dataset.cfasync = 'false';
+      script.onload = resolve;
+      script.onerror = resolve;
+      document.body.appendChild(script);
+    });
+
+    const inject = () => {
+      if (loaded) return;
+      loaded = true;
+      pendingSrcs.reduce((chain, src) => chain.then(() => loadScript(src)), Promise.resolve());
+    };
+
+    const runIdle = (timeout) => {
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(inject, { timeout });
+      } else {
+        window.setTimeout(inject, Math.min(timeout, 420));
+      }
+    };
+
+    const schedule = (delay, timeout) => {
+      if (scheduled || loaded) return;
+      scheduled = true;
+      window.setTimeout(() => runIdle(timeout), delay);
+    };
+
+    const start = () => {
+      if (!applyMobileLite()) {
+        schedule(options.desktopDelay ?? 700, options.desktopTimeout ?? 1800);
+        return;
+      }
+
+      const promptStart = () => schedule(options.compactDelay ?? 760, options.compactTimeout ?? 2200);
+      window.addEventListener('pointerdown', promptStart, { once: true, passive: true });
+      window.addEventListener('touchstart', promptStart, { once: true, passive: true });
+      window.addEventListener('wheel', promptStart, { once: true, passive: true });
+      window.addEventListener('scroll', promptStart, { once: true, passive: true });
+      window.addEventListener('keydown', promptStart, { once: true });
+
+      const settledStart = () => schedule(options.compactSettleDelay ?? 11000, options.compactSettleTimeout ?? 3200);
+      if (document.readyState === 'complete') {
+        settledStart();
+      } else {
+        window.addEventListener('load', settledStart, { once: true });
+      }
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', start, { once: true });
+    } else {
+      start();
+    }
+  };
+
   applyMobileLite();
   installPageLoaderController();
   [mobileQuery, coarseQuery, reduceQuery].forEach((query) => {
