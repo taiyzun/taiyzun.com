@@ -1,4 +1,57 @@
 (() => {
+  const currentScript = document.currentScript;
+  const compactDefer = currentScript?.dataset?.compactDefer === 'true';
+
+  function shouldDeferCompactExperience() {
+    return Boolean(
+      compactDefer &&
+      (
+        window.TAIYZUN_MOBILE_LITE ||
+        window.matchMedia?.('(max-width: 820px), (pointer: coarse)')?.matches
+      )
+    );
+  }
+
+  function runWhenIdle(callback, timeout) {
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(callback, { timeout });
+    } else {
+      window.setTimeout(callback, Math.min(timeout, 320));
+    }
+  }
+
+  function scheduleCompactExperience(callback) {
+    let scheduled = false;
+    const start = (delay, timeout) => {
+      if (scheduled) return;
+      scheduled = true;
+      window.setTimeout(() => runWhenIdle(callback, timeout), delay);
+    };
+    const promptStart = () => start(280, 1600);
+    const passiveOnce = { once: true, passive: true };
+
+    window.addEventListener('pointerdown', promptStart, passiveOnce);
+    window.addEventListener('touchstart', promptStart, passiveOnce);
+    window.addEventListener('wheel', promptStart, passiveOnce);
+    window.addEventListener('scroll', promptStart, passiveOnce);
+    window.addEventListener('keydown', promptStart, { once: true });
+
+    const settledStart = () => start(2600, 4200);
+    if (document.readyState === 'complete') {
+      settledStart();
+    } else {
+      window.addEventListener('load', settledStart, { once: true });
+    }
+  }
+
+  if (shouldDeferCompactExperience()) {
+    scheduleCompactExperience(initPremiumExperience);
+    return;
+  }
+
+  initPremiumExperience();
+
+  function initPremiumExperience() {
   const doc = document;
   const root = doc.documentElement;
   const body = doc.body;
@@ -144,5 +197,6 @@
     updateScroll();
   } else {
     revealNodes.forEach((node) => node.classList.add('is-premium-visible'));
+  }
   }
 })();
