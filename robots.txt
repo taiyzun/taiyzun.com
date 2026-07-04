@@ -21,6 +21,7 @@ Allow: /manifest.json
 Disallow: /seo-keywords.md
 Disallow: /VALIDATION-COMPLETE.md
 Disallow: *.backup
+Disallow: /cdn-cgi/
 Disallow: /node_modules/
 Disallow: /.git/
 
