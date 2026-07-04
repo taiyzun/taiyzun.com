@@ -2,12 +2,12 @@
 
 ## Verification Snapshot
 
-- Last verified: 2026-07-04 20:02 IST.
+- Last verified: 2026-07-04 20:09 IST.
 - Scope: `taiyzun.com` and `taj-mahal-movie.com`.
 - Source of CI status: authenticated GitHub CLI inspection of `taiyzun/taiyzun.com`.
-- Source of Lighthouse result: downloaded `lighthouse-report` artifact from run `28709254967`.
-- Latest Tai production deployment checked: Cloudflare Pages deployment `c4a1bd02-695f-4e4a-afab-241fe49d3508`.
-- Latest Tai production commit verified: `2153015b3f1457662c35364fd16d3153a4b811b8`.
+- Source of Lighthouse result: downloaded `lighthouse-report` artifact from run `28709437174`, attempt `2`.
+- Latest Tai production deployment checked: Cloudflare Pages deployment `a8a8028c-215d-45fa-85e3-d3ac60dcb8ee`.
+- Latest Tai production commit verified: `bd01659e86dc6f941c78d740ae83b4453946e0c7`.
 
 ## Active Production Sites
 
@@ -16,7 +16,7 @@
    - Secondary host: `https://www.taiyzun.com/`
    - Cloudflare Pages project: `taiyzun-com`
    - GitHub repository: `https://github.com/taiyzun/taiyzun.com`
-   - Latest production commit verified: `2153015b3f1457662c35364fd16d3153a4b811b8`
+   - Latest production commit verified: `bd01659e86dc6f941c78d740ae83b4453946e0c7`
    - R2 bucket: `taiyzun-gallery`
    - Asset host: `https://assets.taiyzun.com`
 
@@ -63,9 +63,10 @@
 - Workflow file: `.github/workflows/lighthouse.yml`
 - Workflow name: `Lighthouse Audit`
 - Branch: `main`
-- Latest successful run: `28709254967`
-- Latest successful job: `85139941282`
-- Latest successful commit: `2153015b3f1457662c35364fd16d3153a4b811b8`
+- Latest successful run: `28709437174`
+- Latest inspected attempt: `2`
+- Latest successful job: `85140595090`
+- Latest successful commit: `bd01659e86dc6f941c78d740ae83b4453946e0c7`
 - Final workflow status: passed.
 - Workflow steps passed:
   - Set up job
@@ -82,16 +83,16 @@
 - Report file: `lighthouse-odyssey.json`
 - Target URL: `https://taiyzun.com/odyssey`
 - Mode: mobile
-- Report fetch time: `2026-07-04T14:28:55.302Z`
-- Performance: `98`
+- Report fetch time: `2026-07-04T14:38:16.654Z`
+- Performance: `74`
 - Accessibility: `100`
 - Best Practices: `100`
 - SEO: `100`
 - Agentic Browsing: `100`
-- First Contentful Paint: `1.2 s`
-- Largest Contentful Paint: `2.4 s`
-- Speed Index: `1.2 s`
-- Total Blocking Time: `0 ms`
+- First Contentful Paint: `1.4 s`
+- Largest Contentful Paint: `2.2 s`
+- Speed Index: `2.8 s`
+- Total Blocking Time: `1,180 ms`
 - Cumulative Layout Shift: `0`
 
 ## Historical Issue Resolved
@@ -107,7 +108,8 @@
 
 - Both active sites are live.
 - Tai Lighthouse Audit workflow passes.
-- Tai `/odyssey` mobile Lighthouse scores are healthy.
+- Tai `/odyssey` Best Practices, Accessibility, SEO, and Agentic Browsing scores are healthy.
+- Tai `/odyssey` local live Lighthouse measured Performance `95`, but the latest GitHub-runner mobile Performance rerun measured `74`.
 - Fresh live Tai `/odyssey` HTML no longer contains `challenge-platform`, `__CF$cv`, or `/cdn-cgi/challenge-platform/`.
 - Tai `/odyssey` returns `Cache-Control: public, no-cache, must-revalidate, no-transform`.
 - Cloudflare Bot Fight Mode was restored to ON after the header fix was verified.
@@ -115,12 +117,14 @@
 ## Remaining Warnings
 
 - No active deployment blocker remains.
+- GitHub-runner mobile Performance still varies; keep it as the next optimisation target.
 - Keep `no-transform` on Tai HTML pages unless Cloudflare HTML transformations or automatic Web Analytics script injection are deliberately approved.
 - The existing untracked local `audits/` folder is not part of this deployed production state.
 
 ## Next Optimisation Targets
 
-- Maintain Tai `/odyssey` mobile Performance at `95+`.
+- Improve and stabilise Tai `/odyssey` GitHub-runner mobile Performance above `90`.
+- Maintain Tai `/odyssey` local live Performance at `95+`.
 - Keep Best Practices at `100` by avoiding automatic third-party script injection on page HTML.
 - Future optional performance work should focus only on measured issues from a fresh Lighthouse artifact.
 - Keep future visual, SEO, Cloudflare, dependency, and DNS changes separate from this closeout.

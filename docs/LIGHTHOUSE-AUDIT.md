@@ -2,14 +2,15 @@
 
 ## Verification Snapshot
 
-- Last verified: 2026-07-04 20:02 IST.
+- Last verified: 2026-07-04 20:09 IST.
 - Repository: `https://github.com/taiyzun/taiyzun.com`
 - Workflow file: `.github/workflows/lighthouse.yml`
 - Workflow name: `Lighthouse Audit`
 - Branch: `main`
-- Latest successful run: `28709254967`
-- Latest successful job: `85139941282`
-- Latest inspected commit: `2153015b3f1457662c35364fd16d3153a4b811b8`
+- Latest successful run: `28709437174`
+- Latest inspected attempt: `2`
+- Latest successful job: `85140595090`
+- Latest inspected commit: `bd01659e86dc6f941c78d740ae83b4453946e0c7`
 - Artifact downloaded: `lighthouse-report`
 - Report file: `lighthouse-odyssey.json`
 - Target URL: `https://taiyzun.com/odyssey`
@@ -38,7 +39,7 @@
 - Job name: `lighthouse`.
 - Job status: `completed`.
 - Job conclusion: `success`.
-- Report fetch time: `2026-07-04T14:28:55.302Z`.
+- Report fetch time: `2026-07-04T14:38:16.654Z`.
 - Passed steps:
   - Set up job
   - Checkout repo
@@ -50,17 +51,19 @@
 
 ## Lighthouse Result
 
-- Performance: `98`
+- Performance: `74`
 - Accessibility: `100`
 - Best Practices: `100`
 - SEO: `100`
 - Agentic Browsing: `100`
-- First Contentful Paint: `1.2 s`
-- Largest Contentful Paint: `2.4 s`
-- Speed Index: `1.2 s`
-- Total Blocking Time: `0 ms`
+- First Contentful Paint: `1.4 s`
+- Largest Contentful Paint: `2.2 s`
+- Speed Index: `2.8 s`
+- Total Blocking Time: `1,180 ms`
 - Cumulative Layout Shift: `0`
 - Deprecated API warnings: none.
+
+Local live Lighthouse after the same deploy measured Performance `95`, Best Practices `100`, and Total Blocking Time `0 ms`. The GitHub runner still shows Performance variance, so CI Performance remains a monitoring target even though the Best Practices blocker is resolved.
 
 ## Historical Issue Resolved
 
@@ -103,7 +106,6 @@ Final live verification confirmed:
 - GitHub-hosted runner starts.
 - Lighthouse mobile audit completes.
 - Artifact upload completes.
-- Performance is healthy.
 - Accessibility is healthy.
 - Best Practices is healthy.
 - SEO is healthy.
@@ -111,7 +113,8 @@ Final live verification confirmed:
 
 ## Remaining Warning
 
-No active Lighthouse, CI, or deployment blocker remains.
+- No active Best Practices, CI, or deployment blocker remains.
+- GitHub-runner mobile Performance still varies; the latest inspected rerun is `74`, with TBT `1,180 ms`.
 
 Keep `no-transform` on HTML responses unless there is a deliberate decision to allow Cloudflare HTML transformations or automatic Web Analytics script injection.
 

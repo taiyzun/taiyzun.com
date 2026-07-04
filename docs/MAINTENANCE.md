@@ -43,7 +43,8 @@
 
 ## Remaining Optimisation Backlog
 
-- Maintain Tai `/odyssey` mobile Lighthouse Performance at `95+`.
+- Improve and stabilise Tai `/odyssey` GitHub-runner mobile Lighthouse Performance above `90`.
+- Maintain Tai `/odyssey` local live Lighthouse Performance at `95+`.
 - Maintain Tai `/odyssey` Best Practices at `100`.
 - Review fresh Lighthouse JSON before starting any further performance work.
 - Keep performance changes separate from DNS, Cloudflare, workflow, or deployment cleanup.
