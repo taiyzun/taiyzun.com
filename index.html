@@ -316,7 +316,7 @@
 <!-- Performance: Prefetch other pages -->
 </head>
 <body class="home-page premium-ui-ready">
-<script data-cfasync="false" src="/js/site-mobile-lite.min.js?v=20260704c"></script>
+<script data-cfasync="false" src="/js/site-mobile-lite.min.js?v=20260704d"></script>
 <a href="#main-content" class="skip-link">Skip to main content</a>
 <div class="cursor-glow" id="cursorGlow"></div>
 <div class="cursor-ring" id="cursorRing"></div>
@@ -812,10 +812,46 @@
 <script data-cfasync="false" src="/js/mobile-menu.min.js?v=20260623b" defer></script>
 <script data-cfasync="false" src="/js/video-carousel.min.js?v=20260704a" defer></script>
 <script data-cfasync="false">
-  window.TAIYZUN_loadEnhancementScripts?.([
-    '/js/ambient-video.min.js?v=20260623b',
-    '/js/premium-experience.min.js?v=20260704b'
-  ], { compactSettleDelay: 3600, compactSettleTimeout: 1800 });
+  (function schedulePageEnhancementAssets() {
+    const scripts = ['/js/ambient-video.min.js?v=20260623b', '/js/premium-experience.min.js?v=20260704b'];
+    let scheduled = false;
+    let loaded = false;
+    const compact = () => Boolean(window.TAIYZUN_MOBILE_LITE || window.matchMedia?.('(max-width: 820px), (pointer: coarse)')?.matches);
+    const inject = () => {
+      if (loaded) return;
+      loaded = true;
+      scripts.reduce((chain, src) => chain.then(() => new Promise((resolve) => {
+        if (document.querySelector('script[src="' + src + '"]')) return resolve();
+        const script = document.createElement('script');
+        script.src = src;
+        script.async = false;
+        script.dataset.cfasync = 'false';
+        script.onload = resolve;
+        script.onerror = resolve;
+        document.body.appendChild(script);
+      })), Promise.resolve());
+    };
+    const idle = (timeout) => ('requestIdleCallback' in window ? requestIdleCallback(inject, { timeout }) : window.setTimeout(inject, Math.min(timeout, 420)));
+    const schedule = (delay, timeout) => {
+      if (scheduled || loaded) return;
+      scheduled = true;
+      window.setTimeout(() => idle(timeout), delay);
+    };
+    const start = () => {
+      if (!compact()) return schedule(700, 1800);
+      const prompt = () => schedule(760, 2200);
+      window.addEventListener('pointerdown', prompt, { once: true, passive: true });
+      window.addEventListener('touchstart', prompt, { once: true, passive: true });
+      window.addEventListener('wheel', prompt, { once: true, passive: true });
+      window.addEventListener('scroll', prompt, { once: true, passive: true });
+      window.addEventListener('keydown', prompt, { once: true });
+      const settled = () => schedule(3600, 1800);
+      if (document.readyState === 'complete') settled();
+      else window.addEventListener('load', settled, { once: true });
+    };
+    if (window.TAIYZUN_MOBILE_LITE !== undefined) start();
+    else window.addEventListener('taiyzun:mobile-lite-ready', start, { once: true });
+  })();
 </script>
 <script data-cfasync="false">
   (() => {
