@@ -200,7 +200,7 @@
   <p class="footer-copy footer-signature">Built through TimE. Shaped by SpAcE.</p>
   <p class="footer-copy">&copy; 2026 Taiyzun Shabbir Shahpurwala. All rights reserved.</p>
 </footer>
-<script data-cfasync="false" src="/js/site-mobile-lite.min.js?v=20260704e" defer></script>
+<script data-cfasync="false" src="/js/site-mobile-lite.min.js?v=20260704f" defer></script>
 <script data-cfasync="false" src="/js/mobile-menu.min.js?v=20260623b" defer></script>
 <script data-cfasync="false">
   (function scheduleOdysseyEnhancementAssets() {
@@ -208,8 +208,9 @@
       '/js/ambient-video.min.js?v=20260623b',
       '/js/premium-experience.min.js?v=20260704b'
     ];
-    let scheduled = false;
     let loaded = false;
+    let timer = 0;
+    let timerDueAt = 0;
 
     const isCompact = () => Boolean(
       window.TAIYZUN_MOBILE_LITE ||
@@ -247,9 +248,16 @@
     };
 
     const schedule = (delay, timeout) => {
-      if (scheduled || loaded) return;
-      scheduled = true;
-      window.setTimeout(() => runIdle(timeout), delay);
+      if (loaded) return;
+      const dueAt = performance.now() + delay;
+      if (timer && timerDueAt <= dueAt) return;
+      if (timer) window.clearTimeout(timer);
+      timerDueAt = dueAt;
+      timer = window.setTimeout(() => {
+        timer = 0;
+        timerDueAt = 0;
+        runIdle(timeout);
+      }, delay);
     };
 
     const whenReady = () => {
@@ -276,9 +284,11 @@
 </script>
 <script data-cfasync="false">
   (function scheduleOdysseyRuntimeAsset() {
-    const src = '/js/odyssey-runtime.min.js?v=20260704b';
+    const src = '/js/odyssey-runtime.min.js?v=20260704c';
     let loaded = false;
     let timer = 0;
+    let timerDueAt = 0;
+    let galleryObserver = null;
 
     const isCompact = () => Boolean(
       window.TAIYZUN_MOBILE_LITE ||
@@ -290,6 +300,10 @@
     const inject = () => {
       if (loaded || document.querySelector('script[src="' + src + '"]')) return;
       loaded = true;
+      if (galleryObserver) {
+        galleryObserver.disconnect();
+        galleryObserver = null;
+      }
       const script = document.createElement('script');
       script.src = src;
       script.async = true;
@@ -304,9 +318,14 @@
     };
 
     const schedule = (delay, timeout) => {
-      if (loaded || timer) return;
+      if (loaded) return;
+      const dueAt = performance.now() + delay;
+      if (timer && timerDueAt <= dueAt) return;
+      if (timer) window.clearTimeout(timer);
+      timerDueAt = dueAt;
       timer = window.setTimeout(() => {
         timer = 0;
+        timerDueAt = 0;
         runIdle(timeout);
       }, delay);
     };
@@ -314,30 +333,43 @@
     const whenReady = () => {
       const compact = isCompact();
       const galleryGrid = document.getElementById('galleryGrid');
-      const main = document.getElementById('main-content');
 
       if (!compact) {
         schedule(520, 1500);
         return;
       }
 
-      const promptStart = () => schedule(520, 1800);
-      window.addEventListener('pointerdown', promptStart, { once: true, passive: true });
-      window.addEventListener('touchstart', promptStart, { once: true, passive: true });
+      const promptStart = () => schedule(640, 2200);
       window.addEventListener('wheel', promptStart, { once: true, passive: true });
       window.addEventListener('keydown', promptStart, { once: true });
 
-      const galleryTrigger = galleryGrid || main;
-      if (galleryTrigger && 'IntersectionObserver' in window) {
-        const observer = new IntersectionObserver((entries) => {
-          if (!entries.some((entry) => entry.isIntersecting)) return;
-          observer.disconnect();
-          schedule(180, 1800);
-        }, { rootMargin: '420px 0px 420px 0px', threshold: 0 });
-        observer.observe(galleryTrigger);
-      }
+      const isNearGallery = () => {
+        if (!galleryGrid) return false;
+        const rect = galleryGrid.getBoundingClientRect();
+        return rect.top < window.innerHeight + 260;
+      };
 
-      const settledStart = () => schedule(9000, 2600);
+      const galleryStart = () => {
+        if (!isNearGallery()) return;
+        window.removeEventListener('scroll', galleryStart);
+        if (galleryObserver) {
+          galleryObserver.disconnect();
+          galleryObserver = null;
+        }
+        schedule(240, 2400);
+      };
+
+      if (galleryGrid && 'IntersectionObserver' in window) {
+        galleryObserver = new IntersectionObserver((entries) => {
+          if (!entries.some((entry) => entry.isIntersecting)) return;
+          galleryStart();
+        }, { rootMargin: '120px 0px 220px 0px', threshold: 0 });
+        galleryObserver.observe(galleryGrid);
+      }
+      window.addEventListener('scroll', galleryStart, { passive: true });
+      galleryStart();
+
+      const settledStart = () => schedule(14000, 3600);
       if (document.readyState === 'complete') settledStart();
       else window.addEventListener('load', settledStart, { once: true });
     };

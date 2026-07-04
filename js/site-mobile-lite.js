@@ -2,6 +2,7 @@
   const root = document.documentElement;
   const mobileQuery = window.matchMedia ? window.matchMedia('(max-width: 820px)') : null;
   const coarseQuery = window.matchMedia ? window.matchMedia('(pointer: coarse)') : null;
+  const compactLoaderQuery = window.matchMedia ? window.matchMedia('(max-width: 820px), (pointer: coarse)') : null;
   const reduceQuery = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
   const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
 
@@ -32,10 +33,17 @@
     document.body.dataset.siteLoaderReady = 'true';
     const startedAt = performance.now();
 
-    const getLoaders = () => Array.from(new Set([
-      ...document.querySelectorAll('.site-loader'),
-      ...document.querySelectorAll('#siteLoader')
-    ]));
+    const loaderElements = Array.from(new Set([
+      document.getElementById('siteLoader'),
+      ...document.getElementsByClassName('site-loader')
+    ].filter(Boolean)));
+
+    const getLoaders = () => loaderElements.filter((loader) => loader.isConnected);
+
+    const isCompactLoader = () => Boolean(
+      window.TAIYZUN_MOBILE_LITE ||
+      compactLoaderQuery?.matches
+    );
 
     const readTiming = (loader, name, fallback) => {
       const value = Number(loader?.dataset?.[name]);
@@ -43,14 +51,17 @@
     };
 
     const syncLoaderStart = () => {
-      getLoaders().forEach((loader) => {
+      const loaders = getLoaders();
+      loaders.forEach((loader) => {
         const existingStart = Number(loader.dataset.start);
         if (!existingStart || existingStart < 1) loader.dataset.start = String(startedAt);
       });
+      return loaders;
     };
 
     const hideLoaders = () => {
-      getLoaders().forEach((loader) => {
+      const loaders = getLoaders();
+      loaders.forEach((loader) => {
         if (loader.dataset.hidden === 'true') return;
         loader.dataset.hidden = 'true';
         loader.setAttribute('aria-hidden', 'true');
@@ -63,14 +74,11 @@
     };
 
     const requestHide = () => {
-      syncLoaderStart();
-      const firstLoader = getLoaders()[0];
+      const loaders = syncLoaderStart();
+      const firstLoader = loaders[0];
       const loaderStart = Number(firstLoader?.dataset.start || startedAt);
       const elapsed = performance.now() - loaderStart;
-      const compactLoader = Boolean(
-        window.TAIYZUN_MOBILE_LITE ||
-        window.matchMedia?.('(max-width: 820px), (pointer: coarse)')?.matches
-      );
+      const compactLoader = isCompactLoader();
       const minVisible = compactLoader
         ? readTiming(firstLoader, 'compactMin', 520)
         : readTiming(firstLoader, 'defaultMin', 720);
@@ -94,10 +102,7 @@
       }, { once: true });
     }
 
-    const compactLoader = Boolean(
-      window.TAIYZUN_MOBILE_LITE ||
-      window.matchMedia?.('(max-width: 820px), (pointer: coarse)')?.matches
-    );
+    const compactLoader = isCompactLoader();
     const firstLoader = getLoaders()[0];
     const maxVisible = compactLoader
       ? readTiming(firstLoader, 'compactMax', 2400)
