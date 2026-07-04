@@ -2,7 +2,7 @@
 # AI traffic default change. Normal search indexing is allowed; AI training,
 # bulk dataset ingestion, and full-content reproduction are not.
 User-agent: *
-Content-signal: search=yes, ai-train=no, use=reference
+# Content-signal: search=yes, ai-train=no, use=reference
 Allow: /
 Allow: /llms.txt
 Allow: /sitemap.xml
