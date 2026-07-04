@@ -182,31 +182,26 @@
 
     if (!pendingSrcs.length) return;
 
-    const loadScript = (src) => new Promise((resolve) => {
-      if (document.querySelector(`script[src="${src}"]`)) {
-        resolve();
-        return;
-      }
+    window.TAIYZUN_DESKTOP_ENHANCEMENT_SCRIPTS = pendingSrcs;
+    const helperSrc = '/js/desktop-enhancements-loader.min.js?v=20260704a';
+    if (document.querySelector(`script[src="${helperSrc}"]`)) return;
 
-      const script = document.createElement('script');
-      script.src = src;
-      script.async = false;
-      script.defer = true;
-      script.onload = resolve;
-      script.onerror = resolve;
-      document.body.appendChild(script);
-    });
-
-    const inject = () => {
+    const injectHelper = () => {
       if (applyMobileLite()) return;
-      pendingSrcs.reduce((chain, src) => chain.then(() => loadScript(src)), Promise.resolve());
+      if (document.querySelector(`script[src="${helperSrc}"]`)) return;
+      const script = document.createElement('script');
+      script.src = helperSrc;
+      script.async = true;
+      script.defer = true;
+      script.dataset.cfasync = 'false';
+      document.body.appendChild(script);
     };
 
     const schedule = () => {
       if ('requestIdleCallback' in window) {
-        window.requestIdleCallback(inject, { timeout: 4200 });
+        window.requestIdleCallback(injectHelper, { timeout: 2400 });
       } else {
-        window.setTimeout(inject, 1600);
+        window.setTimeout(injectHelper, 1200);
       }
     };
 
