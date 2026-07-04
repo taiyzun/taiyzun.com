@@ -85,7 +85,7 @@
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-regular-latin.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-bold-latin.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-italic-latin.woff2" crossorigin>
-<link rel="stylesheet" href="/css/taiyzun-creations.bundle.min.css?v=20260704k">
+<link rel="stylesheet" href="/css/taiyzun-creations.bundle.min.css?v=20260704l">
 <link rel="preload" as="image" href="/assets/easter-eggs/taiyzun-atme-3d-loader-192.avif" type="image/avif">
 </head>
 <body class="creations-page premium-ui-ready">
@@ -236,8 +236,9 @@
   let galleryAppendTimer = 0;
   let galleryNextAppendAt = 0;
   const galleryCountEl = document.getElementById('galleryCount');
-  const GALLERY_APPEND_SETTLE_MS = siteMobileLite ? 820 : 640;
-  const SENTINEL_PRELOAD_MARGIN = siteMobileLite ? 120 : 220;
+  const GALLERY_APPEND_SETTLE_MS = siteMobileLite ? 560 : 480;
+  const SENTINEL_PRELOAD_MARGIN = siteMobileLite ? 320 : 420;
+  const GALLERY_START_MARGIN = siteMobileLite ? '260px 0px' : '520px 0px';
 
   function escapeHTML(v) {
     return String(v || '')
@@ -1240,7 +1241,7 @@
           galleryStartObserver.disconnect();
           start();
         }
-      }, { rootMargin: siteMobileLite ? '0px 0px -42% 0px' : '420px 0px', threshold: 0.01 });
+      }, { rootMargin: GALLERY_START_MARGIN, threshold: 0.01 });
       galleryStartObserver.observe(galleryTrigger);
     } else {
       window.addEventListener('load', () => window.setTimeout(start, 1200), { once: true });

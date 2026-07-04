@@ -1473,6 +1473,44 @@ body.premium-ui-ready .home-btn {
   }
 }
 
+@media (max-width: 768px) {
+  body.premium-ui-ready.creations-page .cat-filters,
+  body.harmonic-ready.creations-page .cat-filters {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 0.55rem;
+    width: min(100%, calc(100vw - 2rem));
+    max-width: min(100%, calc(100vw - 2rem));
+    margin-inline: auto;
+    margin-bottom: clamp(1rem, 4vw, 1.4rem);
+    padding: 0.55rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    contain: layout paint;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  body.premium-ui-ready.creations-page .cat-filters::-webkit-scrollbar,
+  body.harmonic-ready.creations-page .cat-filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  body.premium-ui-ready.creations-page .cat-tab,
+  body.harmonic-ready.creations-page .cat-tab {
+    flex: 0 0 auto;
+    max-width: min(82vw, 22rem);
+    min-height: 40px;
+    padding-inline: 0.88rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    scroll-snap-align: start;
+  }
+}
+
 @media (max-width: 520px) {
   body.premium-ui-ready nav#mainNav {
     width: min(calc(100vw - 18px), 520px) !important;
