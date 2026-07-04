@@ -83,6 +83,7 @@ const publicDirectories = [
   'assets/images',
   'assets/space-gallery-categories',
   'assets/video',
+  'js/odyssey-portraits-chunks',
   'css'
 ];
 const ignoredNames = new Set(['.DS_Store']);
@@ -172,6 +173,10 @@ execFileSync(process.execPath, [path.join(rootDir, 'scripts', 'build-space-galle
 });
 
 execFileSync(process.execPath, [path.join(rootDir, 'scripts', 'build-space-gallery-chunks.js')], {
+  stdio: 'inherit'
+});
+
+execFileSync(process.execPath, [path.join(rootDir, 'scripts', 'build-odyssey-portrait-chunks.js')], {
   stdio: 'inherit'
 });
 

@@ -4,9 +4,10 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 const sharp = require('sharp');
+const { execFileSync } = require('node:child_process');
 
 const rootDir = path.resolve(__dirname, '..');
-const portraitManifestPath = path.join(rootDir, 'js', 'odyssey-portraits.js');
+const portraitManifestPath = path.join(rootDir, 'js', 'odyssey-portraits-data.js');
 const outputRelativeDir = 'assets/Portraits/odyssey-optimized';
 const outputDir = path.join(rootDir, outputRelativeDir);
 const widthCandidates = [360, 720];
@@ -111,6 +112,9 @@ async function main() {
   );
 
   console.log(`Optimized ${responsiveCount} Odyssey portraits; wrote ${writtenCount} new files.`);
+  execFileSync(process.execPath, [path.join(rootDir, 'scripts', 'build-odyssey-portrait-chunks.js')], {
+    stdio: 'inherit'
+  });
 }
 
 main().catch((error) => {

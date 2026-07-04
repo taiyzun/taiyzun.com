@@ -238,11 +238,15 @@
     }
 
     const script = document.createElement('script');
-    script.src = '/js/odyssey-portraits.js?v=20260704a';
+    script.src = '/js/odyssey-portraits.js?v=20260704b';
     script.async = true;
     script.dataset.cfasync = 'false';
     script.fetchPriority = isCompactOdysseyRuntime() ? 'low' : 'auto';
-    script.onload = resolve;
+    script.onload = () => {
+      const ready = window.TAIYZUN_odysseyPortraitsReady;
+      if (ready && typeof ready.then === 'function') ready.then(resolve).catch(resolve);
+      else resolve();
+    };
     script.onerror = resolve;
     document.head.appendChild(script);
   });
@@ -250,6 +254,7 @@
   const start = async () => {
   await loadPortraitData();
   const portraits = window.odysseyPortraits || [];
+  const portraitTotal = Number(window.odysseyPortraitTotal) || portraits.length;
   const gallerySizes = '(max-width: 640px) calc((100vw - 72px) / 2), (max-width: 960px) calc((100vw - 104px) / 3), 240px';
   const isMemoryConstrainedGallery = (
     window.TAIYZUN_MOBILE_LITE ||
@@ -300,6 +305,13 @@
     return '<img src="' + p.src + '" alt="' + title + '" loading="lazy" decoding="async" fetchpriority="low" width="400" height="400">';
   }
 
+  async function ensurePortraitRange(count) {
+    if (window.TAIYZUN_ensureOdysseyPortraitRange) {
+      await window.TAIYZUN_ensureOdysseyPortraitRange(count);
+    }
+    return portraits;
+  }
+
   /* ── Gallery grid ── */
   const grid = document.getElementById('galleryGrid');
   const gallerySentinel = document.createElement('div');
@@ -318,8 +330,8 @@
   let galleryBatchPending = false;
   let galleryLoadObserver = null;
   let revealObserver = null;
-  const initialGalleryBatch = isMemoryConstrainedGallery ? 6 : portraits.length;
-  const galleryBatchSize = isMemoryConstrainedGallery ? 8 : portraits.length;
+  const initialGalleryBatch = isMemoryConstrainedGallery ? 6 : portraitTotal;
+  const galleryBatchSize = isMemoryConstrainedGallery ? 8 : portraitTotal;
   const galleryAutoRootMargin = isMemoryConstrainedGallery ? '120px 0px 220px 0px' : '260px 0px 520px 0px';
   const galleryScrollPreload = isMemoryConstrainedGallery ? 220 : 540;
 
@@ -337,16 +349,18 @@
     return el;
   }
 
-  function renderPortraitBatch(limit) {
-    const end = Math.min(renderedPortraitCount + limit, portraits.length);
+  async function renderPortraitBatch(limit) {
+    const end = Math.min(renderedPortraitCount + limit, portraitTotal);
+    await ensurePortraitRange(end);
     const fragment = document.createDocumentFragment();
     for (let i = renderedPortraitCount; i < end; i++) {
+      if (!portraits[i]) break;
       fragment.appendChild(buildGalleryItem(portraits[i], i));
+      renderedPortraitCount = i + 1;
     }
-    renderedPortraitCount = end;
     grid.appendChild(fragment);
 
-    if (renderedPortraitCount >= portraits.length) {
+    if (renderedPortraitCount >= portraitTotal) {
       if (galleryLoadObserver) galleryLoadObserver.disconnect();
       gallerySentinel.remove();
       galleryMoreButton.remove();
@@ -356,26 +370,34 @@
   }
 
   function schedulePortraitBatch() {
-    if (galleryBatchPending || renderedPortraitCount >= portraits.length) return;
+    if (galleryBatchPending || renderedPortraitCount >= portraitTotal) return;
     galleryBatchPending = true;
-    const run = () => {
-      galleryBatchPending = false;
-      renderPortraitBatch(galleryBatchSize);
+    const run = async () => {
+      try {
+        await renderPortraitBatch(galleryBatchSize);
+      } finally {
+        galleryBatchPending = false;
+      }
     };
     runIdle(run, isMemoryConstrainedGallery ? 1800 : 1200);
   }
 
-  renderPortraitBatch(initialGalleryBatch);
+  galleryBatchPending = true;
+  renderPortraitBatch(initialGalleryBatch).finally(() => {
+    galleryBatchPending = false;
+  });
   galleryMoreButton.addEventListener('click', schedulePortraitBatch);
 
-  if (renderedPortraitCount < portraits.length) {
+  if (renderedPortraitCount < portraitTotal) {
     if ('IntersectionObserver' in window) {
       galleryLoadObserver = new IntersectionObserver((entries) => {
         if (entries.some((entry) => entry.isIntersecting)) schedulePortraitBatch();
       }, {rootMargin: galleryAutoRootMargin, threshold: 0});
       galleryLoadObserver.observe(gallerySentinel);
     } else {
-      while (renderedPortraitCount < portraits.length) renderPortraitBatch(galleryBatchSize);
+      (async () => {
+        while (renderedPortraitCount < portraitTotal) await renderPortraitBatch(galleryBatchSize);
+      })();
     }
 
     window.addEventListener('scroll', () => {
@@ -404,9 +426,9 @@
   let filmstripBuilt = false;
   let lightboxGestures = null;
 
-  lbTotal.textContent = portraits.length;
+  lbTotal.textContent = portraitTotal;
   const portraitCount = document.getElementById('portraitCount');
-  if (portraitCount) portraitCount.textContent = portraits.length;
+  if (portraitCount) portraitCount.textContent = portraitTotal;
 
   function buildFilmstrip() {
     if (filmstripBuilt || isMemoryConstrainedGallery) return;
@@ -434,7 +456,7 @@
   }
 
   function updateProgress() {
-    lbProgressBar.style.width = ((currentIdx + 1) / portraits.length * 100) + '%';
+    lbProgressBar.style.width = ((currentIdx + 1) / portraitTotal * 100) + '%';
   }
 
   function createLightboxGestureController({ wrap, image, previous, next, onZoomChange }) {
@@ -702,19 +724,25 @@
     else lbImg.classList.add('lb-anim-prev');
   }
 
-  function loadImage(i, direction) {
+  async function loadImage(i, direction) {
     if (isTransitioning) return;
     isTransitioning = true;
     isZoomed = false;
     lightboxGestures?.reset();
-    currentIdx = i;
+    currentIdx = ((i % portraitTotal) + portraitTotal) % portraitTotal;
+    await ensurePortraitRange(currentIdx + 1);
+    const portrait = portraits[currentIdx];
+    if (!portrait) {
+      isTransitioning = false;
+      return;
+    }
     lbImg.onerror = null;
-    lbImg.src = portraits[i].full || portraitImage(portraits[i], 1200);
-    lbImg.alt = portraits[i].title;
-    lbTitle.textContent = portraits[i].title;
-    lbSub.textContent = portraits[i].sub;
-    lbCurrent.textContent = i + 1;
-    lbMeta.textContent = portraits[i].sub;
+    lbImg.src = portrait.full || portraitImage(portrait, 1200);
+    lbImg.alt = portrait.title;
+    lbTitle.textContent = portrait.title;
+    lbSub.textContent = portrait.sub;
+    lbCurrent.textContent = currentIdx + 1;
+    lbMeta.textContent = portrait.sub;
     updateProgress();
     updateFilmstrip();
     animateImg(direction);
@@ -750,8 +778,8 @@
   }
 
   function navigate(i, direction) { loadImage(i, direction); }
-  function prevImage() { navigate((currentIdx - 1 + portraits.length) % portraits.length, 'prev'); }
-  function nextImage() { navigate((currentIdx + 1) % portraits.length, 'next'); }
+  function prevImage() { navigate((currentIdx - 1 + portraitTotal) % portraitTotal, 'prev'); }
+  function nextImage() { navigate((currentIdx + 1) % portraitTotal, 'next'); }
 
   /* ── Controls ── */
   lbClose.addEventListener('click', closeLB);
@@ -770,18 +798,20 @@
 
   /* ── Preload adjacent images ── */
   lbImg.addEventListener('load', () => {
-    const preload = (idx) => {
+    const preload = async (idx) => {
+      await ensurePortraitRange(idx + 1);
+      if (!portraits[idx]) return;
       const img = new Image();
       img.src = portraits[idx].full || portraitImage(portraits[idx], 1200);
     };
     if (isMemoryConstrainedGallery) {
-      const run = () => preload((currentIdx + 1) % portraits.length);
+      const run = () => preload((currentIdx + 1) % portraitTotal);
       if ('requestIdleCallback' in window) requestIdleCallback(run, { timeout: 1600 });
       else window.setTimeout(run, 360);
       return;
     }
-    preload((currentIdx + 1) % portraits.length);
-    preload((currentIdx - 1 + portraits.length) % portraits.length);
+    preload((currentIdx + 1) % portraitTotal);
+    preload((currentIdx - 1 + portraitTotal) % portraitTotal);
   });
 
   /* ── Nav scroll ── */
