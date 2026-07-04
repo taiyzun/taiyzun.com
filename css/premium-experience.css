@@ -338,7 +338,7 @@ body.premium-ui-ready .page-hero .page-sword-hero-stage {
   pointer-events: none;
   contain: layout paint style;
   isolation: isolate;
-  opacity: 0.28;
+  opacity: 0.36;
   mix-blend-mode: multiply;
 }
 
@@ -359,17 +359,17 @@ body.premium-ui-ready .page-hero .page-sword-hero-stage[data-status="ready"] .sw
 body.premium-ui-ready .page-hero .page-sword-hero-stage .sword-hero-fallback {
   position: absolute;
   top: 50%;
-  right: clamp(4rem, 11vw, 13rem);
+  right: clamp(2.8rem, 8vw, 10rem);
   display: block;
   width: auto;
-  height: min(42vh, 350px);
-  max-height: min(42vh, 350px);
+  height: min(54vh, 460px);
+  max-height: min(54vh, 460px);
   object-fit: contain;
-  opacity: 0.42;
+  opacity: 0.5;
   filter:
-    drop-shadow(0 28px 58px rgba(75, 50, 12, 0.18))
-    saturate(1.04)
-    contrast(1.03);
+    drop-shadow(0 34px 68px rgba(75, 50, 12, 0.2))
+    saturate(1.08)
+    contrast(1.05);
   transform: translate3d(0, -50%, 0) rotate(1deg);
   transform-origin: 50% 50%;
   transition: opacity 420ms ease;
@@ -381,7 +381,7 @@ body.premium-ui-ready .page-hero .page-sword-hero-stage[data-status="ready"] .sw
 
 body.premium-ui-ready.odyssey-page .page-hero .page-sword-hero-stage,
 body.premium-ui-ready.creations-page .page-hero .page-sword-hero-stage {
-  opacity: 0.24;
+  opacity: 0.32;
 }
 
 body.premium-ui-ready .hero-content,

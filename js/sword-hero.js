@@ -316,9 +316,9 @@
         baseTransform.y = 0.62;
         baseTransform.scale = 0.86;
       } else if (isPageVariant) {
-        baseTransform.x = largeViewportMode ? 2.08 : 1.95;
-        baseTransform.y = largeViewportMode ? 0.28 : 0.24;
-        baseTransform.scale = largeViewportMode ? 0.36 : 0.33;
+        baseTransform.x = largeViewportMode ? 3.02 : 2.78;
+        baseTransform.y = largeViewportMode ? 0.1 : 0.1;
+        baseTransform.scale = largeViewportMode ? 0.42 : 0.4;
       } else if (modelAsset) {
         baseTransform.x = largeViewportMode ? 1.5 : 1.44;
         baseTransform.y = largeViewportMode ? 0.54 : 0.58;
@@ -354,7 +354,7 @@
     const motionSpeed = compactMode || largeViewportMode ? 0.72 : 0.92;
     const spin = reduceMotion ? scroll.hero * 0.16 : t * secondHandSweepSpeed * motionSpeed;
     const orbitPhase = spin + scroll.hero * Math.PI * 0.84;
-    const orbitStrength = isPageVariant ? 0.075 : compactMode ? 0.075 : largeViewportMode ? 0.13 : 0.18;
+    const orbitStrength = isPageVariant ? 0.072 : compactMode ? 0.075 : largeViewportMode ? 0.13 : 0.18;
     const scrollYaw = scroll.hero * (isPageVariant ? 0.3 : compactMode ? 0.22 : 0.48);
     const pointerYaw = pointer.x * (isPageVariant ? 0.16 : compactMode ? 0.12 : 0.24);
     const pointerPitch = pointer.y * (isPageVariant ? 0.052 : compactMode ? 0.045 : 0.072);
