@@ -33,12 +33,15 @@
     document.body.dataset.siteLoaderReady = 'true';
     const startedAt = performance.now();
 
-    const loaderElements = Array.from(new Set([
-      document.getElementById('siteLoader'),
-      ...document.getElementsByClassName('site-loader')
-    ].filter(Boolean)));
+    const loaderElements = new Set();
+    const getLoaders = () => {
+      [
+        document.getElementById('siteLoader'),
+        ...document.getElementsByClassName('site-loader')
+      ].filter(Boolean).forEach((loader) => loaderElements.add(loader));
 
-    const getLoaders = () => loaderElements.filter((loader) => loader.isConnected);
+      return Array.from(loaderElements).filter((loader) => loader.isConnected);
+    };
 
     const isCompactLoader = () => Boolean(
       window.TAIYZUN_MOBILE_LITE ||
