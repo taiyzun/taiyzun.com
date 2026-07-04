@@ -2,11 +2,12 @@
 
 ## Verification Snapshot
 
-- Last verified: 2026-06-24 14:08 IST.
+- Last verified: 2026-07-04 20:02 IST.
 - Scope: `taiyzun.com` and `taj-mahal-movie.com`.
-- Documentation cleanup date: 2026-06-24.
 - Source of CI status: authenticated GitHub CLI inspection of `taiyzun/taiyzun.com`.
-- Source of Lighthouse result: downloaded `lighthouse-report` artifact from run `28069081061`, attempt `3`.
+- Source of Lighthouse result: downloaded `lighthouse-report` artifact from run `28709254967`.
+- Latest Tai production deployment checked: Cloudflare Pages deployment `c4a1bd02-695f-4e4a-afab-241fe49d3508`.
+- Latest Tai production commit verified: `2153015b3f1457662c35364fd16d3153a4b811b8`.
 
 ## Active Production Sites
 
@@ -15,7 +16,7 @@
    - Secondary host: `https://www.taiyzun.com/`
    - Cloudflare Pages project: `taiyzun-com`
    - GitHub repository: `https://github.com/taiyzun/taiyzun.com`
-   - Latest production code commit verified before documentation-only closeout: `c31f8310be856a80a4f738062a44ae248b837a4a`
+   - Latest production commit verified: `2153015b3f1457662c35364fd16d3153a4b811b8`
    - R2 bucket: `taiyzun-gallery`
    - Asset host: `https://assets.taiyzun.com`
 
@@ -24,19 +25,19 @@
    - Redirect host: `https://taj-mahal-movie.com/`
    - Cloudflare Pages project: `taj-mahal-movie-com`
    - GitHub repository: `https://github.com/taiyzun/taj-mahal-movie.com`
-   - Latest production code commit verified before documentation-only closeout: `9d272e3e15eea8cb3119d447a717d49748212edc`
+   - Latest production code commit verified during earlier closeout: `9d272e3e15eea8cb3119d447a717d49748212edc`
    - R2 bucket: `taj-mahal-movie-media`
    - Asset host: `https://assets.taj-mahal-movie.com`
 
 ## Cleanup Completed
 
-- Active website cleanup/deploy mission completed before this documentation pass.
+- Active website cleanup/deploy mission completed before this final verification pass.
 - Both active sites were cleaned, committed, pushed, deployed, and live-verified.
-- Tai root deploy surface was cleaned of retired `CNAME`, `.htaccess`, `style.css.backup`, and `seo-keywords.md` public exposure.
+- Tai root deploy surface was cleaned of retired public artifacts.
 - Taj root deploy surface was cleaned of public `README.md` exposure.
-- Taj unknown routes were verified to return `404`.
-- Cloudflare Pages default hosts were verified with noindex behavior where reachable.
-- No code, DNS, Cloudflare, hosting, workflow, site content, or design changes were made during this documentation cleanup.
+- Taj unknown routes were verified to return `404` during earlier closeout.
+- Cloudflare Pages default hosts were verified with noindex behavior where reachable during earlier closeout.
+- Final Tai pass added a narrow HTML header hardening fix only.
 
 ## Cloudflare / DNS Status
 
@@ -62,9 +63,9 @@
 - Workflow file: `.github/workflows/lighthouse.yml`
 - Workflow name: `Lighthouse Audit`
 - Branch: `main`
-- Previous failed run: `28069081061`
-- Latest successful attempt: `3`
-- Latest successful job: `83152107333`
+- Latest successful run: `28709254967`
+- Latest successful job: `85139941282`
+- Latest successful commit: `2153015b3f1457662c35364fd16d3153a4b811b8`
 - Final workflow status: passed.
 - Workflow steps passed:
   - Set up job
@@ -81,8 +82,17 @@
 - Report file: `lighthouse-odyssey.json`
 - Target URL: `https://taiyzun.com/odyssey`
 - Mode: mobile
-- Report fetch time: `2026-06-24T08:37:05.498Z`
-- Score handling: healthy checks and optimisation targets are separated below.
+- Report fetch time: `2026-07-04T14:28:55.302Z`
+- Performance: `98`
+- Accessibility: `100`
+- Best Practices: `100`
+- SEO: `100`
+- Agentic Browsing: `100`
+- First Contentful Paint: `1.2 s`
+- Largest Contentful Paint: `2.4 s`
+- Speed Index: `1.2 s`
+- Total Blocking Time: `0 ms`
+- Cumulative Layout Shift: `0`
 
 ## Historical Issue Resolved
 
@@ -90,41 +100,30 @@
 - Earlier check-run annotation: `The job was not started because your account is locked due to a billing issue.`
 - The GitHub billing/payment issue was resolved outside the repository.
 - After the billing lock cleared, workflow run `28069081061` was rerun and attempt `3` passed.
-- No repository code or workflow change was required to resolve the billing lock.
+- A later Best Practices `81` result was caused by Cloudflare JavaScript Detections being injected at the edge.
+- The Cloudflare edge-script issue was resolved by adding `no-transform` to public HTML `Cache-Control`.
 
 ## Current Health Summary
 
 - Both active sites are live.
 - Tai Lighthouse Audit workflow passes.
-- Healthy Lighthouse checks:
-  - Accessibility: `98`
-  - SEO: `100`
-  - Agentic Browsing: `100`
-- Live spot checks from the final CI closeout returned `200` for:
-  - `https://taiyzun.com/`
-  - `https://taiyzun.com/odyssey`
-  - `https://taiyzun.com/creations`
-- Earlier final cleanup checks returned `200` for:
-  - `https://www.taj-mahal-movie.com/`
-  - `https://www.taj-mahal-movie.com/robots.txt`
-  - `https://www.taj-mahal-movie.com/sitemap.xml`
+- Tai `/odyssey` mobile Lighthouse scores are healthy.
+- Fresh live Tai `/odyssey` HTML no longer contains `challenge-platform`, `__CF$cv`, or `/cdn-cgi/challenge-platform/`.
+- Tai `/odyssey` returns `Cache-Control: public, no-cache, must-revalidate, no-transform`.
+- Cloudflare Bot Fight Mode was restored to ON after the header fix was verified.
 
 ## Remaining Warnings
 
-- GitHub emitted a non-failing Actions runtime warning:
-
-```text
-Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4.
-```
-
-- This is a future maintenance item, not a current deployment blocker.
+- No active deployment blocker remains.
+- Keep `no-transform` on Tai HTML pages unless Cloudflare HTML transformations or automatic Web Analytics script injection are deliberately approved.
+- The existing untracked local `audits/` folder is not part of this deployed production state.
 
 ## Next Optimisation Targets
 
-- Mobile Lighthouse Performance for `https://taiyzun.com/odyssey`: `52`.
-- Lighthouse Best Practices for `https://taiyzun.com/odyssey`: `81`.
-- Review performance opportunities from the Lighthouse JSON artifact before making any optimisation changes.
-- Keep optimisation changes separate from deployment, DNS, or infrastructure cleanup work.
+- Maintain Tai `/odyssey` mobile Performance at `95+`.
+- Keep Best Practices at `100` by avoiding automatic third-party script injection on page HTML.
+- Future optional performance work should focus only on measured issues from a fresh Lighthouse artifact.
+- Keep future visual, SEO, Cloudflare, dependency, and DNS changes separate from this closeout.
 
 ## Rollback Method
 
@@ -146,7 +145,7 @@ git push origin main
 ```
 
 3. Wait for Cloudflare Pages project `taiyzun-com` to deploy.
-4. Verify `https://taiyzun.com/`, `https://taiyzun.com/creations`, `robots.txt`, and `sitemap.xml`.
+4. Verify `https://taiyzun.com/`, `https://taiyzun.com/odyssey`, `https://taiyzun.com/creations`, `robots.txt`, and `sitemap.xml`.
 
 ### taj-mahal-movie.com
 
@@ -171,7 +170,10 @@ git push origin main
 
 - Run `gh auth status` before any GitHub Actions investigation.
 - Review the Tai `Lighthouse Audit` workflow result.
-- Review GitHub Actions runtime warnings, especially Node runtime deprecation notices.
+- Download and inspect the latest `lighthouse-report` artifact.
+- Confirm Tai `/odyssey` still returns `Cache-Control: public, no-cache, must-revalidate, no-transform`.
+- Confirm Tai `/odyssey` live source does not include `challenge-platform`, `__CF$cv`, or `/cdn-cgi/challenge-platform/`.
+- Confirm Cloudflare Bot Fight Mode remains ON.
 - Run `npm audit --omit=dev` in `/Users/tai/Documents/GitHub/taiyzun.com`.
 - Run `npm run build` in `/Users/tai/Documents/GitHub/taiyzun.com`.
 - Verify core Tai routes: `/`, `/odyssey`, `/creations`, `/robots.txt`, `/sitemap.xml`.

@@ -4,7 +4,10 @@
 
 - Run `gh auth status` before any GitHub Actions investigation.
 - Review the Tai `Lighthouse Audit` workflow result.
-- Review GitHub Actions runtime warnings, especially Node runtime deprecation notices.
+- Download and inspect the latest `lighthouse-report` artifact.
+- Confirm Tai `/odyssey` still returns `Cache-Control: public, no-cache, must-revalidate, no-transform`.
+- Confirm Tai `/odyssey` live source does not include `challenge-platform`, `__CF$cv`, or `/cdn-cgi/challenge-platform/`.
+- Confirm Cloudflare Bot Fight Mode remains ON.
 - Run `npm audit --omit=dev` in `/Users/tai/Documents/GitHub/taiyzun.com`.
 - Run `npm run build` in `/Users/tai/Documents/GitHub/taiyzun.com`.
 - Verify core Tai routes:
@@ -40,11 +43,11 @@
 
 ## Remaining Optimisation Backlog
 
-- Tai Odyssey mobile Lighthouse Performance: `52`.
-- Tai Odyssey Lighthouse Best Practices: `81`.
-- Review GitHub Actions Node runtime warning for `actions/checkout@v4` and `actions/upload-artifact@v4`.
-- Review the downloaded Lighthouse JSON before starting performance work.
+- Maintain Tai `/odyssey` mobile Lighthouse Performance at `95+`.
+- Maintain Tai `/odyssey` Best Practices at `100`.
+- Review fresh Lighthouse JSON before starting any further performance work.
 - Keep performance changes separate from DNS, Cloudflare, workflow, or deployment cleanup.
+- Treat any future Cloudflare HTML transformation, Web Analytics auto-injection, or third-party script change as a measured performance/Best Practices risk.
 
 ## Cleanup Rule
 
