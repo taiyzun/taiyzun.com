@@ -1537,3 +1537,15 @@ body.premium-ui-ready .home-btn {
     padding-right: 18px;
   }
 }
+
+@media (max-width: 900px) {
+  body.premium-ui-ready nav#mainNav {
+    overflow: visible !important;
+  }
+
+  body.premium-ui-ready .nav-links.open,
+  body.premium-ui-ready .nav-links.active,
+  body.premium-ui-ready.tai-mobile-menu-open .nav-links {
+    z-index: 10050 !important;
+  }
+}
