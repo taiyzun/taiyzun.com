@@ -71,6 +71,19 @@
     return Math.min(max, Math.max(min, value));
   }
 
+  function hasWebGLSupport() {
+    try {
+      const probe = document.createElement('canvas');
+      return Boolean(
+        probe.getContext('webgl2') ||
+        probe.getContext('webgl') ||
+        probe.getContext('experimental-webgl')
+      );
+    } catch (_) {
+      return false;
+    }
+  }
+
   function updateScrollMotion() {
     const documentElement = document.documentElement;
     const maxScroll = Math.max(1, documentElement.scrollHeight - window.innerHeight);
@@ -393,6 +406,12 @@
 
   async function init() {
     try {
+      if (!hasWebGLSupport()) {
+        root.dataset.error = 'webgl-unavailable';
+        showFallback();
+        return;
+      }
+
       const THREE = await import('./vendor/three.module.min.js');
 
       renderer = new THREE.WebGLRenderer({

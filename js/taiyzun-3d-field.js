@@ -119,6 +119,19 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     return t * t * (3 - 2 * t);
   }
 
+  function hasWebGLSupport() {
+    try {
+      const probe = doc.createElement('canvas');
+      return Boolean(
+        probe.getContext('webgl2') ||
+        probe.getContext('webgl') ||
+        probe.getContext('experimental-webgl')
+      );
+    } catch (_) {
+      return false;
+    }
+  }
+
   function hashString(value) {
     let hash = 2166136261;
 
@@ -402,6 +415,13 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
 
   async function startThreeField() {
     try {
+    if (!hasWebGLSupport()) {
+      root.dataset.status = 'fallback';
+      root.dataset.error = 'webgl-unavailable';
+      window.TAIYZUN_completeSiteLoader?.();
+      return;
+    }
+
     const THREE = await import('./vendor/three.module.min.js');
     const renderer = new THREE.WebGLRenderer({
       canvas,

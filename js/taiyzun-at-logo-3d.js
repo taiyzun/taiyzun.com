@@ -16,10 +16,33 @@
     ready: false
   };
 
+  function hasWebGLSupport() {
+    try {
+      const probe = document.createElement('canvas');
+      return Boolean(
+        probe.getContext('webgl2') ||
+        probe.getContext('webgl') ||
+        probe.getContext('experimental-webgl')
+      );
+    } catch (_) {
+      return false;
+    }
+  }
+
   if (compactMode || reduceMotion) {
     roots.forEach((root) => {
       root.dataset.status = reduceMotion ? 'static-reduced-motion' : 'static-mobile';
     });
+    return;
+  }
+
+  if (!hasWebGLSupport()) {
+    roots.forEach((root) => {
+      root.dataset.status = 'fallback';
+      root.dataset.error = 'webgl-unavailable';
+    });
+    window.__TAIYZUN_AT_LOGO_3D__.ready = true;
+    window.__TAIYZUN_AT_LOGO_3D__.fallbackOnly = true;
     return;
   }
 
