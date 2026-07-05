@@ -115,13 +115,12 @@ button {
     linear-gradient(135deg, #fffdfa, #f6efe0 46%, #ffffff);
   opacity: 1;
   visibility: visible;
-  transition: opacity 360ms ease, visibility 0s linear 360ms;
+  transition: opacity 280ms ease;
   perspective: 1240px;
 }
 
 .site-loader.is-hidden {
   opacity: 0;
-  visibility: hidden;
   pointer-events: none;
 }
 

@@ -20,6 +20,7 @@
 
     var focusableSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
     var lastFocus = null;
+    var menuGuardsReady = false;
 
     function setOpen(open) {
       button.classList.toggle('open', open);
@@ -58,28 +59,7 @@
       window.setTimeout(function () { ripple.remove(); }, 700);
     }
 
-    button.addEventListener('click', function (event) {
-      event.preventDefault();
-      event.stopPropagation();
-      if (typeof event.stopImmediatePropagation === 'function') {
-        event.stopImmediatePropagation();
-      }
-      spawnRipple(event);
-      setOpen(!isOpen());
-    }, true);
-
-    button.addEventListener('keydown', function (event) {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        setOpen(!isOpen());
-      }
-    }, true);
-
-    links.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', function () { setOpen(false); });
-    });
-
-    document.addEventListener('keydown', function (event) {
+    function onGlobalKeydown(event) {
       if (!isOpen()) return;
 
       if (event.key === 'Escape') {
@@ -104,19 +84,50 @@
         event.preventDefault();
         first.focus();
       }
-    });
+    }
 
-    document.addEventListener('click', function (event) {
+    function onDocumentClick(event) {
       if (!isOpen()) return;
       if (nav.contains(event.target) || links.contains(event.target)) return;
       setOpen(false);
-    });
+    }
 
-    window.addEventListener('resize', function () {
+    function onResize() {
       if (window.innerWidth > 900 && isOpen()) {
         setOpen(false);
       }
-    });
+    }
+
+    function ensureMenuGuards() {
+      if (menuGuardsReady) return;
+      menuGuardsReady = true;
+
+      links.addEventListener('click', function (event) {
+        if (event.target.closest('a')) setOpen(false);
+      });
+      document.addEventListener('keydown', onGlobalKeydown);
+      document.addEventListener('click', onDocumentClick);
+      window.addEventListener('resize', onResize);
+    }
+
+    button.addEventListener('click', function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      if (typeof event.stopImmediatePropagation === 'function') {
+        event.stopImmediatePropagation();
+      }
+      spawnRipple(event);
+      ensureMenuGuards();
+      setOpen(!isOpen());
+    }, true);
+
+    button.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        ensureMenuGuards();
+        setOpen(!isOpen());
+      }
+    }, true);
   }
 
   if (document.readyState === 'loading') {

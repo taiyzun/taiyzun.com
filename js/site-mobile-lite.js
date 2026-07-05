@@ -71,7 +71,7 @@
         loader.classList.add('is-hidden');
         window.setTimeout(() => {
           if (loader.dataset.hidden === 'true') loader.hidden = true;
-        }, 460);
+        }, 320);
       });
       document.body.classList.remove('site-loader-active');
       root.classList.remove('site-loader-active');
