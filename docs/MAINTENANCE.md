@@ -50,8 +50,10 @@
 
 ## Current Optimisation Backlog
 
+- P1: measurement architecture and consent-aware Google/Meta tracking plan. See `docs/FULL-STACK-OPTIMISATION-ROADMAP.md`.
 - P2: `/creations` large CSS bundle, currently estimated by Lighthouse at `23 KiB` unused CSS.
 - P2: `/creations` inline/gallery JavaScript, currently estimated at `34 KiB` unused JavaScript and `9 KiB` unminified JavaScript.
+- P2: `/api/contact` backend smoke tests and environment-variable checklist.
 - P2: possible future image thumbnail pipeline if gallery transfer size grows.
 - P2: safe long-term 3D object maintenance, keeping desktop rich and mobile deferred.
 - P2: Cloudflare/no-transform decision review only if there is a deliberate reason to allow HTML transformations.
