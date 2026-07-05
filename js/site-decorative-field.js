@@ -256,6 +256,17 @@
       }
   };
 
+  const framedDecorativeAssets = new Set([
+    "assets/decorative/8 ~ ball ~ c ~ liberTy [2000x3000].png",
+    "assets/decorative/@TZ breaThain 0004 STing [1666x2258].png",
+    "assets/decorative/@TZ breaThain 0008 layer 22 [1983x1589].png",
+    "assets/decorative/@TaiyZun ~ Logo ~ 00123 ~ 786 [786x786].png",
+    "assets/decorative/TaiyZun @mE 2021 q [1420x1420].png",
+    "assets/decorative/s-T-i-n- [500x786].png",
+    "assets/easter-eggs/stingray.png"
+  ]);
+
+  const decorativeFieldAssets = decorativeAssets.filter((assetPath) => !framedDecorativeAssets.has(assetPath));
   const pageKeys = ["home-page", "journey-page", "odyssey-page", "creations-page", "connect-page"];
   const pageKey = pageKeys.find((key) => body.classList.contains(key)) || "home-page";
   const targetSections = Array.from(
@@ -264,13 +275,13 @@
     )
   );
 
-  if (!targetSections.length || !decorativeAssets.length) {
+  if (!targetSections.length || !decorativeFieldAssets.length) {
     return;
   }
 
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const pageLoadNonce = `${pageKey}:${Date.now().toString(36)}:${Math.random().toString(36).slice(2, 10)}`;
-  const deckStorageKey = "taiyzunDecorativeDeckV8";
+  const deckStorageKey = "taiyzunDecorativeDeckV9Cutouts";
   const horizontalLanes = [
     { name: "far-left", min: 2, max: 12 },
     { name: "left", min: 13, max: 27 },
@@ -361,6 +372,7 @@
       if (!parsed || !Array.isArray(parsed.unused)) {
         return { unused: [] };
       }
+      parsed.unused = parsed.unused.filter((assetPath) => decorativeFieldAssets.includes(assetPath));
       return parsed;
     } catch (error) {
       return { unused: [] };
@@ -391,8 +403,8 @@
 
     while (chosen.length < count) {
       if (!state.unused.length) {
-        const available = decorativeAssets.filter((path) => !chosenSet.has(path));
-        const nextDeck = shuffleRandom(available.length ? available : decorativeAssets);
+        const available = decorativeFieldAssets.filter((path) => !chosenSet.has(path));
+        const nextDeck = shuffleRandom(available.length ? available : decorativeFieldAssets);
         if (state.lastAsset && nextDeck.length > 1 && nextDeck[0] === state.lastAsset) {
           [nextDeck[0], nextDeck[1]] = [nextDeck[1], nextDeck[0]];
         }
@@ -400,7 +412,7 @@
       }
 
       const nextAsset = state.unused.shift();
-      if (!nextAsset || chosenSet.has(nextAsset)) {
+      if (!nextAsset || chosenSet.has(nextAsset) || !decorativeFieldAssets.includes(nextAsset)) {
         continue;
       }
 

@@ -162,21 +162,17 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
   };
   const theme = themes[page] || themes.home;
   const decorativeTextureAssets = [
-    'assets/decorative/optimized/decor-01-6064707a18-384.webp',
     'assets/decorative/optimized/decor-02-1e4b1392b1-384.webp',
     'assets/decorative/optimized/decor-03-10841040b6-384.webp',
     'assets/decorative/optimized/decor-04-abc334266c-384.webp',
     'assets/decorative/optimized/decor-05-c2da58b2fd-384.webp',
-    'assets/decorative/optimized/decor-06-28c436cfc5-384.webp',
     'assets/decorative/optimized/decor-07-875a39f87e-384.webp',
     'assets/decorative/optimized/decor-08-e38790efe1-384.webp',
-    'assets/decorative/optimized/decor-09-aabafc3ad6-384.webp',
     'assets/decorative/optimized/decor-10-1af9d19f49-384.webp',
     'assets/decorative/optimized/decor-11-003dbf7e69-384.webp',
     'assets/decorative/optimized/decor-12-f1ef6d07f1-384.webp',
     'assets/decorative/optimized/decor-13-2a4b750a8f-384.webp',
     'assets/decorative/optimized/decor-14-d8bf4299fe-384.webp',
-    'assets/decorative/optimized/decor-15-01151cb738-384.webp',
     'assets/decorative/optimized/decor-16-6807d17293-384.webp',
     'assets/decorative/optimized/decor-17-2cd6df39a1-384.webp',
     'assets/decorative/optimized/decor-18-040c814e89-384.webp',
@@ -185,7 +181,6 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     'assets/decorative/optimized/decor-21-ffedf25a3b-384.webp',
     'assets/decorative/optimized/decor-22-55bbdfde65-384.webp',
     'assets/decorative/optimized/decor-23-80d41399a1-384.webp',
-    'assets/decorative/optimized/decor-24-9b29cd9f26-384.webp',
     'assets/decorative/optimized/decor-25-5bc8d42695-384.webp',
     'assets/decorative/optimized/decor-26-8b2d2d5932-384.webp',
     'assets/decorative/optimized/decor-27-3357d45ec6-384.webp',
@@ -196,7 +191,6 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     'assets/decorative/optimized/decor-32-87d403a230-384.webp',
     'assets/decorative/optimized/decor-33-ca240ea221-384.webp',
     'assets/decorative/optimized/decor-34-6fc12fdb8c-384.webp',
-    'assets/decorative/optimized/decor-35-6202c3a156-384.webp',
     'assets/decorative/optimized/decor-36-598e9f2098-384.webp',
     'assets/decorative/optimized/decor-37-11f1e47b15-384.webp',
     'assets/decorative/optimized/decor-38-0700e4820b-384.webp',
@@ -208,7 +202,6 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     'assets/decorative/optimized/decor-44-80b2d62546-384.webp',
     'assets/decorative/optimized/decor-45-dbdcffeb8e-384.webp',
     'assets/decorative/optimized/decor-46-171f84453f-384.webp',
-    'assets/decorative/optimized/decor-47-45ddd777ac-384.webp',
     'assets/decorative/optimized/decor-48-bb8cc65c4a-384.webp',
     'assets/decorative/optimized/decor-49-eabf0a16e7-384.webp'
   ];
@@ -963,63 +956,16 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
           const objectDepth = page === 'odyssey'
             ? (compactMode ? 0.052 : largeViewportMode ? 0.07 : 0.086)
             : (compactMode ? 0.026 : largeViewportMode ? 0.036 : 0.046);
-          const depthGeometry = new THREE.PlaneGeometry(objectWidth * 1.012, objectHeight * 1.012, 1, 1);
-          const objectEdges = new THREE.EdgesGeometry(geometry);
-          const shadowGeometry = new THREE.PlaneGeometry(objectWidth * 1.12, objectHeight * 1.12, 1, 1);
           const group = new THREE.Group();
           const sampledColour = sampleTextureColour(texture, accentMaterialColour);
           const glassColour = new THREE.Color(0xffffff).lerp(sampledColour, 0.16).lerp(accentMaterialColour, 0.1);
-          const depthColour = sampledColour.clone().lerp(accentMaterialColour, 0.6);
-          const edgeColour = sampledColour.clone().lerp(accentMaterialColour, 0.42);
-          const shadowColour = new THREE.Color(0x6f5527).lerp(sampledColour, 0.24);
-          const backBaseOpacity = page === 'odyssey'
-            ? (compactMode ? 0.07 : isPrimaryObject ? 0.052 : 0.038)
-            : (compactMode ? 0.016 : 0.01);
-          const backMaterial = new THREE.MeshBasicMaterial({
-            color: depthColour,
-            transparent: true,
-            opacity: backBaseOpacity,
-            depthWrite: false,
-            side: THREE.DoubleSide
-          });
-          const shadowBaseOpacity = page === 'odyssey'
-            ? (compactMode ? 0.055 : 0.072)
-            : (compactMode ? 0.018 : 0.012);
-          const shadowMaterial = new THREE.MeshBasicMaterial({
-            color: shadowColour,
-            transparent: true,
-            opacity: shadowBaseOpacity,
-            depthWrite: false,
-            side: THREE.DoubleSide
-          });
           const faceBaseOpacity = compactMode ? (page === 'odyssey' ? 0.74 : 0.62) : isPrimaryObject ? 0.82 : 0.64;
-          const edgeBaseOpacity = page === 'odyssey'
-            ? (compactMode ? 0.28 : isPrimaryObject ? 0.34 : 0.24)
-            : (compactMode ? 0.04 : isPrimaryObject ? 0.075 : 0.045);
           const faceMaterial = createLiquidFaceMaterial(texture, glassColour, faceBaseOpacity);
           faceMaterial.uniforms.uTextureAspect.value = aspect;
-          const edgeMaterial = new THREE.MeshBasicMaterial({
-            color: edgeColour,
-            transparent: true,
-            opacity: edgeBaseOpacity,
-            depthWrite: false,
-            side: THREE.DoubleSide
-          });
-          const shadow = new THREE.Mesh(shadowGeometry, shadowMaterial);
-          const back = new THREE.Mesh(depthGeometry, backMaterial);
           const face = new THREE.Mesh(geometry, faceMaterial);
-          const edge = new THREE.LineSegments(objectEdges, edgeMaterial);
 
-          shadow.scale.set(1.02, 1.02, 1);
-          shadow.position.set(0.034, -0.046, -objectDepth * 1.35);
-          back.scale.set(1.016, 1.016, 1);
-          back.position.z = -objectDepth * 0.56;
           face.position.z = objectDepth * 0.38;
-          edge.position.z = objectDepth * 0.52;
-          group.add(shadow);
-          group.add(back);
           group.add(face);
-          group.add(edge);
           group.name = `taiyzun-3d-entity-${index + 1}`;
           group.position.set(slot[0], slot[1], slot[2]);
           group.rotation.set(slot[4], slot[5], slot[6]);
@@ -1119,14 +1065,11 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
             baseObjectScale: 1,
             rotationEnergy: actorEnergy,
             faceBaseOpacity,
-            edgeBaseOpacity,
-            backBaseOpacity,
-            shadowBaseOpacity,
             faceMaterial,
-            backMaterial,
-            edgeMaterial,
-            shadowMaterial,
-            shadow
+            backMaterial: null,
+            edgeMaterial: null,
+            shadowMaterial: null,
+            shadow: null
           };
 
           decorObjects.push(group);
@@ -1138,7 +1081,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
           root.dataset.decor3dMode = page === 'odyssey' ? 'clustered-sphere-orbit' : 'clustered-field';
           root.dataset.nativeAssetScale = 'native-uniform-scale';
           root.dataset.decor3dAspectMode = 'native-aspect-uncropped-transparent-png';
-          root.dataset.decor3dLayering = 'native-plane-rim-shadow-depth';
+          root.dataset.decor3dLayering = 'transparent-cutout-plane-no-rectangular-depth';
           root.dataset.decor3dDepthMotion = 'cluster-damped-scroll-pointer-zoom';
           root.dataset.decor3dClockMotion = 'smooth-grouped-second-speed';
           root.dataset.decor3dUniqueAssets = String(new Set(decorObjects.map((object) => object.userData.asset)).size);
@@ -1328,10 +1271,16 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
         object.rotation.z = data.motionRotZ;
 
         const depthGlow = clamp(0.5 + depthZoom * 1.9 + nearFarZoom * 2.4 + entityBlend * 0.22, 0.28, 1.45);
-        data.backMaterial.opacity = data.backBaseOpacity * depthGlow + entityBlend * 0.018;
-        data.edgeMaterial.opacity = data.edgeBaseOpacity * (0.88 + liquidEnergy * 0.42) + entityBlend * 0.07;
-        data.shadowMaterial.opacity = data.shadowBaseOpacity * clamp(1.12 - depthZoom * 1.65 + entityBlend * 0.16, 0.34, 1.36);
-        data.shadow.scale.setScalar(clamp(1.02 + pointerMagnitude * 0.05 - depthZoom * 0.06, 0.96, 1.12));
+        if (data.backMaterial) {
+          data.backMaterial.opacity = data.backBaseOpacity * depthGlow + entityBlend * 0.018;
+        }
+        if (data.edgeMaterial) {
+          data.edgeMaterial.opacity = data.edgeBaseOpacity * (0.88 + liquidEnergy * 0.42) + entityBlend * 0.07;
+        }
+        if (data.shadowMaterial && data.shadow) {
+          data.shadowMaterial.opacity = data.shadowBaseOpacity * clamp(1.12 - depthZoom * 1.65 + entityBlend * 0.16, 0.34, 1.36);
+          data.shadow.scale.setScalar(clamp(1.02 + pointerMagnitude * 0.05 - depthZoom * 0.06, 0.96, 1.12));
+        }
         data.faceMaterial.uniforms.uOpacity.value = data.faceBaseOpacity + entityBlend * (compactMode ? 0.04 : 0.08);
         data.faceMaterial.uniforms.uTime.value = time + index * 0.021;
         data.faceMaterial.uniforms.uPointer.value = liquidEnergy;
@@ -1390,7 +1339,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
         root.dataset.decor3dSphereMembers = String(sphereMemberCount);
         root.dataset.decor3dColours = 'sampled';
         root.dataset.decor3dLiquid = liquidEnergy.toFixed(3);
-        root.dataset.decor3dLayering = 'native-plane-rim-shadow-depth';
+        root.dataset.decor3dLayering = 'transparent-cutout-plane-no-rectangular-depth';
         root.dataset.decor3dAspectMode = 'native-aspect-uncropped-transparent-png';
         root.dataset.decor3dDepthMotion = 'cluster-damped-scroll-pointer-zoom';
         root.dataset.decor3dClockMotion = 'smooth-grouped-second-speed';

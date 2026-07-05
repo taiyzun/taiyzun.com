@@ -4,7 +4,8 @@
   overflow: hidden;
   pointer-events: none;
   z-index: 0;
-  isolation: isolate;
+  isolation: auto;
+  background: transparent;
 }
 
 main,
@@ -35,7 +36,11 @@ footer {
   will-change: transform, opacity;
   pointer-events: none;
   user-select: none;
-  filter: drop-shadow(0 14px 34px rgba(201, 168, 76, 0.14)) saturate(1.03);
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  outline: 0 !important;
 }
 
 .hero-decorative-png {
@@ -51,11 +56,11 @@ footer {
   z-index: 0;
   opacity: var(--decor-opacity, 0.13);
   mix-blend-mode: normal;
-  transition: opacity 0.35s ease, filter 0.35s ease;
+  transition: opacity 0.35s ease;
 }
 
 .site-decorative-png.is-hero-decor {
-  filter: drop-shadow(0 18px 40px rgba(201, 168, 76, 0.16)) saturate(1.05);
+  filter: none !important;
 }
 
 body.odyssey-page .site-decorative-png,
@@ -71,7 +76,7 @@ body.creations-page .site-decorative-png.is-hero-decor {
 @media (max-width: 1024px) {
   .hero-decorative-png,
   .site-decorative-png {
-    filter: drop-shadow(0 10px 24px rgba(201, 168, 76, 0.12)) saturate(1.02);
+    filter: none !important;
   }
 }
 
