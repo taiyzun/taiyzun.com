@@ -57,6 +57,7 @@
 - Completed: `/creations` critical CSS split and compact/mobile full-bundle deferral.
 - Completed: `/creations` desktop intro CLS refinement and decorative WebGL PNG cutout-frame fix.
 - P2: `/creations` gallery JavaScript is now extracted/minified; only continue into functional gallery refactors if fresh metrics justify it and full interaction QA is repeated.
+- P2: `/odyssey` production CI TBT review if GitHub Actions continues reporting TBT above `1,000 ms`.
 - P2: `/api/contact` backend smoke tests and environment-variable checklist.
 - P2: consent-approved Google/Meta tracking activation only after real IDs and privacy wording are ready.
 - P2: possible future image thumbnail pipeline if gallery transfer size grows.
@@ -66,7 +67,7 @@
 
 ## Current Health Targets
 
-- Maintain `/odyssey` mobile Performance at `95+`.
+- Maintain local/live `/odyssey` mobile Performance at `95+`; investigate CI separately if GitHub Actions stays below `80`.
 - Maintain `/odyssey` Best Practices at `100`.
 - Maintain `/odyssey` SEO at `100`.
 - Maintain `/creations` mobile Performance at `90+`.

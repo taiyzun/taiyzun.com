@@ -6,8 +6,8 @@
 - Site: `https://taiyzun.com`
 - Repository: `https://github.com/taiyzun/taiyzun.com`
 - Branch: `main`
-- Latest verified baseline before this update: `c2e45e90c414b8bc672e71c86851274f9ce88200`
-- Latest verified GitHub Actions run before this update: `28724924812`
+- Latest verified implementation commit: `98f5c4a4a6ea0e787f2c004ab365ba2740d5f54e`
+- Latest verified GitHub Actions run: `28726830540`
 
 ## Production Status
 
@@ -25,13 +25,12 @@
 
 GitHub Actions mobile `/odyssey`:
 
-- Performance: `96`
+- Performance: `69`
 - Accessibility: `100`
 - Best Practices: `100`
 - SEO: `100`
-- Agentic Browsing: `100`
 - CLS: `0`
-- TBT: `160 ms`
+- TBT: `2,610 ms`
 
 Fresh live mobile CLI:
 
@@ -79,7 +78,7 @@ Local `/creations` after the critical CSS and CLS refinement:
 
 ## Current Risk Assessment
 
-- `/odyssey` mobile performance is excellent.
+- `/odyssey` local mobile performance is excellent; the latest GitHub Actions production run passes but leaves a TBT optimisation target.
 - `/creations` mobile performance is strong after the critical CSS split.
 - `/creations` desktop CLS is now under the usual `0.1` good threshold in local Lighthouse after the targeted refinement.
 - Further CSS or functional gallery JavaScript refactors are optional and higher-risk because they touch shared layout, gallery loading, lightbox, share, and gesture behaviour.
@@ -92,6 +91,7 @@ Local `/creations` after the critical CSS and CLS refinement:
 | --- | --- | --- | --- |
 | `/creations` functional gallery JS refactor | P2 optional optimisation | Only if fresh metrics show a remaining bottleneck after extraction/minification | Medium-high |
 | Gallery thumbnail pipeline | P2 optional optimisation | Useful if gallery transfer grows | Medium |
+| `/odyssey` production CI TBT review | P2 optional optimisation | Latest passing GitHub Actions run reports TBT `2,610 ms` | Medium |
 | Long-term 3D asset maintenance | P2 optional optimisation | Preserve desktop richness while keeping mobile light | Medium |
 | Cloudflare/no-transform decision review | P2 optional optimisation | Only if HTML transformation is deliberately wanted | Medium-high |
 | UI polish if metrics regress | P3 polish | Keep visual quality stable | Low-medium |

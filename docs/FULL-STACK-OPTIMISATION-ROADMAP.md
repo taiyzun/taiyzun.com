@@ -18,7 +18,7 @@ This roadmap is intentionally a planning and sequencing document. It does not ac
 ### Frontend
 
 - The public pages are static HTML with shared CSS and JavaScript bundles.
-- `/odyssey` mobile performance is currently healthy after deferred 3D handling.
+- `/odyssey` local mobile performance is healthy after deferred 3D handling; the latest passing GitHub Actions production audit should be watched for TBT variance.
 - `/creations` is the heaviest public surface because it supports a large remote gallery, lazy loading, share URLs, and a mobile lightbox.
 - `/creations` now has both an extracted gallery controller and a critical first stylesheet with deferred full CSS loading on compact/mobile first load.
 - `/creations` desktop intro CLS and decorative WebGL PNG cutout rendering have been refined; future measured performance opportunities are now gallery thumbnail strategy, long-term 3D asset maintenance, and only narrowly scoped gallery JavaScript work if fresh metrics justify it.
@@ -127,7 +127,8 @@ Recommended order:
 3. Keep the extracted/minified `/creations` gallery controller under full interaction QA; do not continue into functional refactors unless fresh metrics justify it.
 4. Add responsive thumbnail improvements only if Lighthouse or RUM shows image transfer pressure.
 5. Keep desktop 3D rich, and keep mobile WebGL deferred/static on first load.
-6. Continue using browser QA for carousel, gallery, lightbox, 3D, overflow, and reduced motion.
+6. Inspect the `/odyssey` production Lighthouse artifact if GitHub Actions continues reporting TBT above `1,000 ms`.
+7. Continue using browser QA for carousel, gallery, lightbox, 3D, overflow, and reduced motion.
 
 Do not do:
 
