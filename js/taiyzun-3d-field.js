@@ -163,19 +163,15 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
   };
   const theme = themes[page] || themes.home;
   const decorativeTextureAssets = [
-    'assets/decorative/optimized/decor-02-1e4b1392b1-384.webp',
-    'assets/decorative/optimized/decor-04-abc334266c-384.webp',
     'assets/decorative/optimized/decor-05-c2da58b2fd-384.webp',
     'assets/decorative/optimized/decor-07-875a39f87e-384.webp',
     'assets/decorative/optimized/decor-08-e38790efe1-384.webp',
     'assets/decorative/optimized/decor-10-1af9d19f49-384.webp',
     'assets/decorative/optimized/decor-11-003dbf7e69-384.webp',
-    'assets/decorative/optimized/decor-12-f1ef6d07f1-384.webp',
     'assets/decorative/optimized/decor-14-d8bf4299fe-384.webp',
     'assets/decorative/optimized/decor-16-6807d17293-384.webp',
     'assets/decorative/optimized/decor-17-2cd6df39a1-384.webp',
     'assets/decorative/optimized/decor-18-040c814e89-384.webp',
-    'assets/decorative/optimized/decor-19-0c8700e627-384.webp',
     'assets/decorative/optimized/decor-21-ffedf25a3b-384.webp',
     'assets/decorative/optimized/decor-22-55bbdfde65-384.webp',
     'assets/decorative/optimized/decor-23-80d41399a1-384.webp',
@@ -186,10 +182,8 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     'assets/decorative/optimized/decor-30-501b7ecb96-384.webp',
     'assets/decorative/optimized/decor-31-c58de465b8-384.webp',
     'assets/decorative/optimized/decor-32-87d403a230-384.webp',
-    'assets/decorative/optimized/decor-33-ca240ea221-384.webp',
     'assets/decorative/optimized/decor-34-6fc12fdb8c-384.webp',
     'assets/decorative/optimized/decor-36-598e9f2098-384.webp',
-    'assets/decorative/optimized/decor-37-11f1e47b15-384.webp',
     'assets/decorative/optimized/decor-38-0700e4820b-384.webp',
     'assets/decorative/optimized/decor-39-cc91bc241e-384.webp',
     'assets/decorative/optimized/decor-40-580000a6de-384.webp',
@@ -855,10 +849,10 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
         float objectShade = 0.88 + 0.14 * smoothstep(0.72, 0.02, distance(vUv, vec2(0.34, 0.25)));
         float sheen = smoothstep(0.78, 1.0, sin((vUv.x * 5.2) + (vUv.y * 6.4) + uTime * 0.82 + uMorph * 2.0) * 0.5 + 0.5);
         float sourceAlpha = currentTex.a;
-        float cutoutAlpha = smoothstep(0.24, 0.58, sourceAlpha);
-        float alphaRim = cutoutAlpha * (1.0 - smoothstep(0.58, 0.98, sourceAlpha));
+        float cutoutAlpha = smoothstep(0.34, 0.70, sourceAlpha);
+        float alphaRim = cutoutAlpha * (1.0 - smoothstep(0.70, 0.98, sourceAlpha));
 
-        if (cutoutAlpha <= 0.001) discard;
+        if (sourceAlpha < 0.34 || cutoutAlpha <= 0.001) discard;
 
         vec3 colour = mix(mixedTex.rgb, mixedTex.rgb * uTint, 0.08);
         colour *= objectShade;
