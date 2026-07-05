@@ -260,7 +260,7 @@
     root.dataset.geometry = 'blade-edge-gold-silver-glb';
     root.dataset.modelBounds = `${bounds.width.toFixed(2)}x${bounds.height.toFixed(2)}x${bounds.depth.toFixed(2)}`;
     root.dataset.motion = 'smooth-time-scroll-pointer-spin-revolution';
-    if (fallback) fallback.hidden = true;
+    if (fallback) fallback.dataset.atLogoHandoff = 'ready';
     animate();
 
     return { root, renderer, scene, camera, group, frameId };

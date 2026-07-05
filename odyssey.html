@@ -253,7 +253,7 @@
   (function scheduleOdysseyEnhancementAssets() {
     const enhancementScripts = [
       '/js/ambient-video.min.js?v=20260623b',
-      '/js/premium-experience.min.js?v=20260704b'
+      '/js/premium-experience.min.js?v=20260705a'
     ];
     let loaded = false;
     let timer = 0;
@@ -441,7 +441,7 @@
       return Boolean(compactViewport || reduceMotion || constrainedNetwork || mobileAgent);
     };
 
-    const load = () => window.TAIYZUN_load3DField?.('/js/taiyzun-3d-field.min.js?v=20260705b');
+    const load = () => window.TAIYZUN_load3DField?.('/js/taiyzun-3d-field.min.js?v=20260705c');
     const loadWhenSafe = () => {
       if (shouldKeepWebGLDeferred()) {
         document.documentElement.dataset.odysseyWebgl = 'mobile-deferred';
@@ -458,7 +458,7 @@
 <script data-cfasync="false">
   (function loadDesktopEnhancements() {
     const load = () => window.TAIYZUN_loadDesktopEnhancements?.([
-      '/js/taiyzun-at-logo-3d.min.js?v=20260704b',
+      '/js/taiyzun-at-logo-3d.min.js?v=20260705a',
       '/js/sword-hero.min.js?v=20260704g',
       '/js/harmonic-interactions.min.js?v=20260623b'
     ]);

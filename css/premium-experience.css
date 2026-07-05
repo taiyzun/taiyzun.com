@@ -306,6 +306,7 @@ body.premium-ui-ready .at-logo-3d-fallback {
     saturate(1.04);
   transform: translate3d(0, -50%, 0) rotate(-2deg);
   transform-origin: 50% 50%;
+  transition: opacity 420ms ease;
 }
 
 body.premium-ui-ready .at-logo-3d-stage[data-at-logo-variant="home"] {
@@ -325,8 +326,18 @@ body.premium-ui-ready .at-logo-3d-stage[data-at-logo-variant="creations"] .at-lo
   opacity: 0.13;
 }
 
+@media (min-width: 821px) and (pointer: fine) {
+  body.premium-ui-ready.creations-page .at-logo-3d-stage[data-at-logo-variant="creations"] .at-logo-3d-fallback {
+    opacity: 0;
+  }
+
+  body.premium-ui-ready.creations-page .at-logo-3d-stage[data-at-logo-variant="creations"][data-status="fallback"] .at-logo-3d-fallback {
+    opacity: 0.13;
+  }
+}
+
 body.premium-ui-ready .at-logo-3d-stage[data-status="ready"] .at-logo-3d-fallback {
-  display: none;
+  opacity: 0;
 }
 
 body.premium-ui-ready .page-hero .page-sword-hero-stage {

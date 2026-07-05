@@ -21,7 +21,7 @@ This roadmap is intentionally a planning and sequencing document. It does not ac
 - `/odyssey` mobile performance is currently healthy after deferred 3D handling.
 - `/creations` is the heaviest public surface because it supports a large remote gallery, lazy loading, share URLs, and a mobile lightbox.
 - `/creations` now has both an extracted gallery controller and a critical first stylesheet with deferred full CSS loading on compact/mobile first load.
-- Existing maintenance docs list `/creations` desktop intro CLS and future thumbnail work as the next measured performance opportunities.
+- `/creations` desktop intro CLS and decorative WebGL PNG cutout rendering have been refined; future measured performance opportunities are now gallery thumbnail strategy, long-term 3D asset maintenance, and only narrowly scoped gallery JavaScript work if fresh metrics justify it.
 
 ### Backend
 
@@ -123,7 +123,7 @@ Goal: reduce remaining weight without weakening the visual identity.
 Recommended order:
 
 1. Keep the completed `/creations` critical CSS split narrow; do not continue into broad CSS restructuring unless fresh metrics justify it.
-2. Treat `/creations` desktop intro CLS as the next measured visual-performance target if desktop CLS becomes a formal gate.
+2. Keep desktop CLS and transparent decorative PNG rendering guarded, especially around the `/creations` intro, WebGL texture planes, and 3D fallback handoffs.
 3. Keep the extracted/minified `/creations` gallery controller under full interaction QA; do not continue into functional refactors unless fresh metrics justify it.
 4. Add responsive thumbnail improvements only if Lighthouse or RUM shows image transfer pressure.
 5. Keep desktop 3D rich, and keep mobile WebGL deferred/static on first load.

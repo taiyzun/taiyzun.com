@@ -696,12 +696,29 @@ footer {
   }
 
   nav#mainNav {
+    top: 0;
     width: min(calc(100vw - 28px), 1280px);
     min-height: 64px;
+    margin: 14px auto 0;
     padding: 10px 14px;
     box-shadow: 0 14px 38px rgba(38, 29, 17, 0.13);
     backdrop-filter: blur(16px) saturate(1.08);
     -webkit-backdrop-filter: blur(16px) saturate(1.08);
+  }
+
+  .logo {
+    gap: 0.7rem;
+    position: relative;
+  }
+
+  .logo picture {
+    width: 38px;
+    height: 38px;
+  }
+
+  .logo-img {
+    width: 36px;
+    height: 36px;
   }
 
   .hamburger {
@@ -717,6 +734,13 @@ footer {
     padding: 0;
     background: transparent;
     box-shadow: none;
+  }
+
+  .nav-links a {
+    min-height: 40px;
+    padding: 0.55rem 0.85rem;
+    border-radius: 999px;
+    letter-spacing: 0;
   }
 
   .page-hero {
@@ -762,6 +786,10 @@ footer {
     filter: drop-shadow(0 16px 36px rgba(151, 108, 38, 0.16)) saturate(1.02);
   }
 
+  body.creations-page .at-logo-3d-fallback {
+    opacity: 0;
+  }
+
   .page-sword-hero-stage {
     display: block;
     opacity: 0.32;
@@ -782,6 +810,34 @@ footer {
   .gallery-section,
   footer {
     padding: var(--premium-section) var(--premium-gutter);
+  }
+
+  .gallery-section {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .gallery-label {
+    display: grid;
+    gap: 0.5rem;
+    margin-bottom: clamp(1.4rem, 2.8vw, 2.8rem);
+    padding: 20px 32px;
+    text-align: center;
+  }
+
+  .gallery-label h2,
+  .category-header h2 {
+    max-width: 12ch;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 3.1rem;
+    line-height: 1.08;
+    letter-spacing: clamp(-0.045em, -0.4vw, -0.012em);
+  }
+
+  .gallery-label p {
+    max-width: 64ch;
+    line-height: 1.72;
   }
 
   .gallery-grid,

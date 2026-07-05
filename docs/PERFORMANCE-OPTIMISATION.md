@@ -2,7 +2,7 @@
 
 ## Current Baseline
 
-- Last verified: 2026-07-05 06:52 IST.
+- Last verified: 2026-07-05 07:50 IST.
 - Site: `https://taiyzun.com`
 - Latest verified baseline before this update: `c2e45e90c414b8bc672e71c86851274f9ce88200`
 
@@ -12,9 +12,10 @@
 | --- | --- | ---: | ---: | ---: | ---: | --- | --- |
 | `/odyssey` | GitHub Actions mobile | 96 | 100 | 100 | 100 | 160 ms | 0 |
 | `/odyssey` | live CLI mobile | 100 | 100 | 100 | 100 | 0 ms | 0 |
+| `/odyssey` | local CLI mobile after WebGL cutout refinement | 100 | 100 | 100 | 100 | 0 ms | 0 |
 | `/creations` | live CLI mobile | 95 | 100 | 100 | 100 | 0 ms | 0.01 |
-| `/creations` | local CLI mobile after critical CSS split | 99 | 94 | 96 | 100 | 0 ms | 0.021 |
-| `/creations` | local CLI desktop after critical CSS split | 92 | 94 | 96 | 100 | 0 ms | 0.179 |
+| `/creations` | local CLI mobile after CLS refinement | 99 | 100 | 100 | 100 | 0 ms | 0 |
+| `/creations` | local CLI desktop after CLS refinement | 100 | Not rerun | Not rerun | Not rerun | 0 ms | 0.024 |
 
 ## Confirmed Healthy Areas
 
@@ -25,6 +26,8 @@
 - `/creations` gallery controller is now extracted to `js/creations-gallery.min.js`, keeping the HTML lighter while preserving the existing boot order.
 - `/creations` now serves a small critical stylesheet first and defers the full `taiyzun-creations.bundle.min.css` on compact/mobile viewports until scroll, touch, keyboard, or idle fallback.
 - Rendered mobile QA confirmed the full `/creations` CSS bundle is not fetched during initial mobile first load, then loads correctly after scroll.
+- `/creations` desktop intro CLS has been reduced from `0.179` to `0.024` by aligning critical first-paint geometry with the final visual system.
+- Rendered QA confirmed the decorative WebGL PNG field no longer exposes visible rectangular image planes during load.
 - `/creations` lightbox opens high-resolution imagery on demand.
 - No broken loaded images were found in live browser checks.
 - No relevant browser console errors were found in live browser checks.
@@ -40,12 +43,13 @@
 - Build routing was updated so the new minified loader is included in the Cloudflare Pages `dist/` artefact.
 - Verified behaviours: mobile first-load critical CSS only, scroll-triggered full CSS injection, gallery render, filters, lightbox open, double-tap zoom, share URL, close, desktop full CSS load, and zero horizontal overflow.
 
-### P2 - `/creations` Desktop Intro CLS Refinement
+### Completed - `/creations` Desktop Intro CLS Refinement
 
-- Local desktop Lighthouse still reports CLS around `0.179`, mostly attributed to the archive intro card during the existing gallery/visual enhancement sequence.
-- Mobile CLS is acceptable at `0.021`, and mobile was the priority for this change.
-- Safe future approach: treat desktop CLS as a measured visual-rhythm task, not a broad CSS refactor.
-- Risk: medium, because the intro card, premium animation system, and gallery layout share CSS ownership.
+- Completed on 2026-07-05 by aligning desktop critical nav, intro, and archive panel geometry with the final `/creations` visual system.
+- The decorative WebGL shader now uses a cutout alpha ramp, avoiding the pale rectangular frames seen around transparent PNG planes in rendered screenshots.
+- Local desktop Lighthouse improved from Performance `91`, CLS `0.1795` to Performance `100`, CLS `0.0235`.
+- Local mobile Lighthouse remains healthy at Performance `99`, Accessibility `100`, Best Practices `100`, SEO `100`, TBT `0 ms`, CLS `0`.
+- Future changes in this area should remain measured and narrow because the intro card, premium animation system, and gallery layout share CSS ownership.
 
 ### Completed - `/creations` Gallery JavaScript Extraction
 
