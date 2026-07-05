@@ -32,6 +32,7 @@
 - Confirm no horizontal overflow on mobile and desktop.
 - Check homepage carousel card click and dot click.
 - Check `/creations` gallery lazy-loading and `5,770 Works in View` count unless the gallery source intentionally changes.
+- Check `/creations` compact/mobile first load keeps the full creations CSS bundle deferred until interaction, scroll, or idle fallback.
 - Check `/creations` lightbox open, full image load, share URL, close button, and scroll-lock release.
 - Check `/connect` form endpoint behaviour without sending real enquiries.
 - Check desktop 3D sword/@ logo runtime.
@@ -52,7 +53,8 @@
 ## Current Optimisation Backlog
 
 - P1: measurement architecture and consent-aware Google/Meta tracking plan. See `docs/FULL-STACK-OPTIMISATION-ROADMAP.md`.
-- P2: `/creations` large CSS bundle, currently estimated by Lighthouse at `23 KiB` unused CSS.
+- Completed: `/creations` critical CSS split and compact/mobile full-bundle deferral.
+- P2: `/creations` desktop intro CLS refinement if desktop CLS becomes a formal gate.
 - P2: `/creations` gallery JavaScript is now extracted/minified; only continue into functional gallery refactors if fresh metrics justify it and full interaction QA is repeated.
 - P2: `/api/contact` backend smoke tests and environment-variable checklist.
 - P2: consent-approved Google/Meta tracking activation only after real IDs and privacy wording are ready.

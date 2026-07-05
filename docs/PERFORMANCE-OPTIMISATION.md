@@ -2,9 +2,9 @@
 
 ## Current Baseline
 
-- Last verified: 2026-07-05 03:51 IST.
+- Last verified: 2026-07-05 06:52 IST.
 - Site: `https://taiyzun.com`
-- Latest verified commit: `38eced3b4b78ca12afd06d1f60a6672bf2c8de92`
+- Latest verified baseline before this update: `c2e45e90c414b8bc672e71c86851274f9ce88200`
 
 ## Current Scores
 
@@ -13,6 +13,8 @@
 | `/odyssey` | GitHub Actions mobile | 96 | 100 | 100 | 100 | 160 ms | 0 |
 | `/odyssey` | live CLI mobile | 100 | 100 | 100 | 100 | 0 ms | 0 |
 | `/creations` | live CLI mobile | 95 | 100 | 100 | 100 | 0 ms | 0.01 |
+| `/creations` | local CLI mobile after critical CSS split | 99 | 94 | 96 | 100 | 0 ms | 0.021 |
+| `/creations` | local CLI desktop after critical CSS split | 92 | 94 | 96 | 100 | 0 ms | 0.179 |
 
 ## Confirmed Healthy Areas
 
@@ -21,6 +23,8 @@
 - Homepage carousel interaction scripts are cache-busted and working.
 - `/creations` gallery lazy-loads to `5,770 Works in View`.
 - `/creations` gallery controller is now extracted to `js/creations-gallery.min.js`, keeping the HTML lighter while preserving the existing boot order.
+- `/creations` now serves a small critical stylesheet first and defers the full `taiyzun-creations.bundle.min.css` on compact/mobile viewports until scroll, touch, keyboard, or idle fallback.
+- Rendered mobile QA confirmed the full `/creations` CSS bundle is not fetched during initial mobile first load, then loads correctly after scroll.
 - `/creations` lightbox opens high-resolution imagery on demand.
 - No broken loaded images were found in live browser checks.
 - No relevant browser console errors were found in live browser checks.
@@ -28,12 +32,20 @@
 
 ## Known Remaining Opportunities
 
-### P2 - `/creations` CSS Bundle
+### Completed - `/creations` Critical CSS Split
 
-- Lighthouse currently estimates `23 KiB` unused CSS on `/creations`.
-- Safe approach: audit bundle ownership before splitting.
-- Risk: medium, because CSS is shared across premium UI, gallery, lightbox, navigation, and responsive polish.
-- Do not split CSS without rendered QA on mobile and desktop.
+- Completed on 2026-07-05 by adding `css/creations-critical.css`, `css/creations-critical.min.css`, and a small deferred loader at `js/creations-css-loader.min.js`.
+- Initial compact/mobile load keeps the full `189 KB` creations CSS bundle out of the first render path.
+- Desktop still loads the full visual system immediately to preserve the rich experience.
+- Build routing was updated so the new minified loader is included in the Cloudflare Pages `dist/` artefact.
+- Verified behaviours: mobile first-load critical CSS only, scroll-triggered full CSS injection, gallery render, filters, lightbox open, double-tap zoom, share URL, close, desktop full CSS load, and zero horizontal overflow.
+
+### P2 - `/creations` Desktop Intro CLS Refinement
+
+- Local desktop Lighthouse still reports CLS around `0.179`, mostly attributed to the archive intro card during the existing gallery/visual enhancement sequence.
+- Mobile CLS is acceptable at `0.021`, and mobile was the priority for this change.
+- Safe future approach: treat desktop CLS as a measured visual-rhythm task, not a broad CSS refactor.
+- Risk: medium, because the intro card, premium animation system, and gallery layout share CSS ownership.
 
 ### Completed - `/creations` Gallery JavaScript Extraction
 

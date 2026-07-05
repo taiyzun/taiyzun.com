@@ -56,6 +56,7 @@ const publicAssetFiles = [
   'assets/Art/psy_art_euphoria.jpg',
   'js/ambient-video.min.js',
   'js/animation-controller.min.js',
+  'js/creations-css-loader.min.js',
   'js/creations-gallery.min.js',
   'js/desktop-enhancements-loader.min.js',
   'js/harmonic-interactions.min.js',

@@ -20,7 +20,8 @@ This roadmap is intentionally a planning and sequencing document. It does not ac
 - The public pages are static HTML with shared CSS and JavaScript bundles.
 - `/odyssey` mobile performance is currently healthy after deferred 3D handling.
 - `/creations` is the heaviest public surface because it supports a large remote gallery, lazy loading, share URLs, and a mobile lightbox.
-- Existing maintenance docs list `/creations` CSS and gallery JavaScript as the next measured performance opportunities.
+- `/creations` now has both an extracted gallery controller and a critical first stylesheet with deferred full CSS loading on compact/mobile first load.
+- Existing maintenance docs list `/creations` desktop intro CLS and future thumbnail work as the next measured performance opportunities.
 
 ### Backend
 
@@ -121,11 +122,12 @@ Goal: reduce remaining weight without weakening the visual identity.
 
 Recommended order:
 
-1. `/creations` CSS ownership audit.
-2. Keep the extracted/minified `/creations` gallery controller under full interaction QA; do not continue into functional refactors unless fresh metrics justify it.
-3. Add responsive thumbnail improvements only if Lighthouse or RUM shows image transfer pressure.
-4. Keep desktop 3D rich, and keep mobile WebGL deferred/static on first load.
-5. Continue using browser QA for carousel, gallery, lightbox, 3D, overflow, and reduced motion.
+1. Keep the completed `/creations` critical CSS split narrow; do not continue into broad CSS restructuring unless fresh metrics justify it.
+2. Treat `/creations` desktop intro CLS as the next measured visual-performance target if desktop CLS becomes a formal gate.
+3. Keep the extracted/minified `/creations` gallery controller under full interaction QA; do not continue into functional refactors unless fresh metrics justify it.
+4. Add responsive thumbnail improvements only if Lighthouse or RUM shows image transfer pressure.
+5. Keep desktop 3D rich, and keep mobile WebGL deferred/static on first load.
+6. Continue using browser QA for carousel, gallery, lightbox, 3D, overflow, and reduced motion.
 
 Do not do:
 
