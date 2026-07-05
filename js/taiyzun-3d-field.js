@@ -857,20 +857,18 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       void main() {
         vec4 currentTex = texture2D(uMap, vUv);
         vec4 mixedTex = currentTex;
-        float edgeX = max(smoothstep(0.0, 0.14, vUv.x), smoothstep(1.0, 0.86, vUv.x));
-        float edgeY = max(smoothstep(0.0, 0.14, vUv.y), smoothstep(1.0, 0.86, vUv.y));
-        float edge = max(edgeX, edgeY) * currentTex.a;
         float objectShade = 0.88 + 0.14 * smoothstep(0.72, 0.02, distance(vUv, vec2(0.34, 0.25)));
         float sheen = smoothstep(0.78, 1.0, sin((vUv.x * 5.2) + (vUv.y * 6.4) + uTime * 0.82 + uMorph * 2.0) * 0.5 + 0.5);
-        float sourceAlpha = max(currentTex.a, mixedTex.a);
-        float cutoutAlpha = smoothstep(0.12, 0.38, sourceAlpha);
+        float sourceAlpha = currentTex.a;
+        float cutoutAlpha = smoothstep(0.24, 0.58, sourceAlpha);
+        float alphaRim = cutoutAlpha * (1.0 - smoothstep(0.58, 0.98, sourceAlpha));
 
         if (cutoutAlpha <= 0.001) discard;
 
         vec3 colour = mix(mixedTex.rgb, mixedTex.rgb * uTint, 0.08);
         colour *= objectShade;
         colour += vec3(1.0, 0.82, 0.46) * sheen * uPointer * mixedTex.a * 0.035;
-        colour += uTint * edge * mixedTex.a * (0.06 + uPointer * 0.04);
+        colour += uTint * alphaRim * uPointer * 0.016;
         float alpha = cutoutAlpha * uOpacity;
         gl_FragColor = vec4(colour, alpha);
       }
