@@ -11,6 +11,7 @@
 - Run JS syntax checks for `functions/`, `js/`, and `scripts/`.
 - Run `git diff --check`.
 - Run `node scripts/validate-pages.js`.
+- Run `npm run test:safe`.
 - Run `npm audit --omit=dev`.
 - Run Lighthouse for:
   - `https://taiyzun.com/`
@@ -54,6 +55,7 @@
 - P2: `/creations` large CSS bundle, currently estimated by Lighthouse at `23 KiB` unused CSS.
 - P2: `/creations` inline/gallery JavaScript, currently estimated at `34 KiB` unused JavaScript and `9 KiB` unminified JavaScript.
 - P2: `/api/contact` backend smoke tests and environment-variable checklist.
+- P2: consent-approved Google/Meta tracking activation only after real IDs and privacy wording are ready.
 - P2: possible future image thumbnail pipeline if gallery transfer size grows.
 - P2: safe long-term 3D object maintenance, keeping desktop rich and mobile deferred.
 - P2: Cloudflare/no-transform decision review only if there is a deliberate reason to allow HTML transformations.

@@ -2,6 +2,8 @@
 
 Last verified: 2026-06-24.
 
+For runtime secrets and future analytics setup, also use `docs/ENVIRONMENT-AND-TRACKING-CHECKLIST.md`.
+
 ## taiyzun.com
 
 - Host: Cloudflare Pages
@@ -52,6 +54,8 @@ Because the Taj site deploys from the repository root, keep root files minimal. 
 
 - `git status --short --branch`
 - Tai: `npm run build`
+- Tai: `npm run test:safe`
 - Tai: `node --check` for changed JavaScript and functions
+- Tai: `node scripts/validate-pages.js`
 - Taj: static route/header checks with `curl`
 - Live verification after Cloudflare deploy completes
