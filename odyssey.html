@@ -441,7 +441,7 @@
       return Boolean(compactViewport || reduceMotion || constrainedNetwork || mobileAgent);
     };
 
-    const load = () => window.TAIYZUN_load3DField?.('/js/taiyzun-3d-field.min.js?v=20260705f');
+    const load = () => window.TAIYZUN_load3DField?.('/js/taiyzun-3d-field.min.js?v=20260705g');
     const loadWhenSafe = () => {
       if (shouldKeepWebGLDeferred()) {
         document.documentElement.dataset.odysseyWebgl = 'mobile-deferred';
@@ -458,8 +458,8 @@
 <script data-cfasync="false">
   (function loadDesktopEnhancements() {
     const load = () => window.TAIYZUN_loadDesktopEnhancements?.([
-      '/js/taiyzun-at-logo-3d.min.js?v=20260705a',
-      '/js/sword-hero.min.js?v=20260704g',
+      '/js/taiyzun-at-logo-3d.min.js?v=20260705b',
+      '/js/sword-hero.min.js?v=20260705h',
       '/js/harmonic-interactions.min.js?v=20260623b'
     ]);
     if (window.TAIYZUN_loadDesktopEnhancements) load();
