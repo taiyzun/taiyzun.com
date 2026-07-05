@@ -4,14 +4,14 @@
 
 - Last verified: 2026-07-05 07:50 IST.
 - Site: `https://taiyzun.com`
-- Latest verified implementation commit: `98f5c4a4a6ea0e787f2c004ab365ba2740d5f54e`
-- Latest verified GitHub Actions run: `28726830540`
+- Verified implementation commit: `98f5c4a4a6ea0e787f2c004ab365ba2740d5f54e`
+- Post-fix implementation GitHub Actions run inspected: `28726830540`
 
 ## Current Scores
 
 | Route | Source | Performance | Accessibility | Best Practices | SEO | TBT | CLS |
 | --- | --- | ---: | ---: | ---: | ---: | --- | --- |
-| `/odyssey` | GitHub Actions mobile, run `28726830540` | 69 | 100 | 100 | 100 | 2,610 ms | 0 |
+| `/odyssey` | GitHub Actions mobile, implementation run `28726830540` | 69 | 100 | 100 | 100 | 2,610 ms | 0 |
 | `/odyssey` | live CLI mobile | 100 | 100 | 100 | 100 | 0 ms | 0 |
 | `/odyssey` | local CLI mobile after WebGL cutout refinement | 100 | 100 | 100 | 100 | 0 ms | 0 |
 | `/creations` | live CLI mobile | 95 | 100 | 100 | 100 | 0 ms | 0.01 |
@@ -21,7 +21,7 @@
 ## Confirmed Healthy Areas
 
 - `/odyssey` mobile 3D path is protected by deferred/static behaviour.
-- `/odyssey` local mobile Lighthouse remains healthy after the WebGL cutout fix, but the latest GitHub Actions production run has a remaining TBT optimisation target.
+- `/odyssey` local mobile Lighthouse remains healthy after the WebGL cutout fix, but recent GitHub Actions production runs have a remaining TBT optimisation target.
 - Desktop 3D sword and @ logo remain available where appropriate.
 - Homepage carousel interaction scripts are cache-busted and working.
 - `/creations` gallery lazy-loads to `5,770 Works in View`.
@@ -69,7 +69,7 @@
 
 ### P2 - `/odyssey` Production CI TBT
 
-- GitHub Actions run `28726830540` passed but reported Performance `69` with TBT `2,610 ms`.
+- GitHub Actions implementation run `28726830540` passed but reported Performance `69` with TBT `2,610 ms`; follow-up docs-only run `28726889033` also passed and reported Performance `65`, TBT `3,730 ms`.
 - Local mobile Lighthouse for the same post-fix code reported Performance `100`, TBT `0 ms`, CLS `0`.
 - Safe next approach: inspect the production artifact waterfall and main-thread tasks before changing code; do not weaken the desktop 3D identity or remove approved visual features speculatively.
 - Risk: medium, because `/odyssey` balances live WebGL, deferred mobile protection, and public visual identity.
