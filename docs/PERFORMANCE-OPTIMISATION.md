@@ -20,6 +20,7 @@
 - Desktop 3D sword and @ logo remain available where appropriate.
 - Homepage carousel interaction scripts are cache-busted and working.
 - `/creations` gallery lazy-loads to `5,770 Works in View`.
+- `/creations` gallery controller is now extracted to `js/creations-gallery.min.js`, keeping the HTML lighter while preserving the existing boot order.
 - `/creations` lightbox opens high-resolution imagery on demand.
 - No broken loaded images were found in live browser checks.
 - No relevant browser console errors were found in live browser checks.
@@ -34,12 +35,12 @@
 - Risk: medium, because CSS is shared across premium UI, gallery, lightbox, navigation, and responsive polish.
 - Do not split CSS without rendered QA on mobile and desktop.
 
-### P2 - `/creations` Inline And Gallery JavaScript
+### Completed - `/creations` Gallery JavaScript Extraction
 
-- Lighthouse currently estimates `34 KiB` unused JavaScript and `9 KiB` unminified JavaScript.
-- Safe approach: only extract or minify if gallery boot order, lazy-loading, share URLs, lightbox, gesture handling, and image route opening remain identical.
-- Risk: medium-high.
-- Do not refactor gallery JavaScript without full interaction QA.
+- Completed on 2026-07-05 by moving the former inline gallery controller into `js/creations-gallery.js` and serving the minified runtime at `js/creations-gallery.min.js`.
+- The footer script order is intentionally preserved; the script is not deferred because follow-on inline runtime scheduling must not be reordered speculatively.
+- Verified behaviours: mobile lazy boot, filters, lightbox open, full image load, double-tap zoom, pan after zoom, next image, close, scroll-lock release, share URL, desktop gallery boot, no horizontal overflow, and no console warnings.
+- Future gallery JavaScript work should be treated as a functional refactor and must repeat full interaction QA.
 
 ### P2 - Image Thumbnail Pipeline
 

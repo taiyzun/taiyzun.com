@@ -60,7 +60,7 @@ Fresh live mobile CLI:
 - Gallery image selection.
 - Site content and design direction.
 - Major CSS bundle refactor.
-- Inline gallery JavaScript refactor.
+- Functional gallery JavaScript refactor.
 - Dependency upgrades.
 - 3D object behaviour.
 
@@ -68,7 +68,7 @@ Fresh live mobile CLI:
 
 - `/odyssey` mobile performance is excellent.
 - `/creations` mobile performance is strong.
-- Further CSS/gallery JavaScript refactors are optional and higher-risk because they touch shared layout, gallery loading, lightbox, share, and gesture behaviour.
+- Further CSS or functional gallery JavaScript refactors are optional and higher-risk because they touch shared layout, gallery loading, lightbox, share, and gesture behaviour.
 - HTML compression remains a possible Lighthouse observation, but `no-transform` is intentionally preserved because it prevents unwanted Cloudflare edge-script injection.
 - No active production blocker remains.
 
@@ -77,7 +77,7 @@ Fresh live mobile CLI:
 | Target | Priority | Reason | Risk |
 | --- | --- | --- | --- |
 | `/creations` CSS bundle split | P2 optional optimisation | Lighthouse estimates `23 KiB` unused CSS | Medium |
-| `/creations` inline/gallery JS extraction | P2 optional optimisation | Lighthouse estimates `34 KiB` unused JS and `9 KiB` unminified JS | Medium-high |
+| `/creations` functional gallery JS refactor | P2 optional optimisation | Only if fresh metrics show a remaining bottleneck after extraction/minification | Medium-high |
 | Gallery thumbnail pipeline | P2 optional optimisation | Useful if gallery transfer grows | Medium |
 | Long-term 3D asset maintenance | P2 optional optimisation | Preserve desktop richness while keeping mobile light | Medium |
 | Cloudflare/no-transform decision review | P2 optional optimisation | Only if HTML transformation is deliberately wanted | Medium-high |

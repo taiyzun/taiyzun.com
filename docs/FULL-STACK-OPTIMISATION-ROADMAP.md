@@ -122,7 +122,7 @@ Goal: reduce remaining weight without weakening the visual identity.
 Recommended order:
 
 1. `/creations` CSS ownership audit.
-2. Extract/minify gallery inline JavaScript only after boot order is mapped.
+2. Keep the extracted/minified `/creations` gallery controller under full interaction QA; do not continue into functional refactors unless fresh metrics justify it.
 3. Add responsive thumbnail improvements only if Lighthouse or RUM shows image transfer pressure.
 4. Keep desktop 3D rich, and keep mobile WebGL deferred/static on first load.
 5. Continue using browser QA for carousel, gallery, lightbox, 3D, overflow, and reduced motion.

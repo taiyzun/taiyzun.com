@@ -53,7 +53,7 @@
 
 - P1: measurement architecture and consent-aware Google/Meta tracking plan. See `docs/FULL-STACK-OPTIMISATION-ROADMAP.md`.
 - P2: `/creations` large CSS bundle, currently estimated by Lighthouse at `23 KiB` unused CSS.
-- P2: `/creations` inline/gallery JavaScript, currently estimated at `34 KiB` unused JavaScript and `9 KiB` unminified JavaScript.
+- P2: `/creations` gallery JavaScript is now extracted/minified; only continue into functional gallery refactors if fresh metrics justify it and full interaction QA is repeated.
 - P2: `/api/contact` backend smoke tests and environment-variable checklist.
 - P2: consent-approved Google/Meta tracking activation only after real IDs and privacy wording are ready.
 - P2: possible future image thumbnail pipeline if gallery transfer size grows.
