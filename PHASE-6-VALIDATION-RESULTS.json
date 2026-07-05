@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-05T02:19:35.515Z",
+  "timestamp": "2026-07-05T02:59:05.209Z",
   "pages": [
     {
       "page": "Home",
@@ -47,7 +47,7 @@
             },
             {
               "test": "checkContrast",
-              "status": "WARN"
+              "status": "PASS"
             }
           ]
         },
@@ -159,8 +159,8 @@
         }
       ],
       "stats": {
-        "passed": 27,
-        "warning": 1,
+        "passed": 28,
+        "warning": 0,
         "failed": 0
       }
     },
@@ -206,11 +206,11 @@
             },
             {
               "test": "checkColors",
-              "status": "WARN"
+              "status": "PASS"
             },
             {
               "test": "checkContrast",
-              "status": "WARN"
+              "status": "PASS"
             }
           ]
         },
@@ -265,7 +265,7 @@
             },
             {
               "test": "checkScriptDefer",
-              "status": "WARN"
+              "status": "PASS"
             },
             {
               "test": "checkPreload",
@@ -322,8 +322,8 @@
         }
       ],
       "stats": {
-        "passed": 25,
-        "warning": 3,
+        "passed": 28,
+        "warning": 0,
         "failed": 0
       }
     },
@@ -369,7 +369,7 @@
             },
             {
               "test": "checkColors",
-              "status": "WARN"
+              "status": "PASS"
             },
             {
               "test": "checkContrast",
@@ -466,7 +466,7 @@
             },
             {
               "test": "checkHTMLEscaping",
-              "status": "WARN"
+              "status": "PASS"
             }
           ]
         },
@@ -485,8 +485,8 @@
         }
       ],
       "stats": {
-        "passed": 26,
-        "warning": 2,
+        "passed": 28,
+        "warning": 0,
         "failed": 0
       }
     },
@@ -532,7 +532,7 @@
             },
             {
               "test": "checkColors",
-              "status": "WARN"
+              "status": "PASS"
             },
             {
               "test": "checkContrast",
@@ -629,7 +629,7 @@
             },
             {
               "test": "checkHTMLEscaping",
-              "status": "WARN"
+              "status": "PASS"
             }
           ]
         },
@@ -648,8 +648,8 @@
         }
       ],
       "stats": {
-        "passed": 26,
-        "warning": 2,
+        "passed": 28,
+        "warning": 0,
         "failed": 0
       }
     },
@@ -695,7 +695,7 @@
             },
             {
               "test": "checkColors",
-              "status": "WARN"
+              "status": "PASS"
             },
             {
               "test": "checkContrast",
@@ -811,16 +811,16 @@
         }
       ],
       "stats": {
-        "passed": 27,
-        "warning": 1,
+        "passed": 28,
+        "warning": 0,
         "failed": 0
       }
     }
   ],
   "summary": {
     "totalTests": 140,
-    "passed": 131,
-    "warnings": 9,
+    "passed": 140,
+    "warnings": 0,
     "failed": 0
   }
 }

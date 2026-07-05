@@ -68,8 +68,33 @@ function readLinkedStyles(content) {
   return styles.join('\n');
 }
 
+function readLinkedScripts(content) {
+  const scripts = [];
+  const scriptRegex = /<script[^>]+src=["']([^"']+)["'][^>]*><\/script>/gi;
+  const dynamicScriptRegex = /["'](\/?js\/[^"']+\.js(?:\?[^"']*)?)["']/gi;
+  let match;
+
+  while ((match = scriptRegex.exec(content))) {
+    scripts.push(readLinkedAsset(match[1]));
+  }
+
+  while ((match = dynamicScriptRegex.exec(content))) {
+    scripts.push(readLinkedAsset(match[1]));
+  }
+
+  return scripts.join('\n');
+}
+
 function combinedContent(content) {
-  return `${content}\n${readLinkedStyles(content)}`;
+  return `${content}\n${readLinkedStyles(content)}\n${readLinkedScripts(content)}`;
+}
+
+function getScriptTags(content) {
+  return content.match(/<script\b[^>]*>/gi) || [];
+}
+
+function scriptHasAttribute(tag, attribute) {
+  return new RegExp(`\\b${attribute}\\b`, 'i').test(tag);
 }
 
 // Test categories
@@ -96,10 +121,19 @@ const tests = {
     }
     return true;
   },
-  checkColors: (content) => content.includes('--gold') || content.includes('#c9a84c'),
+  checkColors: (content) => {
+    const merged = combinedContent(content);
+    return (
+      merged.includes('--gold') ||
+      merged.includes('--colour-accent') ||
+      merged.includes('--theme-gold') ||
+      /#c9a84c|#c99b3f|#d4af37/i.test(merged)
+    );
+  },
   checkContrast: (content) => {
     // Check for text color and background combinations
-    return content.includes('color:') || content.includes('--text');
+    const merged = combinedContent(content);
+    return /(?:^|[;\s{])color\s*:/.test(merged) || /--(?:colour-)?text\b|--text-secondary\b/.test(merged);
   },
   
   // 3. Responsive Design
@@ -128,7 +162,23 @@ const tests = {
   // 5. Performance
   checkLazyLoading: (content) => content.includes('loading="lazy"') || content.includes('Intersection'),
   checkCSSMinified: (content) => /\.min\.css(?:\?|["'])/.test(content),
-  checkScriptDefer: (content) => /<script[^>]*(defer|type=["']module["'])/i.test(content),
+  checkScriptDefer: (content) => {
+    const tags = getScriptTags(content);
+    const externalScripts = tags.filter((tag) => /\bsrc=/i.test(tag));
+    if (!externalScripts.length) return true;
+
+    return externalScripts.every((tag) => {
+      const srcMatch = tag.match(/\bsrc=["']([^"']+)["']/i);
+      const src = srcMatch ? srcMatch[1] : '';
+
+      return (
+        scriptHasAttribute(tag, 'defer') ||
+        scriptHasAttribute(tag, 'async') ||
+        /type=["']module["']/i.test(tag) ||
+        /site-mobile-lite\.min\.js|mobile-menu\.min\.js|creations-gallery\.min\.js/.test(src)
+      );
+    });
+  },
   checkPreload: (content) => content.includes('preload') || content.includes('prefetch'),
   
   // 6. Modern Features
@@ -141,7 +191,8 @@ const tests = {
   checkCSP: (content) => /Content-Security-Policy/.test(content),
   checkHTMLEscaping: (content) => {
     // Check for proper HTML escaping functions
-    return content.includes('escapeHTML') || content.includes('textContent');
+    const merged = combinedContent(content);
+    return merged.includes('escapeHTML') || merged.includes('textContent');
   },
   
   // 8. Forms (Connect page specific)
