@@ -93,6 +93,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
   root.className = 'taiyzun-3d-field';
   root.setAttribute('aria-hidden', 'true');
   root.dataset.status = 'loading';
+  root.dataset.decor3dAssetFilter = 'clean-alpha-cutouts';
   canvas.className = 'taiyzun-3d-field__canvas';
   root.appendChild(canvas);
   body.insertBefore(root, body.firstChild);
@@ -163,7 +164,6 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
   const theme = themes[page] || themes.home;
   const decorativeTextureAssets = [
     'assets/decorative/optimized/decor-02-1e4b1392b1-384.webp',
-    'assets/decorative/optimized/decor-03-10841040b6-384.webp',
     'assets/decorative/optimized/decor-04-abc334266c-384.webp',
     'assets/decorative/optimized/decor-05-c2da58b2fd-384.webp',
     'assets/decorative/optimized/decor-07-875a39f87e-384.webp',
@@ -171,18 +171,15 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     'assets/decorative/optimized/decor-10-1af9d19f49-384.webp',
     'assets/decorative/optimized/decor-11-003dbf7e69-384.webp',
     'assets/decorative/optimized/decor-12-f1ef6d07f1-384.webp',
-    'assets/decorative/optimized/decor-13-2a4b750a8f-384.webp',
     'assets/decorative/optimized/decor-14-d8bf4299fe-384.webp',
     'assets/decorative/optimized/decor-16-6807d17293-384.webp',
     'assets/decorative/optimized/decor-17-2cd6df39a1-384.webp',
     'assets/decorative/optimized/decor-18-040c814e89-384.webp',
     'assets/decorative/optimized/decor-19-0c8700e627-384.webp',
-    'assets/decorative/optimized/decor-20-9f288534be-384.webp',
     'assets/decorative/optimized/decor-21-ffedf25a3b-384.webp',
     'assets/decorative/optimized/decor-22-55bbdfde65-384.webp',
     'assets/decorative/optimized/decor-23-80d41399a1-384.webp',
     'assets/decorative/optimized/decor-25-5bc8d42695-384.webp',
-    'assets/decorative/optimized/decor-26-8b2d2d5932-384.webp',
     'assets/decorative/optimized/decor-27-3357d45ec6-384.webp',
     'assets/decorative/optimized/decor-28-684378f719-384.webp',
     'assets/decorative/optimized/decor-29-a08899d7c9-384.webp',
@@ -196,14 +193,12 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     'assets/decorative/optimized/decor-38-0700e4820b-384.webp',
     'assets/decorative/optimized/decor-39-cc91bc241e-384.webp',
     'assets/decorative/optimized/decor-40-580000a6de-384.webp',
-    'assets/decorative/optimized/decor-41-cfc044c50c-384.webp',
     'assets/decorative/optimized/decor-42-c3cdf9ce50-384.webp',
     'assets/decorative/optimized/decor-43-6337a4ecb2-384.webp',
     'assets/decorative/optimized/decor-44-80b2d62546-384.webp',
     'assets/decorative/optimized/decor-45-dbdcffeb8e-384.webp',
     'assets/decorative/optimized/decor-46-171f84453f-384.webp',
-    'assets/decorative/optimized/decor-48-bb8cc65c4a-384.webp',
-    'assets/decorative/optimized/decor-49-eabf0a16e7-384.webp'
+    'assets/decorative/optimized/decor-48-bb8cc65c4a-384.webp'
   ];
   const decorativeAssetFamilies = {
     1: 'liberty-ball',

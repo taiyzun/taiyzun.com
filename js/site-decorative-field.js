@@ -258,12 +258,18 @@
 
   const framedDecorativeAssets = new Set([
     "assets/decorative/8 ~ ball ~ c ~ liberTy [2000x3000].png",
+    "assets/decorative/@TZ 4233 TSb [786x786].png",
     "assets/decorative/@TZ breaThain 0004 STing [1666x2258].png",
     "assets/decorative/@TZ breaThain 0008 layer 22 [1983x1589].png",
+    "assets/decorative/@TZ breaThain 0013 Smile iTS mE Sword [1945x2374].png",
     "assets/decorative/@TaiyZun ~ Logo ~ 00123 ~ 786 [786x786].png",
+    "assets/decorative/TainfiniTy copy [8192x8192].png",
     "assets/decorative/TaiyZun @mE 2021 q [1420x1420].png",
+    "assets/decorative/TaiyZun logo Sa [1080x1080].png",
     "assets/decorative/s-T-i-n- [500x786].png",
-    "assets/easter-eggs/stingray.png"
+    "assets/easter-eggs/ganesh.png",
+    "assets/easter-eggs/stingray.png",
+    "assets/easter-eggs/tainfinity.png"
   ]);
 
   const decorativeFieldAssets = decorativeAssets.filter((assetPath) => !framedDecorativeAssets.has(assetPath));
