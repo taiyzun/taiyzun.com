@@ -17,14 +17,14 @@
   },
   "dependencies": {
     "gsap": "^3.12.2",
-    "pixi.js": "^8.0.0",
-    "three": "^0.184.0"
+    "pixi.js": "^8.19.0",
+    "three": "^0.185.1"
   },
   "devDependencies": {
-    "@aws-sdk/client-s3": "^3.1021.0",
+    "@aws-sdk/client-s3": "^3.1079.0",
     "csso-cli": "^4.0.2",
     "lighthouse": "^12.8.2",
-    "sharp": "^0.34.5",
-    "terser": "^5.47.1"
+    "sharp": "^0.35.3",
+    "terser": "^5.48.0"
   }
 }
