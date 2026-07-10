@@ -1,5 +1,5 @@
 (function loadCreationsCss() {
-  const href = '/css/taiyzun-creations.bundle.min.css?v=20260710e';
+  const href = '/css/taiyzun-creations.bundle.min.css?v=20260710f';
   let loaded = false;
   let timer = 0;
 

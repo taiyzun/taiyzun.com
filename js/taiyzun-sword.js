@@ -9,9 +9,7 @@
   const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   const compactQuery = window.matchMedia('(max-width: 820px), (pointer: coarse)');
   const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-  const constrainedDevice = Boolean(
-    window.TAIYZUN_MOBILE_LITE ||
-    compactQuery.matches ||
+  const constrainedConnection = Boolean(
     connection?.saveData ||
     (Number.isFinite(navigator.deviceMemory) && navigator.deviceMemory <= 4)
   );
@@ -33,6 +31,35 @@
   function markStatic(stage, reason) {
     stage.dataset.status = 'static';
     stage.dataset.performanceMode = reason;
+  }
+
+  function enforceContainment(stage) {
+    const canvas = stage.querySelector('[data-taiyzun-sword-canvas]');
+    const fallback = stage.querySelector('[data-taiyzun-sword-fallback]');
+
+    Object.assign(stage.style, {
+      position: 'absolute',
+      inset: '0',
+      overflow: 'hidden'
+    });
+
+    if (canvas) {
+      Object.assign(canvas.style, {
+        position: 'absolute',
+        inset: '0',
+        width: '100%',
+        height: '100%'
+      });
+    }
+
+    if (fallback) {
+      Object.assign(fallback.style, {
+        position: 'absolute',
+        maxWidth: 'min(74vw, 29rem)',
+        maxHeight: '76vh',
+        objectFit: 'contain'
+      });
+    }
   }
 
   async function initialiseStage(stage) {
@@ -106,7 +133,7 @@
       function resize() {
         const bounds = stage.getBoundingClientRect();
         width = Math.max(1, Math.round(bounds.width));
-        height = Math.max(1, Math.round(bounds.height));
+        height = Math.max(1, Math.min(Math.round(bounds.height), Math.round(window.innerHeight * 1.25)));
         renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
         renderer.setSize(width, height, false);
         camera.aspect = width / height;
@@ -189,13 +216,33 @@
   }
 
   function schedule(stage) {
+    enforceContainment(stage);
+
     if (reducedMotionQuery.matches) {
       markStatic(stage, 'reduced-motion');
       return;
     }
 
-    if (constrainedDevice) {
+    if (constrainedConnection) {
       markStatic(stage, 'mobile-static');
+      return;
+    }
+
+    if (compactQuery.matches || window.TAIYZUN_MOBILE_LITE) {
+      stage.dataset.status = 'deferred';
+      stage.dataset.performanceMode = 'mobile-deferred';
+
+      const interactionEvents = ['pointerdown', 'touchstart', 'scroll', 'keydown'];
+      const startAfterInteraction = () => {
+        interactionEvents.forEach((eventName) => {
+          window.removeEventListener(eventName, startAfterInteraction);
+        });
+        window.setTimeout(() => initialiseStage(stage), 120);
+      };
+
+      interactionEvents.forEach((eventName) => {
+        window.addEventListener(eventName, startAfterInteraction, { passive: true, once: true });
+      });
       return;
     }
 
