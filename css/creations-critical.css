@@ -332,6 +332,10 @@ footer {
   display: none;
 }
 
+.taiyzun-at-stage--page {
+  display: none;
+}
+
 .page-hero-overlay {
   position: absolute;
   inset: 0;

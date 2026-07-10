@@ -116,6 +116,56 @@ body.home-page .sword-hero .hero-video {
   opacity: 0.52;
 }
 
+.taiyzun-at-stage {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 3;
+  overflow: hidden;
+  pointer-events: none;
+  contain: layout paint size;
+  isolation: isolate;
+  opacity: 0.84;
+}
+
+.taiyzun-at-canvas {
+  opacity: 0;
+}
+
+.taiyzun-at-stage[data-status="ready"] .taiyzun-at-canvas {
+  opacity: 1;
+}
+
+.taiyzun-at-fallback {
+  top: 68%;
+  left: auto !important;
+  right: clamp(2rem, 6vw, 7rem) !important;
+  width: clamp(8rem, 13vw, 13rem);
+  height: auto;
+  max-width: none;
+  opacity: 0.72;
+  filter: drop-shadow(0 18px 28px rgba(58, 68, 88, 0.2));
+  transform: translate3d(0, -50%, 0) !important;
+}
+
+.taiyzun-at-stage[data-status="ready"] .taiyzun-at-fallback,
+.taiyzun-at-fallback[hidden] {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.taiyzun-at-stage--page {
+  z-index: 2;
+  opacity: 0.42;
+  mix-blend-mode: multiply;
+}
+
+.taiyzun-at-stage--page .taiyzun-at-fallback {
+  top: 66%;
+  right: clamp(2rem, 7vw, 8rem) !important;
+  width: clamp(7rem, 11vw, 11rem);
+  opacity: 0.42;
+}
+
 body.home-page .sword-hero .hero-content {
   z-index: 8;
   grid-column: 1;
@@ -234,6 +284,10 @@ body.home-page .sword-hero[data-sword-ready="true"] {
   .taiyzun-sword-stage--page {
     display: none;
   }
+
+  .taiyzun-at-stage--page {
+    display: none !important;
+  }
 }
 
 @media (max-width: 560px) {
@@ -253,6 +307,25 @@ body.home-page .sword-hero[data-sword-ready="true"] {
     top: 41%;
     height: min(46svh, 360px);
     opacity: 0.76;
+  }
+
+  .taiyzun-at-stage {
+    opacity: 0.42;
+  }
+
+  .taiyzun-at-fallback {
+    top: 76%;
+    right: 1rem !important;
+    width: clamp(5.5rem, 23vw, 7.5rem);
+    transform: translate3d(0, -50%, 0) !important;
+  }
+
+  body.home-page .values-row {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  body.home-page .value-item {
+    min-width: 0 !important;
   }
 }
 

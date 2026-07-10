@@ -310,7 +310,7 @@
 </script>
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-regular-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-italic-latin.woff2" crossorigin>
-<link rel="stylesheet" href="/css/taiyzun-index.bundle.min.css?v=20260710g">
+<link rel="stylesheet" href="/css/taiyzun-index.bundle.min.css?v=20260710i">
 <link rel="preload" as="image" href="/3d/Taiyzun_Sword_Fallback.png" type="image/png" fetchpriority="high">
 <!-- Performance: Prefetch other pages -->
 </head>
@@ -359,6 +359,21 @@
       decoding="async"
       loading="eager"
       fetchpriority="high">
+  </div>
+  <div
+    class="taiyzun-at-stage taiyzun-at-stage--hero"
+    data-taiyzun-at
+    aria-hidden="true">
+    <canvas class="taiyzun-sword-canvas taiyzun-at-canvas" data-taiyzun-3d-canvas></canvas>
+    <img
+      class="taiyzun-sword-fallback taiyzun-at-fallback"
+      data-taiyzun-3d-fallback
+      src="/3d/Taiyzun_At_Fallback.png"
+      alt=""
+      width="512"
+      height="512"
+      decoding="async"
+      loading="lazy">
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-grain"></div>
@@ -839,7 +854,7 @@
     else window.addEventListener('taiyzun:mobile-lite-ready', start, { once: true });
   })();
 </script>
-<script data-cfasync="false" type="module" src="/js/taiyzun-sword.min.js?v=20260710c"></script>
+<script data-cfasync="false" type="module" src="/js/taiyzun-sword.min.js?v=20260710d"></script>
 <script data-cfasync="false">
   window.TAIYZUN_loadDesktopEnhancements?.([
     '/js/vendor/gsap.min.js?v=20260623b',

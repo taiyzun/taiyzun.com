@@ -1,8 +1,41 @@
 (() => {
-  const MODEL_URL = '/3d/Taiyzun_Sword_Web.glb';
-  const MAX_YAW = Math.PI / 18;
-  const MAX_PITCH = Math.PI / 51.43;
-  const stages = Array.from(document.querySelectorAll('[data-taiyzun-sword]'));
+  const MODEL_CONFIG = {
+    sword: {
+      modelUrl: '/3d/Taiyzun_Sword_Web.glb',
+      name: 'TaiyzunSword',
+      cameraZ: 2.68,
+      fieldOfView: 32,
+      scale: 1.08,
+      maxYaw: Math.PI / 18,
+      maxPitch: Math.PI / 51.43,
+      offsetX: 0,
+      offsetY: 0,
+      offsetZ: 0,
+      ambient: 0.22,
+      key: 2.5,
+      rim: 1.5,
+      lower: 0.8,
+      motion: 'pointer-parallax-10deg-slow-breathing'
+    },
+    at: {
+      modelUrl: '/3d/Taiyzun_At_Logo_Web.glb',
+      name: 'TaiyzunAtLogo',
+      cameraZ: 3.15,
+      fieldOfView: 34,
+      scale: 0.45,
+      maxYaw: Math.PI / 30,
+      maxPitch: Math.PI / 45,
+      offsetX: 0.92,
+      offsetY: -0.5,
+      offsetZ: 0,
+      ambient: 0.16,
+      key: 1.7,
+      rim: 0.95,
+      lower: 0.5,
+      motion: 'pointer-parallax-6deg-slow-breathing'
+    }
+  };
+  const stages = Array.from(document.querySelectorAll('[data-taiyzun-sword], [data-taiyzun-at]'));
 
   if (!stages.length) return;
 
@@ -13,6 +46,7 @@
     connection?.saveData ||
     (Number.isFinite(navigator.deviceMemory) && navigator.deviceMemory <= 4)
   );
+  let modulePromise;
 
   const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
   const damp = (current, target, smoothing, delta) => {
@@ -33,9 +67,19 @@
     stage.dataset.performanceMode = reason;
   }
 
+  function getObjectType(stage) {
+    return stage.hasAttribute('data-taiyzun-at') ? 'at' : 'sword';
+  }
+
+  function getStageElements(stage) {
+    return {
+      canvas: stage.querySelector('[data-taiyzun-3d-canvas], [data-taiyzun-sword-canvas], [data-taiyzun-at-canvas]'),
+      fallback: stage.querySelector('[data-taiyzun-3d-fallback], [data-taiyzun-sword-fallback], [data-taiyzun-at-fallback]')
+    };
+  }
+
   function enforceContainment(stage) {
-    const canvas = stage.querySelector('[data-taiyzun-sword-canvas]');
-    const fallback = stage.querySelector('[data-taiyzun-sword-fallback]');
+    const { canvas, fallback } = getStageElements(stage);
 
     Object.assign(stage.style, {
       position: 'absolute',
@@ -66,8 +110,9 @@
     if (stage.dataset.initialised === 'true') return;
     stage.dataset.initialised = 'true';
 
-    const canvas = stage.querySelector('[data-taiyzun-sword-canvas]');
-    const fallback = stage.querySelector('[data-taiyzun-sword-fallback]');
+    const objectType = getObjectType(stage);
+    const config = MODEL_CONFIG[objectType];
+    const { canvas, fallback } = getStageElements(stage);
     if (!canvas || !hasWebGLSupport()) {
       markStatic(stage, 'webgl-unavailable');
       return;
@@ -76,10 +121,11 @@
     stage.dataset.status = 'loading';
 
     try {
-      const [THREE, loaderModule] = await Promise.all([
+      modulePromise ||= Promise.all([
         import('./vendor/three.module.min.js'),
         import('./vendor/GLTFLoader.js')
       ]);
+      const [THREE, loaderModule] = await modulePromise;
       const renderer = new THREE.WebGLRenderer({
         canvas,
         alpha: true,
@@ -92,34 +138,34 @@
       renderer.setClearColor(0x000000, 0);
 
       const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 20);
-      camera.position.set(0, 0, 2.68);
+      const camera = new THREE.PerspectiveCamera(config.fieldOfView, 1, 0.1, 20);
+      camera.position.set(0, 0, config.cameraZ);
 
-      scene.add(new THREE.AmbientLight(0xffffff, 0.22));
+      scene.add(new THREE.AmbientLight(0xffffff, config.ambient));
 
-      const keyLight = new THREE.DirectionalLight(0xfff4d6, 2.5);
+      const keyLight = new THREE.DirectionalLight(objectType === 'at' ? 0xffefd0 : 0xfff4d6, config.key);
       keyLight.position.set(-2.5, 3.5, 4);
       scene.add(keyLight);
 
-      const rimLight = new THREE.DirectionalLight(0xffc861, 1.5);
+      const rimLight = new THREE.DirectionalLight(objectType === 'at' ? 0xd8e8ff : 0xffc861, config.rim);
       rimLight.position.set(2.8, 0.5, 2.4);
       scene.add(rimLight);
 
-      const lowerLight = new THREE.PointLight(0xc7d8ff, 0.8);
+      const lowerLight = new THREE.PointLight(0xc7d8ff, config.lower);
       lowerLight.position.set(0, -0.6, 2);
       scene.add(lowerLight);
 
       const loader = new loaderModule.GLTFLoader();
       const gltf = await new Promise((resolve, reject) => {
-        loader.load(MODEL_URL, resolve, undefined, reject);
+        loader.load(config.modelUrl, resolve, undefined, reject);
       });
       const model = gltf.scene || gltf.scenes?.[0];
-      if (!model) throw new Error('Taiyzun sword scene is missing');
+      if (!model) throw new Error(`${config.name} scene is missing`);
 
       const root = new THREE.Group();
-      root.name = 'TaiyzunSword';
+      root.name = config.name;
       root.add(model);
-      root.scale.setScalar(1.08);
+      root.scale.setScalar(config.scale);
       scene.add(root);
 
       const pointer = { x: 0, y: 0, targetX: 0, targetY: 0 };
@@ -162,15 +208,15 @@
 
         pointer.x = damp(pointer.x, reduceMotion ? 0 : pointer.targetX, 4, delta);
         pointer.y = damp(pointer.y, reduceMotion ? 0 : pointer.targetY, 4, delta);
-        root.rotation.y = pointer.x * MAX_YAW;
-        root.rotation.x = -pointer.y * MAX_PITCH;
+        root.rotation.y = pointer.x * config.maxYaw;
+        root.rotation.x = -pointer.y * config.maxPitch;
         root.rotation.z = 0;
-        root.position.x = 0;
-        root.position.y = reduceMotion ? 0 : Math.sin(elapsed * 0.32) * 0.006;
-        root.position.z = 0;
+        root.position.x = config.offsetX;
+        root.position.y = config.offsetY + (reduceMotion ? 0 : Math.sin(elapsed * 0.32) * 0.006);
+        root.position.z = config.offsetZ;
 
         const breath = reduceMotion ? 1 : 1 + Math.sin(elapsed * 0.32) * 0.0025;
-        root.scale.setScalar(1.08 * breath);
+        root.scale.setScalar(config.scale * breath);
         if (now - lastStatusUpdate >= 250) {
           lastStatusUpdate = now;
           stage.dataset.rotationX = root.rotation.x.toFixed(4);
@@ -204,16 +250,17 @@
       }
 
       resize();
-      stage.dataset.model = MODEL_URL;
-      stage.dataset.orientation = 'y-up-front-facing';
-      stage.dataset.motion = 'pointer-parallax-10deg-slow-breathing';
+      stage.dataset.object = objectType;
+      stage.dataset.model = config.modelUrl;
+      stage.dataset.orientation = objectType === 'sword' ? 'y-up-front-facing' : 'z-facing-corner-signature';
+      stage.dataset.motion = config.motion;
       stage.dataset.status = 'ready';
       canvas.style.opacity = '1';
       fallback?.setAttribute('hidden', '');
       frame = window.requestAnimationFrame(render);
     } catch (error) {
       stage.dataset.status = 'static';
-      stage.dataset.error = error instanceof Error ? error.message.slice(0, 120) : 'sword-load-failed';
+      stage.dataset.error = error instanceof Error ? error.message.slice(0, 120) : `${objectType}-load-failed`;
     }
   }
 

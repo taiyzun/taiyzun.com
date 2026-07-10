@@ -84,10 +84,10 @@
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-regular-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-italic-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-bold-latin.woff2" crossorigin>
-<link rel="stylesheet" href="/css/odyssey-critical.min.css?v=20260710g">
+<link rel="stylesheet" href="/css/odyssey-critical.min.css?v=20260710i">
 <script data-cfasync="false">
   (function loadOdysseyCss() {
-    const href = '/css/taiyzun-odyssey.bundle.min.css?v=20260710g';
+    const href = '/css/taiyzun-odyssey.bundle.min.css?v=20260710i';
     let loaded = false;
     let timer = 0;
     const isCompact = () => Boolean(
@@ -132,7 +132,7 @@
     else window.addEventListener('load', settledStart, { once: true });
   })();
 </script>
-<noscript><link rel="stylesheet" href="/css/taiyzun-odyssey.bundle.min.css?v=20260710g"></noscript>
+<noscript><link rel="stylesheet" href="/css/taiyzun-odyssey.bundle.min.css?v=20260710i"></noscript>
 </head>
 <body class="odyssey-page premium-ui-ready">
 <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -167,6 +167,13 @@
     aria-hidden="true">
     <canvas class="taiyzun-sword-canvas" data-taiyzun-sword-canvas></canvas>
     <img class="taiyzun-sword-fallback" data-taiyzun-sword-fallback src="/3d/Taiyzun_Sword_Fallback.png" alt="" width="608" height="1600" decoding="async" loading="lazy">
+  </div>
+  <div
+    class="taiyzun-at-stage taiyzun-at-stage--page"
+    data-taiyzun-at
+    aria-hidden="true">
+    <canvas class="taiyzun-sword-canvas taiyzun-at-canvas" data-taiyzun-3d-canvas></canvas>
+    <img class="taiyzun-sword-fallback taiyzun-at-fallback" data-taiyzun-3d-fallback src="/3d/Taiyzun_At_Fallback.png" alt="" width="512" height="512" decoding="async" loading="lazy">
   </div>
   <div class="page-hero-overlay"></div>
   <div class="page-hero-content">
@@ -410,7 +417,7 @@
     else window.addEventListener('taiyzun:mobile-lite-ready', whenReady, { once: true });
   })();
 </script>
-<script data-cfasync="false" type="module" src="/js/taiyzun-sword.min.js?v=20260710c"></script>
+<script data-cfasync="false" type="module" src="/js/taiyzun-sword.min.js?v=20260710d"></script>
 <script data-cfasync="false">
   (function loadDesktopEnhancements() {
     const load = () => window.TAIYZUN_loadDesktopEnhancements?.([

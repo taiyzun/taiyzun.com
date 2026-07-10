@@ -35,6 +35,8 @@ const publicAssetFiles = [
   'assets/space-gallery-share-index.json',
   '3d/Taiyzun_Sword_Web.glb',
   '3d/Taiyzun_Sword_Fallback.png',
+  '3d/Taiyzun_At_Logo_Web.glb',
+  '3d/Taiyzun_At_Fallback.png',
   'assets/Art/art_00001.jpg',
   'assets/Art/art_00002.jpg',
   'assets/Art/art_00003.jpg',
