@@ -645,12 +645,6 @@ body.harmonic-ready.home-page .hero-content::after {
 
 body.harmonic-ready .hero-title em,
 body.harmonic-ready .page-hero h1 em,
-body.harmonic-ready .section-title,
-body.harmonic-ready .gallery-label h2,
-body.harmonic-ready .connect-label h2,
-body.harmonic-ready .category-header h2,
-body.harmonic-ready .highlight-card h3,
-body.harmonic-ready .value-item h3,
 body.harmonic-ready .gold,
 body.harmonic-ready strong {
   background-image: linear-gradient(115deg, #211a13 0%, #b88d3f 26%, #d8c49a 44%, #6f5527 62%, #201a14 100%);

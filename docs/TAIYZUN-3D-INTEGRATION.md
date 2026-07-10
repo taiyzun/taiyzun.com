@@ -26,15 +26,16 @@ The runtime supports:
 ## Placement And Motion
 
 - Sword: centred, Y-up, front-facing, scale `1.08`, maximum yaw `10 degrees`, maximum pitch about `2 degrees`.
-- @ mark: smaller right-side supporting position, scale `0.45`, maximum yaw `6 degrees`, maximum pitch `4 degrees`.
-- Both objects remain z-contained, use transparent renderer backgrounds, and use soft ambient, key, rim and lower fill lights.
+- @ mark: smaller right-side supporting position, scale `0.12`, maximum yaw `6 degrees`, maximum pitch `4 degrees`.
+- The runtime preserves the supplied geometry while applying the approved gold-and-platinum finish: gold sword faces, platinum bevels and silver razor edges. The @ mark uses a restrained metallic gold finish.
+- Both objects remain z-contained, use transparent renderer backgrounds, and use soft ambient, hemisphere, key, rim and lower fill lights.
 - Neither object performs a full spin. Both use a slow breathing motion and pointer parallax only.
 
 ## Fallback And Performance Behaviour
 
 - Desktop stages initialise after visibility and idle checks.
 - Mobile, coarse-pointer, save-data and low-memory paths defer WebGL until interaction or remain static where appropriate.
-- Reduced-motion and WebGL-unavailable paths keep the supplied fallback visible.
+- Reduced-motion and WebGL-unavailable paths keep the colour-treated sword fallback visible. The @ fallback is hidden during the compact mobile deferred state to prevent CTA overlap.
 - Page-level @ stages are hidden by critical CSS until the full stylesheet is ready, preventing an early layout or paint flash.
 - The build allow-list copies both @ assets to `dist/`.
 

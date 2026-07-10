@@ -11,10 +11,10 @@
       offsetX: 0,
       offsetY: 0,
       offsetZ: 0,
-      ambient: 0.22,
-      key: 2.5,
-      rim: 1.5,
-      lower: 0.8,
+      ambient: 0.9,
+      key: 3.2,
+      rim: 2.2,
+      lower: 1.2,
       motion: 'pointer-parallax-10deg-slow-breathing'
     },
     at: {
@@ -22,16 +22,16 @@
       name: 'TaiyzunAtLogo',
       cameraZ: 3.15,
       fieldOfView: 34,
-      scale: 0.45,
+      scale: 0.12,
       maxYaw: Math.PI / 30,
       maxPitch: Math.PI / 45,
-      offsetX: 0.92,
-      offsetY: -0.5,
+      offsetX: 1.05,
+      offsetY: -0.65,
       offsetZ: 0,
-      ambient: 0.16,
-      key: 1.7,
-      rim: 0.95,
-      lower: 0.5,
+      ambient: 0.8,
+      key: 2.4,
+      rim: 1.5,
+      lower: 0.8,
       motion: 'pointer-parallax-6deg-slow-breathing'
     }
   };
@@ -106,6 +106,56 @@
     }
   }
 
+  function applyMetalFinish(objectType, model) {
+    model.traverse((child) => {
+      if (!child.isMesh) return;
+
+      if (child.geometry && !child.geometry.getAttribute('normal')) {
+        child.geometry.computeVertexNormals();
+      }
+
+      const applyMaterial = (sourceMaterial) => {
+        const material = sourceMaterial.clone();
+        const materialName = (material.name || '').toLowerCase();
+
+        material.map = null;
+
+        if (objectType === 'at') {
+          material.color.setHex(0xd9b35a);
+          material.metalness = 0.78;
+          material.roughness = 0.23;
+          material.emissive?.setHex(0x241504);
+          material.emissiveIntensity = 0.12;
+        } else if (materialName.includes('edge')) {
+          material.color.setHex(0xe9eef3);
+          material.metalness = 0.78;
+          material.roughness = 0.16;
+          material.emissive?.setHex(0x202225);
+          material.emissiveIntensity = 0.1;
+        } else if (materialName.includes('bevel')) {
+          material.color.setHex(0xd9dee5);
+          material.metalness = 0.82;
+          material.roughness = 0.18;
+          material.emissive?.setHex(0x20242a);
+          material.emissiveIntensity = 0.1;
+        } else {
+          material.color.setHex(0xd4a944);
+          material.metalness = 0.72;
+          material.roughness = 0.28;
+          material.emissive?.setHex(0x2f1d02);
+          material.emissiveIntensity = 0.18;
+        }
+
+        material.needsUpdate = true;
+        return material;
+      };
+
+      child.material = Array.isArray(child.material)
+        ? child.material.map(applyMaterial)
+        : applyMaterial(child.material);
+    });
+  }
+
   async function initialiseStage(stage) {
     if (stage.dataset.initialised === 'true') return;
     stage.dataset.initialised = 'true';
@@ -134,7 +184,7 @@
       });
       renderer.outputColorSpace = THREE.SRGBColorSpace;
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1;
+      renderer.toneMappingExposure = 1.15;
       renderer.setClearColor(0x000000, 0);
 
       const scene = new THREE.Scene();
@@ -142,6 +192,7 @@
       camera.position.set(0, 0, config.cameraZ);
 
       scene.add(new THREE.AmbientLight(0xffffff, config.ambient));
+      scene.add(new THREE.HemisphereLight(0xfff3d6, 0x72809a, 0.75));
 
       const keyLight = new THREE.DirectionalLight(objectType === 'at' ? 0xffefd0 : 0xfff4d6, config.key);
       keyLight.position.set(-2.5, 3.5, 4);
@@ -161,6 +212,8 @@
       });
       const model = gltf.scene || gltf.scenes?.[0];
       if (!model) throw new Error(`${config.name} scene is missing`);
+
+      applyMetalFinish(objectType, model);
 
       const root = new THREE.Group();
       root.name = config.name;

@@ -33,6 +33,20 @@ Production infrastructure was not changed. DNS, Cloudflare settings, hosting set
 - Added critical-CSS protection so page-level @ layers remain hidden until their full stylesheet is available on mobile.
 - Bumped cache tokens for the affected page bundles.
 
+## Post-Deployment Visual Correction
+
+The first production render exposed 3 issues that local wide-desktop checks did not represent clearly: the supplied dark sword materials read as black, the @ object was oversized, and the 821-1000px layout centred the sword over the hero copy. The corrective pass:
+
+- retained the supplied geometry while applying gold faces, platinum bevels and silver razor edges at render time;
+- reduced the @ object scale from `0.45` to `0.12`;
+- moved the sword into the right visual column at tablet width and restored the 2-button row;
+- removed the duplicate home hero logo while preserving the navigation identity;
+- removed container-level gradient text painting that doubled section-heading letters;
+- hid the temporary @ fallback on compact mobile first load;
+- verified all 5 public routes at 1280x720 and 390x844 with 0 horizontal overflow and 0 console errors.
+
+The final local mobile homepage Lighthouse run reported Performance 88, Accessibility 100, Best Practices 100, SEO 100, LCP 3.5 s, TBT 0 ms and CLS 0.
+
 ## Automated Verification
 
 - `npm run build`: passed; 72 public entries copied to `dist/`.
