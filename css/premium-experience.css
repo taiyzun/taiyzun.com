@@ -61,7 +61,6 @@ body.premium-ui-ready::after {
   mix-blend-mode: multiply;
 }
 
-body.premium-ui-ready > nav,
 body.premium-ui-ready > main,
 body.premium-ui-ready > section,
 body.premium-ui-ready > footer,
@@ -661,7 +660,7 @@ body.premium-ui-ready .cat-tab {
 }
 
 body.premium-ui-ready .cat-tab.active,
-body.premium-ui-ready .cat-tab[aria-selected="true"] {
+body.premium-ui-ready .cat-tab[aria-pressed="true"] {
   background: linear-gradient(135deg, rgba(24, 61, 99, 0.12), rgba(201, 155, 63, 0.2));
   border-color: rgba(201, 155, 63, 0.42);
 }
@@ -931,6 +930,11 @@ body.premium-ui-ready .error-num {
   body.premium-ui-ready .page-hero .page-sword-hero-stage {
     display: none !important;
   }
+}
+
+body.premium-ui-ready.harmonic-ready .gallery-label {
+  isolation: isolate;
+  background: linear-gradient(135deg, #fffefd, #fffaf0) !important;
 }
 
 @media (max-width: 700px) {

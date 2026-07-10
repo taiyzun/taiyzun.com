@@ -333,12 +333,10 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
 
   function attachSurfaceDepth() {
     const selector = ((compactMode || largeViewportMode) ? [
-      '.hero-content', '.page-hero-content', '.about-grid', '.gallery-label', '.connect-label',
       '.home-btn', '.video-field-shell', '.video-stage', '.video-frame', '.video-panel'
     ] : [
-      '.hero-content', '.page-hero-content', '.about-grid', '.highlight-card', '.thesis-card',
-      '.value-item', '.timeline-category', '.timeline-item', '.gallery-label', '.connect-label',
-      '.contact-form', '.social-card', '.info-card', '.cat-tab', '.art-item', '.gallery-item', '.home-btn',
+      '.highlight-card', '.thesis-card', '.value-item', '.social-card', '.info-card',
+      '.cat-tab', '.art-item', '.gallery-item', '.home-btn',
       '.video-field-shell', '.video-stage', '.video-frame', '.video-panel'
     ]).join(',');
 
@@ -426,6 +424,7 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
     const renderer = new THREE.WebGLRenderer({
       canvas,
       alpha: true,
+      premultipliedAlpha: false,
       antialias: false,
       powerPreference: compactMode ? 'low-power' : 'high-performance',
       preserveDrawingBuffer: false
@@ -1428,16 +1427,6 @@ if (body && body.dataset.taiyzun3dReady !== 'true') {
       window.addEventListener('touchstart', interactionStart, { once: true, passive: true });
       window.addEventListener('wheel', interactionStart, { once: true, passive: true });
       window.addEventListener('keydown', interactionStart, { once: true });
-
-      const settledStart = () => {
-        window.setTimeout(() => schedule(0), page === 'odyssey' ? 12000 : 10000);
-      };
-
-      if (doc.readyState === 'complete') {
-        settledStart();
-      } else {
-        window.addEventListener('load', settledStart, { once: true });
-      }
 
       return;
     }

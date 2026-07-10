@@ -155,6 +155,10 @@ body.harmonic-ready .contact-form {
     radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.82), transparent 0 13rem);
 }
 
+body.harmonic-ready .gallery-label {
+  background: linear-gradient(135deg, #fffefd, #fffaf0);
+}
+
 body.harmonic-ready .gallery-label::before,
 body.harmonic-ready .connect-label::before,
 body.harmonic-ready .bio-section::before,

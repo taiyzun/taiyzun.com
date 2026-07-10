@@ -87,7 +87,7 @@
 <link rel="stylesheet" href="/css/odyssey-critical.min.css?v=20260705b">
 <script data-cfasync="false">
   (function loadOdysseyCss() {
-    const href = '/css/taiyzun-odyssey.bundle.min.css?v=20260705c';
+    const href = '/css/taiyzun-odyssey.bundle.min.css?v=20260710e';
     let loaded = false;
     let timer = 0;
     const isCompact = () => Boolean(
@@ -132,7 +132,7 @@
     else window.addEventListener('load', settledStart, { once: true });
   })();
 </script>
-<noscript><link rel="stylesheet" href="/css/taiyzun-odyssey.bundle.min.css?v=20260705c"></noscript>
+<noscript><link rel="stylesheet" href="/css/taiyzun-odyssey.bundle.min.css?v=20260710e"></noscript>
 <link rel="preload" as="image" href="/assets/easter-eggs/taiyzun-atme-3d-loader-192.avif" type="image/avif">
 </head>
 <body class="odyssey-page premium-ui-ready">
@@ -247,7 +247,7 @@
   <p class="footer-copy footer-signature">Built through TimE. Shaped by SpAcE.</p>
   <p class="footer-copy">&copy; 2026 Taiyzun Shabbir Shahpurwala. All rights reserved.</p>
 </footer>
-<script data-cfasync="false" src="/js/site-mobile-lite.min.js?v=20260705a" defer></script>
+<script data-cfasync="false" src="/js/site-mobile-lite.min.js?v=20260710a" defer></script>
 <script data-cfasync="false" src="/js/mobile-menu.min.js?v=20260705a" defer></script>
 <script data-cfasync="false">
   (function scheduleOdysseyEnhancementAssets() {
@@ -441,7 +441,7 @@
       return Boolean(compactViewport || reduceMotion || constrainedNetwork || mobileAgent);
     };
 
-    const load = () => window.TAIYZUN_load3DField?.('/js/taiyzun-3d-field.min.js?v=20260705g');
+    const load = () => window.TAIYZUN_load3DField?.('/js/taiyzun-3d-field.min.js?v=20260710c');
     const loadWhenSafe = () => {
       if (shouldKeepWebGLDeferred()) {
         document.documentElement.dataset.odysseyWebgl = 'mobile-deferred';
@@ -460,7 +460,7 @@
     const load = () => window.TAIYZUN_loadDesktopEnhancements?.([
       '/js/taiyzun-at-logo-3d.min.js?v=20260705b',
       '/js/sword-hero.min.js?v=20260705h',
-      '/js/harmonic-interactions.min.js?v=20260623b'
+      '/js/harmonic-interactions.min.js?v=20260710a'
     ]);
     if (window.TAIYZUN_loadDesktopEnhancements) load();
     else window.addEventListener('taiyzun:mobile-lite-ready', load, { once: true });

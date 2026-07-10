@@ -24,6 +24,7 @@ const FALLBACK = [
 
 /* ── State ── */
 let allItems = [], filteredItems = [], currentPage = 0, lbIdx = 0, lbOpen = false;
+let lightboxReturnFocus = null;
 let activeFilter = 'all';
 let galleryCatalogReady = false;
 let galleryLoadingMore = false;
@@ -340,16 +341,16 @@ function buildFilters(cats, counts = {}) {
     btn.type = 'button';
     btn.className = 'cat-tab' + (cat === 'all' ? ' active' : '');
     btn.dataset.cat = cat;
-    btn.setAttribute('aria-selected', cat === 'all' ? 'true' : 'false');
+    btn.setAttribute('aria-pressed', cat === 'all' ? 'true' : 'false');
     const count = cat === 'all' ? activeTotalFor('all') : (counts[cat] || 0);
     btn.textContent = `${displayCategory(cat)} (${count})`;
     btn.addEventListener('click', async () => {
       document.querySelectorAll('.cat-tab').forEach(b => {
         b.classList.remove('active');
-        b.setAttribute('aria-selected', 'false');
+        b.setAttribute('aria-pressed', 'false');
       });
       btn.classList.add('active');
-      btn.setAttribute('aria-selected', 'true');
+      btn.setAttribute('aria-pressed', 'true');
       await renderGrid(cat);
     });
     c.appendChild(btn);
@@ -404,9 +405,11 @@ async function appendBatch() {
     const pendingRevealItems = [];
     for (let i = start; i < end; i++) {
       const item = filteredItems[i];
-      const el = document.createElement('div');
+      const el = document.createElement('button');
+      el.type = 'button';
       el.className = 'art-item reveal';
       el.dataset.index = i;
+      el.setAttribute('aria-label', `View ${item.title || 'creation'}`);
       const t = escapeHTML(item.title);
       const s = escapeHTML(item.sub);
       const thumb = escapeHTML(item.thumb);
@@ -416,7 +419,7 @@ async function appendBatch() {
       const fetchPriority = priorityImage ? 'high' : 'low';
       const sourceAttrs = supportsNativeLazy ? `src="${thumb}"` : `data-src="${thumb}" src="${PLACEHOLDER_SRC}"`;
       el.innerHTML = `<img ${sourceAttrs} alt="${t}" width="360" height="360" sizes="${GRID_IMAGE_SIZES}" loading="${loadingMode}" decoding="async" fetchpriority="${fetchPriority}"><div class="overlay"><span class="sparkle">✦</span><h3>${t}</h3><p>${s}</p></div>`;
-      el.addEventListener('click', () => openLB(i));
+      el.addEventListener('click', () => openLB(i, { opener: el }));
       fragment.appendChild(el);
       pendingImages.push(el.querySelector('img'));
       pendingRevealItems.push(el);
@@ -820,6 +823,7 @@ function createLightboxGestureController({ wrap, image, previous, next }) {
 }
 
 function openLB(i, options = {}) {
+  lightboxReturnFocus = options.opener || (document.activeElement !== document.body ? document.activeElement : null);
   lbIdx = i; lbOpen = true;
   lbTotal.textContent = String(activeTotalFor(activeFilter)).padStart(2, '0');
   buildFilmstrip();
@@ -829,17 +833,23 @@ function openLB(i, options = {}) {
   document.documentElement.classList.add('tai-lightbox-open');
   document.body.classList.add('tai-lightbox-open');
   document.body.style.overflow = 'hidden';
+  lb.setAttribute('aria-hidden', 'false');
+  window.requestAnimationFrame(() => lbCloseBtn.focus({ preventScroll: true }));
 }
 function closeLB(options = {}) {
+  const restoreTarget = lightboxReturnFocus;
+  lightboxReturnFocus = null;
   lightboxGestures?.reset();
   lb.classList.remove('open');
   document.documentElement.classList.remove('tai-lightbox-open');
   document.body.classList.remove('tai-lightbox-open');
   document.body.style.overflow = '';
   lbOpen = false;
+  lb.setAttribute('aria-hidden', 'true');
   lbImg.className = '';
   setShareStatus('');
   if (options.clearUrl !== false) clearImageUrl(options.historyMode || 'push');
+  if (restoreTarget?.isConnected) restoreTarget.focus({ preventScroll: true });
 }
 function loadLBImage(i, dir, historyMode = 'replace') {
   lbIdx = i;
@@ -955,8 +965,12 @@ async function openRequestedImage(options = {}) {
     if (categoryIndex >= 0) {
       const catTab = Array.from(document.querySelectorAll('.cat-tab')).find(button => button.dataset.cat === requestedCat);
       if (catTab) {
-        document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.cat-tab').forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-pressed', 'false');
+        });
         catTab.classList.add('active');
+        catTab.setAttribute('aria-pressed', 'true');
       }
       if (activeFilter !== requestedCat) await renderGrid(requestedCat);
       filteredItems = itemsForFilter(requestedCat);
@@ -969,8 +983,12 @@ async function openRequestedImage(options = {}) {
   if (index < 0) return false;
   const allTab = document.querySelector('.cat-tab[data-cat="all"]');
   if (allTab) {
-    document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.cat-tab').forEach(b => {
+      b.classList.remove('active');
+      b.setAttribute('aria-pressed', 'false');
+    });
     allTab.classList.add('active');
+    allTab.setAttribute('aria-pressed', 'true');
   }
   if (activeFilter !== 'all') await renderGrid('all');
   filteredItems = allItems;
@@ -994,6 +1012,23 @@ lightboxGestures = createLightboxGestureController({
 document.addEventListener('keydown', e => {
   if (!lbOpen) return;
   if (e.key === 'Escape') { e.preventDefault(); closeLB(); }
+  if (e.key === 'Tab') {
+    const focusable = Array.from(lb.querySelectorAll('button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'))
+      .filter(element => element.getClientRects().length > 0);
+    if (!focusable.length) {
+      e.preventDefault();
+      return;
+    }
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && (document.activeElement === first || !lb.contains(document.activeElement))) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }
   if (e.key === 'ArrowLeft' && !lightboxGestures?.isZoomed()) { e.preventDefault(); showPreviousImage(); }
   if (e.key === 'ArrowRight' && !lightboxGestures?.isZoomed()) { e.preventDefault(); showNextImage(); }
 });
