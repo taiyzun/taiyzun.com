@@ -729,13 +729,25 @@
     const rng = createRng(seed);
     const isHero = section.matches && section.matches(".hero, .page-hero");
     const width = sizeForAsset(assetPath, rng, isHero);
-    const laneInfo = lane || horizontalLanes[slot % horizontalLanes.length];
+    const placementLanes = isHero
+      ? [horizontalLanes[0], horizontalLanes[1], horizontalLanes[4], horizontalLanes[5]]
+      : horizontalLanes;
+    const laneInfo = lane || placementLanes[slot % placementLanes.length];
     let leftPercent = laneInfo.min + rng() * (laneInfo.max - laneInfo.min);
     let topPercent = verticalBias + (rng() - 0.5) * 0.42;
     const bandStart = Number.isFinite(bandTop) ? bandTop : window.scrollY;
     const bandEnd = Number.isFinite(bandBottom) ? bandBottom : bandStart + window.innerHeight;
     const bandHeight = Math.max(220, bandEnd - bandStart);
-    let baseX = clamp((window.innerWidth - width) * (leftPercent / 100), -width * 0.18, window.innerWidth - width * 0.82);
+    const positionX = (percent) => {
+      if (!isHero) {
+        return clamp((window.innerWidth - width) * (percent / 100), -width * 0.18, window.innerWidth - width * 0.82);
+      }
+
+      return percent < 50
+        ? -width * (0.62 + rng() * 0.18)
+        : window.innerWidth - width * (0.2 + rng() * 0.18);
+    };
+    let baseX = positionX(leftPercent);
     let baseY = bandStart + bandHeight * clamp(topPercent, 0.16, 0.84) - width * 0.35;
 
     for (let attempt = 0; attempt < 18; attempt += 1) {
@@ -748,10 +760,10 @@
 
       if (!tooClose) break;
 
-      const alternateLane = horizontalLanes[(slot + attempt * 2 + 1) % horizontalLanes.length];
+      const alternateLane = placementLanes[(slot + attempt * 2 + 1) % placementLanes.length];
       leftPercent = alternateLane.min + rng() * (alternateLane.max - alternateLane.min);
       topPercent = ((attempt % 5) + 0.5) / 5 + (rng() - 0.5) * 0.16;
-      baseX = clamp((window.innerWidth - width) * (leftPercent / 100), -width * 0.18, window.innerWidth - width * 0.82);
+      baseX = positionX(leftPercent);
       baseY = bandStart + bandHeight * clamp(topPercent, 0.12, 0.88) - width * 0.35;
     }
     const motionVariant = pickMotionVariant(baseX, baseY, width, priorPlacements, rng);

@@ -84,10 +84,10 @@
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-regular-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-italic-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-bold-latin.woff2" crossorigin>
-<link rel="stylesheet" href="/css/odyssey-critical.min.css?v=20260710f">
+<link rel="stylesheet" href="/css/odyssey-critical.min.css?v=20260710g">
 <script data-cfasync="false">
   (function loadOdysseyCss() {
-    const href = '/css/taiyzun-odyssey.bundle.min.css?v=20260710f';
+    const href = '/css/taiyzun-odyssey.bundle.min.css?v=20260710g';
     let loaded = false;
     let timer = 0;
     const isCompact = () => Boolean(
@@ -132,7 +132,7 @@
     else window.addEventListener('load', settledStart, { once: true });
   })();
 </script>
-<noscript><link rel="stylesheet" href="/css/taiyzun-odyssey.bundle.min.css?v=20260710f"></noscript>
+<noscript><link rel="stylesheet" href="/css/taiyzun-odyssey.bundle.min.css?v=20260710g"></noscript>
 </head>
 <body class="odyssey-page premium-ui-ready">
 <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -414,7 +414,8 @@
 <script data-cfasync="false">
   (function loadDesktopEnhancements() {
     const load = () => window.TAIYZUN_loadDesktopEnhancements?.([
-      '/js/harmonic-interactions.min.js?v=20260710a'
+      '/js/harmonic-interactions.min.js?v=20260710a',
+      '/js/site-decorative-field.min.js?v=20260710f'
     ]);
     if (window.TAIYZUN_loadDesktopEnhancements) load();
     else window.addEventListener('taiyzun:mobile-lite-ready', load, { once: true });
