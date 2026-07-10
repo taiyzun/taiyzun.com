@@ -1,105 +1,93 @@
 # Taiyzun Production Re-Audit
 
-## Baseline Snapshot
+## Verification Snapshot
 
 Date: 10 July 2026.
 
-Scope: current repository source, generated Cloudflare Pages output, local rendered behaviour and live `https://taiyzun.com` route health. Historical reports were treated as context only.
+Scope: the current `/Users/tai/Developer/taiyzun.com` source tree, the generated `dist/` output, local rendered routes, the supplied sword and @ assets, and the existing production boundary. Historical reports were treated as context only.
 
-Repository baseline:
+Working branch: `codex/perfected-sword-3d`.
 
-- Branch: `main`.
-- Remote baseline: `origin/main` at `23455a6f9`.
-- Local baseline: 1 unpushed commit ahead at `384c6b3b3`.
-- The local-only commit adds 28 Finder-style duplicate Odyssey chunk files. The official build deletes these files and regenerates 7 canonical chunks. This commit must be resolved before any production push.
-- Build output is ignored and regenerated through `npm run build`.
+Implementation commit: `aa5b6c959` (`feat(3d): integrate secondary at signature object`).
 
-Automated baseline:
+Production infrastructure was not changed. DNS, Cloudflare settings, hosting settings, registrar settings, accounts, analytics activation and dependency versions remain outside this pass.
 
-- `npm run build`: passed.
-- `npm run test:safe`: passed.
+## Baseline Findings
+
+- The sword runtime was already integrated, but the supplied @ model had no production runtime, page markup or build allow-list entry.
+- The @ source package contained a suitable web GLB and transparent fallback artwork. The source package was kept outside the repository unchanged.
+- The home page had a responsive mobile values row that could create horizontal overflow at 390px. The mobile rule now forces single-column sizing.
+- Page-level WebGL stages were correctly deferred on constrained devices, but the @ stage had no critical-CSS hide rule. That allowed a short early paint before the deferred full stylesheet arrived on `/odyssey` and `/creations`.
+- The current repository contains no legacy Taiyzun object GLB or old @ runtime path. The active 3D loader is `js/taiyzun-sword.js` with its minified production counterpart.
+
+## Implemented Changes
+
+- Added the supplied @ web GLB as `3d/Taiyzun_At_Logo_Web.glb`.
+- Added a 512px transparent @ fallback as `3d/Taiyzun_At_Fallback.png`.
+- Extended the existing Three.js loader to share one lazy Three.js/GLTFLoader import between sword and @ stages.
+- Kept desktop WebGL automatic after idle/visibility checks, with pointer parallax and slow breathing motion.
+- Kept constrained mobile WebGL deferred until a meaningful interaction. Reduced-motion, low-memory and WebGL-unavailable paths remain static and safe.
+- Positioned the @ object as a smaller supporting corner element. The sword remains the dominant upright, front-facing object.
+- Added @ markup to the home, Journey, Odyssey, Creations and Connect heroes with transparent fallbacks and intrinsic dimensions.
+- Added the @ assets to the Cloudflare Pages build copy allow-list.
+- Added critical-CSS protection so page-level @ layers remain hidden until their full stylesheet is available on mobile.
+- Bumped cache tokens for the affected page bundles.
+
+## Automated Verification
+
+- `npm run build`: passed; 72 public entries copied to `dist/`.
+- `npm run test:safe`: passed; contact safety and SEO/tracking checks passed, with Google and Meta trackers inactive.
 - `node scripts/validate-pages.js`: 140 passed, 0 warnings, 0 failures.
-- JavaScript syntax checks: passed after the build completed.
-- `npm audit --omit=dev`: 0 vulnerabilities.
-- High-confidence secret-pattern scan: no exposed secret found in public source paths.
-- Every public page has exactly 1 H1 and no duplicate HTML ids.
+- `node --check js/taiyzun-sword.js`: passed.
+- `node --check js/site-decorative-field.js`: passed.
+- `npm audit --omit=dev --audit-level=high`: 0 vulnerabilities.
+- `git diff --check`: passed before release packaging.
 
-Rendered baseline:
+## Local Browser Verification
 
-- 45 built-page checks across small phone, large phone, phone landscape, tablet, tablet landscape, desktop, large desktop and ultrawide viewports.
-- 0 broken rendered images across the tested routes and sizes.
-- Mobile menu open, Escape close, body scroll restoration, ARIA state and focus restoration passed.
-- YouTube carousel cards and dots both selected the correct video and updated the player with autoplay enabled.
-- Creations lightbox open, image navigation, 2.6x zoom, pan, zoom reset, share control and body scroll lock passed.
-- Mobile Odyssey first view loaded no Three.js, sword, @ logo or field runtime.
-- Desktop Odyssey loaded the field, sword and @ logo as ready with 3 canvases and no broken images.
+The built `dist/` site was served locally and checked at 1280x720 and 390x844.
 
-## Lighthouse Baseline
+Desktop checks:
 
-Local built output, mobile mode:
+- All 5 public routes rendered with 1 H1 and 0 horizontal overflow.
+- Home and Odyssey initialised both sword and @ models as `ready`.
+- The final home screenshot showed the sword centred and dominant, with the @ object smaller and offset to the right.
+- No browser console errors were recorded.
 
-| Route | Performance | Accessibility | Best Practices | SEO | LCP | TBT | CLS |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Home | 90 | 100 | 100 | 100 | 3.2 s | 0 ms | 0.01 |
-| Work | 93 | 100 | 100 | 100 | 2.9 s | 0 ms | 0 |
-| Odyssey | 100 | 100 | 100 | 100 | 1.8 s | 0 ms | 0 |
-| Creations | 98 | 100 | 100 | 100 | 2.3 s | 0 ms | 0 |
-| Connect | 91 | 100 | 100 | 100 | 3.2 s | 0 ms | 0 |
+Mobile checks:
 
-## Reproduced Findings
+- All 5 public routes had 0 horizontal overflow.
+- Home retained the lightweight static sword/@ presentation.
+- Page-level sword/@ stages stayed hidden before full CSS arrived.
+- All 3D stages reported `status=deferred` and `performanceMode=mobile-deferred`.
+- No browser console errors were recorded.
 
-1. Shared ambient, premium-experience and 3D content-layer selectors changed the fixed desktop navigation to `position: relative`, causing right-edge clipping around the 1024px desktop breakpoint.
-2. Home, Work, Creations and Connect exposed skip-link targets without native `main` landmarks.
-3. Creations artwork cards used clickable `div` elements, preventing keyboard activation.
-4. The Creations lightbox did not move focus into the dialog, trap Tab navigation or restore focus to the originating artwork card.
-5. Compact-device timers could start the full Creations stylesheet and Three.js field without interaction, producing an intermittent 15.2 s mobile LCP.
-6. The WebGL renderer's premultiplied-alpha mode did not match the custom cutout shader, rendering transparent texture planes as black rectangles.
-7. Primary text panels were included in pointer and scroll-linked 3D transforms, allowing archive headings and copy to rotate with the decorative field.
+## Lighthouse Evidence
 
-## Applied Repairs
+These are local built-output runs, not a claim about a new production deployment.
 
-- Preserved the fixed navigation stacking context at every tested desktop width.
-- Converted existing skip targets into native `main` landmarks without changing page composition.
-- Converted Creations artwork cards to keyboard-operable buttons and added valid pressed-state semantics to category filters.
-- Added lightbox focus entry, focus containment, Escape close and opener focus restoration.
-- Made compact-device WebGL and the full Creations stylesheet interaction-triggered enhancements; desktop enrichment remains automatic.
-- Corrected WebGL alpha compositing and retained transparent decorative cutouts without rectangular planes.
-- Removed primary reading surfaces from pointer and scroll-linked 3D transforms while preserving decorative field motion and card-level depth.
-- Protected archive heading panels from moving artwork and removed per-word compositing from archive headings.
-- Updated source, minified counterparts, generated CSS bundles and cache tokens together.
+Mobile-mode `/odyssey` run using 390x844 emulation, 4x CPU slowdown and a throttled mobile connection:
 
-## Final Verification
+| Performance | Accessibility | Best Practices | SEO | LCP | TBT | TTI | CLS | Transfer |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 100 | 100 | 100 | 100 | 1.8 s | 0 ms | 1.8 s | 0 | 122 KiB |
 
-Final local built output, Lighthouse mobile mode:
+Desktop-mode `/odyssey` run at the local desktop preset:
 
-| Route | Performance | Accessibility | Best Practices | SEO | LCP | TBT | CLS |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Home | 90 | 100 | 100 | 100 | 2.9 s | 0 ms | 0.01 |
-| Work | 87 | 100 | 100 | 100 | 3.4 s | 0 ms | 0 |
-| Odyssey | 99 | 100 | 100 | 100 | 1.6 s | 0 ms | 0 |
-| Creations | 99 | 100 | 100 | 100 | 1.6 s | 0 ms | 0.012 |
-| Connect | 93 | 100 | 100 | 100 | 2.6 s | 0 ms | 0 |
+| Performance | Accessibility | Best Practices | SEO | LCP | TBT | TTI | CLS | Transfer |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 79 | 100 | 100 | 100 | 0.7 s | 490 ms | 2.1 s | 0.01 | 2,237 KiB |
 
-Additional final checks:
+The desktop transfer includes the rich page and its deferred visual system. The 2.3 MB @ GLB is not requested during the mobile first-load audit because mobile WebGL is deferred.
 
-- `npm run build`: passed; 83 public entries generated.
-- `npm run test:safe`: passed; Google and Meta trackers remain inactive.
-- `node scripts/validate-pages.js`: 140 passed, 0 warnings, 0 failures.
-- JavaScript and service-worker syntax checks: passed.
-- `npm audit --omit=dev`: 0 vulnerabilities.
-- Built-page mobile and desktop interaction checks: passed for navigation, gallery loading, viewer focus, close and share controls.
-- Existing production routes returned 200; an unknown production route returned 404.
-- GitHub CLI authentication is valid and the latest listed `main` Lighthouse workflow is successful.
+## Open Risks And Follow-Up
 
-## Release State
-
-- Verified branch: `codex/taiyzun-production-reaudit`, based directly on `origin/main` at `23455a6f9`.
-- The pre-existing local `main` commit `384c6b3b3` was preserved and not rewritten. It contains 28 Finder-style duplicate Odyssey chunks that the official build removes.
-- The verified branch has not been pushed or deployed. Production therefore does not yet include these repairs.
+- The @ GLB is intentionally retained at its supplied web size. A separate approved optimisation pass could evaluate mesh and embedded texture compression without changing the supplied artwork.
+- Desktop TBT remains an optimisation target. The next safe investigation is render-blocking CSS and non-critical desktop JavaScript, measured separately from this asset integration.
+- The current browser run was local. Production verification must happen after the release commit is pushed and the existing deployment completes.
 
 ## Deliberately Untouched
 
-- DNS, Cloudflare dashboard settings, hosting settings and registrar settings.
-- Analytics, Google tags and Meta Pixel activation.
-- Public biography, gallery selection, brand language and visual design direction.
-- Dependency versions and production infrastructure.
+- DNS, Cloudflare, R2, hosting, registrar and production settings.
+- Site copy, gallery selection, SEO metadata, tracking activation and dependency upgrades.
+- The existing floating decorative field and portrait data logic, except where the new 3D stages needed shared selectors.
