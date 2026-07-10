@@ -183,6 +183,7 @@
         event.preventDefault();
         window.cancelAnimationFrame(frame);
         stage.dataset.status = 'static';
+        canvas.style.opacity = '0';
         fallback?.removeAttribute('hidden');
       });
 
@@ -207,6 +208,7 @@
       stage.dataset.orientation = 'y-up-front-facing';
       stage.dataset.motion = 'pointer-parallax-10deg-slow-breathing';
       stage.dataset.status = 'ready';
+      canvas.style.opacity = '1';
       fallback?.setAttribute('hidden', '');
       frame = window.requestAnimationFrame(render);
     } catch (error) {
