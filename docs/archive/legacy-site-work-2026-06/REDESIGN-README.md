@@ -40,7 +40,7 @@ The entire site has been transformed with dynamic animations, unique visual them
 ├── js/themes-config.js         # Theme definitions
 ├── js/theme-engine.js          # Dynamic theming system
 ├── js/animation-controller.js  # GSAP page transitions
-└── js/webgl-manager.js         # WebGL visual effects
+└── [Retired visual-effects module]
 ```
 
 ## 🎮 How to Experience It
@@ -127,7 +127,7 @@ timeline.to('.hero-content', {
 ```
 
 ### Modify WebGL Effects
-Edit `js/webgl-manager.js`:
+The retired visual-effects module previously exposed settings such as:
 ```javascript
 // Enable/disable effects per page
 this.showParticleSystem = false;  // Hide particles

@@ -306,7 +306,6 @@ button:hover,
   filter: saturate(0.72) brightness(1.02) drop-shadow(0 12px 26px rgba(178, 141, 88, 0.1));
 }
 
-[data-webgl] canvas,
 #particles {
   opacity: 0.24;
   mix-blend-mode: multiply;

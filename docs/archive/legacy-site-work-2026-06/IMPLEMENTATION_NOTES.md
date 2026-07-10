@@ -68,7 +68,6 @@
 - ✅ Updated `package.json`:
   - Added: `gsap` (^3.12.2)
   - Added: `three` (^r128)
-  - Added: `pixi.js` (^8.0.0)
   - Maintained: AWS SDK, Sharp (for existing image optimization)
 
 ### CSS Variables Available

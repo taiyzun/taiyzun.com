@@ -75,7 +75,7 @@ This phase focuses on performance optimization, cross-browser testing, accessibi
 ### 4. **JavaScript Optimization**
 
 #### Code Splitting & Loading
-- [x] Separate modules: theme-engine.js, animation-controller.js, webgl-manager.js
+- [x] Separate modules for themes, animation and visual effects
 - [ ] Defer non-critical scripts
 - [ ] Consider lazy-loading WebGL libraries
 - [ ] Profile with Lighthouse for JS execution time

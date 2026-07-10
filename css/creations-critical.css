@@ -319,33 +319,16 @@ footer {
 
 .page-hero-video,
 .ambient-video-media,
-[data-webgl="odyssey-narrative"],
-[data-webgl="creations-gallery"],
-.at-logo-3d-canvas,
-.sword-hero-canvas {
+.taiyzun-sword-canvas {
   display: none !important;
 }
 
-.at-logo-3d-stage,
-.page-sword-hero-stage {
+.taiyzun-sword-stage--page {
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
   overflow: hidden;
-}
-
-.at-logo-3d-fallback {
-  position: absolute;
-  top: 20%;
-  right: 50%;
-  width: min(50vw, 190px);
-  height: auto;
-  opacity: 0.12;
-  transform: translate3d(50%, -50%, 0) rotate(-2deg);
-}
-
-.page-sword-hero-stage {
   display: none;
 }
 
@@ -792,29 +775,21 @@ footer {
     text-wrap: balance;
   }
 
-  .at-logo-3d-fallback {
-    filter: drop-shadow(0 16px 36px rgba(151, 108, 38, 0.16)) saturate(1.02);
-  }
-
-  body.creations-page .at-logo-3d-fallback {
-    opacity: 0;
-  }
-
-  .page-sword-hero-stage {
+  .taiyzun-sword-stage--page {
     display: block;
     opacity: 0.32;
     mix-blend-mode: multiply;
   }
 
-  .sword-hero-fallback {
+  .taiyzun-sword-fallback {
     position: absolute;
     top: 50%;
-    right: clamp(2.8rem, 8vw, 10rem);
+    left: 50%;
     width: auto;
     height: min(54vh, 460px);
     object-fit: contain;
     opacity: 0.5;
-    transform: translate3d(0, -50%, 0) rotate(1deg);
+    transform: translate3d(-50%, -50%, 0);
   }
 
   .gallery-section,

@@ -311,8 +311,7 @@
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-regular-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-italic-latin.woff2" crossorigin>
 <link rel="stylesheet" href="/css/taiyzun-index.bundle.min.css?v=20260710e">
-<link rel="preload" as="image" href="/assets/easter-eggs/taiyzun-atme-3d-loader-192.avif" type="image/avif">
-<link rel="preload" as="image" href="/assets/images/taiyzun-sword-logo-samurai-sharp-clean-transparent.webp" type="image/webp">
+<link rel="preload" as="image" href="/3d/Taiyzun_Sword_Fallback.png" type="image/png" fetchpriority="high">
 <!-- Performance: Prefetch other pages -->
 </head>
 <body class="home-page premium-ui-ready">
@@ -320,7 +319,7 @@
 <a href="#main-content" class="skip-link">Skip to main content</a>
 <div class="cursor-glow" id="cursorGlow"></div>
 <div class="cursor-ring" id="cursorRing"></div>
-<div class="site-loader" id="siteLoader" role="status" aria-live="polite" aria-label="Loading Taiyzun" data-start="0" style="position:fixed;inset:0;z-index:100000;display:grid;place-items:center;overflow:hidden;width:100vw;height:100vh;contain:strict;"><span class="site-loader__orb" style="position:relative;width:clamp(136px,18vw,232px);aspect-ratio:1;display:grid;place-items:center;transform-style:preserve-3d;border-radius:50%;"><span class="site-loader__object" style="position:relative;width:84%;aspect-ratio:1;display:block;overflow:hidden;transform-style:preserve-3d;border-radius:50%;"><picture class="site-loader__face" style="position:absolute;inset:0;width:100%;height:100%;display:block;overflow:hidden;border-radius:50%;"><source srcset="/assets/easter-eggs/taiyzun-atme-3d-loader-192.avif" type="image/avif"><source srcset="/assets/easter-eggs/taiyzun-atme-3d-loader-192.webp" type="image/webp"><img class="site-loader__mark" src="/assets/easter-eggs/taiyzun-atme-3d-loader-192.png" alt="" width="192" height="192" decoding="async" fetchpriority="high" style="display:block;width:100%;height:100%;object-fit:contain;border-radius:50%;"></picture></span></span></div>
+<div class="site-loader" id="siteLoader" role="status" aria-live="polite" aria-label="Loading Taiyzun" data-start="0" style="position:fixed;inset:0;z-index:100000;display:grid;place-items:center;overflow:hidden;width:100vw;height:100vh;contain:strict;"><span class="site-loader__orb" style="position:relative;width:clamp(136px,18vw,232px);aspect-ratio:1;display:grid;place-items:center;transform-style:preserve-3d;border-radius:50%;"><span class="site-loader__object" style="position:relative;width:84%;aspect-ratio:1;display:grid;place-items:center;overflow:hidden;transform-style:preserve-3d;border-radius:50%;"><img class="site-loader__mark" src="/assets/images/Taiyzun-logo-200w.avif" alt="" width="200" height="200" decoding="async" fetchpriority="high" style="display:block;width:100%;height:100%;object-fit:contain;border-radius:50%;"></span></span></div>
 <nav id="mainNav">
   <a href="/" class="logo" aria-label="Taiyzun — Home"><picture>
         <source srcset="assets/images/Taiyzun-logo-36w.avif 1x, assets/images/Taiyzun-logo-52w.avif 1.5x, assets/images/Taiyzun-logo-200w.avif 2x" type="image/avif">
@@ -345,34 +344,21 @@
     </video>
   </div>
   <div
-    class="sword-hero-stage"
-    data-sword-hero
-    data-sword-model="/assets/models/taiyzun-sword-logo-samurai-sharp-web.glb"
-    data-sword-src="/assets/images/taiyzun-sword-logo-samurai-sharp-clean-transparent.webp"
-    data-sword-fallback="/assets/images/taiyzun-sword-logo-samurai-sharp-clean-transparent.png"
+    class="taiyzun-sword-stage"
+    data-taiyzun-sword
     role="img"
-    aria-label="Rotating Taiyzun sword logo">
-    <canvas class="sword-hero-canvas" data-sword-hero-canvas aria-hidden="true"></canvas>
+    aria-label="Taiyzun sword">
+    <canvas class="taiyzun-sword-canvas" data-taiyzun-sword-canvas aria-hidden="true"></canvas>
     <img
-      class="sword-hero-fallback"
-      data-sword-hero-fallback
-      src="/assets/images/taiyzun-sword-logo-samurai-sharp-clean-transparent.webp"
+      class="taiyzun-sword-fallback"
+      data-taiyzun-sword-fallback
+      src="/3d/Taiyzun_Sword_Fallback.png"
       alt=""
-      width="700"
-      height="1800"
+      width="608"
+      height="1600"
       decoding="async"
+      loading="eager"
       fetchpriority="high">
-  </div>
-<div data-webgl="home-particles" style="position: absolute; inset: 0; z-index: 2; pointer-events: none;"></div>
-  <div
-    class="at-logo-3d-stage"
-    data-at-logo-3d
-    data-at-logo-variant="home"
-    data-at-logo-model="/assets/models/taiyzun-at-logo-blade-edge-gold-silver-web.glb"
-    data-at-logo-fallback="/assets/easter-eggs/taiyzun-at-logo-blade-edge-gold-silver-384.webp"
-    aria-hidden="true">
-    <canvas class="at-logo-3d-canvas" data-at-logo-3d-canvas></canvas>
-    <img class="at-logo-3d-fallback" data-at-logo-3d-fallback src="/assets/easter-eggs/taiyzun-at-logo-blade-edge-gold-silver-384.webp" alt="" width="384" height="384" decoding="async" loading="lazy">
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-grain"></div>
@@ -853,49 +839,7 @@
     else window.addEventListener('taiyzun:mobile-lite-ready', start, { once: true });
   })();
 </script>
-<script data-cfasync="false">
-  (() => {
-    const useStaticMobileHero = () => window.matchMedia?.('(max-width: 700px), (prefers-reduced-motion: reduce)')?.matches;
-
-    const loadSwordHero = () => {
-      if (useStaticMobileHero()) return;
-      if (document.querySelector('script[data-sword-hero-runtime]')) return;
-      const script = document.createElement('script');
-      script.type = 'module';
-      script.src = '/js/sword-hero.min.js?v=20260705h';
-      script.crossOrigin = 'anonymous';
-      script.dataset.swordHeroRuntime = 'true';
-      document.body.appendChild(script);
-    };
-
-    const scheduleSwordHero = () => {
-      if (useStaticMobileHero()) {
-        document.querySelector('[data-sword-hero]')?.setAttribute('data-status', 'mobile-static');
-        return;
-      }
-      const mobileLite = Boolean(window.TAIYZUN_applyMobileLite?.());
-      const delay = mobileLite ? 1800 : 420;
-      window.setTimeout(() => {
-        if ('requestIdleCallback' in window) {
-          window.requestIdleCallback(loadSwordHero, { timeout: mobileLite ? 2200 : 900 });
-        } else {
-          loadSwordHero();
-        }
-      }, delay);
-    };
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', scheduleSwordHero, { once: true });
-    } else {
-      scheduleSwordHero();
-    }
-  })();
-</script>
-<script data-cfasync="false">
-  if (!window.matchMedia?.('(max-width: 700px), (prefers-reduced-motion: reduce)')?.matches) {
-    window.TAIYZUN_load3DField?.('/js/taiyzun-3d-field.min.js?v=20260710c');
-  }
-</script>
+<script data-cfasync="false" type="module" src="/js/taiyzun-sword.min.js?v=20260710a"></script>
 <script data-cfasync="false">
   window.TAIYZUN_loadDesktopEnhancements?.([
     '/js/vendor/gsap.min.js?v=20260623b',
@@ -903,7 +847,6 @@
     '/js/themes-config.min.js?v=20260623b',
     '/js/theme-engine.min.js?v=20260623b',
     '/js/animation-controller.min.js?v=20260623b',
-    '/js/taiyzun-at-logo-3d.min.js?v=20260705b',
     '/js/harmonic-interactions.min.js?v=20260710a'
   ]);
 </script>

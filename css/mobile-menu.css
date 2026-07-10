@@ -17,8 +17,7 @@ body.site-mobile-lite .site-decorative-png,
 body.site-mobile-lite #siteDecorativeField,
 body.site-mobile-lite .harmonic-orbit-field,
 body.site-mobile-lite .harmonic-section-grid,
-body.site-mobile-lite .harmonic-geometry,
-body.site-mobile-lite [data-webgl] {
+body.site-mobile-lite .harmonic-geometry {
   display: none !important;
 }
 

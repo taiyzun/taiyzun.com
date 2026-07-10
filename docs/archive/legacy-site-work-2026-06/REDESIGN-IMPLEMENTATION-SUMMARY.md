@@ -37,7 +37,7 @@
 
 #### Files Created:
 - `js/animation-controller.js` (287 lines) - GSAP-powered page transitions
-- `js/webgl-manager.js` (405 lines) - Three.js/PixiJS visual effects
+- Retired visual-effects module - historical Three.js rendering experiments
 - **5 HTML files updated** - Integration of animation controllers and WebGL containers
 
 #### Animation Controller Features:
@@ -56,10 +56,10 @@
   - **Connect:** Animated network graph with interactive nodes
 
 #### HTML Integration:
-- Added script includes (animation-controller.js, webgl-manager.js)
-- Added data-webgl containers to hero sections with proper CSS positioning
+- Added script includes for animation and visual-effects controllers
+- Added visual containers to hero sections with proper CSS positioning
 - Added animate-on-scroll classes to key content sections
-- Responsive data-webgl containers with z-index layering
+- Responsive visual containers with z-index layering
 
 ---
 
@@ -254,7 +254,7 @@ taiyzun.com/
 │   ├── themes-config.js                [Theme definitions & color palettes]
 │   ├── theme-engine.js                 [Dynamic theme system]
 │   ├── animation-controller.js          [GSAP page transitions]
-│   └── webgl-manager.js                [Three.js/PixiJS visual effects]
+│   └── [Retired visual-effects module]
 │
 ├── PHASE-6-OPTIMIZATION-GUIDE.md       [Testing & optimization checklist]
 └── REDESIGN-IMPLEMENTATION-SUMMARY.md  [This file]
@@ -413,7 +413,7 @@ Visit each page and observe:
 ### WebGL Not Rendering
 1. Check browser supports WebGL (use Firefox if Chrome doesn't)
 2. Verify Three.js library is loaded
-3. Check webgl-manager.js is included
+3. Check the active visual runtime is included
 4. Check browser console for errors
 
 ### Performance Issues

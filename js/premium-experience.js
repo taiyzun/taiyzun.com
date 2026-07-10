@@ -119,7 +119,7 @@
 
   const markImage = (image) => {
     if (!image || image.dataset.premiumImage === 'true') return;
-    if (image.closest('.at-logo-3d-stage, .sword-hero-stage')) return;
+    if (image.closest('.taiyzun-sword-stage')) return;
     image.dataset.premiumImage = 'true';
     image.classList.add('premium-image');
 

@@ -5,7 +5,7 @@ const ASSETS_TO_CACHE = [
   '/index.html',
   '/js/site-mobile-lite.min.js',
   '/manifest.json',
-  '/assets/easter-eggs/taiyzun-atme-3d-loader-192.avif',
+  '/3d/Taiyzun_Sword_Fallback.png',
   '/assets/images/Taiyzun-logo-36w.avif',
   '/assets/icons/favicon-32x32.png',
   '/favicon.ico'

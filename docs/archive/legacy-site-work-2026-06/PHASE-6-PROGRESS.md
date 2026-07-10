@@ -23,7 +23,7 @@
 
 **Resource Loading:**
 - Added preload hints for critical CSS files
-- Added defer attributes to animation controller, webgl-manager, themes-config
+- Added defer attributes to animation, visual-effects and theme controllers
 - Kept theme-engine.js synchronous (required for theming before DOM renders)
 - Lazy loading added to all easter egg decorative images
 
@@ -121,4 +121,3 @@
 
 **Key Achievement:** Image optimization alone improved 4 pages from 69-72 → 84-89 performance scores
 **Next Priority:** Investigate home page WebGL bottleneck and run mobile audits
-
