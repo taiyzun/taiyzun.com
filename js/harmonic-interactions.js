@@ -54,7 +54,7 @@
 
 
   const keywordSelectors = [
-    '.page-hero h1', '.gallery-label h2', '.connect-label h2', '.section-title',
+    '.page-hero h1', '.connect-label h2', '.section-title',
     '.category-header h2', '.highlight-card h3', '.value-item h3', '.hero-cta',
     '.cat-tab', '.submit-btn'
   ].join(',');

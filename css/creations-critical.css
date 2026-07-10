@@ -531,7 +531,7 @@ footer {
 }
 
 .cat-tab.active,
-.cat-tab[aria-selected="true"] {
+.cat-tab[aria-pressed="true"] {
   border-color: rgba(201, 155, 63, 0.42);
   background: linear-gradient(135deg, rgba(24, 61, 99, 0.12), rgba(201, 155, 63, 0.2));
 }
@@ -549,15 +549,26 @@ footer {
 .art-item {
   position: relative;
   min-width: 0;
+  padding: 0;
   aspect-ratio: 1;
   overflow: hidden;
   border: 1px solid rgba(134, 102, 48, 0.18);
   border-radius: 8px;
   background: linear-gradient(150deg, rgba(255, 253, 247, 0.92), rgba(239, 230, 213, 0.74));
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  appearance: none;
   box-shadow: 0 16px 42px rgba(54, 40, 20, 0.1);
   contain: layout paint style;
   content-visibility: auto;
   contain-intrinsic-size: 320px;
+}
+
+.art-item:focus-visible {
+  outline: 3px solid rgba(201, 155, 63, 0.9);
+  outline-offset: 3px;
 }
 
 .art-item img {

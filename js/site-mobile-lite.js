@@ -177,12 +177,8 @@
     window.addEventListener('wheel', interactionStart, { once: true, passive: true });
     window.addEventListener('keydown', interactionStart, { once: true });
 
-    const settledStart = () => schedule(connectionSlow ? 14000 : 9000);
-    if (document.readyState === 'complete') {
-      settledStart();
-    } else {
-      window.addEventListener('load', settledStart, { once: true });
-    }
+    // Compact devices retain the static design until the visitor interacts.
+    // This keeps WebGL and Three.js off the critical loading path.
   };
 
   window.TAIYZUN_loadDesktopEnhancements = function loadDesktopEnhancements(srcs) {

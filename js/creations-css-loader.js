@@ -1,5 +1,5 @@
 (function loadCreationsCss() {
-  const href = '/css/taiyzun-creations.bundle.min.css?v=20260705c';
+  const href = '/css/taiyzun-creations.bundle.min.css?v=20260710e';
   let loaded = false;
   let timer = 0;
 
@@ -53,7 +53,6 @@
   window.addEventListener('touchstart', promptStart, { once: true, passive: true });
   window.addEventListener('keydown', promptStart, { once: true });
 
-  const settledStart = () => schedule(12000, 3600);
-  if (document.readyState === 'complete') settledStart();
-  else window.addEventListener('load', settledStart, { once: true });
+  // The critical stylesheet fully presents the first view. Load the larger
+  // gallery bundle only when a compact-device visitor begins interacting.
 })();

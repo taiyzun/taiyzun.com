@@ -308,7 +308,7 @@ html.has-site-loader {
   height: 100%;
 }
 
-body.taiyzun-3d-ready > :not(.taiyzun-3d-field):not(.site-loader):not(.site-ambient-video):not(.hero-video):not(.page-hero-video):not(.harmonic-orbit-field):not(.site-decorative-png):not(.float-particle):not(script):not(noscript):not(.skip-link):not(.cursor-glow):not(.cursor-ring) {
+body.taiyzun-3d-ready > :not(nav#mainNav):not(.taiyzun-3d-field):not(.site-loader):not(.site-ambient-video):not(.hero-video):not(.page-hero-video):not(.harmonic-orbit-field):not(.site-decorative-png):not(.float-particle):not(script):not(noscript):not(.skip-link):not(.cursor-glow):not(.cursor-ring) {
   position: relative;
   z-index: 2;
 }
