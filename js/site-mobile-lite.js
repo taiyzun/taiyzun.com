@@ -70,7 +70,10 @@
         loader.setAttribute('aria-hidden', 'true');
         loader.classList.add('is-hidden');
         window.setTimeout(() => {
-          if (loader.dataset.hidden === 'true') loader.hidden = true;
+          if (loader.dataset.hidden === 'true') {
+            loader.hidden = true;
+            loader.style.display = 'none';
+          }
         }, 320);
       });
       document.body.classList.remove('site-loader-active');
