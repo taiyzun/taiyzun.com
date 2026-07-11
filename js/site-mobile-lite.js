@@ -32,8 +32,13 @@
 
     document.body.dataset.siteLoaderReady = 'true';
     const startedAt = performance.now();
+    const galleryDeepLink = document.body.classList.contains('creations-page') && (
+      new URLSearchParams(window.location.search).has('image') ||
+      new URLSearchParams(window.location.search).has('creation') ||
+      /\/creations\/image\//.test(window.location.pathname)
+    );
     let fontsReady = !document.fonts?.ready;
-    let visualReady = root.dataset.tai3dCriticalReady === 'true';
+    let visualReady = galleryDeepLink || root.dataset.tai3dCriticalReady === 'true';
     let revealQueued = false;
 
     const loaderElements = new Set();

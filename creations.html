@@ -88,10 +88,10 @@
 <link rel="stylesheet" href="/css/creations-critical.min.css?v=20260710i">
 <script data-cfasync="false" src="/js/creations-css-loader.min.js?v=20260710j" defer></script>
 <noscript><link rel="stylesheet" href="/css/taiyzun-creations.bundle.min.css?v=20260711a"></noscript>
-<link rel="stylesheet" href="/css/taiyzun-system.css?v=20260711e">
+<link rel="stylesheet" href="/css/taiyzun-system.css?v=20260711h">
 </head>
 <body class="creations-page premium-ui-ready">
-<script data-cfasync="false" src="/js/site-mobile-lite.min.js?v=20260711b"></script>
+<script data-cfasync="false" src="/js/site-mobile-lite.min.js?v=20260711c"></script>
 <a href="#main-content" class="skip-link">Skip to main content</a>
 <div class="cursor-glow" id="cursorGlow"></div>
 <div class="site-loader" id="siteLoader" role="status" aria-live="polite" aria-label="Loading Taiyzun" data-start="0" style="position:fixed;inset:0;z-index:100000;display:grid;place-items:center;overflow:hidden;width:100vw;height:100vh;contain:strict;"><span class="site-loader__orb" style="position:relative;width:clamp(136px,18vw,232px);aspect-ratio:1;display:grid;place-items:center;transform-style:preserve-3d;border-radius:50%;"><span class="site-loader__object" style="position:relative;width:84%;aspect-ratio:1;display:grid;place-items:center;overflow:hidden;transform-style:preserve-3d;border-radius:50%;"><img class="site-loader__mark" src="/assets/images/Taiyzun-at-loader-256w.webp" alt="" width="256" height="256" decoding="async" fetchpriority="high" style="display:block;width:100%;height:100%;object-fit:contain;"></span></span></div>
@@ -155,20 +155,26 @@
     <span class="lb-counter-sep">/</span>
     <span class="lb-counter-total" id="lbTotal">00</span>
     <span class="lb-cat-label" id="lbCat"></span>
+    <div class="lb-tools" role="toolbar" aria-label="Image zoom and display controls">
+      <button class="lb-tool" id="lbZoomOut" type="button" aria-label="Zoom out" title="Zoom out" disabled>&minus;</button>
+      <button class="lb-tool lb-tool-reset" id="lbReset" type="button" aria-label="Reset zoom" title="Reset zoom" disabled>1&times;</button>
+      <button class="lb-tool" id="lbZoomIn" type="button" aria-label="Zoom in" title="Zoom in">+</button>
+      <button class="lb-tool" id="lbFullscreen" type="button" aria-label="Enter fullscreen" title="Fullscreen">&#x26F6;</button>
+    </div>
     <button class="lb-share" id="lbShare" type="button" aria-label="Share image" title="Share image">
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 16.1c-.76 0-1.44.3-1.96.77L8.91 12.7a3.2 3.2 0 0 0 0-1.39l7.05-4.13A2.99 2.99 0 1 0 15 5c0 .24.03.47.08.69L8.03 9.82a3 3 0 1 0 0 4.36l7.1 4.17c-.08.26-.13.53-.13.81a3 3 0 1 0 3-3.06Z"/></svg>
     </button>
     <span class="lb-share-status" id="lbShareStatus" aria-live="polite"></span>
-    <button class="lb-close" id="lbClose" aria-label="Close lightbox">✕</button>
+    <button class="lb-close" id="lbClose" type="button" aria-label="Close image viewer" title="Close viewer">✕</button>
   </div>
   <div class="lb-main" id="lbMain">
-    <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous image">‹</button>
+    <button class="lb-nav lb-prev" id="lbPrev" type="button" aria-label="Previous image" title="Previous image">‹</button>
     <div class="lb-img-wrap" id="lbImgWrap" tabindex="0" aria-label="Zoomable image">
       <div class="lb-corner-bl"></div>
       <div class="lb-corner-br"></div>
       <img id="lbImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="" draggable="false" decoding="async">
     </div>
-    <button class="lb-nav lb-next" id="lbNext" aria-label="Next image">›</button>
+    <button class="lb-nav lb-next" id="lbNext" type="button" aria-label="Next image" title="Next image">›</button>
   </div>
   <div class="lb-caption"><h3 id="lbTitle"></h3><p id="lbSub"></p></div>
   <div class="lb-filmstrip-wrap"><div class="lb-filmstrip" id="lbFilmstrip"></div></div>
@@ -192,7 +198,7 @@
   <p class="footer-copy footer-signature">Built through TimE. Shaped by SpAcE.</p>
   <p class="footer-copy">&copy; 2026 Taiyzun Shabbir Shahpurwala. All rights reserved.</p>
 </footer>
-<script data-cfasync="false" src="/js/creations-gallery.min.js?v=20260710d"></script>
+<script data-cfasync="false" src="/js/creations-gallery.min.js?v=20260711a"></script>
 <script data-cfasync="false" src="/js/mobile-menu.min.js?v=20260705a"></script>
 <script data-cfasync="false">
   (function schedulePageEnhancementAssets() {

@@ -127,6 +127,22 @@
     }
   }
 
+  let previewRequestToken = 0;
+  function setPreviewImage(videoId) {
+    const requestToken = ++previewRequestToken;
+    const fallback = `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`;
+    const highResolution = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+    carousel.style.setProperty('--video-preview-image', `url("${fallback}")`);
+
+    const preview = new Image();
+    preview.decoding = 'async';
+    preview.onload = () => {
+      if (requestToken !== previewRequestToken || preview.naturalWidth < 640) return;
+      carousel.style.setProperty('--video-preview-image', `url("${highResolution}")`);
+    };
+    preview.src = highResolution;
+  }
+
   function setIframe(videoId, title, options = {}) {
     const isPlaying = Boolean(options.autoplay);
     const params = new URLSearchParams({
@@ -149,7 +165,7 @@
     }
     syncFramePlaybackState(isPlaying);
     iframe.title = `Taiyzun YouTube video: ${title}`;
-    carousel.style.setProperty('--video-preview-image', `url("https://i.ytimg.com/vi/${videoId}/hqdefault.jpg")`);
+    setPreviewImage(videoId);
     if (titleNode) titleNode.textContent = title;
   }
 
