@@ -197,8 +197,24 @@ body.home-page .sword-hero .hero-content::before {
   justify-self: start;
 }
 
-body.home-page .sword-hero .hero-logo {
-  display: none !important;
+body.home-page .sword-hero .hero-background-logo {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  width: clamp(18rem, 38vw, 36rem);
+  aspect-ratio: 1;
+  pointer-events: none;
+  opacity: 0.09;
+  transform: translate3d(-50%, -50%, 0);
+  filter: saturate(0.78) contrast(0.92);
+}
+
+body.home-page .sword-hero .hero-background-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
 }
 
 body.home-page .sword-hero .hero-eyebrow {
@@ -386,6 +402,11 @@ body.home-page .sword-hero[data-sword-ready="true"] {
 
   .taiyzun-at-stage {
     opacity: 0.42;
+  }
+
+  body.home-page .sword-hero .hero-background-logo {
+    width: clamp(15rem, 72vw, 24rem);
+    opacity: 0.075;
   }
 
   .taiyzun-at-fallback {

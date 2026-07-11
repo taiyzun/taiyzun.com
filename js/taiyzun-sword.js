@@ -15,7 +15,7 @@
       key: 3.2,
       rim: 2.2,
       lower: 1.2,
-      motion: 'pointer-parallax-10deg-slow-breathing'
+      motion: 'pointer-and-scroll-axis-spin'
     },
     at: {
       modelUrl: '/3d/Taiyzun_At_Logo_Web.glb',
@@ -32,7 +32,7 @@
       key: 2.4,
       rim: 1.5,
       lower: 0.8,
-      motion: 'pointer-parallax-6deg-slow-breathing'
+      motion: 'clockwise-pointer-scroll-rotation'
     }
   };
   const stages = Array.from(document.querySelectorAll('[data-taiyzun-sword], [data-taiyzun-at]'));
@@ -222,6 +222,7 @@
       scene.add(root);
 
       const pointer = { x: 0, y: 0, targetX: 0, targetY: 0 };
+      const scrollMotion = { value: window.scrollY || 0, target: window.scrollY || 0 };
       let width = 1;
       let height = 1;
       let frame = 0;
@@ -250,6 +251,10 @@
         pointer.targetY = 0;
       }
 
+      function updateScroll() {
+        scrollMotion.target = window.scrollY || 0;
+      }
+
       function render(now) {
         frame = window.requestAnimationFrame(render);
         if (!visible || document.hidden) return;
@@ -261,9 +266,17 @@
 
         pointer.x = damp(pointer.x, reduceMotion ? 0 : pointer.targetX, 4, delta);
         pointer.y = damp(pointer.y, reduceMotion ? 0 : pointer.targetY, 4, delta);
-        root.rotation.y = pointer.x * config.maxYaw;
+        scrollMotion.value = damp(scrollMotion.value, reduceMotion ? 0 : scrollMotion.target, 5, delta);
+        const scrollSpin = reduceMotion ? 0 : scrollMotion.value * 0.0042;
+        const pointerSpin = reduceMotion ? 0 : pointer.x * Math.PI * 0.58;
+
+        root.rotation.y = objectType === 'sword'
+          ? pointerSpin + scrollSpin
+          : pointer.x * config.maxYaw;
         root.rotation.x = -pointer.y * config.maxPitch;
-        root.rotation.z = 0;
+        root.rotation.z = objectType === 'at'
+          ? -(elapsed * 0.24 + scrollSpin + pointer.x * 0.34)
+          : 0;
         root.position.x = config.offsetX;
         root.position.y = config.offsetY + (reduceMotion ? 0 : Math.sin(elapsed * 0.32) * 0.006);
         root.position.z = config.offsetZ;
@@ -274,6 +287,7 @@
           lastStatusUpdate = now;
           stage.dataset.rotationX = root.rotation.x.toFixed(4);
           stage.dataset.rotationY = root.rotation.y.toFixed(4);
+          stage.dataset.rotationZ = root.rotation.z.toFixed(4);
         }
         renderer.render(scene, camera);
       }
@@ -289,6 +303,7 @@
       window.addEventListener('resize', resize, { passive: true });
       window.addEventListener('pointermove', updatePointer, { passive: true });
       window.addEventListener('pointerleave', resetPointer, { passive: true });
+      window.addEventListener('scroll', updateScroll, { passive: true });
 
       if ('ResizeObserver' in window) {
         const resizeObserver = new ResizeObserver(resize);
