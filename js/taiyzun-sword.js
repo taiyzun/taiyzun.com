@@ -36,6 +36,16 @@
     }
   };
   const stages = Array.from(document.querySelectorAll('[data-taiyzun-sword], [data-taiyzun-at]'));
+  const CINEMA_PROFILES = {
+    home: { key: 0xfff1c9, rim: 0xcce8ff, fill: 0xffd88a, exposure: 1.18, cameraTravel: 0.045, scale: 1 },
+    journey: { key: 0xf7edcb, rim: 0xccefe5, fill: 0xdce8f6, exposure: 1.13, cameraTravel: 0.04, scale: 0.98 },
+    odyssey: { key: 0xf4e5c0, rim: 0xdfd5ff, fill: 0xcfe7ff, exposure: 1.16, cameraTravel: 0.055, scale: 1.015 },
+    creations: { key: 0xffefd6, rim: 0xccecff, fill: 0xf7dce9, exposure: 1.14, cameraTravel: 0.035, scale: 0.985 },
+    connect: { key: 0xffe8d7, rim: 0xd3e8ff, fill: 0xf0dbe6, exposure: 1.12, cameraTravel: 0.03, scale: 0.97 },
+    error: { key: 0xf4ecd7, rim: 0xdce6f1, fill: 0xe7d8c1, exposure: 1.08, cameraTravel: 0.02, scale: 0.94 }
+  };
+  const pageName = Object.keys(CINEMA_PROFILES).find((name) => document.body.classList.contains(`${name}-page`)) || 'home';
+  const cinemaProfile = CINEMA_PROFILES[pageName];
 
   if (!stages.length) return;
 
@@ -53,6 +63,73 @@
     return current + (target - current) * (1 - Math.exp(-smoothing * delta));
   };
 
+  function installCinematicSystem() {
+    const root = document.documentElement;
+    root.dataset.taiCinema = pageName;
+
+    const field = document.createElement('div');
+    field.className = 'tai-cinema-field';
+    field.setAttribute('aria-hidden', 'true');
+    field.innerHTML = '<span class="tai-cinema-mist tai-cinema-mist--a"></span><span class="tai-cinema-mist tai-cinema-mist--b"></span><span class="tai-cinema-stars"></span>';
+    document.body.prepend(field);
+    const veil = document.createElement('span');
+    veil.className = 'tai-cinema-veil';
+    veil.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(veil);
+
+    const chapters = Array.from(document.body.querySelectorAll(':scope > main, :scope > section, :scope > footer'));
+    chapters.forEach((chapter) => chapter.classList.add('tai-cinema-chapter'));
+
+    if ('IntersectionObserver' in window && !reducedMotionQuery.matches) {
+      const chapterObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          entry.target.classList.toggle('is-cinema-active', entry.isIntersecting);
+          if (entry.isIntersecting && !entry.target.dataset.cinemaEntered) {
+            entry.target.dataset.cinemaEntered = 'true';
+            window.dispatchEvent(new CustomEvent('taiyzun:chapter-enter', { detail: { chapter: entry.target } }));
+          }
+        });
+      }, { rootMargin: '-16% 0px -22%', threshold: 0.08 });
+      chapters.forEach((chapter) => chapterObserver.observe(chapter));
+    } else {
+      chapters.forEach((chapter) => chapter.classList.add('is-cinema-active'));
+    }
+
+    let fieldFrame = 0;
+    const updateField = (event) => {
+      if (fieldFrame || reducedMotionQuery.matches) return;
+      fieldFrame = window.requestAnimationFrame(() => {
+        fieldFrame = 0;
+        if (event?.clientX != null) {
+          root.style.setProperty('--cinema-x', clamp((event.clientX / Math.max(innerWidth, 1) - 0.5) * 2, -1, 1).toFixed(3));
+          root.style.setProperty('--cinema-y', clamp((event.clientY / Math.max(innerHeight, 1) - 0.5) * 2, -1, 1).toFixed(3));
+        }
+        root.style.setProperty('--cinema-scroll', clamp((scrollY || 0) / Math.max(document.documentElement.scrollHeight - innerHeight, 1), 0, 1).toFixed(4));
+      });
+    };
+    window.addEventListener('pointermove', updateField, { passive: true });
+    window.addEventListener('scroll', updateField, { passive: true });
+    updateField();
+
+    if (!reducedMotionQuery.matches) {
+      root.classList.add('tai-cinema-entering');
+      window.requestAnimationFrame(() => window.requestAnimationFrame(() => root.classList.remove('tai-cinema-entering')));
+    }
+
+    document.addEventListener('click', (event) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || reducedMotionQuery.matches) return;
+      const link = event.target.closest('a[href]');
+      if (!link || link.target || link.hasAttribute('download')) return;
+      const destination = new URL(link.href, location.href);
+      if (destination.origin !== location.origin || destination.href === location.href || (destination.pathname === location.pathname && destination.search === location.search && destination.hash)) return;
+      event.preventDefault();
+      root.classList.add('tai-cinema-leaving');
+      window.setTimeout(() => { location.href = destination.href; }, 300);
+    });
+  }
+
+  installCinematicSystem();
+
   let signatureLogo = document.querySelector('.hero-signature-logo');
   if (!signatureLogo) {
     signatureLogo = document.createElement('picture');
@@ -64,19 +141,18 @@
   if (signatureLogo) {
     let shineTimer = 0;
     let pointerFrame = 0;
+    let lastShine = 0;
 
-    const triggerSignature = () => {
+    const triggerSignature = (force = false) => {
       if (reducedMotionQuery.matches) return;
-      if (signatureLogo.classList.contains('is-reactive')) {
-        window.clearTimeout(shineTimer);
-        shineTimer = window.setTimeout(() => signatureLogo.classList.remove('is-reactive'), 820);
-        return;
-      }
+      const now = performance.now();
+      if (!force && now - lastShine < 3200) return;
+      lastShine = now;
       signatureLogo.classList.remove('is-reactive');
       void signatureLogo.offsetWidth;
       signatureLogo.classList.add('is-reactive');
       window.clearTimeout(shineTimer);
-      shineTimer = window.setTimeout(() => signatureLogo.classList.remove('is-reactive'), 820);
+      shineTimer = window.setTimeout(() => signatureLogo.classList.remove('is-reactive'), 1050);
     };
 
     window.addEventListener('pointermove', (event) => {
@@ -89,7 +165,8 @@
       });
     }, { passive: true });
 
-    window.addEventListener('scroll', triggerSignature, { passive: true });
+    window.addEventListener('taiyzun:chapter-enter', () => triggerSignature(true));
+    window.setTimeout(() => triggerSignature(true), 900);
   }
 
   function hasWebGLSupport() {
@@ -185,6 +262,13 @@
           material.emissiveIntensity = 0.18;
         }
 
+        if ('envMapIntensity' in material) material.envMapIntensity = 1.35;
+        if ('clearcoat' in material) {
+          material.clearcoat = objectType === 'sword' ? 0.48 : 0.36;
+          material.clearcoatRoughness = 0.16;
+        }
+        material.dithering = true;
+
         material.needsUpdate = true;
         return material;
       };
@@ -223,27 +307,31 @@
       });
       renderer.outputColorSpace = THREE.SRGBColorSpace;
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.15;
+      renderer.toneMappingExposure = cinemaProfile.exposure;
       renderer.setClearColor(0x000000, 0);
 
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(config.fieldOfView, 1, 0.1, 20);
       camera.position.set(0, 0, config.cameraZ);
 
-      scene.add(new THREE.AmbientLight(0xffffff, config.ambient));
-      scene.add(new THREE.HemisphereLight(0xfff3d6, 0x72809a, 0.75));
+      scene.add(new THREE.AmbientLight(0xffffff, config.ambient * 0.82));
+      scene.add(new THREE.HemisphereLight(cinemaProfile.key, 0x72809a, 0.72));
 
-      const keyLight = new THREE.DirectionalLight(objectType === 'at' ? 0xffefd0 : 0xfff4d6, config.key);
+      const keyLight = new THREE.DirectionalLight(cinemaProfile.key, config.key);
       keyLight.position.set(-2.5, 3.5, 4);
       scene.add(keyLight);
 
-      const rimLight = new THREE.DirectionalLight(objectType === 'at' ? 0xd8e8ff : 0xffc861, config.rim);
+      const rimLight = new THREE.DirectionalLight(cinemaProfile.rim, config.rim * 1.08);
       rimLight.position.set(2.8, 0.5, 2.4);
       scene.add(rimLight);
 
-      const lowerLight = new THREE.PointLight(0xc7d8ff, config.lower);
+      const lowerLight = new THREE.PointLight(cinemaProfile.rim, config.lower);
       lowerLight.position.set(0, -0.6, 2);
       scene.add(lowerLight);
+
+      const frontLight = new THREE.PointLight(cinemaProfile.fill, objectType === 'sword' ? 1.15 : 0.72, 8, 1.35);
+      frontLight.position.set(0.2, 0.65, 3.4);
+      scene.add(frontLight);
 
       const loader = new loaderModule.GLTFLoader();
       const gltf = await new Promise((resolve, reject) => {
@@ -257,8 +345,9 @@
       const root = new THREE.Group();
       root.name = config.name;
       root.add(model);
-      root.scale.setScalar(config.scale);
+      root.scale.setScalar(config.scale * cinemaProfile.scale);
       scene.add(root);
+      stage.dataset.cinemaProfile = pageName;
 
       const pointer = { x: 0, y: 0, targetX: 0, targetY: 0 };
       const scrollMotion = { value: window.scrollY || 0, target: window.scrollY || 0 };
@@ -295,7 +384,10 @@
 
       function render(now) {
         frame = window.requestAnimationFrame(render);
-        if (!visible || document.hidden) return;
+        if (!visible || document.hidden || document.documentElement.classList.contains('tai-lightbox-open')) {
+          lastTime = now;
+          return;
+        }
 
         const delta = Math.min((now - lastTime) / 1000, 0.05);
         const elapsed = now / 1000;
@@ -307,6 +399,7 @@
         scrollMotion.value = damp(scrollMotion.value, reduceMotion ? 0 : scrollMotion.target, 5, delta);
         const scrollSpin = reduceMotion ? 0 : scrollMotion.value * 0.0042;
         const pointerSpin = reduceMotion ? 0 : pointer.x * Math.PI * 0.58;
+        const scrollProgress = clamp(scrollMotion.value / Math.max(document.documentElement.scrollHeight - window.innerHeight, 1), 0, 1);
 
         root.rotation.y = objectType === 'sword'
           ? (reduceMotion ? 0 : elapsed * 0.14) + pointerSpin + scrollSpin
@@ -320,7 +413,18 @@
         root.position.z = config.offsetZ;
 
         const breath = reduceMotion ? 1 : 1 + Math.sin(elapsed * 0.32) * 0.0025;
-        root.scale.setScalar(config.scale * breath);
+        root.scale.setScalar(config.scale * cinemaProfile.scale * breath);
+        camera.position.x = reduceMotion ? 0 : pointer.x * cinemaProfile.cameraTravel;
+        camera.position.y = reduceMotion ? 0 : (0.5 - scrollProgress) * cinemaProfile.cameraTravel;
+        camera.position.z = config.cameraZ + (reduceMotion ? 0 : Math.sin(elapsed * 0.19) * cinemaProfile.cameraTravel * 0.22);
+        camera.lookAt(0, 0, 0);
+        if (!reduceMotion) {
+          keyLight.position.x = -2.5 + pointer.x * 0.72;
+          keyLight.position.y = 3.5 - pointer.y * 0.48;
+          rimLight.position.x = 2.8 - pointer.x * 0.54;
+          frontLight.position.x = 0.2 + Math.sin(elapsed * 0.27) * 0.32;
+          frontLight.position.y = 0.65 + pointer.y * 0.2;
+        }
         if (now - lastStatusUpdate >= 250) {
           lastStatusUpdate = now;
           stage.dataset.rotationX = root.rotation.x.toFixed(4);
