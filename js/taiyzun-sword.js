@@ -140,13 +140,88 @@
   }
   if (signatureLogo) {
     let shineTimer = 0;
-    let pointerFrame = 0;
     let lastShine = 0;
+    let lightFrame = 0;
+    let lastLightTime = 0;
+    let lastScrollY = window.scrollY || 0;
+    let lastScrollTime = performance.now();
+    const light = {
+      x: 0,
+      y: 0,
+      targetX: 0,
+      targetY: 0,
+      speed: 0,
+      targetSpeed: 0,
+      direction: 0
+    };
+    const dynamicLight = !reducedMotionQuery.matches && !constrainedConnection;
+
+    signatureLogo.dataset.motion = 'shadow-only';
+    signatureLogo.dataset.lightMode = dynamicLight ? 'dynamic' : 'static';
+
+    const setLightProperties = (shadowX, shadowY, blur, platinumX, platinumY, goldAlpha, platinumAlpha) => {
+      signatureLogo.style.setProperty('--signature-shadow-x', shadowX.toFixed(2));
+      signatureLogo.style.setProperty('--signature-shadow-y', shadowY.toFixed(2));
+      signatureLogo.style.setProperty('--signature-shadow-blur', blur.toFixed(2));
+      signatureLogo.style.setProperty('--signature-platinum-x', platinumX.toFixed(2));
+      signatureLogo.style.setProperty('--signature-platinum-y', platinumY.toFixed(2));
+      signatureLogo.style.setProperty('--signature-gold-alpha', goldAlpha.toFixed(3));
+      signatureLogo.style.setProperty('--signature-platinum-alpha', platinumAlpha.toFixed(3));
+    };
+
+    const setRestingLight = () => {
+      setLightProperties(1.4, 3.2, 13.5, -0.7, 0.9, 0.19, 0.15);
+      signatureLogo.classList.remove('is-light-reactive');
+    };
+
+    const animateSignatureLight = (now) => {
+      lightFrame = 0;
+      if (document.hidden || !dynamicLight) {
+        setRestingLight();
+        return;
+      }
+
+      const delta = Math.min((now - (lastLightTime || now)) / 1000, 0.05);
+      lastLightTime = now;
+      const compactFactor = compactQuery.matches ? 0.62 : 1;
+
+      light.x = damp(light.x, light.targetX, 7, delta);
+      light.y = damp(light.y, light.targetY, 7, delta);
+      light.speed = damp(light.speed, light.targetSpeed, 8, delta);
+      light.targetSpeed *= Math.exp(-6.5 * delta);
+
+      const speed = Math.abs(light.speed);
+      const shadowX = 1.4 + (light.x * 2.3 + light.direction * speed * 1.1) * compactFactor;
+      const shadowY = 3.2 + (light.y * 1.45 + speed * 1.25) * compactFactor;
+      const blur = 13.5 + speed * 3.2 * compactFactor;
+      const platinumX = -0.7 - light.x * 0.95 * compactFactor;
+      const platinumY = 0.9 - light.y * 0.55 * compactFactor;
+      const goldAlpha = 0.19 + speed * 0.045 * compactFactor;
+      const platinumAlpha = 0.15 + Math.abs(light.x) * 0.025 * compactFactor;
+      setLightProperties(shadowX, shadowY, blur, platinumX, platinumY, goldAlpha, platinumAlpha);
+
+      const unsettled = Math.abs(light.x - light.targetX) > 0.004
+        || Math.abs(light.y - light.targetY) > 0.004
+        || speed > 0.008
+        || Math.abs(light.targetSpeed) > 0.008;
+      if (unsettled) {
+        lightFrame = window.requestAnimationFrame(animateSignatureLight);
+      } else {
+        signatureLogo.classList.remove('is-light-reactive');
+      }
+    };
+
+    const startSignatureLight = () => {
+      if (!dynamicLight || document.hidden || lightFrame) return;
+      signatureLogo.classList.add('is-light-reactive');
+      lastLightTime = performance.now();
+      lightFrame = window.requestAnimationFrame(animateSignatureLight);
+    };
 
     const triggerSignature = (force = false) => {
       if (reducedMotionQuery.matches) return;
       const now = performance.now();
-      if (!force && now - lastShine < 3200) return;
+      if (!force && now - lastShine < 4200) return;
       lastShine = now;
       signatureLogo.classList.remove('is-reactive');
       void signatureLogo.offsetWidth;
@@ -156,16 +231,45 @@
     };
 
     window.addEventListener('pointermove', (event) => {
-      if (pointerFrame || reducedMotionQuery.matches) return;
-      pointerFrame = window.requestAnimationFrame(() => {
-        pointerFrame = 0;
-        signatureLogo.style.setProperty('--signature-x', (((event.clientX / Math.max(window.innerWidth, 1)) - 0.5) * 2).toFixed(3));
-        signatureLogo.style.setProperty('--signature-y', (((event.clientY / Math.max(window.innerHeight, 1)) - 0.5) * 2).toFixed(3));
-        triggerSignature();
-      });
+      if (!dynamicLight) return;
+      light.targetX = clamp((event.clientX / Math.max(window.innerWidth, 1) - 0.5) * 2, -1, 1);
+      light.targetY = clamp((event.clientY / Math.max(window.innerHeight, 1) - 0.5) * 2, -1, 1);
+      startSignatureLight();
     }, { passive: true });
 
-    window.addEventListener('taiyzun:chapter-enter', () => triggerSignature(true));
+    window.addEventListener('pointerleave', () => {
+      light.targetX = 0;
+      light.targetY = 0;
+      startSignatureLight();
+    }, { passive: true });
+
+    window.addEventListener('scroll', () => {
+      if (!dynamicLight) return;
+      const now = performance.now();
+      const scrollY = window.scrollY || 0;
+      const elapsed = Math.max(now - lastScrollTime, 16);
+      const movement = scrollY - lastScrollY;
+      light.direction = Math.sign(movement) || light.direction;
+      light.targetSpeed = clamp(movement / elapsed, -1, 1);
+      lastScrollY = scrollY;
+      lastScrollTime = now;
+      startSignatureLight();
+    }, { passive: true });
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        window.cancelAnimationFrame(lightFrame);
+        lightFrame = 0;
+        light.targetSpeed = 0;
+        light.speed = 0;
+        setRestingLight();
+      } else {
+        startSignatureLight();
+      }
+    });
+
+    setRestingLight();
+    window.addEventListener('taiyzun:chapter-enter', () => triggerSignature(false));
     window.setTimeout(() => triggerSignature(true), 900);
   }
 
