@@ -229,6 +229,15 @@ body.premium-ui-ready .page-hero::before {
   contain: layout paint size;
 }
 
+/* WebGL owns the scene after readiness; legacy global image rules must not revive fallbacks. */
+.taiyzun-sword-fallback[hidden],
+.taiyzun-at-fallback[hidden] {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  animation: none !important;
+}
+
 body.journey-page .taiyzun-sword-stage--page { transform: translate3d(18vw, 0, 0) scale(0.86); }
 body.odyssey-page .taiyzun-sword-stage--page { transform: translate3d(20vw, -2vh, 0) scale(0.92); }
 body.creations-page .taiyzun-sword-stage--page { transform: translate3d(22vw, 1vh, 0) scale(0.88); }
