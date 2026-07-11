@@ -747,6 +747,11 @@ body.error-page .taiyzun-at-stage { opacity: 0.54; }
   .tai-cinema-stars { opacity: 0.1; }
   .tai-cinema-mist { opacity: 0.72; will-change: auto; }
 
+  body.premium-ui-ready.site-mobile-lite .page-hero .taiyzun-sword-stage--page,
+  body.premium-ui-ready.site-mobile-lite .page-hero .taiyzun-at-stage--page {
+    display: block !important;
+  }
+
   .taiyzun-sword-stage--page {
     display: block !important;
     opacity: 0.22;
