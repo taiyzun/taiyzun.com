@@ -222,7 +222,107 @@
     }
   }
 
-  function applyMetalFinish(objectType, model) {
+  function applyForgedAtPalette(THREE, mesh) {
+    const geometry = mesh.geometry;
+    const positions = geometry?.getAttribute('position');
+    if (!positions) return;
+
+    geometry.computeBoundingBox();
+    const bounds = geometry.boundingBox;
+    const normals = geometry.getAttribute('normal');
+    const width = Math.max(bounds.max.x - bounds.min.x, 0.0001);
+    const height = Math.max(bounds.max.y - bounds.min.y, 0.0001);
+    const depth = Math.max(bounds.max.z - bounds.min.z, 0.0001);
+    const colours = new Float32Array(positions.count * 3);
+    const palette = [
+      new THREE.Color(0x303841),
+      new THREE.Color(0xbd7435),
+      new THREE.Color(0xe1b94d),
+      new THREE.Color(0xd9e2e8)
+    ];
+    const darkSteel = new THREE.Color(0x1d2227);
+    const gold = new THREE.Color(0xe0bc66);
+    const silver = new THREE.Color(0xdce3e9);
+    const colour = new THREE.Color();
+    const smoothstep = (value) => {
+      const t = clamp(value, 0, 1);
+      return t * t * (3 - 2 * t);
+    };
+
+    for (let index = 0; index < positions.count; index += 1) {
+      const x = ((positions.getX(index) - bounds.min.x) / width) * 2 - 1;
+      const y = ((positions.getY(index) - bounds.min.y) / height) * 2 - 1;
+      const z = (positions.getZ(index) - bounds.min.z) / depth;
+      const radius = Math.min(1, Math.hypot(x, y) / Math.SQRT2);
+      const angle = Math.atan2(y, x);
+      const palettePosition = ((angle + Math.PI) / (Math.PI * 2)) * palette.length;
+      const from = Math.floor(palettePosition) % palette.length;
+      const to = (from + 1) % palette.length;
+      const blend = smoothstep(palettePosition - Math.floor(palettePosition));
+
+      colour.copy(palette[from]).lerp(palette[to], blend);
+
+      const frontFacing = normals ? Math.abs(normals.getZ(index)) : 1;
+      const forgedEdge = clamp((1 - frontFacing) * 0.62 + (1 - z) * 0.1, 0, 0.7);
+      colour.lerp(darkSteel, forgedEdge);
+
+      if (radius < 0.36 && y > -0.34) colour.lerp(gold, 0.3);
+      if (radius > 0.7 && frontFacing > 0.72) colour.lerp(silver, 0.24);
+
+      const hammeredVariation = 0.98 + Math.sin((x * 17.3) + (y * 23.7) + (z * 11.1)) * 0.025;
+      colour.multiplyScalar(hammeredVariation);
+      colours[index * 3] = clamp(colour.r, 0, 1);
+      colours[index * 3 + 1] = clamp(colour.g, 0, 1);
+      colours[index * 3 + 2] = clamp(colour.b, 0, 1);
+    }
+
+    geometry.setAttribute('color', new THREE.Float32BufferAttribute(colours, 3));
+  }
+
+  function applySwordBevelPalette(THREE, mesh) {
+    const geometry = mesh.geometry;
+    const positions = geometry?.getAttribute('position');
+    if (!positions) return;
+
+    geometry.computeBoundingBox();
+    const bounds = geometry.boundingBox;
+    const width = Math.max(bounds.max.x - bounds.min.x, 0.0001);
+    const height = Math.max(bounds.max.y - bounds.min.y, 0.0001);
+    const colours = new Float32Array(positions.count * 3);
+    const antiqueGold = new THREE.Color(0xd8aa43);
+    const champagneGold = new THREE.Color(0xedcc78);
+    const polishedSilver = new THREE.Color(0xbccbd7);
+    const burnishedBronze = new THREE.Color(0x98602c);
+    const colour = new THREE.Color();
+    const smoothstep = (value) => {
+      const t = clamp(value, 0, 1);
+      return t * t * (3 - 2 * t);
+    };
+
+    for (let index = 0; index < positions.count; index += 1) {
+      const x = ((positions.getX(index) - bounds.min.x) / width) * 2 - 1;
+      const y = ((positions.getY(index) - bounds.min.y) / height) * 2 - 1;
+      const outerMetal = smoothstep((Math.abs(x) - 0.42) / 0.46);
+      const crownMetal = smoothstep((y - 0.62) / 0.3);
+      const guardMetal = Math.exp(-Math.pow((y - 0.46) / 0.2, 2));
+      const centralGlow = 1 - smoothstep(Math.abs(x) / 0.34);
+      const lowerForge = smoothstep((-y - 0.46) / 0.42);
+
+      colour.copy(antiqueGold);
+      colour.lerp(champagneGold, centralGlow * 0.34);
+      colour.lerp(polishedSilver, clamp(outerMetal * 0.82 + crownMetal * 0.34 + guardMetal * (0.42 + outerMetal * 0.28), 0, 0.95));
+      colour.lerp(burnishedBronze, lowerForge * (1 - outerMetal) * 0.18);
+      colour.multiplyScalar(0.985 + Math.sin((x * 19.7) + (y * 27.1)) * 0.018);
+
+      colours[index * 3] = clamp(colour.r, 0, 1);
+      colours[index * 3 + 1] = clamp(colour.g, 0, 1);
+      colours[index * 3 + 2] = clamp(colour.b, 0, 1);
+    }
+
+    geometry.setAttribute('color', new THREE.Float32BufferAttribute(colours, 3));
+  }
+
+  function applyMetalFinish(THREE, objectType, model) {
     model.traverse((child) => {
       if (!child.isMesh) return;
 
@@ -230,42 +330,51 @@
         child.geometry.computeVertexNormals();
       }
 
+      if (objectType === 'at') applyForgedAtPalette(THREE, child);
+      if (objectType === 'sword' && child.name.toLowerCase().includes('bevel')) {
+        applySwordBevelPalette(THREE, child);
+      }
+
       const applyMaterial = (sourceMaterial) => {
         const material = sourceMaterial.clone();
         const materialName = (material.name || '').toLowerCase();
 
-        material.map = null;
-
         if (objectType === 'at') {
-          material.color.setHex(0xd9b35a);
-          material.metalness = 0.78;
-          material.roughness = 0.23;
-          material.emissive?.setHex(0x241504);
-          material.emissiveIntensity = 0.12;
+          material.map = null;
+          material.color.setHex(0xffffff);
+          material.vertexColors = true;
+          material.metalness = 0.9;
+          material.roughness = 0.22;
+          material.emissive?.setHex(0x171a1d);
+          material.emissiveIntensity = 0.07;
         } else if (materialName.includes('edge')) {
-          material.color.setHex(0xe9eef3);
-          material.metalness = 0.78;
-          material.roughness = 0.16;
-          material.emissive?.setHex(0x202225);
-          material.emissiveIntensity = 0.1;
+          material.map = null;
+          material.color.setHex(0xffffff);
+          material.metalness = 1;
+          material.roughness = 0.07;
+          material.emissive?.setHex(0x394550);
+          material.emissiveIntensity = 0.12;
         } else if (materialName.includes('bevel')) {
-          material.color.setHex(0xd9dee5);
-          material.metalness = 0.82;
-          material.roughness = 0.18;
-          material.emissive?.setHex(0x20242a);
+          material.map = null;
+          material.color.setHex(0xffffff);
+          material.vertexColors = true;
+          material.metalness = 0.91;
+          material.roughness = 0.2;
+          material.emissive?.setHex(0x2c1a04);
           material.emissiveIntensity = 0.1;
         } else {
-          material.color.setHex(0xd4a944);
-          material.metalness = 0.72;
-          material.roughness = 0.28;
-          material.emissive?.setHex(0x2f1d02);
-          material.emissiveIntensity = 0.18;
+          material.map = null;
+          material.color.setHex(0x81542c);
+          material.metalness = 0.88;
+          material.roughness = 0.3;
+          material.emissive?.setHex(0x1d1510);
+          material.emissiveIntensity = 0.08;
         }
 
-        if ('envMapIntensity' in material) material.envMapIntensity = 1.35;
+        if ('envMapIntensity' in material) material.envMapIntensity = objectType === 'at' ? 1.55 : 1.42;
         if ('clearcoat' in material) {
-          material.clearcoat = objectType === 'sword' ? 0.48 : 0.36;
-          material.clearcoatRoughness = 0.16;
+          material.clearcoat = objectType === 'sword' ? 0.5 : 0.4;
+          material.clearcoatRoughness = objectType === 'sword' ? 0.13 : 0.18;
         }
         material.dithering = true;
 
@@ -307,7 +416,7 @@
       });
       renderer.outputColorSpace = THREE.SRGBColorSpace;
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = cinemaProfile.exposure;
+      renderer.toneMappingExposure = cinemaProfile.exposure * (objectType === 'at' ? 1.05 : 1.02);
       renderer.setClearColor(0x000000, 0);
 
       const scene = new THREE.Scene();
@@ -321,15 +430,15 @@
       keyLight.position.set(-2.5, 3.5, 4);
       scene.add(keyLight);
 
-      const rimLight = new THREE.DirectionalLight(cinemaProfile.rim, config.rim * 1.08);
+      const rimLight = new THREE.DirectionalLight(cinemaProfile.rim, config.rim * (objectType === 'sword' ? 1.35 : 1.12));
       rimLight.position.set(2.8, 0.5, 2.4);
       scene.add(rimLight);
 
-      const lowerLight = new THREE.PointLight(cinemaProfile.rim, config.lower);
+      const lowerLight = new THREE.PointLight(objectType === 'at' ? 0xa96536 : cinemaProfile.rim, config.lower);
       lowerLight.position.set(0, -0.6, 2);
       scene.add(lowerLight);
 
-      const frontLight = new THREE.PointLight(cinemaProfile.fill, objectType === 'sword' ? 1.15 : 0.72, 8, 1.35);
+      const frontLight = new THREE.PointLight(objectType === 'at' ? 0xffd27a : cinemaProfile.fill, objectType === 'sword' ? 1.15 : 0.82, 8, 1.35);
       frontLight.position.set(0.2, 0.65, 3.4);
       scene.add(frontLight);
 
@@ -340,7 +449,7 @@
       const model = gltf.scene || gltf.scenes?.[0];
       if (!model) throw new Error(`${config.name} scene is missing`);
 
-      applyMetalFinish(objectType, model);
+      applyMetalFinish(THREE, objectType, model);
 
       const root = new THREE.Group();
       root.name = config.name;
@@ -348,6 +457,7 @@
       root.scale.setScalar(config.scale * cinemaProfile.scale);
       scene.add(root);
       stage.dataset.cinemaProfile = pageName;
+      stage.dataset.materialSystem = objectType === 'sword' ? 'forged-gold-silver-v2' : 'blacksmith-quadrimetal-v2';
 
       const pointer = { x: 0, y: 0, targetX: 0, targetY: 0 };
       const scrollMotion = { value: window.scrollY || 0, target: window.scrollY || 0 };
