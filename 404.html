@@ -90,12 +90,21 @@
   <link rel="stylesheet" href="/css/gold-glam-ui.css?v=20260623a">
 <link rel="stylesheet" href="/css/mobile-menu.css?v=20260623a">
   <link rel="stylesheet" href="/css/premium-experience.min.css?v=20260710a">
+  <link rel="stylesheet" href="/css/taiyzun-system.css?v=20260711b">
 </head>
-<body>
+<body class="error-page premium-ui-ready">
 <script data-cfasync="false" src="/js/site-mobile-lite.min.js?v=20260710a"></script>
 <a href="#main-content" class="skip-link">Skip to main content</a>
 <div class="bg-video"><video id="bgVideo" muted loop playsinline preload="none" disablePictureInPicture aria-label="Background video"><source data-src="assets/video/sora.mp4" type="video/mp4"></video></div>
 <div class="bg-overlay"></div>
+<div class="taiyzun-sword-stage taiyzun-sword-stage--page" data-taiyzun-sword aria-hidden="true">
+  <canvas class="taiyzun-sword-canvas" data-taiyzun-sword-canvas></canvas>
+  <img class="taiyzun-sword-fallback" data-taiyzun-sword-fallback src="/3d/Taiyzun_Sword_Fallback.png" alt="" width="608" height="1600" decoding="async">
+</div>
+<div class="taiyzun-at-stage taiyzun-at-stage--page" data-taiyzun-at aria-hidden="true">
+  <canvas class="taiyzun-sword-canvas taiyzun-at-canvas" data-taiyzun-3d-canvas></canvas>
+  <img class="taiyzun-sword-fallback taiyzun-at-fallback" data-taiyzun-3d-fallback src="/3d/Taiyzun_At_Fallback.png" alt="" width="512" height="512" decoding="async">
+</div>
 <nav id="mainNav">
   <a href="/" class="logo">Taiyzun</a>
   <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
@@ -144,6 +153,7 @@
   }
 </script>
 <script data-cfasync="false" src="/js/mobile-menu.min.js?v=20260705a"></script>
+<script data-cfasync="false" type="module" src="/js/taiyzun-sword.min.js?v=20260711c"></script>
 <script data-cfasync="false" src="/js/premium-experience.min.js?v=20260705a" defer></script>
 <script data-cfasync="false">
   window.TAIYZUN_loadDesktopEnhancements?.(['/js/harmonic-interactions.min.js?v=20260710a', '/js/site-decorative-field.min.js?v=20260710f']);

@@ -202,8 +202,8 @@ body.home-page .sword-hero .hero-signature-logo {
   z-index: 9;
   right: clamp(1.2rem, 3.5vw, 4.5rem);
   bottom: clamp(1.1rem, 3.2vh, 2.8rem);
-  width: clamp(7rem, 11vw, 11rem);
-  aspect-ratio: 1;
+  width: clamp(11rem, 17vw, 18rem);
+  aspect-ratio: 1837 / 900;
   pointer-events: none;
   opacity: 0.78;
   transform: translate3d(calc(var(--signature-x, 0) * 8px), calc(var(--signature-y, 0) * 6px), 0) rotate(calc(var(--signature-x, 0) * 2deg));
@@ -216,7 +216,7 @@ body.home-page .sword-hero .hero-signature-logo::after {
   content: "";
   position: absolute;
   inset: -8%;
-  border-radius: 50%;
+  border-radius: 0;
   pointer-events: none;
   opacity: 0;
   background: linear-gradient(112deg, transparent 24%, rgba(255, 255, 255, 0.92) 46%, rgba(231, 201, 120, 0.62) 52%, transparent 72%);
@@ -436,7 +436,7 @@ body.home-page .sword-hero[data-sword-ready="true"] {
   body.home-page .sword-hero .hero-signature-logo {
     right: 1rem;
     bottom: 1rem;
-    width: clamp(5.5rem, 22vw, 7.5rem);
+    width: clamp(7.5rem, 32vw, 10rem);
     opacity: 0.72;
   }
 

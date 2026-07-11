@@ -53,7 +53,14 @@
     return current + (target - current) * (1 - Math.exp(-smoothing * delta));
   };
 
-  const signatureLogo = document.querySelector('.hero-signature-logo');
+  let signatureLogo = document.querySelector('.hero-signature-logo');
+  if (!signatureLogo) {
+    signatureLogo = document.createElement('picture');
+    signatureLogo.className = 'hero-signature-logo';
+    signatureLogo.setAttribute('aria-hidden', 'true');
+    signatureLogo.innerHTML = '<img src="/assets/images/Taiyzun-logo.png" alt="" width="1837" height="900" decoding="async">';
+    document.body.appendChild(signatureLogo);
+  }
   if (signatureLogo) {
     let shineTimer = 0;
     let pointerFrame = 0;
@@ -303,7 +310,7 @@
         const pointerSpin = reduceMotion ? 0 : pointer.x * Math.PI * 0.58;
 
         root.rotation.y = objectType === 'sword'
-          ? pointerSpin + scrollSpin
+          ? (reduceMotion ? 0 : elapsed * 0.14) + pointerSpin + scrollSpin
           : pointer.x * config.maxYaw;
         root.rotation.x = -pointer.y * config.maxPitch;
         root.rotation.z = objectType === 'at'
