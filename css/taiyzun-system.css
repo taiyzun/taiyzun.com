@@ -41,6 +41,13 @@ body.premium-ui-ready::before {
   transform: none !important;
 }
 
+/* Remove the legacy fixed conic field that draws two rays into a centre apex. */
+body.premium-ui-ready::after {
+  opacity: 0 !important;
+  background: none !important;
+  animation: none !important;
+}
+
 /* Critical loading identity: the @ is independent from the in-page 3D scene. */
 .site-loader {
   background:
