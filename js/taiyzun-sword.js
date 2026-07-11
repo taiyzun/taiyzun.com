@@ -58,7 +58,7 @@
     signatureLogo = document.createElement('picture');
     signatureLogo.className = 'hero-signature-logo';
     signatureLogo.setAttribute('aria-hidden', 'true');
-    signatureLogo.innerHTML = '<img src="/assets/images/Taiyzun-logo.png" alt="" width="1837" height="900" decoding="async">';
+    signatureLogo.innerHTML = '<img src="/assets/images/Taiyzun-signature-600w.webp" alt="" width="600" height="360" decoding="async">';
     document.body.appendChild(signatureLogo);
   }
   if (signatureLogo) {
@@ -280,9 +280,8 @@
       }
 
       function updatePointer(event) {
-        const bounds = stage.getBoundingClientRect();
-        pointer.targetX = clamp(((event.clientX - bounds.left) / Math.max(bounds.width, 1) - 0.5) * 2, -1, 1);
-        pointer.targetY = clamp(((event.clientY - bounds.top) / Math.max(bounds.height, 1) - 0.5) * 2, -1, 1);
+        pointer.targetX = clamp((event.clientX / Math.max(window.innerWidth, 1) - 0.5) * 2, -1, 1);
+        pointer.targetY = clamp((event.clientY / Math.max(window.innerHeight, 1) - 0.5) * 2, -1, 1);
       }
 
       function resetPointer() {
@@ -425,4 +424,21 @@
   }
 
   stages.forEach(schedule);
+
+  let criticalChecks = 0;
+  const signalCriticalReady = () => {
+    const settled = stages.every((stage) => ['ready', 'static', 'deferred'].includes(stage.dataset.status));
+    if (!settled && criticalChecks < 55) {
+      criticalChecks += 1;
+      window.setTimeout(signalCriticalReady, 40);
+      return;
+    }
+
+    document.documentElement.dataset.tai3dCriticalReady = 'true';
+    window.dispatchEvent(new CustomEvent('taiyzun:3d-critical-ready', {
+      detail: { timedOut: !settled }
+    }));
+  };
+
+  signalCriticalReady();
 })();

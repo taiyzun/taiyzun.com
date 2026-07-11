@@ -311,16 +311,16 @@
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-regular-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-italic-latin.woff2" crossorigin>
 <link rel="stylesheet" href="/css/taiyzun-index.bundle.min.css?v=20260711b">
-<link rel="stylesheet" href="/css/taiyzun-system.css?v=20260711b">
+<link rel="stylesheet" href="/css/taiyzun-system.css?v=20260711d">
 <link rel="preload" as="image" href="/3d/Taiyzun_Sword_Fallback.png" type="image/png" fetchpriority="high">
 <!-- Performance: Prefetch other pages -->
 </head>
 <body class="home-page premium-ui-ready">
-<script data-cfasync="false" src="/js/site-mobile-lite.min.js?v=20260711a"></script>
+<script data-cfasync="false" src="/js/site-mobile-lite.min.js?v=20260711b"></script>
 <a href="#main-content" class="skip-link">Skip to main content</a>
 <div class="cursor-glow" id="cursorGlow"></div>
 <div class="cursor-ring" id="cursorRing"></div>
-<div class="site-loader" id="siteLoader" role="status" aria-live="polite" aria-label="Loading Taiyzun" data-start="0" style="position:fixed;inset:0;z-index:100000;display:grid;place-items:center;overflow:hidden;width:100vw;height:100vh;contain:strict;"><span class="site-loader__orb" style="position:relative;width:clamp(136px,18vw,232px);aspect-ratio:1;display:grid;place-items:center;transform-style:preserve-3d;border-radius:50%;"><span class="site-loader__object" style="position:relative;width:84%;aspect-ratio:1;display:grid;place-items:center;overflow:hidden;transform-style:preserve-3d;border-radius:50%;"><img class="site-loader__mark" src="/assets/images/Taiyzun-logo-200w.avif" alt="" width="200" height="200" decoding="async" fetchpriority="high" style="display:block;width:100%;height:100%;object-fit:contain;border-radius:50%;"></span></span></div>
+<div class="site-loader" id="siteLoader" role="status" aria-live="polite" aria-label="Loading Taiyzun" data-start="0" style="position:fixed;inset:0;z-index:100000;display:grid;place-items:center;overflow:hidden;width:100vw;height:100vh;contain:strict;"><span class="site-loader__orb" style="position:relative;width:clamp(136px,18vw,232px);aspect-ratio:1;display:grid;place-items:center;transform-style:preserve-3d;border-radius:50%;"><span class="site-loader__object" style="position:relative;width:84%;aspect-ratio:1;display:grid;place-items:center;overflow:hidden;transform-style:preserve-3d;border-radius:50%;"><img class="site-loader__mark" src="/assets/images/Taiyzun-at-loader-256w.webp" alt="" width="256" height="256" decoding="async" fetchpriority="high" style="display:block;width:100%;height:100%;object-fit:contain;"></span></span></div>
 <nav id="mainNav">
   <a href="/" class="logo" aria-label="Taiyzun — Home"><picture>
         <source srcset="assets/images/Taiyzun-logo-36w.avif 1x, assets/images/Taiyzun-logo-52w.avif 1.5x, assets/images/Taiyzun-logo-200w.avif 2x" type="image/avif">
@@ -369,7 +369,7 @@
     <img
       class="taiyzun-sword-fallback taiyzun-at-fallback"
       data-taiyzun-3d-fallback
-      src="/3d/Taiyzun_At_Fallback.png"
+      src="/assets/images/Taiyzun-at-loader-256w.webp"
       alt=""
       width="512"
       height="512"
@@ -380,9 +380,6 @@
   <div class="hero-grain"></div>
   <div class="hero-scan"></div>
 <div class="particles" id="particles"></div>
-  <picture class="hero-signature-logo" aria-hidden="true">
-    <img src="/assets/images/Taiyzun-logo.png" alt="" width="1837" height="900" decoding="async">
-  </picture>
   <div class="hero-content">
     <p class="hero-eyebrow">Information &amp; Technology | Micro &amp; Macro</p>
     <h1 class="hero-title" aria-label="Information &amp; Technology Micro &amp; Macro">Information &amp; Technology<br><em>Micro &amp; Macro</em></h1>
@@ -393,6 +390,9 @@
     </div>
   </div>
 </main>
+<picture class="hero-signature-logo" aria-hidden="true">
+  <img src="/assets/images/Taiyzun-signature-600w.webp" alt="" width="600" height="360" decoding="async">
+</picture>
 <section class="section-bg">
   <div class="about-grid">
     <div class="about-text reveal-left animate-on-scroll">
@@ -545,12 +545,18 @@
 <script data-cfasync="false">
   const siteMobileLite = Boolean(window.TAIYZUN_applyMobileLite?.());
   const nav = document.getElementById('mainNav');
-  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
   const obs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger-children').forEach(el => obs.observe(el));
   const glow = document.getElementById('cursorGlow');
-  let glowOn = false;
-  document.addEventListener('mousemove', (e) => { if (!glowOn) { glow.classList.add('active'); glowOn = true; } requestAnimationFrame(() => { glow.style.transform = 'translate3d(' + e.clientX + 'px,' + e.clientY + 'px,0) translate(-50%,-50%)'; }); });
+  let glowOn = false, glowFrame = 0, glowX = 0, glowY = 0;
+  document.addEventListener('mousemove', (e) => {
+    glowX = e.clientX; glowY = e.clientY;
+    if (!glowOn) { glow.classList.add('active'); glowOn = true; }
+    if (!glowFrame) glowFrame = requestAnimationFrame(() => {
+      glowFrame = 0;
+      glow.style.transform = 'translate3d(' + glowX + 'px,' + glowY + 'px,0) translate(-50%,-50%)';
+    });
+  }, { passive: true });
   document.addEventListener('mouseleave', () => { glow.classList.remove('active'); glowOn = false; });
   const pc = document.getElementById('particles');
   function spawnParticle() { const p = document.createElement('div'); p.className = 'particle'; p.style.left = Math.random() * 100 + '%'; p.style.animationDuration = (10 + Math.random() * 15) + 's'; p.style.animationDelay = Math.random() * 3 + 's'; const s = 1 + Math.random() * 2.5; p.style.width = s + 'px'; p.style.height = s + 'px'; pc.appendChild(p); setTimeout(() => { p.remove(); spawnParticle(); }, (parseFloat(p.style.animationDuration) + parseFloat(p.style.animationDelay)) * 1000); }
@@ -558,8 +564,11 @@
     for (let i = 0; i < 18; i++) setTimeout(() => spawnParticle(), i * 300);
   }
   const hc = document.querySelector('.hero-content'), si = document.querySelector('.scroll-indicator');
-  window.addEventListener('scroll', () => {
+  let homeScrollFrame = 0;
+  const updateHomeScroll = () => {
+    homeScrollFrame = 0;
     const s = window.scrollY;
+    nav.classList.toggle('scrolled', s > 60);
     const fadeDistance = window.innerHeight * 1.15;
     if (s < fadeDistance) {
       hc.style.transform = 'translateY(' + (s * 0.16) + 'px)';
@@ -568,18 +577,25 @@
     } else {
       hc.style.opacity = 0.18;
     }
+  };
+  window.addEventListener('scroll', () => {
+    if (!homeScrollFrame) homeScrollFrame = requestAnimationFrame(updateHomeScroll);
   }, { passive: true });
+  updateHomeScroll();
   // Card depth is handled by the shared 3D field to avoid competing pointer transforms.
 
   /* ── Cursor ring ── */
   const ring = document.getElementById('cursorRing');
-  let ringOn = false, ringX = 0, ringY = 0;
+  let ringOn = false, ringX = 0, ringY = 0, ringFrame = 0;
   document.addEventListener('mousemove', (e) => {
     if (!ringOn) { ring.classList.add('active'); ringOn = true; }
-    ringX += (e.clientX - ringX) * 0.15;
-    ringY += (e.clientY - ringY) * 0.15;
-    requestAnimationFrame(() => { ring.style.transform = 'translate3d(' + e.clientX + 'px,' + e.clientY + 'px,0) translate(-50%,-50%)'; });
-  });
+    ringX = e.clientX;
+    ringY = e.clientY;
+    if (!ringFrame) ringFrame = requestAnimationFrame(() => {
+      ringFrame = 0;
+      ring.style.transform = 'translate3d(' + ringX + 'px,' + ringY + 'px,0) translate(-50%,-50%)';
+    });
+  }, { passive: true });
   document.addEventListener('mouseleave', () => { ring.classList.remove('active'); ringOn = false; });
   document.querySelectorAll('a, button, .gallery-item, .value-item, .highlight-card').forEach(el => {
     el.addEventListener('mouseenter', () => ring.classList.add('hovered'));
@@ -671,7 +687,7 @@
 
   // ── Mouse Tracking & Cursor Glow ──
   (function() {
-    if (siteMobileLite) return;
+    if (siteMobileLite || document.getElementById('cursorGlow')) return;
     const cursorGlow = document.querySelector('.cursor-glow') || (() => {
       const el = document.createElement('div');
       el.className = 'cursor-glow';
@@ -853,7 +869,7 @@
     else window.addEventListener('taiyzun:mobile-lite-ready', start, { once: true });
   })();
 </script>
-<script data-cfasync="false" type="module" src="/js/taiyzun-sword.min.js?v=20260711c"></script>
+<script data-cfasync="false" type="module" src="/js/taiyzun-sword.min.js?v=20260711d"></script>
 <script data-cfasync="false">
   window.TAIYZUN_loadDesktopEnhancements?.([
     '/js/vendor/gsap.min.js?v=20260623b',

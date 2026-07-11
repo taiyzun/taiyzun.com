@@ -15,6 +15,7 @@
 
 html {
   background: var(--tai-pearl-soft);
+  scroll-behavior: auto !important;
 }
 
 body.premium-ui-ready {
@@ -24,6 +25,151 @@ body.premium-ui-ready {
     radial-gradient(circle at 86% 32%, rgba(233, 225, 242, 0.48), transparent 0 24rem),
     radial-gradient(circle at 58% 82%, rgba(220, 238, 232, 0.38), transparent 0 26rem),
     linear-gradient(135deg, var(--tai-pearl) 0%, var(--tai-pearl-soft) 52%, #ffffff 100%);
+}
+
+/* One architectural field: remove obsolete centre-pointing guide remnants. */
+.premium-section-line,
+.harmonic-section-grid {
+  display: none !important;
+}
+
+body.premium-ui-ready::before {
+  opacity: 0.2;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(220, 234, 246, 0.24), transparent 0 24rem),
+    radial-gradient(circle at 82% 72%, rgba(233, 225, 242, 0.2), transparent 0 28rem) !important;
+  transform: none !important;
+}
+
+/* Critical loading identity: the @ is independent from the in-page 3D scene. */
+.site-loader {
+  background:
+    radial-gradient(circle at 50% 46%, rgba(255, 255, 255, 0.98), rgba(248, 243, 232, 0.94) 0 17rem, transparent 17.8rem),
+    radial-gradient(circle at 34% 28%, rgba(220, 234, 246, 0.34), transparent 0 24rem),
+    radial-gradient(circle at 72% 68%, rgba(231, 201, 120, 0.2), transparent 0 25rem),
+    linear-gradient(135deg, #fffefa, #f3f0ea 52%, #ffffff) !important;
+  transition: opacity 460ms cubic-bezier(0.16, 1, 0.3, 1), visibility 460ms linear !important;
+}
+
+.site-loader.is-hidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.site-loader__orb {
+  width: clamp(9rem, 16vw, 13rem) !important;
+  background: radial-gradient(circle, rgba(255,255,255,0.92), rgba(231,201,120,0.14) 52%, transparent 70%) !important;
+  box-shadow: 0 24px 86px rgba(72, 55, 24, 0.16), inset 0 0 0 1px rgba(255,255,255,0.82) !important;
+  animation: taiLoaderHalo 4.8s linear infinite !important;
+}
+
+.site-loader__object {
+  width: 78% !important;
+  overflow: visible !important;
+  clip-path: none !important;
+  border-radius: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+  animation: taiLoaderAtSpin 2.6s linear infinite !important;
+  backface-visibility: visible;
+}
+
+.site-loader__mark {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  border-radius: 0 !important;
+  transform: scale(1.55) !important;
+  filter: saturate(0.76) contrast(1.06) brightness(1.08) drop-shadow(0 18px 28px rgba(64, 52, 30, 0.2)) !important;
+}
+
+@keyframes taiLoaderHalo {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes taiLoaderAtSpin {
+  0% { transform: perspective(720px) rotateY(0deg) rotateZ(0deg); }
+  50% { transform: perspective(720px) rotateY(180deg) rotateZ(8deg); }
+  100% { transform: perspective(720px) rotateY(360deg) rotateZ(0deg); }
+}
+
+/* Responsive density: full and intentional without wasteful viewport-height gaps. */
+body.premium-ui-ready .section-bg,
+body.premium-ui-ready .timeline-section,
+body.premium-ui-ready .gallery-section,
+body.premium-ui-ready .connect-section,
+body.premium-ui-ready .social-section,
+body.premium-ui-ready footer {
+  padding-top: clamp(3rem, 6vw, 5.5rem) !important;
+  padding-bottom: clamp(3rem, 6vw, 5.5rem) !important;
+}
+
+body.premium-ui-ready .page-hero {
+  min-height: clamp(28rem, 56svh, 36rem) !important;
+}
+
+body.premium-ui-ready .gallery-section {
+  margin-block: clamp(2rem, 4.5vw, 4rem) !important;
+}
+
+body.home-page .sword-hero + .section-bg {
+  margin-top: 0 !important;
+}
+
+body.home-page .about-grid {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  align-items: start !important;
+  gap: clamp(2rem, 4vw, 3.5rem) !important;
+  padding: clamp(1.5rem, 3vw, 3rem) !important;
+}
+
+body.home-page .about-text {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: clamp(1rem, 2vw, 1.8rem) clamp(1.3rem, 2.6vw, 2.4rem);
+}
+
+body.home-page .about-text > .section-label,
+body.home-page .about-text > .section-title {
+  grid-column: 1 / -1;
+}
+
+body.home-page .about-text > p:not(.section-label) {
+  margin: 0 !important;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(134, 102, 48, 0.14);
+  font-size: clamp(0.88rem, 0.78vw, 0.98rem);
+  line-height: 1.62;
+}
+
+body.home-page .about-highlights {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  align-items: stretch;
+  gap: clamp(0.85rem, 1.5vw, 1.35rem) !important;
+  margin-top: 0 !important;
+}
+
+body.home-page .about-highlights .highlight-card {
+  min-width: 0;
+  min-height: 0;
+  height: auto !important;
+  padding: clamp(1rem, 1.5vw, 1.4rem) !important;
+}
+
+body.home-page .about-highlights .highlight-card p {
+  margin: 0;
+  font-size: clamp(0.82rem, 0.72vw, 0.92rem);
+  line-height: 1.55;
+}
+
+body.home-page .operating-thesis-section,
+body.home-page .video-field-section {
+  min-height: 0 !important;
 }
 
 body.premium-ui-ready nav#mainNav {
@@ -55,15 +201,25 @@ body.premium-ui-ready .page-hero::before {
 }
 
 .taiyzun-sword-stage--page {
+  position: absolute !important;
+  inset: 0 !important;
   z-index: 2;
   opacity: 0.62;
   mix-blend-mode: multiply;
+  overflow: hidden;
+  pointer-events: none;
+  contain: layout paint size;
 }
 
 .taiyzun-at-stage--page {
+  position: absolute !important;
+  inset: 0 !important;
   z-index: 3;
   opacity: 0.62;
   mix-blend-mode: multiply;
+  overflow: hidden;
+  pointer-events: none;
+  contain: layout paint size;
 }
 
 body.journey-page .taiyzun-sword-stage--page { transform: translate3d(18vw, 0, 0) scale(0.86); }
@@ -83,7 +239,7 @@ body.connect-page .taiyzun-at-stage--page { transform: translate3d(0, -1vh, 0); 
   bottom: max(1rem, env(safe-area-inset-bottom, 0px)) !important;
   width: clamp(9rem, 14vw, 15rem) !important;
   height: auto !important;
-  aspect-ratio: 1837 / 900;
+  aspect-ratio: 5 / 3;
   pointer-events: none;
   opacity: 0.74;
 }
@@ -133,6 +289,11 @@ body.connect-page .hero-signature-logo { opacity: 0.78; }
 .lb-main,
 .lb-img-wrap {
   overscroll-behavior: contain;
+}
+
+body.creations-page .art-grid:empty,
+body.odyssey-page .gallery-grid:empty {
+  min-height: 70svh;
 }
 
 .lightbox.open {
@@ -219,6 +380,51 @@ body.error-page .taiyzun-at-stage { opacity: 0.54; }
     width: clamp(7.5rem, 32vw, 10rem) !important;
     opacity: 0.68;
   }
+
+  body.home-page .about-text {
+    grid-template-columns: 1fr;
+  }
+
+  body.home-page .about-text > .section-label,
+  body.home-page .about-text > .section-title {
+    grid-column: auto;
+  }
+
+  body.home-page .about-highlights {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  body.home-page .values-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  body.home-page .value-item {
+    min-width: 0 !important;
+  }
+
+  body.premium-ui-ready .page-hero {
+    min-height: clamp(27rem, 62svh, 34rem) !important;
+  }
+}
+
+@media (max-width: 520px) {
+  body.home-page .about-highlights {
+    grid-template-columns: 1fr !important;
+  }
+
+  body.home-page .values-row {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  body.premium-ui-ready .section-bg,
+  body.premium-ui-ready .timeline-section,
+  body.premium-ui-ready .gallery-section,
+  body.premium-ui-ready .connect-section,
+  body.premium-ui-ready .social-section,
+  body.premium-ui-ready footer {
+    padding-top: 2.6rem !important;
+    padding-bottom: 2.6rem !important;
+  }
 }
 
 @media (min-width: 1800px) {
@@ -233,5 +439,10 @@ body.error-page .taiyzun-at-stage { opacity: 0.54; }
   .hero-signature-logo::after {
     animation: none !important;
     transition: none !important;
+  }
+
+  .site-loader__orb,
+  .site-loader__object {
+    animation: none !important;
   }
 }

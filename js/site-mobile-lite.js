@@ -32,6 +32,9 @@
 
     document.body.dataset.siteLoaderReady = 'true';
     const startedAt = performance.now();
+    let fontsReady = !document.fonts?.ready;
+    let visualReady = root.dataset.tai3dCriticalReady === 'true';
+    let revealQueued = false;
 
     const loaderElements = new Set();
     const getLoaders = () => {
@@ -80,17 +83,36 @@
       root.classList.remove('site-loader-active');
     };
 
-    const requestHide = () => {
+    const requestHide = (force = false) => {
+      if (!force && (!fontsReady || !visualReady)) {
+        revealQueued = true;
+        return;
+      }
+
+      revealQueued = false;
       const loaders = syncLoaderStart();
       const firstLoader = loaders[0];
       const loaderStart = Number(firstLoader?.dataset.start || startedAt);
       const elapsed = performance.now() - loaderStart;
       const compactLoader = isCompactLoader();
       const minVisible = compactLoader
-        ? readTiming(firstLoader, 'compactMin', 520)
-        : readTiming(firstLoader, 'defaultMin', 720);
+        ? readTiming(firstLoader, 'compactMin', 260)
+        : readTiming(firstLoader, 'defaultMin', 420);
       window.setTimeout(hideLoaders, Math.max(0, minVisible - elapsed));
     };
+
+    const releaseWhenReady = () => {
+      visualReady = true;
+      if (revealQueued) requestHide();
+    };
+
+    window.addEventListener('taiyzun:3d-critical-ready', releaseWhenReady, { once: true });
+    if (document.fonts?.ready) {
+      document.fonts.ready.catch(() => undefined).then(() => {
+        fontsReady = true;
+        if (revealQueued) requestHide();
+      });
+    }
 
     root.classList.add('has-site-loader', 'site-loader-active');
     document.body.classList.add('site-loader-active');
@@ -115,7 +137,7 @@
     const maxVisible = compactLoader
       ? readTiming(firstLoader, 'compactMax', 2400)
       : readTiming(firstLoader, 'defaultMax', 3600);
-    window.setTimeout(hideLoaders, maxVisible);
+    window.setTimeout(() => requestHide(true), maxVisible);
   }
 
   window.TAIYZUN_applyMobileLite = applyMobileLite;
