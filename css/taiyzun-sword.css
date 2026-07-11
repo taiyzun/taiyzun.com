@@ -197,24 +197,53 @@ body.home-page .sword-hero .hero-content::before {
   justify-self: start;
 }
 
-body.home-page .sword-hero .hero-background-logo {
+body.home-page .sword-hero .hero-signature-logo {
   position: absolute;
-  z-index: 1;
-  top: 50%;
-  left: 50%;
-  width: clamp(18rem, 38vw, 36rem);
+  z-index: 9;
+  right: clamp(1.2rem, 3.5vw, 4.5rem);
+  bottom: clamp(1.1rem, 3.2vh, 2.8rem);
+  width: clamp(7rem, 11vw, 11rem);
   aspect-ratio: 1;
   pointer-events: none;
-  opacity: 0.09;
-  transform: translate3d(-50%, -50%, 0);
-  filter: saturate(0.78) contrast(0.92);
+  opacity: 0.78;
+  transform: translate3d(calc(var(--signature-x, 0) * 8px), calc(var(--signature-y, 0) * 6px), 0) rotate(calc(var(--signature-x, 0) * 2deg));
+  filter: saturate(1.08) contrast(1.04) drop-shadow(0 15px 25px rgba(67, 46, 12, 0.2));
+  transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1), filter 260ms ease, opacity 260ms ease;
+  isolation: isolate;
 }
 
-body.home-page .sword-hero .hero-background-logo img {
+body.home-page .sword-hero .hero-signature-logo::after {
+  content: "";
+  position: absolute;
+  inset: -8%;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(112deg, transparent 24%, rgba(255, 255, 255, 0.92) 46%, rgba(231, 201, 120, 0.62) 52%, transparent 72%);
+  mix-blend-mode: screen;
+  transform: translateX(-70%) rotate(8deg);
+}
+
+body.home-page .sword-hero .hero-signature-logo.is-reactive {
+  opacity: 0.96;
+  filter: saturate(1.22) contrast(1.08) brightness(1.08) drop-shadow(0 18px 34px rgba(201, 155, 63, 0.34));
+}
+
+body.home-page .sword-hero .hero-signature-logo.is-reactive::after {
+  animation: taiSignatureShine 780ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body.home-page .sword-hero .hero-signature-logo img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   border-radius: 50%;
+}
+
+@keyframes taiSignatureShine {
+  0% { opacity: 0; transform: translateX(-70%) rotate(8deg); }
+  34% { opacity: 0.82; }
+  100% { opacity: 0; transform: translateX(70%) rotate(8deg); }
 }
 
 body.home-page .sword-hero .hero-eyebrow {
@@ -404,9 +433,11 @@ body.home-page .sword-hero[data-sword-ready="true"] {
     opacity: 0.42;
   }
 
-  body.home-page .sword-hero .hero-background-logo {
-    width: clamp(15rem, 72vw, 24rem);
-    opacity: 0.075;
+  body.home-page .sword-hero .hero-signature-logo {
+    right: 1rem;
+    bottom: 1rem;
+    width: clamp(5.5rem, 22vw, 7.5rem);
+    opacity: 0.72;
   }
 
   .taiyzun-at-fallback {
@@ -436,5 +467,14 @@ body.home-page .sword-hero[data-sword-ready="true"] {
 
   .taiyzun-sword-fallback {
     transition: none;
+  }
+
+  body.home-page .sword-hero .hero-signature-logo {
+    transform: none;
+    transition: none;
+  }
+
+  body.home-page .sword-hero .hero-signature-logo::after {
+    animation: none !important;
   }
 }

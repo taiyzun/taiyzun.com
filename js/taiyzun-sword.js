@@ -53,6 +53,38 @@
     return current + (target - current) * (1 - Math.exp(-smoothing * delta));
   };
 
+  const signatureLogo = document.querySelector('.hero-signature-logo');
+  if (signatureLogo) {
+    let shineTimer = 0;
+    let pointerFrame = 0;
+
+    const triggerSignature = () => {
+      if (reducedMotionQuery.matches) return;
+      if (signatureLogo.classList.contains('is-reactive')) {
+        window.clearTimeout(shineTimer);
+        shineTimer = window.setTimeout(() => signatureLogo.classList.remove('is-reactive'), 820);
+        return;
+      }
+      signatureLogo.classList.remove('is-reactive');
+      void signatureLogo.offsetWidth;
+      signatureLogo.classList.add('is-reactive');
+      window.clearTimeout(shineTimer);
+      shineTimer = window.setTimeout(() => signatureLogo.classList.remove('is-reactive'), 820);
+    };
+
+    window.addEventListener('pointermove', (event) => {
+      if (pointerFrame || reducedMotionQuery.matches) return;
+      pointerFrame = window.requestAnimationFrame(() => {
+        pointerFrame = 0;
+        signatureLogo.style.setProperty('--signature-x', (((event.clientX / Math.max(window.innerWidth, 1)) - 0.5) * 2).toFixed(3));
+        signatureLogo.style.setProperty('--signature-y', (((event.clientY / Math.max(window.innerHeight, 1)) - 0.5) * 2).toFixed(3));
+        triggerSignature();
+      });
+    }, { passive: true });
+
+    window.addEventListener('scroll', triggerSignature, { passive: true });
+  }
+
   function hasWebGLSupport() {
     try {
       const probe = document.createElement('canvas');
