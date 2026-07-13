@@ -2,73 +2,88 @@ const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
 
-// Favicon sizes to generate
-const sizes = [16, 32, 192, 512, 180]; // 180 for apple-touch-icon
-const sourceImage = './assets/Portraits/optimized/taiyzun_shahpurwala-00001-w1200.avif';
-const iconsDir = './assets/icons';
+const sourceImage = path.join(
+  __dirname,
+  '..',
+  'assets',
+  'decorative',
+  'TaiyZun ~ sword ~ logO ~ 2021 [2420x1452].png'
+);
+const iconsDir = path.join(__dirname, '..', 'assets', 'icons');
+const imagesDir = path.join(__dirname, '..', 'assets', 'images');
 
-// Ensure icons directory exists
-if (!fs.existsSync(iconsDir)) {
-  fs.mkdirSync(iconsDir, { recursive: true });
+// Alpha bounds measured from the supplied 2420 x 1452 artwork. The square
+// derivative deliberately isolates the sword; every resize keeps aspect ratio.
+const fullMark = { left: 241, top: 71, width: 1927, height: 1277 };
+const swordMark = { left: 241, top: 71, width: 375, height: 1277 };
+const transparent = { r: 0, g: 0, b: 0, alpha: 0 };
+
+fs.mkdirSync(iconsDir, { recursive: true });
+fs.mkdirSync(imagesDir, { recursive: true });
+
+function squareSword(size, format = 'png') {
+  const pipeline = sharp(sourceImage)
+    .extract(swordMark)
+    .resize({
+      width: Math.round(size * 0.76),
+      height: Math.round(size * 0.88),
+      fit: 'contain',
+      background: transparent,
+      withoutEnlargement: true,
+    })
+    .extend({
+      top: Math.round(size * 0.06),
+      bottom: Math.round(size * 0.06),
+      left: Math.round(size * 0.12),
+      right: Math.round(size * 0.12),
+      background: transparent,
+    });
+
+  return pipeline[format]({ quality: 92 });
 }
 
-async function generateFavicons() {
-  console.log('🎨 Starting favicon generation from portrait image...');
-  
-  try {
-    for (const size of sizes) {
-      const outputFile = path.join(iconsDir, `favicon-${size}x${size}.png`);
-      
-      await sharp(sourceImage)
-        .resize(size, size, {
-          fit: 'cover',
-          position: 'center',
-        })
-        .png()
-        .toFile(outputFile);
-      
-      console.log(`✅ Generated ${size}x${size} favicon: ${outputFile}`);
-    }
-    
-    // Generate Apple Touch Icon (180x180)
-    const appleIcon = path.join(iconsDir, 'apple-touch-icon.png');
-    await sharp(sourceImage)
-      .resize(180, 180, {
-        fit: 'cover',
-        position: 'center',
-      })
-      .png()
-      .toFile(appleIcon);
-    console.log(`✅ Generated Apple Touch Icon: ${appleIcon}`);
-    
-    // Generate Android Chrome icons (192x192 and 512x512)
-    const android192 = path.join(iconsDir, 'android-chrome-192x192.png');
-    await sharp(sourceImage)
-      .resize(192, 192, {
-        fit: 'cover',
-        position: 'center',
-      })
-      .png()
-      .toFile(android192);
-    console.log(`✅ Generated Android Chrome 192x192: ${android192}`);
-    
-    const android512 = path.join(iconsDir, 'android-chrome-512x512.png');
-    await sharp(sourceImage)
-      .resize(512, 512, {
-        fit: 'cover',
-        position: 'center',
-      })
-      .png()
-      .toFile(android512);
-    console.log(`✅ Generated Android Chrome 512x512: ${android512}`);
-    
-    console.log('\n✨ All favicons generated successfully!');
-    console.log('📁 Favicons location: ./assets/icons/');
-    process.exit(0);
-  } catch (error) {
-    console.error('❌ Error generating favicons:', error);
-    process.exit(1);
+async function writeSquareSword(size, outputFile, format = 'png') {
+  await squareSword(size, format).toFile(outputFile);
+  console.log(`Generated ${path.relative(path.join(__dirname, '..'), outputFile)}`);
+}
+
+async function generateBrandAssets() {
+  console.log('Generating brand assets from the supplied 2021 sword logo...');
+
+  for (const size of [16, 32]) {
+    await writeSquareSword(size, path.join(iconsDir, `favicon-${size}x${size}.png`));
   }
+
+  await writeSquareSword(180, path.join(iconsDir, 'apple-touch-icon.png'));
+  await writeSquareSword(180, path.join(iconsDir, 'apple-touch-icon-180.png'));
+  await writeSquareSword(192, path.join(iconsDir, 'android-chrome-192x192.png'));
+  await writeSquareSword(512, path.join(iconsDir, 'android-chrome-512x512.png'));
+
+  for (const size of [36, 52, 200, 400]) {
+    await writeSquareSword(size, path.join(imagesDir, `Taiyzun-logo-${size}w.webp`), 'webp');
+    await writeSquareSword(size, path.join(imagesDir, `Taiyzun-logo-${size}w.avif`), 'avif');
+  }
+  await writeSquareSword(400, path.join(imagesDir, 'Taiyzun-logo.png'));
+
+  await sharp(sourceImage)
+    .extract(fullMark)
+    .resize({ width: 600, height: 360, fit: 'contain', background: transparent })
+    .webp({ quality: 92, alphaQuality: 100 })
+    .toFile(path.join(imagesDir, 'Taiyzun-signature-600w.webp'));
+
+  // 1200 x 630 is the broadly supported Open Graph landscape format. The
+  // complete mark is contained on the existing dark brand field, never cropped.
+  await sharp(sourceImage)
+    .extract(fullMark)
+    .resize({ width: 1080, height: 510, fit: 'contain', background: transparent })
+    .extend({ top: 60, bottom: 60, left: 60, right: 60, background: '#0a0a0f' })
+    .png({ compressionLevel: 9, adaptiveFiltering: true })
+    .toFile(path.join(imagesDir, 'taiyzun-sword-logo-social-2021-v1.png'));
+
+  console.log('Brand asset generation complete.');
 }
 
-generateFavicons();
+generateBrandAssets().catch(error => {
+  console.error('Brand asset generation failed:', error);
+  process.exitCode = 1;
+});
