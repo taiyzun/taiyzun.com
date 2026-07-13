@@ -72,6 +72,11 @@ else
     echo "❌ Signature logo - MISSING"
 fi
 
+if [ ! -f "assets/images/TaiyZun-Sword-logo-2026-social.png" ]; then
+    echo "❌ Missing Taiyzun 2026 social preview image"
+    exit 1
+fi
+
 # Check portrait gallery images
 portrait_count=$(find assets/Portraits -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.jpeg" \) | wc -l | tr -d ' ')
 echo "✅ Portrait gallery - $portrait_count images"
