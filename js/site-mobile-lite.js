@@ -212,11 +212,42 @@
   };
 
   window.TAIYZUN_loadDesktopEnhancements = function loadDesktopEnhancements(srcs) {
-    if (applyMobileLite()) return;
+    const mobileLite = applyMobileLite();
     const pendingSrcs = Array.from(new Set(srcs || []))
       .filter((src) => src && !document.querySelector(`script[src="${src}"]`));
 
     if (!pendingSrcs.length) return;
+
+    if (mobileLite) {
+      const mobileSafeSrcs = pendingSrcs.filter((src) => /site-decorative-field(?:\.min)?\.js/.test(src));
+      if (!mobileSafeSrcs.length) return;
+
+      const injectMobileSafe = () => {
+        mobileSafeSrcs.forEach((src) => {
+          if (document.querySelector(`script[src="${src}"]`)) return;
+          const script = document.createElement('script');
+          script.src = src;
+          script.async = true;
+          script.defer = true;
+          script.dataset.cfasync = 'false';
+          document.body.appendChild(script);
+        });
+      };
+      const scheduleMobileSafe = () => {
+        if ('requestIdleCallback' in window) {
+          window.requestIdleCallback(injectMobileSafe, { timeout: 1800 });
+        } else {
+          window.setTimeout(injectMobileSafe, 520);
+        }
+      };
+
+      if (document.readyState === 'complete') {
+        scheduleMobileSafe();
+      } else {
+        window.addEventListener('load', scheduleMobileSafe, { once: true });
+      }
+      return;
+    }
 
     window.TAIYZUN_DESKTOP_ENHANCEMENT_SCRIPTS = pendingSrcs;
     const helperSrc = '/js/desktop-enhancements-loader.min.js?v=20260704a';

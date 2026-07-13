@@ -902,3 +902,75 @@ body.error-page .taiyzun-at-stage { opacity: 0.54; }
     animation: none !important;
   }
 }
+
+/* Decorative field and 3D scene contract: the hero owns its local depth stack.
+   Global section floats stay visible above the page surfaces, while hero floats
+   can sit behind or in front of the WebGL/fallback objects without covering copy. */
+#siteDecorativeField {
+  width: 100% !important;
+  min-height: 100vh !important;
+  overflow: visible !important;
+}
+
+body.premium-ui-ready .hero,
+body.premium-ui-ready .page-hero {
+  isolation: isolate;
+  position: relative;
+  z-index: 3;
+}
+
+body.premium-ui-ready .site-decorative-hero-layer {
+  overflow: visible !important;
+  pointer-events: none;
+}
+
+body.premium-ui-ready .site-decorative-hero-layer--back { z-index: 1 !important; }
+body.premium-ui-ready .site-decorative-hero-layer--front { z-index: 6 !important; }
+
+@media (max-width: 900px) {
+  /* Keep an intentional, lightweight 3D presence on inner pages. The canvas
+     may defer, but its bounded fallback remains visible and cannot overlap copy. */
+  body.premium-ui-ready .page-hero .taiyzun-sword-stage--page,
+  body.premium-ui-ready .page-hero .taiyzun-at-stage--page {
+    display: block !important;
+    pointer-events: none;
+  }
+
+  body.premium-ui-ready .page-hero .taiyzun-sword-stage--page {
+    z-index: 2 !important;
+    opacity: 0.18;
+    transform: translate3d(18vw, -5svh, 0) scale(0.68) !important;
+    transform-origin: 72% 24%;
+  }
+
+  body.premium-ui-ready .page-hero .taiyzun-at-stage--page {
+    z-index: 3 !important;
+    opacity: 0.26;
+    transform: translate3d(-16vw, 7svh, 0) scale(0.74) !important;
+    transform-origin: 36% 72%;
+  }
+
+  body.premium-ui-ready .page-hero .taiyzun-sword-stage--page .taiyzun-sword-fallback {
+    height: min(48svh, 320px) !important;
+    max-width: min(54vw, 250px) !important;
+  }
+
+  body.premium-ui-ready .page-hero .taiyzun-at-stage--page .taiyzun-at-fallback {
+    width: clamp(5.5rem, 19vw, 8rem) !important;
+    right: clamp(1rem, 6vw, 3rem) !important;
+  }
+
+  body.premium-ui-ready .page-hero-content { z-index: 8 !important; }
+}
+
+@media (max-width: 520px) {
+  body.premium-ui-ready .page-hero .taiyzun-sword-stage--page {
+    opacity: 0.13;
+    transform: translate3d(20vw, -7svh, 0) scale(0.56) !important;
+  }
+
+  body.premium-ui-ready .page-hero .taiyzun-at-stage--page {
+    opacity: 0.2;
+    transform: translate3d(-18vw, 8svh, 0) scale(0.62) !important;
+  }
+}

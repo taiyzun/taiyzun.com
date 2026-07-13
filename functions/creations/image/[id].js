@@ -63,6 +63,7 @@ function renderSharePage({ item, canonicalUrl, galleryUrl, siteUrl }) {
 <meta name="description" content="${safeDescription}">
 <meta name="robots" content="noindex, follow, max-image-preview:large">
 <meta property="og:type" content="article">
+<meta property="fb:app_id" content="3964117170385062">
 <meta property="og:site_name" content="Taiyzun Shabbir Shahpurwala">
 <meta property="og:url" content="${safeCanonical}">
 <meta property="og:title" content="${safeTitle}">

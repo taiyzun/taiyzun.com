@@ -1,11 +1,29 @@
 #siteDecorativeField {
   position: absolute;
-  inset: 0 0 auto 0;
-  overflow: hidden;
+  inset: 0 auto auto 0;
+  width: 100%;
+  min-height: 100vh;
+  overflow: visible;
   pointer-events: none;
   z-index: 2;
   isolation: auto;
   background: transparent;
+}
+
+.site-decorative-hero-layer {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+  background: transparent;
+}
+
+.site-decorative-hero-layer--back {
+  z-index: 1;
+}
+
+.site-decorative-hero-layer--front {
+  z-index: 6;
 }
 
 main,
@@ -63,6 +81,14 @@ footer {
   filter: none !important;
 }
 
+.site-decorative-png.is-hero-decor.is-back-decor {
+  opacity: calc(var(--decor-opacity, 0.16) * 0.88);
+}
+
+.site-decorative-png.is-hero-decor.is-front-decor {
+  opacity: calc(var(--decor-opacity, 0.16) * 1.08);
+}
+
 body.odyssey-page .site-decorative-png,
 body.creations-page .site-decorative-png {
   opacity: var(--decor-opacity, 0.115);
@@ -81,8 +107,14 @@ body.creations-page .site-decorative-png.is-hero-decor {
 }
 
 @media (max-width: 767px) {
+  #siteDecorativeField,
+  .site-decorative-hero-layer {
+    contain: layout paint;
+  }
+
   .site-decorative-png {
     opacity: calc(var(--decor-opacity, 0.13) * 0.8);
+    will-change: auto;
   }
 
   .site-decorative-png.is-hero-decor {
