@@ -71,14 +71,12 @@ async function generateBrandAssets() {
     .webp({ quality: 92, alphaQuality: 100 })
     .toFile(path.join(imagesDir, 'Taiyzun-signature-600w.webp'));
 
-  // 1200 x 630 is the broadly supported Open Graph landscape format. The
-  // complete mark is contained on the existing dark brand field, never cropped.
+  // 1200 x 630 is the broadly supported Open Graph landscape format. Keep the
+  // supplied PNG transparent edge-to-edge: no matte, frame, border or crop.
   await sharp(sourceImage)
-    .extract(fullMark)
-    .resize({ width: 1080, height: 510, fit: 'contain', background: transparent })
-    .extend({ top: 60, bottom: 60, left: 60, right: 60, background: '#0a0a0f' })
+    .resize({ width: 1200, height: 630, fit: 'contain', background: transparent })
     .png({ compressionLevel: 9, adaptiveFiltering: true })
-    .toFile(path.join(imagesDir, 'taiyzun-sword-logo-social-2021-v1.png'));
+    .toFile(path.join(imagesDir, 'taiyzun-sword-logo-social-2021-v2.png'));
 
   console.log('Brand asset generation complete.');
 }
