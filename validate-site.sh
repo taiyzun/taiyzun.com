@@ -66,7 +66,7 @@ else
 fi
 
 # Check signature logo
-if [ -f "assets/images/TaiyZun-Sword-logo-small.png" ]; then
+if [ -f "assets/images/TaiyZun-Sword-logo-2026.png" ]; then
     echo "✅ Signature logo - Present"
 else
     echo "❌ Signature logo - MISSING"

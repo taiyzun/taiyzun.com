@@ -6,16 +6,15 @@ const sourceImage = path.join(
   __dirname,
   '..',
   'assets',
-  'decorative',
-  'TaiyZun ~ sword ~ logO ~ 2021 [2420x1452].png'
+  'images',
+  'TaiyZun-Sword-logo-2026.png'
 );
 const iconsDir = path.join(__dirname, '..', 'assets', 'icons');
 const imagesDir = path.join(__dirname, '..', 'assets', 'images');
 
-// Alpha bounds measured from the supplied 2420 x 1452 artwork. The square
+// Alpha bounds measured from the final supplied 13999 x 10000 artwork. The square
 // derivative deliberately isolates the sword; every resize keeps aspect ratio.
-const fullMark = { left: 241, top: 71, width: 1927, height: 1277 };
-const swordMark = { left: 241, top: 71, width: 375, height: 1277 };
+const swordMark = { left: 291, top: 560, width: 3500, height: 8897 };
 const transparent = { r: 0, g: 0, b: 0, alpha: 0 };
 
 fs.mkdirSync(iconsDir, { recursive: true });
@@ -48,7 +47,7 @@ async function writeSquareSword(size, outputFile, format = 'png') {
 }
 
 async function generateBrandAssets() {
-  console.log('Generating brand assets from the supplied 2021 sword logo...');
+  console.log('Generating brand assets from the final 2026 sword logo...');
 
   for (const size of [16, 32]) {
     await writeSquareSword(size, path.join(iconsDir, `favicon-${size}x${size}.png`));
@@ -64,19 +63,6 @@ async function generateBrandAssets() {
     await writeSquareSword(size, path.join(imagesDir, `Taiyzun-logo-${size}w.avif`), 'avif');
   }
   await writeSquareSword(400, path.join(imagesDir, 'Taiyzun-logo.png'));
-
-  await sharp(sourceImage)
-    .extract(fullMark)
-    .resize({ width: 600, height: 360, fit: 'contain', background: transparent })
-    .webp({ quality: 92, alphaQuality: 100 })
-    .toFile(path.join(imagesDir, 'Taiyzun-signature-600w.webp'));
-
-  // Social, metadata and structured-preview consumers receive the supplied
-  // transparent PNG byte-for-byte: no canvas, matte, crop or recompression.
-  fs.copyFileSync(
-    sourceImage,
-    path.join(imagesDir, 'taiyzun-sword-logo-original-2021-v3.png')
-  );
 
   console.log('Brand asset generation complete.');
 }

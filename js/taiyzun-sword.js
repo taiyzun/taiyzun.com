@@ -135,7 +135,7 @@
     signatureLogo = document.createElement('picture');
     signatureLogo.className = 'hero-signature-logo';
     signatureLogo.setAttribute('aria-hidden', 'true');
-    signatureLogo.innerHTML = '<img src="/assets/images/Taiyzun-signature-600w.webp" alt="" width="600" height="360" decoding="async">';
+    signatureLogo.innerHTML = '<img src="/assets/images/TaiyZun-Sword-logo-2026.png" alt="" width="700" height="500" decoding="async">';
     document.body.appendChild(signatureLogo);
   }
   if (signatureLogo) {

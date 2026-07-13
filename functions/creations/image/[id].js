@@ -46,7 +46,7 @@ function htmlResponse(body, status = 200) {
 function renderSharePage({ item, canonicalUrl, galleryUrl, siteUrl }) {
   const title = `${item.title || 'Taiyzun Creation'} | Taiyzun Creations`;
   const description = `${item.displayCategory || item.category || 'Creations'} from the Taiyzun creations archive.`;
-  const image = item.full || item.thumb || absoluteUrl(siteUrl, '/assets/images/taiyzun-sword-logo-original-2021-v3.png');
+  const image = item.full || item.thumb || absoluteUrl(siteUrl, '/assets/images/TaiyZun-Sword-logo-2026.png');
   const safeTitle = escapeHtml(title);
   const safeDescription = escapeHtml(description);
   const safeImage = escapeHtml(image);
