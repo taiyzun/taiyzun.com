@@ -5,6 +5,8 @@ const path = require('path');
 
 const projectRoot = path.join(__dirname, '..');
 const facebookAppId = '3964117170385062';
+const openGraphImage = 'https://taiyzun.com/assets/images/TaiyZun-Sword-logo-2026-social-square.png';
+const twitterImage = 'https://taiyzun.com/assets/images/TaiyZun-Sword-logo-2026-social.png';
 const pages = [
   { file: 'index.html', route: '/', canonical: 'https://taiyzun.com/', requiresJsonLd: true },
   { file: 'journey.html', route: '/journey', canonical: 'https://taiyzun.com/journey', requiresJsonLd: true },
@@ -75,9 +77,11 @@ function validatePage(page) {
     const ogDescription = getTagAttribute(content, /<meta[^>]+property=["']og:description["'][^>]*>/i, 'content');
     const ogImage = getTagAttribute(content, /<meta[^>]+property=["']og:image["'][^>]*>/i, 'content');
     const fbAppId = getTagAttribute(content, /<meta[^>]+property=["']fb:app_id["'][^>]*>/i, 'content');
+    const twitterCardImage = getTagAttribute(content, /<meta[^>]+name=["']twitter:image["'][^>]*>/i, 'content');
     assert(Boolean(ogTitle), 'must have og:title.');
     assert(Boolean(ogDescription), 'must have og:description.');
-    assert(/^https:\/\/taiyzun\.com\//.test(ogImage), `og:image must be absolute taiyzun.com URL, found ${ogImage || 'missing'}.`);
+    assert(ogImage === openGraphImage, `og:image must be ${openGraphImage}, found ${ogImage || 'missing'}.`);
+    assert(twitterCardImage === twitterImage, `twitter:image must be ${twitterImage}, found ${twitterCardImage || 'missing'}.`);
     assert(fbAppId === facebookAppId, `fb:app_id must be ${facebookAppId}, found ${fbAppId || 'missing'}.`);
 
     const csp = getTagAttribute(content, /<meta[^>]+http-equiv=["']Content-Security-Policy["'][^>]*>/i, 'content');
