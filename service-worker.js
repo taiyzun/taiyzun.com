@@ -1,5 +1,5 @@
 // Service Worker for taiyzun.com
-const CACHE_NAME = 'taiyzun-core-v119';
+const CACHE_NAME = 'taiyzun-core-v120';
 const RUNTIME_IMAGE_CACHE = 'taiyzun-images-v7';
 const ASSETS_TO_CACHE = [
   '/index.html',
