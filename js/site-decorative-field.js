@@ -20,7 +20,6 @@
     "assets/decorative/@TZ breaThain 0012 namESiS [1765x1515].png",
     "assets/decorative/@TZ breaThain 0013 Smile iTS mE Sword [1945x2374].png",
     "assets/decorative/@TZ yod@002 [786x786].png",
-    "assets/decorative/@TaiyZun ~ Logo ~ 00123 ~ 786 [786x786].png",
     "assets/decorative/@TimEsuiTs [8192x8192].png",
     "assets/decorative/@eArTh ~ round [9685x9685].png",
     "assets/decorative/@tZ ~ ganesh ~ 2019 [1786x1786].png",
@@ -31,12 +30,7 @@
     "assets/decorative/TaiyZun @mE 2021 h [2420x2420].png",
     "assets/decorative/TaiyZun @mE 2021 q [1420x1420].png",
     "assets/decorative/TaiyZun @mE 2021 u [1420x1420].png",
-    "assets/decorative/TaiyZun logo Sa [1080x1080].png",
-    "assets/decorative/TaiyZun ~ logO ~ only ~ 2021 [900x1800].png",
-    "assets/decorative/TaiyZun ~ logO ~ only ~ new ~ 2021 [600x900].png",
-    "assets/decorative/TaiyZun ~ sword ~ full ~ logO ~ 2021 [2420x1452].png",
-    "assets/decorative/TaiyZun ~ sword ~ logO ~ 2021 [2420x1452].png",
-    "assets/decorative/TaiyZun ~ sword ~ logO ~ full ~ 2021 [2420x1613].png",
+    "assets/images/TaiyZun-Sword-logo-2026-ui-384.png",
     "assets/decorative/ae0ne ~ small [3000x2250].png",
     "assets/decorative/e@rth [1786x1786].png",
     "assets/decorative/namEsis [512x512].png",
@@ -49,8 +43,6 @@
     "assets/easter-eggs/ganesh.png",
     "assets/easter-eggs/hearts-line.png",
     "assets/easter-eggs/infinite-hearts.png",
-    "assets/easter-eggs/logo-white.png",
-    "assets/easter-eggs/signature.png",
     "assets/easter-eggs/star-polygon.png",
     "assets/easter-eggs/stingray.png",
     "assets/easter-eggs/sword.png",
@@ -114,10 +106,6 @@
           "small": "assets/decorative/optimized/decor-14-d8bf4299fe-384.webp",
           "large": "assets/decorative/optimized/decor-14-d8bf4299fe.webp"
       },
-      "assets/decorative/@TaiyZun ~ Logo ~ 00123 ~ 786 [786x786].png": {
-          "small": "assets/decorative/optimized/decor-15-01151cb738-384.webp",
-          "large": "assets/decorative/optimized/decor-15-01151cb738.webp"
-      },
       "assets/decorative/@TimEsuiTs [8192x8192].png": {
           "small": "assets/decorative/optimized/decor-16-6807d17293-384.webp",
           "large": "assets/decorative/optimized/decor-16-6807d17293.webp"
@@ -157,30 +145,6 @@
       "assets/decorative/TaiyZun @mE 2021 u [1420x1420].png": {
           "small": "assets/decorative/optimized/decor-25-5bc8d42695-384.webp",
           "large": "assets/decorative/optimized/decor-25-5bc8d42695.webp"
-      },
-      "assets/decorative/TaiyZun logo Sa [1080x1080].png": {
-          "small": "assets/decorative/optimized/decor-26-8b2d2d5932-384.webp",
-          "large": "assets/decorative/optimized/decor-26-8b2d2d5932.webp"
-      },
-      "assets/decorative/TaiyZun ~ logO ~ only ~ 2021 [900x1800].png": {
-          "small": "assets/decorative/optimized/decor-27-3357d45ec6-384.webp",
-          "large": "assets/decorative/optimized/decor-27-3357d45ec6.webp"
-      },
-      "assets/decorative/TaiyZun ~ logO ~ only ~ new ~ 2021 [600x900].png": {
-          "small": "assets/decorative/optimized/decor-28-684378f719-384.webp",
-          "large": "assets/decorative/optimized/decor-28-684378f719.webp"
-      },
-      "assets/decorative/TaiyZun ~ sword ~ full ~ logO ~ 2021 [2420x1452].png": {
-          "small": "assets/decorative/optimized/decor-29-a08899d7c9-384.webp",
-          "large": "assets/decorative/optimized/decor-29-a08899d7c9.webp"
-      },
-      "assets/decorative/TaiyZun ~ sword ~ logO ~ 2021 [2420x1452].png": {
-          "small": "assets/decorative/optimized/decor-30-501b7ecb96-384.webp",
-          "large": "assets/decorative/optimized/decor-30-501b7ecb96.webp"
-      },
-      "assets/decorative/TaiyZun ~ sword ~ logO ~ full ~ 2021 [2420x1613].png": {
-          "small": "assets/decorative/optimized/decor-31-c58de465b8-384.webp",
-          "large": "assets/decorative/optimized/decor-31-c58de465b8.webp"
       },
       "assets/decorative/ae0ne ~ small [3000x2250].png": {
           "small": "assets/decorative/optimized/decor-32-87d403a230-384.webp",
@@ -230,14 +194,6 @@
           "small": "assets/decorative/optimized/decor-43-6337a4ecb2-384.webp",
           "large": "assets/decorative/optimized/decor-43-6337a4ecb2.webp"
       },
-      "assets/easter-eggs/logo-white.png": {
-          "small": "assets/decorative/optimized/decor-44-80b2d62546-384.webp",
-          "large": "assets/decorative/optimized/decor-44-80b2d62546.webp"
-      },
-      "assets/easter-eggs/signature.png": {
-          "small": "assets/decorative/optimized/decor-45-dbdcffeb8e-384.webp",
-          "large": "assets/decorative/optimized/decor-45-dbdcffeb8e.webp"
-      },
       "assets/easter-eggs/star-polygon.png": {
           "small": "assets/decorative/optimized/decor-46-171f84453f-384.webp",
           "large": "assets/decorative/optimized/decor-46-171f84453f.webp"
@@ -265,11 +221,9 @@
     "assets/decorative/@TZ breaThain 0008 layer 22 [1983x1589].png",
     "assets/decorative/@TZ breaThain 0012 namESiS [1765x1515].png",
     "assets/decorative/@TZ breaThain 0013 Smile iTS mE Sword [1945x2374].png",
-    "assets/decorative/@TaiyZun ~ Logo ~ 00123 ~ 786 [786x786].png",
     "assets/decorative/Tai [4034x4733].png",
     "assets/decorative/TainfiniTy copy [8192x8192].png",
     "assets/decorative/TaiyZun @mE 2021 q [1420x1420].png",
-    "assets/decorative/TaiyZun logo Sa [1080x1080].png",
     "assets/decorative/e@rth [1786x1786].png",
     "assets/decorative/s-T-i-n- [500x786].png",
     "assets/easter-eggs/at-slogo.png",
@@ -481,6 +435,10 @@
   }
 
   function parseAspectRatio(assetPath) {
+    if (assetPath.includes("TaiyZun-Sword-logo-2026-ui-")) {
+      return 700 / 500;
+    }
+
     const match = assetPath.match(/\[(\d+)x(\d+)\]/);
     if (!match) {
       return 1;
