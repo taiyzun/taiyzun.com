@@ -4,6 +4,14 @@ const JSON_HEADERS = {
   'content-type': 'application/json; charset=UTF-8',
   'cache-control': 'no-store'
 };
+const MAX_BODY_BYTES = 64 * 1024;
+const FIELD_LIMITS = {
+  name: 100,
+  email: 254,
+  subject: 160,
+  message: 5000
+};
+const UPSTREAM_TIMEOUT_MS = 10_000;
 
 function json(body, status = 200) {
   return new Response(JSON.stringify(body), {
@@ -18,6 +26,31 @@ function clean(value) {
 
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function isAllowedOrigin(request) {
+  const origin = clean(request.headers.get('origin'));
+  if (!origin) return true;
+
+  try {
+    const hostname = new URL(origin).hostname;
+    return hostname === 'taiyzun.com' ||
+      hostname === 'www.taiyzun.com' ||
+      hostname === 'taiyzun-com.pages.dev' ||
+      hostname.endsWith('.taiyzun-com.pages.dev');
+  } catch (_) {
+    return false;
+  }
+}
+
+async function fetchWithTimeout(url, options = {}) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), UPSTREAM_TIMEOUT_MS);
+  try {
+    return await fetch(url, { ...options, signal: controller.signal });
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 function isOptInValue(value) {
@@ -45,6 +78,14 @@ function getField(data, name) {
 
 async function readContactData(request) {
   const contentType = clean(request.headers.get('content-type')).toLowerCase();
+  const contentLength = Number(request.headers.get('content-length') || 0);
+  const supportedType = contentType.includes('application/json') ||
+    contentType.includes('application/x-www-form-urlencoded') ||
+    contentType.includes('multipart/form-data');
+
+  if (!supportedType || (Number.isFinite(contentLength) && contentLength > MAX_BODY_BYTES)) {
+    return null;
+  }
 
   if (contentType.includes('application/json')) {
     const payload = await request.json().catch(() => null);
@@ -170,7 +211,7 @@ async function addMailchimpTags(memberId, config) {
     return { ok: true, tagged: false };
   }
 
-  const response = await fetch(`${mailchimpBaseUrl(config)}/lists/${encodeURIComponent(config.audienceId)}/members/${encodeURIComponent(memberId)}/tags`, {
+  const response = await fetchWithTimeout(`${mailchimpBaseUrl(config)}/lists/${encodeURIComponent(config.audienceId)}/members/${encodeURIComponent(memberId)}/tags`, {
     method: 'POST',
     headers: mailchimpHeaders(config.apiKey),
     body: JSON.stringify(buildMailchimpTagPayload(config.tags))
@@ -198,7 +239,7 @@ async function addMailchimpOptIn(fields, env) {
     return { requested: true, available: false };
   }
 
-  const response = await fetch(`${mailchimpBaseUrl(config)}/lists/${encodeURIComponent(config.audienceId)}/members`, {
+  const response = await fetchWithTimeout(`${mailchimpBaseUrl(config)}/lists/${encodeURIComponent(config.audienceId)}/members`, {
     method: 'POST',
     headers: mailchimpHeaders(config.apiKey),
     body: JSON.stringify(buildMailchimpMemberPayload(fields, config))
@@ -350,7 +391,7 @@ async function sendViaZepto(fields, env) {
 
   let response;
   try {
-    response = await fetch('https://api.zeptomail.com/v1.1/email', {
+    response = await fetchWithTimeout('https://api.zeptomail.com/v1.1/email', {
       method: 'POST',
       headers: {
         Authorization: `Zoho-enczapikey ${apiKey}`,
@@ -402,7 +443,7 @@ async function sendViaFormspree(fields, env) {
 
   let response;
   try {
-    response = await fetch(endpoint, {
+    response = await fetchWithTimeout(endpoint, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -434,6 +475,10 @@ async function sendViaFormspree(fields, env) {
 }
 
 export async function onRequestPost(context) {
+  if (!isAllowedOrigin(context.request)) {
+    return json({ ok: false, message: 'This form must be submitted from taiyzun.com.' }, 403);
+  }
+
   const contactData = await readContactData(context.request);
   if (!contactData) {
     return json({ ok: false, message: 'Please submit the form again.' }, 400);
@@ -451,6 +496,11 @@ export async function onRequestPost(context) {
 
   if (fields.gotcha) {
     return json({ ok: true, message: SUCCESS_MESSAGE });
+  }
+
+  const exceedsFieldLimit = Object.entries(FIELD_LIMITS).some(([name, limit]) => fields[name].length > limit);
+  if (exceedsFieldLimit) {
+    return json({ ok: false, message: 'Please shorten your submission and try again.' }, 413);
   }
 
   if (fields.name.length < 2 || !isValidEmail(fields.email) || fields.message.length < 10) {

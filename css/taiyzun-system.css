@@ -317,6 +317,12 @@ body.connect-page .hero-signature-logo { --signature-opacity: 0.78; }
 
 .hero-signature-logo.is-reactive { opacity: var(--signature-opacity) !important; }
 
+.hero-signature-logo.is-outside-hero,
+body.error-page .hero-signature-logo {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
 .hero-signature-logo.is-light-reactive { will-change: filter; }
 
 .hero-signature-logo.is-reactive::after {
@@ -734,7 +740,8 @@ body.creations-page .lb-img-wrap.is-error::after {
 }
 
 body.error-page {
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   color: var(--tai-ink);
   background:
     radial-gradient(circle at 74% 30%, rgba(231, 201, 120, 0.24), transparent 0 24rem),
@@ -760,16 +767,6 @@ body.error-page .error-title { color: var(--tai-ink-soft); }
 body.error-page .taiyzun-sword-stage { opacity: 0.38; }
 body.error-page .taiyzun-at-stage { opacity: 0.54; }
 
-@keyframes taiFallbackSwordSpin {
-  from { transform: translate3d(-50%, -50%, 0) rotateY(0deg); }
-  to { transform: translate3d(-50%, -50%, 0) rotateY(360deg); }
-}
-
-@keyframes taiFallbackAtSpin {
-  from { transform: translate3d(0, -50%, 0) rotateZ(0deg); }
-  to { transform: translate3d(0, -50%, 0) rotateZ(360deg); }
-}
-
 @media (max-width: 820px), (pointer: coarse) {
   .tai-cinema-stars { opacity: 0.1; }
   .tai-cinema-mist { opacity: 0.72; will-change: auto; }
@@ -793,14 +790,14 @@ body.error-page .taiyzun-at-stage { opacity: 0.54; }
 
   .taiyzun-sword-stage[data-status="deferred"] .taiyzun-sword-fallback,
   .taiyzun-sword-stage[data-status="static"] .taiyzun-sword-fallback {
-    animation: taiFallbackSwordSpin 18s linear infinite;
+    animation: none;
     backface-visibility: visible;
   }
 
   .taiyzun-at-stage[data-status="deferred"] .taiyzun-at-fallback,
   .taiyzun-at-stage[data-status="static"] .taiyzun-at-fallback {
     display: block !important;
-    animation: taiFallbackAtSpin 12s linear infinite;
+    animation: none;
   }
 
   .hero-signature-logo {
@@ -867,6 +864,19 @@ body.error-page .taiyzun-at-stage { opacity: 0.54; }
   }
 }
 
+@media (max-height: 560px), (max-width: 360px) {
+  .hero-signature-logo {
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1100px) {
+  body.odyssey-page .page-hero-content {
+    transform: translateY(1rem) !important;
+  }
+}
+
 @media (min-width: 1800px) {
   .taiyzun-sword-stage--page { opacity: 0.68; }
   .hero-signature-logo {
@@ -910,6 +920,16 @@ body.error-page .taiyzun-at-stage { opacity: 0.54; }
   width: 100% !important;
   min-height: 100vh !important;
   overflow: visible !important;
+}
+
+body.premium-ui-ready .hero-content,
+body.premium-ui-ready .page-hero-content {
+  position: relative;
+  z-index: 8 !important;
+}
+
+html.tai-lightbox-open .hero-signature-logo {
+  opacity: 0 !important;
 }
 
 body.premium-ui-ready .hero,

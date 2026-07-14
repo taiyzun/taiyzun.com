@@ -32,13 +32,10 @@
 
     document.body.dataset.siteLoaderReady = 'true';
     const startedAt = performance.now();
-    const galleryDeepLink = document.body.classList.contains('creations-page') && (
-      new URLSearchParams(window.location.search).has('image') ||
-      new URLSearchParams(window.location.search).has('creation') ||
-      /\/creations\/image\//.test(window.location.pathname)
-    );
     let fontsReady = !document.fonts?.ready;
-    let visualReady = galleryDeepLink || root.dataset.tai3dCriticalReady === 'true';
+    // The complete static fallback ships in the initial HTML. WebGL is a
+    // progressive enhancement and must not hold readable content backstage.
+    let visualReady = true;
     let revealQueued = false;
 
     const loaderElements = new Set();
@@ -101,8 +98,8 @@
       const elapsed = performance.now() - loaderStart;
       const compactLoader = isCompactLoader();
       const minVisible = compactLoader
-        ? readTiming(firstLoader, 'compactMin', 260)
-        : readTiming(firstLoader, 'defaultMin', 420);
+        ? readTiming(firstLoader, 'compactMin', 180)
+        : readTiming(firstLoader, 'defaultMin', 260);
       window.setTimeout(hideLoaders, Math.max(0, minVisible - elapsed));
     };
 
@@ -127,8 +124,8 @@
       requestHide();
     } else {
       const firstLoader = getLoaders()[0];
-      const domDelay = readTiming(firstLoader, 'domDelay', 700);
-      const loadDelay = readTiming(firstLoader, 'loadDelay', 900);
+      const domDelay = readTiming(firstLoader, 'domDelay', 80);
+      const loadDelay = readTiming(firstLoader, 'loadDelay', 120);
       document.addEventListener('DOMContentLoaded', () => {
         window.setTimeout(requestHide, domDelay);
       }, { once: true });
@@ -140,8 +137,8 @@
     const compactLoader = isCompactLoader();
     const firstLoader = getLoaders()[0];
     const maxVisible = compactLoader
-      ? readTiming(firstLoader, 'compactMax', 2400)
-      : readTiming(firstLoader, 'defaultMax', 3600);
+      ? readTiming(firstLoader, 'compactMax', 1200)
+      : readTiming(firstLoader, 'defaultMax', 1800);
     window.setTimeout(() => requestHide(true), maxVisible);
   }
 

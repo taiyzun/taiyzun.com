@@ -355,6 +355,12 @@
 
   field.id = "siteDecorativeField";
   field.setAttribute("aria-hidden", "true");
+  field.style.position = "absolute";
+  field.style.inset = "0 auto auto 0";
+  field.style.width = "100%";
+  field.style.minHeight = "100vh";
+  field.style.pointerEvents = "none";
+  field.style.zIndex = "0";
 
   const skipLink = body.querySelector(".skip-link");
   body.insertBefore(field, skipLink ? skipLink.nextSibling : body.firstChild);
@@ -876,9 +882,12 @@
     image.dataset.originalSrc = assetPath;
     image.onerror = () => image.remove();
     image.alt = "";
+    image.width = Math.max(1, Math.round(width));
+    image.height = Math.max(1, Math.round(estimatedHeight));
     image.decoding = "async";
-    image.loading = isHero ? "eager" : "lazy";
-    image.fetchPriority = isHero ? "high" : "low";
+    const priorityHeroImage = isHero && assetIndex === 0;
+    image.loading = priorityHeroImage ? "eager" : "lazy";
+    image.fetchPriority = priorityHeroImage ? "high" : "low";
     image.setAttribute("aria-hidden", "true");
     image.style.setProperty("--decor-width", `${width}px`);
     image.style.setProperty("--decor-opacity", opacity.toFixed(3));

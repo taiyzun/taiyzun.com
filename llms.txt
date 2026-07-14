@@ -23,4 +23,4 @@ The preferred content-use level is `reference`: index, excerpt, and link back. D
 - [Robots policy](https://taiyzun.com/robots.txt)
 - [Sitemap](https://taiyzun.com/sitemap.xml)
 
-Last updated: 2026-07-03
+Last updated: 2026-07-14

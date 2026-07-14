@@ -12,8 +12,9 @@
     "optimize-odyssey-portraits": "node scripts/optimize-odyssey-portraits.js",
     "privacy-review": "node scripts/generate-private-image-review.js",
     "test:contact": "node scripts/test-contact-function.mjs",
+    "test:creation-share": "node scripts/test-creation-share-function.mjs",
     "test:seo-tracking": "node scripts/validate-seo-tracking-state.js",
-    "test:safe": "npm run test:contact && npm run test:seo-tracking"
+    "test:safe": "npm run test:contact && npm run test:creation-share && npm run test:seo-tracking"
   },
   "dependencies": {
     "gsap": "^3.12.2",

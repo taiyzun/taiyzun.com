@@ -107,6 +107,34 @@ button {
   display: none;
 }
 
+/* Decorative fields may be inserted before the deferred full stylesheet.
+   Keep them out of document flow so they never shift the gallery. */
+#siteDecorativeField {
+  position: absolute;
+  inset: 0 auto auto 0;
+  z-index: 0;
+  width: 100%;
+  min-height: 100vh;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.site-decorative-hero-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-decorative-png,
+.site-decorative-png {
+  position: absolute;
+  display: block;
+  max-width: none;
+  height: auto;
+  pointer-events: none;
+}
+
 .site-loader {
   background:
     radial-gradient(circle at 50% 43%, rgba(255, 255, 255, 0.98), rgba(255, 249, 234, 0.88) 0 17rem, transparent 17.6rem),

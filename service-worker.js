@@ -1,17 +1,15 @@
 // Service Worker for taiyzun.com
-const CACHE_NAME = 'taiyzun-core-v122';
-const RUNTIME_IMAGE_CACHE = 'taiyzun-images-v7';
+const CACHE_NAME = 'taiyzun-core-v125';
+const RUNTIME_IMAGE_CACHE = 'taiyzun-images-v9';
 const ASSETS_TO_CACHE = [
   '/index.html',
-  '/js/site-mobile-lite.min.js',
-  '/manifest.json',
-  '/3d/Taiyzun_Sword_Fallback.png',
-  '/assets/images/Taiyzun-logo-36w.avif',
-  '/assets/images/TaiyZun-Sword-logo-2026.png',
-  '/assets/images/TaiyZun-Sword-logo-2026-social.png',
-  '/assets/images/TaiyZun-Sword-logo-2026-social-square.png',
-  '/assets/icons/favicon-32x32.png',
-  '/favicon.ico'
+  '/js/site-mobile-lite.min.js?v=20260714e',
+  '/manifest.json?v=20260714',
+  '/3d/Taiyzun_Sword_Fallback.png?v=20260714a',
+  '/assets/images/Taiyzun-logo-36w.avif?v=20260714',
+  '/assets/images/TaiyZun-Sword-logo-2026-ui-384.png',
+  '/assets/icons/favicon-32x32.png?v=20260714',
+  '/favicon.ico?v=20260714'
 ];
 
 // Install Service Worker
@@ -70,23 +68,32 @@ self.addEventListener('fetch', event => {
   // Handle image requests with a cache-first strategy
   if (request.destination === 'image' || request.url.includes('/assets/Portraits/')) {
     event.respondWith(
-      caches.open(RUNTIME_IMAGE_CACHE).then(cache =>
-        cache.match(request).then(cachedResponse => {
-          if (cachedResponse) {
-            return cachedResponse;
-          }
-          return fetch(request).then(networkResponse => {
-            if (networkResponse && networkResponse.status === 200) {
-              cache.put(request, networkResponse.clone());
-              trimCache(RUNTIME_IMAGE_CACHE, 60);
+      caches.match(request).then(preCachedResponse => {
+        if (preCachedResponse) return preCachedResponse;
+        return caches.open(RUNTIME_IMAGE_CACHE).then(cache =>
+          cache.match(request).then(cachedResponse => {
+            if (cachedResponse) {
+              return cachedResponse;
             }
-            return networkResponse;
-          }).catch(() => {
-            return caches.match('/assets/images/logo.png');
-          });
-        })
-      )
+            return fetch(request).then(networkResponse => {
+              if (networkResponse && networkResponse.status === 200) {
+                cache.put(request, networkResponse.clone());
+                trimCache(RUNTIME_IMAGE_CACHE, 60);
+              }
+              return networkResponse;
+            }).catch(() => {
+              return caches.match('/assets/images/TaiyZun-Sword-logo-2026-ui-384.png');
+            });
+          })
+        );
+      })
     );
+    return;
+  }
+
+  // Only application resource types enter the core runtime cache. JSON
+  // catalogues and API responses retain their own freshness semantics.
+  if (!['script', 'style', 'font', 'worker'].includes(request.destination)) {
     return;
   }
 
@@ -117,7 +124,7 @@ self.addEventListener('fetch', event => {
 async function handleNavigationRequest(request) {
   try {
     const networkResponse = await fetch(request);
-    if (networkResponse && !networkResponse.redirected) {
+    if (networkResponse) {
       return networkResponse;
     }
   } catch (_) {}

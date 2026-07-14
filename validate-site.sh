@@ -126,8 +126,8 @@ for file in "${critical_files[@]}"; do
         fi
         
         # Check CSS version (cache busting)
-        css_version=$(grep -o "style.css?v=[0-9]*" "$file" | head -1)
-        if [ ! -z "$css_version" ]; then
+        css_version=$(grep -Eo 'href="[^"]+\.css\?v=[^"]+"' "$file" | head -1)
+        if [ -n "$css_version" ]; then
             echo "✅ $file - CSS cache busting: $css_version"
         else
             echo "⚠️  $file - No CSS cache busting detected"

@@ -133,14 +133,18 @@
   const galleryScrollPreload = isMemoryConstrainedGallery ? 220 : 540;
 
   function buildGalleryItem(p, i) {
-    const el = document.createElement('div');
+    const el = document.createElement('button');
+    el.type = 'button';
     el.className = 'gallery-item reveal';
     el.setAttribute('data-index', i);
+    el.setAttribute('aria-haspopup', 'dialog');
+    el.setAttribute('aria-controls', 'lightbox');
+    el.setAttribute('aria-label', 'Open portrait: ' + p.title + (p.sub ? ' — ' + p.sub : ''));
     el.innerHTML = portraitMarkup(p) + '<div class="overlay"><span class="sparkle">✦</span><h3>' + escapeHTML(p.title) + '</h3><p>' + escapeHTML(p.sub) + '</p></div>';
     el.addEventListener('click', () => {
       el.classList.add('pulse');
       el.addEventListener('animationend', () => el.classList.remove('pulse'), {once: true});
-      openLB(parseInt(el.dataset.index, 10));
+      openLB(parseInt(el.dataset.index, 10), el);
     });
     if (revealObserver) revealObserver.observe(el);
     return el;
@@ -222,6 +226,9 @@
   let currentIdx = 0, isTransitioning = false, isZoomed = false;
   let filmstripBuilt = false;
   let lightboxGestures = null;
+  let lightboxReturnFocus = null;
+  let lightboxBackgroundState = [];
+  let bodyOverflowBeforeLightbox = '';
 
   lbTotal.textContent = portraitTotal;
   const portraitCount = document.getElementById('portraitCount');
@@ -231,12 +238,21 @@
     if (filmstripBuilt || isMemoryConstrainedGallery) return;
     const fragment = document.createDocumentFragment();
     portraits.forEach((p, i) => {
-      const thumb = document.createElement('img');
+      const thumb = document.createElement('button');
+      thumb.type = 'button';
       thumb.className = 'lb-thumb';
-      thumb.src = p.thumb || portraitImage(p, 400);
-      thumb.alt = p.title;
-      thumb.loading = 'lazy';
-      thumb.decoding = 'async';
+      thumb.dataset.index = i;
+      thumb.setAttribute('aria-label', 'View portrait ' + (i + 1) + ': ' + p.title);
+      thumb.setAttribute('aria-pressed', String(i === currentIdx));
+      thumb.tabIndex = i === currentIdx ? 0 : -1;
+      const image = document.createElement('img');
+      image.src = p.thumb || portraitImage(p, 400);
+      image.alt = '';
+      image.loading = 'lazy';
+      image.decoding = 'async';
+      image.width = 80;
+      image.height = 80;
+      thumb.appendChild(image);
       thumb.addEventListener('click', () => { if (i !== currentIdx) navigate(i, i > currentIdx ? 'next' : 'prev'); });
       fragment.appendChild(thumb);
     });
@@ -247,9 +263,20 @@
   function updateFilmstrip() {
     if (!filmstripBuilt) return;
     const thumbs = lbFilmstrip.querySelectorAll('.lb-thumb');
-    thumbs.forEach((t, i) => t.classList.toggle('active', i === currentIdx));
+    const keepFilmstripFocus = lbFilmstrip.contains(document.activeElement);
+    thumbs.forEach((t, i) => {
+      const active = i === currentIdx;
+      t.classList.toggle('active', active);
+      t.setAttribute('aria-pressed', String(active));
+      t.tabIndex = active ? 0 : -1;
+      if (active) t.setAttribute('aria-current', 'true');
+      else t.removeAttribute('aria-current');
+    });
     const active = thumbs[currentIdx];
-    if (active) active.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+    if (active) {
+      active.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+      if (keepFilmstripFocus) active.focus({ preventScroll: true });
+    }
   }
 
   function updateProgress() {
@@ -553,8 +580,41 @@
     setTimeout(() => { isTransitioning = false; }, 420);
   }
 
-  function openLB(i) {
+  function setLightboxBackgroundInactive(inactive) {
+    const supportsInert = 'inert' in HTMLElement.prototype;
+    if (inactive) {
+      lightboxBackgroundState = Array.from(document.body.children)
+        .filter((element) => element !== lb && element.tagName !== 'SCRIPT' && element.tagName !== 'STYLE')
+        .map((element) => ({
+          element,
+          inert: supportsInert ? element.inert : false,
+          ariaHidden: element.getAttribute('aria-hidden')
+        }));
+      lightboxBackgroundState.forEach(({ element }) => {
+        if (supportsInert) element.inert = true;
+        else element.setAttribute('aria-hidden', 'true');
+      });
+      return;
+    }
+
+    lightboxBackgroundState.forEach(({ element, inert, ariaHidden }) => {
+      if (!element.isConnected) return;
+      if (supportsInert) element.inert = inert;
+      else if (ariaHidden === null) element.removeAttribute('aria-hidden');
+      else element.setAttribute('aria-hidden', ariaHidden);
+    });
+    lightboxBackgroundState = [];
+  }
+
+  function lightboxFocusableElements() {
+    return Array.from(lb.querySelectorAll(
+      'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    )).filter((element) => element.tabIndex >= 0 && element.getClientRects().length > 0);
+  }
+
+  function openLB(i, opener = null) {
     if (lb.classList.contains('open')) return;
+    lightboxReturnFocus = opener || (document.activeElement !== document.body ? document.activeElement : null);
     if (!lightboxGestures) {
       lightboxGestures = createLightboxGestureController({
         wrap: lbImgWrap,
@@ -566,19 +626,32 @@
     }
     buildFilmstrip();
     loadImage(i, 'open');
+    lb.setAttribute('aria-hidden', 'false');
     lb.classList.add('open');
+    setLightboxBackgroundInactive(true);
     document.documentElement.classList.add('tai-lightbox-open');
     document.body.classList.add('tai-lightbox-open');
+    bodyOverflowBeforeLightbox = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+    window.requestAnimationFrame(() => lbClose.focus({ preventScroll: true }));
   }
 
   function closeLB() {
+    if (!lb.classList.contains('open')) return;
+    const restoreTarget = lightboxReturnFocus;
+    lightboxReturnFocus = null;
     lightboxGestures?.reset();
     isZoomed = false;
     lb.classList.remove('open');
+    lb.setAttribute('aria-hidden', 'true');
+    setLightboxBackgroundInactive(false);
     document.documentElement.classList.remove('tai-lightbox-open');
     document.body.classList.remove('tai-lightbox-open');
-    document.body.style.overflow = '';
+    document.body.style.overflow = bodyOverflowBeforeLightbox;
+    bodyOverflowBeforeLightbox = '';
+    if (restoreTarget?.isConnected && typeof restoreTarget.focus === 'function') {
+      restoreTarget.focus({ preventScroll: true });
+    }
   }
 
   function navigate(i, direction) { loadImage(i, direction); }
@@ -594,10 +667,29 @@
   /* ── Keyboard ── */
   document.addEventListener('keydown', (e) => {
     if (!lb.classList.contains('open')) return;
-    if (e.key === 'Escape') { e.preventDefault(); closeLB(); }
+    if (e.key === 'Escape') { e.preventDefault(); closeLB(); return; }
+    if (e.key === 'Tab') {
+      const focusable = lightboxFocusableElements();
+      if (!focusable.length) {
+        e.preventDefault();
+        lb.focus({ preventScroll: true });
+        return;
+      }
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && (document.activeElement === first || !lb.contains(document.activeElement))) {
+        e.preventDefault();
+        last.focus({ preventScroll: true });
+      } else if (!e.shiftKey && (document.activeElement === last || !lb.contains(document.activeElement))) {
+        e.preventDefault();
+        first.focus({ preventScroll: true });
+      }
+      return;
+    }
     if (e.key === 'ArrowLeft'  && !isZoomed) { e.preventDefault(); prevImage(); }
     if (e.key === 'ArrowRight' && !isZoomed) { e.preventDefault(); nextImage(); }
-    if (e.key === ' '          && !isZoomed) { e.preventDefault(); nextImage(); }
+    const targetIsControl = e.target instanceof Element && Boolean(e.target.closest('button, a, input, select, textarea'));
+    if (e.key === ' ' && !isZoomed && !targetIsControl) { e.preventDefault(); nextImage(); }
   });
 
   /* ── Preload adjacent images ── */
@@ -645,18 +737,6 @@
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('/service-worker.js');
 
   /* ── Mobile nav ── */
-  const hamburger = document.getElementById('hamburger');
-  const navLinks = document.getElementById('navLinks');
-  hamburger.addEventListener('click', () => {
-    const open = navLinks.classList.toggle('open');
-    hamburger.classList.toggle('open', open);
-    hamburger.setAttribute('aria-expanded', open);
-    document.body.style.overflow = open ? 'hidden' : '';
-  });
-  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    navLinks.classList.remove('open'); hamburger.classList.remove('open');
-    hamburger.setAttribute('aria-expanded', 'false'); document.body.style.overflow = '';
-  }));
   // ── Touch ripple + long-press burst ──
   (function(){
     if (isMemoryConstrainedGallery || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;

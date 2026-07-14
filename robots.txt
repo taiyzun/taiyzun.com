@@ -2,7 +2,7 @@
 # AI traffic default change. Normal search indexing is allowed; AI training,
 # bulk dataset ingestion, and full-content reproduction are not.
 User-agent: *
-# Content-signal: search=yes, ai-train=no, use=reference
+Content-signal: search=yes, ai-input=yes, ai-train=no, use=reference
 Allow: /
 Allow: /llms.txt
 Allow: /sitemap.xml
@@ -26,6 +26,12 @@ Disallow: /node_modules/
 Disallow: /.git/
 
 Sitemap: https://taiyzun.com/sitemap.xml
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
 
 User-agent: Google-Extended
 Disallow: /

@@ -16,12 +16,17 @@
   }
 
   const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const mobileQuery = window.matchMedia("(max-width: 768px)");
+  const compactQuery = window.matchMedia("(max-width: 820px), (pointer: coarse)");
   const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
   let ambientVideoStarted = false;
+  let visibilityObserver = null;
+  let idleHandle = 0;
+  let idleFallback = false;
+  let engagementListenersInstalled = false;
+  const engagementEvents = ["pointermove", "pointerdown", "touchstart", "keydown", "scroll"];
 
   function ambientVideoDisabled() {
-    return motionQuery.matches || mobileQuery.matches || Boolean(connection && connection.saveData);
+    return motionQuery.matches || compactQuery.matches || Boolean(connection && connection.saveData);
   }
 
   function ensureVideoSource(video) {
@@ -39,6 +44,7 @@
 
   function syncVideo(video) {
     const disabled =
+      ambientVideoDisabled() ||
       root.classList.contains("ambient-video-disabled") ||
       document.hidden;
 
@@ -57,43 +63,123 @@
     }
   }
 
-  function applyAmbientPreference() {
-    root.classList.toggle("ambient-video-disabled", ambientVideoDisabled());
-    if (!root.classList.contains("ambient-video-disabled")) {
-      root.classList.remove("ambient-video-blocked");
+  function cancelScheduledStart() {
+    if (visibilityObserver) {
+      visibilityObserver.disconnect();
+      visibilityObserver = null;
     }
 
-    videos.forEach((video) => {
-      video.preload = !ambientVideoStarted || root.classList.contains("ambient-video-disabled") ? "none" : "metadata";
-      syncVideo(video);
+    if (idleHandle) {
+      if (!idleFallback && "cancelIdleCallback" in window) {
+        window.cancelIdleCallback(idleHandle);
+      } else {
+        window.clearTimeout(idleHandle);
+      }
+
+      idleHandle = 0;
+    }
+
+    if (engagementListenersInstalled) {
+      engagementEvents.forEach((eventName) => {
+        window.removeEventListener(eventName, handleFirstEngagement);
+      });
+      engagementListenersInstalled = false;
+    }
+  }
+
+  function handleFirstEngagement() {
+    engagementEvents.forEach((eventName) => {
+      window.removeEventListener(eventName, handleFirstEngagement);
+    });
+    engagementListenersInstalled = false;
+    scheduleIdleStart();
+  }
+
+  function awaitEngagement() {
+    if (ambientVideoStarted || ambientVideoDisabled() || engagementListenersInstalled) {
+      return;
+    }
+
+    engagementListenersInstalled = true;
+    engagementEvents.forEach((eventName) => {
+      window.addEventListener(eventName, handleFirstEngagement, { passive: true });
     });
   }
 
-  function startAmbientVideo() {
-    if (ambientVideoStarted) {
+  function scheduleIdleStart() {
+    if (ambientVideoStarted || ambientVideoDisabled() || idleHandle) {
       return;
     }
 
-    ambientVideoStarted = true;
-    applyAmbientPreference();
-  }
-
-  function scheduleAmbientVideo() {
-    const passiveOnce = { once: true, passive: true };
-    window.addEventListener("pointerdown", startAmbientVideo, passiveOnce);
-    window.addEventListener("scroll", startAmbientVideo, passiveOnce);
-    window.addEventListener("keydown", startAmbientVideo, { once: true });
-
-    const startAfterPageSettles = () => {
-      window.setTimeout(startAmbientVideo, 7000);
+    const run = () => {
+      idleHandle = 0;
+      startAmbientVideo();
     };
 
-    if (document.readyState === "complete") {
-      startAfterPageSettles();
+    if ("requestIdleCallback" in window) {
+      idleFallback = false;
+      idleHandle = window.requestIdleCallback(run, { timeout: 1500 });
+    } else {
+      idleFallback = true;
+      idleHandle = window.setTimeout(run, 160);
+    }
+  }
+
+  function observeNearViewport() {
+    if (ambientVideoStarted || ambientVideoDisabled() || visibilityObserver || idleHandle || engagementListenersInstalled) {
       return;
     }
 
-    window.addEventListener("load", startAfterPageSettles, { once: true });
+    const target = primaryShell || videos[0];
+    if (!("IntersectionObserver" in window) || !target) {
+      awaitEngagement();
+      return;
+    }
+
+    visibilityObserver = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) {
+          return;
+        }
+
+        visibilityObserver?.disconnect();
+        visibilityObserver = null;
+        awaitEngagement();
+      },
+      { rootMargin: "240px 0px", threshold: 0 }
+    );
+    visibilityObserver.observe(target);
+  }
+
+  function applyAmbientPreference() {
+    const disabled = ambientVideoDisabled();
+    root.classList.toggle("ambient-video-disabled", disabled);
+
+    videos.forEach((video) => {
+      video.preload = !ambientVideoStarted || disabled ? "none" : "metadata";
+      syncVideo(video);
+    });
+
+    if (disabled) {
+      root.classList.remove("ambient-video-ready", "ambient-video-blocked");
+      cancelScheduledStart();
+      return;
+    }
+
+    root.classList.remove("ambient-video-blocked");
+    if (!ambientVideoStarted) {
+      observeNearViewport();
+    }
+  }
+
+  function startAmbientVideo() {
+    if (ambientVideoStarted || ambientVideoDisabled()) {
+      return;
+    }
+
+    cancelScheduledStart();
+    ambientVideoStarted = true;
+    applyAmbientPreference();
   }
 
   videos.forEach((video) => {
@@ -123,10 +209,10 @@
     motionQuery.addListener(applyAmbientPreference);
   }
 
-  if (typeof mobileQuery.addEventListener === "function") {
-    mobileQuery.addEventListener("change", applyAmbientPreference);
-  } else if (typeof mobileQuery.addListener === "function") {
-    mobileQuery.addListener(applyAmbientPreference);
+  if (typeof compactQuery.addEventListener === "function") {
+    compactQuery.addEventListener("change", applyAmbientPreference);
+  } else if (typeof compactQuery.addListener === "function") {
+    compactQuery.addListener(applyAmbientPreference);
   }
 
   if (connection && typeof connection.addEventListener === "function") {
@@ -134,5 +220,4 @@
   }
 
   applyAmbientPreference();
-  scheduleAmbientVideo();
 })();

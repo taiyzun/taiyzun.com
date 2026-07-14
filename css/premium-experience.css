@@ -439,7 +439,7 @@ body.premium-ui-ready .lb-share {
   border-radius: 999px !important;
   border: 1px solid rgba(201, 155, 63, 0.62);
   background:
-    linear-gradient(135deg, #241b11, #b8791e 58%, #183d63);
+    linear-gradient(135deg, #241b11, #8a5814 58%, #183d63);
   color: #fff8e8 !important;
   box-shadow: 0 16px 38px rgba(151, 95, 24, 0.2);
   letter-spacing: 0;
@@ -540,7 +540,7 @@ body.premium-ui-ready input:focus,
 body.premium-ui-ready textarea:focus,
 body.premium-ui-ready button:focus-visible,
 body.premium-ui-ready a:focus-visible {
-  outline: 2px solid rgba(201, 155, 63, 0.78);
+  outline: 3px solid #183d63;
   outline-offset: 4px;
 }
 

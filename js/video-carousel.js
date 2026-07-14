@@ -11,6 +11,8 @@
   const dotsNode = carousel.querySelector('[data-video-dots]');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const coarsePointer = window.matchMedia('(pointer: coarse), (max-width: 700px)').matches;
+  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  const allowHighResolutionPreview = !coarsePointer && !connection?.saveData;
   const excludedVideo = 'KhT4KWHZvEI';
 
   if (!cards.length || !iframe) return;
@@ -128,19 +130,32 @@
   }
 
   let previewRequestToken = 0;
+  let pendingHighResolutionPreview = null;
+
+  function upgradePreviewImage() {
+    const pending = pendingHighResolutionPreview;
+    if (!pending || !allowHighResolutionPreview) return;
+
+    const preview = new Image();
+    preview.decoding = 'async';
+    preview.onload = () => {
+      if (pending.requestToken !== previewRequestToken || preview.naturalWidth < 640) return;
+      carousel.style.setProperty('--video-preview-image', `url("${pending.highResolution}")`);
+    };
+    preview.src = pending.highResolution;
+    pendingHighResolutionPreview = null;
+  }
+
   function setPreviewImage(videoId) {
     const requestToken = ++previewRequestToken;
     const fallback = `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`;
     const highResolution = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
     carousel.style.setProperty('--video-preview-image', `url("${fallback}")`);
+    pendingHighResolutionPreview = { requestToken, highResolution };
 
-    const preview = new Image();
-    preview.decoding = 'async';
-    preview.onload = () => {
-      if (requestToken !== previewRequestToken || preview.naturalWidth < 640) return;
-      carousel.style.setProperty('--video-preview-image', `url("${highResolution}")`);
-    };
-    preview.src = highResolution;
+    if (pointerInsideCarousel || carousel.contains(document.activeElement)) {
+      upgradePreviewImage();
+    }
   }
 
   function setIframe(videoId, title, options = {}) {
@@ -393,7 +408,10 @@
 
   carousel.addEventListener('pointerenter', () => {
     pointerInsideCarousel = true;
+    upgradePreviewImage();
   }, { passive: true });
+
+  carousel.addEventListener('focusin', upgradePreviewImage);
 
   carousel.addEventListener('pointerup', endDrag, { passive: true });
   carousel.addEventListener('pointercancel', endDrag, { passive: true });

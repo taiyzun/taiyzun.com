@@ -1,7 +1,7 @@
 (() => {
   const MODEL_CONFIG = {
     sword: {
-      modelUrl: '/3d/Taiyzun_Sword_Web.glb',
+      modelUrl: '/3d/Taiyzun_Sword_Web.glb?v=20260714a',
       name: 'TaiyzunSword',
       cameraZ: 2.68,
       fieldOfView: 32,
@@ -18,7 +18,7 @@
       motion: 'pointer-and-scroll-axis-spin'
     },
     at: {
-      modelUrl: '/3d/Taiyzun_At_Logo_Web.glb',
+      modelUrl: '/3d/Taiyzun_At_Logo_Web.glb?v=20260714a',
       name: 'TaiyzunAtLogo',
       cameraZ: 3.15,
       fieldOfView: 34,
@@ -135,10 +135,29 @@
     signatureLogo = document.createElement('picture');
     signatureLogo.className = 'hero-signature-logo';
     signatureLogo.setAttribute('aria-hidden', 'true');
-    signatureLogo.innerHTML = '<img src="/assets/images/TaiyZun-Sword-logo-2026.png" alt="" width="700" height="500" decoding="async">';
+    signatureLogo.innerHTML = '<img src="/assets/images/TaiyZun-Sword-logo-2026-ui-700.png" srcset="/assets/images/TaiyZun-Sword-logo-2026-ui-384.png 384w, /assets/images/TaiyZun-Sword-logo-2026-ui-700.png 700w, /assets/images/TaiyZun-Sword-logo-2026-ui-1024.png 1024w" sizes="(max-width: 520px) 139px, (max-width: 820px) 126px, 228px" alt="" width="700" height="500" loading="lazy" decoding="async" fetchpriority="low">';
     document.body.appendChild(signatureLogo);
   }
   if (signatureLogo) {
+    const signatureAnchor = document.querySelector('.hero, .page-hero');
+    if (!signatureAnchor || document.body.classList.contains('error-page')) {
+      signatureLogo.classList.add('is-outside-hero');
+    } else if ('IntersectionObserver' in window) {
+      const signatureObserver = new IntersectionObserver(
+        ([entry]) => signatureLogo.classList.toggle('is-outside-hero', !entry?.isIntersecting),
+        { threshold: 0.08 }
+      );
+      signatureObserver.observe(signatureAnchor);
+    } else {
+      const syncSignatureVisibility = () => {
+        const rect = signatureAnchor.getBoundingClientRect();
+        signatureLogo.classList.toggle('is-outside-hero', rect.bottom <= 0 || rect.top >= window.innerHeight);
+      };
+      window.addEventListener('scroll', syncSignatureVisibility, { passive: true });
+      window.addEventListener('resize', syncSignatureVisibility, { passive: true });
+      syncSignatureVisibility();
+    }
+
     let shineTimer = 0;
     let lastShine = 0;
     let lightFrame = 0;
@@ -572,6 +591,18 @@
       let lastStatusUpdate = 0;
       let visible = true;
 
+      function stopRendering() {
+        if (!frame) return;
+        window.cancelAnimationFrame(frame);
+        frame = 0;
+      }
+
+      function startRendering() {
+        if (frame || !visible || document.hidden) return;
+        lastTime = performance.now();
+        frame = window.requestAnimationFrame(render);
+      }
+
       function resize() {
         const bounds = stage.getBoundingClientRect();
         width = Math.max(1, Math.round(bounds.width));
@@ -597,9 +628,15 @@
       }
 
       function render(now) {
-        frame = window.requestAnimationFrame(render);
-        if (!visible || document.hidden || document.documentElement.classList.contains('tai-lightbox-open')) {
+        frame = 0;
+        if (!visible || document.hidden) {
           lastTime = now;
+          return;
+        }
+
+        if (document.documentElement.classList.contains('tai-lightbox-open')) {
+          lastTime = now;
+          frame = window.requestAnimationFrame(render);
           return;
         }
 
@@ -646,11 +683,12 @@
           stage.dataset.rotationZ = root.rotation.z.toFixed(4);
         }
         renderer.render(scene, camera);
+        frame = window.requestAnimationFrame(render);
       }
 
       renderer.domElement.addEventListener('webglcontextlost', (event) => {
         event.preventDefault();
-        window.cancelAnimationFrame(frame);
+        stopRendering();
         stage.dataset.status = 'static';
         canvas.style.opacity = '0';
         fallback?.removeAttribute('hidden');
@@ -660,6 +698,10 @@
       window.addEventListener('pointermove', updatePointer, { passive: true });
       window.addEventListener('pointerleave', resetPointer, { passive: true });
       window.addEventListener('scroll', updateScroll, { passive: true });
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) stopRendering();
+        else startRendering();
+      });
 
       if ('ResizeObserver' in window) {
         const resizeObserver = new ResizeObserver(resize);
@@ -669,6 +711,8 @@
       if ('IntersectionObserver' in window) {
         const visibilityObserver = new IntersectionObserver((entries) => {
           visible = entries.some((entry) => entry.isIntersecting);
+          if (visible) startRendering();
+          else stopRendering();
         }, { threshold: 0.01 });
         visibilityObserver.observe(stage);
       }
@@ -681,7 +725,7 @@
       stage.dataset.status = 'ready';
       canvas.style.opacity = '1';
       fallback?.setAttribute('hidden', '');
-      frame = window.requestAnimationFrame(render);
+      startRendering();
     } catch (error) {
       stage.dataset.status = 'static';
       stage.dataset.error = error instanceof Error ? error.message.slice(0, 120) : `${objectType}-load-failed`;

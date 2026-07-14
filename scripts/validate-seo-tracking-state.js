@@ -13,8 +13,8 @@ const pages = [
   { file: 'creations.html', route: '/creations', canonical: 'https://taiyzun.com/creations', requiresJsonLd: true },
   { file: 'odyssey.html', route: '/odyssey', canonical: 'https://taiyzun.com/odyssey', requiresJsonLd: true },
   { file: 'connect.html', route: '/connect', canonical: 'https://taiyzun.com/connect', requiresJsonLd: true },
-  { file: '404.html', route: '/404.html', canonical: 'https://taiyzun.com/404.html', requiresJsonLd: false },
-  { file: '500.html', route: '/500.html', canonical: 'https://taiyzun.com/500.html', requiresJsonLd: false }
+  { file: '404.html', route: '/404', canonical: 'https://taiyzun.com/404', requiresJsonLd: false },
+  { file: '500.html', route: '/500', canonical: 'https://taiyzun.com/500', requiresJsonLd: false }
 ];
 
 const blockedTrackingPatterns = [

@@ -21,20 +21,24 @@ fs.mkdirSync(iconsDir, { recursive: true });
 fs.mkdirSync(imagesDir, { recursive: true });
 
 function squareSword(size, format = 'png') {
+  const contentWidth = Math.floor(size * 0.76);
+  const contentHeight = Math.floor(size * 0.88);
+  const horizontalPadding = size - contentWidth;
+  const verticalPadding = size - contentHeight;
   const pipeline = sharp(sourceImage)
     .extract(swordMark)
     .resize({
-      width: Math.round(size * 0.76),
-      height: Math.round(size * 0.88),
+      width: contentWidth,
+      height: contentHeight,
       fit: 'contain',
       background: transparent,
       withoutEnlargement: true,
     })
     .extend({
-      top: Math.round(size * 0.06),
-      bottom: Math.round(size * 0.06),
-      left: Math.round(size * 0.12),
-      right: Math.round(size * 0.12),
+      top: Math.floor(verticalPadding / 2),
+      bottom: Math.ceil(verticalPadding / 2),
+      left: Math.floor(horizontalPadding / 2),
+      right: Math.ceil(horizontalPadding / 2),
       background: transparent,
     });
 

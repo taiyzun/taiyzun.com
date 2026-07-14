@@ -409,7 +409,6 @@ async function appendBatch() {
       el.type = 'button';
       el.className = 'art-item reveal';
       el.dataset.index = i;
-      el.setAttribute('aria-label', `View ${item.title || 'creation'}`);
       const t = escapeHTML(item.title);
       const s = escapeHTML(item.sub);
       const thumb = escapeHTML(item.thumb);
@@ -418,7 +417,9 @@ async function appendBatch() {
       const loadingMode = priorityImage ? 'eager' : 'lazy';
       const fetchPriority = priorityImage ? 'high' : 'low';
       const sourceAttrs = supportsNativeLazy ? `src="${thumb}"` : `data-src="${thumb}" src="${PLACEHOLDER_SRC}"`;
-      el.innerHTML = `<img ${sourceAttrs} alt="${t}" width="360" height="360" sizes="${GRID_IMAGE_SIZES}" loading="${loadingMode}" decoding="async" fetchpriority="${fetchPriority}"><div class="overlay"><span class="sparkle">✦</span><h3>${t}</h3><p>${s}</p></div>`;
+      const titleId = `creation-title-${i}`;
+      el.setAttribute('aria-labelledby', titleId);
+      el.innerHTML = `<img ${sourceAttrs} alt="${t}" width="360" height="360" sizes="${GRID_IMAGE_SIZES}" loading="${loadingMode}" decoding="async" fetchpriority="${fetchPriority}"><div class="overlay"><span class="sparkle">✦</span><h3 id="${titleId}">${t}</h3><p>${s}</p></div>`;
       el.addEventListener('click', () => openLB(i, { opener: el }));
       fragment.appendChild(el);
       pendingImages.push(el.querySelector('img'));
@@ -941,6 +942,7 @@ function loadLBImage(i, dir, historyMode = 'replace') {
     lbImg.onerror = null;
     lbImgWrap.classList.remove('is-loading');
     lbImgWrap.classList.add('is-error');
+    setShareStatus('Preview unavailable');
   };
   prepareActiveLightboxImage();
   lbImg.src = item.full;
@@ -1159,18 +1161,6 @@ document.addEventListener('mousemove', e => {
 });
 document.addEventListener('mouseleave', () => { glow.classList.remove('active'); glowOn = false; });
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('/service-worker.js');
-const hamburger = document.getElementById('hamburger');
-const navLinks = document.getElementById('navLinks');
-hamburger.addEventListener('click', () => {
-  const open = navLinks.classList.toggle('open');
-  hamburger.classList.toggle('open', open);
-  hamburger.setAttribute('aria-expanded', open);
-  document.body.style.overflow = open ? 'hidden' : '';
-});
-navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-  navLinks.classList.remove('open'); hamburger.classList.remove('open');
-  hamburger.setAttribute('aria-expanded', 'false'); document.body.style.overflow = '';
-}));
 // ── Touch ripple + long-press burst ──
 (function(){
   const style = document.createElement('style');

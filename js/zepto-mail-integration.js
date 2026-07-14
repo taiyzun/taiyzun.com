@@ -27,6 +27,12 @@ class TaiyzunContactForm {
     }
 
     this.form.addEventListener('submit', (event) => this.handleSubmit(event));
+    this.form.addEventListener('input', (event) => {
+      const field = event.target;
+      if (!(field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement)) return;
+      if (!field.name) return;
+      this.setFieldError(field.name, '');
+    });
     this.form.dataset.contactBound = 'true';
   }
 
@@ -73,26 +79,48 @@ class TaiyzunContactForm {
   }
 
   validate(formData) {
+    this.clearFieldErrors();
     const name = String(formData.get('name') || '').trim();
     const email = String(formData.get('email') || '').trim();
     const message = String(formData.get('message') || '').trim();
 
     if (name.length < 2) {
-      this.showStatus('Please enter your name.', 'error');
+      this.reportInvalidField('name', 'Please enter your name.');
       return false;
     }
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      this.showStatus('Please enter a valid email address.', 'error');
+      this.reportInvalidField('email', 'Please enter a valid email address.');
       return false;
     }
 
     if (message.length < 10) {
-      this.showStatus('Please share a little more detail in your message.', 'error');
+      this.reportInvalidField('message', 'Please share a little more detail in your message.');
       return false;
     }
 
     return true;
+  }
+
+  setFieldError(name, message) {
+    const field = this.form?.elements?.namedItem(name);
+    const error = document.getElementById(`${name}-error`);
+    if (field instanceof HTMLElement) {
+      if (message) field.setAttribute('aria-invalid', 'true');
+      else field.removeAttribute('aria-invalid');
+    }
+    if (error) error.textContent = message;
+  }
+
+  clearFieldErrors() {
+    ['name', 'email', 'message'].forEach((name) => this.setFieldError(name, ''));
+  }
+
+  reportInvalidField(name, message) {
+    this.setFieldError(name, message);
+    this.showStatus(message, 'error');
+    const field = this.form?.elements?.namedItem(name);
+    if (field instanceof HTMLElement) field.focus();
   }
 
   async readResponse(response) {

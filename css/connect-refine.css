@@ -107,6 +107,23 @@ body.connect-page .contact-form textarea {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
 }
 
+body.connect-page .field-error {
+  min-height: 1.2em;
+  margin: 0;
+  color: #8f352b;
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+body.connect-page .field-error:empty {
+  min-height: 0;
+}
+
+body.connect-page .contact-form [aria-invalid="true"] {
+  border-color: #a45949;
+  box-shadow: 0 0 0 3px rgba(164, 89, 73, 0.12);
+}
+
 body.connect-page .contact-form textarea {
   min-height: 190px;
   resize: vertical;
