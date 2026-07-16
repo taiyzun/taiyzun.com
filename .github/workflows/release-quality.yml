@@ -1,0 +1,134 @@
+name: Release Quality
+
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deterministic:
+    name: Build and deterministic checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Use Node 22
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Verify release output
+        run: npm run verify
+
+      - name: Check production dependency security
+        run: npm audit --omit=dev --audit-level=high
+
+      - name: Reject whitespace and stale generated output
+        run: |
+          git diff --check
+          git diff --exit-code
+
+  browser:
+    name: Responsive and accessibility browsers
+    needs: deterministic
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Use Node 22
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Install Chromium and WebKit
+        run: npx playwright install --with-deps chromium webkit
+
+      - name: Build deployable site
+        run: npm run build
+
+      - name: Test layouts, keyboard flows, no-JS and WCAG
+        run: npm run test:ui
+
+      - name: Upload browser diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-diagnostics
+          path: test-results/
+          retention-days: 7
+
+  lighthouse:
+    name: Local performance budgets
+    needs: deterministic
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Use Node 22
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Build deployable site
+        run: npm run build
+
+      - name: Start immutable preview
+        run: |
+          node scripts/serve-dist.mjs --port 4176 > /tmp/taiyzun-preview.log 2>&1 &
+          echo $! > /tmp/taiyzun-preview.pid
+          curl --retry 20 --retry-delay 1 --retry-connrefused --fail http://127.0.0.1:4176/ > /dev/null
+
+      - name: Audit Home mobile
+        run: |
+          mkdir -p reports
+          ./node_modules/.bin/lighthouse http://127.0.0.1:4176/ --quiet --output=json --output-path=reports/home-mobile.json --only-categories=performance,accessibility,best-practices,seo --chrome-flags="--headless --no-sandbox"
+
+      - name: Audit Home desktop
+        run: ./node_modules/.bin/lighthouse http://127.0.0.1:4176/ --quiet --preset=desktop --output=json --output-path=reports/home-desktop.json --only-categories=performance,accessibility,best-practices,seo --chrome-flags="--headless --no-sandbox"
+
+      - name: Audit Creations mobile
+        run: ./node_modules/.bin/lighthouse http://127.0.0.1:4176/creations --quiet --output=json --output-path=reports/creations-mobile.json --only-categories=performance,accessibility,best-practices,seo --chrome-flags="--headless --no-sandbox"
+
+      - name: Enforce budgets
+        run: node scripts/assert-lighthouse.mjs reports/home-mobile.json reports/home-desktop.json reports/creations-mobile.json
+
+      - name: Stop preview
+        if: always()
+        run: |
+          if [ -f /tmp/taiyzun-preview.pid ]; then
+            kill "$(cat /tmp/taiyzun-preview.pid)" || true
+          fi
+
+      - name: Upload Lighthouse evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-lighthouse-reports
+          path: reports/
+          retention-days: 14

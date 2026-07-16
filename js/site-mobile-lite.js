@@ -31,6 +31,12 @@
     if (!document.body || document.body.dataset.siteLoaderReady === 'true') return;
 
     document.body.dataset.siteLoaderReady = 'true';
+    if (!document.getElementById('siteLoader') && !document.querySelector('.site-loader')) {
+      root.classList.remove('has-site-loader', 'site-loader-active');
+      document.body.classList.remove('site-loader-active');
+      window.TAIYZUN_completeSiteLoader = () => {};
+      return;
+    }
     const startedAt = performance.now();
     let fontsReady = !document.fonts?.ready;
     // The complete static fallback ships in the initial HTML. WebGL is a
@@ -142,6 +148,46 @@
     window.setTimeout(() => requestHide(true), maxVisible);
   }
 
+  function installSignatureVisibilityController() {
+    const install = () => {
+      const signatureLogo = document.querySelector('.hero-signature-logo');
+      if (!signatureLogo || signatureLogo.dataset.visibilityReady === 'true') return;
+
+      signatureLogo.dataset.visibilityReady = 'true';
+      const signatureAnchor = document.querySelector('.hero, .page-hero');
+      if (!signatureAnchor || document.body?.classList.contains('error-page')) {
+        signatureLogo.classList.add('is-outside-hero');
+        return;
+      }
+
+      const syncVisibility = (isVisible) => {
+        signatureLogo.classList.toggle('is-outside-hero', !isVisible);
+      };
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(
+          ([entry]) => syncVisibility(Boolean(entry?.isIntersecting)),
+          { threshold: 0.08 }
+        );
+        observer.observe(signatureAnchor);
+        return;
+      }
+
+      const syncFallback = () => {
+        const rect = signatureAnchor.getBoundingClientRect();
+        syncVisibility(rect.bottom > 0 && rect.top < window.innerHeight);
+      };
+      window.addEventListener('scroll', syncFallback, { passive: true });
+      window.addEventListener('resize', syncFallback, { passive: true });
+      syncFallback();
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', install, { once: true });
+    } else {
+      install();
+    }
+  }
+
   window.TAIYZUN_applyMobileLite = applyMobileLite;
 
   window.TAIYZUN_load3DField = function load3DField(src) {
@@ -165,21 +211,25 @@
     };
 
     if (!compact && !connectionSlow) {
+      let scheduled = false;
+      const interactionEvents = ['pointermove', 'pointerdown', 'wheel', 'keydown'];
       const startDesktopField = () => {
+        if (scheduled) return;
+        scheduled = true;
+        interactionEvents.forEach((eventName) => window.removeEventListener(eventName, startDesktopField));
         window.setTimeout(() => {
           if ('requestIdleCallback' in window) {
             window.requestIdleCallback(inject, { timeout: 1600 });
           } else {
             inject();
           }
-        }, 520);
+        }, 120);
       };
 
-      if (document.readyState === 'complete') {
-        startDesktopField();
-      } else {
-        window.addEventListener('load', startDesktopField, { once: true });
-      }
+      interactionEvents.forEach((eventName) => {
+        window.addEventListener(eventName, startDesktopField, { once: true, passive: true });
+      });
+      window.setTimeout(startDesktopField, 30000);
       return;
     }
 
@@ -269,15 +319,23 @@
       }
     };
 
-    if (document.readyState === 'complete') {
-      schedule();
-    } else {
-      window.addEventListener('load', schedule, { once: true });
-    }
+    let scheduled = false;
+    const interactionEvents = ['pointermove', 'pointerdown', 'wheel', 'keydown'];
+    const startDesktopEnhancements = () => {
+      if (scheduled) return;
+      scheduled = true;
+      interactionEvents.forEach((eventName) => window.removeEventListener(eventName, startDesktopEnhancements));
+      window.setTimeout(schedule, 180);
+    };
+    interactionEvents.forEach((eventName) => {
+      window.addEventListener(eventName, startDesktopEnhancements, { once: true, passive: true });
+    });
+    window.setTimeout(startDesktopEnhancements, 30000);
   };
 
   applyMobileLite();
   installPageLoaderController();
+  installSignatureVisibilityController();
   [mobileQuery, coarseQuery, reduceQuery].forEach((query) => {
     if (!query) return;
     if (typeof query.addEventListener === 'function') {

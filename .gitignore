@@ -19,6 +19,8 @@ bfp_public_content_cleanup/
 contact_master_database/
 reports/
 lighthouse-*.json
+playwright-report/
+test-results/
 
 # Local gallery copy artifacts
 assets/space-gallery-share-index [0-9]*.json

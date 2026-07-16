@@ -139,23 +139,26 @@
     document.body.appendChild(signatureLogo);
   }
   if (signatureLogo) {
-    const signatureAnchor = document.querySelector('.hero, .page-hero');
-    if (!signatureAnchor || document.body.classList.contains('error-page')) {
-      signatureLogo.classList.add('is-outside-hero');
-    } else if ('IntersectionObserver' in window) {
-      const signatureObserver = new IntersectionObserver(
-        ([entry]) => signatureLogo.classList.toggle('is-outside-hero', !entry?.isIntersecting),
-        { threshold: 0.08 }
-      );
-      signatureObserver.observe(signatureAnchor);
-    } else {
-      const syncSignatureVisibility = () => {
-        const rect = signatureAnchor.getBoundingClientRect();
-        signatureLogo.classList.toggle('is-outside-hero', rect.bottom <= 0 || rect.top >= window.innerHeight);
-      };
-      window.addEventListener('scroll', syncSignatureVisibility, { passive: true });
-      window.addEventListener('resize', syncSignatureVisibility, { passive: true });
-      syncSignatureVisibility();
+    if (signatureLogo.dataset.visibilityReady !== 'true') {
+      signatureLogo.dataset.visibilityReady = 'true';
+      const signatureAnchor = document.querySelector('.hero, .page-hero');
+      if (!signatureAnchor || document.body.classList.contains('error-page')) {
+        signatureLogo.classList.add('is-outside-hero');
+      } else if ('IntersectionObserver' in window) {
+        const signatureObserver = new IntersectionObserver(
+          ([entry]) => signatureLogo.classList.toggle('is-outside-hero', !entry?.isIntersecting),
+          { threshold: 0.08 }
+        );
+        signatureObserver.observe(signatureAnchor);
+      } else {
+        const syncSignatureVisibility = () => {
+          const rect = signatureAnchor.getBoundingClientRect();
+          signatureLogo.classList.toggle('is-outside-hero', rect.bottom <= 0 || rect.top >= window.innerHeight);
+        };
+        window.addEventListener('scroll', syncSignatureVisibility, { passive: true });
+        window.addEventListener('resize', syncSignatureVisibility, { passive: true });
+        syncSignatureVisibility();
+      }
     }
 
     let shineTimer = 0;

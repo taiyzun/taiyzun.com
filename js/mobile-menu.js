@@ -19,7 +19,7 @@
     }
 
     var focusableSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
-    var lastFocus = null;
+    var focusTimer = 0;
     var menuGuardsReady = false;
 
     function setOpen(open) {
@@ -34,13 +34,18 @@
       button.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
 
       if (open) {
-        lastFocus = document.activeElement;
-        window.setTimeout(function () {
+        window.clearTimeout(focusTimer);
+        focusTimer = window.setTimeout(function () {
+          if (!isOpen()) return;
           var first = links.querySelector('a');
           if (first) first.focus({ preventScroll: true });
         }, 180);
-      } else if (lastFocus && typeof lastFocus.focus === 'function') {
-        lastFocus.focus({ preventScroll: true });
+      } else {
+        window.clearTimeout(focusTimer);
+        // A menu close must always return keyboard focus to its controlling
+        // button. This stays deterministic even when a deferred page script
+        // moved focus while the opening transition was running.
+        button.focus({ preventScroll: true });
       }
     }
 

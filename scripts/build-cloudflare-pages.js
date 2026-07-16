@@ -51,6 +51,7 @@ const publicAssetFiles = [
   'js/creations-gallery.min.js',
   'js/desktop-enhancements-loader.min.js',
   'js/harmonic-interactions.min.js',
+  'js/home-css-loader.min.js',
   'js/mobile-menu.min.js',
   'js/odyssey-runtime.min.js',
   'js/odyssey-portraits.js',

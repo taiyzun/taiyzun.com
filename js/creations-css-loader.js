@@ -1,5 +1,8 @@
 (function loadCreationsCss() {
-  const href = '/css/taiyzun-creations.bundle.min.css?v=20260714e';
+  const styles = [
+    '/css/taiyzun-creations.bundle.min.css?v=20260717a',
+    '/css/taiyzun-system.css?v=20260717a'
+  ];
   let loaded = false;
   let timer = 0;
 
@@ -16,19 +19,28 @@
   };
 
   const inject = () => {
-    if (loaded || document.querySelector('link[href="' + href + '"]')) return;
+    if (loaded) return;
     loaded = true;
     if (timer) window.clearTimeout(timer);
 
     document.documentElement.classList.add('creations-full-css-loading');
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = href;
-    link.dataset.creationsFullCss = 'true';
-    link.onload = () => {
-      document.documentElement.classList.add('creations-full-css-ready');
-    };
-    document.head.appendChild(link);
+    let pending = styles.length;
+    styles.forEach((href) => {
+      if (document.querySelector(`link[href="${href}"]`)) {
+        pending -= 1;
+        return;
+      }
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = href;
+      link.dataset.creationsFullCss = 'true';
+      link.onload = () => {
+        pending -= 1;
+        if (pending <= 0) document.documentElement.classList.add('creations-full-css-ready');
+      };
+      document.head.appendChild(link);
+    });
+    if (pending <= 0) document.documentElement.classList.add('creations-full-css-ready');
   };
 
   const schedule = (delay, timeout) => {

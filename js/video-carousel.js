@@ -25,7 +25,6 @@
   iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
   iframe.setAttribute('allowfullscreen', '');
   iframe.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
-  frame?.classList.add('is-video-loading');
 
   let activeIndex = 0;
   let targetSpin = 0;
@@ -173,10 +172,14 @@
     }
 
     const nextSrc = `https://www.youtube-nocookie.com/embed/${videoId}?${params.toString()}`;
-    if (iframe.src !== nextSrc) {
+    if (isPlaying && iframe.src !== nextSrc) {
       frame?.classList.remove('is-video-ready');
       frame?.classList.add('is-video-loading');
       iframe.src = nextSrc;
+    } else if (!isPlaying) {
+      iframe.removeAttribute('src');
+      frame?.classList.remove('is-video-loading');
+      frame?.classList.add('is-video-ready');
     }
     syncFramePlaybackState(isPlaying);
     iframe.title = `Taiyzun YouTube video: ${title}`;

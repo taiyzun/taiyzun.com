@@ -166,18 +166,18 @@
 </script>
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-regular-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/philosopher-italic-latin.woff2" crossorigin>
-<link rel="stylesheet" href="/css/taiyzun-index.bundle.min.css?v=20260714e">
-<link rel="stylesheet" href="/css/taiyzun-system.css?v=20260714e">
-<link rel="preload" as="image" href="/3d/Taiyzun_Sword_Fallback.png" type="image/png" fetchpriority="high">
+<link rel="stylesheet" href="/css/home-critical.min.css?v=20260717a">
+<script data-cfasync="false" src="/js/home-css-loader.min.js?v=20260717a" defer></script>
+<noscript><link rel="stylesheet" href="/css/taiyzun-index.bundle.min.css?v=20260717a"><link rel="stylesheet" href="/css/taiyzun-system.css?v=20260717a"></noscript>
+<link rel="preload" as="image" href="/3d/Taiyzun_Sword_Fallback.png?v=20260714a" type="image/png" fetchpriority="high">
 <!-- Performance: Prefetch other pages -->
+<noscript><link rel="stylesheet" href="/css/no-js.min.css?v=20260717a"></noscript>
 </head>
 <body class="home-page premium-ui-ready">
-<script data-cfasync="false" src="/js/site-mobile-lite.min.js?v=20260714e"></script>
+<script data-cfasync="false" src="/js/site-mobile-lite.min.js?v=20260717b"></script>
 <a href="#main-content" class="skip-link">Skip to main content</a>
 <div class="cursor-glow" id="cursorGlow"></div>
 <div class="cursor-ring" id="cursorRing"></div>
-<noscript><style>#siteLoader{display:none!important}html,body{overflow:auto!important}</style></noscript>
-<div class="site-loader" id="siteLoader" role="status" aria-live="polite" aria-label="Loading Taiyzun" data-start="0" style="position:fixed;inset:0;z-index:100000;display:grid;place-items:center;overflow:hidden;width:100vw;height:100vh;contain:strict;"><span class="site-loader__orb" style="position:relative;width:clamp(136px,18vw,232px);aspect-ratio:1;display:grid;place-items:center;transform-style:preserve-3d;border-radius:50%;"><span class="site-loader__object" style="position:relative;width:84%;aspect-ratio:1;display:grid;place-items:center;overflow:hidden;transform-style:preserve-3d;border-radius:50%;"><img class="site-loader__mark" src="/assets/images/Taiyzun-at-loader-256w.webp" alt="" width="256" height="256" decoding="async" fetchpriority="high" style="display:block;width:100%;height:100%;object-fit:contain;"></span></span></div>
 <nav id="mainNav">
   <a href="/" class="logo" aria-label="Taiyzun — Home"><picture>
         <source srcset="assets/images/Taiyzun-logo-36w.avif?v=20260714 1x, assets/images/Taiyzun-logo-52w.avif?v=20260714 1.5x, assets/images/Taiyzun-logo-200w.avif?v=20260714 2x" type="image/avif">
@@ -195,7 +195,7 @@
     <li><a href="/connect">Connect</a></li>
   </ul>
 </nav>
-<main class="hero sword-hero" id="main-content">
+<main class="hero sword-hero" id="main-content" tabindex="-1">
   <div class="hero-video" aria-hidden="true">
     <video class="ambient-video-media" autoplay muted loop playsinline webkit-playsinline preload="none" disablepictureinpicture>
       <source data-src="/assets/video/sora.mp4?v=20260714a" type="video/mp4">
@@ -210,7 +210,7 @@
     <img
       class="taiyzun-sword-fallback"
       data-taiyzun-sword-fallback
-      src="/3d/Taiyzun_Sword_Fallback.png"
+      src="/3d/Taiyzun_Sword_Fallback.png?v=20260714a"
       alt=""
       width="608"
       height="1600"
@@ -331,7 +331,6 @@
         <div class="video-player video-frame" data-video-player>
           <iframe
             data-video-iframe
-            src="https://www.youtube-nocookie.com/embed/D3bBKhJsHeQ?rel=0&amp;modestbranding=1&amp;playsinline=1&amp;origin=https%3A%2F%2Ftaiyzun.com"
             title="Taiyzun YouTube video: wiThOuT muSic..."
             loading="lazy"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -604,6 +603,7 @@
   (function() {
     const navLinks = document.querySelectorAll('a[href^="#"]');
     navLinks.forEach(link => {
+      if (link.classList.contains('skip-link')) return;
       link.addEventListener('click', (e) => {
         const href = link.getAttribute('href');
         if (href === '#') {
@@ -691,8 +691,8 @@
     revealElements.forEach(el => observer.observe(el));
   })();
 </script>
-<script data-cfasync="false" src="/js/mobile-menu.min.js?v=20260705a" defer></script>
-<script data-cfasync="false" src="/js/video-carousel.min.js?v=20260714a" defer></script>
+<script data-cfasync="false" src="/js/mobile-menu.min.js?v=20260714b" defer></script>
+<script data-cfasync="false" src="/js/video-carousel.min.js?v=20260717a" defer></script>
 <script data-cfasync="false">
   (function schedulePageEnhancementAssets() {
     const scripts = ['/js/ambient-video.min.js?v=20260714a', '/js/premium-experience.min.js?v=20260705a'];
@@ -735,7 +735,7 @@
     else window.addEventListener('taiyzun:mobile-lite-ready', start, { once: true });
   })();
 </script>
-<script data-cfasync="false" type="module" src="/js/taiyzun-sword.min.js?v=20260714e"></script>
+<script data-cfasync="false">window.TAIYZUN_load3DField?.('/js/taiyzun-sword.min.js?v=20260717a');</script>
 <script data-cfasync="false">
   window.TAIYZUN_loadDesktopEnhancements?.([
     '/js/vendor/gsap.min.js?v=20260623b',

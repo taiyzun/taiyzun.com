@@ -6,7 +6,7 @@ const MANIFEST_URLS = [
   `/assets/space-gallery-manifest.json?v=${GALLERY_MANIFEST_VERSION}`
 ];
 const siteMobileLite = Boolean(window.TAIYZUN_applyMobileLite?.());
-const PAGE_SIZE = siteMobileLite ? 8 : 30;
+const PAGE_SIZE = siteMobileLite ? 4 : 30;
 const GRID_IMAGE_SIZES = '(max-width: 420px) calc(100vw - 2rem), (max-width: 768px) calc((100vw - 3rem) / 2), (max-width: 1180px) 220px, 260px';
 const PLACEHOLDER_SRC = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
 const supportsNativeLazy = 'loading' in HTMLImageElement.prototype;
@@ -418,8 +418,8 @@ async function appendBatch() {
       const fetchPriority = priorityImage ? 'high' : 'low';
       const sourceAttrs = supportsNativeLazy ? `src="${thumb}"` : `data-src="${thumb}" src="${PLACEHOLDER_SRC}"`;
       const titleId = `creation-title-${i}`;
-      el.setAttribute('aria-labelledby', titleId);
-      el.innerHTML = `<img ${sourceAttrs} alt="${t}" width="360" height="360" sizes="${GRID_IMAGE_SIZES}" loading="${loadingMode}" decoding="async" fetchpriority="${fetchPriority}"><div class="overlay"><span class="sparkle">✦</span><h3 id="${titleId}">${t}</h3><p>${s}</p></div>`;
+      const subId = `creation-sub-${i}`;
+      el.innerHTML = `<img ${sourceAttrs} alt="" width="360" height="360" sizes="${GRID_IMAGE_SIZES}" loading="${loadingMode}" decoding="async" fetchpriority="${fetchPriority}"><div class="overlay"><span class="sparkle">✦</span><h3 id="${titleId}">${t}</h3><p id="${subId}">${s}</p></div>`;
       el.addEventListener('click', () => openLB(i, { opener: el }));
       fragment.appendChild(el);
       pendingImages.push(el.querySelector('img'));

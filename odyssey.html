@@ -132,13 +132,12 @@
   })();
 </script>
 <noscript><link rel="stylesheet" href="/css/taiyzun-odyssey.bundle.min.css?v=20260714e"></noscript>
-<link rel="stylesheet" href="/css/taiyzun-system.css?v=20260714e">
+<link rel="stylesheet" href="/css/taiyzun-system.css?v=20260717a">
+<noscript><link rel="stylesheet" href="/css/no-js.min.css?v=20260717a"></noscript>
 </head>
 <body class="odyssey-page premium-ui-ready">
-<a href="#page-title" class="skip-link">Skip to page content</a>
+<a href="#main-content" class="skip-link">Skip to page content</a>
 <div class="cursor-glow" id="cursorGlow"></div>
-<noscript><style>#siteLoader{display:none!important}html,body{overflow:auto!important}</style></noscript>
-<div class="site-loader" id="siteLoader" role="status" aria-live="polite" aria-label="Loading Taiyzun" data-start="0" data-compact-min="260" data-default-min="420" data-dom-delay="120" data-load-delay="180" data-compact-max="1400" data-default-max="2200" style="position:fixed;inset:0;z-index:100000;display:grid;place-items:center;overflow:hidden;width:100vw;height:100vh;contain:strict;"><span class="site-loader__orb" style="position:relative;width:clamp(136px,18vw,232px);aspect-ratio:1;display:grid;place-items:center;transform-style:preserve-3d;border-radius:50%;"><span class="site-loader__object" style="position:relative;width:84%;aspect-ratio:1;display:grid;place-items:center;overflow:hidden;transform-style:preserve-3d;border-radius:50%;"><img class="site-loader__mark" src="/assets/images/Taiyzun-at-loader-256w.webp" alt="" width="256" height="256" decoding="async" fetchpriority="high" style="display:block;width:100%;height:100%;object-fit:contain;"></span></span></div>
 <nav id="mainNav">
   <a href="/" class="logo" aria-label="Taiyzun — Home"><picture>
         <source srcset="assets/images/Taiyzun-logo-36w.avif?v=20260714 1x, assets/images/Taiyzun-logo-52w.avif?v=20260714 1.5x, assets/images/Taiyzun-logo-200w.avif?v=20260714 2x" type="image/avif">
@@ -167,7 +166,7 @@
     data-taiyzun-sword
     aria-hidden="true">
     <canvas class="taiyzun-sword-canvas" data-taiyzun-sword-canvas></canvas>
-    <img class="taiyzun-sword-fallback" data-taiyzun-sword-fallback src="/3d/Taiyzun_Sword_Fallback.png" alt="" width="608" height="1600" decoding="async" loading="lazy">
+    <img class="taiyzun-sword-fallback" data-taiyzun-sword-fallback src="/3d/Taiyzun_Sword_Fallback.png?v=20260714a" alt="" width="608" height="1600" decoding="async" loading="lazy">
   </div>
   <div
     class="taiyzun-at-stage taiyzun-at-stage--page"
@@ -183,7 +182,7 @@
     <span class="coming-soon">Portrait Gallery Live</span>
   </div>
 </div>
-<main class="gallery-section" id="main-content" style="position:relative;">
+<main class="gallery-section" id="main-content" tabindex="-1" style="position:relative;">
   <div class="gallery-label reveal animate-on-scroll">
     <p class="section-label">Portrait Archive</p>
     <h2>A Visual Exploration Through the Business Odyssey</h2>
@@ -198,6 +197,18 @@
   <p class="gallery-meta reveal animate-on-scroll"><span id="portraitCount">333</span> Portraits</p>
   <div class="gallery-grid" id="galleryGrid"></div>
 </main>
+<picture class="hero-signature-logo" aria-hidden="true">
+  <img
+    src="/assets/images/TaiyZun-Sword-logo-2026-ui-700.png"
+    srcset="/assets/images/TaiyZun-Sword-logo-2026-ui-384.png 384w, /assets/images/TaiyZun-Sword-logo-2026-ui-700.png 700w, /assets/images/TaiyZun-Sword-logo-2026-ui-1024.png 1024w"
+    sizes="(max-width: 520px) 139px, (max-width: 820px) 126px, 228px"
+    alt=""
+    width="700"
+    height="500"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="low">
+</picture>
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="lbTitle" aria-describedby="lbSub" tabindex="-1">
   <div class="lb-topbar">
     <div class="lb-counter">
@@ -239,8 +250,8 @@
   <p class="footer-copy footer-signature">Built through TimE. Shaped by SpAcE.</p>
   <p class="footer-copy">&copy; 2026 Taiyzun Shabbir Shahpurwala. All rights reserved.</p>
 </footer>
-<script data-cfasync="false" src="/js/site-mobile-lite.min.js?v=20260714e" defer></script>
-<script data-cfasync="false" src="/js/mobile-menu.min.js?v=20260705a" defer></script>
+<script data-cfasync="false" src="/js/site-mobile-lite.min.js?v=20260717b" defer></script>
+<script data-cfasync="false" src="/js/mobile-menu.min.js?v=20260714b" defer></script>
 <script data-cfasync="false">
   (function scheduleOdysseyEnhancementAssets() {
     const enhancementScripts = [
@@ -418,7 +429,13 @@
     else window.addEventListener('taiyzun:mobile-lite-ready', whenReady, { once: true });
   })();
 </script>
-<script data-cfasync="false" type="module" src="/js/taiyzun-sword.min.js?v=20260714e"></script>
+<script data-cfasync="false">
+  (function loadOdyssey3DField() {
+    const load = () => window.TAIYZUN_load3DField?.('/js/taiyzun-sword.min.js?v=20260717a');
+    if (window.TAIYZUN_load3DField) load();
+    else window.addEventListener('taiyzun:mobile-lite-ready', load, { once: true });
+  })();
+</script>
 <script data-cfasync="false">
   (function loadDesktopEnhancements() {
     const load = () => window.TAIYZUN_loadDesktopEnhancements?.([

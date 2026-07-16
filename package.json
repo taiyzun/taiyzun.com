@@ -14,14 +14,27 @@
     "test:contact": "node scripts/test-contact-function.mjs",
     "test:creation-share": "node scripts/test-creation-share-function.mjs",
     "test:seo-tracking": "node scripts/validate-seo-tracking-state.js",
-    "test:safe": "npm run test:contact && npm run test:creation-share && npm run test:seo-tracking"
+    "test:safe": "npm run test:contact && npm run test:creation-share && npm run test:seo-tracking",
+    "test:brand": "node scripts/verify-brand-assets.mjs",
+    "test:dist": "node scripts/verify-dist.mjs",
+    "test:ui": "playwright test",
+    "test:a11y": "playwright test --grep @a11y",
+    "test:ci": "npm run test:safe && npm run test:brand && npm run build && npm run test:dist",
+    "smoke:production": "node scripts/smoke-production.mjs",
+    "verify": "npm run test:ci"
   },
+  "engines": {
+    "node": ">=22"
+  },
+  "packageManager": "npm@11.12.1",
   "dependencies": {
     "gsap": "^3.12.2",
     "three": "^0.184.0"
   },
   "devDependencies": {
     "@aws-sdk/client-s3": "^3.1021.0",
+    "@axe-core/playwright": "^4.12.1",
+    "@playwright/test": "^1.61.1",
     "csso-cli": "^4.0.2",
     "lighthouse": "^12.8.2",
     "sharp": "^0.34.5",

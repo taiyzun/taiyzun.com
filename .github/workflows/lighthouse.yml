@@ -1,42 +1,69 @@
 name: Lighthouse Audit
 
 on:
-  push:
-    branches: [ main, master ]
   schedule:
-    - cron: '0 2 * * 1' # Weekly on Monday at 02:00 UTC
+    - cron: '0 2 * * 1'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: lighthouse-audit-${{ github.ref }}
+  group: lighthouse-production-audit
   cancel-in-progress: true
 
 jobs:
   lighthouse:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - slug: home
+            url: https://taiyzun.com/
+          - slug: journey
+            url: https://taiyzun.com/journey
+          - slug: creations
+            url: https://taiyzun.com/creations
+          - slug: odyssey
+            url: https://taiyzun.com/odyssey
+          - slug: connect
+            url: https://taiyzun.com/connect
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v7
 
-      - name: Run Lighthouse (mobile)
+      - name: Use Node 22
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install locked Lighthouse version
+        run: npm ci
+
+      - name: Run production Lighthouse
         run: |
           mkdir -p reports
-          npx -y lighthouse "https://taiyzun.com/odyssey" \
-            --output json \
-            --output-path ./reports/lighthouse-odyssey.json \
-            --form-factor=mobile \
-            --chrome-flags="--no-sandbox --headless"
+          ./node_modules/.bin/lighthouse "${{ matrix.url }}" --quiet --output=json --output-path="reports/${{ matrix.slug }}-mobile.json" --only-categories=performance,accessibility,best-practices,seo --chrome-flags="--headless --no-sandbox"
+
+      - name: Enforce production regression floor
+        env:
+          MIN_PERFORMANCE: '0.60'
+          MIN_ACCESSIBILITY: '0.90'
+          MIN_BEST_PRACTICES: '0.80'
+          MIN_SEO: '0.90'
+          MAX_LCP_MS: '6000'
+          MAX_CLS: '0.15'
+          MAX_TBT_MS: '600'
+          MAX_TRANSFER_BYTES: '2000000'
+        run: node scripts/assert-lighthouse.mjs "reports/${{ matrix.slug }}-mobile.json"
 
       - name: Upload Lighthouse report
+        if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: lighthouse-report
+          name: lighthouse-${{ matrix.slug }}-mobile
           path: reports/
-
-      - name: Print summary
-        run: |
-          echo "Lighthouse JSON uploaded as artifact 'lighthouse-report' (reports/)" 
+          retention-days: 14
