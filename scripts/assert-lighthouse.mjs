@@ -68,6 +68,12 @@ for (const reportPath of reportPaths) {
   if (initialModelRequests.length) {
     failures.push(`${label}: 3D model was requested before user interaction`);
   }
+  const initialHomeEnhancements = networkItems.filter((item) =>
+    /\/(?:home-interactions|video-carousel)\.min\.js(?:$|\?)/i.test(item.url || '')
+  );
+  if (initialHomeEnhancements.length) {
+    failures.push(`${label}: Home interaction or video runtime was requested before it became relevant`);
+  }
 
   console.log(
     `PASS ${label}: perf=${values.performance.toFixed(2)} a11y=${values.accessibility.toFixed(2)} bp=${values.bestPractices.toFixed(2)} seo=${values.seo.toFixed(2)} LCP=${Math.round(values.lcp)}ms CLS=${values.cls.toFixed(4)} TBT=${Math.round(values.tbt)}ms bytes=${Math.round(values.bytes)}`

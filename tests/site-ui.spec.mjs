@@ -207,6 +207,11 @@ for (const route of canonicalPages) {
 for (const route of canonicalPages) {
   test(`@progressive ${route.name} keeps desktop 3D off the critical path and starts it after interaction`, async ({ page, browserName }) => {
     test.skip(browserName === 'webkit', 'The progressive-loading contract is browser-independent.');
+    const runtimeErrors = [];
+    page.on('pageerror', (error) => runtimeErrors.push(error.message));
+    page.on('console', (message) => {
+      if (message.type() === 'error') runtimeErrors.push(message.text());
+    });
     await page.emulateMedia({ reducedMotion: 'no-preference' });
     await page.setViewportSize({ width: 1440, height: 900 });
     const response = await page.goto(route.path, { waitUntil: 'domcontentloaded' });
@@ -216,6 +221,10 @@ for (const route of canonicalPages) {
 
     await expect(page.locator('script[src*="taiyzun-sword.min.js"]')).toHaveCount(0);
     await expect(page.locator('script[src*="desktop-enhancements-loader.min.js"]')).toHaveCount(0);
+    if (route.name === 'home') {
+      await expect(page.locator('script[src*="home-interactions.min.js"]')).toHaveCount(0);
+      await expect(page.locator('script[src*="video-carousel.min.js"]')).toHaveCount(0);
+    }
     const earlyModels = await page.evaluate(() =>
       performance.getEntriesByType('resource').filter((entry) => /\.glb(?:$|\?)/i.test(entry.name)).length
     );
@@ -230,5 +239,17 @@ for (const route of canonicalPages) {
       () => page.locator('script[src*="desktop-enhancements-loader.min.js"]').count(),
       { timeout: 5000 }
     ).toBe(1);
+    if (route.name === 'home') {
+      await expect.poll(
+        () => page.locator('script[src*="home-interactions.min.js"]').count(),
+        { timeout: 5000 }
+      ).toBe(1);
+      await page.locator('[data-video-carousel]').scrollIntoViewIfNeeded();
+      await expect.poll(
+        () => page.locator('script[src*="video-carousel.min.js"]').count(),
+        { timeout: 5000 }
+      ).toBe(1);
+    }
+    expect(runtimeErrors).toEqual([]);
   });
 }

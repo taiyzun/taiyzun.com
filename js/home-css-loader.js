@@ -14,12 +14,17 @@
   const inject = () => {
     if (loaded) return;
     loaded = true;
+    const shouldBlockFirstRender = document.readyState === 'loading' && !isCompact();
     styles.forEach((href) => {
       if (document.querySelector(`link[href="${href}"]`)) return;
       const link = document.createElement('link');
       link.rel = 'stylesheet';
       link.href = href;
       link.dataset.homeFullCss = 'true';
+      if (shouldBlockFirstRender) {
+        link.setAttribute('blocking', 'render');
+        link.fetchPriority = 'high';
+      }
       document.head.appendChild(link);
     });
   };
