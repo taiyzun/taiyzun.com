@@ -104,6 +104,9 @@ jobs:
           echo $! > /tmp/taiyzun-preview.pid
           curl --retry 20 --retry-delay 1 --retry-connrefused --fail http://127.0.0.1:4176/ > /dev/null
 
+      - name: Warm Lighthouse runner
+        run: ./node_modules/.bin/lighthouse http://127.0.0.1:4176/ --quiet --output=json --output-path=/tmp/home-warmup.json --only-categories=performance --chrome-flags="--headless --no-sandbox"
+
       - name: Audit Home mobile
         run: |
           mkdir -p reports

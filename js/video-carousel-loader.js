@@ -23,7 +23,13 @@
     carousel.addEventListener(eventName, inject, { once: true, passive: true });
   });
 
-  if ('IntersectionObserver' in window) {
+  const compact = Boolean(
+    window.matchMedia?.('(max-width: 820px), (pointer: coarse)')?.matches ||
+    /iP(hone|ad|od)|Android/i.test(navigator.userAgent || '') ||
+    navigator.connection?.saveData
+  );
+
+  if (!compact && 'IntersectionObserver' in window) {
     observer = new IntersectionObserver((entries) => {
       if (entries.some((entry) => entry.isIntersecting)) inject();
     }, { rootMargin: '300px 0px', threshold: 0 });

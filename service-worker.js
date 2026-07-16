@@ -1,11 +1,11 @@
 // Service Worker for taiyzun.com
-const CACHE_NAME = 'taiyzun-core-v132';
+const CACHE_NAME = 'taiyzun-core-v133';
 const RUNTIME_IMAGE_CACHE = 'taiyzun-images-v9';
 const ASSETS_TO_CACHE = [
   '/index.html',
   '/js/site-mobile-lite.min.js?v=20260717c',
-  '/css/home-critical.min.css?v=20260717a',
-  '/js/home-css-loader.min.js?v=20260717a',
+  '/css/home-critical.min.css?v=20260717b',
+  '/js/home-css-loader.min.js?v=20260717c',
   '/manifest.json?v=20260714',
   '/3d/Taiyzun_Sword_Fallback.png?v=20260714a',
   '/assets/images/Taiyzun-logo-36w.avif?v=20260714',

@@ -37,18 +37,25 @@ assert(canonicalMetadata.hasAlpha === true, 'Canonical logo transparency is miss
 
 const canonicalRatio = canonicalMetadata.width / canonicalMetadata.height;
 const variants = [
-  { file: 'assets/images/TaiyZun-Sword-logo-2026-ui-384.png', width: 384, height: 274, preserveRatio: true },
-  { file: 'assets/images/TaiyZun-Sword-logo-2026-ui-700.png', width: 700, height: 500, preserveRatio: true },
-  { file: 'assets/images/TaiyZun-Sword-logo-2026-ui-1024.png', width: 1024, height: 731, preserveRatio: true },
-  { file: 'assets/images/TaiyZun-Sword-logo-2026-social.png', width: 1200, height: 630, preserveRatio: false },
-  { file: 'assets/images/TaiyZun-Sword-logo-2026-social-square.png', width: 1200, height: 1200, preserveRatio: false }
+  { file: 'assets/images/TaiyZun-Sword-logo-2026-ui-384.png', width: 384, height: 274, preserveRatio: true, sha256: '4716aae0877027ce2d7efe9ba8038594bda0c1cd5662a7ded589b9fee0af397e' },
+  { file: 'assets/images/TaiyZun-Sword-logo-2026-ui-700.png', width: 700, height: 500, preserveRatio: true, sha256: 'c314bba1b0b6ddba7b216cd5f91a74d13326c5751ae5facf3355f3f08118b9dc' },
+  { file: 'assets/images/TaiyZun-Sword-logo-2026-ui-1024.png', width: 1024, height: 731, preserveRatio: true, sha256: '7e3cc6f82c767abbc463c7452aec13cdcc9dbecd62b2f700fe6d0d5116e692ea' },
+  { file: 'assets/images/TaiyZun-Sword-logo-2026-social.png', width: 1200, height: 630, preserveRatio: false, sha256: 'c9964228ed898a32d9930329c78e692f654b9861157d1b2a652f23280194c3ed' },
+  { file: 'assets/images/TaiyZun-Sword-logo-2026-social-square.png', width: 1200, height: 1200, preserveRatio: false, sha256: 'daed8e20b52c6106b19e97bb43ff5a7c00ef1f203e69028688d4e0cb8c1cfca7' }
 ];
 
 for (const variant of variants) {
   const variantPath = path.join(projectRoot, variant.file);
   assert(fs.existsSync(variantPath), `Missing approved logo derivative: ${variant.file}`);
 
-  const metadata = await sharp(variantPath).metadata();
+  const variantBuffer = fs.readFileSync(variantPath);
+  const variantDigest = crypto.createHash('sha256').update(variantBuffer).digest('hex');
+  assert(
+    variantDigest === variant.sha256,
+    `${variant.file} pixels changed. Regenerate it deterministically from the approved transparent source.`
+  );
+
+  const metadata = await sharp(variantBuffer).metadata();
   assert(metadata.width === variant.width, `${variant.file} width must be ${variant.width}, found ${metadata.width}`);
   assert(metadata.height === variant.height, `${variant.file} height must be ${variant.height}, found ${metadata.height}`);
   assert(metadata.hasAlpha === true, `${variant.file} must retain an alpha channel.`);

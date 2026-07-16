@@ -1,6 +1,6 @@
 (() => {
   const styles = [
-    '/css/taiyzun-index.bundle.min.css?v=20260717a',
+    '/css/taiyzun-index.bundle.min.css?v=20260717b',
     '/css/taiyzun-system.css?v=20260717a'
   ];
   let loaded = false;

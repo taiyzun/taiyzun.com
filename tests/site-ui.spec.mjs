@@ -190,11 +190,15 @@ for (const route of canonicalPages) {
         first.bottom > second.top;
       return {
         overlapsProtectedUi: protectedElements.some((protectedElement) => overlaps(rect, protectedElement.getBoundingClientRect())),
-        opacity: Number(getComputedStyle(element).opacity)
+        opacity: Number(getComputedStyle(element).opacity),
+        imageBorderRadius: getComputedStyle(element.querySelector('img')).borderRadius,
+        imageObjectFit: getComputedStyle(element.querySelector('img')).objectFit
       };
     });
     expect(initialState.overlapsProtectedUi).toBe(false);
     expect(initialState.opacity).toBeGreaterThan(0);
+    expect(initialState.imageBorderRadius).toBe('0px');
+    expect(initialState.imageObjectFit).toBe('contain');
 
     await page.evaluate(() => {
       scrollTo(0, Math.max(document.body.scrollHeight, document.documentElement.scrollHeight));
@@ -213,11 +217,37 @@ test('@progressive mobile decorative field waits for interaction', async ({ page
   await page.waitForTimeout(500);
 
   await expect(page.locator('script[src*="site-decorative-field.min.js"]')).toHaveCount(0);
+  await expect(page.locator('script[src*="video-carousel.min.js"]')).toHaveCount(0);
   await page.mouse.wheel(0, 240);
   await expect.poll(
     () => page.locator('script[src*="site-decorative-field.min.js"]').count(),
     { timeout: 5000 }
   ).toBe(1);
+  await expect(page.locator('script[src*="video-carousel.min.js"]')).toHaveCount(0);
+});
+
+test('@progressive mobile decorative field follows dynamic Odyssey growth', async ({ page, browserName }) => {
+  test.skip(browserName === 'webkit', 'The progressive-loading contract is browser-independent.');
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.setViewportSize({ width: 390, height: 844 });
+  const response = await page.goto('/odyssey', { waitUntil: 'domcontentloaded' });
+  expect(response?.status()).toBe(200);
+  await page.mouse.wheel(0, 240);
+  await expect.poll(
+    () => page.locator('script[src*="site-decorative-field.min.js"]').count(),
+    { timeout: 5000 }
+  ).toBe(1);
+  const field = page.locator('#siteDecorativeField');
+  await expect(field).toBeAttached({ timeout: 5000 });
+  const initialHeight = await field.evaluate((element) => Number.parseFloat(element.style.height));
+
+  await page.locator('#galleryGrid').evaluate((grid) => {
+    grid.style.minHeight = `${grid.scrollHeight + 5000}px`;
+  });
+  await expect.poll(
+    () => field.evaluate((element) => Number.parseFloat(element.style.height)),
+    { timeout: 5000 }
+  ).toBeGreaterThan(initialHeight + 4000);
 });
 
 for (const route of canonicalPages) {

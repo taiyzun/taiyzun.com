@@ -287,6 +287,8 @@
   let frameHandle = 0;
   let resizeHandle = 0;
   let pointerObserver = null;
+  let contentResizeObserver = null;
+  let lastLayoutDocumentHeight = 0;
   let decorativeFieldStarted = false;
   let motionGroups = [];
   const supportsFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
@@ -1017,7 +1019,8 @@
     motionGroups = buildMotionGroups(slots.length);
     field.dataset.lastScrollY = String(window.scrollY);
     field.dataset.scrollVelocity = "0";
-    field.style.height = `${Math.max(document.body.scrollHeight, document.documentElement.scrollHeight)}px`;
+    lastLayoutDocumentHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+    field.style.height = `${lastLayoutDocumentHeight}px`;
 
     slots.forEach((slotInfo, index) => {
       const image = createPlacement(slotInfo, assetDeck[index], index, placementRecords);
@@ -1083,6 +1086,20 @@
       layout();
       startLoop();
     }, 140);
+  }
+
+  function scheduleContentRelayout() {
+    if (!decorativeFieldStarted) return;
+    const nextHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+    const meaningfulDelta = Math.max(120, window.innerHeight * 0.16);
+    if (Math.abs(nextHeight - lastLayoutDocumentHeight) < meaningfulDelta) return;
+    scheduleLayout();
+  }
+
+  function observeContentGrowth() {
+    if (contentResizeObserver || !("ResizeObserver" in window)) return;
+    contentResizeObserver = new ResizeObserver(scheduleContentRelayout);
+    contentResizeObserver.observe(body);
   }
 
   function updatePointer(event) {
@@ -1157,7 +1174,10 @@
     if (!pointerObserver) {
       pointerObserver = new MutationObserver((records) => {
         if (records.some((record) => record.addedNodes.length > 0)) {
-          window.requestAnimationFrame(initPointerReactiveSurfaces);
+          window.requestAnimationFrame(() => {
+            initPointerReactiveSurfaces();
+            scheduleContentRelayout();
+          });
         }
       });
       pointerObserver.observe(body, { childList: true, subtree: true });
@@ -1198,6 +1218,7 @@
 
     decorativeFieldStarted = true;
     layout();
+    observeContentGrowth();
     initPointerReactiveSurfaces();
     startLoop();
     window.setTimeout(layout, 900);
