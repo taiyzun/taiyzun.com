@@ -107,7 +107,8 @@ const robotsResponse = await fetchWithRetry(`${apex}/robots.txt`);
 const robots = await robotsResponse.text();
 assert(robotsResponse.status === 200, `robots.txt returned ${robotsResponse.status}`);
 assert(robots.includes(`Sitemap: ${apex}/sitemap.xml`), 'robots.txt is missing the canonical sitemap URL');
-assert(robots.includes('Content-signal: search=yes, ai-input=yes, ai-train=no, use=reference'), 'robots.txt content policy changed');
+assert(robots.includes('# Content-signal: search=yes, ai-input=yes, ai-train=no, use=reference'), 'robots.txt content policy note changed');
+assert(!robots.split('\n').some((line) => /^Content-signal:/i.test(line.trim())), 'robots.txt exposes a non-standard live Content-signal directive');
 
 const serviceWorkerResponse = await fetchWithRetry(`${apex}/service-worker.js`);
 assert(serviceWorkerResponse.status === 200, `service-worker.js returned ${serviceWorkerResponse.status}`);

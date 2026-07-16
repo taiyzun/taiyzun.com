@@ -148,7 +148,8 @@ function validateDiscoveryFiles() {
     assert(robots.includes('User-agent: *'), 'robots.txt must define the general crawler group.');
     assert(robots.includes('Allow: /'), 'robots.txt must allow normal search crawling.');
     assert(robots.includes('Sitemap: https://taiyzun.com/sitemap.xml'), 'robots.txt must reference the canonical sitemap.');
-    assert(robots.includes('Content-signal: search=yes, ai-input=yes, ai-train=no, use=reference'), 'robots.txt content policy changed.');
+    assert(robots.includes('# Content-signal: search=yes, ai-input=yes, ai-train=no, use=reference'), 'robots.txt content policy note changed.');
+    assert(!robots.split('\n').some((line) => /^Content-signal:/i.test(line.trim())), 'robots.txt must not expose the non-standard Content-signal directive.');
     assert(/User-agent: Google-Extended\s+Disallow: \//.test(robots), 'Google-Extended training access must remain blocked.');
     assert(/User-agent: GPTBot\s+Disallow: \//.test(robots), 'GPTBot training access must remain blocked.');
     assert(
