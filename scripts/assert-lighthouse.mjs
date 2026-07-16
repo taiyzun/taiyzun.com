@@ -74,6 +74,12 @@ for (const reportPath of reportPaths) {
   if (initialHomeEnhancements.length) {
     failures.push(`${label}: Home interaction or video runtime was requested before it became relevant`);
   }
+  const initialDecorativeRuntime = networkItems.filter((item) =>
+    /\/site-decorative-field\.min\.js(?:$|\?)/i.test(item.url || '')
+  );
+  if (initialDecorativeRuntime.length) {
+    failures.push(`${label}: decorative field was requested before user interaction`);
+  }
 
   console.log(
     `PASS ${label}: perf=${values.performance.toFixed(2)} a11y=${values.accessibility.toFixed(2)} bp=${values.bestPractices.toFixed(2)} seo=${values.seo.toFixed(2)} LCP=${Math.round(values.lcp)}ms CLS=${values.cls.toFixed(4)} TBT=${Math.round(values.tbt)}ms bytes=${Math.round(values.bytes)}`

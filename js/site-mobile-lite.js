@@ -287,12 +287,18 @@
           window.setTimeout(injectMobileSafe, 520);
         }
       };
-
-      if (document.readyState === 'complete') {
+      let scheduled = false;
+      const interactionEvents = ['pointermove', 'pointerdown', 'touchstart', 'wheel', 'scroll', 'keydown'];
+      const startMobileSafe = () => {
+        if (scheduled) return;
+        scheduled = true;
+        interactionEvents.forEach((eventName) => window.removeEventListener(eventName, startMobileSafe));
         scheduleMobileSafe();
-      } else {
-        window.addEventListener('load', scheduleMobileSafe, { once: true });
-      }
+      };
+      interactionEvents.forEach((eventName) => {
+        window.addEventListener(eventName, startMobileSafe, { once: true, passive: eventName !== 'keydown' });
+      });
+      window.setTimeout(startMobileSafe, 30000);
       return;
     }
 

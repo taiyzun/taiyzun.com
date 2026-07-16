@@ -204,6 +204,22 @@ for (const route of canonicalPages) {
   });
 }
 
+test('@progressive mobile decorative field waits for interaction', async ({ page, browserName }) => {
+  test.skip(browserName === 'webkit', 'The progressive-loading contract is browser-independent.');
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.setViewportSize({ width: 390, height: 844 });
+  const response = await page.goto('/', { waitUntil: 'domcontentloaded' });
+  expect(response?.status()).toBe(200);
+  await page.waitForTimeout(500);
+
+  await expect(page.locator('script[src*="site-decorative-field.min.js"]')).toHaveCount(0);
+  await page.mouse.wheel(0, 240);
+  await expect.poll(
+    () => page.locator('script[src*="site-decorative-field.min.js"]').count(),
+    { timeout: 5000 }
+  ).toBe(1);
+});
+
 for (const route of canonicalPages) {
   test(`@progressive ${route.name} keeps desktop 3D off the critical path and starts it after interaction`, async ({ page, browserName }) => {
     test.skip(browserName === 'webkit', 'The progressive-loading contract is browser-independent.');
