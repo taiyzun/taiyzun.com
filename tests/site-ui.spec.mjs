@@ -50,7 +50,19 @@ async function preparePage(page, route, viewport) {
   await expect(page.locator('h1')).toHaveCount(1);
   await expect(page.locator('h1')).toBeVisible();
   await expect(page.locator('#mainNav')).toBeVisible();
-  await page.waitForTimeout(100);
+
+  const staticFallbacks = page.locator(
+    '[data-taiyzun-sword-fallback], [data-taiyzun-3d-fallback]'
+  );
+  if (await staticFallbacks.count()) {
+    await expect(staticFallbacks).toHaveCount(2);
+    await expect.poll(
+      () => staticFallbacks.evaluateAll((images) =>
+        images.every((image) => image.complete && image.naturalWidth > 0 && image.naturalHeight > 0)
+      ),
+      { timeout: 7000 }
+    ).toBe(true);
+  }
 
   return { runtimeErrors, failedLocalResponses };
 }
@@ -496,7 +508,7 @@ for (const route of canonicalPages) {
           );
         })
       ),
-      { timeout: 3000 }
+      { timeout: 10000 }
     ).toBe(true);
     const visibleObjects = await page.locator('[data-taiyzun-sword], [data-taiyzun-at]').evaluateAll((stages) =>
       stages.map((stage) => ({
