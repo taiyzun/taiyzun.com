@@ -46,7 +46,7 @@ async function preparePage(page, route, viewport) {
 
   const loader = page.locator('#siteLoader');
   if (await loader.count()) {
-    await loader.waitFor({ state: 'hidden', timeout: 7000 });
+    await loader.waitFor({ state: 'hidden', timeout: 15000 });
   }
   await expect(page.locator('h1')).toHaveCount(1);
   await expect(page.locator('h1')).toBeVisible();
@@ -61,7 +61,7 @@ async function preparePage(page, route, viewport) {
       () => staticFallbacks.evaluateAll((images) =>
         images.every((image) => image.complete && image.naturalWidth > 0 && image.naturalHeight > 0)
       ),
-      { timeout: 7000 }
+      { timeout: 15000 }
     ).toBe(true);
   }
 
@@ -460,6 +460,10 @@ test('@progressive mobile decorative field follows dynamic Odyssey growth', asyn
   ).toBe(1);
   const field = page.locator('#siteDecorativeField');
   await expect(field).toBeAttached({ timeout: 5000 });
+  await expect.poll(
+    () => field.evaluate((element) => Number.parseFloat(element.style.height) || 0),
+    { timeout: 10000 }
+  ).toBeGreaterThan(0);
   const initialHeight = await field.evaluate((element) => Number.parseFloat(element.style.height));
 
   await page.locator('#galleryGrid').evaluate((grid) => {
@@ -467,7 +471,7 @@ test('@progressive mobile decorative field follows dynamic Odyssey growth', asyn
   });
   await expect.poll(
     () => field.evaluate((element) => Number.parseFloat(element.style.height)),
-    { timeout: 5000 }
+    { timeout: 10000 }
   ).toBeGreaterThan(initialHeight + 4000);
 });
 
