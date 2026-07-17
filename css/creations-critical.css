@@ -89,6 +89,82 @@
   }
 }
 
+/* Keep the two compact first-paint fallbacks in distinct corner stages. */
+@media (max-width: 900px), (pointer: coarse) {
+  body.creations-page .page-hero > .taiyzun-sword-stage--page,
+  body.creations-page .page-hero > .taiyzun-at-stage--page {
+    mix-blend-mode: normal;
+    transform: none !important;
+    transform-origin: 50% 50% !important;
+  }
+
+  body.creations-page .page-hero > .taiyzun-sword-stage--page {
+    inset: max(4.65rem, calc(env(safe-area-inset-top, 0px) + 4rem)) auto auto 0 !important;
+    width: clamp(4rem, 18vw, 5.5rem) !important;
+    height: clamp(3.2rem, 10%, 4.5rem) !important;
+    opacity: 0.58;
+  }
+
+  body.creations-page .page-hero > .taiyzun-at-stage--page {
+    inset: max(4.65rem, calc(env(safe-area-inset-top, 0px) + 4rem)) 0 auto auto !important;
+    width: clamp(4rem, 18vw, 5.5rem) !important;
+    height: clamp(3.2rem, 10%, 4.5rem) !important;
+    opacity: 0.64;
+  }
+
+  body.creations-page .page-hero > .taiyzun-sword-stage--page .taiyzun-sword-fallback {
+    top: 50% !important;
+    left: 50% !important;
+    right: auto !important;
+    height: min(90%, 19rem) !important;
+    max-width: 88% !important;
+    max-height: 90% !important;
+    opacity: 0.78;
+    transform: translate3d(-50%, -50%, 0) !important;
+    filter:
+      brightness(0)
+      saturate(100%)
+      invert(70%)
+      sepia(48%)
+      saturate(940%)
+      hue-rotate(356deg)
+      brightness(96%)
+      drop-shadow(0 20px 34px rgba(75, 50, 12, 0.2));
+  }
+
+  body.creations-page .page-hero > .taiyzun-at-stage--page .taiyzun-at-fallback {
+    top: 50% !important;
+    left: 50% !important;
+    right: auto !important;
+    width: min(84%, 7.5rem) !important;
+    max-width: 84% !important;
+    max-height: 84% !important;
+    opacity: 0.82;
+    transform: translate3d(-50%, -50%, 0) !important;
+    filter:
+      brightness(0)
+      saturate(100%)
+      invert(72%)
+      sepia(38%)
+      saturate(760%)
+      hue-rotate(354deg)
+      brightness(98%)
+      drop-shadow(0 16px 24px rgba(58, 68, 88, 0.18));
+  }
+
+  body.creations-page .page-hero > .page-hero-overlay {
+    z-index: 0;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 900px) {
+  body.creations-page .page-hero > .taiyzun-sword-stage--page,
+  body.creations-page .page-hero > .taiyzun-at-stage--page {
+    width: clamp(5.5rem, 14vw, 7.5rem) !important;
+    height: clamp(3.5rem, 10%, 5rem) !important;
+  }
+}
+
 @font-face {
   font-family: "Philosopher";
   font-style: normal;

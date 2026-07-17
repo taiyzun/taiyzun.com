@@ -6,6 +6,16 @@
   const reduceQuery = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
   const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
 
+  function mark3DInteractionSeen(event) {
+    if (window.TAIYZUN_3D_INTERACTION_SEEN === true) return;
+
+    window.TAIYZUN_3D_INTERACTION_SEEN = true;
+    root.dataset.tai3dInteractionSeen = 'true';
+    window.dispatchEvent(new CustomEvent('taiyzun:3d-interaction-seen', {
+      detail: { type: event?.type || 'interaction' }
+    }));
+  }
+
   function shouldUseMobileLite() {
     return Boolean(
       (mobileQuery && mobileQuery.matches) ||
@@ -213,9 +223,10 @@
     if (!compact && !connectionSlow) {
       let scheduled = false;
       const interactionEvents = ['pointermove', 'pointerdown', 'wheel', 'keydown'];
-      const startDesktopField = () => {
+      const startDesktopField = (event) => {
         if (scheduled) return;
         scheduled = true;
+        if (event) mark3DInteractionSeen(event);
         interactionEvents.forEach((eventName) => window.removeEventListener(eventName, startDesktopField));
         window.setTimeout(() => {
           if ('requestIdleCallback' in window) {
@@ -248,7 +259,12 @@
       }, delay);
     };
 
-    const interactionStart = () => schedule(720);
+    const interactionStart = (event) => {
+      // The runtime module is injected after this event. Persist the hand-off
+      // so both stages can start without asking the visitor to interact twice.
+      mark3DInteractionSeen(event);
+      schedule(720);
+    };
     window.addEventListener('pointerdown', interactionStart, { once: true, passive: true });
     window.addEventListener('touchstart', interactionStart, { once: true, passive: true });
     window.addEventListener('wheel', interactionStart, { once: true, passive: true });

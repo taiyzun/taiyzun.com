@@ -66,20 +66,87 @@ for (const route of pages) {
         const loader = document.getElementById('siteLoader');
         const nav = document.getElementById('mainNav');
         const heading = document.querySelector('h1');
+        const primaryContent = document.querySelector('.hero-content, .page-hero-content');
+        const objectStages = Array.from(document.querySelectorAll('[data-taiyzun-sword], [data-taiyzun-at]'));
         const navRect = nav.getBoundingClientRect();
         const headingRect = heading.getBoundingClientRect();
+        const protectedContentRects = [];
+        if (primaryContent) {
+          const textWalker = document.createTreeWalker(primaryContent, NodeFilter.SHOW_TEXT);
+          for (let node = textWalker.nextNode(); node; node = textWalker.nextNode()) {
+            if (!node.textContent?.trim()) continue;
+            const range = document.createRange();
+            range.selectNodeContents(node);
+            protectedContentRects.push(
+              ...Array.from(range.getClientRects()).filter((rect) => rect.width > 0 && rect.height > 0)
+            );
+          }
+          primaryContent.querySelectorAll('a, button, input, textarea, select, img, svg, video').forEach((element) => {
+            const rect = element.getBoundingClientRect();
+            if (rect.width > 0 && rect.height > 0) protectedContentRects.push(rect);
+          });
+        }
+        const overlaps = (first, second) => Boolean(
+          first &&
+          second &&
+          first.left < second.right &&
+          first.right > second.left &&
+          first.top < second.bottom &&
+          first.bottom > second.top
+        );
         const hitAt = (rect) => document.elementFromPoint(
           Math.min(innerWidth - 1, Math.max(0, rect.left + rect.width / 2)),
           Math.min(innerHeight - 1, Math.max(0, rect.top + Math.min(rect.height / 2, 24)))
         );
         const navHit = hitAt(navRect);
         const headingHit = hitAt(headingRect);
+        const stageRects = objectStages.map((stage) => {
+          const style = getComputedStyle(stage);
+          const rect = stage.getBoundingClientRect();
+          const fallback = stage.querySelector('[data-taiyzun-sword-fallback], [data-taiyzun-3d-fallback]');
+          const fallbackStyle = fallback ? getComputedStyle(fallback) : null;
+          const fallbackRect = fallback ? fallback.getBoundingClientRect() : null;
+          return {
+            left: rect.left,
+            right: rect.right,
+            top: rect.top,
+            bottom: rect.bottom,
+            visible: style.display !== 'none' && style.visibility !== 'hidden' && Number(style.opacity) > 0 && rect.width > 0 && rect.height > 0,
+            pointerEvents: style.pointerEvents,
+            zIndex: Number.parseInt(style.zIndex, 10) || 0,
+            fallbackVisible: Boolean(
+              fallback &&
+              !fallback.hidden &&
+              fallbackStyle?.display !== 'none' &&
+              fallbackStyle?.visibility !== 'hidden' &&
+              Number(fallbackStyle?.opacity || 0) > 0
+            ),
+            fallbackLoaded: Boolean(fallback && fallback.naturalWidth > 0 && fallback.naturalHeight > 0),
+            fallbackContained: Boolean(
+              fallbackRect &&
+              fallbackRect.left >= rect.left - 1 &&
+              fallbackRect.right <= rect.right + 1 &&
+              fallbackRect.top >= rect.top - 1 &&
+              fallbackRect.bottom <= rect.bottom + 1
+            ),
+            overlapsProtectedUi: overlaps(fallbackRect, navRect) || protectedContentRects.some((rect) => overlaps(fallbackRect, rect))
+          };
+        });
+        const stagesOverlap = stageRects.length === 2 &&
+          stageRects[0].left < stageRects[1].right &&
+          stageRects[0].right > stageRects[1].left &&
+          stageRects[0].top < stageRects[1].bottom &&
+          stageRects[0].bottom > stageRects[1].top;
+        const contentZIndex = Number.parseInt(primaryContent ? getComputedStyle(primaryContent).zIndex : '0', 10) || 0;
 
         return {
           overflow: root.scrollWidth - root.clientWidth,
           loaderVisible: Boolean(loader && getComputedStyle(loader).display !== 'none' && getComputedStyle(loader).visibility !== 'hidden'),
           navHit: Boolean(navHit && (navHit === nav || nav.contains(navHit))),
-          headingHit: Boolean(headingHit && (headingHit === heading || heading.contains(headingHit)))
+          headingHit: Boolean(headingHit && (headingHit === heading || heading.contains(headingHit))),
+          stageRects,
+          stagesOverlap,
+          contentZIndex
         };
       });
 
@@ -87,6 +154,17 @@ for (const route of pages) {
       expect(geometry.loaderVisible).toBe(false);
       expect(geometry.navHit).toBe(true);
       expect(geometry.headingHit).toBe(true);
+      if (!['404', '500'].includes(route.name)) {
+        expect(geometry.stageRects).toHaveLength(2);
+        expect(geometry.stageRects.every((stage) => stage.visible)).toBe(true);
+        expect(geometry.stageRects.every((stage) => stage.fallbackVisible)).toBe(true);
+        expect(geometry.stageRects.every((stage) => stage.fallbackLoaded)).toBe(true);
+        expect(geometry.stageRects.every((stage) => stage.fallbackContained)).toBe(true);
+        expect(geometry.stageRects.every((stage) => stage.pointerEvents === 'none')).toBe(true);
+        expect(geometry.stageRects.every((stage) => !stage.overlapsProtectedUi)).toBe(true);
+        expect(geometry.stagesOverlap).toBe(false);
+        expect(Math.max(...geometry.stageRects.map((stage) => stage.zIndex))).toBeLessThan(geometry.contentZIndex);
+      }
       for (const frame of await page.locator('iframe').all()) {
         await expect(frame).toHaveAttribute('title', /\S+/);
       }
@@ -226,6 +304,65 @@ test('@progressive mobile decorative field waits for interaction', async ({ page
   await expect(page.locator('script[src*="video-carousel.min.js"]')).toHaveCount(0);
 });
 
+test('@progressive mobile 3D starts both stages after one interaction', async ({ page, browserName }) => {
+  test.skip(browserName === 'webkit', 'The progressive-loading contract is browser-independent.');
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.setViewportSize({ width: 390, height: 844 });
+  const response = await page.goto('/', { waitUntil: 'domcontentloaded' });
+  expect(response?.status()).toBe(200);
+  await page.waitForTimeout(350);
+
+  await expect(page.locator('script[src*="taiyzun-sword.min.js"]')).toHaveCount(0);
+  const earlyModels = await page.evaluate(() =>
+    performance.getEntriesByType('resource').filter((entry) => /\.glb(?:$|\?)/i.test(entry.name)).length
+  );
+  expect(earlyModels).toBe(0);
+
+  await page.mouse.wheel(0, 240);
+  await expect.poll(
+    () => page.locator('script[src*="taiyzun-sword.min.js"]').count(),
+    { timeout: 5000 }
+  ).toBe(1);
+  await expect.poll(
+    () => page.locator('[data-taiyzun-sword], [data-taiyzun-at]').evaluateAll((stages) =>
+      stages.length === 2 && stages.every((stage) => stage.dataset.status === 'ready')
+    ),
+    { timeout: 20000 }
+  ).toBe(true);
+  await expect.poll(
+    () => page.evaluate(() =>
+      performance.getEntriesByType('resource').filter((entry) => /\.glb(?:$|\?)/i.test(entry.name)).length
+    ),
+    { timeout: 5000 }
+  ).toBe(2);
+
+  const renderedStages = await page.locator('[data-taiyzun-sword], [data-taiyzun-at]').evaluateAll((stages) =>
+    stages.map((stage) => {
+      const canvas = stage.querySelector('[data-taiyzun-sword-canvas], [data-taiyzun-3d-canvas]');
+      const fallback = stage.querySelector('[data-taiyzun-sword-fallback], [data-taiyzun-3d-fallback]');
+      const canvasStyle = canvas ? getComputedStyle(canvas) : null;
+      const canvasRect = canvas?.getBoundingClientRect();
+      return {
+        status: stage.dataset.status,
+        canvasVisible: Boolean(
+          canvas &&
+          canvasRect &&
+          canvas.width > 0 &&
+          canvas.height > 0 &&
+          canvasRect.width > 0 &&
+          canvasRect.height > 0 &&
+          canvasStyle?.display !== 'none' &&
+          canvasStyle?.visibility !== 'hidden' &&
+          Number(canvasStyle?.opacity || 0) > 0
+        ),
+        fallbackHidden: Boolean(fallback?.hidden)
+      };
+    })
+  );
+  expect(renderedStages).toHaveLength(2);
+  expect(renderedStages.every((stage) => stage.status === 'ready' && stage.canvasVisible && stage.fallbackHidden)).toBe(true);
+});
+
 test('@progressive mobile decorative field follows dynamic Odyssey growth', async ({ page, browserName }) => {
   test.skip(browserName === 'webkit', 'The progressive-loading contract is browser-independent.');
   await page.emulateMedia({ reducedMotion: 'no-preference' });
@@ -249,6 +386,51 @@ test('@progressive mobile decorative field follows dynamic Odyssey growth', asyn
     { timeout: 5000 }
   ).toBeGreaterThan(initialHeight + 4000);
 });
+
+for (const route of canonicalPages) {
+  test(`@3d-static ${route.name} keeps both fallbacks for reduced motion`, async ({ page, browserName }) => {
+    test.skip(browserName === 'webkit', 'The reduced-motion contract is browser-independent.');
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.setViewportSize({ width: 390, height: 844 });
+    const response = await page.goto(route.path, { waitUntil: 'domcontentloaded' });
+    expect(response?.status()).toBe(200);
+    await page.mouse.wheel(0, 180);
+    await page.waitForTimeout(350);
+
+    await expect(page.locator('script[src*="taiyzun-sword.min.js"]')).toHaveCount(0);
+    const staticObjects = await page.locator('[data-taiyzun-sword], [data-taiyzun-at]').evaluateAll((stages) =>
+      stages.map((stage) => {
+        const stageStyle = getComputedStyle(stage);
+        const canvas = stage.querySelector('[data-taiyzun-sword-canvas], [data-taiyzun-3d-canvas]');
+        const fallback = stage.querySelector('[data-taiyzun-sword-fallback], [data-taiyzun-3d-fallback]');
+        const canvasStyle = canvas ? getComputedStyle(canvas) : null;
+        const fallbackStyle = fallback ? getComputedStyle(fallback) : null;
+        const rect = stage.getBoundingClientRect();
+        return {
+          rect: { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom },
+          stageVisible: stageStyle.display !== 'none' && Number(stageStyle.opacity) > 0,
+          canvasHidden: !canvas || canvasStyle?.display === 'none' || Number(canvasStyle?.opacity || 0) === 0,
+          fallbackVisible: Boolean(
+            fallback &&
+            !fallback.hidden &&
+            fallbackStyle?.display !== 'none' &&
+            fallbackStyle?.visibility !== 'hidden' &&
+            Number(fallbackStyle?.opacity || 0) > 0
+          )
+        };
+      })
+    );
+    expect(staticObjects).toHaveLength(2);
+    expect(staticObjects.every((object) => object.stageVisible && object.canvasHidden && object.fallbackVisible)).toBe(true);
+    const [sword, at] = staticObjects;
+    const overlap =
+      sword.rect.left < at.rect.right &&
+      sword.rect.right > at.rect.left &&
+      sword.rect.top < at.rect.bottom &&
+      sword.rect.bottom > at.rect.top;
+    expect(overlap).toBe(false);
+  });
+}
 
 for (const route of canonicalPages) {
   test(`@progressive ${route.name} keeps desktop 3D off the critical path and starts it after interaction`, async ({ page, browserName }) => {
@@ -281,6 +463,56 @@ for (const route of canonicalPages) {
       () => page.locator('script[src*="taiyzun-sword.min.js"]').count(),
       { timeout: 5000 }
     ).toBe(1);
+    await expect.poll(
+      () => page.locator('[data-taiyzun-sword], [data-taiyzun-at]').evaluateAll((stages) =>
+        stages.length === 2 && stages.every((stage) => stage.dataset.status === 'ready')
+      ),
+      { timeout: 15000 }
+    ).toBe(true);
+    await expect.poll(
+      () => page.evaluate(() =>
+        performance.getEntriesByType('resource').filter((entry) => /\.glb(?:$|\?)/i.test(entry.name)).length
+      ),
+      { timeout: 5000 }
+    ).toBe(2);
+    await expect.poll(
+      () => page.locator('[data-taiyzun-sword], [data-taiyzun-at]').evaluateAll((stages) =>
+        stages.every((stage) => {
+          const canvas = stage.querySelector('[data-taiyzun-sword-canvas], [data-taiyzun-3d-canvas]');
+          const fallback = stage.querySelector('[data-taiyzun-sword-fallback], [data-taiyzun-3d-fallback]');
+          const canvasStyle = canvas ? getComputedStyle(canvas) : null;
+          const canvasRect = canvas?.getBoundingClientRect();
+          return Boolean(
+            canvas &&
+            canvasRect &&
+            canvas.width > 0 &&
+            canvas.height > 0 &&
+            canvasRect.width > 0 &&
+            canvasRect.height > 0 &&
+            canvasStyle?.display !== 'none' &&
+            canvasStyle?.visibility !== 'hidden' &&
+            Number(canvasStyle?.opacity || 0) > 0 &&
+            fallback?.hidden
+          );
+        })
+      ),
+      { timeout: 3000 }
+    ).toBe(true);
+    const visibleObjects = await page.locator('[data-taiyzun-sword], [data-taiyzun-at]').evaluateAll((stages) =>
+      stages.map((stage) => ({
+        status: stage.dataset.status,
+        object: stage.dataset.object,
+        rotationY: Number(stage.dataset.rotationY || 0),
+        rotationZ: Number(stage.dataset.rotationZ || 0)
+      }))
+    );
+    expect(visibleObjects).toHaveLength(2);
+    const swordState = visibleObjects.find((object) => object.object === 'sword');
+    expect(swordState).toBeTruthy();
+    expect(Math.abs(swordState.rotationY)).toBeLessThanOrEqual(Math.PI / 18 + 0.001);
+    const atState = visibleObjects.find((object) => object.object === 'at');
+    expect(atState).toBeTruthy();
+    expect(Math.abs(atState.rotationZ)).toBeLessThanOrEqual(Math.PI / 12 + 0.001);
     await expect.poll(
       () => page.locator('script[src*="desktop-enhancements-loader.min.js"]').count(),
       { timeout: 5000 }

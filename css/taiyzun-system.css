@@ -1031,3 +1031,182 @@ body.premium-ui-ready .site-decorative-hero-layer--front { z-index: 6 !important
     transform: translate3d(-18vw, 8svh, 0) scale(0.62) !important;
   }
 }
+
+/* Two-object hero contract. Each model owns a separate bounded corner stage,
+   with the content and interaction layers always above both objects. */
+body.premium-ui-ready .hero > .taiyzun-sword-stage,
+body.premium-ui-ready .hero > .taiyzun-at-stage,
+body.premium-ui-ready .page-hero > .taiyzun-sword-stage--page,
+body.premium-ui-ready .page-hero > .taiyzun-at-stage--page {
+  display: block !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+  transform: none !important;
+  transform-origin: 50% 50% !important;
+  contain: layout paint size;
+  isolation: isolate;
+}
+
+body.premium-ui-ready .hero > .taiyzun-sword-stage::before,
+body.premium-ui-ready .hero > .taiyzun-sword-stage::after,
+body.premium-ui-ready .page-hero > .taiyzun-sword-stage--page::before,
+body.premium-ui-ready .page-hero > .taiyzun-sword-stage--page::after {
+  display: none;
+}
+
+body.premium-ui-ready .hero > .taiyzun-sword-stage[data-status="ready"] .taiyzun-sword-canvas,
+body.premium-ui-ready .hero > .taiyzun-at-stage[data-status="ready"] .taiyzun-at-canvas,
+body.premium-ui-ready .page-hero > .taiyzun-sword-stage--page[data-status="ready"] .taiyzun-sword-canvas,
+body.premium-ui-ready .page-hero > .taiyzun-at-stage--page[data-status="ready"] .taiyzun-at-canvas {
+  display: block !important;
+  opacity: 1 !important;
+}
+
+body.premium-ui-ready .hero > .taiyzun-sword-stage:not([data-status="ready"]) .taiyzun-sword-fallback,
+body.premium-ui-ready .hero > .taiyzun-at-stage:not([data-status="ready"]) .taiyzun-at-fallback,
+body.premium-ui-ready .page-hero > .taiyzun-sword-stage--page:not([data-status="ready"]) .taiyzun-sword-fallback,
+body.premium-ui-ready .page-hero > .taiyzun-at-stage--page:not([data-status="ready"]) .taiyzun-at-fallback {
+  display: block !important;
+  visibility: visible !important;
+}
+
+body.premium-ui-ready .hero > .taiyzun-sword-stage,
+body.premium-ui-ready .page-hero > .taiyzun-sword-stage--page {
+  z-index: 2 !important;
+  mix-blend-mode: normal;
+}
+
+body.premium-ui-ready .hero > .taiyzun-at-stage,
+body.premium-ui-ready .page-hero > .taiyzun-at-stage--page {
+  z-index: 3 !important;
+  mix-blend-mode: normal;
+}
+
+body.premium-ui-ready .hero > .hero-overlay,
+body.premium-ui-ready .page-hero > .page-hero-overlay {
+  z-index: 1 !important;
+  pointer-events: none;
+}
+
+body.premium-ui-ready .hero > .hero-content,
+body.premium-ui-ready .page-hero > .page-hero-content {
+  z-index: 8 !important;
+}
+
+body.premium-ui-ready.home-page .sword-hero > .taiyzun-sword-stage {
+  inset: auto 0 0 auto !important;
+  width: clamp(18rem, 46vw, 44rem) !important;
+  height: 62% !important;
+  opacity: 0.74;
+}
+
+body.premium-ui-ready.home-page .sword-hero > .taiyzun-at-stage {
+  inset: max(5.2rem, 12%) 2% auto auto !important;
+  width: clamp(8rem, 18vw, 16rem) !important;
+  height: 20% !important;
+  opacity: 0.62;
+}
+
+body.premium-ui-ready .page-hero > .taiyzun-sword-stage--page {
+  inset: auto auto 0 0 !important;
+  width: clamp(10rem, 27vw, 28rem) !important;
+  height: 70% !important;
+  opacity: 0.5;
+}
+
+body.premium-ui-ready .page-hero > .taiyzun-at-stage--page {
+  inset: max(5.4rem, 12%) 1.25% auto auto !important;
+  width: clamp(5.5rem, 8vw, 8rem) !important;
+  height: 18% !important;
+  opacity: 0.58;
+}
+
+body.premium-ui-ready .hero > .taiyzun-sword-stage .taiyzun-sword-fallback,
+body.premium-ui-ready .page-hero > .taiyzun-sword-stage--page .taiyzun-sword-fallback {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  right: auto !important;
+  width: auto !important;
+  height: min(92%, 32rem) !important;
+  max-width: 88% !important;
+  max-height: 92% !important;
+  object-fit: contain !important;
+  transform: translate3d(-50%, -50%, 0) !important;
+}
+
+body.premium-ui-ready .hero > .taiyzun-at-stage .taiyzun-at-fallback,
+body.premium-ui-ready .page-hero > .taiyzun-at-stage--page .taiyzun-at-fallback {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  right: auto !important;
+  width: min(86%, 13rem) !important;
+  height: auto !important;
+  max-width: 86% !important;
+  max-height: 86% !important;
+  object-fit: contain !important;
+  transform: translate3d(-50%, -50%, 0) !important;
+}
+
+@media (max-width: 900px), (pointer: coarse) {
+  body.premium-ui-ready.home-page .sword-hero > .taiyzun-sword-stage,
+  body.premium-ui-ready .page-hero > .taiyzun-sword-stage--page {
+    inset: max(4.65rem, calc(env(safe-area-inset-top, 0px) + 4rem)) auto auto 0 !important;
+    width: clamp(4rem, 18vw, 5.5rem) !important;
+    height: clamp(3.2rem, 10%, 4.5rem) !important;
+    opacity: 0.58;
+  }
+
+  body.premium-ui-ready.home-page .sword-hero > .taiyzun-at-stage,
+  body.premium-ui-ready .page-hero > .taiyzun-at-stage--page {
+    inset: max(4.65rem, calc(env(safe-area-inset-top, 0px) + 4rem)) 0 auto auto !important;
+    width: clamp(4rem, 18vw, 5.5rem) !important;
+    height: clamp(3.2rem, 10%, 4.5rem) !important;
+    opacity: 0.64;
+  }
+
+  body.premium-ui-ready .hero > .taiyzun-sword-stage .taiyzun-sword-fallback,
+  body.premium-ui-ready .page-hero > .taiyzun-sword-stage--page .taiyzun-sword-fallback {
+    height: min(90%, 19rem) !important;
+    max-height: 90% !important;
+    opacity: 0.78;
+  }
+
+  body.premium-ui-ready .hero > .taiyzun-at-stage .taiyzun-at-fallback,
+  body.premium-ui-ready .page-hero > .taiyzun-at-stage--page .taiyzun-at-fallback {
+    width: min(84%, 7.5rem) !important;
+    max-width: 84% !important;
+    opacity: 0.82;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 900px) {
+  body.premium-ui-ready.home-page .sword-hero > .taiyzun-sword-stage,
+  body.premium-ui-ready .page-hero > .taiyzun-sword-stage--page {
+    width: clamp(5.5rem, 14vw, 7.5rem) !important;
+    height: clamp(3.5rem, 10%, 5rem) !important;
+  }
+
+  body.premium-ui-ready.home-page .sword-hero > .taiyzun-at-stage,
+  body.premium-ui-ready .page-hero > .taiyzun-at-stage--page {
+    width: clamp(5.5rem, 14vw, 7.5rem) !important;
+    height: clamp(3.5rem, 10%, 5rem) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.premium-ui-ready .hero > .taiyzun-sword-stage,
+  body.premium-ui-ready .hero > .taiyzun-at-stage,
+  body.premium-ui-ready .page-hero > .taiyzun-sword-stage--page,
+  body.premium-ui-ready .page-hero > .taiyzun-at-stage--page {
+    display: block !important;
+  }
+
+  body.premium-ui-ready .hero > .taiyzun-sword-stage .taiyzun-sword-canvas,
+  body.premium-ui-ready .hero > .taiyzun-at-stage .taiyzun-at-canvas,
+  body.premium-ui-ready .page-hero > .taiyzun-sword-stage--page .taiyzun-sword-canvas,
+  body.premium-ui-ready .page-hero > .taiyzun-at-stage--page .taiyzun-at-canvas {
+    display: none !important;
+  }
+}

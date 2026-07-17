@@ -325,9 +325,13 @@
 
     Object.assign(stage.style, {
       position: 'absolute',
-      inset: '0',
       overflow: 'hidden'
     });
+
+    // Stage placement belongs to CSS. Keeping the runtime from forcing every
+    // object back to a full-hero inset lets each model occupy its own bounded
+    // safe zone without overlapping the other model or the primary UI.
+    stage.dataset.layout = 'safe-zone';
 
     if (canvas) {
       Object.assign(canvas.style, {
@@ -582,6 +586,7 @@
       root.add(model);
       root.scale.setScalar(config.scale * cinemaProfile.scale);
       scene.add(root);
+      const usesSafeZone = stage.dataset.layout === 'safe-zone';
       stage.dataset.cinemaProfile = pageName;
       stage.dataset.materialSystem = objectType === 'sword' ? 'forged-gold-silver-v2' : 'blacksmith-quadrimetal-v2';
 
@@ -651,19 +656,27 @@
         pointer.x = damp(pointer.x, reduceMotion ? 0 : pointer.targetX, 4, delta);
         pointer.y = damp(pointer.y, reduceMotion ? 0 : pointer.targetY, 4, delta);
         scrollMotion.value = damp(scrollMotion.value, reduceMotion ? 0 : scrollMotion.target, 5, delta);
-        const scrollSpin = reduceMotion ? 0 : scrollMotion.value * 0.0042;
-        const pointerSpin = reduceMotion ? 0 : pointer.x * Math.PI * 0.58;
         const scrollProgress = clamp(scrollMotion.value / Math.max(document.documentElement.scrollHeight - window.innerHeight, 1), 0, 1);
 
+        const swordYaw = reduceMotion
+          ? 0
+          : Math.sin(elapsed * 0.22) * config.maxYaw * 0.28
+            + pointer.x * config.maxYaw * 0.62
+            + Math.sin(scrollMotion.value * 0.00085) * config.maxYaw * 0.1;
         root.rotation.y = objectType === 'sword'
-          ? (reduceMotion ? 0 : elapsed * 0.14) + pointerSpin + scrollSpin
+          ? clamp(swordYaw, -config.maxYaw, config.maxYaw)
           : pointer.x * config.maxYaw;
         root.rotation.x = -pointer.y * config.maxPitch;
+        const atRoll = reduceMotion
+          ? 0
+          : Math.sin(elapsed * 0.24) * 0.12
+            + Math.sin(scrollMotion.value * 0.0006) * 0.05
+            + pointer.x * 0.05;
         root.rotation.z = objectType === 'at'
-          ? -(elapsed * 0.24 + scrollSpin + pointer.x * 0.34)
+          ? clamp(-atRoll, -Math.PI / 12, Math.PI / 12)
           : 0;
-        root.position.x = config.offsetX;
-        root.position.y = config.offsetY + (reduceMotion ? 0 : Math.sin(elapsed * 0.32) * 0.006);
+        root.position.x = usesSafeZone ? 0 : config.offsetX;
+        root.position.y = (usesSafeZone ? 0 : config.offsetY) + (reduceMotion ? 0 : Math.sin(elapsed * 0.32) * 0.006);
         root.position.z = config.offsetZ;
 
         const breath = reduceMotion ? 1 : 1 + Math.sin(elapsed * 0.32) * 0.0025;
@@ -749,6 +762,15 @@
     }
 
     if (compactQuery.matches || window.TAIYZUN_MOBILE_LITE) {
+      const interactionSeen = window.TAIYZUN_3D_INTERACTION_SEEN === true
+        || document.documentElement.dataset.tai3dInteractionSeen === 'true';
+
+      if (interactionSeen) {
+        stage.dataset.performanceMode = 'mobile-interacted';
+        initialiseStage(stage);
+        return;
+      }
+
       stage.dataset.status = 'deferred';
       stage.dataset.performanceMode = 'mobile-deferred';
 
