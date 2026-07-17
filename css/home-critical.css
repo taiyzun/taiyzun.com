@@ -40,3 +40,7 @@ nav#mainNav{position:fixed;inset:max(8px,env(safe-area-inset-top,0px)) 0 auto;z-
   body.home-page .sword-hero>.taiyzun-sword-stage,
   body.home-page .sword-hero>.taiyzun-at-stage{width:clamp(5.5rem,14vw,7.5rem)!important;height:clamp(3.5rem,10%,5rem)!important}
 }
+@media (max-width:360px){
+  body.home-page .sword-hero>.taiyzun-sword-stage,
+  body.home-page .sword-hero>.taiyzun-at-stage{width:3rem!important;height:3rem!important}
+}

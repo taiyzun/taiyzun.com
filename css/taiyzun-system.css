@@ -1195,6 +1195,16 @@ body.premium-ui-ready .page-hero > .taiyzun-at-stage--page .taiyzun-at-fallback 
   }
 }
 
+@media (max-width: 360px) {
+  body.premium-ui-ready.home-page .sword-hero > .taiyzun-sword-stage,
+  body.premium-ui-ready.home-page .sword-hero > .taiyzun-at-stage,
+  body.premium-ui-ready .page-hero > .taiyzun-sword-stage--page,
+  body.premium-ui-ready .page-hero > .taiyzun-at-stage--page {
+    width: 3rem !important;
+    height: 3rem !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   body.premium-ui-ready .hero > .taiyzun-sword-stage,
   body.premium-ui-ready .hero > .taiyzun-at-stage,

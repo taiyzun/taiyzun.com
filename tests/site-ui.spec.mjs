@@ -12,6 +12,7 @@ const pages = [
 ];
 const canonicalPages = pages.filter((page) => !['404', '500'].includes(page.name));
 const viewports = [
+  { name: 'narrow-mobile', width: 320, height: 800 },
   { name: 'mobile-portrait', width: 390, height: 844 },
   { name: 'mobile-landscape', width: 568, height: 320 },
   { name: 'tablet-portrait', width: 768, height: 1024 },
@@ -179,6 +180,11 @@ for (const route of pages) {
       }
       for (const frame of await page.locator('iframe').all()) {
         await expect(frame).toHaveAttribute('title', /\S+/);
+      }
+      const lightboxImageWrap = page.locator('#lbImgWrap');
+      if (await lightboxImageWrap.count()) {
+        await expect(lightboxImageWrap).not.toHaveAttribute('tabindex', /\S+/);
+        await expect(lightboxImageWrap).not.toHaveAttribute('aria-label', /\S+/);
       }
       expect(diagnostics.failedLocalResponses).toEqual([]);
       expect(diagnostics.runtimeErrors).toEqual([]);
@@ -348,6 +354,22 @@ test('@progressive mobile 3D starts both stages after one interaction', async ({
     { timeout: 5000 }
   ).toBe(2);
 
+  const modelLoads = await page.evaluate(() =>
+    performance.getEntriesByType('resource')
+      .filter((entry) => /\.glb(?:$|\?)/i.test(entry.name))
+      .map((entry) => ({
+        name: entry.name,
+        startTime: entry.startTime,
+        responseEnd: entry.responseEnd
+      }))
+  );
+  expect(modelLoads).toHaveLength(2);
+  expect(modelLoads[0].name).toContain('Taiyzun_Sword_Web.glb');
+  expect(modelLoads[1].name).toContain('Taiyzun_At_Logo_Web.glb');
+  expect(modelLoads[1].startTime).toBeGreaterThanOrEqual(modelLoads[0].responseEnd - 1);
+  await expect(page.locator('[data-taiyzun-sword]')).toHaveAttribute('data-initialisation-order', '1');
+  await expect(page.locator('[data-taiyzun-at]')).toHaveAttribute('data-initialisation-order', '2');
+
   const renderedStages = await page.locator('[data-taiyzun-sword], [data-taiyzun-at]').evaluateAll((stages) =>
     stages.map((stage) => {
       const canvas = stage.querySelector('[data-taiyzun-sword-canvas], [data-taiyzun-3d-canvas]');
@@ -373,6 +395,56 @@ test('@progressive mobile 3D starts both stages after one interaction', async ({
   );
   expect(renderedStages).toHaveLength(2);
   expect(renderedStages.every((stage) => stage.status === 'ready' && stage.canvasVisible && stage.fallbackHidden)).toBe(true);
+});
+
+test('@progressive constrained connections retain both static 3D fallbacks', async ({ page, browserName }) => {
+  test.skip(browserName === 'webkit', 'The progressive-loading contract is browser-independent.');
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'connection', {
+      configurable: true,
+      value: {
+        saveData: false,
+        effectiveType: 'slow-2g',
+        addEventListener() {}
+      }
+    });
+    Object.defineProperty(navigator, 'deviceMemory', { configurable: true, value: 8 });
+  });
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.setViewportSize({ width: 1440, height: 900 });
+  const response = await page.goto('/', { waitUntil: 'domcontentloaded' });
+  expect(response?.status()).toBe(200);
+
+  await page.mouse.wheel(0, 240);
+  await page.waitForTimeout(1800);
+  await expect(page.locator('script[src*="taiyzun-sword.min.js"]')).toHaveCount(0);
+  const staticFallbacks = page.locator('[data-taiyzun-sword-fallback], [data-taiyzun-3d-fallback]');
+  await expect(staticFallbacks).toHaveCount(2);
+  expect(await staticFallbacks.evaluateAll((fallbacks) => fallbacks.every((fallback) => {
+    const style = getComputedStyle(fallback);
+    return !fallback.hidden && style.display !== 'none' && style.visibility !== 'hidden' && Number(style.opacity) > 0;
+  }))).toBe(true);
+});
+
+test('@progressive failed sword model preserves fallback and continues to the at model', async ({ page, browserName }) => {
+  test.skip(browserName === 'webkit', 'The progressive-loading contract is browser-independent.');
+  await page.route('**/Taiyzun_Sword_Web.glb*', (route) => route.abort('failed'));
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.setViewportSize({ width: 390, height: 844 });
+  const response = await page.goto('/', { waitUntil: 'domcontentloaded' });
+  expect(response?.status()).toBe(200);
+
+  await page.mouse.wheel(0, 240);
+  await expect.poll(
+    () => page.locator('[data-taiyzun-sword]').getAttribute('data-status'),
+    { timeout: 10000 }
+  ).toBe('static');
+  await expect.poll(
+    () => page.locator('[data-taiyzun-at]').getAttribute('data-status'),
+    { timeout: 20000 }
+  ).toBe('ready');
+  await expect(page.locator('[data-taiyzun-sword-fallback]')).toBeVisible();
+  await expect(page.locator('[data-taiyzun-at] [data-taiyzun-3d-fallback]')).toBeHidden();
 });
 
 test('@progressive mobile decorative field follows dynamic Odyssey growth', async ({ page, browserName }) => {
@@ -471,6 +543,12 @@ for (const route of canonicalPages) {
     expect(earlyModels).toBe(0);
 
     await page.mouse.move(720, 450);
+    await page.evaluate(() => scrollTo(0, 64));
+    await page.waitForTimeout(800);
+    await expect(page.locator('script[src*="taiyzun-sword.min.js"]')).toHaveCount(0);
+    await expect(page.locator('script[src*="desktop-enhancements-loader.min.js"]')).toHaveCount(0);
+
+    await page.mouse.wheel(0, 240);
     await expect.poll(
       () => page.locator('script[src*="taiyzun-sword.min.js"]').count(),
       { timeout: 5000 }
@@ -479,7 +557,7 @@ for (const route of canonicalPages) {
       () => page.locator('[data-taiyzun-sword], [data-taiyzun-at]').evaluateAll((stages) =>
         stages.length === 2 && stages.every((stage) => stage.dataset.status === 'ready')
       ),
-      { timeout: 15000 }
+      { timeout: 25000 }
     ).toBe(true);
     await expect.poll(
       () => page.evaluate(() =>

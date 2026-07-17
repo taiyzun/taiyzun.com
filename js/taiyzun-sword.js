@@ -54,8 +54,10 @@
   const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
   const constrainedConnection = Boolean(
     connection?.saveData ||
+    /(^|-)2g$|slow-2g/i.test(connection?.effectiveType || '') ||
     (Number.isFinite(navigator.deviceMemory) && navigator.deviceMemory <= 4)
   );
+  const MODEL_LOAD_TIMEOUT_MS = 15000;
   let modulePromise;
 
   const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
@@ -574,7 +576,22 @@
 
       const loader = new loaderModule.GLTFLoader();
       const gltf = await new Promise((resolve, reject) => {
-        loader.load(config.modelUrl, resolve, undefined, reject);
+        let settled = false;
+        const finish = (callback, value) => {
+          if (settled) return;
+          settled = true;
+          window.clearTimeout(timeoutId);
+          callback(value);
+        };
+        const timeoutId = window.setTimeout(() => {
+          finish(reject, new Error(`${config.name} load timed out`));
+        }, MODEL_LOAD_TIMEOUT_MS);
+        loader.load(
+          config.modelUrl,
+          (value) => finish(resolve, value),
+          undefined,
+          (error) => finish(reject, error)
+        );
       });
       const model = gltf.scene || gltf.scenes?.[0];
       if (!model) throw new Error(`${config.name} scene is missing`);
@@ -748,9 +765,46 @@
     }
   }
 
-  function schedule(stage) {
-    enforceContainment(stage);
+  let modelSequencePromise;
 
+  function waitForModelIdleTurn(delay = 260, timeout = 1400) {
+    return new Promise((resolve) => {
+      window.setTimeout(() => {
+        if ('requestIdleCallback' in window) {
+          window.requestIdleCallback(() => resolve(), { timeout });
+        } else {
+          resolve();
+        }
+      }, delay);
+    });
+  }
+
+  function startModelSequence() {
+    if (modelSequencePromise) return modelSequencePromise;
+
+    const orderedStages = [
+      ...stages.filter((stage) => getObjectType(stage) === 'sword'),
+      ...stages.filter((stage) => getObjectType(stage) !== 'sword')
+    ];
+
+    orderedStages.forEach((stage, index) => {
+      stage.dataset.initialisationOrder = String(index + 1);
+      if (index > 0 && !['ready', 'static', 'loading'].includes(stage.dataset.status)) {
+        stage.dataset.status = 'deferred';
+      }
+    });
+
+    modelSequencePromise = (async () => {
+      for (let index = 0; index < orderedStages.length; index += 1) {
+        if (index > 0) await waitForModelIdleTurn();
+        await initialiseStage(orderedStages[index]);
+      }
+    })();
+
+    return modelSequencePromise;
+  }
+
+  function schedule(stage) {
     if (reducedMotionQuery.matches) {
       markStatic(stage, 'reduced-motion');
       return;
@@ -767,29 +821,32 @@
 
       if (interactionSeen) {
         stage.dataset.performanceMode = 'mobile-interacted';
-        initialiseStage(stage);
+        startModelSequence();
         return;
       }
 
       stage.dataset.status = 'deferred';
       stage.dataset.performanceMode = 'mobile-deferred';
 
-      const interactionEvents = ['pointerdown', 'touchstart', 'scroll', 'keydown'];
+      const interactionEvents = ['pointerdown', 'touchstart', 'wheel', 'keydown'];
       const startAfterInteraction = () => {
         interactionEvents.forEach((eventName) => {
           window.removeEventListener(eventName, startAfterInteraction);
         });
-        window.setTimeout(() => initialiseStage(stage), 120);
+        window.setTimeout(startModelSequence, 120);
       };
 
       interactionEvents.forEach((eventName) => {
-        window.addEventListener(eventName, startAfterInteraction, { passive: true, once: true });
+        window.addEventListener(eventName, startAfterInteraction, {
+          once: true,
+          passive: eventName !== 'keydown'
+        });
       });
       return;
     }
 
     const start = () => {
-      const run = () => initialiseStage(stage);
+      const run = () => startModelSequence();
       if ('requestIdleCallback' in window) {
         window.requestIdleCallback(run, { timeout: 1800 });
       } else {
@@ -810,6 +867,7 @@
     observer.observe(stage);
   }
 
+  stages.forEach(enforceContainment);
   stages.forEach(schedule);
 
   let criticalChecks = 0;

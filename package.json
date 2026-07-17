@@ -24,7 +24,7 @@
     "verify": "npm run test:ci"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=22.19"
   },
   "packageManager": "npm@11.12.1",
   "dependencies": {
@@ -36,7 +36,7 @@
     "@axe-core/playwright": "^4.12.1",
     "@playwright/test": "^1.61.1",
     "csso-cli": "^4.0.2",
-    "lighthouse": "^12.8.2",
+    "lighthouse": "^13.4.0",
     "sharp": "^0.34.5",
     "terser": "^5.47.1"
   }

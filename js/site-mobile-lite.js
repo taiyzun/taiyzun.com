@@ -5,6 +5,22 @@
   const compactLoaderQuery = window.matchMedia ? window.matchMedia('(max-width: 820px), (pointer: coarse)') : null;
   const reduceQuery = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
   const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  const deliberateInteractionEvents = ['pointerdown', 'touchstart', 'wheel', 'keydown'];
+
+  function addDeliberateInteractionListeners(handler) {
+    deliberateInteractionEvents.forEach((eventName) => {
+      window.addEventListener(eventName, handler, {
+        once: true,
+        passive: eventName !== 'keydown'
+      });
+    });
+  }
+
+  function removeDeliberateInteractionListeners(handler) {
+    deliberateInteractionEvents.forEach((eventName) => {
+      window.removeEventListener(eventName, handler);
+    });
+  }
 
   function mark3DInteractionSeen(event) {
     if (window.TAIYZUN_3D_INTERACTION_SEEN === true) return;
@@ -22,7 +38,8 @@
       (coarseQuery && coarseQuery.matches) ||
       (reduceQuery && reduceQuery.matches) ||
       /iP(hone|ad|od)|Android/i.test(navigator.userAgent) ||
-      (connection && connection.saveData)
+      (connection && (connection.saveData || /(^|-)2g$|slow-2g/i.test(connection.effectiveType || ''))) ||
+      (Number.isFinite(navigator.deviceMemory) && navigator.deviceMemory <= 4)
     );
   }
 
@@ -205,9 +222,10 @@
 
     const compact = applyMobileLite();
     const reduceMotion = reduceQuery && reduceQuery.matches;
-    const connectionSlow =
-      connection &&
-      (connection.saveData || /(^|-)2g$|slow-2g/i.test(connection.effectiveType || ''));
+    const connectionSlow = Boolean(
+      (connection && (connection.saveData || /(^|-)2g$|slow-2g/i.test(connection.effectiveType || ''))) ||
+      (Number.isFinite(navigator.deviceMemory) && navigator.deviceMemory <= 4)
+    );
 
     const inject = () => {
       if (document.querySelector(`script[src="${src}"]`)) return;
@@ -222,29 +240,26 @@
 
     if (!compact && !connectionSlow) {
       let scheduled = false;
-      const interactionEvents = ['pointermove', 'pointerdown', 'wheel', 'keydown'];
       const startDesktopField = (event) => {
         if (scheduled) return;
         scheduled = true;
         if (event) mark3DInteractionSeen(event);
-        interactionEvents.forEach((eventName) => window.removeEventListener(eventName, startDesktopField));
+        removeDeliberateInteractionListeners(startDesktopField);
         window.setTimeout(() => {
           if ('requestIdleCallback' in window) {
-            window.requestIdleCallback(inject, { timeout: 1600 });
+            window.requestIdleCallback(inject, { timeout: 2600 });
           } else {
             inject();
           }
-        }, 120);
+        }, 480);
       };
 
-      interactionEvents.forEach((eventName) => {
-        window.addEventListener(eventName, startDesktopField, { once: true, passive: true });
-      });
+      addDeliberateInteractionListeners(startDesktopField);
       window.setTimeout(startDesktopField, 30000);
       return;
     }
 
-    if (reduceMotion) return;
+    if (reduceMotion || connectionSlow) return;
 
     let scheduled = false;
     const schedule = (delay) => {
@@ -263,12 +278,10 @@
       // The runtime module is injected after this event. Persist the hand-off
       // so both stages can start without asking the visitor to interact twice.
       mark3DInteractionSeen(event);
-      schedule(720);
+      removeDeliberateInteractionListeners(interactionStart);
+      schedule(960);
     };
-    window.addEventListener('pointerdown', interactionStart, { once: true, passive: true });
-    window.addEventListener('touchstart', interactionStart, { once: true, passive: true });
-    window.addEventListener('wheel', interactionStart, { once: true, passive: true });
-    window.addEventListener('keydown', interactionStart, { once: true });
+    addDeliberateInteractionListeners(interactionStart);
 
     // Compact devices retain the static design until the visitor interacts.
     // This keeps WebGL and Three.js off the critical loading path.
@@ -304,16 +317,13 @@
         }
       };
       let scheduled = false;
-      const interactionEvents = ['pointermove', 'pointerdown', 'touchstart', 'wheel', 'scroll', 'keydown'];
       const startMobileSafe = () => {
         if (scheduled) return;
         scheduled = true;
-        interactionEvents.forEach((eventName) => window.removeEventListener(eventName, startMobileSafe));
+        removeDeliberateInteractionListeners(startMobileSafe);
         scheduleMobileSafe();
       };
-      interactionEvents.forEach((eventName) => {
-        window.addEventListener(eventName, startMobileSafe, { once: true, passive: eventName !== 'keydown' });
-      });
+      addDeliberateInteractionListeners(startMobileSafe);
       window.setTimeout(startMobileSafe, 30000);
       return;
     }
@@ -342,16 +352,13 @@
     };
 
     let scheduled = false;
-    const interactionEvents = ['pointermove', 'pointerdown', 'wheel', 'keydown'];
     const startDesktopEnhancements = () => {
       if (scheduled) return;
       scheduled = true;
-      interactionEvents.forEach((eventName) => window.removeEventListener(eventName, startDesktopEnhancements));
+      removeDeliberateInteractionListeners(startDesktopEnhancements);
       window.setTimeout(schedule, 180);
     };
-    interactionEvents.forEach((eventName) => {
-      window.addEventListener(eventName, startDesktopEnhancements, { once: true, passive: true });
-    });
+    addDeliberateInteractionListeners(startDesktopEnhancements);
     window.setTimeout(startDesktopEnhancements, 30000);
   };
 

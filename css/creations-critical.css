@@ -165,6 +165,14 @@
   }
 }
 
+@media (max-width: 360px) {
+  body.creations-page .page-hero > .taiyzun-sword-stage--page,
+  body.creations-page .page-hero > .taiyzun-at-stage--page {
+    width: 3rem !important;
+    height: 3rem !important;
+  }
+}
+
 @font-face {
   font-family: "Philosopher";
   font-style: normal;

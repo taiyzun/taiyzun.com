@@ -21,6 +21,8 @@ reports/
 lighthouse-*.json
 playwright-report/
 test-results/
+__pycache__/
+*.py[cod]
 
 # Local gallery copy artifacts
 assets/space-gallery-share-index [0-9]*.json
