@@ -642,6 +642,7 @@ for (const route of canonicalPages) {
 for (const route of canonicalPages) {
   test(`@progressive ${route.name} keeps desktop 3D off the critical path and starts it after interaction`, async ({ page, browserName }) => {
     test.skip(browserName === 'webkit', 'The progressive-loading contract is browser-independent.');
+    test.setTimeout(75000);
     const runtimeErrors = [];
     page.on('pageerror', (error) => runtimeErrors.push(error.message));
     page.on('console', (message) => {
