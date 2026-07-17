@@ -25,11 +25,11 @@ The runtime supports:
 
 ## Placement And Motion
 
-- Sword: centred, Y-up, front-facing, scale `1.08`, maximum yaw `10 degrees`, maximum pitch about `2 degrees`.
-- @ mark: smaller supporting object, scale `0.12`, maximum yaw `6 degrees`, maximum pitch `4 degrees`. CSS gives it a bounded top-right stage while the sword owns a separate lower-left/right-column stage, depending on the page layout.
+- Sword: centred, Y-up and front-facing at scale `1.08`. It continuously spins around its own Y axis at `0.14 rad/s`, with the original pointer and scroll response layered onto that rotation.
+- @ mark: a smaller supporting object at scale `0.12`. It continuously rotates clockwise around its screen-facing Z axis at `0.24 rad/s`, with pointer and scroll response. CSS gives it a bounded top-right stage while the sword owns a separate lower-left/right-column stage, depending on the page layout.
 - The runtime preserves the supplied geometry while applying the approved gold-and-platinum finish: gold sword faces, platinum bevels and silver razor edges. The @ mark uses a restrained metallic gold finish.
 - Both objects remain z-contained, use transparent renderer backgrounds, and use soft ambient, hemisphere, key, rim and lower fill lights.
-- Neither object performs a full spin. Both use a slow breathing motion and pointer parallax only.
+- Both objects complete full rotations while visible. Rotation pauses when the stage is offscreen, the document is hidden or the lightbox is open, and remains fully disabled when reduced motion is requested.
 
 ## Fallback And Performance Behaviour
 

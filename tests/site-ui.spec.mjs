@@ -475,6 +475,125 @@ test('@progressive mobile decorative field follows dynamic Odyssey growth', asyn
   ).toBeGreaterThan(initialHeight + 4000);
 });
 
+test('@decorative all primary pages cover their full length and breadth without collisions', async ({ page, browserName }) => {
+  test.skip(browserName !== 'chromium', 'The shared deterministic decorative layout needs one browser contract run.');
+  test.setTimeout(120000);
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.setViewportSize({ width: 1440, height: 900 });
+
+  for (const route of canonicalPages) {
+    const response = await page.goto(route.path, { waitUntil: 'domcontentloaded' });
+    expect(response?.status()).toBe(200);
+    await page.mouse.wheel(0, 240);
+    const field = page.locator('#siteDecorativeField');
+    await expect(field).toBeAttached({ timeout: 10000 });
+    await expect.poll(
+      () => field.getAttribute('data-coverage-protocol'),
+      { timeout: 12000 }
+    ).toBe('full-page-even-v1');
+    await page.waitForTimeout(1800);
+    await expect.poll(
+      () => field.evaluate((element) => {
+        const fieldHeight = Number.parseFloat(element.style.height) || 0;
+        const pageHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+        return fieldHeight >= pageHeight - 2;
+      }),
+      { timeout: 12000 }
+    ).toBe(true);
+    await expect.poll(
+      () => page.locator('.site-decorative-png').evaluateAll((images) => {
+        const field = document.querySelector('#siteDecorativeField');
+        const pageHeight = Number(field?.dataset.coverageHeight) || 1;
+        const declaredBands = Number(field?.dataset.coverageBands) || 0;
+        const centres = images
+          .map((image) => {
+            const rect = image.getBoundingClientRect();
+            return (rect.top + scrollY + rect.height * 0.5) / Math.max(pageHeight, 1);
+          })
+          .sort((left, right) => left - right);
+        const gaps = centres.slice(1).map((value, index) => value - centres[index]);
+        return images.length === declaredBands &&
+          (centres[0] ?? 1) < 0.16 &&
+          (centres.at(-1) ?? 0) > 0.84 &&
+          Math.max(0, ...gaps) < 0.2;
+      }),
+      { timeout: 20000, intervals: [500, 750, 1000] }
+    ).toBe(true);
+
+    const coverage = await page.locator('.site-decorative-png').evaluateAll((images) => {
+      const field = document.querySelector('#siteDecorativeField');
+      const pageHeight = Number(field?.dataset.coverageHeight) ||
+        Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+      const viewportWidth = document.documentElement.clientWidth;
+      const entries = images.map((image) => {
+        const state = image._decorState;
+        const rect = image.getBoundingClientRect();
+        const documentTop = rect.top + window.scrollY;
+        return {
+          band: Number(image.dataset.coverageBand || 0),
+          lane: image.dataset.coverageLane || '',
+          centreX: (rect.left + rect.right) * 0.5 / Math.max(viewportWidth, 1),
+          centreY: (documentTop + rect.height * 0.5) / Math.max(pageHeight, 1),
+          left: rect.left,
+          right: rect.right,
+          top: documentTop,
+          bottom: documentTop + rect.height,
+          width: rect.width,
+          height: rect.height,
+          pointerEvents: getComputedStyle(image).pointerEvents,
+          objectFit: getComputedStyle(image).objectFit,
+          ariaHidden: image.getAttribute('aria-hidden'),
+          focusable: image.tabIndex >= 0,
+          hasState: Boolean(state)
+        };
+      }).sort((left, right) => left.centreY - right.centreY);
+      const verticalCentres = entries.map((entry) => entry.centreY);
+      const verticalGaps = verticalCentres.slice(1).map((value, index) => value - verticalCentres[index]);
+      let overlaps = 0;
+      for (let leftIndex = 0; leftIndex < entries.length; leftIndex += 1) {
+        for (let rightIndex = leftIndex + 1; rightIndex < entries.length; rightIndex += 1) {
+          const left = entries[leftIndex];
+          const right = entries[rightIndex];
+          const overlapWidth = Math.min(left.right, right.right) - Math.max(left.left, right.left);
+          const overlapHeight = Math.min(left.bottom, right.bottom) - Math.max(left.top, right.top);
+          if (overlapWidth > 8 && overlapHeight > 8) overlaps += 1;
+        }
+      }
+      return {
+        count: entries.length,
+        uniqueBands: new Set(entries.map((entry) => entry.band)).size,
+        uniqueLanes: new Set(entries.map((entry) => entry.lane)).size,
+        firstCentreY: verticalCentres[0] ?? 1,
+        lastCentreY: verticalCentres.at(-1) ?? 0,
+        maxVerticalGap: Math.max(0, ...verticalGaps),
+        minCentreX: Math.min(1, ...entries.map((entry) => entry.centreX)),
+        maxCentreX: Math.max(0, ...entries.map((entry) => entry.centreX)),
+        allInsideWidth: entries.every((entry) => entry.left >= -1 && entry.right <= viewportWidth + 1),
+        allDecorativeOnly: entries.every((entry) =>
+          entry.hasState &&
+          entry.pointerEvents === 'none' &&
+          entry.objectFit === 'contain' &&
+          entry.ariaHidden === 'true' &&
+          !entry.focusable
+        ),
+        overlaps
+      };
+    });
+
+    expect(coverage.count, route.name).toBeGreaterThanOrEqual(10);
+    expect(coverage.uniqueBands, route.name).toBe(coverage.count);
+    expect(coverage.uniqueLanes, route.name).toBeGreaterThanOrEqual(5);
+    expect(coverage.firstCentreY, route.name).toBeLessThan(0.16);
+    expect(coverage.lastCentreY, route.name).toBeGreaterThan(0.84);
+    expect(coverage.maxVerticalGap, route.name).toBeLessThan(0.2);
+    expect(coverage.minCentreX, route.name).toBeLessThan(0.25);
+    expect(coverage.maxCentreX, route.name).toBeGreaterThan(0.75);
+    expect(coverage.allInsideWidth, route.name).toBe(true);
+    expect(coverage.allDecorativeOnly, route.name).toBe(true);
+    expect(coverage.overlaps, route.name).toBe(0);
+  }
+});
+
 for (const route of canonicalPages) {
   test(`@3d-static ${route.name} keeps both fallbacks for reduced motion`, async ({ page, browserName }) => {
     test.skip(browserName === 'webkit', 'The reduced-motion contract is browser-independent.');
@@ -592,21 +711,37 @@ for (const route of canonicalPages) {
       ),
       { timeout: 10000 }
     ).toBe(true);
+    await page.evaluate(() => scrollTo(0, 0));
+    await expect.poll(
+      () => page.locator('[data-taiyzun-sword], [data-taiyzun-at]').evaluateAll((stages) =>
+        stages.every((stage) => {
+          const rect = stage.getBoundingClientRect();
+          return rect.bottom > 0 && rect.top < innerHeight && rect.right > 0 && rect.left < innerWidth;
+        })
+      ),
+      { timeout: 5000 }
+    ).toBe(true);
+    await page.mouse.move(720, 450);
     const visibleObjects = await page.locator('[data-taiyzun-sword], [data-taiyzun-at]').evaluateAll((stages) =>
       stages.map((stage) => ({
         status: stage.dataset.status,
         object: stage.dataset.object,
-        rotationY: Number(stage.dataset.rotationY || 0),
-        rotationZ: Number(stage.dataset.rotationZ || 0)
+        spinAxis: stage.dataset.spinAxis,
+        spinDirection: stage.dataset.spinDirection,
+        spinRate: Number(stage.dataset.spinRate || 0)
       }))
     );
     expect(visibleObjects).toHaveLength(2);
     const swordState = visibleObjects.find((object) => object.object === 'sword');
     expect(swordState).toBeTruthy();
-    expect(Math.abs(swordState.rotationY)).toBeLessThanOrEqual(Math.PI / 18 + 0.001);
     const atState = visibleObjects.find((object) => object.object === 'at');
     expect(atState).toBeTruthy();
-    expect(Math.abs(atState.rotationZ)).toBeLessThanOrEqual(Math.PI / 12 + 0.001);
+    await expect(page.locator('[data-taiyzun-sword]')).toHaveAttribute('data-spin-axis', 'y');
+    await expect(page.locator('[data-taiyzun-sword]')).toHaveAttribute('data-spin-direction', 'positive');
+    await expect(page.locator('[data-taiyzun-sword]')).toHaveAttribute('data-spin-rate', '0.14');
+    await expect(page.locator('[data-taiyzun-at]')).toHaveAttribute('data-spin-axis', 'z');
+    await expect(page.locator('[data-taiyzun-at]')).toHaveAttribute('data-spin-direction', 'clockwise');
+    await expect(page.locator('[data-taiyzun-at]')).toHaveAttribute('data-spin-rate', '0.24');
     await expect.poll(
       () => page.locator('script[src*="desktop-enhancements-loader.min.js"]').count(),
       { timeout: 5000 }
@@ -625,3 +760,68 @@ for (const route of canonicalPages) {
     expect(runtimeErrors).toEqual([]);
   });
 }
+
+test('@3d-motion all primary pages preserve the original continuous rotation directions', async ({ page, browserName }) => {
+  test.skip(browserName !== 'chromium', 'One Chromium pass verifies the shared WebGL motion protocol.');
+  test.setTimeout(120000);
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.setViewportSize({ width: 1440, height: 900 });
+
+  for (const route of canonicalPages) {
+    const response = await page.goto(route.path, { waitUntil: 'domcontentloaded' });
+    expect(response?.status(), route.name).toBe(200);
+    await page.evaluate(() => {
+      scrollTo(0, 0);
+      window.dispatchEvent(new PointerEvent('pointerdown', {
+        bubbles: true,
+        clientX: Math.round(innerWidth * 0.5),
+        clientY: Math.round(innerHeight * 0.5)
+      }));
+    });
+    await expect.poll(
+      () => page.locator('[data-taiyzun-sword], [data-taiyzun-at]').evaluateAll((stages) =>
+        stages.length === 2 && stages.every((stage) => stage.dataset.status === 'ready')
+      ),
+      { timeout: 25000 }
+    ).toBe(true);
+    await page.mouse.move(720, 450);
+    await expect.poll(
+      () => page.locator('[data-taiyzun-sword], [data-taiyzun-at]').evaluateAll((stages) =>
+        stages.every((stage) => Number.isFinite(Number(stage.dataset.spinPhase)))
+      ),
+      { timeout: 5000 }
+    ).toBe(true);
+    await page.waitForTimeout(3000);
+    const start = await page.locator('[data-taiyzun-sword], [data-taiyzun-at]').evaluateAll((stages) =>
+      Object.fromEntries(stages.map((stage) => [stage.dataset.object, {
+        phase: Number(stage.dataset.spinPhase),
+        rotationY: Number(stage.dataset.rotationY),
+        rotationZ: Number(stage.dataset.rotationZ)
+      }]))
+    );
+
+    await expect.poll(
+      async () => {
+        const current = await page.locator('[data-taiyzun-sword], [data-taiyzun-at]').evaluateAll((stages) =>
+          Object.fromEntries(stages.map((stage) => [stage.dataset.object, {
+            phase: Number(stage.dataset.spinPhase),
+            rotationY: Number(stage.dataset.rotationY),
+            rotationZ: Number(stage.dataset.rotationZ)
+          }]))
+        );
+        return {
+          swordPhaseAdvances: current.sword.phase - start.sword.phase > 0.04,
+          swordTurnsPositive: current.sword.rotationY - start.sword.rotationY > 0.035,
+          atPhaseAdvances: current.at.phase - start.at.phase > 0.07,
+          atTurnsClockwise: current.at.rotationZ - start.at.rotationZ < -0.06
+        };
+      },
+      { timeout: 12000, intervals: [1000, 1500, 2000] }
+    ).toEqual({
+      swordPhaseAdvances: true,
+      swordTurnsPositive: true,
+      atPhaseAdvances: true,
+      atTurnsClockwise: true
+    });
+  }
+});

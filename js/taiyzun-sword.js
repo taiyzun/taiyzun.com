@@ -615,6 +615,7 @@
       let lastTime = performance.now();
       let lastStatusUpdate = 0;
       let visible = true;
+      let spinPhase = 0;
 
       function stopRendering() {
         if (!frame) return;
@@ -673,24 +674,19 @@
         pointer.x = damp(pointer.x, reduceMotion ? 0 : pointer.targetX, 4, delta);
         pointer.y = damp(pointer.y, reduceMotion ? 0 : pointer.targetY, 4, delta);
         scrollMotion.value = damp(scrollMotion.value, reduceMotion ? 0 : scrollMotion.target, 5, delta);
+        if (!reduceMotion) {
+          spinPhase += delta * (objectType === 'sword' ? 0.14 : 0.24);
+        }
+        const scrollSpin = reduceMotion ? 0 : scrollMotion.value * 0.0042;
+        const pointerSpin = reduceMotion ? 0 : pointer.x * Math.PI * 0.58;
         const scrollProgress = clamp(scrollMotion.value / Math.max(document.documentElement.scrollHeight - window.innerHeight, 1), 0, 1);
 
-        const swordYaw = reduceMotion
-          ? 0
-          : Math.sin(elapsed * 0.22) * config.maxYaw * 0.28
-            + pointer.x * config.maxYaw * 0.62
-            + Math.sin(scrollMotion.value * 0.00085) * config.maxYaw * 0.1;
         root.rotation.y = objectType === 'sword'
-          ? clamp(swordYaw, -config.maxYaw, config.maxYaw)
+          ? (reduceMotion ? 0 : spinPhase + pointerSpin + scrollSpin)
           : pointer.x * config.maxYaw;
         root.rotation.x = -pointer.y * config.maxPitch;
-        const atRoll = reduceMotion
-          ? 0
-          : Math.sin(elapsed * 0.24) * 0.12
-            + Math.sin(scrollMotion.value * 0.0006) * 0.05
-            + pointer.x * 0.05;
         root.rotation.z = objectType === 'at'
-          ? clamp(-atRoll, -Math.PI / 12, Math.PI / 12)
+          ? (reduceMotion ? 0 : -(spinPhase + scrollSpin + pointer.x * 0.34))
           : 0;
         root.position.x = usesSafeZone ? 0 : config.offsetX;
         root.position.y = (usesSafeZone ? 0 : config.offsetY) + (reduceMotion ? 0 : Math.sin(elapsed * 0.32) * 0.006);
@@ -711,6 +707,7 @@
         }
         if (now - lastStatusUpdate >= 250) {
           lastStatusUpdate = now;
+          stage.dataset.spinPhase = spinPhase.toFixed(4);
           stage.dataset.rotationX = root.rotation.x.toFixed(4);
           stage.dataset.rotationY = root.rotation.y.toFixed(4);
           stage.dataset.rotationZ = root.rotation.z.toFixed(4);
@@ -755,6 +752,9 @@
       stage.dataset.model = config.modelUrl;
       stage.dataset.orientation = objectType === 'sword' ? 'y-up-front-facing' : 'z-facing-corner-signature';
       stage.dataset.motion = config.motion;
+      stage.dataset.spinAxis = objectType === 'sword' ? 'y' : 'z';
+      stage.dataset.spinDirection = objectType === 'sword' ? 'positive' : 'clockwise';
+      stage.dataset.spinRate = objectType === 'sword' ? '0.14' : '0.24';
       stage.dataset.status = 'ready';
       canvas.style.opacity = '1';
       fallback?.setAttribute('hidden', '');

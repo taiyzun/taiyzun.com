@@ -231,6 +231,19 @@
     "assets/easter-eggs/stingray.png",
     "assets/easter-eggs/tainfinity.png"
   ]);
+  const intrinsicAspectRatios = {
+    "assets/easter-eggs/at-slogo.png": 1,
+    "assets/easter-eggs/diya.png": 324 / 358,
+    "assets/easter-eggs/earth-mandala.png": 1,
+    "assets/easter-eggs/epoch.png": 1,
+    "assets/easter-eggs/ganesh.png": 1,
+    "assets/easter-eggs/hearts-line.png": 3000 / 676,
+    "assets/easter-eggs/infinite-hearts.png": 509 / 110,
+    "assets/easter-eggs/star-polygon.png": 1,
+    "assets/easter-eggs/stingray.png": 738 / 984,
+    "assets/easter-eggs/sword.png": 1613 / 2420,
+    "assets/easter-eggs/tainfinity.png": 1
+  };
 
   const decorativeFieldAssets = decorativeAssets.filter((assetPath) => !framedDecorativeAssets.has(assetPath));
   const pageKeys = ["home-page", "journey-page", "odyssey-page", "creations-page", "connect-page"];
@@ -246,8 +259,7 @@
   }
 
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const pageLoadNonce = `${pageKey}:${Date.now().toString(36)}:${Math.random().toString(36).slice(2, 10)}`;
-  const deckStorageKey = "taiyzunDecorativeDeckV9Cutouts";
+  const pageLoadNonce = `${pageKey}:${viewportTier()}:full-page-even-v1`;
   const horizontalLanes = [
     { name: "far-left", min: 2, max: 12 },
     { name: "left", min: 13, max: 27 },
@@ -350,64 +362,9 @@
     };
   }
 
-  function readDeckState() {
-    try {
-      const raw = window.sessionStorage.getItem(deckStorageKey);
-      const parsed = raw ? JSON.parse(raw) : null;
-      if (!parsed || !Array.isArray(parsed.unused)) {
-        return { unused: [] };
-      }
-      parsed.unused = parsed.unused.filter((assetPath) => decorativeFieldAssets.includes(assetPath));
-      return parsed;
-    } catch (error) {
-      return { unused: [] };
-    }
-  }
-
-  function writeDeckState(state) {
-    try {
-      window.sessionStorage.setItem(deckStorageKey, JSON.stringify(state));
-    } catch (error) {
-      // Storage can be unavailable in private contexts; decorative allocation can still continue.
-    }
-  }
-
-  function shuffleRandom(list) {
-    const deck = list.slice();
-    for (let index = deck.length - 1; index > 0; index -= 1) {
-      const swapIndex = Math.floor(Math.random() * (index + 1));
-      [deck[index], deck[swapIndex]] = [deck[swapIndex], deck[index]];
-    }
-    return deck;
-  }
-
   function takeDecorativeAssets(count) {
-    const state = readDeckState();
-    const chosen = [];
-    const chosenSet = new Set();
-
-    while (chosen.length < count) {
-      if (!state.unused.length) {
-        const available = decorativeFieldAssets.filter((path) => !chosenSet.has(path));
-        const nextDeck = shuffleRandom(available.length ? available : decorativeFieldAssets);
-        if (state.lastAsset && nextDeck.length > 1 && nextDeck[0] === state.lastAsset) {
-          [nextDeck[0], nextDeck[1]] = [nextDeck[1], nextDeck[0]];
-        }
-        state.unused = nextDeck;
-      }
-
-      const nextAsset = state.unused.shift();
-      if (!nextAsset || chosenSet.has(nextAsset) || !decorativeFieldAssets.includes(nextAsset)) {
-        continue;
-      }
-
-      chosen.push(nextAsset);
-      chosenSet.add(nextAsset);
-      state.lastAsset = nextAsset;
-    }
-
-    writeDeckState(state);
-    return chosen;
+    const rng = createRng(hashString(`${pageKey}:${viewportTier()}:asset-deck-v1`));
+    return shuffle(decorativeFieldAssets, rng).slice(0, count);
   }
 
   function shuffle(list, rng) {
@@ -441,6 +398,10 @@
       return 700 / 500;
     }
 
+    if (intrinsicAspectRatios[assetPath]) {
+      return intrinsicAspectRatios[assetPath];
+    }
+
     const match = assetPath.match(/\[(\d+)x(\d+)\]/);
     if (!match) {
       return 1;
@@ -458,58 +419,37 @@
     return "mobile";
   }
 
-  function countForSection(section) {
+  function maxItemsForViewport(documentHeight) {
     const tier = viewportTier();
-    const isHero = section.matches(".hero, .page-hero");
-    const isGallery = section.matches(".gallery-section, .timeline-section");
-    const isCompact = section.matches(".bio-section, .connect-section, .social-section");
-    const isFooter = section.matches("footer");
+    const density = tier === "desktop"
+      ? { targetBandHeight: 520, minimum: 10, maximum: 24 }
+      : tier === "tablet"
+        ? { targetBandHeight: 650, minimum: 8, maximum: 18 }
+        : { targetBandHeight: 780, minimum: 6, maximum: 12 };
+    const proportionalCount = Math.ceil(documentHeight / density.targetBandHeight);
 
-    if (isHero) {
-      return tier === "desktop" ? 5 : tier === "tablet" ? 3 : 1;
-    }
-
-    if (isGallery) {
-      return tier === "desktop" ? 4 : tier === "tablet" ? 3 : 2;
-    }
-
-    if (isCompact) {
-      return tier === "desktop" ? 3 : tier === "tablet" ? 2 : 1;
-    }
-
-    if (isFooter) {
-      return 1;
-    }
-
-    return 1;
+    return Math.min(
+      decorativeFieldAssets.length,
+      density.maximum,
+      Math.max(density.minimum, proportionalCount)
+    );
   }
 
-  function priorityForSection(section) {
-    if (section.matches(".hero, .page-hero")) {
-      return 5;
-    }
-    if (section.matches(".gallery-section, .timeline-section")) {
-      return 4;
-    }
-    if (section.matches(".connect-section, .social-section, .bio-section")) {
-      return 3;
-    }
-    if (section.matches("footer")) {
-      return 1;
-    }
-    return 2;
-  }
+  function sectionForDocumentY(documentY) {
+    const measuredSections = targetSections.map((section, sectionIndex) => {
+      const rect = section.getBoundingClientRect();
+      const top = rect.top + window.scrollY;
+      const bottom = top + Math.max(rect.height, 1);
+      return { section, sectionIndex, top, bottom };
+    });
+    const containing = measuredSections.find((entry) => documentY >= entry.top && documentY <= entry.bottom);
 
-  function maxItemsForViewport() {
-    const pageMultiplier = Math.max(1, Math.ceil(Math.max(document.body.scrollHeight, window.innerHeight) / Math.max(window.innerHeight, 1)));
+    if (containing) return containing;
 
-    if (window.innerWidth >= 1280) {
-      return Math.min(21, pageKey === "home-page" ? 21 : 15 + pageMultiplier * 2);
-    }
-    if (window.innerWidth >= 768) {
-      return Math.min(18, 10 + pageMultiplier * 2);
-    }
-    return Math.min(6, 4 + pageMultiplier);
+    return measuredSections.reduce((closest, entry) => {
+      const distance = documentY < entry.top ? entry.top - documentY : documentY - entry.bottom;
+      return !closest || distance < closest.distance ? { ...entry, distance } : closest;
+    }, null) || { section: body, sectionIndex: targetSections.length, top: 0, bottom: documentY };
   }
 
   function familyForAsset(assetPath) {
@@ -650,18 +590,20 @@
     const secondary = time * group.secondarySpeed + group.secondaryPhase;
     const pointerX = pointerEnabled ? pointerState.x : 0;
     const pointerY = pointerEnabled ? pointerState.y : 0;
+    const boundedScrollX = clamp(scrollY * group.scrollX, -38, 38);
+    const boundedScrollY = clamp(scrollY * group.scrollY, -52, 52);
 
     return {
       x:
         Math.sin(primary) * group.ampX +
         Math.cos(secondary) * group.ampX * 0.22 +
-        scrollY * group.scrollX +
+        boundedScrollX +
         scrollVelocity * group.scrollX * 0.8 +
         pointerX * group.pointerX,
       y:
         Math.cos(primary * 0.82) * group.ampY +
         Math.sin(secondary * 0.74) * group.ampY * 0.18 +
-        scrollY * group.scrollY +
+        boundedScrollY +
         scrollVelocity * group.scrollY * 0.58 +
         pointerY * group.pointerY,
       rotation: Math.sin(primary * 0.52) * group.rotAmp + pointerX * group.rotAmp * 0.28,
@@ -670,47 +612,28 @@
   }
 
   function buildSectionSlots() {
-    const maxItems = maxItemsForViewport();
-    const slots = [];
+    const documentHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight, window.innerHeight);
+    const itemCount = maxItemsForViewport(documentHeight);
+    const bandHeight = documentHeight / Math.max(itemCount, 1);
 
-    const allocations = targetSections
-      .map((section, sectionIndex) => ({
+    return Array.from({ length: itemCount }, (_, index) => {
+      const bandTop = index * bandHeight;
+      const bandBottom = index === itemCount - 1 ? documentHeight : (index + 1) * bandHeight;
+      const midpoint = (bandTop + bandBottom) * 0.5;
+      const { section, sectionIndex } = sectionForDocumentY(midpoint);
+      const isHero = section.matches?.(".hero, .page-hero");
+
+      return {
         section,
         sectionIndex,
-        count: countForSection(section),
-        priority: priorityForSection(section)
-      }))
-      .sort((left, right) => right.priority - left.priority || left.sectionIndex - right.sectionIndex);
-
-    allocations.forEach(({ section, sectionIndex, count }) => {
-      if (slots.length >= maxItems) return;
-
-      const rect = section.getBoundingClientRect();
-      const sectionTop = rect.top + window.scrollY;
-      const sectionHeight = Math.max(rect.height, Math.min(window.innerHeight * 0.72, 420));
-      const isHero = section.matches(".hero, .page-hero");
-      const sectionLanes = isHero
-        ? [horizontalLanes[0], horizontalLanes[5], horizontalLanes[1], horizontalLanes[4], horizontalLanes[5]]
-        : horizontalLanes;
-      const available = Math.min(count, maxItems - slots.length);
-
-      for (let localSlot = 0; localSlot < available; localSlot += 1) {
-        slots.push({
-          section,
-          sectionIndex,
-          slot: localSlot,
-          lane: sectionLanes[(sectionIndex * 2 + localSlot) % sectionLanes.length],
-          bandTop: sectionTop,
-          bandBottom: sectionTop + sectionHeight,
-          verticalBias: (localSlot + 1) / (available + 1),
-          depth: isHero && available > 1 && localSlot % 3 === 1 ? "front" : "back"
-        });
-      }
+        slot: index,
+        lane: horizontalLanes[laneOrder[index % laneOrder.length]],
+        bandTop,
+        bandBottom,
+        verticalBias: 0.5 + ((index % 3) - 1) * 0.08,
+        depth: isHero && index % 3 === 1 ? "front" : "back"
+      };
     });
-
-    slots.sort((left, right) => left.bandTop - right.bandTop || left.slot - right.slot);
-
-    return slots;
   }
 
   function reservedRectsForSection(section) {
@@ -828,7 +751,7 @@
     const pointerDepth = (isHero ? 14 + rng() * 18 : 8 + rng() * 16) * motionVariant.dirX;
     const pointerLift = (isHero ? 10 + rng() * 16 : 7 + rng() * 13) * motionVariant.dirY;
     const pointerRotate = (0.45 + rng() * 1.25) * motionVariant.rotDir;
-    const opacity = isHero ? 0.14 + rng() * 0.06 : 0.09 + rng() * 0.05;
+    const opacity = isHero ? 0.16 + rng() * 0.07 : 0.12 + rng() * 0.05;
     const image = document.createElement("img");
     const groupIndex = motionGroups.length ? assetIndex % motionGroups.length : 0;
 
@@ -840,7 +763,17 @@
       image.sizes = `${width}px`;
     }
     image.dataset.originalSrc = assetPath;
-    image.onerror = () => image.remove();
+    image.onerror = () => {
+      const originalAsset = image.dataset.originalSrc;
+      if (originalAsset && image.dataset.fallbackAttempted !== "true") {
+        image.dataset.fallbackAttempted = "true";
+        image.removeAttribute("srcset");
+        image.removeAttribute("sizes");
+        image.src = originalAsset;
+        return;
+      }
+      image.remove();
+    };
     image.alt = "";
     image.width = Math.max(1, Math.round(width));
     image.height = Math.max(1, Math.round(estimatedHeight));
@@ -871,6 +804,8 @@
     image.dataset.motionDelay = introDelay.toFixed(5);
     image.dataset.motionRamp = introRamp.toFixed(5);
     image.dataset.motionGroup = motionGroups[groupIndex]?.label || "1";
+    image.dataset.coverageBand = String(assetIndex + 1);
+    image.dataset.coverageLane = laneInfo.name;
     image._decorState = {
       baseX,
       baseY,
@@ -879,6 +814,8 @@
       isHero,
       depth: depth || "back",
       containerTop: 0,
+      bandTop,
+      bandBottom,
       scrollXFactor,
       scrollYFactor,
       scrollSpeedFactor,
@@ -903,11 +840,8 @@
   }
 
   function ensurePageAssets(count) {
-    if (currentPageAssets.length < count) {
-      currentPageAssets = currentPageAssets.concat(takeDecorativeAssets(count - currentPageAssets.length));
-    }
-
-    return currentPageAssets.slice(0, count);
+    currentPageAssets = takeDecorativeAssets(Math.min(count, decorativeFieldAssets.length));
+    return currentPageAssets;
   }
 
   function render(force = false) {
@@ -976,8 +910,10 @@
       driftX *= ramp;
       driftY *= ramp;
       const group = groupFrames[state.groupIndex] || { x: 0, y: 0, rotation: 0, scale: 1 };
-      const shiftX = prefersReducedMotion.matches ? 0 : scrollY * state.scrollXFactor * ramp;
-      const shiftY = prefersReducedMotion.matches ? 0 : (scrollY * state.scrollYFactor + scrollVelocity * state.scrollSpeedFactor) * ramp;
+      const shiftX = prefersReducedMotion.matches ? 0 : clamp(scrollY * state.scrollXFactor * ramp, -46, 46);
+      const shiftY = prefersReducedMotion.matches
+        ? 0
+        : clamp((scrollY * state.scrollYFactor + scrollVelocity * state.scrollSpeedFactor) * ramp, -58, 58);
       const pointerX = pointerEnabled ? pointerState.x * state.pointerDepth * ramp : 0;
       const pointerY = pointerEnabled ? pointerState.y * state.pointerLift * ramp : 0;
       const pointerTurn = pointerEnabled ? pointerState.x * state.pointerRotate * ramp : 0;
@@ -985,10 +921,22 @@
       const rotation = prefersReducedMotion.matches
         ? state.baseRotation
         : state.baseRotation + scrollY * state.rotationScroll * ramp + rotationWave * ramp + pointerTurn + group.rotation * ramp;
-      const x = state.baseX + shiftX + driftX + pointerX + group.x * ramp;
-      const y = state.baseY + shiftY + driftY + pointerY + group.y * ramp;
       const width = state.width || 0;
       const height = state.height || width;
+      const edgeInset = window.innerWidth < 768 ? 8 : 14;
+      const x = clamp(
+        state.baseX + shiftX + driftX + pointerX + group.x * ramp,
+        edgeInset,
+        Math.max(edgeInset, window.innerWidth - width - edgeInset)
+      );
+      const containerHeight = state.isHero
+        ? Math.max(heroSection?.clientHeight || window.innerHeight, height)
+        : Math.max(lastLayoutDocumentHeight, height);
+      const y = clamp(
+        state.baseY + shiftY + driftY + pointerY + group.y * ramp,
+        0,
+        Math.max(0, containerHeight - height)
+      );
       const documentY = y + (state.containerTop || 0);
 
       if (!force && (documentY + height < viewportTop || documentY - height > viewportBottom)) {
@@ -1021,6 +969,9 @@
     field.dataset.scrollVelocity = "0";
     lastLayoutDocumentHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
     field.style.height = `${lastLayoutDocumentHeight}px`;
+    field.dataset.coverageProtocol = "full-page-even-v1";
+    field.dataset.coverageBands = String(slots.length);
+    field.dataset.coverageHeight = String(lastLayoutDocumentHeight);
 
     slots.forEach((slotInfo, index) => {
       const image = createPlacement(slotInfo, assetDeck[index], index, placementRecords);
