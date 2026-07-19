@@ -47,8 +47,15 @@ async function fetchWithRetry(url, options = {}) {
         },
         signal: AbortSignal.timeout(20000)
       });
-      if (response.status < 500 || attempt === 3) return response;
+      const isCloudflareResponse =
+        Boolean(response.headers.get('cf-ray')) ||
+        (response.headers.get('server') || '').toLowerCase().includes('cloudflare');
+      const isTransientEdgeStatus = [403, 408, 429].includes(response.status);
+      const shouldRetry = response.status >= 500 || (isCloudflareResponse && isTransientEdgeStatus);
+
+      if (!shouldRetry || attempt === 3) return response;
       lastError = new Error(`${url} returned ${response.status}`);
+      await response.body?.cancel();
     } catch (error) {
       lastError = error;
     }
@@ -58,6 +65,7 @@ async function fetchWithRetry(url, options = {}) {
 }
 
 for (const [route, canonicalUrl] of routes) {
+  const failureCountBeforeRoute = failures.length;
   const response = await fetchWithRetry(`${apex}${route}`);
   const html = await response.text();
   assert(response.status === 200, `${route} returned ${response.status}`);
@@ -66,7 +74,7 @@ for (const [route, canonicalUrl] of routes) {
   assert((response.headers.get('x-content-type-options') || '').toLowerCase() === 'nosniff', `${route} is missing nosniff`);
   assert((response.headers.get('x-frame-options') || '').toUpperCase() === 'DENY', `${route} is missing clickjacking protection`);
   assert(Boolean(response.headers.get('permissions-policy')), `${route} is missing Permissions-Policy`);
-  assert(Boolean(response.headers.get('content-security-policy-report-only')), `${route} is missing CSP reporting`);
+  assert(Boolean(response.headers.get('content-security-policy')), `${route} is missing enforced CSP`);
 
   const canonical = findTag(html, 'link', (attrs) => attrs.get('rel') === 'canonical').get('href');
   const fbAppId = findTag(html, 'meta', (attrs) => attrs.get('property') === 'fb:app_id').get('content');
@@ -87,7 +95,7 @@ for (const [route, canonicalUrl] of routes) {
       failures.push(`${route} has invalid JSON-LD: ${error.message}`);
     }
   }
-  console.log(`PASS ${route}`);
+  if (failures.length === failureCountBeforeRoute) console.log(`PASS ${route}`);
 }
 
 for (const imageUrl of [expectedOpenGraphImage, expectedTwitterImage]) {

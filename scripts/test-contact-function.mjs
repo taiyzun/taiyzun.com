@@ -8,11 +8,16 @@ const { onRequestGet, onRequestPost } = await import(contactModuleUrl);
 
 const originalFetch = globalThis.fetch;
 let outboundFetchCount = 0;
+let outboundFetchHandler;
 
-globalThis.fetch = async () => {
+globalThis.fetch = async (...args) => {
   outboundFetchCount += 1;
-  throw new Error('Unexpected outbound fetch during contact smoke test.');
+  return outboundFetchHandler(...args);
 };
+
+function rejectUnexpectedFetch() {
+  throw new Error('Unexpected outbound fetch during contact smoke test.');
+}
 
 function assert(condition, message) {
   if (!condition) {
@@ -56,6 +61,7 @@ async function responseJson(response) {
 
 async function runCase(name, fn) {
   outboundFetchCount = 0;
+  outboundFetchHandler = rejectUnexpectedFetch;
   await fn();
   console.log(`PASS ${name}`);
 }
@@ -110,6 +116,35 @@ try {
     assert(response.status === 200, `Expected 200, got ${response.status}`);
     assert(body.ok === true, 'Expected honeypot response to look successful.');
     assert(outboundFetchCount === 0, 'Honeypot must not call outbound providers.');
+  });
+
+  await runCase('optional updates remain received when Mailchimp is not configured', async () => {
+    outboundFetchHandler = async (url) => {
+      assert(String(url) === 'https://api.zeptomail.com/v1.1/email', 'Expected Zepto delivery only.');
+      return new Response(JSON.stringify({ request_id: 'test-delivery' }), {
+        status: 200,
+        headers: { 'content-type': 'application/json' }
+      });
+    };
+
+    const response = await onRequestPost(makeContext(jsonRequest({
+      name: 'Tai Test',
+      email: 'tai.test@example.com',
+      subject: 'Opt-in status test',
+      message: 'This validates honest optional-update status reporting.',
+      serious_enquiry_opt_in: 'yes'
+    }), {
+      ZEPTO_MAIL_API_KEY: 'test-key',
+      ZEPTO_MAIL_SENDER: 'sender@example.com',
+      ZEPTO_MAIL_RECIPIENT: 'recipient@example.com'
+    }));
+    const body = await responseJson(response);
+
+    assert(response.status === 200, `Expected 200, got ${response.status}`);
+    assert(body.ok === true, 'Expected successful contact delivery.');
+    assert(body.provider === 'zepto', 'Expected Zepto delivery provider.');
+    assert(body.followUp === 'received', 'Unconfigured Mailchimp must not be reported as queued.');
+    assert(outboundFetchCount === 1, 'Unconfigured Mailchimp must not trigger an outbound request.');
   });
 
   await runCase('valid payload without providers fails safely without outbound delivery', async () => {

@@ -291,10 +291,14 @@ function queueOptionalMailchimpOptIn(fields, context) {
     return { requested: false };
   }
 
+  if (!mailchimpConfig(context.env).available) {
+    return { requested: true, available: false, ok: false };
+  }
+
   const work = recordOptionalMailchimpOptIn(fields, context.env);
   if (typeof context.waitUntil === 'function') {
     context.waitUntil(work);
-    return { requested: true, ok: true };
+    return { requested: true, available: true, ok: true };
   }
 
   return work;
