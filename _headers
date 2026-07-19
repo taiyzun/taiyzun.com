@@ -53,14 +53,15 @@ https://:deployment.taiyzun-com.pages.dev/*
 /manifest.json
   Cache-Control: no-cache, must-revalidate
 
-/assets/space-gallery-manifest.json
-  Cache-Control: public, max-age=300, must-revalidate
-
 /assets/space-gallery-share-index.json
   Cache-Control: public, max-age=300, must-revalidate
+  X-Content-Type-Options: nosniff
+  X-Robots-Tag: noindex, noarchive
 
 /assets/space-gallery-index.json
   Cache-Control: public, max-age=300, must-revalidate
+  X-Content-Type-Options: nosniff
+  X-Robots-Tag: noindex, noarchive
 
 /sitemap.xml
   Cache-Control: no-cache, must-revalidate
@@ -97,6 +98,11 @@ https://:deployment.taiyzun-com.pages.dev/*
 /assets/Portraits/*
   Cache-Control: public, max-age=604800, must-revalidate
 
+/assets/Portraits/gallery-images.json
+  Cache-Control: public, max-age=604800, must-revalidate
+  X-Content-Type-Options: nosniff
+  X-Robots-Tag: noindex, noarchive
+
 /assets/Art/*
   Cache-Control: public, max-age=604800, must-revalidate
 
@@ -108,6 +114,8 @@ https://:deployment.taiyzun-com.pages.dev/*
 
 /assets/space-gallery-categories/*
   Cache-Control: public, max-age=300, must-revalidate
+  X-Content-Type-Options: nosniff
+  X-Robots-Tag: noindex, noarchive
 
 /3d/*
   Cache-Control: public, max-age=31536000, immutable

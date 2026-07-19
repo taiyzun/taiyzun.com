@@ -31,7 +31,6 @@ const publicHtmlFiles = new Set([
 const publicAssetFiles = [
   'assets/favicon.svg',
   'assets/space-gallery-index.json',
-  'assets/space-gallery-manifest.json',
   'assets/space-gallery-share-index.json',
   '3d/Taiyzun_Sword_Web.glb',
   '3d/Taiyzun_Sword_Fallback.png',

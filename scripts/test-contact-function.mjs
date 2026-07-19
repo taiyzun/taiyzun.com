@@ -123,6 +123,7 @@ try {
 
     assert(response.status === 502, `Expected 502 without providers, got ${response.status}`);
     assert(body.ok === false, 'Expected ok=false when delivery providers are unavailable.');
+    assert(body.message === 'Your message could not be sent just now. Please try again shortly or use one of the public channels below.', 'Expected a provider-neutral visitor message.');
     assert(outboundFetchCount === 0, 'Missing provider env must not call outbound providers.');
   });
 } finally {

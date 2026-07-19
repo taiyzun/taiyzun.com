@@ -3,6 +3,7 @@
 const crypto = require('node:crypto');
 const fs = require('node:fs');
 const path = require('node:path');
+const { publicEntries } = require('./gallery-publication-policy');
 
 const rootDir = path.resolve(__dirname, '..');
 const manifestPath = path.join(rootDir, 'assets', 'space-gallery-manifest.json');
@@ -42,10 +43,11 @@ const categories = [];
 fs.rmSync(chunksDir, { recursive: true, force: true, maxRetries: 6, retryDelay: 120 });
 fs.mkdirSync(chunksDir, { recursive: true });
 
-for (const [key, entries] of Object.entries(manifest)) {
-  if (!Array.isArray(entries)) continue;
+for (const [key, rawEntries] of Object.entries(manifest)) {
+  const entries = publicEntries(rawEntries, key);
+  if (!entries.length) continue;
 
-  const fileName = `${slugify(key)}-${hash(key)}.json`;
+  const fileName = `${slugify(key)}-${hash(JSON.stringify([key, entries]))}.json`;
   const publicPath = `/assets/space-gallery-categories/${fileName}`;
   writeJson(path.join(chunksDir, fileName), entries);
 

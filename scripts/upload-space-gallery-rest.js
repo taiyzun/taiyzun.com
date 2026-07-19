@@ -11,12 +11,12 @@ const fs = require('fs');
 const path = require('path');
 const sharp = require('sharp');
 const { readdir } = require('fs/promises');
+const { publicationBlockReason, sanitizeManifest } = require('./gallery-publication-policy');
 
 const ACCOUNT_ID = '45c2547d0e32e249912336f66a9c5c01';
 const BUCKET = 'taiyzun-gallery';
 const PUBLIC_URL = 'https://assets.taiyzun.com';
 const PREFIX = process.env.SPACE_GALLERY_PREFIX || 'space-gallery';
-const MANIFEST_KEY = process.env.SPACE_GALLERY_MANIFEST_KEY || `${PREFIX}/manifest.json`;
 const LOCAL_MANIFEST_PATH = process.env.SPACE_GALLERY_LOCAL_MANIFEST_PATH || path.join(process.cwd(), 'assets', 'space-gallery-manifest.json');
 const IMG_EXTS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.heic', '.avif', '.tiff', '.bmp', '.gif']);
 const FULL_MAX = 1920;
@@ -112,14 +112,6 @@ async function walk(dir, base = dir) {
   return files.sort((a, b) => a.rel.localeCompare(b.rel, undefined, { numeric: true, sensitivity: 'base' }));
 }
 
-async function fetchJson(url) {
-  const res = await fetch(url, { headers: { 'Cache-Control': 'no-cache' } });
-  if (!res.ok) {
-    throw new Error(`GET ${url} failed with ${res.status}`);
-  }
-  return res.json();
-}
-
 function writeLocalManifest(manifestJson) {
   const outputDir = path.dirname(LOCAL_MANIFEST_PATH);
   fs.mkdirSync(outputDir, { recursive: true });
@@ -208,6 +200,19 @@ async function renderPlaceholder() {
 async function processFile(file, index, total, manifest) {
   const { category, title, fullKey, thumbKey } = buildKeys(file.rel);
   const label = `[${String(index).padStart(String(total).length, '0')}/${total}]`;
+  const candidate = {
+    full: `${PUBLIC_URL}/${fullKey}`,
+    thumb: `${PUBLIC_URL}/${thumbKey}`,
+    name: title,
+    title: normalizePath(file.rel),
+  };
+  const blockedBy = publicationBlockReason(candidate, category);
+
+  // Reject withheld material before rendering or making any R2 request.
+  if (blockedBy) {
+    process.stdout.write(`${label} withheld (${blockedBy})\n`);
+    return;
+  }
 
   try {
     const size = fs.statSync(file.full).size;
@@ -234,8 +239,7 @@ async function processFile(file, index, total, manifest) {
 async function main() {
   console.log(`Source: ${sourceRoot}`);
   console.log(`Bucket: ${BUCKET}`);
-  console.log(`Manifest: ${PUBLIC_URL}/${MANIFEST_KEY}`);
-  console.log(`Local manifest: ${LOCAL_MANIFEST_PATH}`);
+  console.log(`Publication manifest (local only): ${LOCAL_MANIFEST_PATH}`);
 
   const discoveredFiles = await walk(sourceRoot);
   const categoryFilteredFiles = CATEGORY_FILTER.size
@@ -268,7 +272,9 @@ async function main() {
   let mergedManifest = manifest;
 
   if (MERGE_EXISTING_MANIFEST) {
-    const existingManifest = await fetchJson(`${PUBLIC_URL}/${MANIFEST_KEY}`);
+    const existingManifest = fs.existsSync(LOCAL_MANIFEST_PATH)
+      ? JSON.parse(fs.readFileSync(LOCAL_MANIFEST_PATH, 'utf8'))
+      : {};
     const processedCategories = new Set(Object.keys(manifest));
     mergedManifest = { ...existingManifest };
     for (const category of processedCategories) {
@@ -280,18 +286,16 @@ async function main() {
     Object.entries(mergedManifest).sort((a, b) => a[0].localeCompare(b[0], undefined, { sensitivity: 'base' }))
   );
 
-  const manifestJson = JSON.stringify(orderedManifest, null, 2);
+  const publication = sanitizeManifest(orderedManifest);
+  const manifestJson = `${JSON.stringify(publication.manifest, null, 2)}\n`;
   writeLocalManifest(manifestJson);
-  await uploadWithRetry(
-    MANIFEST_KEY,
-    Buffer.from(manifestJson),
-    'application/json',
-    'public, max-age=300, must-revalidate'
-  );
 
-  const totalImages = Object.values(orderedManifest).reduce((sum, items) => sum + items.length, 0);
-  console.log(`Uploaded ${totalImages} images across ${Object.keys(orderedManifest).length} categories.`);
-  console.log(`Manifest URL: ${PUBLIC_URL}/${MANIFEST_KEY}`);
+  const totalImages = Object.values(publication.manifest).reduce((sum, items) => sum + items.length, 0);
+  if (publication.excluded.length) {
+    console.log(`Withheld ${publication.excluded.length} sensitive item(s) from the public manifest.`);
+  }
+  console.log(`Uploaded ${totalImages} approved images across ${Object.keys(publication.manifest).length} categories.`);
+  console.log('The manifest remains local and must pass gallery verification before the website is deployed.');
 }
 
 main().catch(error => {

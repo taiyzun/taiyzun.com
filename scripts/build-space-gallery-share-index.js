@@ -2,6 +2,7 @@
 
 const fs = require('node:fs');
 const path = require('node:path');
+const { publicEntries } = require('./gallery-publication-policy');
 
 const rootDir = path.resolve(__dirname, '..');
 const manifestPath = path.join(rootDir, 'assets', 'space-gallery-manifest.json');
@@ -30,7 +31,8 @@ function buildShareIndex() {
   const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
   const items = {};
 
-  for (const [category, entries] of Object.entries(manifest)) {
+  for (const [category, rawEntries] of Object.entries(manifest)) {
+    const entries = publicEntries(rawEntries, category);
     if (!Array.isArray(entries)) continue;
 
     for (const entry of entries) {

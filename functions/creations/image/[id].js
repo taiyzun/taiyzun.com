@@ -5,7 +5,9 @@ const MAX_SHARE_TITLE_LENGTH = 70;
 const FALLBACK_IMAGE_PATH = '/assets/images/TaiyZun-Sword-logo-2026-social-square.png';
 const JSON_HEADERS = {
   'content-type': 'application/json; charset=UTF-8',
-  'cache-control': 'public, max-age=300, must-revalidate'
+  'cache-control': 'no-store',
+  'x-content-type-options': 'nosniff',
+  'x-robots-tag': 'noindex, nofollow, noarchive, noimageindex'
 };
 
 function escapeHtml(value) {
@@ -93,6 +95,18 @@ function htmlResponse(body, status = 200) {
   });
 }
 
+function revokedResponse() {
+  return new Response(`<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Creation unavailable</title><meta name="robots" content="noindex, nofollow, noarchive, noimageindex"></head><body><main><h1>Creation unavailable</h1><p><a href="/creations">Open Creations</a></p></main></body></html>`, {
+    status: 410,
+    headers: {
+      'content-type': 'text/html; charset=UTF-8',
+      'cache-control': 'no-store',
+      'x-content-type-options': 'nosniff',
+      'x-robots-tag': 'noindex, nofollow, noarchive, noimageindex'
+    }
+  });
+}
+
 function renderSharePage({ item, canonicalUrl, galleryUrl }) {
   const fullTitle = String(item.title || '').trim() || 'Taiyzun Creation';
   const title = shareTitle(fullTitle);
@@ -164,7 +178,7 @@ export async function onRequestGet(context) {
     const index = await loadShareIndex(context);
     const item = index.items && index.items[id];
     if (!item) {
-      return htmlResponse(`<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Creation not found</title><meta name="robots" content="noindex"></head><body><main><h1>Creation not found</h1><p><a href="/creations">Open Creations</a></p></main></body></html>`, 404);
+      return revokedResponse();
     }
 
     const canonicalUrl = absoluteUrl(PUBLIC_ORIGIN, `/creations/image/${encodeURIComponent(id)}`);

@@ -315,7 +315,7 @@ function buildDeliveryResponse(deliveryResult, mailchimpResult) {
 }
 
 function contactSubject(subject) {
-  const base = clean(subject) || 'General inquiry';
+  const base = clean(subject) || 'General enquiry';
   const prefixed = /^taiyzun contact:/i.test(base) ? base : `Taiyzun contact: ${base}`;
 
   return prefixed.length > 150 ? `${prefixed.slice(0, 147)}...` : prefixed;
@@ -353,8 +353,8 @@ function buildZeptoPayload({ name, email, subject, message, seriousEnquiryOptIn 
         </div>
         <p style="margin:0 0 12px;"><strong>Name:</strong> ${escapeHtml(name)}</p>
         <p style="margin:0 0 12px;"><strong>Email:</strong> <a href="mailto:${escapeHtml(email)}" style="color:#8a7642;">${escapeHtml(email)}</a></p>
-        <p style="margin:0 0 20px;"><strong>Subject:</strong> ${escapeHtml(subject || 'General inquiry')}</p>
-        <p style="margin:0 0 20px;"><strong>Serious enquiry follow-up:</strong> ${escapeHtml(optInLabel)}</p>
+        <p style="margin:0 0 20px;"><strong>Subject:</strong> ${escapeHtml(subject || 'General enquiry')}</p>
+        <p style="margin:0 0 20px;"><strong>Occasional updates:</strong> ${escapeHtml(optInLabel)}</p>
         <div style="background:#ffffff;border:1px solid rgba(201,168,76,0.28);border-left:4px solid #c9a84c;padding:20px;line-height:1.75;white-space:pre-wrap;">${escapeHtml(message)}</div>
       </div>
     `,
@@ -363,8 +363,8 @@ function buildZeptoPayload({ name, email, subject, message, seriousEnquiryOptIn 
       '',
       `Name: ${name}`,
       `Email: ${email}`,
-      `Subject: ${subject || 'General inquiry'}`,
-      `Serious enquiry follow-up: ${optInLabel}`,
+      `Subject: ${subject || 'General enquiry'}`,
+      `Occasional updates: ${optInLabel}`,
       '',
       message
     ].join('\n')
@@ -436,7 +436,7 @@ async function sendViaFormspree(fields, env) {
   const body = new URLSearchParams({
     name: fields.name,
     email: fields.email,
-    subject: fields.subject || 'General inquiry',
+    subject: fields.subject || 'General enquiry',
     message: fields.message,
     _subject: fields.subject || `New Contact Message from ${fields.name}`
   });
@@ -519,7 +519,7 @@ export async function onRequestPost(context) {
     return buildDeliveryResponse(fallbackResult, mailchimpResult);
   }
 
-  return json({ ok: false, message: zeptoResult.message || fallbackResult.message || 'Message delivery failed.' }, 502);
+  return json({ ok: false, message: 'Your message could not be sent just now. Please try again shortly or use one of the public channels below.' }, 502);
 }
 
 export function onRequestGet() {

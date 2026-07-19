@@ -7,7 +7,7 @@
  * • Resizes originals to max 1920px wide
  * • Generates 480px thumbnails
  * • Skips files already uploaded (resumable)
- * • Writes manifest.json to R2 so the gallery can discover all images
+ * • Writes a local, gitignored pending manifest for review; never exposes a raw R2 manifest
  *
  * Usage:
  *   export R2_ACCESS_KEY_ID=your_key
@@ -20,6 +20,7 @@ const sharp  = require('sharp');
 const fs     = require('fs');
 const path   = require('path');
 const { readdir } = require('fs/promises');
+const { publicationBlockReason, sanitizeManifest } = require('./gallery-publication-policy');
 
 /* ── Config ────────────────────────────────────────────── */
 const ACCOUNT_ID  = '45c2547d0e32e249912336f66a9c5c01';
@@ -119,6 +120,20 @@ async function processImage(file, idx, total, manifest) {
   const fullKey  = `images/${catSlug}/${slug}.webp`;
   const thumbKey = `thumbs/${catSlug}/${slug}.webp`;
   const label    = `[${String(idx).padStart(4)}/${total}]`;
+  const sourceCategory = file.rel.replace(/\\/g, '/').split('/')[0].trim();
+  const candidate = {
+    full: `${PUBLIC_URL}/${fullKey}`,
+    thumb: `${PUBLIC_URL}/${thumbKey}`,
+    name: path.basename(file.rel, path.extname(file.rel)),
+    title: file.rel,
+  };
+  const blockedBy = publicationBlockReason(candidate, sourceCategory || cat);
+
+  // Publication policy must run before even checking or writing an R2 object.
+  if (blockedBy) {
+    process.stdout.write(`${label} ⛔  withheld (${blockedBy})\n`);
+    return;
+  }
 
   // Skip if already uploaded
   if (await keyExists(fullKey)) {
@@ -190,20 +205,27 @@ async function main() {
     done += batch.length;
   }
 
-  // Upload manifest.json
-  console.log('\n  Uploading manifest.json...');
-  const json = JSON.stringify(manifest, null, 2);
-  await upload('manifest.json', Buffer.from(json), 'application/json');
+  // Keep publication metadata local until it has passed the fail-closed review gate.
+  console.log('\n  Writing local pending manifest...');
+  const publication = sanitizeManifest(manifest);
+  const json = JSON.stringify(publication.manifest, null, 2);
+  const pendingPath = path.join(process.cwd(), 'privacy-review', 'pending-r2-upload-manifest.json');
+  fs.mkdirSync(path.dirname(pendingPath), { recursive: true });
+  fs.writeFileSync(pendingPath, `${json}\n`);
 
-  const totalImages = Object.values(manifest).reduce((s, a) => s + a.length, 0);
-  const categories  = Object.keys(manifest);
+  const totalImages = Object.values(publication.manifest).reduce((s, a) => s + a.length, 0);
+  const categories  = Object.keys(publication.manifest);
+  if (publication.excluded.length) {
+    console.log(`  Withheld  : ${publication.excluded.length} sensitive item(s)`);
+  }
 
   console.log('\n╔══════════════════════════════════════╗');
   console.log('║   Done!                              ║');
   console.log('╚══════════════════════════════════════╝\n');
   console.log(`  Images    : ${totalImages}`);
   console.log(`  Categories: ${categories.join(', ')}`);
-  console.log(`  Manifest  : ${PUBLIC_URL}/manifest.json\n`);
+  console.log(`  Pending   : ${pendingPath}`);
+  console.log('  Publication metadata was not uploaded to the public R2 domain.\n');
 }
 
 main().catch(e => { console.error('\n❌ Fatal:', e.message); process.exit(1); });

@@ -2,6 +2,7 @@
 
 const fs = require('node:fs');
 const path = require('node:path');
+const { publicationBlockReason, sanitizeManifest } = require('./gallery-publication-policy');
 
 const rootDir = path.resolve(__dirname, '..');
 const manifestPath = path.join(rootDir, 'assets', 'space-gallery-manifest.json');
@@ -31,6 +32,11 @@ function main() {
   for (const item of candidates) {
     const category = publicCategory(item.localCategory);
     if (!category || !item.expectedFullUrl) continue;
+    if (publicationBlockReason({
+      full: item.expectedFullUrl,
+      thumb: item.expectedFullUrl.replace('/images/', '/thumbs/'),
+      name: item.title
+    }, category)) continue;
     if (!manifest[category]) manifest[category] = [];
     if (entryExists(manifest[category], item.expectedFullUrl)) continue;
 
@@ -54,7 +60,8 @@ function main() {
     Object.entries(manifest).sort((a, b) => a[0].localeCompare(b[0], undefined, { sensitivity: 'base' }))
   );
 
-  fs.writeFileSync(manifestPath, JSON.stringify(orderedManifest, null, 2) + '\n');
+  const publicManifest = sanitizeManifest(orderedManifest).manifest;
+  fs.writeFileSync(manifestPath, JSON.stringify(publicManifest, null, 2) + '\n');
   console.log(`Added ${added} R2-ready gallery items to ${path.relative(rootDir, manifestPath)}.`);
 }
 

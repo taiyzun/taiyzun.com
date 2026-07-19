@@ -1,7 +1,7 @@
 {
-  "name": "Taiyzun | Micro & Macro | Information & Technology",
+  "name": "Taiyzun | Information & Technology | Micro & Macro",
   "short_name": "Taiyzun",
-  "description": "Information & Technology. Micro & Macro. Taiyzun Shahpurwala's business identity platform for Strategy, Strategic Due Diligence, Design Architecture and Peace of Mind.",
+  "description": "Taiyzun Shahpurwala's portfolio of selected work, research and visual creations across information, technology, communication and design.",
   "start_url": "/",
   "display": "standalone",
   "display_override": [
@@ -38,19 +38,19 @@
       "name": "View Creations",
       "short_name": "Creations",
       "url": "/creations",
-      "description": "Browse a refined showcase of Information & Technology, Micro & Macro thinking, Business Strategy, Design Architecture and Trust"
+      "description": "Browse more than 5,000 visual works across 20 evolving collections"
     },
     {
       "name": "Selected Work",
       "short_name": "Work",
       "url": "/journey",
-      "description": "Explore selected Business work shaped by Strategy, Strategic Due Diligence, Operational Clarity, TimE and Space"
+      "description": "Explore selected work, working chapters and the methods they shaped"
     },
     {
       "name": "Structured Enquiry",
       "short_name": "Connect",
       "url": "/connect",
-      "description": "Open a structured enquiry for Information & Technology, Micro & Macro Business matters, due diligence and Peace of Mind"
+      "description": "Bring a complex brief or decision that needs a clearer route forward"
     }
   ],
   "icons": [

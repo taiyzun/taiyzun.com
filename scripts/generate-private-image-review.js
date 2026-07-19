@@ -8,6 +8,11 @@ const manifestPath = path.join(root, 'assets', 'space-gallery-manifest.json');
 const outDir = path.join(root, 'privacy-review');
 
 const explicitRules = [
+  [/\b(?:whats\s*app|whatsapp|i\s*message|imessage|chat screenshot|message thread|text messages?)\b/i, 'private communications'],
+  [/\b(?:passport|visa page|identity document|identity card|id card|aadhaar|aadhar|pan card)\b/i, 'identity document'],
+  [/\b(?:contact card|address card|contact details|phone number|telephone number|business card|letterhead)\b/i, 'contact document'],
+  [/\b(?:counsell?ing|therapy session|medical record|health record|diagnosis|prescription)\b/i, 'sensitive health context'],
+  [/(?=.*\b(?:bank|cheque|payment|amount|refund)\b)(?=.*\b(?:chat|screenshot|message|statement)\b)/i, 'sensitive financial context'],
   [/\bex[-\s]?girlfriend\b/i, 'ex-girlfriend wording'],
   [/\bgirlfriend\b/i, 'girlfriend wording'],
   [/\bwife\b/i, 'wife wording'],
@@ -27,6 +32,7 @@ const explicitRules = [
 ];
 
 const likelyRules = [
+  [/\b(?:invoice|receipt|statement|form screenshot|email screenshot)\b/i, 'document for manual review'],
   [/\bwoman\b/i, 'woman'],
   [/\bgirl\b/i, 'girl'],
   [/\bfemale\b/i, 'female'],

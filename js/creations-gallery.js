@@ -1,10 +1,7 @@
 /* ── Config ── */
-const GALLERY_MANIFEST_VERSION = '20260626-gallery-chunks-v1';
+const GALLERY_MANIFEST_VERSION = '20260719-gallery-curation-v2';
 const SHARE_ROUTE_PREFIX = '/creations/image/';
 const GALLERY_INDEX_URL = `/assets/space-gallery-index.json?v=${GALLERY_MANIFEST_VERSION}`;
-const MANIFEST_URLS = [
-  `/assets/space-gallery-manifest.json?v=${GALLERY_MANIFEST_VERSION}`
-];
 const siteMobileLite = Boolean(window.TAIYZUN_applyMobileLite?.());
 const PAGE_SIZE = siteMobileLite ? 4 : 30;
 const GRID_IMAGE_SIZES = '(max-width: 420px) calc(100vw - 2rem), (max-width: 768px) calc((100vw - 3rem) / 2), (max-width: 1180px) 220px, 260px';
@@ -225,40 +222,6 @@ async function loadChunkedCatalog() {
   buildFilters([...categoryMeta.map(meta => meta.key), 'all'], categoryCounts);
 }
 
-async function loadLegacyManifest() {
-  let manifest = null;
-  for (const url of MANIFEST_URLS) {
-    const res = await fetch(url, { cache: 'force-cache' });
-    if (!res.ok) continue;
-    manifest = await res.json();
-    break;
-  }
-  if (!manifest) throw new Error('fetch failed');
-  const cats = Object.keys(manifest);
-  if (!cats.length) throw new Error('empty');
-
-  categoryMeta = cats.map(cat => ({
-    key: cat,
-    path: '',
-    displayCategory: displayCategory(cat),
-    count: Array.isArray(manifest[cat]) ? manifest[cat].filter(isPublicGalleryItem).length : 0
-  }));
-  categoryCounts = {};
-  categoryItems = new Map();
-  allItems = [];
-  cats.forEach(cat => {
-    const items = (manifest[cat] || [])
-      .filter(isPublicGalleryItem)
-      .map(item => normalizeGalleryItem(item, cat));
-    categoryItems.set(cat, items);
-    categoryCounts[cat] = items.length;
-    allItems.push(...items);
-  });
-  categoryLoadCursor = categoryMeta.length;
-  galleryCatalogReady = true;
-  buildFilters([...cats, 'all'], categoryCounts);
-}
-
 /* ── Observers ── */
 const imgObs = supportsNativeLazy ? null : new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting && e.target.dataset.src) { e.target.src = e.target.dataset.src; imgObs.unobserve(e.target); } });
@@ -304,17 +267,13 @@ async function init() {
   try {
     await loadChunkedCatalog();
   } catch (e) {
-    try {
-      await loadLegacyManifest();
-    } catch (legacyError) {
-      categoryMeta = [{ key: 'Gallery', path: '', displayCategory: 'Gallery', count: FALLBACK.length }];
-      categoryCounts = { Gallery: FALLBACK.length };
-      categoryItems = new Map([['Gallery', FALLBACK.map(item => normalizeGalleryItem(item, item.cat || 'Gallery'))]]);
-      categoryLoadCursor = categoryMeta.length;
-      galleryCatalogReady = true;
-      rebuildAllItems();
-      buildFilters(['Gallery', 'all'], categoryCounts);
-    }
+    categoryMeta = [{ key: 'Gallery', path: '', displayCategory: 'Gallery', count: FALLBACK.length }];
+    categoryCounts = { Gallery: FALLBACK.length };
+    categoryItems = new Map([['Gallery', FALLBACK.map(item => normalizeGalleryItem(item, item.cat || 'Gallery'))]]);
+    categoryLoadCursor = categoryMeta.length;
+    galleryCatalogReady = true;
+    rebuildAllItems();
+    buildFilters(['Gallery', 'all'], categoryCounts);
   }
   hideLoading();
   await renderGrid('all');

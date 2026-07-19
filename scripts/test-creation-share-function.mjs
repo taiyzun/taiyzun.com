@@ -55,7 +55,7 @@ function validateSitemap() {
   const imageLocations = [...sitemap.matchAll(/<image:loc>([^<]+)<\/image:loc>/g)].map((match) => match[1]);
 
   assert.equal(lastModifiedDates.length, 5, 'sitemap should contain one lastmod for each canonical page');
-  assert(lastModifiedDates.every((date) => date === '2026-07-14'), 'all canonical pages should use the current accurate lastmod');
+  assert(lastModifiedDates.every((date) => date === '2026-07-19'), 'all canonical pages should use the current accurate lastmod');
   assert.equal(imageLocations.length, 36, 'existing image:loc entries must be preserved');
   assert(!sitemap.includes('<changefreq>'), 'ignored changefreq fields should be absent');
   assert(!sitemap.includes('<priority>'), 'ignored priority fields should be absent');
@@ -114,8 +114,20 @@ async function validateAccurateImageDimensions() {
   assert(!html.includes('https://preview.pages.dev'), 'preview host must not leak into public metadata or gallery links');
 }
 
+async function validateRevokedShareRoute() {
+  const id = 'revoked-example';
+  const response = await onRequestGet(contextFor({ requestOrigin: publicOrigin, id, item: undefined }));
+  const html = await response.text();
+
+  assert.equal(response.status, 410, 'missing or revoked creation IDs must return Gone');
+  assert.equal(response.headers.get('cache-control'), 'no-store');
+  assert.equal(response.headers.get('x-robots-tag'), 'noindex, nofollow, noarchive, noimageindex');
+  assert(html.includes('Creation unavailable'));
+}
+
 validateSitemap();
 await validateLongTitleAndCanonicalOrigin();
 await validateAccurateImageDimensions();
+await validateRevokedShareRoute();
 
 console.log('Creation share metadata and sitemap validation passed.');

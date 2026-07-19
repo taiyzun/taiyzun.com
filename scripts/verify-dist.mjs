@@ -116,6 +116,10 @@ if (!fs.existsSync(distRoot)) {
   throw new Error('dist/ is missing. Run npm run build before npm run test:dist.');
 }
 
+if (fs.existsSync(path.join(distRoot, 'assets', 'space-gallery-manifest.json'))) {
+  fail('Raw gallery source manifest must not be published in dist/.');
+}
+
 for (const file of requiredFiles) {
   assertFile(file);
 }
