@@ -34,15 +34,15 @@
   "packageManager": "npm@11.12.1",
   "dependencies": {
     "gsap": "^3.12.2",
-    "three": "^0.184.0"
+    "three": "^0.185.1"
   },
   "devDependencies": {
-    "@aws-sdk/client-s3": "^3.1021.0",
+    "@aws-sdk/client-s3": "^3.1091.0",
     "@axe-core/playwright": "^4.12.1",
     "@playwright/test": "^1.61.1",
     "csso-cli": "^4.0.2",
-    "lighthouse": "^13.4.0",
-    "sharp": "^0.34.5",
-    "terser": "^5.47.1"
+    "lighthouse": "^13.4.1",
+    "sharp": "^0.35.3",
+    "terser": "^5.49.0"
   }
 }
