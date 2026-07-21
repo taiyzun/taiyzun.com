@@ -133,6 +133,28 @@ for (const file of parityFiles) {
   }
 }
 
+const headersConfig = fs.readFileSync(path.join(distRoot, '_headers'), 'utf8');
+const headerSections = new Map();
+let activeHeaderTarget = '';
+for (const line of headersConfig.split(/\r?\n/)) {
+  if (!line.trim()) {
+    activeHeaderTarget = '';
+  } else if (!/^\s/.test(line)) {
+    activeHeaderTarget = line.trim();
+    headerSections.set(activeHeaderTarget, []);
+  } else if (activeHeaderTarget) {
+    headerSections.get(activeHeaderTarget).push(line.trim());
+  }
+}
+
+for (const route of ['/', '/journey', '/creations', '/odyssey', '/connect', '/*.html']) {
+  const directives = headerSections.get(route) || [];
+  const cacheControl = directives.find((directive) => /^cache-control:/i.test(directive)) || '';
+  if (!/(?:^|[,\s])no-transform(?:$|[,\s])/i.test(cacheControl)) {
+    fail(`${route} must preserve Cache-Control: no-transform to prevent Cloudflare HTML script injection.`);
+  }
+}
+
 for (const htmlFile of htmlFiles) {
   const html = fs.readFileSync(path.join(distRoot, htmlFile), 'utf8');
   const references = [];

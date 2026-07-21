@@ -75,6 +75,14 @@ for (const [route, canonicalUrl] of routes) {
   assert((response.headers.get('x-frame-options') || '').toUpperCase() === 'DENY', `${route} is missing clickjacking protection`);
   assert(Boolean(response.headers.get('permissions-policy')), `${route} is missing Permissions-Policy`);
   assert(Boolean(response.headers.get('content-security-policy')), `${route} is missing enforced CSP`);
+  assert(
+    (response.headers.get('cache-control') || '').toLowerCase().includes('no-transform'),
+    `${route} is missing the no-transform HTML safeguard`
+  );
+  assert(
+    !html.includes('/cdn-cgi/challenge-platform/'),
+    `${route} contains Cloudflare-injected challenge JavaScript`
+  );
 
   const canonical = findTag(html, 'link', (attrs) => attrs.get('rel') === 'canonical').get('href');
   const fbAppId = findTag(html, 'meta', (attrs) => attrs.get('property') === 'fb:app_id').get('content');

@@ -26,6 +26,7 @@ const thresholds = {
 const failures = [];
 
 for (const reportPath of reportPaths) {
+  const failureCountBeforeReport = failures.length;
   const report = JSON.parse(fs.readFileSync(reportPath, 'utf8'));
   const label = `${report.finalDisplayedUrl || report.finalUrl || report.requestedUrl} (${report.configSettings?.formFactor || 'unknown'})`;
   const categories = report.categories || {};
@@ -80,9 +81,16 @@ for (const reportPath of reportPaths) {
   if (initialDecorativeRuntime.length) {
     failures.push(`${label}: decorative field was requested before user interaction`);
   }
+  const cloudflareChallengeRequests = networkItems.filter((item) =>
+    /\/cdn-cgi\/challenge-platform\//i.test(item.url || '')
+  );
+  if (cloudflareChallengeRequests.length) {
+    failures.push(`${label}: Cloudflare challenge JavaScript was injected into the HTML response`);
+  }
 
+  const status = failures.length === failureCountBeforeReport ? 'PASS' : 'FAIL';
   console.log(
-    `PASS ${label}: perf=${values.performance.toFixed(2)} a11y=${values.accessibility.toFixed(2)} bp=${values.bestPractices.toFixed(2)} seo=${values.seo.toFixed(2)} LCP=${Math.round(values.lcp)}ms CLS=${values.cls.toFixed(4)} TBT=${Math.round(values.tbt)}ms bytes=${Math.round(values.bytes)}`
+    `${status} ${label}: perf=${values.performance.toFixed(2)} a11y=${values.accessibility.toFixed(2)} bp=${values.bestPractices.toFixed(2)} seo=${values.seo.toFixed(2)} LCP=${Math.round(values.lcp)}ms CLS=${values.cls.toFixed(4)} TBT=${Math.round(values.tbt)}ms bytes=${Math.round(values.bytes)}`
   );
 }
 
