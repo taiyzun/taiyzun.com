@@ -14,22 +14,8 @@ concurrency:
 
 jobs:
   lighthouse:
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - slug: home
-            url: https://taiyzun.com/
-          - slug: journey
-            url: https://taiyzun.com/journey
-          - slug: creations
-            url: https://taiyzun.com/creations
-          - slug: odyssey
-            url: https://taiyzun.com/odyssey
-          - slug: connect
-            url: https://taiyzun.com/connect
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
@@ -43,10 +29,30 @@ jobs:
       - name: Install locked Lighthouse version
         run: npm ci
 
-      - name: Run production Lighthouse
+      - name: Record audit environment
         run: |
+          node --version
+          google-chrome --version
+          ./node_modules/.bin/lighthouse --version
+
+      - name: Run three fixed production samples per page
+        run: |
+          set -euo pipefail
           mkdir -p reports
-          ./node_modules/.bin/lighthouse "${{ matrix.url }}" --quiet --output=json --output-path="reports/${{ matrix.slug }}-mobile.json" --only-categories=performance,accessibility,best-practices,seo --chrome-flags="--headless --no-sandbox"
+          targets=(
+            "home|https://taiyzun.com/"
+            "journey|https://taiyzun.com/journey"
+            "creations|https://taiyzun.com/creations"
+            "odyssey|https://taiyzun.com/odyssey"
+            "connect|https://taiyzun.com/connect"
+          )
+          for target in "${targets[@]}"; do
+            slug="${target%%|*}"
+            url="${target#*|}"
+            for sample in 1 2 3; do
+              ./node_modules/.bin/lighthouse "$url" --quiet --throttling-method=simulate --output=json --output-path="reports/${slug}-mobile-${sample}.json" --only-categories=performance,accessibility,best-practices,seo --chrome-flags="--headless --no-sandbox"
+            done
+          done
 
       - name: Enforce production regression floor
         env:
@@ -58,12 +64,16 @@ jobs:
           MAX_CLS: '0.15'
           MAX_TBT_MS: '600'
           MAX_TRANSFER_BYTES: '2000000'
-        run: node scripts/assert-lighthouse.mjs "reports/${{ matrix.slug }}-mobile.json"
+        run: |
+          set -euo pipefail
+          for slug in home journey creations odyssey connect; do
+            node scripts/assert-lighthouse.mjs --aggregate=median reports/${slug}-mobile-*.json
+          done
 
-      - name: Upload Lighthouse report
+      - name: Upload Lighthouse reports
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: lighthouse-${{ matrix.slug }}-mobile
+          name: lighthouse-production-mobile
           path: reports/
           retention-days: 14
